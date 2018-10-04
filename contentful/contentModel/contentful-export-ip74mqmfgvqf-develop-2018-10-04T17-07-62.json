@@ -1,0 +1,1836 @@
+{
+  "contentTypes": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "responsiveImageGroup",
+        "type": "ContentType",
+        "createdAt": "2018-10-04T15:16:16.457Z",
+        "updatedAt": "2018-10-04T15:16:16.757Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-10-04T15:16:16.757Z",
+        "publishedAt": "2018-10-04T15:16:16.757Z"
+      },
+      "displayField": "title",
+      "name": "Image group",
+      "description": "Add an image for use across different devices",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "imageLarge",
+          "name": "Image (Large)",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "imageMedium",
+          "name": "Image (Medium)",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "imageSmall",
+          "name": "Image (small)",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "drug",
+        "type": "ContentType",
+        "createdAt": "2018-10-04T15:17:25.890Z",
+        "updatedAt": "2018-10-04T17:06:31.720Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 28,
+        "version": 57,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 56,
+        "firstPublishedAt": "2018-10-04T15:17:52.196Z",
+        "publishedAt": "2018-10-04T17:06:31.720Z"
+      },
+      "displayField": "drugName",
+      "name": "Drug",
+      "description": "A drug information page",
+      "fields": [
+        {
+          "id": "drugName",
+          "name": "Drug name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "image",
+          "name": "Image",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkContentType": [
+                "responsiveImageGroup"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "synonyms",
+          "name": "Synonyms",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+            ]
+          }
+        },
+        {
+          "id": "description",
+          "name": "Brief description",
+          "type": "Text",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "headingLooks",
+          "name": "Heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": true
+        },
+        {
+          "id": "qualitiesAppearance",
+          "name": "What does it look like?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "qualitiesTaste",
+          "name": "What does it taste/smell like?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "qualitiesAdministered",
+          "name": "How do people take it?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "headingFeels",
+          "name": "Heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": true
+        },
+        {
+          "id": "effectsFeeling",
+          "name": "How does it make you feel?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "effectsBehaviour",
+          "name": "How does it make people behave?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "headingDuration",
+          "name": "Heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": true
+        },
+        {
+          "id": "durationMethodOfTaking",
+          "name": "Method of taking",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "drugAdministerMethod"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "durationDetail",
+          "name": "Detail",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "durationDetectable",
+          "name": "How long will it be detectable?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "headingRisks",
+          "name": "Heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": true
+        },
+        {
+          "id": "risksPhysicalHealth",
+          "name": "Physical health risks",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "risksHealthMental",
+          "name": "Mental health risks",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "risksCutWith",
+          "name": "What is it cut with?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "headingMixing",
+          "name": "Heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": true
+        },
+        {
+          "id": "mixingDangers",
+          "name": "Is it dangerous to mix with other drugs?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "headingAddiction",
+          "name": "Heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": true
+        },
+        {
+          "id": "addiction",
+          "name": "Can you get addicted to it?",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "headingLaw",
+          "name": "heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": true
+        },
+        {
+          "id": "lawClass",
+          "name": "Class",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "drugClass"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "additional",
+          "name": "Additional specific paragraphs:",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "tags",
+          "name": "Tags",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "drugTag"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "drugAdministerMethod",
+        "type": "ContentType",
+        "createdAt": "2018-10-04T15:57:17.577Z",
+        "updatedAt": "2018-10-04T15:57:17.923Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-10-04T15:57:17.923Z",
+        "publishedAt": "2018-10-04T15:57:17.923Z"
+      },
+      "displayField": "methodName",
+      "name": "Drug > method of taking",
+      "description": "",
+      "fields": [
+        {
+          "id": "methodName",
+          "name": "Method",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "methodEffectsStart",
+          "name": "Start to feel effects",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "methodEffectsDuration",
+          "name": "The effects last for",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "methodAfterEffects",
+          "name": "After effects",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "drugClass",
+        "type": "ContentType",
+        "createdAt": "2018-10-04T16:12:05.219Z",
+        "updatedAt": "2018-10-04T16:12:05.600Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-10-04T16:12:05.600Z",
+        "publishedAt": "2018-10-04T16:12:05.600Z"
+      },
+      "displayField": "class",
+      "name": "Drug > class",
+      "description": "",
+      "fields": [
+        {
+          "id": "class",
+          "name": "Class",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "possesion",
+          "name": "Possesion",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "supplying",
+          "name": "Supplying",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "drugTag",
+        "type": "ContentType",
+        "createdAt": "2018-10-04T16:14:18.528Z",
+        "updatedAt": "2018-10-04T16:14:18.905Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-10-04T16:14:18.905Z",
+        "publishedAt": "2018-10-04T16:14:18.905Z"
+      },
+      "displayField": "tagName",
+      "name": "Drug > Tag",
+      "description": "",
+      "fields": [
+        {
+          "id": "tagName",
+          "name": "Tag name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    }
+  ],
+  "editorInterfaces": [
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "ip74mqmfgvqf",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-10-04T15:16:17.007Z",
+        "createdBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-10-04T15:16:17.437Z",
+        "updatedBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "responsiveImageGroup",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "imageLarge",
+          "settings": {
+            "helpText": "Add an image for use on larger devices (desktop)"
+          },
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "imageMedium",
+          "settings": {
+            "helpText": "Add an image for use on larger devices (tablet)"
+          },
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "imageSmall",
+          "settings": {
+            "helpText": "Add an image for use on larger devices (mobile)"
+          },
+          "widgetId": "assetLinkEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "ip74mqmfgvqf",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 56,
+        "createdAt": "2018-10-04T15:17:52.305Z",
+        "createdBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-10-04T17:06:32.169Z",
+        "updatedBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "drug",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "drugName",
+          "settings": {
+            "helpText": "Can use the ‘official’ name if it is widely known, otherwise use the most common name"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "image",
+          "widgetId": "entryLinkEditor"
+        },
+        {
+          "fieldId": "synonyms",
+          "settings": {
+            "helpText": "All slang names for the drug. Separated by commas "
+          },
+          "widgetId": "listInput"
+        },
+        {
+          "fieldId": "description",
+          "settings": {
+            "helpText": "Purpose is to help people know if they are looking at the right page. Focus on category (stimulant, depressant etc) How it looks and how it’s taken"
+          },
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "headingLooks",
+          "widgetId": "16twnnuSLG8w0OcSCYo4e2"
+        },
+        {
+          "fieldId": "qualitiesAppearance",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "qualitiesTaste",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "qualitiesAdministered",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "headingFeels",
+          "widgetId": "3WTQFNx1Ucgy2iwGECQSsE"
+        },
+        {
+          "fieldId": "effectsFeeling",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "effectsBehaviour",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "headingDuration",
+          "widgetId": "3FVPfLzZsAMSY4WoKuuksq"
+        },
+        {
+          "fieldId": "durationMethodOfTaking",
+          "settings": {
+            "bulkEditing": true
+          },
+          "widgetId": "entryCardsEditor"
+        },
+        {
+          "fieldId": "durationDetail",
+          "settings": {
+            "helpText": "Use this to explain the overview in more detail if needed."
+          },
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "durationDetectable",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "headingRisks",
+          "widgetId": "3PSEzdKnA4McwAMykMw48Q"
+        },
+        {
+          "fieldId": "risksPhysicalHealth",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "risksHealthMental",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "risksCutWith",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "headingMixing",
+          "widgetId": "1AndrStVy0KyMCCMWE4yWa"
+        },
+        {
+          "fieldId": "mixingDangers",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "headingAddiction",
+          "widgetId": "2AZKM067Fa6gigaUYc00Ea"
+        },
+        {
+          "fieldId": "addiction",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "headingLaw",
+          "widgetId": "6o67X5dg9Ges6ia66qUyYa"
+        },
+        {
+          "fieldId": "lawClass",
+          "widgetId": "5Qq2GTowScEMs8go0guUMC"
+        },
+        {
+          "fieldId": "additional",
+          "settings": {
+            "helpText": "This is for any FAQ’s about the drug that are not covered by the worried about a friend or dealing with peer pressure e.g. “I’ve spent all my money on coke”"
+          },
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "tags",
+          "settings": {
+            "bulkEditing": true
+          },
+          "widgetId": "entryLinksEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "ip74mqmfgvqf",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-10-04T15:57:18.156Z",
+        "createdBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-10-04T15:57:18.648Z",
+        "updatedBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "drugAdministerMethod",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "methodName",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "methodEffectsStart",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "methodEffectsDuration",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "methodAfterEffects",
+          "widgetId": "markdown"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "ip74mqmfgvqf",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-10-04T16:12:05.725Z",
+        "createdBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-10-04T16:12:06.325Z",
+        "updatedBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "drugClass",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "class",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "possesion",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "supplying",
+          "widgetId": "markdown"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "ip74mqmfgvqf",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-10-04T16:14:19.014Z",
+        "createdBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-10-04T16:14:19.512Z",
+        "updatedBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "drugTag",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "tagName",
+          "widgetId": "singleLine"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "2lHpOlzPI8GEiU8oA4CCaq",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:18:03.563Z",
+        "updatedAt": "2018-10-04T17:06:51.647Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 26,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 21,
+        "firstPublishedAt": "2018-10-04T16:25:19.079Z",
+        "publishedAt": "2018-10-04T16:25:19.079Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "drug"
+          }
+        }
+      },
+      "fields": {
+        "drugName": {
+          "en-US": "Cocaine"
+        },
+        "image": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "7HuJBrGHSgso2SIgUmQGcs"
+            }
+          }
+        },
+        "synonyms": {
+          "en-US": [
+            "coke",
+            "c",
+            "chang"
+          ]
+        },
+        "description": {
+          "en-US": "Powder cocaine (also called coke), freebase and crack are all forms of cocaine. They’re all powerful stimulants, with short-lived effects – which means that they temporarily speed up the way your mind and body work, but the effects are short-lived. Both ‘freebase’ cocaine (powder cocaine that’s been prepared for smoking) and ‘crack’ cocaine (a ‘rock’ like form of cocaine) can be smoked. This means that they reach the brain very quickly, while snorted powder cocaine gets to the brain more slowly."
+        },
+        "lawClass": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "7rbeYrkBQkIqoEUOOYesu0"
+            }
+          }
+        },
+        "tags": {
+          "en-US": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "4kmSZiz6vmEImw4Q0EQACu"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "4kmSZiz6vmEImw4Q0EQACu",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:18:49.378Z",
+        "updatedAt": "2018-10-04T16:25:29.918Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 7,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 6,
+        "firstPublishedAt": "2018-10-04T16:25:29.918Z",
+        "publishedAt": "2018-10-04T16:25:29.918Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "drugTag"
+          }
+        }
+      },
+      "fields": {
+        "tagName": {
+          "en-US": "Line"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "7rbeYrkBQkIqoEUOOYesu0",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:20:36.252Z",
+        "updatedAt": "2018-10-04T16:20:41.805Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2018-10-04T16:20:41.805Z",
+        "publishedAt": "2018-10-04T16:20:41.805Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "drugClass"
+          }
+        }
+      },
+      "fields": {
+        "class": {
+          "en-US": "A"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "2ePTWMvSeQKiiOawaSmysY",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:20:51.422Z",
+        "updatedAt": "2018-10-04T16:21:01.834Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2018-10-04T16:21:01.834Z",
+        "publishedAt": "2018-10-04T16:21:01.834Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "drugClass"
+          }
+        }
+      },
+      "fields": {
+        "class": {
+          "en-US": "B"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "1zU3tqY4goeyOgekqiAEEy",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:21:05.853Z",
+        "updatedAt": "2018-10-04T16:21:09.811Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2018-10-04T16:21:09.739Z",
+        "publishedAt": "2018-10-04T16:21:09.739Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "drugClass"
+          }
+        }
+      },
+      "fields": {
+        "class": {
+          "en-US": "C"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "2osjKFK7numeqeW2WySAEg",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:21:16.383Z",
+        "updatedAt": "2018-10-04T16:21:27.817Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2018-10-04T16:21:27.817Z",
+        "publishedAt": "2018-10-04T16:21:27.817Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "drugClass"
+          }
+        }
+      },
+      "fields": {
+        "class": {
+          "en-US": "New psychoactive substance"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "3VLHkqu2G4aeQ0cgaeI4ak",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:21:33.911Z",
+        "updatedAt": "2018-10-04T16:21:39.700Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2018-10-04T16:21:39.700Z",
+        "publishedAt": "2018-10-04T16:21:39.700Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "drugClass"
+          }
+        }
+      },
+      "fields": {
+        "class": {
+          "en-US": "Unclassified"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "7HuJBrGHSgso2SIgUmQGcs",
+        "type": "Entry",
+        "createdAt": "2018-10-04T16:23:11.894Z",
+        "updatedAt": "2018-10-04T16:24:45.780Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 7,
+        "firstPublishedAt": "2018-10-04T16:24:45.780Z",
+        "publishedAt": "2018-10-04T16:24:45.780Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "responsiveImageGroup"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Cocaine"
+        },
+        "imageLarge": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6jko7Hw4LYO8iKEuESw2ig"
+            }
+          }
+        },
+        "imageMedium": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6jko7Hw4LYO8iKEuESw2ig"
+            }
+          }
+        },
+        "imageSmall": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6jko7Hw4LYO8iKEuESw2ig"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "assets": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "6jko7Hw4LYO8iKEuESw2ig",
+        "type": "Asset",
+        "createdAt": "2018-10-04T16:23:52.078Z",
+        "updatedAt": "2018-10-04T16:24:19.027Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 5,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 4,
+        "firstPublishedAt": "2018-10-04T16:24:19.027Z",
+        "publishedAt": "2018-10-04T16:24:19.027Z"
+      },
+      "fields": {
+        "title": {
+          "en-US": "cocaine 1"
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/ip74mqmfgvqf/6jko7Hw4LYO8iKEuESw2ig/de2e7867105750e6c197e2131b5ce54b/cocaine_1.jpg",
+            "details": {
+              "size": 7789,
+              "image": {
+                "width": 273,
+                "height": 182
+              }
+            },
+            "fileName": "cocaine_1.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      }
+    }
+  ],
+  "locales": [
+    {
+      "name": "English (United States)",
+      "code": "en-US",
+      "fallbackCode": null,
+      "default": true,
+      "contentManagementApi": true,
+      "contentDeliveryApi": true,
+      "optional": false,
+      "sys": {
+        "type": "Locale",
+        "id": "1mLLpC0omvSH2zKBG5vPVn",
+        "version": 1,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "environment": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Environment",
+            "id": "develop"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "createdAt": "2018-10-04T14:46:17Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedAt": "2018-10-04T14:46:17Z"
+      }
+    }
+  ]
+}
