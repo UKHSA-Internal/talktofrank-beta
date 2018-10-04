@@ -11,18 +11,19 @@
 
   @include media-breakpoint-up(md) {
     text-align: left;
+    display: inline-block;
   }
 }
 
 .logo__link {
   height: auto;
-  width: 15rem;
+  width: 13rem;
   display: inline-block;
   margin: 1.8rem auto;
 
   @include media-breakpoint-up(md) {
     position: relative;
-    width: 25rem;
+    width: 20rem;
     margin-bottom: 0;
   }
 

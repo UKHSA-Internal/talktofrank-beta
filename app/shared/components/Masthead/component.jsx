@@ -5,6 +5,7 @@ import Button from '../Button/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
+import { primaryNavigation } from '../../fixtures/primary-navigation.js'
 
 export default class Masthead extends React.PureComponent {
   constructor () {
@@ -33,7 +34,7 @@ export default class Masthead extends React.PureComponent {
             <span className='sr-only'>Menu</span>
           </Button>
           <Logo url='/ui/svg/logo-frank.svg' alt=''/>
-          <Form className='ml-auto'>
+          <Form className='ml-auto float-right'>
             <FormGroupAutocomplete
               button='true'
               modifiers='form-control--search'
@@ -45,7 +46,7 @@ export default class Masthead extends React.PureComponent {
               placeholder='Enter drug name (e.g. Mandy)'
             />
           </Form>
-          <Nav className={navClasses} id='navigation' />
+          <Nav className={navClasses} id='navigation' navigation={primaryNavigation} current={this.props.path.pathname}/>
         </div>
       </section>
     )

@@ -78,7 +78,7 @@ export default class PageHome extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <Masthead/>
+        <Masthead path={this.props.location}/>
         <Main className='homepage'>
           <section className='panel panel--padding-large has-bg bg-pills'>
             <Grid>

@@ -4,15 +4,15 @@ import LinkItem from '../LinkItem/component.jsx'
 
 const Nav = props => {
   let classes = classNames('navbar', props.className)
-
   return (
     <nav className={classes} id={props.id}>
       <ul className='navbar-nav' role='menu'>
-        <LinkItem url='#' role="menuitem" label='News'/>
-        <LinkItem url='#' role="menuitem" label='Help for you'/>
-        <LinkItem url='#' role="menuitem" label='Help for others'/>
-        <LinkItem url='/drug' role="menuitem" label='Drugs A-Z'/>
-        <LinkItem url='#' role="menuitem" label='Contact Frank'/>
+        {props.navigation && props.navigation.map((item, i) => {
+          let linkClass = classNames('nav-item', item.modifier, {
+            'nav-item--active': item.url === props.current
+          })
+          return <LinkItem key={i} url={item.url} className={linkClass} role='menuitem' label={item.label}/>
+        })}
       </ul>
     </nav>
   )
