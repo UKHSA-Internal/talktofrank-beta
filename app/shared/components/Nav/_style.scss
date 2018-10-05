@@ -5,20 +5,29 @@
 
 .navbar {
   padding-left: .5rem;
+
+  &.navbar-drop-sm {
+    @include media-breakpoint-up(md) {
+      margin-right: 30px;
+    }
+  }
+
+  &.displaced-top {
+    position: relative;
+    top: -4rem;
+  }
 }
 
+
 .nav-item {
-  border-bottom: 5px solid transparent;
 
   @include media-breakpoint-up(md) {
-    margin: .5em 1.5em .5em 0;
+    margin: .5em .5em .5em 0;
   }
 
   &--active {
-    border-bottom-color: $pink;
-
     .nav-link {
-      color: $black;
+      color: $pink;
     }
   }
 }
@@ -30,11 +39,11 @@
 }
 
 .nav-link {
-  color: $gray-600;
+  color: $black;
 
   &:active,
   &:hover,
   &:focus {
-    text-decoration: underline;
+    color: $pink;
   }
 }

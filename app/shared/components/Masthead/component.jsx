@@ -5,14 +5,22 @@ import Button from '../Button/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
+import Icon from '../Icon/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
 
 export default class Masthead extends React.PureComponent {
   constructor () {
     super()
     this.state = {
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
+      searchOpen: false
     }
+  }
+
+  handleSearchClick () {
+    this.setState({
+      searchOpen: !this.state.searchOpen
+    })
   }
 
   handleMenuClick () {
@@ -22,8 +30,16 @@ export default class Masthead extends React.PureComponent {
   }
 
   render () {
+    let icon = {
+      label: 'search',
+      url: '/ui/svg/magnifying.svg'
+    }
+    let iconClose = {
+      label: 'close',
+      url: '/ui/svg/cross.svg'
+    }
     let classes = classNames('masthead', this.props.className)
-    let navClasses = classNames('navbar-expand-md', {
+    let navClasses = classNames('navbar-expand-md navbar-drop-sm', {
       'd-none': !this.state.mobileMenuOpen
     })
 
@@ -33,7 +49,12 @@ export default class Masthead extends React.PureComponent {
           <section className='navigation-wrapper'>
             <Logo url='/ui/svg/logo-frank.svg' alt=''/>
             <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname}/>
-            <Form className='ml-auto'>
+            <Button className='ml-auto--md btn--plain' clickHandler={this.handleSearchClick.bind(this)}>search <Icon {...icon}/></Button>
+          </section>
+        </div>
+        {this.state.searchOpen && <section className='masthead__takeover'>
+          <div className='masthead__takeover__inner'>
+            <Form>
               <FormGroupAutocomplete
                 button='true'
                 modifiers='form-control--search'
@@ -44,9 +65,10 @@ export default class Masthead extends React.PureComponent {
                 showContent={false}
                 placeholder='Enter drug name (e.g. Mandy)'
               />
-          </Form>
-          </section>
-        </div>
+            </Form>
+            <Button className='btn--plain' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
+          </div>
+        </section>}
       </section>
     )
   }

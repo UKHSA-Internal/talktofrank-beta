@@ -6,8 +6,18 @@
   z-index: 100;
 }
 
+.masthead__takeover__inner,
 .masthead__inner {
   @extend %constrain-narrow;
+  position: relative;
+}
+
+.masthead__takeover {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $white;
+  position: absolute;
 }
 
 .logo {
@@ -16,6 +26,7 @@
   @include media-breakpoint-up(md) {
     text-align: left;
     display: inline-block;
+    margin-right: 2rem;
   }
 }
 

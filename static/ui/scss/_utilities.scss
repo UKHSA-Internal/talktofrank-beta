@@ -16,3 +16,9 @@
     display: none;
   }
 }
+
+.ml-auto--md {
+  @include media-breakpoint-up(md) {
+    margin-left: auto;
+  }
+}

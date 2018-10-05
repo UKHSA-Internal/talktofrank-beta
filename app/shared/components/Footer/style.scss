@@ -7,10 +7,9 @@
     display: inline-block;
   }
 
-  .nav-link,
-  a {
+  .nav-link {
     color: $white;
-    border-bottom: 1px dotted $white;
+    border-bottom: 1px dashed $white;
   }
 }
 

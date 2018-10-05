@@ -50,6 +50,7 @@
   }
 }
 
+.btn--plain,
 .btn--link {
   background-color: transparent;
   border-color: transparent;
@@ -64,6 +65,10 @@
     background-color: transparent;
     text-decoration: none;
   }
+}
+
+.btn--plain {
+  border-bottom: 0;
 }
 
 .btn--primary {
