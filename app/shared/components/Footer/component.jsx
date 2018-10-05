@@ -5,7 +5,7 @@ import { footer } from '../../fixtures/navigation.js'
 
 const Footer = props => {
   return (
-    <footer className='footer spacing-bottom--large' role='contentinfo'>
+    <footer className='footer' role='contentinfo'>
       <section className='footer__inner'>
         <Nav className='nav-footer' id='navigation-footer' navigation={footer}/>
       </section>
