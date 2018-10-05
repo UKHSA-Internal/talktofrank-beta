@@ -1,3 +1,8 @@
+.navigation-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .navbar {
   padding-left: .5rem;
 }
@@ -15,6 +20,12 @@
     .nav-link {
       color: $black;
     }
+  }
+}
+
+.navbar-muted {
+  .nav-link {
+    color: $gray-600;
   }
 }
 

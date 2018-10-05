@@ -1,14 +1,15 @@
 import React from 'react'
-import Button from '../Button/component.jsx'
 import Nav from '../Nav/component.jsx'
-import { footer, footerUtility } from '../../fixtures/navigation.js'
+import { footer, footerUtility, footerButton } from '../../fixtures/navigation.js'
+import ReactGA from 'react-ga'
 
 const Footer = props => {
   return (
     <footer className='footer' role='contentinfo'>
       <section className='footer__inner'>
-        <Nav className='nav-footer navbar-expand-sm' id='navigation-footer' navigation={footer}/>
-        <Nav className='navbar-expand-sm' id='navigation-footer-utility' navigation={footerUtility}/>
+        <Nav id='footer-phone' className='displaced-top' navigation={footerButton}/>
+        <Nav className='navbar-expand-sm' id='navigation-footer' navigation={footer}/>
+        <Nav className='navbar-expand-sm navbar-muted' id='navigation-footer-utility' navigation={footerUtility}/>
       </section>
     </footer>
   )
