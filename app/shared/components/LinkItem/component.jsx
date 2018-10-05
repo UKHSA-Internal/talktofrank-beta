@@ -4,7 +4,7 @@ import Svg from '../Svg/component.jsx'
 const LinkItem = props => {
   return (
     <li className={props.className}>
-      <a className='nav-link' href={props.url} role={props.role}>{props.label}</a>
+      <a className='nav-link' href={props.url} role={props.role} onClick={(e) => props.clickHandler(props.tracking, e)}>{props.label}</a>
     </li>
   )
 }

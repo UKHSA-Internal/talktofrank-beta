@@ -58,61 +58,71 @@ export const primary = [
 
 export const footer = [
   {
-    label: 'Telephone Frank',
-    url: 'tel:0800776600',
-    modifier: 'hidden--sm-up',
-    icon: {
-
-    },
-    tracking: {
-      label: 'Home',
-      action: 'Click',
-      category: 'Navigation'
-    }
-  },
-  {
     label: 'News',
-    url: '/news',
+    url: 'mailto:frank@talktofrank.com',
     tracking: {
-      label: 'News listing',
+      label: 'Footer email contact',
       action: 'Click',
-      category: 'Navigation'
+      category: 'Email'
     }
   },
   {
-    label: 'Help for you',
-    url: '/help-for-you',
+    label: 'Text 82111',
+    url: 'tel:82111',
     tracking: {
-      label: 'Help for you',
+      label: 'Text 82111',
       action: 'Click',
-      category: 'Navigation'
+      category: 'Text message send'
     }
   },
   {
-    label: 'Help for others',
-    url: '/help-for-others',
+    label: 'Find a support centre',
+    url: '#',
     tracking: {
-      label: 'Help for others',
-      action: 'Click',
-      category: 'Navigation'
-    }
-  },
-  {
-    label: 'Drugs A-Z',
-    url: '/drug',
-    tracking: {
-      label: 'Drugs A-Z',
-      action: 'Click',
-      category: 'Navigation'
-    }
-  },
-  {
-    label: 'Contact',
-    url: '/contact',
-    tracking: {
-      label: 'Contact Frank',
+      label: 'Find a support centre - footer',
       action: 'Click',
       category: 'Navigation'
     }
   }
 ]
+
+export const footerUtility = [
+  {
+    label: 'Site policy',
+    url: '#',
+    tracking: {
+      label: 'Site policy',
+      action: 'Click',
+      category: 'Footer navigation'
+    }
+  },
+  {
+    label: 'Accessibility',
+    url: '#',
+    tracking: {
+      label: 'Accessibility',
+      action: 'Click',
+      category: 'Footer navigation'
+    }
+  },
+  {
+    label: 'Disclaimer',
+    url: '#',
+    tracking: {
+      label: 'Disclaimer',
+      action: 'Click',
+      category: 'Footer navigation'
+    }
+  },
+  {
+    label: 'Disclaimer',
+    url: '#',
+    tracking: {
+      label: 'Disclaimer',
+      action: 'Click',
+      category: 'Footer navigation'
+    }
+  }
+]
+
+
