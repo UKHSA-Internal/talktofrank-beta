@@ -1,4 +1,6 @@
 import React from 'react'
+import Svg from '../Svg/component.jsx'
+
 const LinkItem = props => {
   return (
     <li className={props.className}>

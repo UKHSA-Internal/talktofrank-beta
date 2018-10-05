@@ -120,8 +120,12 @@
   width: 1.8rem;
   height: 1.8rem;
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 2rem;
+  right: 1rem;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
 }
 
 .navbar-toggler-icon {

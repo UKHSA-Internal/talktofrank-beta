@@ -3,10 +3,14 @@
   color: $white;
   background-color: $black;
 
+  .nav-item {
+    display: inline-block;
+  }
+
   .nav-link,
   a {
     color: $white;
-    text-decoration: underline;
+    border-bottom: 1px dotted $white;
   }
 }
 

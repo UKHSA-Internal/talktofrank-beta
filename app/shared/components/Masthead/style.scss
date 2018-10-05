@@ -6,6 +6,10 @@
   z-index: 100;
 }
 
+.masthead__inner {
+  @extend %constrain-narrow;
+}
+
 .logo {
   text-align: center;
 

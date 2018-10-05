@@ -7,7 +7,7 @@ const Footer = props => {
   return (
     <footer className='footer' role='contentinfo'>
       <section className='footer__inner'>
-        <Nav className='nav-footer' id='navigation-footer' navigation={footer}/>
+        <Nav className='nav-footer navbar-expand-sm' id='navigation-footer' navigation={footer}/>
       </section>
     </footer>
   )
