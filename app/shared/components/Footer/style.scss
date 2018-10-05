@@ -20,3 +20,7 @@
     }
   }
 }
+
+.footer__inner {
+  @extend %constrain-narrow;
+}

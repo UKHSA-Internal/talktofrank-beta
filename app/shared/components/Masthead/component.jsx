@@ -5,7 +5,7 @@ import Button from '../Button/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
-import { primaryNavigation } from '../../fixtures/primary-navigation.js'
+import { primary } from '../../fixtures/navigation.js'
 
 export default class Masthead extends React.PureComponent {
   constructor () {
@@ -46,7 +46,7 @@ export default class Masthead extends React.PureComponent {
               placeholder='Enter drug name (e.g. Mandy)'
             />
           </Form>
-          <Nav className={navClasses} id='navigation' navigation={primaryNavigation} current={this.props.path.pathname}/>
+          <Nav className={navClasses} id='navigation' navigation={primary} current={this.props.path.pathname}/>
         </div>
       </section>
     )

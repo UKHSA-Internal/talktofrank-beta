@@ -8,6 +8,7 @@ const Nav = props => {
     <nav className={classes} id={props.id}>
       <ul className='navbar-nav' role='menu'>
         {props.navigation && props.navigation.map((item, i) => {
+          // @todo @refactor - @joel - make a more bombproof active nav item check
           let linkClass = classNames('nav-item', item.modifier, {
             'nav-item--active': item.url === props.current
           })

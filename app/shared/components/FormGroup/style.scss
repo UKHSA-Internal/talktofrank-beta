@@ -1,8 +1,9 @@
 .form-control {
   &--search {
-    border-width: 3px;
-    border-style: solid;
-    border-color: $green;
+    border: 0;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: $gray-900;
     font-size: 1.8rem;
     padding-left: .4em;
     flex-grow: 1;
