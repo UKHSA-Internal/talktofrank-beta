@@ -1,4 +1,4 @@
-const primaryNavigation = {[
+const primaryNavigation = [
   {
     label: 'Home',
     url: '/',
@@ -49,6 +49,6 @@ const primaryNavigation = {[
       category: 'Navigation'
     }
   }
-]}
+]
 
 export default primaryNavigation
