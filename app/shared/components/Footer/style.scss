@@ -2,17 +2,19 @@
 .footer {
   color: $white;
   background-color: $black;
+  font-family: $font-family-heavy;
 
   .nav-item {
     display: inline-block;
   }
 
-  .nav-link {
-    color: $white;
-    border-bottom: 1px dashed $white;
+  .navbar-nav {
+    flex-wrap: wrap;
   }
 }
 
 .footer__inner {
   @extend %constrain-narrow;
+  padding-bottom: 3rem;
+  padding-bottom: 3rem;
 }

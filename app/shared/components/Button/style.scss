@@ -13,6 +13,10 @@
     }
   }
 
+  &.has-icon {
+
+  }
+
   &.has-arrow {
     &::after {
       content: '';
@@ -68,6 +72,7 @@
 
 .btn--plain {
   border-bottom: 0;
+  font-size: 1.8rem;
 }
 
 .btn--primary {

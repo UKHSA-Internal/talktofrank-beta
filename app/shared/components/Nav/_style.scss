@@ -11,6 +11,7 @@
 
 .navbar {
   padding-left: 1.5rem;
+  font-family: $font-family-heavy;
 
   &.navbar-drop-sm {
     @include media-breakpoint-up(md) {
@@ -25,8 +26,6 @@
 }
 
 .navbar-primary {
-  font-family: $font-family-heavy;
-
   @include media-breakpoint-down(sm) {
     margin-top: .5rem;
     font-size: 2.2rem;
@@ -51,12 +50,6 @@
   }
 }
 
-.navbar-muted {
-  .nav-link {
-    color: $gray-600;
-  }
-}
-
 .nav-link {
   color: $black;
 
@@ -64,5 +57,35 @@
   &:hover,
   &:focus {
     color: $pink;
+  }
+}
+
+.navbar-muted {
+  .nav-link {
+    color: $gray-200;
+    border-bottom: 0;
+    text-decoration: underline;
+    font-size: 1.4rem;
+  }
+}
+
+.navbar-raised {
+  font-size: 1.8rem;
+
+  .navbar-nav {
+    @include media-breakpoint-down(sm) {
+      .nav-item {
+        display: block;
+      }
+    }
+  }
+
+  .nav-item {
+    margin-right: 1rem;
+  }
+
+  .nav-link {
+    color: $white;
+    border-bottom: 1px dotted $white;
   }
 }

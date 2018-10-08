@@ -1,0 +1,23 @@
+
+.logo {
+  text-align: left;
+  display: inline-block;
+  margin: .5rem 1rem 1rem 1.5rem;
+}
+
+.logo__link {
+  height: auto;
+  width: 12rem;
+  display: inline-block;
+  margin: 0 auto;
+
+  @include media-breakpoint-up(md) {
+    position: relative;
+    width: 18rem;
+    margin-bottom: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
