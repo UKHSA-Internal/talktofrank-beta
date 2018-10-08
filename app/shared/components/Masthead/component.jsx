@@ -32,7 +32,7 @@ export default class Masthead extends React.PureComponent {
           <Button className='float-left d-block d-md-none mt-4 navbar-toggler' aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Reveal navigation'} clickHandler={this.handleMenuClick.bind(this)}>
             <span className='sr-only'>Menu</span>
           </Button>
-          <Logo url='/ui/svg/logo-frank.svg' alt=''/>
+          <Logo url='/ui/svg/logo-frank.svg' alt='Talktofrank.co.uk. Honest information about drugs'/>
           <Form className='ml-auto'>
             <FormGroupAutocomplete
               button='true'
