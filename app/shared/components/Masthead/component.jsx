@@ -39,7 +39,7 @@ export default class Masthead extends React.PureComponent {
       url: '/ui/svg/cross.svg'
     }
     let classes = classNames('masthead', this.props.className)
-    let navClasses = classNames('navbar-expand-md navbar-drop-sm', {
+    let navClasses = classNames('navbar-primary navbar-expand-md', {
       'd-none': !this.state.mobileMenuOpen
     })
 
@@ -47,10 +47,13 @@ export default class Masthead extends React.PureComponent {
       <section className={classes} role='banner'>
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
+            <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Reveal navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+              {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
+            </Button>
             <Logo url='/ui/svg/logo-frank.svg' alt=''/>
             <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname}/>
-            <Button className='ml-auto--md btn--plain' clickHandler={this.handleSearchClick.bind(this)}>search <Icon {...icon}/></Button>
           </section>
+          <Button className='btn--plain btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
         </div>
         {this.state.searchOpen && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>

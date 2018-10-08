@@ -21,18 +21,14 @@
 }
 
 .logo {
-  text-align: center;
-
-  @include media-breakpoint-up(md) {
-    text-align: left;
-    display: inline-block;
-    margin-right: 2rem;
-  }
+  text-align: left;
+  display: inline-block;
+  margin: .5rem 2rem 1rem 1.5rem;
 }
 
 .logo__link {
   height: auto;
-  width: 13rem;
+  width: 13.5rem;
   display: inline-block;
   margin: 0 auto;
 

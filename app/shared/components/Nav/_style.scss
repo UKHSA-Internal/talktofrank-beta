@@ -1,14 +1,20 @@
 .navigation-wrapper {
-  display: flex;
-  align-items: center;
+   padding: .75rem 0;
+
+  @include media-breakpoint-up(md) {
+    display: flex;
+    align-items: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
 }
 
 .navbar {
-  padding-left: .5rem;
+  padding-left: 1.5rem;
 
   &.navbar-drop-sm {
     @include media-breakpoint-up(md) {
-      margin-right: 30px;
+      margin-right: 3rem;
     }
   }
 
@@ -18,6 +24,19 @@
   }
 }
 
+.navbar-primary {
+  font-family: $font-family-heavy;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: .5rem;
+    font-size: 2.2rem;
+    background-color: $gray-200;
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 0;
+  }
+}
 
 .nav-item {
 

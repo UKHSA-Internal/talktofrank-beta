@@ -17,8 +17,8 @@
   }
 }
 
-.ml-auto--md {
-  @include media-breakpoint-up(md) {
-    margin-left: auto;
+.hidden--sm {
+  @include media-breakpoint-down(sm) {
+    display: none;
   }
 }
