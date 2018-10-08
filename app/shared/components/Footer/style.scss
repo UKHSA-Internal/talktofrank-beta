@@ -8,6 +8,10 @@
     display: inline-block;
   }
 
+  .nav-link {
+    color: $white;
+  }
+
   .navbar-nav {
     flex-wrap: wrap;
   }

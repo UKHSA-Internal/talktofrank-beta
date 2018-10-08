@@ -56,7 +56,7 @@ export default class Masthead extends React.PureComponent {
             <Logo url='/ui/svg/logo-frank.svg' alt=''/>
             <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname}/>
           </section>
-          <Button className='btn--plain btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
+          <Button className='btn--flat btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
         </div>
         {this.state.takeover && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>
@@ -72,7 +72,7 @@ export default class Masthead extends React.PureComponent {
                 placeholder='Enter drug name (e.g. Mandy)'
               />
             </Form>
-            <Button className='btn--plain active' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
+            <Button className='btn--flat active' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
         </section>}
         {this.state.takeover && <div className='takeover-bg'/>}
@@ -80,4 +80,3 @@ export default class Masthead extends React.PureComponent {
     )
   }
 }
-

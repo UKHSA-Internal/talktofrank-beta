@@ -14,7 +14,13 @@
   }
 
   &.has-icon {
-
+    .btn__text {
+      border-bottom: 1px dashed;
+      border-bottom-color: $white;
+      display: inline-block;
+      margin-left: 1rem;
+      padding-bottom: .2em;
+    }
   }
 
   &.has-arrow {
@@ -53,7 +59,7 @@
   }
 }
 
-.btn--plain,
+.btn--flat,
 .btn--link {
   background-color: transparent;
   border-color: transparent;
@@ -70,7 +76,7 @@
   }
 }
 
-.btn--plain {
+.btn--flat {
   border-bottom: 0;
   font-size: 1.8rem;
 }
