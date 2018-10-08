@@ -34,17 +34,16 @@ let getRoutes = store => {
     }
   }
 
-
   function getPage (nextState, replace, callback) {
     const slug = this.slug
     store.dispatch(fetchPage(slug))
       .then(() => {
         callback()
       }).catch(err => {
-      console.log(err)
-      // error pushed to state
-      callback()
-    })
+        console.log(err)
+        // error pushed to state
+        callback()
+      })
   }
 
   function getDrug (nextState, replace, callback) {

@@ -100,7 +100,7 @@ router.get('/drugs/:slug', async (req, res, next) => {
       .filter(fieldName => markDownFields.hasOwnProperty(fieldName))
       .map(fieldName => {
         if (markDownFields[fieldName].length > 0) {
-          for(let i = 0; i <= response.fields[fieldName].length - 1; i++) {
+          for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
             markDownFields[fieldName]
               .filter(fieldChildName => response.fields[fieldName][i].fields.hasOwnProperty(fieldChildName))
               .map(fieldChildName => {
@@ -111,7 +111,6 @@ router.get('/drugs/:slug', async (req, res, next) => {
           response.fields[fieldName] = marked(response.fields[fieldName])
         }
       })
-
   } catch (error) {
     return next(error.response)
   } finally {
