@@ -155,19 +155,21 @@
 }
 
 .active {
-
-  &::before {
-    bottom: auto;
-    left: auto;
-    border-width: 0 15px 15px;
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    border-style: solid;
-    border-color: $gray-200 transparent;
-    display: block;
-    width: 0;
+  @include media-breakpoint-down(sm) {
+    &::before {
+      bottom: auto;
+      left: auto;
+      border-width: 0 15px 15px;
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      border-style: solid;
+      border-color: $gray-200 transparent;
+      display: block;
+      width: 0;
+      z-index: 0;
+    }
   }
 }
 

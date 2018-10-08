@@ -13,14 +13,17 @@ export default class Masthead extends React.PureComponent {
     super()
     this.state = {
       mobileMenuOpen: false,
-      searchOpen: false
+      takeover: false
     }
   }
 
   handleSearchClick () {
+    const el = document.documentElement.classList
     this.setState({
-      searchOpen: !this.state.searchOpen
+      takeover: !this.state.takeover
     })
+    // ugh add a class to the html element - redux doesn'r reach this far up
+    this.state.takeover ? el.remove('html-takeover') : el.add('html-takeover')
   }
 
   handleMenuClick () {
@@ -55,7 +58,7 @@ export default class Masthead extends React.PureComponent {
           </section>
           <Button className='btn--plain btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
         </div>
-        {this.state.searchOpen && <section className='masthead__takeover'>
+        {this.state.takeover && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>
             <Form>
               <FormGroupAutocomplete
@@ -69,10 +72,12 @@ export default class Masthead extends React.PureComponent {
                 placeholder='Enter drug name (e.g. Mandy)'
               />
             </Form>
-            <Button className='btn--plain' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
+            <Button className='btn--plain active' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
         </section>}
+        {this.state.takeover && <div className='takeover-bg'/>}
       </section>
     )
   }
 }
+

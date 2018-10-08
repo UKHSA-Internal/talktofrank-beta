@@ -18,6 +18,7 @@
   right: 0;
   background-color: $white;
   position: absolute;
+  z-index: 95;
 }
 
 .logo {
@@ -47,4 +48,14 @@
   @include media-breakpoint-up(md) {
     display: flex !important;
   }
+}
+
+.takeover-bg {
+  position: absolute;
+  background-color: rgba($black, .4);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 90;
 }
