@@ -5,8 +5,6 @@ contentful:
   contentHost: 'https://cdn.contentful.com'
   contentSpace: 'mltlrs3kods6'
   contentAccessToken: !!import/single '../config.creds.yaml'
-  contentTypes:
-    drug: 'drugPage'
 
 sentry:
  dsn: !!import/single '../config.sentry.yaml'

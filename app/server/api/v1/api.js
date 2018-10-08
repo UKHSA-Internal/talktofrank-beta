@@ -15,6 +15,7 @@ const router = express.Router()
 const sortBy = require('lodash.sortby')
 const groupBy = require('lodash.groupby')
 const Sentry = require('@sentry/node')
+const resolveResponse = require('contentful-resolve-response')
 
 /**
  * Axios global config
@@ -34,7 +35,9 @@ router.get('/pages/:slug', (req, res, next) => {
     return next(error)
   }
 
-  if (req.params.slug === 'index' || req.params.slug === 'no-match' || req.params.slug === 'typography') {
+  if (req.params.slug === 'index' ||
+    req.params.slug === 'no-match' ||
+    req.params.slug === 'typography') {
     try {
       return res.send(yaml.safeLoad(fs.readFileSync('./static/' + req.params.slug + '.yml', 'utf8')))
     } catch (e) {
@@ -42,11 +45,24 @@ router.get('/pages/:slug', (req, res, next) => {
       next(e)
     }
   }
+})
 
-  let lookupUrl = `${config.contentful.contentHost}/spaces/%s/entries?content_type=%s&fields.slug[match]=%s`
-  let pageUrl = util.format(lookupUrl, config.contentful.contentSpace, config.contentful.contentTypes.drug, req.params.slug)
+router.get('/drugs/:slug', async (req, res, next) => {
+  if (!req.params.slug) {
+    let error = new Error()
+    error.message = 'Page id not set'
+    error.status = 404
+    return next(error)
+  }
 
-  axios.get(pageUrl).then(json => {
+  let json = null
+  let response = {}
+  let lookupUrl = `${config.contentful.contentHost}/spaces/${config.contentful.contentSpace}/environments/${config.contentful.environment}/entries?content_type=%s&include=5&fields.slug[match]=%s`
+  let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug, req.params.slug)
+
+  try {
+    json = await axios.get(pageUrl)
+
     if (json.data.total === 0) {
       let error = new Error()
       error.message = `Page not found ${pageUrl}`
@@ -54,39 +70,53 @@ router.get('/pages/:slug', (req, res, next) => {
       return next(error)
     }
 
-    let response = json.data.items[0].fields
+    // merge contentful assets and includes
+    response = resolveResponse(json.data)[0]
 
-    // Fields that need to be converted to HMTL from markdown
-    const markedFields = [
-      'description',
-      'appearance_whatDoesItLookLike',
-      'appearance_whatDoesItTastesmellLike',
-      'appearance_howDoPeopleTakeIt',
-      'effects_howDoesItMakeYouFeel',
-      'effects_howDoesItMakePeopleBehave',
-      'effects_whatAreThePhysicalEffects',
-      'effects_whatIsTheComedownLike',
-      'effects_howLongDoesItStayInYourBody',
-      'risks_whatAreTheRisks',
-      'risks_canYouGetAddicted',
-      'risks_isItDangerousToMixWithOtherDrugs',
-      'risks_whatIsCutWith',
-      'effects_howDoesItEffectSocietyAndTheEnvironment',
-      'law_whatIsTheDrugClassification',
-      'law_whatIfYouAreCaughtWithIt',
-      'worried_iFeelPressuredIntoTakingItWhatCanIDo',
-      'worried_howCanIHelpMyFriendWithTheirUse',
-      'worried_iveSpentAllMyMoneyOnItWhatCanIDo'
-    ]
+    // Add contentful field ids to this list to tranform the contents
+    // from markdown to HTML
+    const markDownFields = {
+      'description': [],
+      'qualitiesAppearance': [],
+      'qualitiesTaste': [],
+      'qualitiesAdministered': [],
+      'effectsFeeling': [],
+      'effectsBehaviour': [],
+      'durationDetail': [],
+      'durationDetectable': [],
+      'risksPhysicalHealth': [],
+      'risksHealthMental': [],
+      'risksCutWith': [],
+      'mixingDangers': [],
+      'addiction': [],
+      'durationMethodOfTaking': [
+        'methodAfterEffects',
+        'methodEffectsDuration',
+        'methodEffectsStart'
+      ]
+    }
 
-    Object.keys(response)
-      .filter(field => markedFields.indexOf(field) !== -1)
-      .map(field => {
-        response[field] = marked(response[field])
+    Object.keys(response.fields)
+      .filter(fieldName => markDownFields.hasOwnProperty(fieldName))
+      .map(fieldName => {
+        if (markDownFields[fieldName].length > 0) {
+          for(let i = 0; i <= response.fields[fieldName].length - 1; i++) {
+            markDownFields[fieldName]
+              .filter(fieldChildName => response.fields[fieldName][i].fields.hasOwnProperty(fieldChildName))
+              .map(fieldChildName => {
+                response.fields[fieldName][i].fields[fieldChildName] = marked(response.fields[fieldName][i].fields[fieldChildName])
+              })
+          }
+        } else {
+          response.fields[fieldName] = marked(response.fields[fieldName])
+        }
       })
 
+  } catch (error) {
+    return next(error.response)
+  } finally {
     res.send(response)
-  })
+  }
 })
 
 /**
