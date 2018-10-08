@@ -26,8 +26,9 @@
 }
 
 .navbar-primary {
+  margin-top: .5rem;
+
   @include media-breakpoint-down(sm) {
-    margin-top: .5rem;
     font-size: 2.2rem;
     background-color: $gray-200;
   }
@@ -43,7 +44,7 @@
     margin: .5em .5em .5em 0;
   }
 
-  &--active {
+  &.nav-item--active {
     .nav-link {
       color: $pink;
     }

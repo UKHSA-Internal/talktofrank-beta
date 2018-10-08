@@ -78,7 +78,11 @@
 
 .btn--flat {
   border-bottom: 0;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.8rem;
+  }
 }
 
 .btn--primary {
@@ -110,10 +114,11 @@
   position: absolute;
   top: .5rem;
   right: 0;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 
   @include media-breakpoint-up(md) {
     top: 2.5rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -165,8 +170,9 @@
   visibility: hidden;
 }
 
+// this pops a cheeky beak on it - @refactor could use a rename
 .active {
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     &::before {
       bottom: auto;
       left: auto;
