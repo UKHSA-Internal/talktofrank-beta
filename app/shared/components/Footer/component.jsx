@@ -1,24 +1,17 @@
 import React from 'react'
-import Button from '../Button/component.jsx'
-import LinkItem from '../LinkItem/component.jsx'
+import Nav from '../Nav/component.jsx'
+import Divider from '../Divider/component.jsx'
+import { footer, footerUtility, footerButton } from '../../fixtures/navigation.js'
 
 const Footer = props => {
   return (
-    <footer className='footer spacing-bottom--large' role='contentinfo'>
-      <div className='text-center'>
-        <Button className='btn--primary btn--large raised mb-5' url='tel:0300 123 6600' label='Call us: 0300 123 6600' />
-        <p>Email us: <a href='mailto:frank@talktofrank.com'>frank@talktofrank.com</a></p>
-        <p>Text us: <a href='tel:82111'>82111</a></p>
-        <p><a href='#'>Find a support centre</a></p>
-        <div className='navbar navbar-expand-md text-center spacing-top--large' id='navigation-footer'>
-          <ul className='navbar-nav mr-auto ml-auto'>
-            <LinkItem url='#' label='Site Policy'/>
-            <LinkItem url='#' label='Accessibility'/>
-            <LinkItem url='#' label='Disclaimer'/>
-            <LinkItem url='#' label='Cookie policy'/>
-          </ul>
-        </div>
-      </div>
+    <footer className='footer' role='contentinfo'>
+      <section className='footer__inner'>
+        <Nav id='footer-phone' className='displaced-top' navigation={footerButton}/>
+        <Nav className='navbar-expand navbar-raised' id='navigation-footer' navigation={footer}/>
+        <Divider className='hr--inverse'/>
+        <Nav className='navbar-expand navbar-muted' id='navigation-footer-utility' navigation={footerUtility}/>
+      </section>
     </footer>
   )
 }

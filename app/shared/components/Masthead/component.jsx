@@ -5,13 +5,25 @@ import Button from '../Button/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
+import Icon from '../Icon/component.jsx'
+import { primary } from '../../fixtures/navigation.js'
 
 export default class Masthead extends React.PureComponent {
   constructor () {
     super()
     this.state = {
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
+      takeover: false
     }
+  }
+
+  handleSearchClick () {
+    const el = document.documentElement.classList
+    this.setState({
+      takeover: !this.state.takeover
+    })
+    // ugh add a class to the html element - redux doesn'r reach this far up
+    this.state.takeover ? el.remove('html-takeover') : el.add('html-takeover')
   }
 
   handleMenuClick () {
@@ -21,32 +33,49 @@ export default class Masthead extends React.PureComponent {
   }
 
   render () {
+    let icon = {
+      label: 'search',
+      url: '/ui/svg/magnifying.svg'
+    }
+    let iconClose = {
+      label: 'close',
+      url: '/ui/svg/cross.svg'
+    }
     let classes = classNames('masthead', this.props.className)
-    let navClasses = classNames('navbar-expand-md', {
+    let navClasses = classNames('navbar-primary navbar-expand-md', {
       'd-none': !this.state.mobileMenuOpen
     })
 
     return (
       <section className={classes} role='banner'>
-        <div className='masthead__inner constrain-narrow'>
-          <Button className='float-left d-block d-md-none mt-4 navbar-toggler' aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Reveal navigation'} clickHandler={this.handleMenuClick.bind(this)}>
-            <span className='sr-only'>Menu</span>
-          </Button>
-          <Logo url='/ui/svg/logo-frank.svg' alt=''/>
-          <Form className='ml-auto'>
-            <FormGroupAutocomplete
-              button='true'
-              modifiers='form-control--search'
-              className='input-group-autocomplete--inverse'
-              id='search-masthead'
-              label='Search for any drug'
-              labelHidden='true'
-              showContent={false}
-              placeholder='Enter drug name (e.g. Mandy)'
-            />
-          </Form>
-          <Nav className={navClasses} id='navigation' />
+        <div className='masthead__inner'>
+          <section className='navigation-wrapper'>
+            <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Reveal navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+              {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
+            </Button>
+            <Logo url='/ui/svg/logo-frank.svg' alt=''/>
+            <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname}/>
+          </section>
+          <Button className='btn--flat btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
         </div>
+        {this.state.takeover && <section className='masthead__takeover'>
+          <div className='masthead__takeover__inner'>
+            <Form>
+              <FormGroupAutocomplete
+                button='true'
+                modifiers='form-control--search'
+                className='input-group-autocomplete--inverse'
+                id='search-masthead'
+                label='Search for any drug'
+                labelHidden='true'
+                showContent={false}
+                placeholder='Enter drug name (e.g. Mandy)'
+              />
+            </Form>
+            <Button className='btn--flat active' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
+          </div>
+        </section>}
+        {this.state.takeover && <div className='takeover-bg'/>}
       </section>
     )
   }

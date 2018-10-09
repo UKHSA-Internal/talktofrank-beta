@@ -12,13 +12,25 @@ import Hero from '../Hero/component.jsx'
 // @todo @refactor @joel - haul this out of here and into a fixture / Contentful
 export default class PageHome extends React.PureComponent {
   render () {
-
     return (
       <React.Fragment>
-        <Masthead/>
-        <Main>
-          <Hero />
-
+        <Masthead path={this.props.location}/>
+        <Main className='homepage'>
+          <section className='panel panel--padding-large panel--pink'>
+            <Form>
+              <FormGroupAutocomplete
+                button='true'
+                modifiers='form-control--search'
+                className='input-group-autocomplete--inverse'
+                id='search-a-z'
+                label='Search for any drug'
+                showContent
+                titleClass='h4'
+                placeholder='Enter a drug name (e.g. Mandy, Cocaine, Weed)'
+                resultsId='body-results'
+              />
+            </Form>
+          </section>
         </Main>
         <Footer />
         <GA/>

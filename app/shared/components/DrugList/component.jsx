@@ -16,7 +16,7 @@ const DrugList = props => {
 
   return (
     <React.Fragment>
-      <Masthead />
+      <Masthead path={props.location}/>
       <Main>
         <Heading type='h1' text='Drugs A-Z'/>
           <Form>
