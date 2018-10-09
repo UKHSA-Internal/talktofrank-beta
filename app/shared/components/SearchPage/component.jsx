@@ -171,7 +171,7 @@ export default class SearchPage extends React.Component {
     const showResults = hasResults && !isQueryAQuestion
     return (
       <React.Fragment>
-        <Masthead/>
+        <Masthead path={this.props.location}/>
         <main className='search' id='main' name='main'>
           <div className='search--header'>
             <div>
