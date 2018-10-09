@@ -11,8 +11,9 @@ hr {
   border-top: 1px solid $gray-900;
 
   &.hr--inverse {
+    margin-top: 2.5rem;
     border-top-color: $teal;
-    margin-right: 1.5rem;
-    margin-left: 1.5rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
   }
 }
