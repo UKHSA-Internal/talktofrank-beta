@@ -12,11 +12,7 @@ export default class Picture extends React.PureComponent {
   }
 
   getSizes (images) {
-    return Object.keys(images).map(function (s) {
-      return parseInt(s, 10)
-    }).sort(function (a, b) {
-      return b - a
-    })
+    return Object.keys(images).map(s => parseInt(s, 10)).sort((a, b) => b - a)
   }
 
   getSources (sizes, images) {
