@@ -1,0 +1,19 @@
+
+//
+// Horizontal rules
+//
+
+.hr,
+hr {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 0;
+  border-top: 1px solid $gray-900;
+
+  &.hr--inverse {
+    margin-top: 2.5rem;
+    border-top-color: $teal;
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+}

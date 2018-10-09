@@ -6,33 +6,33 @@
   z-index: 100;
 }
 
-.logo {
-  text-align: center;
-
-  @include media-breakpoint-up(md) {
-    text-align: left;
-  }
+.masthead__takeover__inner,
+.masthead__inner {
+  @extend %constrain-narrow;
+  position: relative;
 }
 
-.logo__link {
-  height: auto;
-  width: 15rem;
-  display: inline-block;
-  margin: 1.8rem auto;
-
-  @include media-breakpoint-up(md) {
-    position: relative;
-    width: 25rem;
-    margin-bottom: 0;
-  }
-
-  img {
-    max-width: 100%;
-  }
+.masthead__takeover {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $white;
+  position: absolute;
+  z-index: 95;
 }
 
 .navbar-expand-md {
   @include media-breakpoint-up(md) {
     display: flex !important;
   }
+}
+
+.takeover-bg {
+  position: absolute;
+  background-color: rgba($black, .4);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 90;
 }

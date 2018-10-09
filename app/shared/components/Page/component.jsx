@@ -19,7 +19,7 @@ const Page = props => {
 
   return (
     <React.Fragment>
-      <Masthead />
+      <Masthead path={props.location}/>
       <Main>
         <h1>{props.name}</h1>
         <p className='lead muted'>{props.synonyms}</p>
