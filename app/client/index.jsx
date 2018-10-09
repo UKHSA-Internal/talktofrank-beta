@@ -62,7 +62,7 @@ const routes = (
           }} />
         </Route>
         <IndexRoute getComponent={(location, callback) => {
-          import('../shared/components/PageHome/component.jsx').then((component) => {
+          import('../shared/containers/HomepageContainer/component.jsx').then((component) => {
             callback(null, component);
           }).catch(err => {
             console.log(err);
@@ -76,7 +76,7 @@ const routes = (
           })
         }} />
         <Route path='typography' getComponent={(location, callback) => {
-          import('../shared/containers/TypographyContainer/component').then((component) => {
+          import('../shared/containers/TypographyContainer/component.jsx').then((component) => {
             callback(null, component);
           }).catch(err => {
             console.log(err);
