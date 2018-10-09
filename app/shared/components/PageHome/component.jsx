@@ -9,14 +9,30 @@ import GA from '../GoogleAnalytics/component.jsx'
 import Button from '../Button/component.jsx'
 import Hero from '../Hero/component.jsx'
 
-// @todo @refactor @joel - haul this out of here and into a fixture / Contentful
 export default class PageHome extends React.PureComponent {
+
   render () {
+    let hero = {
+      heading: 'Honest information about drugs',
+      highlight: [3],
+      url: '/',
+      images: [
+        {
+
+        },
+        {
+
+        },
+        {
+
+        }
+      ]
+    }
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Main className='homepage'>
-          <Hero />
+          <Hero {...hero}/>
         </Main>
         <Footer />
         <GA/>
