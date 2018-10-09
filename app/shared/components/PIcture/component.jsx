@@ -2,11 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 export default class Picture extends React.PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
+  componentDidMount () {
     const picturefill = require('picturefill')
     picturefill()
   }

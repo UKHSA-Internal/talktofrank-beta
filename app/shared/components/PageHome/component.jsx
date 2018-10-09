@@ -10,7 +10,6 @@ import Button from '../Button/component.jsx'
 import Hero from '../Hero/component.jsx'
 
 export default class PageHome extends React.PureComponent {
-
   render () {
     let hero = {
       heading: {
@@ -28,11 +27,7 @@ export default class PageHome extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
-
         <Hero {...hero}/>
-        <Main className='homepage'>
-
-        </Main>
         <Footer />
         <GA/>
       </React.Fragment>
