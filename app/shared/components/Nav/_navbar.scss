@@ -45,6 +45,7 @@
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  flex-wrap: wrap; // @joel - added this as I can't see an instance where I don't need it
 
   .nav-link {
     padding-right: 0;
