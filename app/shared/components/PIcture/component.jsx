@@ -50,7 +50,8 @@ export default class Picture extends React.PureComponent {
     return (
       <picture className={classes}>
         {srcs.sources}
-        <img srcSet={smallestImageSrc} alt='' />
+
+        <img src={srcs.smallestImageSrc} srcSet={srcs.smallestImageSrc} alt='' />
       </picture>
     )
   }

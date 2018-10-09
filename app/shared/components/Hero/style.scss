@@ -1,3 +1,11 @@
 .hero {
   overflow: hidden;
+  position: relative;
+
+  .hero__inner {
+    max-width: 55rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }

@@ -9,8 +9,10 @@ const Hero = props => {
   return (
     <section className={classes}>
       {props.images && <figure className=''><Picture {...props.images}/></figure>}
-      <div className='constrained-narrow'>
-        <SplitText {...props.heading} />
+      <div className='hero__inner constrained-narrow'>
+        <div className=''>
+          <SplitText {...props.heading} />
+        </div>
       </div>
     </section>
   )

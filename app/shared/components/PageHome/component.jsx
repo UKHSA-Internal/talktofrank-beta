@@ -20,9 +20,9 @@ export default class PageHome extends React.PureComponent {
       },
       url: '/',
       images: {
-        700: './images/cat-700.jpg',
-        300: './images/cat-300.jpg',
-        1200: './images/cat-1200.jpg'
+        323: '/ui/img/hero/hero-small__323x310.jpg',
+        882: '/ui/img/hero/hero-medium__882x481.jpg',
+        1445: '/ui/img/hero/hero-large__1445x460.jpg'
       }
     }
     return (
