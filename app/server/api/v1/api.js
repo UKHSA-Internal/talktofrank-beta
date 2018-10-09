@@ -120,8 +120,13 @@ router.get('/drugs/:slug', (req, res, next) => {
 /**
  * Get page data
  */
-router.get('/drugList', (req, res, next) => {
-  try {
+router.get('/drugs', (req, res, next) => {
+
+  let response = {}
+  let lookupUrl = `${config.contentful.contentHost}/spaces/${config.contentful.contentSpace}/environments/${config.contentful.environment}/entries?content_type=%s&include=5&fields.slug[match]=%s`
+  let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug, req.params.slug)
+
+
     let lookupUrl = `${config.contentful.contentHost}/spaces/%s/entries?content_type=%s`
     let pageUrl = util.format(lookupUrl, config.contentful.contentSpace, config.contentful.contentTypes.drug)
     axios.get(pageUrl).then(json => {

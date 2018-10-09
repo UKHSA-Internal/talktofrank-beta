@@ -8,7 +8,7 @@ import PageStaticContainer from './containers/PageStaticContainer/component'
 import SearchPageContainer from './containers/SearchPageContainer/component'
 import SearchResultsContainer from './containers/SearchResultsContainer/component'
 import TypographyContainer from './containers/TypographyContainer/component' // @todo @refactor @joel - remove this in due time - replace with generic static page handler
-import DrugListContainer from './containers/DrugListContainer/component'
+import PageDrugsAZContainer from './containers/PageDrugsAZContainer/component'
 import HomepageContainer from './containers/HomepageContainer/component'
 
 import { config } from 'config'
@@ -90,8 +90,9 @@ let getRoutes = store => {
     <Route path='/'>
       <IndexRoute component={withFallback(HomepageContainer)} onEnter={getPage} slug='index'/>
       <Route path='typography' component={withFallback(TypographyContainer)} onEnter={getPage} slug='typography' />
+      <Route path='drugs-a-z' component={withFallback(PageDrugsAZContainer)} onEnter={getDrugList} />
       <Route path='drug'>
-        <IndexRoute component={withFallback(DrugListContainer)} onEnter={getDrugList} />
+        <IndexRoute component={withFallback(PageDrugsAZContainer)} onEnter={getDrugList} />
         <Route path='search' component={withFallback(SearchPageContainer)} />
         <Route path='search/:term' component={withFallback(SearchPageContainer)} onEnter={getSearchPage} />
         <Route path=':drugName' component={withFallback(PageContainer)} onEnter={getDrug} />
