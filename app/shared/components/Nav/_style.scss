@@ -40,7 +40,7 @@
 
   .nav-item {
     @include media-breakpoint-up(md) {
-      margin: .5em .5em .5em 0;
+      margin: .5em 1.5em .5em 0;
     }
 
     &.nav-item--active {
