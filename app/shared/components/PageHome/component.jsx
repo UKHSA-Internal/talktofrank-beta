@@ -20,16 +20,18 @@ export default class PageHome extends React.PureComponent {
       },
       url: '/',
       images: {
-        323: '/ui/img/hero/hero-small__323x310.jpg',
-        882: '/ui/img/hero/hero-medium__882x481.jpg',
-        1445: '/ui/img/hero/hero-large__1445x460.jpg'
+        400: '/ui/img/hero/hero-small__323x310.jpg',
+        600: '/ui/img/hero/hero-medium__882x481.jpg',
+        1200: '/ui/img/hero/hero-large__1445x460.jpg'
       }
     }
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
+
+        <Hero {...hero}/>
         <Main className='homepage'>
-          <Hero {...hero}/>
+
         </Main>
         <Footer />
         <GA/>
