@@ -3,10 +3,14 @@
   position: relative;
 
   .hero__inner {
-    max-width: 55rem;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    padding: 1.5rem;
+
+    &--constrained {
+      max-width: 60rem;
+    }
   }
 
   .image,

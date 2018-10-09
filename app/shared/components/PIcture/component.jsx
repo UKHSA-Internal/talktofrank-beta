@@ -16,14 +16,11 @@ export default class Picture extends React.PureComponent {
   }
 
   getSources (sizes, images) {
-    return sizes.map((s) => {
-      return <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcSet={images[s]}/>
-    })
+    return sizes.map(s => <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcSet={images[s]}/>)
   }
 
   getSmallestImage (sizes, images) {
     let smallestSize = sizes.pop()
-
     return images[smallestSize]
   }
 
@@ -42,11 +39,9 @@ export default class Picture extends React.PureComponent {
     let srcs = this.getPictureSettings(this.props)
     let classes = classNames('image', this.props.className)
 
-    console.log(srcs)
     return (
       <picture className={classes}>
         {srcs.sources}
-
         <img src={srcs.smallestImageSrc} srcSet={srcs.smallestImageSrc} alt='' />
       </picture>
     )
