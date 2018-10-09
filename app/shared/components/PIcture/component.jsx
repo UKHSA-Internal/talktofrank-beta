@@ -1,5 +1,5 @@
 import React from 'react'
-
+import classNames from 'classnames'
 
 export default class Picture extends React.PureComponent {
   constructor(props) {
@@ -21,7 +21,7 @@ export default class Picture extends React.PureComponent {
 
   getSources (sizes, images) {
     return sizes.map((s) => {
-      return <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcset={images[s]}/>
+      return <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcSet={images[s]}/>
     })
   }
 
@@ -32,9 +32,9 @@ export default class Picture extends React.PureComponent {
   }
 
   getPictureSettings (images) {
-    let sizes = getSizes(images)
-    let smallestImageSrc = getSmallestImage(sizes, images)
-    let sources = getSources(sizes, images)
+    let sizes = this.getSizes(images)
+    let smallestImageSrc = this.getSmallestImage(sizes, images)
+    let sources = this.getSources(sizes, images)
 
     return {
       smallestImageSrc: smallestImageSrc,
@@ -43,13 +43,14 @@ export default class Picture extends React.PureComponent {
   }
 
   render () {
-    let srcs = getPictureSettings(this.props.images)
-    console.log(srcs)
+    let srcs = this.getPictureSettings(this.props)
+    let classes = classNames('image', this.props.className)
 
+    console.log(srcs)
     return (
       <picture className={classes}>
-        {srcs}
-
+        {srcs.sources}
+        <img srcSet={smallestImageSrc} alt='' />
       </picture>
     )
   }
