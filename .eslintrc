@@ -11,7 +11,7 @@
   },
   "parserOptions": {
     "allowImportExportEverywhere": true,
-    "ecmaVersion": 2017,
+    "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true,

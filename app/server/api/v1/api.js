@@ -47,7 +47,7 @@ router.get('/pages/:slug', (req, res, next) => {
   }
 })
 
-router.get('/drugs/:slug', async (req, res, next) => {
+router.get('/drugs/:slug', (req, res, next) => {
   if (!req.params.slug) {
     let error = new Error()
     error.message = 'Page id not set'
@@ -60,62 +60,61 @@ router.get('/drugs/:slug', async (req, res, next) => {
   let lookupUrl = `${config.contentful.contentHost}/spaces/${config.contentful.contentSpace}/environments/${config.contentful.environment}/entries?content_type=%s&include=5&fields.slug[match]=%s`
   let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug, req.params.slug)
 
-  try {
-    json = await axios.get(pageUrl)
+  axios.get(pageUrl)
+    .then(json => {
+      if (json.data.total === 0) {
+        let error = new Error()
+        error.message = `Page not found ${pageUrl}`
+        error.status = 404
+        return next(error)
+      }
 
-    if (json.data.total === 0) {
-      let error = new Error()
-      error.message = `Page not found ${pageUrl}`
-      error.status = 404
-      return next(error)
-    }
+      // merge contentful assets and includes
+      response = resolveResponse(json.data)[0]
 
-    // merge contentful assets and includes
-    response = resolveResponse(json.data)[0]
+      // Add contentful field ids here to tranform the contents
+      // from markdown to HTML
+      const markDownFields = {
+        'description': [],
+        'qualitiesAppearance': [],
+        'qualitiesTaste': [],
+        'qualitiesAdministered': [],
+        'effectsFeeling': [],
+        'effectsBehaviour': [],
+        'durationDetail': [],
+        'durationDetectable': [],
+        'risksPhysicalHealth': [],
+        'risksHealthMental': [],
+        'risksCutWith': [],
+        'mixingDangers': [],
+        'addiction': [],
+        'durationMethodOfTaking': [
+          'methodAfterEffects',
+          'methodEffectsDuration',
+          'methodEffectsStart'
+        ]
+      }
 
-    // Add contentful field ids to this list to tranform the contents
-    // from markdown to HTML
-    const markDownFields = {
-      'description': [],
-      'qualitiesAppearance': [],
-      'qualitiesTaste': [],
-      'qualitiesAdministered': [],
-      'effectsFeeling': [],
-      'effectsBehaviour': [],
-      'durationDetail': [],
-      'durationDetectable': [],
-      'risksPhysicalHealth': [],
-      'risksHealthMental': [],
-      'risksCutWith': [],
-      'mixingDangers': [],
-      'addiction': [],
-      'durationMethodOfTaking': [
-        'methodAfterEffects',
-        'methodEffectsDuration',
-        'methodEffectsStart'
-      ]
-    }
-
-    Object.keys(response.fields)
-      .filter(fieldName => markDownFields.hasOwnProperty(fieldName))
-      .map(fieldName => {
-        if (markDownFields[fieldName].length > 0) {
-          for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
-            markDownFields[fieldName]
-              .filter(fieldChildName => response.fields[fieldName][i].fields.hasOwnProperty(fieldChildName))
-              .map(fieldChildName => {
-                response.fields[fieldName][i].fields[fieldChildName] = marked(response.fields[fieldName][i].fields[fieldChildName])
-              })
+      Object.keys(response.fields)
+        .filter(fieldName => markDownFields.hasOwnProperty(fieldName))
+        .map(fieldName => {
+          if (markDownFields[fieldName].length > 0) {
+            for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
+              markDownFields[fieldName]
+                .filter(fieldChildName => response.fields[fieldName][i].fields.hasOwnProperty(fieldChildName))
+                .map(fieldChildName => {
+                  response.fields[fieldName][i].fields[fieldChildName] = marked(response.fields[fieldName][i].fields[fieldChildName])
+                })
+            }
+          } else {
+            response.fields[fieldName] = marked(response.fields[fieldName])
           }
-        } else {
-          response.fields[fieldName] = marked(response.fields[fieldName])
-        }
-      })
-  } catch (error) {
-    return next(error.response)
-  } finally {
-    res.send(response)
-  }
+        })
+      res.send(response)
+    })
+    .catch(error => {
+      return next(error.response)
+    })
 })
 
 /**
