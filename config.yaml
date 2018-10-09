@@ -6,3 +6,7 @@ elasticsearch:
 
 sentry:
  logErrors: false
+
+contentful:
+  contentTypes:
+    drug: 'drug'

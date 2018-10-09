@@ -35,8 +35,20 @@ let getRoutes = store => {
   }
 
   function getPage (nextState, replace, callback) {
-    const slug = this.slug ? this.slug : nextState.params.drugName
+    const slug = this.slug
     store.dispatch(fetchPage(slug))
+      .then(() => {
+        callback()
+      }).catch(err => {
+        console.log(err)
+        // error pushed to state
+        callback()
+      })
+  }
+
+  function getDrug (nextState, replace, callback) {
+    const slug = nextState.params.drugName
+    store.dispatch(fetchPage(slug, 'drugs'))
       .then(() => {
         callback()
       }).catch(err => {
@@ -82,7 +94,7 @@ let getRoutes = store => {
         <IndexRoute component={withFallback(DrugListContainer)} onEnter={getDrugList} />
         <Route path='search' component={withFallback(SearchPageContainer)} />
         <Route path='search/:term' component={withFallback(SearchPageContainer)} onEnter={getSearchPage} />
-        <Route path=':drugName' component={withFallback(PageContainer)} onEnter={getPage} />
+        <Route path=':drugName' component={withFallback(PageContainer)} onEnter={getDrug} />
       </Route>
       <Route path='*' component={withFallback(NoMatchContainer)} onEnter={getPage} slug='no-match' />
     </Route>
