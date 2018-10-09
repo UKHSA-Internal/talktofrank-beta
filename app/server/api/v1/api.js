@@ -1,5 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
+import { getContentfulHost } from '../../../shared/utilities'
+
 /**
  * Express routes
  */
@@ -35,16 +37,44 @@ router.get('/pages/:slug', (req, res, next) => {
     return next(error)
   }
 
-  if (req.params.slug === 'index' ||
-    req.params.slug === 'no-match' ||
+  if (req.params.slug === 'no-match' ||
     req.params.slug === 'typography') {
     try {
       return res.send(yaml.safeLoad(fs.readFileSync('./static/' + req.params.slug + '.yml', 'utf8')))
-    } catch (e) {
-      reject(err)
-      next(e)
+    } catch (error) {
+      next(error)
     }
   }
+
+  let response = {}
+  let lookupUrl = getContentfulHost()
+  let pageUrl = ''
+
+  // If the slug value exists in the config contentful 'entries' list use that
+  // to fetch a single content item, fallback to slug value
+  if (config.contentful.entries[req.params.slug]) {
+    lookupUrl += `/entries?sys.id=%s&include=5`
+    pageUrl = util.format(lookupUrl, config.contentful.entries[req.params.slug])
+  } else {
+    lookupUrl += `/entries?content_type=%s&include=5&fields.slug[match]=%s`
+    pageUrl = util.format(lookupUrl, config.contentful.contentTypes.page, req.params.slug)
+  }
+
+  axios.get(pageUrl)
+    .then(json => {
+      if (json.data.total === 0) {
+        let error = new Error()
+        error.message = `Page not found ${pageUrl}`
+        error.status = 404
+        return next(error)
+      }
+      // merge contentful assets and includes
+      response = resolveResponse(json.data)[0]
+      res.send(response)
+    })
+    .catch(error => {
+      return next(error.response)
+    })
 })
 
 router.get('/drugs/:slug', (req, res, next) => {
@@ -55,9 +85,8 @@ router.get('/drugs/:slug', (req, res, next) => {
     return next(error)
   }
 
-  let json = null
   let response = {}
-  let lookupUrl = `${config.contentful.contentHost}/spaces/${config.contentful.contentSpace}/environments/${config.contentful.environment}/entries?content_type=%s&include=5&fields.slug[match]=%s`
+  let lookupUrl = `${getContentfulHost()}/entries?content_type=%s&include=5&fields.slug[match]=%s`
   let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug, req.params.slug)
 
   axios.get(pageUrl)
