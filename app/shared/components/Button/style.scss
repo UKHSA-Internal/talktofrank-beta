@@ -181,8 +181,6 @@
 .active {
   @include media-breakpoint-down(md) {
     &::before {
-      bottom: auto;
-      left: auto;
       border-width: 0 15px 15px;
       content: '';
       position: absolute;

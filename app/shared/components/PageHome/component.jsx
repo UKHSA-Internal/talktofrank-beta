@@ -15,18 +15,18 @@ import Button from '../Button/component.jsx'
 
 // @todo @refactor @joel - haul this out of here and into a fixture / Contentful
 export default class PageHome extends React.PureComponent {
-  constructor (props) {
-    super(props)
-  }
+  // constructor (props) {
+  //   super(props)
+  // }
 
-  componentDidMount () {
-    // ReactGA.timing({
-    //   category: 'React libraries - client side',
-    //   variable: 'load',
-    //   value: 20, // in milliseconds
-    //   label: 'React bundles'
-    // })
-  }
+  // componentDidMount () {
+  //   ReactGA.timing({
+  //     category: 'React libraries - client side',
+  //     variable: 'load',
+  //     value: 20, // in milliseconds
+  //     label: 'React bundles'
+  //   })
+  // }
 
   render () {
     return (
