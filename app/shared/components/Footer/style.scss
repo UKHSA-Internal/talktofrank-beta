@@ -2,21 +2,14 @@
 .footer {
   color: $white;
   background-color: $black;
+  font-family: $font-family-heavy;
 
-  .nav-link,
-  a {
-    color: $white;
-    text-decoration: underline;
+  .nav-item {
+    display: inline-block;
   }
+}
 
-  @include media-breakpoint-up(sm) {
-    color: $black;
-    background-color: $white;
-
-    .nav-link,
-    a {
-      color: $black;
-      text-decoration: underline;
-    }
-  }
+.footer__inner {
+  @extend %constrain-narrow;
+  padding-bottom: 3rem;
 }

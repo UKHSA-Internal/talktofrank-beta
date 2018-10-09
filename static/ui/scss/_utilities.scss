@@ -1,15 +1,24 @@
-.underlined {
-  border-bottom: 1px solid $gray-900;
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
 
-  &--dotted {
-    border-bottom-style: dashed;
-    border-bottom-width: 1px;
-    border-bottom-color: $gray-500;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
+// Hiding
+
+.hidden--sm-up {
+  @include media-breakpoint-up(sm) {
+    display: none;
   }
+}
 
-  &--offscreen {
-    border-bottom-width: 2px;
+.hidden--sm {
+  @include media-breakpoint-down(sm) {
+    display: none;
   }
 }
