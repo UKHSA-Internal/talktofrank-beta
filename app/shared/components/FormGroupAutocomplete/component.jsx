@@ -94,7 +94,7 @@ class FormGroup extends PureComponent {
     return (
       <div className={classes}>
         <label htmlFor={id} className={'form-label h3 ' + (labelHidden ? 'sr-only' : null)}>{label}</label>
-        <div className='input-group--raised input-group-autocomplete--raised d-flex'>
+        <div className='d-flex'>
           <Autocomplete
             inputProps={{
               className: controlClasses,
