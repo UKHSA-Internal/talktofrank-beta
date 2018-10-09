@@ -13,20 +13,17 @@ export default class PageHome extends React.PureComponent {
 
   render () {
     let hero = {
-      heading: 'Honest information about drugs',
-      highlight: [3],
+      heading: {
+        wrapper: 'h1',
+        text: 'Honest information about drugs',
+        highlight: [3]
+      },
       url: '/',
-      images: [
-        {
-
-        },
-        {
-
-        },
-        {
-
-        }
-      ]
+      images: {
+        700: './images/cat-700.jpg',
+        300: './images/cat-300.jpg',
+        1200: './images/cat-1200.jpg'
+      }
     }
     return (
       <React.Fragment>
