@@ -1,57 +1,58 @@
 import React from 'react'
-import { Link } from 'react-router'
 import Masthead from '../Masthead/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 import Heading from '../Heading/component.jsx'
-import Form from '../Form/component.jsx'
-import Toggle from '../Toggle/component.jsx'
 import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
-import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
+import Nav from '../Nav/component.jsx'
+import Divider from '../Divider/component.jsx'
+import Accent from '../Accent/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 const DrugList = props => {
   const limit = 4
+  const initialLetter = props.list.map(val => {
+    return {
+      label: val.group,
+      url: '#' + val.group,
+      tracking: {
+        category: 'A-Z list nav',
+        action: 'Link click',
+        label: val.group
+      }
+    }
+  })
 
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
+      <Accent>
+        <Heading type='h1' className='h2 inverted' text='Drugs A to Z'/>
+        <Nav navigation={initialLetter} className='navbar-expand navbar-list'/>
+      </Accent>
+      <Divider className='hr--muted' />
       <Main>
-        <Heading type='h1' text='Drugs A-Z'/>
-          <Form>
-            <FormGroupAutocomplete
-              button='true'
-              modifiers='form-control--search'
-              className='input-group-autocomplete--inverse'
-              id='search-a-z'
-              label='Search for any drug, you can use street names, slang names or the proper name'
-              showContent
-              titleClass='h4'
-              placeholder='Enter a drug name (e.g. Mandy, Cocaine, Weed)'
-              resultsId='masthead-results'
-            />
-          </Form>
         <Grid>
-          <GridCol className='col-12 col-sm-8'>
+          <GridCol className='col-12 col-sm-8 offset-sm-2'>
             <ul className='list-unstyled' role='list'>
               {props.list.map((val, i) => {
                 return (
                   <li id={val.group} key={'outer' + i}>
-                    <Heading text={val.group} modifiers='display-2 underlined underlined--offscreen'/>
+                    <Heading text={val.group} modifiers='display-4 pink spacing-top--large'/>
                     <ul className='list-unstyled'>
                     {val.values.map((v, index) => {
                       let synonyms
-                      let name = v.parent ? v.name : <span className='inverted'>{v.name}</span>
-                      let realName = v.parent ? <span className='italic'>Real name: <strong>{v.parent}</strong></span> : null
+                      let name = v.parent ? <span className='inverted inverted--quiet'>{v.name}</span> : <span className='inverted'>{v.name}</span>
+                      let realName = v.parent ? <span>Real name: <strong>{v.parent}</strong></span> : null
 
                       if (v.synonyms) {
                         synonyms = v.synonyms.length > limit ? `${v.synonyms.splice(0, limit).join(' / ')} +${v.synonyms.length} more` : v.synonyms.join(' / ')
                       }
 
                       return (
-                      <li key={'inner' + index} className='list-item list-item--dotted'>
-                        <a href={v.slug} className='list-link'><h3 className='h4 mt-1 mb-0 grey'>{name}</h3>
+                      <li key={'inner' + index} className='list-item list-item--underlined'>
+                        <a href={v.slug} className='list-link'><h3 className='h5'>{name}</h3>
                         {synonyms && <p className='grey'>Also called: {synonyms}</p>}
                         {realName}
                         {v.description && <p><span className='muted'>{v.description}</span></p>}
@@ -59,6 +60,7 @@ const DrugList = props => {
                       </li>)
                     })}
                     </ul>
+                    <a className='quiet spacing-top--single' href='#app'>Return to top</a>
                   </li>
                 )
               })}
