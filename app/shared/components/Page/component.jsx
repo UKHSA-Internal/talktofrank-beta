@@ -55,6 +55,8 @@ const Page = props => {
             <section className='section section--has-toggle'>
               <Heading className='h3 spacing--single sm-spacing--tight' text='Duration'/>
               <Toggle text={`Duration of ${name}`} className='collapsible--chevron' hidden='true' history={props.location}>
+                {props.fields.durationDefault && <Longform text={props.fields.durationDefault} />}
+
                 {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text={`How long does ${name} stay in your body?`}/><Longform text={props.fields.durationDetectable} /></React.Fragment>
                 }
                 {props.fields.effects_whatIsTheComedownLike && <React.Fragment><Heading {...modifiers} text={`What is the comedown off ${name} like?`}/><Longform text={props.fields.effects_whatIsTheComedownLike} /></React.Fragment>
@@ -64,14 +66,17 @@ const Page = props => {
             <section className='section section--has-toggle'>
               <Heading className='h3 spacing--single sm-spacing--tight' text={`The risks`}/>
               <Toggle text={`Risks of ${name}`} className='collapsible--chevron' hidden='true' history={props.location}>
-                {props.fields.risks_whatAreTheRisks && <React.Fragment><Heading {...modifiers} text={`What are the risks of ${name}?`}/><Longform text={props.fields.risks_whatAreTheRisks} /></React.Fragment>
+                {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform text={props.fields.risksHealthMental} /></React.Fragment>
                 }
+                {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks of ${name}?`}/><Longform text={props.fields.risksPhysicalHealth} /></React.Fragment>
+                }
+                {props.fields.risksCutWith && <React.Fragment><Heading {...modifiers} text={`What is ${name} cut with?`}/><Longform text={props.fields.risksCutWith} /></React.Fragment>}
               </Toggle>
             </section>
             <section className='section section--has-toggle'>
               <Heading className='h3 spacing--single sm-spacing--tight' text='Mixing'/>
               <Toggle text={`Risks of mixing with ${name}`} className='collapsible--chevron' hidden='true' history={props.location}>
-                {props.fields.risks_isItDangerousToMixWithOtherDrugs && <React.Fragment><Heading {...modifiers} text={`Is ${name} dangerous to mix with other drugs?`}/><Longform text={props.fields.risks_isItDangerousToMixWithOtherDrugs} /></React.Fragment>
+                {props.fields.mixingDangers && <React.Fragment><Heading {...modifiers} text={`Is ${name} dangerous to mix with other drugs?`}/><Longform text={props.fields.mixingDangers} /></React.Fragment>
                 }
               </Toggle>
             </section>
@@ -85,9 +90,13 @@ const Page = props => {
             <section className='section section--has-toggle'>
               <Heading className='h3 spacing--single sm-spacing--tight' text={`The law`}/>
               <Toggle text={`Legal status of ${name}`} className='collapsible--chevron' hidden='true' history={props.location}>
-                {props.fields.law_whatIsTheDrugClassification && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/><Longform text={props.fields.law_whatIsTheDrugClassification} /></React.Fragment>
-                }
-                {props.fields.law_whatIfYouAreCaughtWithIt && <React.Fragment><Heading {...modifiers} text={`What if you are caught with ${name}?`}/><Longform text={props.fields.law_whatIfYouAreCaughtWithIt} /></React.Fragment>
+                {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/>
+                  {props.fields.lawClass.fields.class}
+                  {props.fields.lawClass.fields.dealersSupplying}
+                  {props.fields.lawClass.fields.driving}
+                  {props.fields.lawClass.fields.possesion}
+                  {props.fields.lawClass.fields.supplying}
+                </React.Fragment>
                 }
               </Toggle>
             </section>
