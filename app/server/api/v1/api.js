@@ -120,7 +120,7 @@ router.get('/drugs/:slug', (req, res, next) => {
           'possesion',
           'supplying',
           'dealersSupplying',
-          'driving',
+          'driving'
         ],
         'addiction': [],
         'additional': [],
@@ -135,7 +135,7 @@ router.get('/drugs/:slug', (req, res, next) => {
         .filter(fieldName => markDownFields.hasOwnProperty(fieldName))
         .map(fieldName => {
           if (markDownFields[fieldName].length > 0) {
-            if (typeof response.fields[fieldName] === 'array') {
+            if (Array.isArray(response.fields[fieldName])) {
               for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
                 contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName][i].fields)
               }
