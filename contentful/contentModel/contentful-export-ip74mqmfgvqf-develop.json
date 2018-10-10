@@ -127,7 +127,7 @@
         "id": "drug",
         "type": "ContentType",
         "createdAt": "2018-10-04T15:17:25.890Z",
-        "updatedAt": "2018-10-04T17:06:31.720Z",
+        "updatedAt": "2018-10-09T11:02:25.348Z",
         "environment": {
           "sys": {
             "id": "develop",
@@ -149,8 +149,8 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedCounter": 28,
-        "version": 57,
+        "publishedCounter": 36,
+        "version": 73,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -158,9 +158,9 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedVersion": 56,
+        "publishedVersion": 72,
         "firstPublishedAt": "2018-10-04T15:17:52.196Z",
-        "publishedAt": "2018-10-04T17:06:31.720Z"
+        "publishedAt": "2018-10-09T11:02:25.348Z"
       },
       "displayField": "drugName",
       "name": "Drug",
@@ -178,21 +178,35 @@
           "omitted": false
         },
         {
-          "id": "image",
-          "name": "Image",
-          "type": "Link",
+          "id": "slug",
+          "name": "Page url",
+          "type": "Symbol",
           "localized": false,
           "required": true,
           "validations": [
             {
-              "linkContentType": [
-                "responsiveImageGroup"
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "image",
+          "name": "Image",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
               ]
             }
           ],
           "disabled": false,
           "omitted": false,
-          "linkType": "Entry"
+          "linkType": "Asset"
         },
         {
           "id": "synonyms",
@@ -613,7 +627,7 @@
         "id": "drugClass",
         "type": "ContentType",
         "createdAt": "2018-10-04T16:12:05.219Z",
-        "updatedAt": "2018-10-04T16:12:05.600Z",
+        "updatedAt": "2018-10-04T17:44:48.921Z",
         "environment": {
           "sys": {
             "id": "develop",
@@ -635,8 +649,8 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedCounter": 1,
-        "version": 2,
+        "publishedCounter": 2,
+        "version": 4,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -644,9 +658,9 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedVersion": 1,
+        "publishedVersion": 3,
         "firstPublishedAt": "2018-10-04T16:12:05.600Z",
-        "publishedAt": "2018-10-04T16:12:05.600Z"
+        "publishedAt": "2018-10-04T17:44:48.921Z"
       },
       "displayField": "class",
       "name": "Drug > class",
@@ -665,7 +679,7 @@
         },
         {
           "id": "possesion",
-          "name": "Possesion",
+          "name": "Possession",
           "type": "Text",
           "localized": false,
           "required": false,
@@ -699,7 +713,71 @@
         "id": "drugTag",
         "type": "ContentType",
         "createdAt": "2018-10-04T16:14:18.528Z",
-        "updatedAt": "2018-10-04T16:14:18.905Z",
+        "updatedAt": "2018-10-09T09:57:23.385Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 3,
+        "firstPublishedAt": "2018-10-04T16:14:18.905Z",
+        "publishedAt": "2018-10-09T09:57:23.385Z"
+      },
+      "displayField": "tagName",
+      "name": "Drug > tag",
+      "description": "",
+      "fields": [
+        {
+          "id": "tagName",
+          "name": "Tag name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "homepage",
+        "type": "ContentType",
+        "createdAt": "2018-10-09T14:00:39.089Z",
+        "updatedAt": "2018-10-09T14:00:40.038Z",
         "environment": {
           "sys": {
             "id": "develop",
@@ -731,20 +809,115 @@
           }
         },
         "publishedVersion": 1,
-        "firstPublishedAt": "2018-10-04T16:14:18.905Z",
-        "publishedAt": "2018-10-04T16:14:18.905Z"
+        "firstPublishedAt": "2018-10-09T14:00:40.038Z",
+        "publishedAt": "2018-10-09T14:00:40.038Z"
       },
-      "displayField": "tagName",
-      "name": "Drug > Tag",
+      "displayField": "strapline",
+      "name": "Homepage",
       "description": "",
       "fields": [
         {
-          "id": "tagName",
-          "name": "Tag name",
+          "id": "strapline",
+          "name": "Strapline",
           "type": "Symbol",
           "localized": false,
           "required": false,
           "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "heroImages",
+          "name": "Hero images",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "responsiveImageGroup"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "generalPage",
+        "type": "ContentType",
+        "createdAt": "2018-10-09T14:09:06.100Z",
+        "updatedAt": "2018-10-09T14:09:06.537Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-10-09T14:09:06.537Z",
+        "publishedAt": "2018-10-09T14:09:06.537Z"
+      },
+      "displayField": "title",
+      "name": "General page",
+      "description": "Create general purposes pages with image and text content.",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "slug",
+          "name": "Page url",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -835,7 +1008,7 @@
             "linkType": "Space"
           }
         },
-        "version": 56,
+        "version": 72,
         "createdAt": "2018-10-04T15:17:52.305Z",
         "createdBy": {
           "sys": {
@@ -844,7 +1017,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-10-04T17:06:32.169Z",
+        "updatedAt": "2018-10-09T11:02:26.017Z",
         "updatedBy": {
           "sys": {
             "id": "7sIkrqOAkQT2PLLlnvWzTb",
@@ -876,8 +1049,15 @@
           "widgetId": "singleLine"
         },
         {
+          "fieldId": "slug",
+          "settings": {
+            "helpText": "http://www.talktofrank.com/drug/[value here]"
+          },
+          "widgetId": "singleLine"
+        },
+        {
           "fieldId": "image",
-          "widgetId": "entryLinkEditor"
+          "widgetId": "assetLinkEditor"
         },
         {
           "fieldId": "synonyms",
@@ -965,6 +1145,9 @@
         },
         {
           "fieldId": "mixingDangers",
+          "settings": {
+            "helpText": "This only focuses on the most dangerous mixes that should be avoided. Never suggest a mix as safe. "
+          },
           "widgetId": "markdown"
         },
         {
@@ -1072,7 +1255,7 @@
             "linkType": "Space"
           }
         },
-        "version": 2,
+        "version": 4,
         "createdAt": "2018-10-04T16:12:05.725Z",
         "createdBy": {
           "sys": {
@@ -1081,7 +1264,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-10-04T16:12:06.325Z",
+        "updatedAt": "2018-10-04T17:44:49.747Z",
         "updatedBy": {
           "sys": {
             "id": "7sIkrqOAkQT2PLLlnvWzTb",
@@ -1130,7 +1313,7 @@
             "linkType": "Space"
           }
         },
-        "version": 2,
+        "version": 4,
         "createdAt": "2018-10-04T16:14:19.014Z",
         "createdBy": {
           "sys": {
@@ -1139,7 +1322,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-10-04T16:14:19.512Z",
+        "updatedAt": "2018-10-09T09:57:24.150Z",
         "updatedBy": {
           "sys": {
             "id": "7sIkrqOAkQT2PLLlnvWzTb",
@@ -1168,623 +1351,120 @@
           "widgetId": "singleLine"
         }
       ]
-    }
-  ],
-  "entries": [
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
-          }
-        },
-        "id": "2lHpOlzPI8GEiU8oA4CCaq",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:18:03.563Z",
-        "updatedAt": "2018-10-04T17:06:51.647Z",
-        "environment": {
-          "sys": {
-            "id": "develop",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 26,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 21,
-        "firstPublishedAt": "2018-10-04T16:25:19.079Z",
-        "publishedAt": "2018-10-04T16:25:19.079Z",
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "drug"
-          }
-        }
-      },
-      "fields": {
-        "drugName": {
-          "en-US": "Cocaine"
-        },
-        "image": {
-          "en-US": {
-            "sys": {
-              "type": "Link",
-              "linkType": "Entry",
-              "id": "7HuJBrGHSgso2SIgUmQGcs"
-            }
-          }
-        },
-        "synonyms": {
-          "en-US": [
-            "coke",
-            "c",
-            "chang"
-          ]
-        },
-        "description": {
-          "en-US": "Powder cocaine (also called coke), freebase and crack are all forms of cocaine. They’re all powerful stimulants, with short-lived effects – which means that they temporarily speed up the way your mind and body work, but the effects are short-lived. Both ‘freebase’ cocaine (powder cocaine that’s been prepared for smoking) and ‘crack’ cocaine (a ‘rock’ like form of cocaine) can be smoked. This means that they reach the brain very quickly, while snorted powder cocaine gets to the brain more slowly."
-        },
-        "lawClass": {
-          "en-US": {
-            "sys": {
-              "type": "Link",
-              "linkType": "Entry",
-              "id": "7rbeYrkBQkIqoEUOOYesu0"
-            }
-          }
-        },
-        "tags": {
-          "en-US": [
-            {
-              "sys": {
-                "type": "Link",
-                "linkType": "Entry",
-                "id": "4kmSZiz6vmEImw4Q0EQACu"
-              }
-            }
-          ]
-        }
-      }
     },
     {
       "sys": {
+        "id": "default",
+        "type": "EditorInterface",
         "space": {
           "sys": {
+            "id": "ip74mqmfgvqf",
             "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
+            "linkType": "Space"
           }
         },
-        "id": "4kmSZiz6vmEImw4Q0EQACu",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:18:49.378Z",
-        "updatedAt": "2018-10-04T16:25:29.918Z",
+        "version": 2,
+        "createdAt": "2018-10-09T14:00:40.120Z",
+        "createdBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-10-09T14:00:41.407Z",
+        "updatedBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "homepage",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
         "environment": {
           "sys": {
             "id": "develop",
             "type": "Link",
             "linkType": "Environment"
           }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 7,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 6,
-        "firstPublishedAt": "2018-10-04T16:25:29.918Z",
-        "publishedAt": "2018-10-04T16:25:29.918Z",
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "drugTag"
-          }
         }
       },
-      "fields": {
-        "tagName": {
-          "en-US": "Line"
+      "controls": [
+        {
+          "fieldId": "strapline",
+          "settings": {
+            "helpText": "Text to appear inline with hero banner images."
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "heroImages",
+          "widgetId": "entryCardEditor"
         }
-      }
+      ]
     },
     {
       "sys": {
+        "id": "default",
+        "type": "EditorInterface",
         "space": {
           "sys": {
+            "id": "ip74mqmfgvqf",
             "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
+            "linkType": "Space"
           }
         },
-        "id": "7rbeYrkBQkIqoEUOOYesu0",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:20:36.252Z",
-        "updatedAt": "2018-10-04T16:20:41.805Z",
-        "environment": {
-          "sys": {
-            "id": "develop",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
+        "version": 2,
+        "createdAt": "2018-10-09T14:09:06.647Z",
         "createdBy": {
           "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
             "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+            "linkType": "User"
           }
         },
+        "updatedAt": "2018-10-09T14:09:07.269Z",
         "updatedBy": {
           "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
             "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+            "linkType": "User"
           }
         },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2018-10-04T16:20:41.805Z",
-        "publishedAt": "2018-10-04T16:20:41.805Z",
         "contentType": {
           "sys": {
+            "id": "generalPage",
             "type": "Link",
-            "linkType": "ContentType",
-            "id": "drugClass"
-          }
-        }
-      },
-      "fields": {
-        "class": {
-          "en-US": "A"
-        }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
+            "linkType": "ContentType"
           }
         },
-        "id": "2ePTWMvSeQKiiOawaSmysY",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:20:51.422Z",
-        "updatedAt": "2018-10-04T16:21:01.834Z",
         "environment": {
           "sys": {
             "id": "develop",
             "type": "Link",
             "linkType": "Environment"
           }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2018-10-04T16:21:01.834Z",
-        "publishedAt": "2018-10-04T16:21:01.834Z",
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "drugClass"
-          }
         }
       },
-      "fields": {
-        "class": {
-          "en-US": "B"
+      "controls": [
+        {
+          "fieldId": "title",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "slug",
+          "settings": {
+            "helpText": "http://www.talktofrank.com/[value here]"
+          },
+          "widgetId": "singleLine"
         }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
-          }
-        },
-        "id": "1zU3tqY4goeyOgekqiAEEy",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:21:05.853Z",
-        "updatedAt": "2018-10-04T16:21:09.811Z",
-        "environment": {
-          "sys": {
-            "id": "develop",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2018-10-04T16:21:09.739Z",
-        "publishedAt": "2018-10-04T16:21:09.739Z",
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "drugClass"
-          }
-        }
-      },
-      "fields": {
-        "class": {
-          "en-US": "C"
-        }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
-          }
-        },
-        "id": "2osjKFK7numeqeW2WySAEg",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:21:16.383Z",
-        "updatedAt": "2018-10-04T16:21:27.817Z",
-        "environment": {
-          "sys": {
-            "id": "develop",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2018-10-04T16:21:27.817Z",
-        "publishedAt": "2018-10-04T16:21:27.817Z",
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "drugClass"
-          }
-        }
-      },
-      "fields": {
-        "class": {
-          "en-US": "New psychoactive substance"
-        }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
-          }
-        },
-        "id": "3VLHkqu2G4aeQ0cgaeI4ak",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:21:33.911Z",
-        "updatedAt": "2018-10-04T16:21:39.700Z",
-        "environment": {
-          "sys": {
-            "id": "develop",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2018-10-04T16:21:39.700Z",
-        "publishedAt": "2018-10-04T16:21:39.700Z",
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "drugClass"
-          }
-        }
-      },
-      "fields": {
-        "class": {
-          "en-US": "Unclassified"
-        }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
-          }
-        },
-        "id": "7HuJBrGHSgso2SIgUmQGcs",
-        "type": "Entry",
-        "createdAt": "2018-10-04T16:23:11.894Z",
-        "updatedAt": "2018-10-04T16:24:45.780Z",
-        "environment": {
-          "sys": {
-            "id": "develop",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 8,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 7,
-        "firstPublishedAt": "2018-10-04T16:24:45.780Z",
-        "publishedAt": "2018-10-04T16:24:45.780Z",
-        "contentType": {
-          "sys": {
-            "type": "Link",
-            "linkType": "ContentType",
-            "id": "responsiveImageGroup"
-          }
-        }
-      },
-      "fields": {
-        "title": {
-          "en-US": "Cocaine"
-        },
-        "imageLarge": {
-          "en-US": {
-            "sys": {
-              "type": "Link",
-              "linkType": "Asset",
-              "id": "6jko7Hw4LYO8iKEuESw2ig"
-            }
-          }
-        },
-        "imageMedium": {
-          "en-US": {
-            "sys": {
-              "type": "Link",
-              "linkType": "Asset",
-              "id": "6jko7Hw4LYO8iKEuESw2ig"
-            }
-          }
-        },
-        "imageSmall": {
-          "en-US": {
-            "sys": {
-              "type": "Link",
-              "linkType": "Asset",
-              "id": "6jko7Hw4LYO8iKEuESw2ig"
-            }
-          }
-        }
-      }
-    }
-  ],
-  "assets": [
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "ip74mqmfgvqf"
-          }
-        },
-        "id": "6jko7Hw4LYO8iKEuESw2ig",
-        "type": "Asset",
-        "createdAt": "2018-10-04T16:23:52.078Z",
-        "updatedAt": "2018-10-04T16:24:19.027Z",
-        "environment": {
-          "sys": {
-            "id": "develop",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 5,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "7sIkrqOAkQT2PLLlnvWzTb"
-          }
-        },
-        "publishedVersion": 4,
-        "firstPublishedAt": "2018-10-04T16:24:19.027Z",
-        "publishedAt": "2018-10-04T16:24:19.027Z"
-      },
-      "fields": {
-        "title": {
-          "en-US": "cocaine 1"
-        },
-        "file": {
-          "en-US": {
-            "url": "//images.ctfassets.net/ip74mqmfgvqf/6jko7Hw4LYO8iKEuESw2ig/de2e7867105750e6c197e2131b5ce54b/cocaine_1.jpg",
-            "details": {
-              "size": 7789,
-              "image": {
-                "width": 273,
-                "height": 182
-              }
-            },
-            "fileName": "cocaine_1.jpg",
-            "contentType": "image/jpeg"
-          }
-        }
-      }
+      ]
     }
   ],
   "locales": [

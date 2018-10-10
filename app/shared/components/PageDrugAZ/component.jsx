@@ -46,8 +46,7 @@ const DrugList = props => {
                       let realName = v.parent ? <span className='italic'>Real name: <strong>{v.parent}</strong></span> : null
 
                       if (v.synonyms) {
-                        let item = v.synonyms.split(',')
-                        synonyms = item.length > limit ? `${item.splice(0, limit).join(' / ')} +${item.length} more` : item.join(' / ')
+                        synonyms = v.synonyms.length > limit ? `${v.synonyms.splice(0, limit).join(' / ')} +${v.synonyms.length} more` : v.synonyms.join(' / ')
                       }
 
                       return (

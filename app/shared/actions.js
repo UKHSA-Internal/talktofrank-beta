@@ -53,7 +53,7 @@ export function fetchSearchTerm (term, drug, shouldOrMustQuery) {
 export function fetchDrugList () {
   return dispatch => {
     dispatch(requestPage())
-    let lookupUrl = apiHost + '/api/v1/drugList'
+    let lookupUrl = apiHost + '/api/v1/drugs'
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
