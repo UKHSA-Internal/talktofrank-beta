@@ -8,6 +8,7 @@ export default class Picture extends React.PureComponent {
   }
 
   getSizes (images) {
+    // @joel @refactor @todo - remove this object.keys and make the images pre-sorted
     return Object.keys(images).map(s => parseInt(s, 10)).sort((a, b) => b - a)
   }
 
@@ -32,13 +33,13 @@ export default class Picture extends React.PureComponent {
   }
 
   render () {
-    let srcs = this.getPictureSettings(this.props)
+    let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
     let classes = classNames('image', this.props.className)
 
     return (
       <picture className={classes}>
-        {srcs.sources}
-        <img src={srcs.smallestImageSrc} srcSet={srcs.smallestImageSrc} alt='' />
+        {sources}
+        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt='' />
       </picture>
     )
   }
