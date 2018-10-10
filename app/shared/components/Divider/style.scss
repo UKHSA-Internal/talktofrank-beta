@@ -16,4 +16,9 @@ hr {
     margin-right: 1rem;
     margin-left: 1rem;
   }
+
+  &.hr--muted {
+    margin-top: 0;
+    border-top-color: $gray-300;
+  }
 }
