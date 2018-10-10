@@ -280,5 +280,10 @@ b {
   background-color: $black;
   color: $white;
   padding: .2em .4em;
+
+  &--quiet {
+    background-color: $gray-200;
+    color: $black;
+  }
 }
 
