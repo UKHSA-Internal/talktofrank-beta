@@ -255,10 +255,10 @@ b {
   font-family: $font-family-heavy;
 }
 
-.list-item--dotted {
+.list-item--underlined {
   padding-top: 1em;
   padding-bottom: 1em;
-  border-bottom: 1px dotted $gray-800;
+  border-bottom: 1px solid $gray-300;
 }
 
 .list-link {

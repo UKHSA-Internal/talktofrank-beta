@@ -18,6 +18,7 @@ hr {
   }
 
   &.hr--muted {
+    margin-top: 0;
     border-top-color: $gray-300;
   }
 }

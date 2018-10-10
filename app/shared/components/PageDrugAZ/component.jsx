@@ -39,7 +39,7 @@ const DrugList = props => {
               {props.list.map((val, i) => {
                 return (
                   <li id={val.group} key={'outer' + i}>
-                    <Heading text={val.group} modifiers='display-4 pink'/>
+                    <Heading text={val.group} modifiers='display-4 pink spacing-top--large'/>
                     <ul className='list-unstyled'>
                     {val.values.map((v, index) => {
                       let synonyms
@@ -51,7 +51,7 @@ const DrugList = props => {
                       }
 
                       return (
-                      <li key={'inner' + index} className='list-item list-item--dotted'>
+                      <li key={'inner' + index} className='list-item list-item--underlined'>
                         <a href={v.slug} className='list-link'><h3 className='h4 grey'>{name}</h3>
                         {synonyms && <p className='grey'>Also called: {synonyms}</p>}
                         {realName}
@@ -60,6 +60,7 @@ const DrugList = props => {
                       </li>)
                     })}
                     </ul>
+                    <a className='quiet spacing-top--single' href='#app'>Return to top</a>
                   </li>
                 )
               })}
