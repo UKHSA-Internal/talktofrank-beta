@@ -38,7 +38,7 @@ export const primary = [
   },
   {
     label: 'Drugs A-Z',
-    url: '/drug',
+    url: '/drugs-a-z',
     tracking: {
       label: 'Drugs A-Z',
       action: 'Click',

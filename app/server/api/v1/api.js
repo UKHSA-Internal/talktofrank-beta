@@ -1,5 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
+import { getContentfulHost } from '../../../shared/utilities'
+
 /**
  * Express routes
  */
@@ -35,16 +37,44 @@ router.get('/pages/:slug', (req, res, next) => {
     return next(error)
   }
 
-  if (req.params.slug === 'index' ||
-    req.params.slug === 'no-match' ||
+  if (req.params.slug === 'no-match' ||
     req.params.slug === 'typography') {
     try {
       return res.send(yaml.safeLoad(fs.readFileSync('./static/' + req.params.slug + '.yml', 'utf8')))
-    } catch (e) {
-      reject(err)
-      next(e)
+    } catch (error) {
+      next(error)
     }
   }
+
+  let response = {}
+  let lookupUrl = getContentfulHost()
+  let pageUrl = ''
+
+  // If the slug value exists in the config contentful 'entries' list use that
+  // to fetch a single content item, fallback to slug value
+  if (config.contentful.entries[req.params.slug]) {
+    lookupUrl += `/entries?sys.id=%s&include=5`
+    pageUrl = util.format(lookupUrl, config.contentful.entries[req.params.slug])
+  } else {
+    lookupUrl += `/entries?content_type=%s&include=5&fields.slug[match]=%s`
+    pageUrl = util.format(lookupUrl, config.contentful.contentTypes.page, req.params.slug)
+  }
+
+  axios.get(pageUrl)
+    .then(json => {
+      if (json.data.total === 0) {
+        let error = new Error()
+        error.message = `Page not found ${pageUrl}`
+        error.status = 404
+        return next(error)
+      }
+      // merge contentful assets and includes
+      response = resolveResponse(json.data)[0]
+      res.send(response)
+    })
+    .catch(error => {
+      return next(error.response)
+    })
 })
 
 router.get('/drugs/:slug', (req, res, next) => {
@@ -55,9 +85,8 @@ router.get('/drugs/:slug', (req, res, next) => {
     return next(error)
   }
 
-  let json = null
   let response = {}
-  let lookupUrl = `${config.contentful.contentHost}/spaces/${config.contentful.contentSpace}/environments/${config.contentful.environment}/entries?content_type=%s&include=5&fields.slug[match]=%s`
+  let lookupUrl = `${getContentfulHost()}/entries?content_type=%s&include=5&fields.slug[match]=%s`
   let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug, req.params.slug)
 
   axios.get(pageUrl)
@@ -112,19 +141,21 @@ router.get('/drugs/:slug', (req, res, next) => {
         })
       res.send(response)
     })
-    .catch(error => {
-      return next(error.response)
-    })
+    .catch(error => next(error.response))
 })
 
 /**
  * Get page data
  */
-router.get('/drugList', (req, res, next) => {
-  try {
-    let lookupUrl = `${config.contentful.contentHost}/spaces/%s/entries?content_type=%s`
-    let pageUrl = util.format(lookupUrl, config.contentful.contentSpace, config.contentful.contentTypes.drug)
-    axios.get(pageUrl).then(json => {
+router.get('/drugs', (req, res, next) => {
+  let response = {
+    list: []
+  }
+  let lookupUrl = `${getContentfulHost()}/entries?content_type=%s`
+  let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug)
+
+  axios.get(pageUrl)
+    .then(json => {
       if (json.data.total === 0) {
         let error = new Error()
         error.message = `Page not found ${pageUrl}`
@@ -132,33 +163,26 @@ router.get('/drugList', (req, res, next) => {
         return next(error)
       }
 
-      let response = {
-        list: []
-      }
-
-      json.data.items.map((item) => {
-        // skip item if any key fields are missing (for preview)
-        if (!item.fields.synonyms ||
-          !item.fields.name) {
-          return
-        }
-
-        response.list[response.list.length] = {
-          // name: item.fields.name.toLowerCase(),
-          name: item.fields.name,
-          slug: `/drug/${item.fields.slug}`,
-          synonyms: item.fields.synonyms,
-          description: item.fields.description
-        }
-
-        item.fields.synonyms.split(',').map(synonym => {
-          response.list[response.list.length] = {
-            name: synonym.trim(),
+      json.data.items
+        .filter(item => item.fields.synonyms && item.fields.drugName)
+        .map((item) => {
+          response.list.push({
+            // name: item.fields.name.toLowerCase(),
+            name: item.fields.drugName,
             slug: `/drug/${item.fields.slug}`,
-            parent: item.fields.name
-          }
+            synonyms: item.fields.synonyms,
+            description: item.fields.description
+          })
+
+          item.fields.synonyms
+            .map(synonym => {
+              response.list.push({
+                name: synonym.trim(),
+                slug: `/drug/${item.fields.slug}`,
+                parent: item.fields.drugName
+              })
+            })
         })
-      })
 
       let grouped = groupBy(response.list, val => {
         return val.name.charAt(0)
@@ -176,26 +200,19 @@ router.get('/drugList', (req, res, next) => {
       }
 
       let numbers = []
-      response.list = sortBy(groupedArray, (item) => (item.group)).filter(v => {
-        if (!isNaN(parseFloat(v.group))) {
-          numbers.push(v)
-          return false
-        }
-
-        return isNaN(parseFloat(v.group)) && v.group !== ''
-      })
+      response.list = sortBy(groupedArray, (item) => (item.group))
+        .filter(v => {
+          if (!isNaN(parseFloat(v.group))) {
+            numbers.push(v)
+            return false
+          }
+          return isNaN(parseFloat(v.group)) && v.group !== ''
+        })
 
       response.list = response.list.concat(numbers)
-
       res.send(response)
-    }).catch(error => {
-      error.status = 500
-      return next(error)
     })
-  } catch (error) {
-    error.status = 500
-    return next(error)
-  }
+    .catch(error => next(error.response))
 })
 
 /**
