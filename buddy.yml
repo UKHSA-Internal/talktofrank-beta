@@ -85,11 +85,11 @@
       - "talk-to-frank"
       trigger_condition: "ALWAYS"
       integration_id: 38897
-    - action: "Run validation"
+    - action: "Run talktofrank-beta/Validate"
       type: "RUN_NEXT_PIPELINE"
-      comment: "Triggered by ${execution.pipeline.name} execution #${execution.id}"
+      comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
       revision: "INHERIT"
-      next_pipeline_id: 148205
+      next_pipeline_id: 155377
 - pipeline: "Build & Deploy (preview)"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
