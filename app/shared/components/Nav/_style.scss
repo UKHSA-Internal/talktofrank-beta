@@ -83,6 +83,24 @@
   }
 }
 
+.navbar-list {
+
+  .nav-item {
+    margin-right: 1.5rem;
+    font-size: 2.4rem;
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $black;
+      padding: .3em .3em .15em;
+      border-bottom: 2px dotted $pink;
+
+    }
+  }
+}
+
+
 .navbar-muted {
   .nav-link {
     color: $gray-500;

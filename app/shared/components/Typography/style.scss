@@ -51,11 +51,11 @@ h2,
   font-size: 3.2rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 3.6rem;
+    font-size: 4rem;
   }
 
   @include media-breakpoint-up(lg) {
-    font-size: 4.1rem;
+    font-size: 5rem;
   }
 }
 
@@ -122,12 +122,9 @@ h4,
   }
 }
 
-h6,
-.h6,
-
 h5,
 .h5 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 
   @include media-breakpoint-up(md) {
     font-size: 1.8rem;
@@ -194,8 +191,13 @@ mark,
   color: $gray-900;
 }
 
+.pink {
+  color: $pink;
+}
+
 .display-2,
-.display-3 {
+.display-3,
+.display-4 {
   margin-top: .3em;
   line-height: .9;
 }
@@ -212,7 +214,6 @@ mark,
   }
 }
 
-
 .display-3 {
   font-size: 4rem;
 
@@ -222,6 +223,18 @@ mark,
 
   @include media-breakpoint-up(lg) {
     font-size: 9rem;
+  }
+}
+
+.display-4 {
+  font-size: 3.6rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 5rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 7rem;
   }
 }
 
