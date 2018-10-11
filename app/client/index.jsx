@@ -82,8 +82,8 @@ const routes = (
             console.log(err);
           })
         }} />
-        <Route path='*' getComponent={(location, callback) => {
-          import('../shared/containers/NoMatchContainer/component.jsx').then((component) => {
+        <Route path=':slug' getComponent={(location, callback) => {
+          import('../shared/containers/PageGeneralContainer/component.jsx').then((component) => {
             callback(null, component);
           }).catch(err => {
             console.log(err);

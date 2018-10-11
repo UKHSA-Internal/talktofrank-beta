@@ -3,6 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 import { fetchPage, fetchDrugList, fetchSearchTerm, receivePageError } from './actions'
 import NoMatchContainer from './containers/NoMatchContainer/component'
 import ServerError from './components/ServerError/component'
+import PageGeneralContainer from './containers/PageGeneralContainer/component'
 import PageContainer from './containers/PageContainer/component'
 import PageStaticContainer from './containers/PageStaticContainer/component'
 import SearchPageContainer from './containers/SearchPageContainer/component'
@@ -32,6 +33,18 @@ let getRoutes = store => {
         }
       }
     }
+  }
+
+  function getContentfulPage (nextState, replace, callback) {
+    const slug = nextState.params.slug
+    store.dispatch(fetchPage(slug))
+      .then(() => {
+        callback()
+      }).catch(err => {
+      console.log(err)
+      // error pushed to state
+      callback()
+    })
   }
 
   function getPage (nextState, replace, callback) {
@@ -97,7 +110,7 @@ let getRoutes = store => {
         <Route path='search/:term' component={withFallback(SearchPageContainer)} onEnter={getSearchPage} />
         <Route path=':drugName' component={withFallback(PageContainer)} onEnter={getDrug} />
       </Route>
-      <Route path='*' component={withFallback(NoMatchContainer)} onEnter={getPage} slug='no-match' />
+      <Route path=':slug' component={withFallback(PageGeneralContainer)} onEnter={getContentfulPage} />
     </Route>
   )
 }
