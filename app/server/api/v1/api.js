@@ -110,30 +110,43 @@ router.get('/drugs/:slug', (req, res, next) => {
         'qualitiesAdministered': [],
         'effectsFeeling': [],
         'effectsBehaviour': [],
+        'durationDefault': [
+          'text'
+        ],
         'durationDetail': [],
         'durationDetectable': [],
-        'risksPhysicalHealth': [],
-        'risksHealthMental': [],
-        'risksCutWith': [],
-        'mixingDangers': [],
-        'addiction': [],
         'durationMethodOfTaking': [
           'methodAfterEffects',
           'methodEffectsDuration',
           'methodEffectsStart'
-        ]
+        ],
+        'risksPhysicalHealth': [],
+        'risksHealthMental': [],
+        'risksCutWith': [],
+        'mixingDangers': [],
+        'lawCaught': [
+          'text'
+        ],
+        'lawClass': [
+          'possesion',
+          'supplying',
+          'dealersSupplying',
+          'driving'
+        ],
+        'addiction': [],
+        'additional': []
       }
 
       Object.keys(response.fields)
         .filter(fieldName => markDownFields.hasOwnProperty(fieldName))
         .map(fieldName => {
           if (markDownFields[fieldName].length > 0) {
-            for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
-              markDownFields[fieldName]
-                .filter(fieldChildName => response.fields[fieldName][i].fields.hasOwnProperty(fieldChildName))
-                .map(fieldChildName => {
-                  response.fields[fieldName][i].fields[fieldChildName] = marked(response.fields[fieldName][i].fields[fieldChildName])
-                })
+            if (Array.isArray(response.fields[fieldName])) {
+              for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
+                contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName][i].fields)
+              }
+            } else if (response.fields[fieldName].fields) {
+              contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName].fields)
             }
           } else {
             response.fields[fieldName] = marked(response.fields[fieldName])
@@ -143,6 +156,17 @@ router.get('/drugs/:slug', (req, res, next) => {
     })
     .catch(error => next(error.response))
 })
+
+/**
+ * @todo: refactor this into utilities file
+ */
+const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) => (
+  markDownFields[fieldName]
+    .filter(fieldChildName => responseFields.hasOwnProperty(fieldChildName))
+    .map(fieldChildName => {
+      responseFields[fieldChildName] = marked(responseFields[fieldChildName])
+    })
+)
 
 /**
  * Get page data
