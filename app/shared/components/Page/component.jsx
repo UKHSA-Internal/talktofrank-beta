@@ -21,21 +21,6 @@ const Page = props => {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
   }
 
-  // @joel getting rid of this soon - temporary
-  let methods = [
-    'Method',
-    'Start to feel effects',
-    'The effects last for',
-    'After effects'
-  ]
-
-  let methodEffects = [
-    'methodName',
-    'methodEffectsStart',
-    'methodEffectsDuration',
-    'methodAfterEffects'
-  ]
-
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
@@ -79,14 +64,13 @@ const Page = props => {
             {props.fields.durationDefault && <React.Fragment><Heading {...modifiers} text={props.fields.durationDefault.fields.name}/><Longform text={props.fields.durationDefault.fields.text} /></React.Fragment>}
 
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
-              let block = methods.map((a, j) => {
-                return <React.Fragment><dt key={j}>{methods[j]}</dt><dd>{v.fields[methodEffects[j]]}</dd></React.Fragment>
-              })
-
-              block = block.join()
-
               return (
-                <dl dangerouslySetInnerHTML={{__html: block}} className='definition-list'/>
+                <dl className='definition-list' key={i}>
+                  <dt>Method</dt><Heading type='dd' text={v.fields.methodName}/>
+                  <dt>Start to feel effects</dt><Heading type='dd' text={v.fields.methodEffectsStart}/>
+                  <dt>The effects last for</dt><Heading type='dd' text={v.fields.methodEffectsDuration}/>
+                  <dt>After effects</dt><Heading type='dd' text={v.fields.methodAfterEffects}/>
+                </dl>
               )
             })}
 
