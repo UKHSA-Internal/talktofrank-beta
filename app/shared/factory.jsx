@@ -41,8 +41,6 @@ export function factory (pageData) {
         }
         reactComponents.push(reactComponent)
       })
-
-
   }
   return reactComponents
 }

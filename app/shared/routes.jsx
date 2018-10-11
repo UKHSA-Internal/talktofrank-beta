@@ -40,11 +40,12 @@ let getRoutes = store => {
     store.dispatch(fetchPage(slug))
       .then(() => {
         callback()
-      }).catch(err => {
-      console.log(err)
-      // error pushed to state
-      callback()
-    })
+      })
+      .catch(err => {
+        console.log(err)
+        // error pushed to state
+        callback()
+      })
   }
 
   function getPage (nextState, replace, callback) {
