@@ -50,12 +50,16 @@ $dims: 2rem;
         width: $dims;
         height: $dims;
         left: 0;
-        top: ($dims / 2);
+        top: ($dims / 4);
         display: block;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         background-image: url('/ui/svg/plus.svg');
+
+        @include media-breakpoint-up(md) {
+          top: ($dims / 2);
+        }
       }
     }
 
