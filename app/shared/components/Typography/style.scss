@@ -288,3 +288,27 @@ b {
   }
 }
 
+// long-form content overrides
+
+.long-form {
+  p {
+    margin-bottom: 1.5em;
+  }
+}
+
+.definition-list {
+  overflow: hidden;
+
+  dt {
+    float: left;
+    clear: left;
+    width: 40%;
+  }
+
+  dd {
+    text-align: left;
+    float: right;
+    clear: right;
+    width: 56%;
+  }
+}

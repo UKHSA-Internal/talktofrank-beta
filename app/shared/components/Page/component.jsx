@@ -14,7 +14,7 @@ import GA from '../GoogleAnalytics/component.jsx'
 const Page = props => {
   const modifiers = {
     type: 'p',
-    className: 'h6'
+    className: 'h5 spacing-top--single'
   }
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
 
@@ -32,6 +32,19 @@ const Page = props => {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
   }
 
+  let methods =[
+    'Method',
+    'Start to feel effects',
+    'The effects last for',
+    'After effects'
+  ]
+
+  let methodEffects = [
+    'methodName',
+    'methodEffectsStart',
+    'methodEffectsDuration',
+    'methodAfterEffects'
+  ]
   console.log(props)
 
   return (
@@ -39,13 +52,13 @@ const Page = props => {
       <Masthead path={props.location}/>
       <Main className='main--full-width'>
         <Accent>
-          {props.fields.image && <GridCol className='col-12 col-md-3'>
-            <Picture images={images} />
-          </GridCol>}
           <Grid>
-            <GridCol className='col-12 col-md-8 offset-md-3'>
+            {props.fields.image && <GridCol className='col-12 col-md-3'>
+              <Picture {...images} />
+            </GridCol>}
+            <GridCol className={'col-12 col-md-8 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading text={props.fields.drugName} className='inverted'/>
-              <ul className='list-unstyled list-inline'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item' key={i}>{item}</li>)}</ul>
+              <ul className='list-unstyled list-inline'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item inverted inverted--quiet' key={i}>{item}</li>)}</ul>
               <Longform text={props.fields.description} className='spacing-bottom--large'/>
             </GridCol>
           </Grid>
@@ -64,21 +77,31 @@ const Page = props => {
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
-            {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text={`How does ${name} make you feel?`}/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
+            {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text='How does it make you feel?'/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
             }
              {props.fields.effects_whatAreThePhysicalEffects && <React.Fragment><Heading {...modifiers} text={`What are the physical effects of ${name}?`}/><Longform text={props.fields.effects_whatAreThePhysicalEffects} /></React.Fragment>
             }
-            {props.fields.effectsBehaviour && <React.Fragment><Heading {...modifiers} text={`How does ${name} make people behave?`}/><Longform text={props.fields.effectsBehaviour} /></React.Fragment>
+            {props.fields.effectsBehaviour && <React.Fragment><Heading {...modifiers} text={`How does it make people behave?`}/><Longform text={props.fields.effectsBehaviour} /></React.Fragment>
             }
           </Toggle>
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
-            {props.fields.durationDefault && <Longform text={props.fields.durationDefault} />}
+            {props.fields.durationDefault && <React.Fragment><Heading {...modifiers} text={props.fields.durationDefault.fields.name}/><Longform text={props.fields.durationDefault.fields.text} /></React.Fragment>}
 
-            {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text={`How long does ${name} stay in your body?`}/><Longform text={props.fields.durationDetectable} /></React.Fragment>
-            }
-            {props.fields.effects_whatIsTheComedownLike && <React.Fragment><Heading {...modifiers} text={`What is the comedown off ${name} like?`}/><Longform text={props.fields.effects_whatIsTheComedownLike} /></React.Fragment>
+            {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
+              let block = methods.map((a, j) => {
+                return <React.Fragment><dt key={j}>{methods[j]}</dt><dd>{v.fields[methodEffects[j]]}</dd></React.Fragment>
+              })
+
+              block = block.join()
+
+              return (
+                <dl dangerouslySetInnerHTML={{__html: block}} className='definition-list'/>
+              )
+            })}
+
+            {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
             }
           </Toggle>
         </section>
@@ -116,7 +139,6 @@ const Page = props => {
           </Toggle>
         </section>
         <section className='section section--has-toggle'>
-          <Heading className='h3 spacing--single sm-spacing--tight' text={``}/>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
             {props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I feel pressured into taking it, what can I do?'}/><Longform text={props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo} /></React.Fragment>
             }
