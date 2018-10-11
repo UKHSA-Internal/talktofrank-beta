@@ -298,27 +298,17 @@ b {
 
 .definition-list {
   overflow: hidden;
-  margin-bottom: 3rem;
 
-  dd,
   dt {
-    margin-bottom: 1rem;
-    clear: right;
     float: left;
-  }
-
-  dt {
-
+    clear: left;
     width: 40%;
   }
 
   dd {
     text-align: left;
+    float: right;
+    clear: right;
     width: 56%;
-  }
-
-  & + & {
-    border-top: 1px solid $gray-200;
-    padding-top: 3rem;
   }
 }
