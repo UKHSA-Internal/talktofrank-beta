@@ -4,6 +4,10 @@ $dims: 2rem;
   background-color: $gray-100;
   border-bottom: 1px solid $gray-300;
 
+  @include media-breakpoint-down(md) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 
   &--active {
     background-color: transparent;

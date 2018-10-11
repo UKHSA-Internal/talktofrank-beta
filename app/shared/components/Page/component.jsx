@@ -33,7 +33,7 @@ const Page = props => {
             <GridCol className={'col-12 col-md-8 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading text={props.fields.drugName} className='inverted'/>
               <ul className='list-unstyled list-inline'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item inverted inverted--quiet' key={i}>{item}</li>)}</ul>
-              <Longform text={props.fields.description} className='spacing-bottom--large'/>
+              <Longform text={props.fields.description} className='spacing-bottom--single'/>
             </GridCol>
           </Grid>
         </Accent>
