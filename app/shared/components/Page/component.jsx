@@ -17,22 +17,12 @@ const Page = props => {
     className: 'h5 spacing-top--single'
   }
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
-
-
-// image:
-// fields:
-// description: 'Cannabis'
-// file:
-// contentType: "image/jpeg"
-// details: {size: 46367, image: {…}}
-// fileName: "Cannabis.jpg"
-// url: "//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg"
-// title: "Cannabis"
   let images = {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
   }
 
-  let methods =[
+  // @joel getting rid of this soon - temporary
+  let methods = [
     'Method',
     'Start to feel effects',
     'The effects last for',
@@ -45,7 +35,6 @@ const Page = props => {
     'methodEffectsDuration',
     'methodAfterEffects'
   ]
-  console.log(props)
 
   return (
     <React.Fragment>
