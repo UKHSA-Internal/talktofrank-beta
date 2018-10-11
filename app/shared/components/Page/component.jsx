@@ -19,16 +19,18 @@ const Page = props => {
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
 
 
-image:
-fields:
-description: "Cannabis"
-file:
-contentType: "image/jpeg"
-details: {size: 46367, image: {…}}
-fileName: "Cannabis.jpg"
-url: "//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg"
-title: "Cannabis"
-
+// image:
+// fields:
+// description: 'Cannabis'
+// file:
+// contentType: "image/jpeg"
+// details: {size: 46367, image: {…}}
+// fileName: "Cannabis.jpg"
+// url: "//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg"
+// title: "Cannabis"
+  let images = {
+    300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
+  }
 
   console.log(props)
 
@@ -37,10 +39,8 @@ title: "Cannabis"
       <Masthead path={props.location}/>
       <Main className='main--full-width'>
         <Accent>
-          {props.fields.imge && <GridCol className='col-12 col-md-3'>
-            <Heading text={props.fields.drugName} className='inverted'/>
-            <ul className='list-unstyled list-inline'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item' key={i}>{item}</li>)}</ul>
-            <Longform text={props.fields.description} className='spacing-bottom--large'/>
+          {props.fields.image && <GridCol className='col-12 col-md-3'>
+            <Picture images={images} />
           </GridCol>}
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
