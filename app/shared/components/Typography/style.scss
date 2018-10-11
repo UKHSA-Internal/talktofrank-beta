@@ -300,25 +300,39 @@ b {
   overflow: hidden;
   margin-bottom: 3rem;
 
-  dd,
   dt {
-    margin-bottom: 1rem;
-    clear: right;
-    float: left;
-  }
-
-  dt {
-
-    width: 40%;
+    color: $black;
   }
 
   dd {
-    text-align: left;
-    width: 56%;
+    color: $gray-800;
   }
 
-  & + & {
-    border-top: 1px solid $gray-200;
-    padding-top: 3rem;
+  @include media-breakpoint-up(sm) {
+    dd,
+    dt {
+      margin-bottom: 1rem;
+      clear: right;
+      float: left;
+      color: $black;
+    }
+
+    dt {
+      width: 40%;
+    }
+
+    dd {
+      text-align: left;
+      width: 56%;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    & + & {
+      border-top: 1px solid $gray-200;
+      padding-top: 3rem;
+    }
   }
 }

@@ -102,11 +102,7 @@ const Page = props => {
         <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/>
-              {props.fields.lawClass.fields.class}
-              {props.fields.lawClass.fields.dealersSupplying}
-              {props.fields.lawClass.fields.driving}
-              {props.fields.lawClass.fields.possesion}
-              {props.fields.lawClass.fields.supplying}
+            <Longform text={props.fields.lawClass.fields.class + props.fields.lawClass.fields.dealersSupplying + props.fields.lawClass.fields.driving + props.fields.lawClass.fields.possesion + props.fields.lawClass.fields.supplying} />
             </React.Fragment>
             }
           </Toggle>
