@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import Heading from '../Heading/component.jsx'
 import { scrollIntoView } from '../../utilities'
 
 export default class Toggle extends React.PureComponent {
@@ -47,7 +48,7 @@ export default class Toggle extends React.PureComponent {
     return (
       <div className={classes} id={id} aria-hidden={!this.state.visible} ref={node => { this.node = node }}>
         <a role='button' href={`#${id}`} data-target={`#${id}`} className={toggleClass} onClick={this.toggle.bind(this)} aria-expanded={this.state.visible}>
-          {text}
+          <Heading className='h3 spacing--single sm-spacing--tight' text={text}/>
         </a>
         <div className={contentClasses}>
           {this.props.children}
