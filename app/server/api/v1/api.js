@@ -110,12 +110,23 @@ router.get('/drugs/:slug', (req, res, next) => {
         'qualitiesAdministered': [],
         'effectsFeeling': [],
         'effectsBehaviour': [],
+        'durationDefault': [
+          'text'
+        ],
         'durationDetail': [],
         'durationDetectable': [],
+        'durationMethodOfTaking': [
+          'methodAfterEffects',
+          'methodEffectsDuration',
+          'methodEffectsStart'
+        ],
         'risksPhysicalHealth': [],
         'risksHealthMental': [],
         'risksCutWith': [],
         'mixingDangers': [],
+        'lawCaught': [
+          'text'
+        ],
         'lawClass': [
           'possesion',
           'supplying',
@@ -123,12 +134,7 @@ router.get('/drugs/:slug', (req, res, next) => {
           'driving'
         ],
         'addiction': [],
-        'additional': [],
-        'durationMethodOfTaking': [
-          'methodAfterEffects',
-          'methodEffectsDuration',
-          'methodEffectsStart'
-        ]
+        'additional': []
       }
 
       Object.keys(response.fields)

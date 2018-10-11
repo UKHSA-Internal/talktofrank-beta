@@ -275,6 +275,7 @@ b {
 }
 
 .inverted {
+  line-height: 1;
   display: inline-block;
   margin-bottom: .2em;
   background-color: $black;
@@ -287,3 +288,27 @@ b {
   }
 }
 
+// long-form content overrides
+
+.long-form {
+  p {
+    margin-bottom: 1.5em;
+  }
+}
+
+.definition-list {
+  overflow: hidden;
+
+  dt {
+    float: left;
+    clear: left;
+    width: 40%;
+  }
+
+  dd {
+    text-align: left;
+    float: right;
+    clear: right;
+    width: 56%;
+  }
+}
