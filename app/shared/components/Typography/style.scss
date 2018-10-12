@@ -80,6 +80,12 @@ h3,
   padding: 0;
   position: relative;
   bottom: .06em;
+
+  &.heading-inverted--primary {
+    color: $white;
+    padding: .2em .5em;
+    background-color: $pink;
+  }
 }
 
 .constrained-text {
@@ -191,7 +197,7 @@ mark,
   color: $gray-900;
 }
 
-.pink {
+.heading--primary {
   color: $pink;
 }
 
@@ -296,19 +302,62 @@ b {
   }
 }
 
+.displaced-top {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 0 !important;
+  left: 0;
+  width: auto !important;
+}
+
 .definition-list {
-  overflow: hidden;
+  position: relative;
+  margin-bottom: 3rem;
+  margin-top: 5rem;
+  background-color: $gray-200;
+  padding: 1rem;
+  float: left;
 
   dt {
-    float: left;
-    clear: left;
-    width: 40%;
+    color: $black;
   }
 
   dd {
-    text-align: left;
-    float: right;
-    clear: right;
-    width: 56%;
+    color: $gray-800;
   }
+
+  @include media-breakpoint-up(sm) {
+    dd,
+    dt {
+      margin-bottom: 1rem;
+      clear: right;
+      float: left;
+      color: $gray-900;
+    }
+
+    dt {
+      margin-right: .3em;
+      font-family: $headings-font-family;
+      width: 35%;
+    }
+
+    dd {
+      text-align: left;
+      width: 60%;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    & + & {
+      border-top: 1px solid $gray-200;
+    }
+  }
+}
+
+.return-to-top {
+  display: block;
+  padding-top: 1.5rem;
+  color: $black;
 }
