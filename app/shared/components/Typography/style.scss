@@ -307,11 +307,13 @@ b {
   bottom: 100%;
   margin-bottom: 0 !important;
   left: 0;
+  width: auto !important;
 }
 
 .definition-list {
   position: relative;
   margin-bottom: 3rem;
+  margin-top: 5rem;
   background-color: $gray-200;
   padding: 1rem;
   float: left;
@@ -330,16 +332,18 @@ b {
       margin-bottom: 1rem;
       clear: right;
       float: left;
-      color: $black;
+      color: $gray-900;
     }
 
     dt {
       margin-right: .3em;
-      font-weight: bold;
+      font-family: $headings-font-family;
+      width: 35%;
     }
 
     dd {
       text-align: left;
+      width: 60%;
     }
 
     p {
@@ -348,7 +352,6 @@ b {
 
     & + & {
       border-top: 1px solid $gray-200;
-      padding-top: 3rem;
     }
   }
 }
