@@ -80,6 +80,12 @@ h3,
   padding: 0;
   position: relative;
   bottom: .06em;
+
+  &.heading-inverted--primary {
+    color: $white;
+    padding: .2em .5em;
+    background-color: $pink;
+  }
 }
 
 .constrained-text {
@@ -296,9 +302,19 @@ b {
   }
 }
 
+.displaced-top {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 0 !important;
+  left: 0;
+}
+
 .definition-list {
-  overflow: hidden;
+  position: relative;
   margin-bottom: 3rem;
+  background-color: $gray-200;
+  padding: 1rem;
+  float: left;
 
   dt {
     color: $black;
@@ -318,12 +334,12 @@ b {
     }
 
     dt {
-      width: 40%;
+      margin-right: .3em;
+      font-weight: bold;
     }
 
     dd {
       text-align: left;
-      width: 56%;
     }
 
     p {

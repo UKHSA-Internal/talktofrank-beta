@@ -67,7 +67,7 @@ const Page = props => {
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
                 <dl className='definition-list' key={i}>
-                  <dt>Method</dt><Heading type='dd' text={v.fields.methodName}/>
+                  <Heading type='dt' text={v.fields.methodName} className='h4 heading-inverted heading-inverted--primary displaced-top'/>
                   <dt>Start to feel effects</dt><Heading type='dd' text={v.fields.methodEffectsStart}/>
                   <dt>The effects last for</dt><Heading type='dd' text={v.fields.methodEffectsDuration}/>
                   <dt>After effects</dt><Heading type='dd' text={v.fields.methodAfterEffects}/>
