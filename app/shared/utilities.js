@@ -15,6 +15,12 @@ export function getApiHost () {
   return apiHost
 }
 
+export function getContentfulHost () {
+  return `${config.contentful.contentHost}` +
+    `/spaces/${config.contentful.contentSpace}` +
+    `/environments/${config.contentful.environment}`
+}
+
 export function isArray (obj) {
   return obj.constructor === Array
 }

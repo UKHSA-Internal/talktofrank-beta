@@ -51,11 +51,11 @@ h2,
   font-size: 3.2rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 3.6rem;
+    font-size: 4rem;
   }
 
   @include media-breakpoint-up(lg) {
-    font-size: 4.1rem;
+    font-size: 5rem;
   }
 }
 
@@ -80,6 +80,12 @@ h3,
   padding: 0;
   position: relative;
   bottom: .06em;
+
+  &.heading-inverted--primary {
+    color: $white;
+    padding: .2em .5em;
+    background-color: $pink;
+  }
 }
 
 .constrained-text {
@@ -122,12 +128,9 @@ h4,
   }
 }
 
-h6,
-.h6,
-
 h5,
 .h5 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 
   @include media-breakpoint-up(md) {
     font-size: 1.8rem;
@@ -141,17 +144,6 @@ h5,
 
 .lead {
   @extend %lead;
-}
-
-//
-// Horizontal rules
-//
-
-hr {
-  margin-top: $hr-margin-y;
-  margin-bottom: $hr-margin-y;
-  border: 0;
-  border-top: $hr-border-width solid $hr-border-color;
 }
 
 
@@ -205,8 +197,13 @@ mark,
   color: $gray-900;
 }
 
+.heading--primary {
+  color: $pink;
+}
+
 .display-2,
-.display-3 {
+.display-3,
+.display-4 {
   margin-top: .3em;
   line-height: .9;
 }
@@ -223,7 +220,6 @@ mark,
   }
 }
 
-
 .display-3 {
   font-size: 4rem;
 
@@ -233,6 +229,18 @@ mark,
 
   @include media-breakpoint-up(lg) {
     font-size: 9rem;
+  }
+}
+
+.display-4 {
+  font-size: 3.6rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 5rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 7rem;
   }
 }
 
@@ -253,10 +261,10 @@ b {
   font-family: $font-family-heavy;
 }
 
-.list-item--dotted {
+.list-item--underlined {
   padding-top: 1em;
   padding-bottom: 1em;
-  border-bottom: 1px dotted $gray-800;
+  border-bottom: 1px solid $gray-300;
 }
 
 .list-link {
@@ -273,10 +281,83 @@ b {
 }
 
 .inverted {
+  line-height: 1;
   display: inline-block;
   margin-bottom: .2em;
   background-color: $black;
   color: $white;
   padding: .2em .4em;
+
+  &--quiet {
+    background-color: $gray-200;
+    color: $black;
+  }
 }
 
+// long-form content overrides
+
+.long-form {
+  p {
+    margin-bottom: 1.5em;
+  }
+}
+
+.displaced-top {
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 0 !important;
+  left: 0;
+  width: auto !important;
+}
+
+.definition-list {
+  position: relative;
+  margin-bottom: 3rem;
+  margin-top: 5rem;
+  background-color: $gray-200;
+  padding: 1rem;
+  float: left;
+
+  dt {
+    color: $black;
+  }
+
+  dd {
+    color: $gray-800;
+  }
+
+  @include media-breakpoint-up(sm) {
+    dd,
+    dt {
+      margin-bottom: 1rem;
+      clear: right;
+      float: left;
+      color: $gray-900;
+    }
+
+    dt {
+      margin-right: .3em;
+      font-family: $headings-font-family;
+      width: 35%;
+    }
+
+    dd {
+      text-align: left;
+      width: 60%;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    & + & {
+      border-top: 1px solid $gray-200;
+    }
+  }
+}
+
+.return-to-top {
+  display: block;
+  padding-top: 1.5rem;
+  color: $black;
+}

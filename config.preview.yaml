@@ -3,10 +3,9 @@ api: http://preview.alpha-talktofrank.cxp.io:3000
 
 contentful:
   contentHost: 'https://preview.contentful.com'
-  contentSpace: 'mltlrs3kods6'
+  contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
-  contentTypes:
-    drug: 'drugPage'
+  environment: 'develop'
 
 sentry:
  dsn: !!import/single '../config.sentry.yaml'
