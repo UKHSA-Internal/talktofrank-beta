@@ -10,6 +10,15 @@ export const primary = [
     }
   },
   {
+    label: 'Drugs A-Z',
+    url: '/drugs-a-z',
+    tracking: {
+      label: 'Drugs A-Z',
+      action: 'Click',
+      category: 'Navigation'
+    }
+  },
+  {
     label: 'News',
     url: '/news',
     tracking: {
@@ -32,15 +41,6 @@ export const primary = [
     url: '/help-for-others',
     tracking: {
       label: 'Help for others',
-      action: 'Click',
-      category: 'Navigation'
-    }
-  },
-  {
-    label: 'Drugs A-Z',
-    url: '/drugs-a-z',
-    tracking: {
-      label: 'Drugs A-Z',
       action: 'Click',
       category: 'Navigation'
     }
