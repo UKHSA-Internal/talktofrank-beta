@@ -197,7 +197,7 @@ mark,
   color: $gray-900;
 }
 
-.pink {
+.heading--primary {
   color: $pink;
 }
 
@@ -354,4 +354,10 @@ b {
       border-top: 1px solid $gray-200;
     }
   }
+}
+
+.return-to-top {
+  display: block;
+  padding-top: 1.5rem;
+  color: $black;
 }
