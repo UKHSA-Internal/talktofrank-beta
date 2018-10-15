@@ -317,6 +317,8 @@ b {
   background-color: $gray-200;
   padding: 1rem;
   float: left;
+  clear: both;
+  width: 100%;
 
   dt {
     color: $black;
