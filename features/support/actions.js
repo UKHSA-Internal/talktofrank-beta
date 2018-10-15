@@ -11,7 +11,7 @@ var fs = require('fs')
 exports.pageHasLoaded = async () => {
   // Write code here that turns the phrase above into concrete actions
   if (!scope.context.visit.status) {
-    scope.context.visit.waitFor(1000)
+    scope.context.visit.waitFor(1500)
   }
   return await scope.context.visit.status === 200
 }

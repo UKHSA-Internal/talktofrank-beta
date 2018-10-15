@@ -20,7 +20,7 @@ const selectors = {
     'drug-page-title': 'section.accent h2',
     'drug-page-street-names': 'section.accent ul',
     'drug-page-description': 'section.accent .long-form',
-    '': 'section.accent'
+    'drug-page-header': 'section.accent'
   },
   buttons: {},
   checkboxes: {}
