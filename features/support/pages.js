@@ -1,9 +1,10 @@
 const pages = {
   home: '/',
-  aToZ: '/drug',
+  aToZ: '/drugs-a-z',
+  notfound: '/does-not-exist',
   drugPage: name => {
     return `/drug/${name}`
   }
-};
+}
 
-module.exports = pages;
+module.exports = pages

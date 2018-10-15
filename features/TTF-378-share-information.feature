@@ -1,5 +1,5 @@
 @wip
-Feature:
+Feature: TTF-378 Share information
   AS A user
   I WANT to be able to share information
   SO THAT I can let other people know about drugs news and information

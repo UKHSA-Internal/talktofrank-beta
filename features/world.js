@@ -1,5 +1,5 @@
 // Dependencies
-const { setWorldConstructor, setDefaultTimeout } = require('cucumber');
+const { setWorldConstructor, setDefaultTimeout, After } = require('cucumber');
 const puppeteer = require('puppeteer');
 const scope = require('./support/scope');
 
