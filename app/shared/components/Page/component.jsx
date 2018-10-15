@@ -17,6 +17,8 @@ const Page = props => {
     className: 'h5 spacing-top--single'
   }
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
+
+  // @refactor - this will be wired up to contentful
   let images = {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
   }
@@ -40,13 +42,13 @@ const Page = props => {
         </Accent>
         <section className='section section--has-toggle'>
           <Toggle text='How it looks, tastes and smells' className='collapsible--chevron' history={props.location}>
-            {props.fields.qualitiesAppearance && <React.Fragment><Heading {...modifiers} text={`What does ${name} look like?`}/>
+            {props.fields.qualitiesAppearance && <React.Fragment><Heading {...modifiers} text='What does it look like?'/>
               <Longform text={props.fields.qualitiesAppearance}/></React.Fragment>
             }
-            {props.fields.qualitiesTaste && <React.Fragment><Heading {...modifiers} text={`What does ${name} taste/smell like?`}/>
+            {props.fields.qualitiesTaste && <React.Fragment><Heading {...modifiers} text='What does it taste/smell like?'/>
               <Longform text={props.fields.qualitiesTaste}/></React.Fragment>
             }
-            {props.fields.qualitiesAdministered && <React.Fragment><Heading {...modifiers} text={`How do people take ${name}?`}/><Longform text={props.fields.qualitiesAdministered} /></React.Fragment>
+            {props.fields.qualitiesAdministered && <React.Fragment><Heading {...modifiers} text='How do people take it?'/><Longform text={props.fields.qualitiesAdministered} /></React.Fragment>
             }
           </Toggle>
         </section>
