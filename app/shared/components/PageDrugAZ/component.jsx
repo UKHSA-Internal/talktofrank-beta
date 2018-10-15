@@ -28,7 +28,7 @@ const DrugList = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Accent>
+      <Accent className='accent--shallow'>
         <Heading type='h1' className='h2 inverted' text='Drugs A to Z'/>
         <Nav navigation={initialLetter} className='navbar-expand navbar-list'/>
       </Accent>
@@ -40,7 +40,7 @@ const DrugList = props => {
               {props.list.map((val, i) => {
                 return (
                   <li id={val.group} key={'outer' + i}>
-                    <Heading text={val.group} className='display-4 heading--primary spacing-top--large'/>
+                    <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
                     <ul className='list-unstyled'>
                     {val.values.map((v, index) => {
                       // @refactor - please tidy this up : )
@@ -63,7 +63,7 @@ const DrugList = props => {
                       )
                     })}
                     </ul>
-                    <small><a className='return-to-top' href='#app'>Return to top</a></small>
+                    <small><a className='return-to-top' href='#app'>Return to top ^</a></small>
                   </li>
                 )
               })}

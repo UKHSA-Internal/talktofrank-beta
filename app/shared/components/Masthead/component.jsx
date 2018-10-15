@@ -22,7 +22,7 @@ export default class Masthead extends React.PureComponent {
     this.setState({
       takeover: !this.state.takeover
     })
-    // ugh add a class to the html element - redux doesn'r reach this far up
+    // ugh add a class to the html element - redux doesn't reach this far up
     this.state.takeover ? el.remove('html-takeover') : el.add('html-takeover')
   }
 
@@ -33,6 +33,7 @@ export default class Masthead extends React.PureComponent {
   }
 
   render () {
+    // @joel @refactor - remove this into container
     let icon = {
       label: 'search',
       url: '/ui/svg/magnifying.svg'
@@ -53,7 +54,7 @@ export default class Masthead extends React.PureComponent {
             <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Reveal navigation'} clickHandler={this.handleMenuClick.bind(this)}>
               {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
             </Button>
-            <Logo url='/ui/svg/logo-frank.svg' alt=''/>
+            <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
             <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname}/>
           </section>
           <Button className='btn--flat btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
