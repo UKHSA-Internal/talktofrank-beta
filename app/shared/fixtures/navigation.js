@@ -74,7 +74,7 @@ export const footerButton = [{
 
 export const footer = [
   {
-    label: 'News',
+    label: 'frank@talktofrank.com',
     url: 'mailto:frank@talktofrank.com',
     tracking: {
       label: 'Footer email contact',

@@ -33,7 +33,7 @@ const Page = props => {
               <Picture {...images} />
             </GridCol>}
             <GridCol className={'col-12 col-md-8 ' + (!props.fields.image ? 'offset-md-3' : null)}>
-              <Heading text={props.fields.drugName} className='inverted'/>
+              <Heading type='h1' text={props.fields.drugName} className='h2 inverted'/>
               {props.fields.synonyms && <p className='lead'>Also called:</p>}
               <ul className='list-unstyled list-inline'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item inverted inverted--quiet' key={i}>{item}</li>)}</ul>
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
@@ -69,7 +69,7 @@ const Page = props => {
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
                 <dl className='definition-list' key={i}>
-                  <Heading type='dt' text={v.fields.methodName} className='h4 heading-inverted heading-inverted--primary displaced-top'/>
+                  <Heading type='dt' text={v.fields.methodName} className='h4 heading-inverted heading-inverted displaced-top'/>
                   <dt>Start to feel effects</dt><Heading type='dd' text={v.fields.methodEffectsStart}/>
                   <dt>The effects last for</dt><Heading type='dd' text={v.fields.methodEffectsDuration}/>
                   <dt>After effects</dt><Heading type='dd' text={v.fields.methodAfterEffects}/>

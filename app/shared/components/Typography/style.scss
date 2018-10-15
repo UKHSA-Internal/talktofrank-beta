@@ -74,7 +74,7 @@ h3,
 }
 
 .heading-inverted {
-  background-color: $black;
+  background-color: $gray-900;
   color: $white;
   display: inline;
   padding: 0;
@@ -101,7 +101,7 @@ h3,
   overflow: hidden;
 
   span {
-    background-color: $black;
+    background-color: $gray-900;
     color: $white;
     float: left;
     position: relative;
@@ -305,7 +305,7 @@ b {
   line-height: 1;
   display: inline-block;
   margin-bottom: .2em;
-  background-color: $black;
+  background-color: $gray-900;
   color: $white;
   padding: .2em .4em;
 
