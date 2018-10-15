@@ -57,8 +57,8 @@ export const primary = [
 ]
 
 export const footerButton = [{
-  label: 'Telephone Frank',
-  url: 'tel:0800776600',
+  label: '0300 1236600',
+  url: 'tel:03001236600',
   modifier: 'has-icon elevated btn btn--primary',
   icon: {
     url: '/ui/svg/telephone.svg',
