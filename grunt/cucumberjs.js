@@ -5,5 +5,5 @@ module.exports = {
     output: 'features/report.html',
     theme: 'bootstrap'
   },
-  features: ['features'],
+  features: ['features']
 }
