@@ -70,7 +70,6 @@ export function fetchPage (slug, type = 'pages') {
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/' + type + '/' + slug
-    console.log(lookupUrl)
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
