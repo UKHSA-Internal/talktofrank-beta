@@ -9,9 +9,8 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import ReactDOMServer from 'react-dom/server'
 import routes from '../shared/newRoutes'
-import { matchRoutes } from 'react-router-config'
+import { matchRoutes, renderRoutes } from 'react-router-config'
 import { generateStore } from '../shared/store'
-import { renderRoutes } from 'react-router-config'
 import ContentfulTextSearch from 'contentful-text-search'
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
@@ -94,18 +93,15 @@ app.get('/robots.txt', function (req, res) {
  * Pass Express over to the App via the React Router
  */
 app.get('*', (req, res) => {
-
   const store = generateStore()
-
   const loadData = () => {
-
     const branches = matchRoutes(routes, req.path)
 
     let match = branches.find(({ route, match }) => {
       return match.isExact && route.loadData
     })
 
-    if ( !match ) {
+    if (!match) {
       return Promise.resolve(null)
     }
 
@@ -114,7 +110,6 @@ app.get('*', (req, res) => {
 
   (async () => {
     try {
-
       await loadData()
 
       const state = store.getState()
@@ -137,8 +132,7 @@ app.get('*', (req, res) => {
         ReactDOMServer
           .renderToNodeStream(AppComponent)
           .pipe(res)
-      });
-
+      })
     } catch (err) {
       console.log(err)
       // need to render the NoMatch component here
