@@ -22,11 +22,14 @@ const Page = props => {
   let images = {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
   }
-
+console.log(props);
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
       <Main className='main--full-width'>
+        {props.fields.schemaDefinitions &&
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
+        }
         <Accent>
           <Grid>
             {props.fields.image && <GridCol className='col-12 col-md-3'>
