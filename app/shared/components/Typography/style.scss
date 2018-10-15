@@ -331,40 +331,21 @@ b {
 
 .definition-list {
   position: relative;
-  margin-bottom: 3rem;
-  margin-top: 5rem;
+  margin-bottom: 1.5rem;
   background-color: $gray-200;
   padding: 1rem;
-  float: left;
-  clear: both;
-  width: 100%;
-
-  dt {
-    color: $black;
-  }
-
-  dd {
-    color: $gray-800;
-  }
 
   @include media-breakpoint-up(sm) {
     dd,
     dt {
       margin-bottom: 1rem;
-      clear: right;
-      float: left;
-      color: $gray-900;
+      display: inline-block;
     }
 
     dt {
       margin-right: .3em;
+      clear: left;
       font-family: $headings-font-family;
-      width: 35%;
-    }
-
-    dd {
-      text-align: left;
-      width: 60%;
     }
 
     p {

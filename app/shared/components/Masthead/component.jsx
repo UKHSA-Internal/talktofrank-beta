@@ -51,7 +51,7 @@ export default class Masthead extends React.PureComponent {
       <section className={classes} role='banner'>
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
-            <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Reveal navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+            <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
               {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
             </Button>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>

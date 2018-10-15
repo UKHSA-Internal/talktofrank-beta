@@ -18,7 +18,7 @@ const LinkList = props => {
       <ul className='navbar-nav' role='navigation'>
         {props.navigation && props.navigation.map((item, i) => {
           let icon = item.icon || null
-          return <LinkItem key={i} icon={icon} url={item.url} label={item.label} clickHandler={handleItemClick} tracking={item.tracking} role={null}/>
+          return <LinkItem key={i} className='nav-item' icon={icon} url={item.url} label={item.label} clickHandler={handleItemClick} tracking={item.tracking} role={null}/>
         })}
       </ul>
     </section>

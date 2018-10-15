@@ -68,15 +68,18 @@ const Page = props => {
 
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
-                <dl className='definition-list' key={i}>
-                  <Heading type='dt' text={v.fields.methodName} className='h4 heading-inverted heading-inverted displaced-top'/>
-                  <dt>Start to feel effects</dt><Heading type='dd' text={v.fields.methodEffectsStart}/>
-                  <dt>The effects last for</dt><Heading type='dd' text={v.fields.methodEffectsDuration}/>
-                  <dt>After effects</dt><Heading type='dd' text={v.fields.methodAfterEffects}/>
-                </dl>
+                <article className='article' key={i}>
+                  <Heading type='h3' text={v.fields.methodName} className='h4 heading-inverted displaced-top'/>
+                  <dl className='definition-list'>
+                    <dt>Start to feel effects:</dt><Heading type='dd' text={v.fields.methodEffectsStart}/>
+                    <dt>The effects last for:</dt><Heading type='dd' text={v.fields.methodEffectsDuration}/>
+                    <dt>After effects:</dt><Heading type='dd' text={v.fields.methodAfterEffects}/>
+                  </dl>
+                </article>
               )
             })}
-
+            {props.fields.durationDetail && <React.Fragment><Heading {...modifiers} text='Detail'/><Longform text={props.fields.durationDetail} /></React.Fragment>
+            }
             {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
             }
           </Toggle>
@@ -105,7 +108,11 @@ const Page = props => {
         <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/>
-            <Longform text={props.fields.lawClass.fields.class + props.fields.lawClass.fields.dealersSupplying + props.fields.lawClass.fields.driving + props.fields.lawClass.fields.possesion + props.fields.lawClass.fields.supplying} />
+              <Longform text={props.fields.lawClass.fields.class} />
+              <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
+              <Longform text={props.fields.lawClass.fields.driving} />
+              <Longform text={props.fields.lawClass.fields.possesion} />
+              <Longform text={props.fields.lawClass.fields.supplying} />
             </React.Fragment>
             }
           </Toggle>
