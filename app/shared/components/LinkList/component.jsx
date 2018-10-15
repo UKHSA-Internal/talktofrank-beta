@@ -14,11 +14,11 @@ function handleItemClick (e) {
 const LinkList = props => {
   let classes = classNames('navbar', props.className)
   return (
-    <section className={classes} id={props.id}>
-      <ul className='navbar-nav'>
+    <section className={classes}>
+      <ul className='navbar-nav' role='navigation'>
         {props.navigation && props.navigation.map((item, i) => {
           let icon = item.icon || null
-          return <LinkItem key={i} icon={icon} url={item.url} className={linkClass} label={item.label} clickHandler={handleItemClick} tracking={item.tracking} role={null}/>
+          return <LinkItem key={i} icon={icon} url={item.url} label={item.label} clickHandler={handleItemClick} tracking={item.tracking} role={null}/>
         })}
       </ul>
     </section>
