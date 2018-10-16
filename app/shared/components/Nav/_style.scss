@@ -113,6 +113,13 @@
       padding: .3em .3em .15em;
       border-bottom: 2px dotted $pink;
 
+      &:active,
+      &:hover,
+      &:focus {
+        color: $pink;
+        background-color: $gray-900;
+        border-bottom-color: $gray-900;
+      }
     }
   }
 }
