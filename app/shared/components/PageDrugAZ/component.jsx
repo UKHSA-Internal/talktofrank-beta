@@ -12,6 +12,7 @@ import GA from '../GoogleAnalytics/component.jsx'
 
 const DrugList = props => {
   const limit = 4
+  // @refactor @joel - drag this out into the container to map it nicely
   const initialLetter = props.list.map(val => {
     return {
       label: val.group,
@@ -27,9 +28,9 @@ const DrugList = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Accent>
+      <Accent className='accent--shallow'>
         <Heading type='h1' className='h2 inverted' text='Drugs A to Z'/>
-        <Nav navigation={initialLetter} className='navbar-expand navbar-list'/>
+        <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation'/>
       </Accent>
       <Divider className='hr--muted' />
       <Main>
@@ -39,9 +40,10 @@ const DrugList = props => {
               {props.list.map((val, i) => {
                 return (
                   <li id={val.group} key={'outer' + i}>
-                    <Heading text={val.group} modifiers='display-4 pink spacing-top--large'/>
+                    <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
                     <ul className='list-unstyled'>
                     {val.values.map((v, index) => {
+                      // @refactor - please tidy this up : )
                       let synonyms
                       let name = v.parent ? <span className='inverted inverted--quiet'>{v.name}</span> : <span className='inverted'>{v.name}</span>
                       let realName = v.parent ? <span>Real name: <strong>{v.parent}</strong></span> : null
@@ -51,16 +53,17 @@ const DrugList = props => {
                       }
 
                       return (
-                      <li key={'inner' + index} className='list-item list-item--underlined'>
-                        <a href={v.slug} className='list-link'><h3 className='h5'>{name}</h3>
-                        {synonyms && <p className='grey'>Also called: {synonyms}</p>}
-                        {realName}
-                        {v.description && <p><span className='muted'>{v.description}</span></p>}
-                        </a>
-                      </li>)
+                        <li key={'inner' + index} className='list-item list-item--underlined'>
+                          <a href={v.slug} className='list-link'><h3 className='h5'>{name}</h3>
+                          {synonyms && <p className='grey'>Also called: {synonyms}</p>}
+                          {realName}
+                          {v.description && <p><span className='muted'>{v.description}</span></p>}
+                          </a>
+                        </li>
+                      )
                     })}
                     </ul>
-                    <a className='quiet spacing-top--single' href='#app'>Return to top</a>
+                    <small><a className='return-to-top' href='#app'>Return to top ^</a></small>
                   </li>
                 )
               })}
