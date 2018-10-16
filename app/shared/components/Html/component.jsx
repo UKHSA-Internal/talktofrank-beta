@@ -13,8 +13,8 @@ const Html = ({initialState, cacheBusterTS, children}) => {
       <div id='app'>
         {children}
       </div>
-      <script dangerouslySetInnerHTML={{__html: `window.$REDUX_STATE=${JSON.stringify(initialState)}`}}/>
-      <Scripts cacheBusterTS={cacheBusterTS}/>
+      <script dangerouslySetInnerHTML={{__html: `window.$REDUX_STATE=${JSON.stringify(initialState)}`}} />
+      <Scripts cacheBusterTS={cacheBusterTS} />
     </body>
   </html>
   )
