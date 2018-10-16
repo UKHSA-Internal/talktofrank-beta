@@ -1,12 +1,12 @@
 import React from 'react'
-import Page from '../Page/component.jsx'
+import PageStatic from '../PageStatic/component.jsx'
 
 export default class NoMatch extends React.PureComponent {
   render () {
     return (
-      <Page>
+      <PageStatic>
         404
-      </Page>
+      </PageStatic>
     )
   }
 }
