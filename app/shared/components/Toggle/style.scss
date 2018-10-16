@@ -29,7 +29,7 @@ $dims: 2rem;
   .collapsible__content,
   .collapsible__trigger {
     .section--has-toggle & {
-      padding-left: 3rem;
+      padding-left: ($dims * 2);
       padding-right: 1rem;
     }
   }
