@@ -6,13 +6,13 @@ import { fetchPage, fetchDrugList, fetchSearchTerm, receivePageError } from './a
 /**
  * These will be bundled in the main JS file (including client)
  */
-import NoMatch from './components/NoMatch/component.jsx'
-import Html from './components/Html/component.jsx'
+import HTMLWrapper from './components/HTMLWrapper/component.jsx'
 
 /**
  * These will be lazy-loaded on the client
  */
 /* eslint-disable */
+const asyncPageNotFound = loadable(() => import(/*webpackChunkName: 'homepage'*/'./components/PageNotFound/component.jsx'))
 const asyncHome = loadable(() => import(/*webpackChunkName: 'homepage'*/'./containers/HomepageContainer/component.jsx'))
 const asyncPage = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageContainer/component.jsx'))
 const asyncStaticPage = loadable(() => import(/*webpackChunkName: 'static-page'*/'./containers/PageStaticContainer/component.jsx'))
@@ -22,7 +22,7 @@ const asyncDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-a
 /* eslint-enable */
 
 export default [{
-  component: Html,
+  component: HTMLWrapper,
   routes: [
     {
       path: '/',
@@ -59,7 +59,7 @@ export default [{
       }
     },
     {
-      component: NoMatch
+      component: asyncPageNotFound
     }
   ]
 }]

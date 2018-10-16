@@ -5,7 +5,6 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
 import { app } from '../shared/reducers'
-import { fetchPage } from '../shared/actions'
 import thunkMiddleware from 'redux-thunk'
 
 import createHistory from 'history/createBrowserHistory'
@@ -26,11 +25,14 @@ let store = createStore(
 
 const history = createHistory()
 import { Switch, Route } from "react-router";
+const state = store.getState()
 
-hydrate(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      {renderRoutes(routes[0].routes)}
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('app'))
+if (!state.app.error) {
+  hydrate(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        {renderRoutes(routes[0].routes)}
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('app'))
+}
