@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import { fetchPage, fetchDrugList, fetchSearchTerm, receivePageError } from './actions'
-import NoMatchContainer from './containers/NoMatchContainer/component'
-import ServerError from './components/ServerError/component'
 import PageGeneralContainer from './containers/PageGeneralContainer/component'
+import PageNoMatchContainer from './containers/PageNoMatchContainer/component'
+import PageServerError from './components/PageServerError/component'
 import PageContainer from './containers/PageContainer/component'
 import PageStaticContainer from './containers/PageStaticContainer/component'
 import SearchPageContainer from './containers/SearchPageContainer/component'
@@ -23,11 +23,11 @@ let getRoutes = store => {
     return class extends React.Component {
       render () {
         let state = store.getState()
-        switch (state.error) {
+        switch (state.app.error) {
           case 500:
-            return <ServerError />
+            return <PageServerError />
           case 404:
-            return <NoMatchContainer />
+            return <PageNoMatchContainer />
           default:
             return <WrappedComponent {...this.props} />
         }
