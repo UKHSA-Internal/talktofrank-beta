@@ -37,7 +37,7 @@ $dims: 2rem;
   .collapsible__trigger {
     display: block;
     font-family: $headings-font-family;
-    color: $black;
+    color: $body-text;
   }
 
   &.collapsible--chevron {

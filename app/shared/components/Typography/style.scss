@@ -6,7 +6,7 @@
 
 body {
   font-size: 1.5rem;
-  color: $gray-900;
+  color: $body-text;
 
   @include media-breakpoint-up(lg) {
     font-size: 1.8rem;
@@ -275,7 +275,7 @@ b {
 
     &:active,
     &:hover {
-      color: $black;
+      color: $body-text;
       background-color: $gray-100;
 
       p,
@@ -314,7 +314,7 @@ b {
 
   &--quiet {
     background-color: $gray-200;
-    color: $black;
+    color: $body-text;
   }
 }
 
@@ -373,7 +373,7 @@ b {
 .return-to-top {
   display: block;
   padding-top: 1.5rem;
-  color: $black;
+  color: $body-text;
   text-decoration: underline;
 }
 

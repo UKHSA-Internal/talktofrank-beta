@@ -94,7 +94,7 @@
   }
 
   .nav-link {
-    color: $black;
+    color: $body-text;
 
     &:active,
     &:hover,
@@ -113,7 +113,7 @@
 
   .navbar-nav {
     .nav-link {
-      color: $black;
+      color: $body-text;
       padding: .2em .3em 0;
       border-bottom: 2px dotted $pink;
 
