@@ -48,7 +48,7 @@ export default class Masthead extends React.PureComponent {
     })
 
     return (
-      <section className={classes} role='banner'>
+      <header className={classes} role='banner'>
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
             <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
@@ -77,7 +77,7 @@ export default class Masthead extends React.PureComponent {
           </div>
         </section>}
         {this.state.takeover && <div className='takeover-bg'/>}
-      </section>
+      </header>
     )
   }
 }
