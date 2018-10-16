@@ -46,16 +46,17 @@ $max-width: 130rem;
 $max-width-inner: 105rem;
 
 
-$blue:    #0072ee !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #D10058 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #78FF74 !default;
-$teal:    #235461 !default;
-$cyan:    #17a2b8 !default;
+$blue:        #0072ee !default;
+$indigo:      #6610f2 !default;
+$purple:      #6f42c1 !default;
+$pink:        #FC016A !default;
+$pinkAccess:  #D10058 !default;
+$red:         #dc3545 !default;
+$orange:      #fd7e14 !default;
+$yellow:      #ffc107 !default;
+$green:       #78FF74 !default;
+$teal:        #235461 !default;
+$cyan:        #17a2b8 !default;
 
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
