@@ -77,9 +77,9 @@ h3,
   background-color: $gray-900;
   color: $white;
   display: inline;
-  padding: 0;
   position: relative;
   bottom: .06em;
+  padding: 0;
 
   &.heading-inverted--primary {
     color: $white;
@@ -332,15 +332,15 @@ b {
 
 .definition-list {
   position: relative;
-  margin-bottom: 1.5rem;
   background-color: $gray-200;
-  padding: 1rem;
+  overflow: hidden;
+  margin-bottom: 0;
 
   @include media-breakpoint-up(sm) {
     dd,
     dt {
       margin-bottom: 1rem;
-      display: inline-block;
+      float: left;
     }
 
     dt {
@@ -349,7 +349,16 @@ b {
       font-family: $headings-font-family;
     }
 
+    dd {
+      clear: right;
+    }
+
     p {
+      margin-bottom: 0;
+    }
+
+    dd:last-of-type,
+    dt:last-of-type {
       margin-bottom: 0;
     }
 

@@ -11,11 +11,11 @@ import Hero from '../Hero/component.jsx'
 
 export default class PageHome extends React.PureComponent {
   render () {
+    // @refactor @joel - this image data and heading stuff should be coming form contentful
     let hero = {
       heading: {
         wrapper: 'h1',
-        text: 'Honest information about drugs',
-        highlight: [3]
+        text: 'Honest information about drugs'
       },
       url: '/',
       images: {
