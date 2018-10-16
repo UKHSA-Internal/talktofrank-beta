@@ -278,7 +278,9 @@ b {
       color: $black;
       background-color: $gray-100;
 
-      > {
+      p,
+      span {
+        display: inline-block;
         text-decoration: none;
       }
     }
@@ -293,7 +295,7 @@ b {
   display: block;
   color: inherit;
 
-  &::hover p {
+  &:hover p {
     text-decoration: none;
   }
 }
