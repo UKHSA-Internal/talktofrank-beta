@@ -37,6 +37,7 @@
       .navbar-nav {
         display: block;
         width: 100%;
+        margin-top: 2rem;
 
         .nav-item {
           display: block;
@@ -44,8 +45,8 @@
 
         .nav-link {
           width: auto;
-          margin-bottom: 1rem;
-          margin-top: 1rem;
+          margin-bottom: .2rem;
+          margin-top: .2rem;
           display: inline-block;
         }
       }
@@ -78,7 +79,11 @@
 
   .nav-item {
     @include media-breakpoint-up(md) {
-      margin: .5em 1.5em .5em 0;
+      margin: .5em 1em .5em 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-right: 1.5em;
     }
 
     &.nav-item--active {
@@ -89,7 +94,7 @@
   }
 
   .nav-link {
-    color: $black;
+    color: $body-text;
 
     &:active,
     &:hover,
@@ -101,7 +106,6 @@
 
 
 .navbar-list {
-
   .nav-item {
     margin-right: 1.5rem;
     font-size: 2.4rem;
@@ -109,8 +113,8 @@
 
   .navbar-nav {
     .nav-link {
-      color: $black;
-      padding: .3em .3em .15em;
+      color: $body-text;
+      padding: .2em .3em 0;
       border-bottom: 2px dotted $pink;
 
       &:active,

@@ -29,7 +29,7 @@ $grid-gutter: 30px;
 
 .main {
   @extend %constrain-narrow;
-  padding: 3rem 1.5rem 5rem;
+  padding: 3rem 2rem 5rem;
   overflow: hidden;
 
   @include media-breakpoint-up(sm) {

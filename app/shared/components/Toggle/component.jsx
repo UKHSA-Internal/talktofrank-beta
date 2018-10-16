@@ -57,11 +57,11 @@ export default class Toggle extends React.PureComponent {
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
               <h3 className='h3 spacing--single sm-spacing--tight'>
-                <a role='button' href={`#${id}`} data-target={`#${id}`} className={toggleClass} onClick={this.toggle.bind(this)} aria-expanded={this.state.visible}>
+                <a role='button' href={`#${id}`} data-target={`#${id}`} className={toggleClass} onClick={this.toggle.bind(this)} aria-expanded={this.state.visible} aria-controls={`section-${id}`}>
                 {text}
                 </a>
               </h3>
-              <div className={contentClasses} aria-hidden={!this.state.visible}>
+              <div className={contentClasses} aria-hidden={!this.state.visible} id={`section-${id}`}>
                 {this.props.children}
               </div>
             </GridCol>

@@ -6,7 +6,7 @@
 
 body {
   font-size: 1.5rem;
-  color: $gray-900;
+  color: $body-text;
 
   @include media-breakpoint-up(lg) {
     font-size: 1.8rem;
@@ -77,9 +77,9 @@ h3,
   background-color: $gray-900;
   color: $white;
   display: inline;
-  padding: 0;
   position: relative;
   bottom: .06em;
+  padding: 0;
 
   &.heading-inverted--primary {
     color: $white;
@@ -105,6 +105,7 @@ h3,
     color: $white;
     float: left;
     position: relative;
+    margin-top: -.025em;
     padding: 0 .2em 0 .1em;
 
     &.highlighted {
@@ -233,15 +234,7 @@ mark,
 }
 
 .display-4 {
-  font-size: 3.6rem;
-
-  @include media-breakpoint-up(md) {
-    font-size: 5rem;
-  }
-
-  @include media-breakpoint-up(lg) {
-    font-size: 7rem;
-  }
+  font-size: 7rem;
 }
 
 .smaller {
@@ -269,15 +262,16 @@ b {
   }
 
   .list-link {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding: 1em;
 
     &:active,
     &:hover {
-      color: $black;
+      color: $body-text;
       background-color: $gray-100;
 
-      > {
+      p,
+      span {
+        display: inline-block;
         text-decoration: none;
       }
     }
@@ -292,7 +286,7 @@ b {
   display: block;
   color: inherit;
 
-  &::hover p {
+  &:hover p {
     text-decoration: none;
   }
 }
@@ -311,7 +305,7 @@ b {
 
   &--quiet {
     background-color: $gray-200;
-    color: $black;
+    color: $body-text;
   }
 }
 
@@ -331,15 +325,15 @@ b {
 
 .definition-list {
   position: relative;
-  margin-bottom: 1.5rem;
   background-color: $gray-200;
-  padding: 1rem;
+  overflow: hidden;
+  margin-bottom: 0;
 
   @include media-breakpoint-up(sm) {
     dd,
     dt {
       margin-bottom: 1rem;
-      display: inline-block;
+      float: left;
     }
 
     dt {
@@ -348,7 +342,16 @@ b {
       font-family: $headings-font-family;
     }
 
+    dd {
+      clear: right;
+    }
+
     p {
+      margin-bottom: 0;
+    }
+
+    dd:last-of-type,
+    dt:last-of-type {
       margin-bottom: 0;
     }
 
@@ -361,7 +364,7 @@ b {
 .return-to-top {
   display: block;
   padding-top: 1.5rem;
-  color: $black;
+  color: $body-text;
   text-decoration: underline;
 }
 
