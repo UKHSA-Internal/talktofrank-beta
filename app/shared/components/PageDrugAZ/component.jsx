@@ -29,7 +29,7 @@ const DrugList = props => {
     <React.Fragment>
       <Masthead path={props.location}/>
       <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 inverted' text='Drugs A to Z'/>
+        <Heading type='h1' className='h2 inverted spacing-left' text='Drugs A to Z'/>
         <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation'/>
       </Accent>
       <Divider className='hr--muted' />
