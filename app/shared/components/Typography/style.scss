@@ -234,15 +234,7 @@ mark,
 }
 
 .display-4 {
-  font-size: 3.6rem;
-
-  @include media-breakpoint-up(md) {
-    font-size: 5rem;
-  }
-
-  @include media-breakpoint-up(lg) {
-    font-size: 7rem;
-  }
+  font-size: 7rem;
 }
 
 .smaller {
@@ -270,8 +262,7 @@ b {
   }
 
   .list-link {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding: 1em;
 
     &:active,
     &:hover {
