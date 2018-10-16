@@ -45,7 +45,7 @@ const DrugList = props => {
                     {val.values.map((v, index) => {
                       // @refactor - please tidy this up : )
                       let synonyms
-                      //let name = v.parent ? <span className='inverted inverted--quiet'>{v.name}</span> : <span className='inverted'>{v.name}</span>
+                      // let name = v.parent ? <span className='inverted inverted--quiet'>{v.name}</span> : <span className='inverted'>{v.name}</span>
                       let realName = v.parent ? <span>Real name: <strong>{v.parent}</strong></span> : null
 
                       if (v.synonyms) {
