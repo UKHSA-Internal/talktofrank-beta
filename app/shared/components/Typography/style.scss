@@ -74,7 +74,7 @@ h3,
 }
 
 .heading-inverted {
-  background-color: $black;
+  background-color: $gray-900;
   color: $white;
   display: inline;
   padding: 0;
@@ -101,7 +101,7 @@ h3,
   overflow: hidden;
 
   span {
-    background-color: $black;
+    background-color: $gray-900;
     color: $white;
     float: left;
     position: relative;
@@ -262,9 +262,30 @@ b {
 }
 
 .list-item--underlined {
-  padding-top: 1em;
-  padding-bottom: 1em;
   border-bottom: 1px solid $gray-300;
+
+  &:first-child {
+    border-top: 1px solid $gray-300;
+  }
+
+  .list-link {
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    &:active,
+    &:hover {
+      color: $black;
+      background-color: $gray-100;
+
+      > {
+        text-decoration: none;
+      }
+    }
+
+    &:visited {
+      text-decoration: underline;
+    }
+  }
 }
 
 .list-link {
@@ -284,7 +305,7 @@ b {
   line-height: 1;
   display: inline-block;
   margin-bottom: .2em;
-  background-color: $black;
+  background-color: $gray-900;
   color: $white;
   padding: .2em .4em;
 
@@ -305,47 +326,26 @@ b {
 .displaced-top {
   position: absolute;
   bottom: 100%;
-  margin-bottom: 0 !important;
-  left: 0;
   width: auto !important;
 }
 
 .definition-list {
   position: relative;
-  margin-bottom: 3rem;
-  margin-top: 5rem;
+  margin-bottom: 1.5rem;
   background-color: $gray-200;
   padding: 1rem;
-  float: left;
-  clear: both;
-  width: 100%;
-
-  dt {
-    color: $black;
-  }
-
-  dd {
-    color: $gray-800;
-  }
 
   @include media-breakpoint-up(sm) {
     dd,
     dt {
       margin-bottom: 1rem;
-      clear: right;
-      float: left;
-      color: $gray-900;
+      display: inline-block;
     }
 
     dt {
       margin-right: .3em;
+      clear: left;
       font-family: $headings-font-family;
-      width: 35%;
-    }
-
-    dd {
-      text-align: left;
-      width: 60%;
     }
 
     p {
@@ -362,4 +362,6 @@ b {
   display: block;
   padding-top: 1.5rem;
   color: $black;
+  text-decoration: underline;
 }
+
