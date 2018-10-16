@@ -78,7 +78,11 @@
 
   .nav-item {
     @include media-breakpoint-up(md) {
-      margin: .5em 1.5em .5em 0;
+      margin: .5em 1em .5em 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-right: 1.5em;
     }
 
     &.nav-item--active {
