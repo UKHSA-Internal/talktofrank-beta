@@ -52,7 +52,7 @@ export default class Toggle extends React.PureComponent {
     })
 
     return (
-      <div className={classes} id={id} aria-hidden={!this.state.visible} ref={node => { this.node = node }}>
+      <div className={classes} id={id} ref={node => { this.node = node }}>
         <div className='constrain-narrow'>
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
@@ -61,7 +61,7 @@ export default class Toggle extends React.PureComponent {
                 {text}
                 </a>
               </h3>
-              <div className={contentClasses} aria-hidden={this.state.visible ? 'false' : 'true'} >
+              <div className={contentClasses} aria-hidden={!this.state.visible}>
                 {this.props.children}
               </div>
             </GridCol>
