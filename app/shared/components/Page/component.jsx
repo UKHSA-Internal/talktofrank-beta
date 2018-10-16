@@ -27,6 +27,9 @@ const Page = props => {
     <React.Fragment>
       <Masthead path={props.location}/>
       <Main className='main--full-width'>
+        {props.fields.schemaDefinitions &&
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
+        }
         <Accent>
           <Grid>
             {props.fields.image && <GridCol className='col-12 col-md-3'>
