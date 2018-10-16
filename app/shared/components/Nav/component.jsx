@@ -14,10 +14,10 @@ function handleItemClick (e) {
 
 const Nav = props => {
   let classes = classNames('navbar', props.className)
-  let aria = props.labelledBy ? {'ariaLabelledby': props.labelledBy} : null
+  let aria = props.labelledBy ? {'aria-labelledby': props.labelledBy} : null
   return (
-    <nav className={classes} id={props.id} {...aria}>
-      {props.labelledBy && <Heading id={props.id || null} className='visually-hidden' text='Drugs A to Z navigation'/>}
+    <nav className={classes} {...aria}>
+      {props.labelledBy && <Heading id={props.id} className='visually-hidden' text='Drugs A to Z navigation'/>}
       <ul className='navbar-nav' role='menu'>
         {props.navigation && props.navigation.map((item, i) => {
           // @todo @refactor - @joel - make a more bombproof active nav item check
