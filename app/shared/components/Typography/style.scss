@@ -320,6 +320,11 @@ b {
   p {
     margin-bottom: 1.5em;
   }
+
+  a {
+    color: $pinkAccess;
+    text-decoration: underline;
+  }
 }
 
 .displaced-top {
