@@ -12,12 +12,12 @@ import Picture from '../Picture/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 const Page = props => {
+  const syn = props.location.search ? props.location.search.split('=')[1] : null
   const modifiers = {
     type: 'p',
     className: 'h5 spacing-top--single'
   }
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
-
   // @refactor - this will be wired up to contentful
   let images = {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
@@ -38,7 +38,7 @@ const Page = props => {
             <GridCol className={'col-12 col-md-8 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
               {props.fields.synonyms && <p className='lead'>Also called:</p>}
-              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item inverted inverted--quiet' key={i}>{item}</li>)}</ul>
+              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul>
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
             </GridCol>
           </Grid>

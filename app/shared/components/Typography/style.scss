@@ -326,6 +326,11 @@ p {
   a {
     color: $pinkAccess;
     text-decoration: underline;
+
+    &:active,
+    &:hover {
+
+    }
   }
 }
 
