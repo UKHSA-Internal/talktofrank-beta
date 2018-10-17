@@ -171,14 +171,14 @@ export default class SearchPage extends React.Component {
     const showResults = hasResults && !isQueryAQuestion
     return (
       <React.Fragment>
-        <Masthead/>
+        <Masthead path={this.props.location}/>
         <main className='search' id='main' name='main'>
           <div className='search--header'>
             <div>
               <h1>You've entered '<span className={!match ? 'underlined underlined--heavy' : ''}>{searchValue}</span>'</h1>
             </div>
           </div>
-          <div className='main-wrapper'>
+          <div className='main'>
             <Grid>
               <GridCol className='col-12 col-md-8'>
                 <div className='input-group' role='search'>

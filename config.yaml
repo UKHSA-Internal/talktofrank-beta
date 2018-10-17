@@ -6,3 +6,10 @@ elasticsearch:
 
 sentry:
  logErrors: false
+
+contentful:
+  contentTypes:
+    drug: 'drug'
+    page: 'generalPage'
+  entries:
+    homepage: '6YkX4gZ5jawC0eAM6aOCum'

@@ -1,5 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
+import { getContentfulHost } from '../../../shared/utilities'
+
 /**
  * Express routes
  */
@@ -15,6 +17,7 @@ const router = express.Router()
 const sortBy = require('lodash.sortby')
 const groupBy = require('lodash.groupby')
 const Sentry = require('@sentry/node')
+const resolveResponse = require('contentful-resolve-response')
 
 /**
  * Axios global config
@@ -34,69 +37,61 @@ router.get('/pages/:slug', (req, res, next) => {
     return next(error)
   }
 
-  if (req.params.slug === 'index' || req.params.slug === 'no-match' || req.params.slug === 'typography') {
+  if (req.params.slug === 'no-match' ||
+    req.params.slug === 'typography') {
     try {
       return res.send(yaml.safeLoad(fs.readFileSync('./static/' + req.params.slug + '.yml', 'utf8')))
-    } catch (e) {
-      reject(err)
-      next(e)
+    } catch (error) {
+      next(error)
     }
   }
 
-  let lookupUrl = `${config.contentful.contentHost}/spaces/%s/entries?content_type=%s&fields.slug[match]=%s`
-  let pageUrl = util.format(lookupUrl, config.contentful.contentSpace, config.contentful.contentTypes.drug, req.params.slug)
+  let response = {}
+  let lookupUrl = getContentfulHost()
+  let pageUrl = ''
 
-  axios.get(pageUrl).then(json => {
-    if (json.data.total === 0) {
-      let error = new Error()
-      error.message = `Page not found ${pageUrl}`
-      error.status = 404
-      return next(error)
-    }
+  // If the slug value exists in the config contentful 'entries' list use that
+  // to fetch a single content item, fallback to slug value
+  if (config.contentful.entries[req.params.slug]) {
+    lookupUrl += `/entries?sys.id=%s&include=5`
+    pageUrl = util.format(lookupUrl, config.contentful.entries[req.params.slug])
+  } else {
+    lookupUrl += `/entries?content_type=%s&include=5&fields.slug[match]=%s`
+    pageUrl = util.format(lookupUrl, config.contentful.contentTypes.page, req.params.slug)
+  }
 
-    let response = json.data.items[0].fields
-
-    // Fields that need to be converted to HMTL from markdown
-    const markedFields = [
-      'description',
-      'appearance_whatDoesItLookLike',
-      'appearance_whatDoesItTastesmellLike',
-      'appearance_howDoPeopleTakeIt',
-      'effects_howDoesItMakeYouFeel',
-      'effects_howDoesItMakePeopleBehave',
-      'effects_whatAreThePhysicalEffects',
-      'effects_whatIsTheComedownLike',
-      'effects_howLongDoesItStayInYourBody',
-      'risks_whatAreTheRisks',
-      'risks_canYouGetAddicted',
-      'risks_isItDangerousToMixWithOtherDrugs',
-      'risks_whatIsCutWith',
-      'effects_howDoesItEffectSocietyAndTheEnvironment',
-      'law_whatIsTheDrugClassification',
-      'law_whatIfYouAreCaughtWithIt',
-      'worried_iFeelPressuredIntoTakingItWhatCanIDo',
-      'worried_howCanIHelpMyFriendWithTheirUse',
-      'worried_iveSpentAllMyMoneyOnItWhatCanIDo'
-    ]
-
-    Object.keys(response)
-      .filter(field => markedFields.indexOf(field) !== -1)
-      .map(field => {
-        response[field] = marked(response[field])
-      })
-
-    res.send(response)
-  })
+  axios.get(pageUrl)
+    .then(json => {
+      if (json.data.total === 0) {
+        let error = new Error()
+        error.message = `Page not found ${pageUrl}`
+        error.status = 404
+        return next(error)
+      }
+      // merge contentful assets and includes
+      response = resolveResponse(json.data)[0]
+      response.title = response.fields.title
+      res.send(response)
+    })
+    .catch(error => {
+      return next(error.response)
+    })
 })
 
-/**
- * Get page data
- */
-router.get('/drugList', (req, res, next) => {
-  try {
-    let lookupUrl = `${config.contentful.contentHost}/spaces/%s/entries?content_type=%s`
-    let pageUrl = util.format(lookupUrl, config.contentful.contentSpace, config.contentful.contentTypes.drug)
-    axios.get(pageUrl).then(json => {
+router.get('/drugs/:slug', (req, res, next) => {
+  if (!req.params.slug) {
+    let error = new Error()
+    error.message = 'Page id not set'
+    error.status = 404
+    return next(error)
+  }
+
+  let response = {}
+  let lookupUrl = `${getContentfulHost()}/entries?content_type=%s&include=5&fields.slug[match]=%s`
+  let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug, req.params.slug)
+
+  axios.get(pageUrl)
+    .then(json => {
       if (json.data.total === 0) {
         let error = new Error()
         error.message = `Page not found ${pageUrl}`
@@ -104,33 +99,116 @@ router.get('/drugList', (req, res, next) => {
         return next(error)
       }
 
-      let response = {
-        list: []
+      // merge contentful assets and includes
+      response = resolveResponse(json.data)[0]
+      response.title = response.fields.drugName
+
+      // Add contentful field ids here to tranform the contents
+      // from markdown to HTML
+      const markDownFields = {
+        'description': [],
+        'qualitiesAppearance': [],
+        'qualitiesTaste': [],
+        'qualitiesAdministered': [],
+        'effectsFeeling': [],
+        'effectsBehaviour': [],
+        'durationDefault': [
+          'text'
+        ],
+        'durationDetail': [],
+        'durationDetectable': [],
+        'durationMethodOfTaking': [
+          'methodAfterEffects',
+          'methodEffectsDuration',
+          'methodEffectsStart'
+        ],
+        'risksPhysicalHealth': [],
+        'risksHealthMental': [],
+        'risksCutWith': [],
+        'mixingDangers': [],
+        'lawCaught': [
+          'text'
+        ],
+        'lawClass': [
+          'possesion',
+          'supplying',
+          'dealersSupplying',
+          'driving'
+        ],
+        'addiction': [],
+        'additional': []
       }
 
-      json.data.items.map((item) => {
-        // skip item if any key fields are missing (for preview)
-        if (!item.fields.synonyms ||
-          !item.fields.name) {
-          return
-        }
-
-        response.list[response.list.length] = {
-          // name: item.fields.name.toLowerCase(),
-          name: item.fields.name,
-          slug: `/drug/${item.fields.slug}`,
-          synonyms: item.fields.synonyms,
-          description: item.fields.description
-        }
-
-        item.fields.synonyms.split(',').map(synonym => {
-          response.list[response.list.length] = {
-            name: synonym.trim(),
-            slug: `/drug/${item.fields.slug}`,
-            parent: item.fields.name
+      Object.keys(response.fields)
+        .filter(fieldName => markDownFields.hasOwnProperty(fieldName))
+        .map(fieldName => {
+          if (markDownFields[fieldName].length > 0) {
+            if (Array.isArray(response.fields[fieldName])) {
+              for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
+                contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName][i].fields)
+              }
+            } else if (response.fields[fieldName].fields) {
+              contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName].fields)
+            }
+          } else {
+            response.fields[fieldName] = marked(response.fields[fieldName])
           }
         })
-      })
+      res.send(response)
+    })
+    .catch(error => next(error.response))
+})
+
+/**
+ * @todo: refactor this into utilities file
+ */
+const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) => (
+  markDownFields[fieldName]
+    .filter(fieldChildName => responseFields.hasOwnProperty(fieldChildName))
+    .map(fieldChildName => {
+      responseFields[fieldChildName] = marked(responseFields[fieldChildName])
+    })
+)
+
+/**
+ * Get page data
+ */
+router.get('/drugs', (req, res, next) => {
+  let response = {
+    list: []
+  }
+  let lookupUrl = `${getContentfulHost()}/entries?content_type=%s`
+  let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug)
+
+  axios.get(pageUrl)
+    .then(json => {
+      if (json.data.total === 0) {
+        let error = new Error()
+        error.message = `Page not found ${pageUrl}`
+        error.status = 404
+        return next(error)
+      }
+
+      json.data.items
+        .filter(item => item.fields.synonyms && item.fields.drugName)
+        .map((item) => {
+          response.list.push({
+            // name: item.fields.name.toLowerCase(),
+            name: item.fields.drugName,
+            slug: `/drug/${item.fields.slug}`,
+            synonyms: item.fields.synonyms,
+            description: item.fields.description
+          })
+
+          item.fields.synonyms
+            .map(synonym => {
+              response.list.push({
+                name: synonym.trim(),
+                slug: `/drug/${item.fields.slug}`,
+                parent: item.fields.drugName
+              })
+            })
+        })
 
       let grouped = groupBy(response.list, val => {
         return val.name.charAt(0)
@@ -148,26 +226,19 @@ router.get('/drugList', (req, res, next) => {
       }
 
       let numbers = []
-      response.list = sortBy(groupedArray, (item) => (item.group)).filter(v => {
-        if (!isNaN(parseFloat(v.group))) {
-          numbers.push(v)
-          return false
-        }
-
-        return isNaN(parseFloat(v.group)) && v.group !== ''
-      })
+      response.list = sortBy(groupedArray, (item) => (item.group))
+        .filter(v => {
+          if (!isNaN(parseFloat(v.group))) {
+            numbers.push(v)
+            return false
+          }
+          return isNaN(parseFloat(v.group)) && v.group !== ''
+        })
 
       response.list = response.list.concat(numbers)
-
       res.send(response)
-    }).catch(error => {
-      error.status = 500
-      return next(error)
     })
-  } catch (error) {
-    error.status = 500
-    return next(error)
-  }
+    .catch(error => next(error.response))
 })
 
 /**

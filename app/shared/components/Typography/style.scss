@@ -6,7 +6,7 @@
 
 body {
   font-size: 1.5rem;
-  color: $gray-900;
+  color: $body-text;
 
   @include media-breakpoint-up(lg) {
     font-size: 1.8rem;
@@ -51,11 +51,11 @@ h2,
   font-size: 3.2rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 3.6rem;
+    font-size: 4rem;
   }
 
   @include media-breakpoint-up(lg) {
-    font-size: 4.1rem;
+    font-size: 5rem;
   }
 }
 
@@ -74,12 +74,18 @@ h3,
 }
 
 .heading-inverted {
-  background-color: $black;
+  background-color: $gray-900;
   color: $white;
   display: inline;
-  padding: 0;
   position: relative;
   bottom: .06em;
+  padding: 0;
+
+  &.heading-inverted--primary {
+    color: $white;
+    padding: .2em .5em;
+    background-color: $pink;
+  }
 }
 
 .constrained-text {
@@ -95,10 +101,11 @@ h3,
   overflow: hidden;
 
   span {
-    background-color: $black;
+    background-color: $gray-900;
     color: $white;
     float: left;
     position: relative;
+    margin-top: -.025em;
     padding: 0 .2em 0 .1em;
 
     &.highlighted {
@@ -122,12 +129,9 @@ h4,
   }
 }
 
-h6,
-.h6,
-
 h5,
 .h5 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 
   @include media-breakpoint-up(md) {
     font-size: 1.8rem;
@@ -141,17 +145,6 @@ h5,
 
 .lead {
   @extend %lead;
-}
-
-//
-// Horizontal rules
-//
-
-hr {
-  margin-top: $hr-margin-y;
-  margin-bottom: $hr-margin-y;
-  border: 0;
-  border-top: $hr-border-width solid $hr-border-color;
 }
 
 
@@ -205,8 +198,13 @@ mark,
   color: $gray-900;
 }
 
+.heading--primary {
+  color: $pink;
+}
+
 .display-2,
-.display-3 {
+.display-3,
+.display-4 {
   margin-top: .3em;
   line-height: .9;
 }
@@ -223,7 +221,6 @@ mark,
   }
 }
 
-
 .display-3 {
   font-size: 4rem;
 
@@ -234,6 +231,10 @@ mark,
   @include media-breakpoint-up(lg) {
     font-size: 9rem;
   }
+}
+
+.display-4 {
+  font-size: 7rem;
 }
 
 .smaller {
@@ -253,17 +254,39 @@ b {
   font-family: $font-family-heavy;
 }
 
-.list-item--dotted {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  border-bottom: 1px dotted $gray-800;
+.list-item--underlined {
+  border-bottom: 1px solid $gray-300;
+
+  &:first-child {
+    border-top: 1px solid $gray-300;
+  }
+
+  .list-link {
+    padding: 1em;
+
+    &:active,
+    &:hover {
+      color: $body-text;
+      background-color: $gray-100;
+
+      p,
+      span {
+        display: inline-block;
+        text-decoration: none;
+      }
+    }
+
+    &:visited {
+      text-decoration: underline;
+    }
+  }
 }
 
 .list-link {
   display: block;
   color: inherit;
 
-  &::hover p {
+  &:hover p {
     text-decoration: none;
   }
 }
@@ -273,10 +296,75 @@ b {
 }
 
 .inverted {
+  line-height: 1;
   display: inline-block;
   margin-bottom: .2em;
-  background-color: $black;
+  background-color: $gray-900;
   color: $white;
   padding: .2em .4em;
+
+  &--quiet {
+    background-color: $gray-200;
+    color: $body-text;
+  }
+}
+
+// long-form content overrides
+
+.long-form {
+  p {
+    margin-bottom: 1.5em;
+  }
+}
+
+.displaced-top {
+  position: absolute;
+  bottom: 100%;
+  width: auto !important;
+}
+
+.definition-list {
+  position: relative;
+  background-color: $gray-200;
+  overflow: hidden;
+  margin-bottom: 0;
+
+  @include media-breakpoint-up(sm) {
+    dd,
+    dt {
+      margin-bottom: 1rem;
+      float: left;
+    }
+
+    dt {
+      margin-right: .3em;
+      clear: left;
+      font-family: $headings-font-family;
+    }
+
+    dd {
+      clear: right;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    dd:last-of-type,
+    dt:last-of-type {
+      margin-bottom: 0;
+    }
+
+    & + & {
+      border-top: 1px solid $gray-200;
+    }
+  }
+}
+
+.return-to-top {
+  display: block;
+  padding-top: 1.5rem;
+  color: $body-text;
+  text-decoration: underline;
 }
 

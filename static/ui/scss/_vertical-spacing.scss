@@ -47,7 +47,6 @@ $vertical-spacing: 30px;
  */
 @include spacing();
 
-
 @include media-breakpoint-up(sm) {
   @include spacing('sm-');
 }

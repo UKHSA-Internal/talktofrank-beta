@@ -1,6 +1,9 @@
 import React from 'react'
 import classNames from 'classnames'
+import Heading from '../Heading/component.jsx'
 import { scrollIntoView } from '../../utilities'
+import Grid from '../Grid/component.jsx'
+import GridCol from '../GridCol/component.jsx'
 
 export default class Toggle extends React.PureComponent {
   constructor (props) {
@@ -35,8 +38,12 @@ export default class Toggle extends React.PureComponent {
 
   render () {
     const id = this.returnId()
-    let text = this.props.hidden ? <span className='sr-only'>{this.props.text}</span> : this.props.text
-    let classes = classNames('collapsible', this.props.className)
+    // temp removal
+    // let text = this.props.hidden ? <span className='sr-only'>{this.props.text}</span> : this.props.text
+    let text = this.props.text
+    let classes = classNames('collapsible', this.props.className, {
+      'collapsible--active': this.state.visible
+    })
     let contentClasses = classNames('collapsible__content', {
       'collapsible__content--active': this.state.visible
     })
@@ -45,12 +52,20 @@ export default class Toggle extends React.PureComponent {
     })
 
     return (
-      <div className={classes} id={id} aria-hidden={!this.state.visible} ref={node => { this.node = node }}>
-        <a role='button' href={`#${id}`} data-target={`#${id}`} className={toggleClass} onClick={this.toggle.bind(this)} aria-expanded={this.state.visible}>
-          {text}
-        </a>
-        <div className={contentClasses}>
-          {this.props.children}
+      <div className={classes} id={id} ref={node => { this.node = node }}>
+        <div className='constrain-narrow'>
+          <Grid>
+            <GridCol className='col-12 col-md-8 offset-md-3'>
+              <h3 className='h3 spacing--single sm-spacing--tight'>
+                <a role='button' href={`#${id}`} data-target={`#${id}`} className={toggleClass} onClick={this.toggle.bind(this)} aria-expanded={this.state.visible} aria-controls={`section-${id}`}>
+                {text}
+                </a>
+              </h3>
+              <div className={contentClasses} aria-hidden={!this.state.visible} id={`section-${id}`}>
+                {this.props.children}
+              </div>
+            </GridCol>
+          </Grid>
         </div>
       </div>
     )

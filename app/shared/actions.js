@@ -7,7 +7,6 @@ import { config } from 'config'
 export const REQUEST_PAGE = 'REQUEST_PAGE'
 export const RECEIVE_PAGE = 'RECEIVE_PAGE'
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR'
-export const SEND_NOTIFICATION = 'SEND_NOTIFICATION'
 
 let apiHost = getApiHost()
 
@@ -53,10 +52,11 @@ export function fetchSearchTerm (term, drug, shouldOrMustQuery) {
 export function fetchDrugList () {
   return dispatch => {
     dispatch(requestPage())
-    let lookupUrl = apiHost + '/api/v1/drugList'
+    let lookupUrl = apiHost + '/api/v1/drugs'
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
+        return Promise.resolve(null)
       })
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status

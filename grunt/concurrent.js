@@ -14,5 +14,11 @@ module.exports = {
   },
   js: {
     tasks: ['webpack:client', 'webpack:server']
+  },
+  cucumber: {
+    tasks: ['nodemon', 'cucumberjs'],
+    options: {
+      logConcurrentOutput: true
+    }
   }
 }

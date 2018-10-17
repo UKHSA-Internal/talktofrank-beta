@@ -1,19 +1,140 @@
-.navbar {
-  padding-left: .5rem;
-}
+.navigation-wrapper {
+  padding: .75rem 0 0;
 
-.nav-item {
   @include media-breakpoint-up(md) {
-    margin: .5em 1.5em .5em 0;
+    display: flex;
+    align-items: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 }
 
-.nav-link {
-  color: $gray-600;
+.navbar {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-family: $font-family-heavy;
 
-  &:active,
-  &:hover,
-  &:focus {
+  &.navbar-drop-sm {
+    @include media-breakpoint-up(md) {
+      margin-right: 3rem;
+    }
+  }
+
+  &.displaced-top {
+    position: relative;
+    transform: translateY(-3rem);
+    margin-bottom: -3rem;
+
+    @include media-breakpoint-up(md) {
+      margin-bottom: -1rem;
+    }
+  }
+
+  &.navbar-raised {
+    font-size: 1.8rem;
+
+    @include media-breakpoint-down(sm) {
+      .navbar-nav {
+        display: block;
+        width: 100%;
+        margin-top: 2rem;
+
+        .nav-item {
+          display: block;
+        }
+
+        .nav-link {
+          width: auto;
+          margin-bottom: .2rem;
+          margin-top: .2rem;
+          display: inline-block;
+        }
+      }
+    }
+
+    .nav-item {
+      margin-right: 2rem;
+    }
+
+    .nav-link {
+      color: $white;
+      padding-bottom: 0;
+      border-bottom: 1px dotted $white;
+    }
+
+  }
+}
+
+.navbar-primary {
+  margin-top: .5rem;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 2.2rem;
+    background-color: $gray-200;
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 0;
+  }
+
+  .nav-item {
+    @include media-breakpoint-up(md) {
+      margin: .5em 1em .5em 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-right: 1.5em;
+    }
+
+    &.nav-item--active {
+      .nav-link {
+        color: $pink;
+      }
+    }
+  }
+
+  .nav-link {
+    color: $body-text;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: $pink;
+    }
+  }
+}
+
+
+.navbar-list {
+  .nav-item {
+    margin-right: 1.5rem;
+    font-size: 2.4rem;
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $body-text;
+      padding: .2em .3em 0;
+      border-bottom: 2px dotted $pink;
+
+      &:active,
+      &:hover,
+      &:focus {
+        color: $pink;
+        background-color: $gray-900;
+        border-bottom-color: $gray-900;
+      }
+    }
+  }
+}
+
+
+.navbar-muted {
+  .nav-link {
+    color: $gray-500;
+    border-bottom: 0;
     text-decoration: underline;
+    font-size: 1.4rem;
+    margin-right: 1.5rem;
   }
 }
