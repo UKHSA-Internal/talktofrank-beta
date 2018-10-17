@@ -11,6 +11,9 @@ config.staging.yaml
 config.users.yaml
 config.yaml
 
+features/debug/*
+!features/debug/readme.txt
+
 .DS_Store
 
 *.bak

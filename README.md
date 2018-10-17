@@ -100,6 +100,51 @@ sentry:
  dsn: ''
 ```
 
+### Testing
+
+Smoke tests available using cucumber-js and puppeteer.  Folder structure for the tests:
+
+```
+.
+└── features                        # Folder containing all cucumber feature files
+    ├── debug                       # Debugging console output and screenshots saved here
+    ├── step_definition             # 
+    │   ├── common.js               # Cucumber give/then/when step defintions
+    ├── support                     # Helper files
+    │   ├── actions.js              # Implementations of step definitions using puppeteer API
+    │   ├── assertions.js           # Text found on the site used to assert scenarios
+    │   ├── pages.js                # URLs used as part of the scenariuos
+    │   ├── scope.js                # initialises a global scope used to store access to the browser
+    │   └── selectors.js            # DOM selectors found on the site used to assert scenarios
+    ├── hooks.js                    # Before/After cucumber hooks 
+    └── world.js                    # Global cucmber js config
+``` 
+
+#### Tags used
+
+* `@wip` - work in progress, to be implemented
+* `@duplicate` - should be ignored / are not implemented as the functionality is duplicated into another scenario
+* `@ignore` - any other tests that should not be run (aren't going to be implemented and are not duplicates)
+
+#### Running the test
+
+To run the cucumber-js test the site must already be running, i.e. this command does not start the server.
+You can either run the tests via the CLI:
+
+```
+CUCUMBER_HOST=[http://testdomain] cucumber-js --tags "not @ignore and not @wip and not @duplicate"
+```
+
+Or using Grunt, which assumes the config found in `./grunt/cucumberjs`:
+
+```
+CUCUMBER_HOST=[http://testdomain] grunt cucumberjs
+```
+
+This will create an HTML formatted results page at `./features/report.html`
+
+
+
 ## Releasing
 
 - Determine the new semantic version of the release.
