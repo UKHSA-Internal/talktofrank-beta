@@ -15,6 +15,7 @@ import ContentfulTextSearch from 'contentful-text-search'
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
 import { getLoadableState } from 'loadable-components/server'
+
 /*
  * Express routes
  */
@@ -26,6 +27,8 @@ import contentFulWebhookRoutes from './contentful/webhooks.js'
 */
 import { config } from 'config'
 import packageInfo from '../../package.json'
+import Html from '../shared/components/Html/component'
+import PageNotFound from '../shared/components/PageNotFound/component'
 
 const Sentry = require('@sentry/node')
 if (config.sentry.logErrors) {
@@ -111,7 +114,21 @@ app.get('*', (req, res) => {
   (async () => {
     try {
       await loadData()
+    } catch (err) {
+      const state = store.getState()
+      state.app.pageData.title = 'Page not found'
+      state.app.pageData.error = 404
+      const props = {
+        routes: null,
+        initialState: state,
+        cacheBusterTS: cacheBusterTS
+      }
+      return ReactDOMServer
+        .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
+        .pipe(res)
+    }
 
+    try {
       const state = store.getState()
       const staticContext = {}
 
@@ -136,7 +153,11 @@ app.get('*', (req, res) => {
     } catch (err) {
       console.log(err)
       // need to render the NoMatch component here
-      res.status(404).send('Not Found :(')
+      res.status(500).send('' +
+        '<html>' +
+        '<body><h2>Internal server error :(</h2></body>' +
+        '</html>'
+      )
     }
   })()
 })

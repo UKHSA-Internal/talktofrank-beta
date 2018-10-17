@@ -70,6 +70,7 @@ router.get('/pages/:slug', (req, res, next) => {
       }
       // merge contentful assets and includes
       response = resolveResponse(json.data)[0]
+      response.title = response.fields.title
       res.send(response)
     })
     .catch(error => {
@@ -100,6 +101,7 @@ router.get('/drugs/:slug', (req, res, next) => {
 
       // merge contentful assets and includes
       response = resolveResponse(json.data)[0]
+      response.title = response.fields.drugName
 
       // Add contentful field ids here to tranform the contents
       // from markdown to HTML
