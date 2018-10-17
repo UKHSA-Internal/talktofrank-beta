@@ -95,7 +95,7 @@
   }
 
   .nav-link {
-    color: $body-text;
+    color: $text-dark-blue;
 
     &:active,
     &:hover,
@@ -114,7 +114,7 @@
 
   .navbar-nav {
     .nav-link {
-      color: $body-text;
+      color: $text-dark-blue;
       padding: .2em .3em 0;
       border-bottom: 2px dotted $pink;
 
