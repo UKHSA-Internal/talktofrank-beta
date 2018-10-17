@@ -88,7 +88,7 @@
 
     &.nav-item--active {
       .nav-link {
-        color: $pink;
+        color: $pinkAccess;
       }
     }
   }
@@ -114,7 +114,7 @@
     .nav-link {
       color: $text-dark-blue;
       padding: .2em .3em 0;
-      border-bottom: 2px dotted $pink;
+      border-bottom: 2px dotted $pinkAccess;
 
       &:active,
       &:hover,
