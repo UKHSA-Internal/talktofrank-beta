@@ -235,6 +235,7 @@ mark,
 
 .display-4 {
   font-size: 7rem;
+  margin-left: -.05em;
 }
 
 .smaller {
@@ -262,7 +263,11 @@ b {
   }
 
   .list-link {
-    padding: 1em;
+    padding: 1em 1em 1em 0;
+
+    @include media-breakpoint-up(sm) {
+      padding-left: 1em;
+    }
 
     &:active,
     &:hover {
