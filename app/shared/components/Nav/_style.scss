@@ -2,7 +2,6 @@
   padding: .75rem 0 0;
 
   @include media-breakpoint-up(md) {
-    padding-bottom: .5rem;
     display: flex;
     align-items: center;
     padding-top: 1.5rem;
@@ -104,7 +103,6 @@
     }
   }
 }
-
 
 .navbar-list {
   .nav-item {

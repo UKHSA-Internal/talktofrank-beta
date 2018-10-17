@@ -24,6 +24,12 @@ $dims: 2rem;
       display: block;
       padding-bottom: 3rem;
     }
+
+    .section--has-toggle & {
+      @include media-breakpoint-down(sm) {
+        padding-left: 0;
+      }
+    }
   }
 
   .collapsible__content,
@@ -34,13 +40,6 @@ $dims: 2rem;
     }
   }
 
-  .collapsible__content{
-    .section--has-toggle & {
-      @include media-breakpoint-down(sm) {
-        padding-left: 0;
-      }
-    }
-  }
   .collapsible__trigger {
     display: block;
     font-family: $headings-font-family;
