@@ -9,7 +9,7 @@
 //
 
 $white:    #fff !default;
-$gray-100: #f8f9fa !default;
+$gray-100: #F0F4F5 !default;
 $gray-200: #f0f4f5 !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
@@ -17,7 +17,8 @@ $gray-500: #adb5bd !default;
 $gray-600: #767676 !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
-$gray-900: #002B36 !default;
+$gray-900: #0E3944 !default;
+$body-text: #4A4A4A !default;
 $black:    #000 !default;
 $purple: #ca24c2;
 
@@ -46,16 +47,17 @@ $max-width: 130rem;
 $max-width-inner: 105rem;
 
 
-$blue:    #0072ee !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #FF2479 !default;
-$red:     #dc3545 !default;
-$orange:  #fd7e14 !default;
-$yellow:  #ffc107 !default;
-$green:   #78FF74 !default;
-$teal:    #235461 !default;
-$cyan:    #17a2b8 !default;
+$blue:        #0072ee !default;
+$indigo:      #6610f2 !default;
+$purple:      #6f42c1 !default;
+$pink:        #FC016A !default;
+$pinkAccess:  #D10058 !default;
+$red:         #dc3545 !default;
+$orange:      #fd7e14 !default;
+$yellow:      #ffc107 !default;
+$green:       #78FF74 !default;
+$teal:        #235461 !default;
+$cyan:        #17a2b8 !default;
 
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default

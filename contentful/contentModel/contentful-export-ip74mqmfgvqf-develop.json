@@ -127,7 +127,7 @@
         "id": "drug",
         "type": "ContentType",
         "createdAt": "2018-10-04T15:17:25.890Z",
-        "updatedAt": "2018-10-09T11:02:25.348Z",
+        "updatedAt": "2018-10-15T15:45:43.454Z",
         "environment": {
           "sys": {
             "id": "develop",
@@ -149,8 +149,8 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedCounter": 36,
-        "version": 73,
+        "publishedCounter": 41,
+        "version": 83,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -158,9 +158,9 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedVersion": 72,
+        "publishedVersion": 82,
         "firstPublishedAt": "2018-10-04T15:17:52.196Z",
-        "publishedAt": "2018-10-09T11:02:25.348Z"
+        "publishedAt": "2018-10-15T15:45:43.454Z"
       },
       "displayField": "drugName",
       "name": "Drug",
@@ -324,6 +324,23 @@
           "omitted": true
         },
         {
+          "id": "durationDefault",
+          "name": "Default Duration text",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "textBlocks"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
           "id": "durationMethodOfTaking",
           "name": "Method of taking",
           "type": "Array",
@@ -484,6 +501,23 @@
           "linkType": "Entry"
         },
         {
+          "id": "lawCaught",
+          "name": "What if you're caught",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "textBlocks"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
           "id": "additional",
           "name": "Additional specific paragraphs:",
           "type": "Text",
@@ -515,6 +549,17 @@
             ],
             "linkType": "Entry"
           }
+        },
+        {
+          "id": "schemaDefinitions",
+          "name": "Schema definitions",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
         }
       ]
     },
@@ -627,7 +672,7 @@
         "id": "drugClass",
         "type": "ContentType",
         "createdAt": "2018-10-04T16:12:05.219Z",
-        "updatedAt": "2018-10-04T17:44:48.921Z",
+        "updatedAt": "2018-10-11T10:27:36.868Z",
         "environment": {
           "sys": {
             "id": "develop",
@@ -649,8 +694,8 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedCounter": 2,
-        "version": 4,
+        "publishedCounter": 4,
+        "version": 8,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -658,9 +703,9 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedVersion": 3,
+        "publishedVersion": 7,
         "firstPublishedAt": "2018-10-04T16:12:05.600Z",
-        "publishedAt": "2018-10-04T17:44:48.921Z"
+        "publishedAt": "2018-10-11T10:27:36.868Z"
       },
       "displayField": "class",
       "name": "Drug > class",
@@ -691,6 +736,28 @@
         {
           "id": "supplying",
           "name": "Supplying",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "driving",
+          "name": "Driving under the influence",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "dealersSupplying",
+          "name": "Allowing dealers to supply drugs in your house",
           "type": "Text",
           "localized": false,
           "required": false,
@@ -858,7 +925,7 @@
         "id": "generalPage",
         "type": "ContentType",
         "createdAt": "2018-10-09T14:09:06.100Z",
-        "updatedAt": "2018-10-09T14:09:06.537Z",
+        "updatedAt": "2018-10-11T15:55:04.502Z",
         "environment": {
           "sys": {
             "id": "develop",
@@ -880,8 +947,8 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedCounter": 1,
-        "version": 2,
+        "publishedCounter": 2,
+        "version": 4,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -889,9 +956,9 @@
             "id": "7sIkrqOAkQT2PLLlnvWzTb"
           }
         },
-        "publishedVersion": 1,
+        "publishedVersion": 3,
         "firstPublishedAt": "2018-10-09T14:09:06.537Z",
-        "publishedAt": "2018-10-09T14:09:06.537Z"
+        "publishedAt": "2018-10-11T15:55:04.502Z"
       },
       "displayField": "title",
       "name": "General page",
@@ -918,6 +985,115 @@
             {
               "unique": true
             }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "content",
+          "name": "Content",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "responsiveImageGroup",
+                  "textBlocks"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "ip74mqmfgvqf"
+          }
+        },
+        "id": "textBlocks",
+        "type": "ContentType",
+        "createdAt": "2018-10-10T15:27:50.192Z",
+        "updatedAt": "2018-10-10T15:30:26.691Z",
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "7sIkrqOAkQT2PLLlnvWzTb"
+          }
+        },
+        "publishedVersion": 3,
+        "firstPublishedAt": "2018-10-10T15:27:50.737Z",
+        "publishedAt": "2018-10-10T15:30:26.691Z"
+      },
+      "displayField": "name",
+      "name": "Static text blocks",
+      "description": "A reusable text block",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "heading",
+          "name": "Heading",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "text",
+          "name": "Text",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
           ],
           "disabled": false,
           "omitted": false
@@ -1008,7 +1184,7 @@
             "linkType": "Space"
           }
         },
-        "version": 72,
+        "version": 82,
         "createdAt": "2018-10-04T15:17:52.305Z",
         "createdBy": {
           "sys": {
@@ -1017,7 +1193,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-10-09T11:02:26.017Z",
+        "updatedAt": "2018-10-15T15:45:44.305Z",
         "updatedBy": {
           "sys": {
             "id": "7sIkrqOAkQT2PLLlnvWzTb",
@@ -1106,6 +1282,10 @@
           "widgetId": "3FVPfLzZsAMSY4WoKuuksq"
         },
         {
+          "fieldId": "durationDefault",
+          "widgetId": "entryCardEditor"
+        },
+        {
           "fieldId": "durationMethodOfTaking",
           "settings": {
             "bulkEditing": true
@@ -1167,6 +1347,10 @@
           "widgetId": "5Qq2GTowScEMs8go0guUMC"
         },
         {
+          "fieldId": "lawCaught",
+          "widgetId": "entryCardEditor"
+        },
+        {
           "fieldId": "additional",
           "settings": {
             "helpText": "This is for any FAQ’s about the drug that are not covered by the worried about a friend or dealing with peer pressure e.g. “I’ve spent all my money on coke”"
@@ -1179,6 +1363,10 @@
             "bulkEditing": true
           },
           "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "schemaDefinitions",
+          "widgetId": "objectEditor"
         }
       ]
     },
@@ -1255,7 +1443,7 @@
             "linkType": "Space"
           }
         },
-        "version": 4,
+        "version": 8,
         "createdAt": "2018-10-04T16:12:05.725Z",
         "createdBy": {
           "sys": {
@@ -1264,7 +1452,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-10-04T17:44:49.747Z",
+        "updatedAt": "2018-10-11T10:27:37.458Z",
         "updatedBy": {
           "sys": {
             "id": "7sIkrqOAkQT2PLLlnvWzTb",
@@ -1298,6 +1486,14 @@
         },
         {
           "fieldId": "supplying",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "driving",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "dealersSupplying",
           "widgetId": "markdown"
         }
       ]
@@ -1420,7 +1616,7 @@
             "linkType": "Space"
           }
         },
-        "version": 2,
+        "version": 4,
         "createdAt": "2018-10-09T14:09:06.647Z",
         "createdBy": {
           "sys": {
@@ -1429,7 +1625,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-10-09T14:09:07.269Z",
+        "updatedAt": "2018-10-11T15:55:04.939Z",
         "updatedBy": {
           "sys": {
             "id": "7sIkrqOAkQT2PLLlnvWzTb",
@@ -1463,6 +1659,74 @@
             "helpText": "http://www.talktofrank.com/[value here]"
           },
           "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "content",
+          "settings": {
+            "bulkEditing": false
+          },
+          "widgetId": "entryCardsEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "ip74mqmfgvqf",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 4,
+        "createdAt": "2018-10-10T15:27:50.833Z",
+        "createdBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-10-10T15:30:27.429Z",
+        "updatedBy": {
+          "sys": {
+            "id": "7sIkrqOAkQT2PLLlnvWzTb",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "textBlocks",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "develop",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "settings": {
+            "helpText": "For admin reference"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "heading",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "text",
+          "widgetId": "markdown"
         }
       ]
     }

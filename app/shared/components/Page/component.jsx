@@ -27,15 +27,18 @@ const Page = props => {
     <React.Fragment>
       <Masthead path={props.location}/>
       <Main className='main--full-width'>
+        {props.fields.schemaDefinitions &&
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
+        }
         <Accent>
           <Grid>
             {props.fields.image && <GridCol className='col-12 col-md-3'>
               <Picture {...images} />
             </GridCol>}
             <GridCol className={'col-12 col-md-8 ' + (!props.fields.image ? 'offset-md-3' : null)}>
-              <Heading text={props.fields.drugName} className='inverted'/>
+              <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
               {props.fields.synonyms && <p className='lead'>Also called:</p>}
-              <ul className='list-unstyled list-inline'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item inverted inverted--quiet' key={i}>{item}</li>)}</ul>
+              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item inverted inverted--quiet' key={i}>{item}</li>)}</ul>
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
             </GridCol>
           </Grid>
@@ -68,15 +71,18 @@ const Page = props => {
 
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
-                <dl className='definition-list' key={i}>
-                  <Heading type='dt' text={v.fields.methodName} className='h4 heading-inverted heading-inverted--primary displaced-top'/>
-                  <dt>Start to feel effects</dt><Heading type='dd' text={v.fields.methodEffectsStart}/>
-                  <dt>The effects last for</dt><Heading type='dd' text={v.fields.methodEffectsDuration}/>
-                  <dt>After effects</dt><Heading type='dd' text={v.fields.methodAfterEffects}/>
-                </dl>
+                <article className='panel panel--padding-small panel--has-heading' key={i}>
+                  <Heading type='h3' text={v.fields.methodName} className='h4 inverted displaced-top'/>
+                  <ul className='list-unstyled'>
+                    <Heading type='li' text={v.fields.methodEffectsStart}/>
+                    <Heading type='li' text={v.fields.methodEffectsDuration}/>
+                    {v.fields.methodAfterEffects && <Heading type='li' text={v.fields.methodAfterEffects}/>}
+                  </ul>
+                </article>
               )
             })}
-
+            {props.fields.durationDetail && <React.Fragment><Heading {...modifiers} text='Detail'/><Longform text={props.fields.durationDetail} /></React.Fragment>
+            }
             {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
             }
           </Toggle>
@@ -105,7 +111,11 @@ const Page = props => {
         <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/>
-            <Longform text={props.fields.lawClass.fields.class + props.fields.lawClass.fields.dealersSupplying + props.fields.lawClass.fields.driving + props.fields.lawClass.fields.possesion + props.fields.lawClass.fields.supplying} />
+              <Longform text={props.fields.lawClass.fields.class} />
+              <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
+              <Longform text={props.fields.lawClass.fields.driving} />
+              <Longform text={props.fields.lawClass.fields.possesion} />
+              <Longform text={props.fields.lawClass.fields.supplying} />
             </React.Fragment>
             }
           </Toggle>
@@ -118,7 +128,6 @@ const Page = props => {
             }
             {props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I`ve spent all my money on it, what can I do'}/><Longform text={props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo} /></React.Fragment>
             }
-
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
           </Toggle>
         </section>
