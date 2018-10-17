@@ -121,9 +121,9 @@
       &:active,
       &:hover,
       &:focus {
-        color: $pink;
-        background-color: $gray-900;
-        border-bottom-color: $gray-900;
+        color: $pinkAccess;
+        border-bottom-style: solid;
+        border-bottom-color: $pinkAccess;
       }
     }
   }
