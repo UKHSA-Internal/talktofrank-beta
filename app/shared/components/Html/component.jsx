@@ -4,18 +4,20 @@ import Skiplinks from '../Skiplinks/component.jsx'
 import Scripts from '../Scripts/component.jsx'
 import Head from '../Head/component.jsx'
 
-const Html = ({route, initialState, cacheBusterTS}) => (
+const Html = ({initialState, cacheBusterTS, children}) => {
+  return (
   <html lang='en'>
-    <Head />
+    <Head {...initialState.app.pageData} />
     <body>
-      <Skiplinks />
+      <Skiplinks/>
       <div id='app'>
-        {renderRoutes(route.routes)}
+        {children}
       </div>
       <script dangerouslySetInnerHTML={{__html: `window.$REDUX_STATE=${JSON.stringify(initialState)}`}} />
       <Scripts cacheBusterTS={cacheBusterTS} />
     </body>
   </html>
-)
+  )
+}
 
 export default Html
