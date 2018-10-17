@@ -37,9 +37,9 @@ export default class Picture extends React.PureComponent {
     let classes = classNames('image', this.props.className)
 
     return (
-      <picture className={classes} role='presentation'>
+      <picture className={classes}>
         {sources}
-        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt='' />
+        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt='' role='presentation'/>
       </picture>
     )
   }
