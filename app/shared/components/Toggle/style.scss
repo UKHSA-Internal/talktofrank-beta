@@ -1,5 +1,15 @@
 $dims: 2rem;
 
+.collapsible-wrapper {
+  margin-bottom: 5rem;
+
+  .section:first-of-type {
+    .collapsible {
+      border-top: 1px solid $gray-300;
+    }
+  }
+}
+
 .collapsible {
   background-color: $gray-100;
   border-bottom: 1px solid $gray-300;
@@ -11,10 +21,6 @@ $dims: 2rem;
 
   &--active {
     background-color: transparent;
-  }
-
-  &:first-of-type {
-    border-top: 1px solid $gray-300;
   }
 
   .collapsible__content {

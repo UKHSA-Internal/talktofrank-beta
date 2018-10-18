@@ -5,12 +5,8 @@
 //
 
 body {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: $body-text;
-
-  @include media-breakpoint-up(lg) {
-    font-size: 1.8rem;
-  }
 }
 
 h1,
@@ -118,10 +114,10 @@ h4,
 .h4,
 %lead,
 %h4 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   @include media-breakpoint-up(lg) {
@@ -131,10 +127,10 @@ h4,
 
 h5,
 .h5 {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
 
   @include media-breakpoint-up(lg) {

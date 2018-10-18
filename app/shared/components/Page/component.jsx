@@ -43,95 +43,96 @@ const Page = props => {
             </GridCol>
           </Grid>
         </Accent>
-        <section className='section section--has-toggle'>
-          <Toggle text='How it looks, tastes and smells' className='collapsible--chevron' history={props.location}>
-            {props.fields.qualitiesAppearance && <React.Fragment><Heading {...modifiers} text='What does it look like?'/>
-              <Longform text={props.fields.qualitiesAppearance}/></React.Fragment>
-            }
-            {props.fields.qualitiesTaste && <React.Fragment><Heading {...modifiers} text='What does it taste/smell like?'/>
-              <Longform text={props.fields.qualitiesTaste}/></React.Fragment>
-            }
-            {props.fields.qualitiesAdministered && <React.Fragment><Heading {...modifiers} text='How do people take it?'/><Longform text={props.fields.qualitiesAdministered} /></React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
-            {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text='How does it make you feel?'/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
-            }
-             {props.fields.effects_whatAreThePhysicalEffects && <React.Fragment><Heading {...modifiers} text={`What are the physical effects of ${name}?`}/><Longform text={props.fields.effects_whatAreThePhysicalEffects} /></React.Fragment>
-            }
-            {props.fields.effectsBehaviour && <React.Fragment><Heading {...modifiers} text={`How does it make people behave?`}/><Longform text={props.fields.effectsBehaviour} /></React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
-            {props.fields.durationDefault && <React.Fragment><Heading {...modifiers} text={props.fields.durationDefault.fields.name}/><Longform text={props.fields.durationDefault.fields.text} /></React.Fragment>}
+        <div className='collapsible-wrapper'>
+          <section className='section section--has-toggle'>
+            <Toggle text='How it looks, tastes and smells' className='collapsible--chevron' history={props.location}>
+              {props.fields.qualitiesAppearance && <React.Fragment><Heading {...modifiers} text='What does it look like?'/>
+                <Longform text={props.fields.qualitiesAppearance}/></React.Fragment>
+              }
+              {props.fields.qualitiesTaste && <React.Fragment><Heading {...modifiers} text='What does it taste/smell like?'/>
+                <Longform text={props.fields.qualitiesTaste}/></React.Fragment>
+              }
+              {props.fields.qualitiesAdministered && <React.Fragment><Heading {...modifiers} text='How do people take it?'/><Longform text={props.fields.qualitiesAdministered} /></React.Fragment>
+              }
+            </Toggle>
+          </section>
+          <section className='section section--has-toggle'>
+            <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
+              {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text='How does it make you feel?'/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
+              }
+               {props.fields.effects_whatAreThePhysicalEffects && <React.Fragment><Heading {...modifiers} text={`What are the physical effects of ${name}?`}/><Longform text={props.fields.effects_whatAreThePhysicalEffects} /></React.Fragment>
+              }
+              {props.fields.effectsBehaviour && <React.Fragment><Heading {...modifiers} text={`How does it make people behave?`}/><Longform text={props.fields.effectsBehaviour} /></React.Fragment>
+              }
+            </Toggle>
+          </section>
+          <section className='section section--has-toggle'>
+            <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
+              {props.fields.durationDefault && <React.Fragment><Heading {...modifiers} text={props.fields.durationDefault.fields.name}/><Longform text={props.fields.durationDefault.fields.text} /></React.Fragment>}
 
-            {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
-              return (
-                <article className='panel panel--padding-small panel--has-heading' key={i}>
-                  <Heading type='h3' text={v.fields.methodName} className='h4 inverted displaced-top'/>
-                  <ul className='list-unstyled'>
-                    <Heading type='li' text={v.fields.methodEffectsStart}/>
-                    <Heading type='li' text={v.fields.methodEffectsDuration}/>
-                    {v.fields.methodAfterEffects && <Heading type='li' text={v.fields.methodAfterEffects}/>}
-                  </ul>
-                </article>
-              )
-            })}
-            {props.fields.durationDetail && <React.Fragment><Heading {...modifiers} text='Detail'/><Longform text={props.fields.durationDetail} /></React.Fragment>
-            }
-            {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='The risks' className='collapsible--chevron' history={props.location}>
-            {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform text={props.fields.risksHealthMental} /></React.Fragment>
-            }
-            {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks of ${name}?`}/><Longform text={props.fields.risksPhysicalHealth} /></React.Fragment>
-            }
-            {props.fields.risksCutWith && <React.Fragment><Heading {...modifiers} text={`What is ${name} cut with?`}/><Longform text={props.fields.risksCutWith} /></React.Fragment>}
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='Mixing' className='collapsible--chevron' history={props.location}>
-            {props.fields.mixingDangers && <React.Fragment><Heading {...modifiers} text={`Is ${name} dangerous to mix with other drugs?`}/><Longform text={props.fields.mixingDangers} /></React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='Addiction' className='collapsible--chevron' history={props.location}>
-            {props.fields.addiction && <React.Fragment><Heading {...modifiers} text={`Can you get addicted to ${name}?`}/><Longform text={props.fields.addiction} /></React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='The law' className='collapsible--chevron' history={props.location}>
-            {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/>
-              <Longform text={props.fields.lawClass.fields.class} />
-              <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
-              <Longform text={props.fields.lawClass.fields.driving} />
-              <Longform text={props.fields.lawClass.fields.possesion} />
-              <Longform text={props.fields.lawClass.fields.supplying} />
-            </React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
-            {props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I feel pressured into taking it, what can I do?'}/><Longform text={props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo} /></React.Fragment>
-            }
-            {props.fields.worried_howCanIHelpMyFriendWithTheirUse && <React.Fragment><Heading {...modifiers} text={'How can I help my friend with their use?'}/><Longform text={props.fields.worried_howCanIHelpMyFriendWithTheirUse} /></React.Fragment>
-            }
-            {props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I`ve spent all my money on it, what can I do'}/><Longform text={props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo} /></React.Fragment>
-            }
-            <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
-          </Toggle>
-        </section>
-
+              {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
+                return (
+                  <article className='panel panel--padding-small panel--has-heading' key={i}>
+                    <Heading type='h3' text={v.fields.methodName} className='h4 inverted displaced-top'/>
+                    <ul className='list-unstyled'>
+                      <Heading type='li' text={v.fields.methodEffectsStart}/>
+                      <Heading type='li' text={v.fields.methodEffectsDuration}/>
+                      {v.fields.methodAfterEffects && <Heading type='li' text={v.fields.methodAfterEffects}/>}
+                    </ul>
+                  </article>
+                )
+              })}
+              {props.fields.durationDetail && <React.Fragment><Heading {...modifiers} text='Detail'/><Longform text={props.fields.durationDetail} /></React.Fragment>
+              }
+              {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
+              }
+            </Toggle>
+          </section>
+          <section className='section section--has-toggle'>
+            <Toggle text='The risks' className='collapsible--chevron' history={props.location}>
+              {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform text={props.fields.risksHealthMental} /></React.Fragment>
+              }
+              {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks of ${name}?`}/><Longform text={props.fields.risksPhysicalHealth} /></React.Fragment>
+              }
+              {props.fields.risksCutWith && <React.Fragment><Heading {...modifiers} text={`What is ${name} cut with?`}/><Longform text={props.fields.risksCutWith} /></React.Fragment>}
+            </Toggle>
+          </section>
+          <section className='section section--has-toggle'>
+            <Toggle text='Mixing' className='collapsible--chevron' history={props.location}>
+              {props.fields.mixingDangers && <React.Fragment><Heading {...modifiers} text={`Is ${name} dangerous to mix with other drugs?`}/><Longform text={props.fields.mixingDangers} /></React.Fragment>
+              }
+            </Toggle>
+          </section>
+          <section className='section section--has-toggle'>
+            <Toggle text='Addiction' className='collapsible--chevron' history={props.location}>
+              {props.fields.addiction && <React.Fragment><Heading {...modifiers} text={`Can you get addicted to ${name}?`}/><Longform text={props.fields.addiction} /></React.Fragment>
+              }
+            </Toggle>
+          </section>
+          <section className='section section--has-toggle'>
+            <Toggle text='The law' className='collapsible--chevron' history={props.location}>
+              {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/>
+                <Longform text={props.fields.lawClass.fields.class} />
+                <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
+                <Longform text={props.fields.lawClass.fields.driving} />
+                <Longform text={props.fields.lawClass.fields.possesion} />
+                <Longform text={props.fields.lawClass.fields.supplying} />
+              </React.Fragment>
+              }
+            </Toggle>
+          </section>
+          <section className='section section--has-toggle'>
+            <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
+              {props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I feel pressured into taking it, what can I do?'}/><Longform text={props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo} /></React.Fragment>
+              }
+              {props.fields.worried_howCanIHelpMyFriendWithTheirUse && <React.Fragment><Heading {...modifiers} text={'How can I help my friend with their use?'}/><Longform text={props.fields.worried_howCanIHelpMyFriendWithTheirUse} /></React.Fragment>
+              }
+              {props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I`ve spent all my money on it, what can I do'}/><Longform text={props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo} /></React.Fragment>
+              }
+              <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
+            </Toggle>
+          </section>
+        </div>
       </Main>
       <Footer />
       <GA/>
