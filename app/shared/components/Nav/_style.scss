@@ -88,22 +88,21 @@
 
     &.nav-item--active {
       .nav-link {
-        color: $pink;
+        color: $pinkAccess;
       }
     }
   }
 
   .nav-link {
-    color: $body-text;
+    color: $text-dark-blue;
 
     &:active,
     &:hover,
     &:focus {
-      color: $pink;
+      color: $pinkAccess;
     }
   }
 }
-
 
 .navbar-list {
   .nav-item {
@@ -113,16 +112,16 @@
 
   .navbar-nav {
     .nav-link {
-      color: $body-text;
+      color: $text-dark-blue;
       padding: .2em .3em 0;
-      border-bottom: 2px dotted $pink;
+      border-bottom: 2px dotted $pinkAccess;
 
       &:active,
       &:hover,
       &:focus {
-        color: $pink;
-        background-color: $gray-900;
-        border-bottom-color: $gray-900;
+        color: $pinkAccess;
+        border-bottom-style: solid;
+        border-bottom-color: $pinkAccess;
       }
     }
   }

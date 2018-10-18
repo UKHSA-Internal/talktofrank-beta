@@ -5,12 +5,8 @@
 //
 
 body {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: $body-text;
-
-  @include media-breakpoint-up(lg) {
-    font-size: 1.8rem;
-  }
 }
 
 h1,
@@ -96,21 +92,29 @@ h3,
   max-width: 70%;
 }
 
-.heading-inverted-test {
-  display: block;
-  overflow: hidden;
+.heading-inverted--inline {
+  position: relative;
+  line-height: .9;
+  background-color: $text-dark-blue;
+  display: inline;
+  left: 4rem;
+
+  &:before {
+    content: '';
+    position: absolute;
+    background-color: $text-dark-blue;
+    width: 2rem;
+    top: 0;
+    left: -2rem;
+    bottom: 0;
+  }
 
   span {
-    background-color: $gray-900;
+    left: -1rem;
     color: $white;
-    float: left;
+    margin: 0;
     position: relative;
-    margin-top: -.025em;
-    padding: 0 .2em 0 .1em;
-
-    &.highlighted {
-      color: $pink;
-    }
+    bottom: .3rem;
   }
 }
 
@@ -118,10 +122,10 @@ h4,
 .h4,
 %lead,
 %h4 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   @include media-breakpoint-up(lg) {
@@ -131,10 +135,10 @@ h4,
 
 h5,
 .h5 {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
 
   @include media-breakpoint-up(lg) {
@@ -235,6 +239,7 @@ mark,
 
 .display-4 {
   font-size: 7rem;
+  margin-left: -.05em;
 }
 
 .smaller {
@@ -250,6 +255,7 @@ mark,
 }
 
 strong,
+.bold,
 b {
   font-family: $font-family-heavy;
 }
@@ -262,7 +268,11 @@ b {
   }
 
   .list-link {
-    padding: 1em;
+    padding: 1em 1em 1em 0;
+
+    @include media-breakpoint-up(sm) {
+      padding-left: 1em;
+    }
 
     &:active,
     &:hover {
@@ -314,6 +324,18 @@ b {
 .long-form {
   p {
     margin-bottom: 1.5em;
+  }
+}
+
+p {
+  a {
+    color: $pinkAccess;
+    text-decoration: underline;
+
+    &:active,
+    &:hover {
+
+    }
   }
 }
 

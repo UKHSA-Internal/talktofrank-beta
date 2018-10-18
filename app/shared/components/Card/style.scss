@@ -34,7 +34,7 @@
 }
 
 .has-arrow {
-  &::after {
+  &:after {
     content: '';
     position: absolute;
     width: 5rem;
@@ -52,7 +52,7 @@
 .has-chevron {
   padding-right: 2.5rem;
 
-  &::after {
+  &:after {
     position: absolute;
     content: '';
     background-size: contain;

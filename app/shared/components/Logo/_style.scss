@@ -1,7 +1,11 @@
 
 .logo {
   display: inline-block;
-  margin: .5rem 1rem 1rem 1.5rem;
+  margin: .5rem 1rem 1.3rem 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 1rem;
+  }
 }
 
 .logo__link {
