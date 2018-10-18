@@ -13,11 +13,11 @@ import GA from '../GoogleAnalytics/component.jsx'
 
 const Page = props => {
   const modifiers = {
-    type: 'p',
+    type: 'h4',
     className: 'h5 spacing-top--single'
   }
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
-
+  console.log(props.fields)
   // @refactor - this will be wired up to contentful
   let images = {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
@@ -59,8 +59,7 @@ const Page = props => {
           <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
             {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text='How does it make you feel?'/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
             }
-             {props.fields.effects_whatAreThePhysicalEffects && <React.Fragment><Heading {...modifiers} text={`What are the physical effects of ${name}?`}/><Longform text={props.fields.effects_whatAreThePhysicalEffects} /></React.Fragment>
-            }
+
             {props.fields.effectsBehaviour && <React.Fragment><Heading {...modifiers} text={`How does it make people behave?`}/><Longform text={props.fields.effectsBehaviour} /></React.Fragment>
             }
           </Toggle>
@@ -73,11 +72,11 @@ const Page = props => {
               return (
                 <article className='panel panel--padding-small panel--has-heading' key={i}>
                   <Heading type='h3' text={v.fields.methodName} className='h4 inverted displaced-top'/>
-                  <ul className='list-unstyled'>
-                    <Heading type='li' text={v.fields.methodEffectsStart}/>
-                    <Heading type='li' text={v.fields.methodEffectsDuration}/>
-                    {v.fields.methodAfterEffects && <Heading type='li' text={v.fields.methodAfterEffects}/>}
-                  </ul>
+                  <dl className='definition-list'>
+                    <dt>Start to feel effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsStart}} />
+                    <dt>The effects last for:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsDuration}} />
+                    {v.fields.methodAfterEffects && <React.Fragment><dt>After effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodAfterEffects}}/></React.Fragment>}
+                  </dl>
                 </article>
               )
             })}
@@ -110,24 +109,19 @@ const Page = props => {
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
-            {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text={`What is the drug classification of ${name}?`}/>
-              <Longform text={props.fields.lawClass.fields.class} />
+            {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text='Class name'/>
+              <Heading type='p' className='h3 inverted' text={'Class ' + props.fields.lawClass.fields.class} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
               <Longform text={props.fields.lawClass.fields.driving} />
               <Longform text={props.fields.lawClass.fields.possesion} />
               <Longform text={props.fields.lawClass.fields.supplying} />
             </React.Fragment>
             }
+            {props.fields.lawCaught.fields.text && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
         </section>
         <section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
-            {props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I feel pressured into taking it, what can I do?'}/><Longform text={props.fields.worried_iFeelPressuredIntoTakingItWhatCanIDo} /></React.Fragment>
-            }
-            {props.fields.worried_howCanIHelpMyFriendWithTheirUse && <React.Fragment><Heading {...modifiers} text={'How can I help my friend with their use?'}/><Longform text={props.fields.worried_howCanIHelpMyFriendWithTheirUse} /></React.Fragment>
-            }
-            {props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo && <React.Fragment><Heading {...modifiers} text={'I`ve spent all my money on it, what can I do'}/><Longform text={props.fields.worried_iveSpentAllMyMoneyOnItWhatCanIDo} /></React.Fragment>
-            }
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
           </Toggle>
         </section>

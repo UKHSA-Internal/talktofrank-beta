@@ -313,14 +313,8 @@ b {
 
 .long-form {
   p {
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
   }
-}
-
-.displaced-top {
-  position: absolute;
-  bottom: 100%;
-  width: auto !important;
 }
 
 .definition-list {
@@ -333,7 +327,7 @@ b {
     dd,
     dt {
       margin-bottom: 1rem;
-      float: left;
+      display: inline;
     }
 
     dt {
@@ -343,10 +337,12 @@ b {
     }
 
     dd {
+      width: auto;
       clear: right;
     }
 
     p {
+      display: inline-block;
       margin-bottom: 0;
     }
 
