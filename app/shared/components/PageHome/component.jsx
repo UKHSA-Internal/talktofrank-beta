@@ -15,7 +15,7 @@ export default class PageHome extends React.PureComponent {
     let hero = {
       heading: {
         wrapper: 'h1',
-        text: 'Honest information about drugs'
+        text: 'Honest <br/>information <br/>about drugs'
       },
       url: '/',
       images: {

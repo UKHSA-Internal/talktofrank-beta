@@ -3,7 +3,7 @@
   z-index: 100;
   background-color: $white;
   width: 100%;
-  box-shadow: 0 3px 5px -2px rgba($black, .2);
+  box-shadow: 0 3px 5px -2px rgba($text-dark-blue, .2);
 }
 
 .masthead__takeover__inner,
@@ -34,5 +34,5 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba($black, .4);
+  background-color: rgba($text-dark-blue, .4);
 }
