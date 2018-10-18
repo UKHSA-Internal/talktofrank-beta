@@ -28,7 +28,10 @@ export default [{
     {
       path: '/',
       exact: true,
-      component: asyncHome
+      component: asyncHome,
+      loadData: () => {
+        return fetchPage('homepage')
+      }
     },
     {
       path: '/drugs-a-z',

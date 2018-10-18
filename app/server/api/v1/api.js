@@ -10,7 +10,6 @@ import searchRoutes from './apisearch.js'
 const express = require('express')
 const yaml = require('js-yaml')
 const fs = require('fs')
-const bodyParser = require('body-parser')
 const util = require('util')
 const marked = require('marked')
 const router = express.Router()
@@ -18,6 +17,14 @@ const sortBy = require('lodash.sortby')
 const groupBy = require('lodash.groupby')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
+const contentful = require("contentful")
+const contentfulClient = contentful.createClient({
+  // This is the space ID. A space is like a project folder in Contentful terms
+  space: config.contentful.contentSpace,
+  environment: config.contentful.environment,
+  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+  accessToken: config.contentful.contentAccessToken
+});
 
 /**
  * Axios global config
@@ -46,36 +53,39 @@ router.get('/pages/:slug', (req, res, next) => {
     }
   }
 
-  let response = {}
-  let lookupUrl = getContentfulHost()
-  let pageUrl = ''
-
   // If the slug value exists in the config contentful 'entries' list use that
   // to fetch a single content item, fallback to slug value
   if (config.contentful.entries[req.params.slug]) {
-    lookupUrl += `/entries?sys.id=%s&include=5`
-    pageUrl = util.format(lookupUrl, config.contentful.entries[req.params.slug])
+    contentfulClient.getEntry(config.contentful.entries[req.params.slug])
+      .then((entry) => {
+        // merge contentful assets and includes
+        let response = entry
+        response.title = response.fields.title
+        res.send(response)
+      })
+      .catch(error => next(error.response))
+
   } else {
-    lookupUrl += `/entries?content_type=%s&include=5&fields.slug[match]=%s`
-    pageUrl = util.format(lookupUrl, config.contentful.contentTypes.page, req.params.slug)
+    contentfulClient.getEntries({
+      content_type: config.contentful.contentTypes.page,
+      'fields.slug': req.params.slug,
+    })
+      .then((contentfulResponse) => {
+        if (contentfulResponse.total === 0) {
+          let error = new Error()
+          error.message = `Page not found`
+          error.status = 404
+          return next(error)
+        }
+        // merge contentful assets and includes
+        let response = resolveResponse(contentfulResponse)[0]
+
+        response.title = response.fields.title
+        res.send(response)
+      })
+      .catch(error => next(error.response))
   }
 
-  axios.get(pageUrl)
-    .then(json => {
-      if (json.data.total === 0) {
-        let error = new Error()
-        error.message = `Page not found ${pageUrl}`
-        error.status = 404
-        return next(error)
-      }
-      // merge contentful assets and includes
-      response = resolveResponse(json.data)[0]
-      response.title = response.fields.title
-      res.send(response)
-    })
-    .catch(error => {
-      return next(error.response)
-    })
 })
 
 router.get('/drugs/:slug', (req, res, next) => {
@@ -86,24 +96,21 @@ router.get('/drugs/:slug', (req, res, next) => {
     return next(error)
   }
 
-  let response = {}
-  let lookupUrl = `${getContentfulHost()}/entries?content_type=%s&include=5&fields.slug[match]=%s`
-  let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug, req.params.slug)
-
-  axios.get(pageUrl)
-    .then(json => {
-      if (json.data.total === 0) {
+  contentfulClient.getEntries({
+    content_type: config.contentful.contentTypes.drug,
+    'fields.slug': req.params.slug,
+  })
+    .then((contentfulResponse) => {
+      if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found ${pageUrl}`
+        error.message = `Page not found`
         error.status = 404
         return next(error)
       }
 
-      // merge contentful assets and includes
-      response = resolveResponse(json.data)[0]
+      let response = resolveResponse(contentfulResponse)[0]
       response.title = response.fields.drugName
-
-      // Add contentful field ids here to tranform the contents
+      // Add contentful field ids here to transform the contents
       // from markdown to HTML
       const markDownFields = {
         'description': [],
@@ -116,6 +123,9 @@ router.get('/drugs/:slug', (req, res, next) => {
           'text'
         ],
         'durationDetail': [],
+        'durationDetectableDefault': [
+          'text'
+        ],
         'durationDetectable': [],
         'durationMethodOfTaking': [
           'methodAfterEffects',
@@ -130,6 +140,7 @@ router.get('/drugs/:slug', (req, res, next) => {
           'text'
         ],
         'lawClass': [
+          'description',
           'possesion',
           'supplying',
           'dealersSupplying',
@@ -145,16 +156,18 @@ router.get('/drugs/:slug', (req, res, next) => {
           if (markDownFields[fieldName].length > 0) {
             if (Array.isArray(response.fields[fieldName])) {
               for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
-                contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName][i].fields)
+                return contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName][i].fields)
               }
             } else if (response.fields[fieldName].fields) {
-              contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName].fields)
+              return contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName].fields)
             }
           } else {
-            response.fields[fieldName] = marked(response.fields[fieldName])
+            return response.fields[fieldName] = marked(response.fields[fieldName])
           }
         })
+
       res.send(response)
+
     })
     .catch(error => next(error.response))
 })
@@ -177,19 +190,20 @@ router.get('/drugs', (req, res, next) => {
   let response = {
     list: []
   }
-  let lookupUrl = `${getContentfulHost()}/entries?content_type=%s`
-  let pageUrl = util.format(lookupUrl, config.contentful.contentTypes.drug)
 
-  axios.get(pageUrl)
-    .then(json => {
-      if (json.data.total === 0) {
+  contentfulClient.getEntries({
+    content_type: config.contentful.contentTypes.drug
+  })
+    .then((contentfulResponse) => {
+
+      if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `Page not found ${pageUrl}`
         error.status = 404
         return next(error)
       }
 
-      json.data.items
+      contentfulResponse.items
         .filter(item => item.fields.synonyms && item.fields.drugName)
         .map((item) => {
           response.list.push({
