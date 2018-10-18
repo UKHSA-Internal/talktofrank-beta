@@ -17,14 +17,14 @@ const sortBy = require('lodash.sortby')
 const groupBy = require('lodash.groupby')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
-const contentful = require("contentful")
+const contentful = require('contentful')
 const contentfulClient = contentful.createClient({
   // This is the space ID. A space is like a project folder in Contentful terms
   space: config.contentful.contentSpace,
   environment: config.contentful.environment,
   // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
   accessToken: config.contentful.contentAccessToken
-});
+})
 
 /**
  * Axios global config
@@ -64,11 +64,10 @@ router.get('/pages/:slug', (req, res, next) => {
         res.send(response)
       })
       .catch(error => next(error.response))
-
   } else {
     contentfulClient.getEntries({
       content_type: config.contentful.contentTypes.page,
-      'fields.slug': req.params.slug,
+      'fields.slug': req.params.slug
     })
       .then((contentfulResponse) => {
         if (contentfulResponse.total === 0) {
@@ -85,7 +84,6 @@ router.get('/pages/:slug', (req, res, next) => {
       })
       .catch(error => next(error.response))
   }
-
 })
 
 router.get('/drugs/:slug', (req, res, next) => {
@@ -98,7 +96,7 @@ router.get('/drugs/:slug', (req, res, next) => {
 
   contentfulClient.getEntries({
     content_type: config.contentful.contentTypes.drug,
-    'fields.slug': req.params.slug,
+    'fields.slug': req.params.slug
   })
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
@@ -162,12 +160,10 @@ router.get('/drugs/:slug', (req, res, next) => {
               return contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName].fields)
             }
           } else {
-            return response.fields[fieldName] = marked(response.fields[fieldName])
+            response.fields[fieldName] = marked(response.fields[fieldName])
           }
         })
-
       res.send(response)
-
     })
     .catch(error => next(error.response))
 })
@@ -195,7 +191,6 @@ router.get('/drugs', (req, res, next) => {
     content_type: config.contentful.contentTypes.drug
   })
     .then((contentfulResponse) => {
-
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `Page not found ${pageUrl}`
