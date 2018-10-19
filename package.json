@@ -58,6 +58,7 @@
     "chai-enzyme": "^1.0.0-beta.1",
     "chrome-launcher": "^0.10.5",
     "classnames": "^2.2.6",
+    "contentful": "^7.0.4",
     "contentful-cli": "^0.16.1",
     "contentful-resolve-response": "^1.1.4",
     "contentful-text-search": "git+https://github.com/cxpartners/contentful-text-search.git#develop",
@@ -123,7 +124,5 @@
     "workbox-cli": "^3.6.2",
     "yaml-import": "^0.2.3"
   },
-  "dependencies": {
-    "contentful": "^7.0.4"
-  }
+  "dependencies": {}
 }
