@@ -123,6 +123,8 @@ app.get('*', (req, res) => {
         initialState: state,
         cacheBusterTS: cacheBusterTS
       }
+      res.write('<!DOCTYPE html>')
+
       return ReactDOMServer
         .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
         .pipe(res)

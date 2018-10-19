@@ -123,5 +123,7 @@
     "workbox-cli": "^3.6.2",
     "yaml-import": "^0.2.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "contentful": "^7.0.4"
+  }
 }
