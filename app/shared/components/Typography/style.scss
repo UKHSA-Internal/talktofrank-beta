@@ -317,33 +317,53 @@ b {
   }
 }
 
+p {
+  a {
+    color: $pinkAccess;
+    text-decoration: underline;
+  }
+}
+
 .definition-list {
   position: relative;
   background-color: $gray-200;
   overflow: hidden;
+  margin-top: -3rem;
   margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
 
   @include media-breakpoint-up(sm) {
     dd,
     dt {
       margin-bottom: 1rem;
-      display: inline;
+      flex: 1 0 0;
+      max-width: 50%;
     }
 
     dt {
-      margin-right: .3em;
+      margin-right: .1em;
       clear: left;
       font-family: $headings-font-family;
     }
 
     dd {
-      width: auto;
       clear: right;
+
+      &:after {
+        content: '';
+        clear: both;
+        display: block;
+      }
     }
 
     p {
       display: inline-block;
       margin-bottom: 0;
+
+      .collapsible & {
+        margin-left: 0;
+      }
     }
 
     dd:last-of-type,
