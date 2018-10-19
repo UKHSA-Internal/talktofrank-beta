@@ -17,7 +17,7 @@ const Page = props => {
     className: 'h5 spacing-top--single'
   }
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
-  console.log(props.fields)
+  const syn = props.location.search ? props.location.search.split('=')[1] : null
   // @refactor - this will be wired up to contentful
   let images = {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
@@ -38,7 +38,7 @@ const Page = props => {
             <GridCol className={'col-12 col-md-8 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
               {props.fields.synonyms && <p className='lead bold'>Also called:</p>}
-              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className='list-inline-item inverted inverted--quiet bold' key={i}>{item}</li>)}</ul>
+              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul>
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
             </GridCol>
           </Grid>
@@ -51,15 +51,18 @@ const Page = props => {
             {props.fields.qualitiesTaste && <React.Fragment><Heading {...modifiers} text='What does it taste/smell like?'/>
               <Longform text={props.fields.qualitiesTaste}/></React.Fragment>
             }
-            {props.fields.qualitiesAdministered && <React.Fragment><Heading {...modifiers} text='How do people take it?'/><Longform text={props.fields.qualitiesAdministered} /></React.Fragment>
-            }
+          </Toggle>
+        </section>
+        <section className='section section--has-toggle'>
+          <Toggle text='How do people take it?' className='collapsible--chevron' history={props.location}>
+            {props.fields.qualitiesAdministered && <Longform text={props.fields.qualitiesAdministered} />}
           </Toggle>
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
+            {props.fields.category && <Heading type='p' className='h3 inverted' text={props.fields.category} />}
             {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text='How does it make you feel?'/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
             }
-
             {props.fields.effectsBehaviour && <React.Fragment><Heading {...modifiers} text={`How does it make people behave?`}/><Longform text={props.fields.effectsBehaviour} /></React.Fragment>
             }
           </Toggle>
@@ -67,7 +70,7 @@ const Page = props => {
         <section className='section section--has-toggle'>
           <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
             {props.fields.durationDefault && <React.Fragment><Heading {...modifiers} text={props.fields.durationDefault.fields.name}/><Longform text={props.fields.durationDefault.fields.text} /></React.Fragment>}
-
+            {props.fields.durationDetail && <Longform text={props.fields.durationDetail} />}
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
                 <article className='panel panel--padding-small panel--has-heading' key={i}>
@@ -80,8 +83,6 @@ const Page = props => {
                 </article>
               )
             })}
-            {props.fields.durationDetail && <React.Fragment><Heading {...modifiers} text='Detail'/><Longform text={props.fields.durationDetail} /></React.Fragment>
-            }
             {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
             }
           </Toggle>
@@ -109,7 +110,7 @@ const Page = props => {
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
-            {props.fields.lawClass && <React.Fragment><Heading {...modifiers} text='Class name'/>
+            {props.fields.lawClass && <React.Fragment>
               <Heading type='p' className='h3 inverted' text={'Class ' + props.fields.lawClass.fields.class} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
               <Longform text={props.fields.lawClass.fields.driving} />

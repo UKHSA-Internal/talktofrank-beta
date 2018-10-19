@@ -2,7 +2,7 @@ export const primary = [
   {
     label: 'Home',
     url: '/',
-    modifier: 'hidden--sm-up',
+    modifier: 'hidden--md-up',
     tracking: {
       label: 'Home',
       action: 'Click',
@@ -29,7 +29,7 @@ export const primary = [
   },
   {
     label: 'Get help',
-    url: '/get-help',
+    url: '#',
     tracking: {
       label: 'Get help',
       action: 'Click',

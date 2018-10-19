@@ -11,8 +11,8 @@
 
 // Hiding
 
-.hidden--sm-up {
-  @include media-breakpoint-up(sm) {
+.hidden--md-up {
+  @include media-breakpoint-up(md) {
     display: none;
   }
 }
