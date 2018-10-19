@@ -150,6 +150,6 @@
       execute_commands:
       - "npm install"
       - "npm install -g grunt-cli"
-      - "grunt post-build-validate"
+#      - "grunt post-build-validate"
       - "CUCUMBER_HOST=https://beta-talktofrank.cxp.io grunt cucumberjs"
       trigger_condition: "ALWAYS"
