@@ -112,6 +112,10 @@ app.get('*', (req, res) => {
   }
 
   (async () => {
+    // @todo: refactor this - enforcing header here to verify whether this
+    // fixes windows 7 chrome not rendering the site correctly
+    res.type('text/html;charset=UTF-8')
+
     try {
       await loadData()
     } catch (err) {

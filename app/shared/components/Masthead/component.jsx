@@ -12,16 +12,11 @@ import { primary } from '../../fixtures/navigation.js'
 export default class Masthead extends React.PureComponent {
   constructor () {
     super()
-    // this.childRef = React.createRef()
     this.state = {
       mobileMenuOpen: false,
       takeover: false
     }
   }
-
-  // componentDidMount() {
-
-  // }
 
   handleSearchClick () {
     const el = document.documentElement.classList
@@ -65,7 +60,7 @@ export default class Masthead extends React.PureComponent {
           </section>
           <ButtonGroup className='button-group--static'>
             <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
-            <Button className='btn--flat btn--small hidden--sm' url='tel:03001236600'>Call: <span className='btn__text'>0300 1236600</span></Button>
+            <Button className='btn--flat btn--small hidden--sm' url='tel:03001236600'><span className='btn__text'>0300 1236600</span></Button>
           </ButtonGroup>
         </div>
         {this.state.takeover && <section className='masthead__takeover'>

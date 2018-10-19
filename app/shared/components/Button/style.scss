@@ -186,21 +186,17 @@
 }
 
 .button-group {
-  .btn {
-    margin-right: 0;
-  }
-
   &--static {
     position: absolute;
     top: .5rem;
     right: 0;
 
     @include media-breakpoint-up(md) {
-      top: 2.2rem;
+      top: 2.4rem;
     }
   }
 
   .btn + .btn {
-    margin-left: 1.5rem;
+
   }
 }
