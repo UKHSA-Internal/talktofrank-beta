@@ -23,7 +23,8 @@ const contentfulClient = contentful.createClient({
   space: config.contentful.contentSpace,
   environment: config.contentful.environment,
   // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
-  accessToken: config.contentful.contentAccessToken
+  accessToken: config.contentful.contentAccessToken,
+  host: config.contentful.contentHost
 })
 
 /**
