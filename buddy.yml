@@ -151,5 +151,7 @@
       - "npm install"
       - "npm install -g grunt-cli"
 #      - "grunt post-build-validate"
-      - "CUCUMBER_HOST=https://beta-talktofrank.cxp.io grunt cucumberjs"
+#      - "CUCUMBER_HOST=https://beta-talktofrank.cxp.io grunt cucumberjs"
+      - "CUCUMBER_HOST=https://beta-talktofrank.cxp.io cucumber-js --tags \"not @wip and not @ignore and not @duplicate\""
+
       trigger_condition: "ALWAYS"
