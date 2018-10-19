@@ -29,7 +29,7 @@ export const primary = [
   },
   {
     label: 'Get help',
-    url: '#',
+    url: '/get-help',
     tracking: {
       label: 'Get help',
       action: 'Click',

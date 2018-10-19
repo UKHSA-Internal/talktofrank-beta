@@ -67,7 +67,7 @@ export default class Nav extends React.PureComponent {
 
             else {
               let subnav = <ul className='navbar-dropdown list-unstyled'>{item.subnavigation.map((v, j) => {
-                return <LinkItem key={j} url={item.url} className='nav-item' label={v.label} clickHandler={this.handleItemClick} tracking={v.tracking}/>
+                return <LinkItem key={j} url={v.url} className='nav-item' label={v.label} clickHandler={this.handleItemClick} tracking={v.tracking}/>
               })}</ul>
               return <LinkItem key={i} url={item.url} className={'nav-item nav-item--has-dropdown' + (this.state.dropDown === true ? ' nav-item--dropdown-active' : '')} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
             }
