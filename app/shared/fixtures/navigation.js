@@ -28,22 +28,69 @@ export const primary = [
     }
   },
   {
-    label: 'Help for you',
-    url: '/help-for-you',
+    label: 'Get help',
+    url: '/get-help',
     tracking: {
-      label: 'Help for you',
+      label: 'Get help',
       action: 'Click',
       category: 'Navigation'
-    }
-  },
-  {
-    label: 'Help for others',
-    url: '/help-for-others',
-    tracking: {
-      label: 'Help for others',
-      action: 'Click',
-      category: 'Navigation'
-    }
+    },
+    subnavigation: [
+      {
+        label: 'Emergency help',
+        url: '/get-help/emergency-help',
+        tracking: {
+          label: 'Emergency help',
+          action: 'Click',
+          category: 'Navigation'
+        }
+      },
+      {
+        label: 'Dealing with peer pressure',
+        url: '/get-help/dealing-with-peer-pressure',
+        tracking: {
+          label: 'Dealing with peer pressure',
+          action: 'Click',
+          category: 'Navigation'
+        }
+      },
+      {
+        label: 'Worried about a friend',
+        url: '/get-help/worried-about-a-friend',
+        tracking: {
+          label: 'Worried about a friend',
+          action: 'Click',
+          category: 'Navigation'
+        }
+      },
+      {
+        label: 'Worried about a child',
+        url: '/get-help/worried-about-a-child',
+        tracking: {
+          label: 'Worried about a child',
+          action: 'Click',
+          category: 'Navigation'
+        }
+      },
+      {
+        label: 'What is drug treatment like',
+        url: '/get-help/what-is-drug-treatment-like',
+        tracking: {
+          label: 'What is drug treatment like',
+          action: 'Click',
+          category: 'Navigation'
+        }
+      },
+      {
+        label: 'Find support near you',
+        url: '/get-help/find-support-near-you',
+        tracking: {
+          label: 'Find support near you',
+          action: 'Click',
+          category: 'Navigation'
+        }
+      }
+    ]
   },
   {
     label: 'Contact',

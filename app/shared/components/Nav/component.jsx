@@ -21,11 +21,10 @@ const Nav = props => {
       <ul className='navbar-nav' role='menu'>
         {props.navigation && props.navigation.map((item, i) => {
           // @todo @refactor - @joel - make a more bombproof active nav item check
-          let icon = item.icon || null
           let linkClass = classNames('nav-item', item.modifier, {
             'nav-item--active': item.url === props.current
           })
-          return <LinkItem key={i} icon={icon} url={item.url} className={linkClass} label={item.label} clickHandler={handleItemClick} tracking={item.tracking}/>
+          return <LinkItem key={i} url={item.url} className={linkClass} label={item.label} clickHandler={handleItemClick} tracking={item.tracking}/>
         })}
       </ul>
     </nav>
