@@ -55,7 +55,7 @@ export default class Masthead extends React.PureComponent {
               {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
             </Button>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
-            <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname} role='menuitem'/>
+            <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname} role='menu' type='nav'/>
           </section>
           <Button className='btn--flat btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
         </div>

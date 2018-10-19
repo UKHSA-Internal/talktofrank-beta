@@ -1,8 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
-import LinkItem from '../LinkItem/component.jsx'
 import ReactGA from 'react-ga'
 import Heading from '../Heading/component.jsx'
+import Icon from '../Icon/component.jsx'
 
 function handleItemClick (e) {
   ReactGA.event({
@@ -12,22 +12,35 @@ function handleItemClick (e) {
   })
 }
 
+const LinkItem = props => {
+  let label = props.icon ? <span className='btn__text'>{props.label}</span> : props.label
+
+  return (
+    <li className={props.className}>
+      <a className='nav-link' href={props.url} onClick={(e) => props.clickHandler(props.tracking, e)}>{props.icon && <Icon {...props.icon}/>}{label}</a>
+    </li>
+  )
+}
+
 const Nav = props => {
   let classes = classNames('navbar', props.className)
   let aria = props.labelledBy ? {'aria-labelledby': props.labelledBy} : null
+  let role = props.role ? {'role': props.role} : null
+  const Wrapper = `${props.type || 'section'}`
+
   return (
-    <nav className={classes} {...aria}>
+    <Wrapper className={classes} {...aria}>
       {props.labelledBy && <Heading id={props.id} className='visually-hidden' text='Drugs A to Z navigation'/>}
-      <ul className='navbar-nav' role='menu'>
+      <ul className='navbar-nav' {...role}>
         {props.navigation && props.navigation.map((item, i) => {
-          // @todo @refactor - @joel - make a more bombproof active nav item check
+          let icon = item.icon || null
           let linkClass = classNames('nav-item', item.modifier, {
             'nav-item--active': item.url === props.current
           })
-          return <LinkItem key={i} url={item.url} className={linkClass} label={item.label} clickHandler={handleItemClick} tracking={item.tracking}/>
+          return <LinkItem key={i} url={item.url}  icon={icon} className={linkClass} label={item.label} clickHandler={handleItemClick} tracking={item.tracking}/>
         })}
       </ul>
-    </nav>
+    </Wrapper>
   )
 }
 export default Nav
