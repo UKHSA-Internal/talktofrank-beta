@@ -18,6 +18,7 @@ const LinkItem = props => {
   return (
     <li className={props.className}>
       <a className='nav-link' href={props.url} onClick={(e) => props.clickHandler(props.tracking, e)}>{props.icon && <Icon {...props.icon}/>}{label}</a>
+      {props.subnav}
     </li>
   )
 }
@@ -37,7 +38,17 @@ const Nav = props => {
           let linkClass = classNames('nav-item', item.modifier, {
             'nav-item--active': item.url === props.current
           })
-          return <LinkItem key={i} url={item.url}  icon={icon} className={linkClass} label={item.label} clickHandler={handleItemClick} tracking={item.tracking}/>
+
+          if (!item.subnavigation) {
+            return <LinkItem key={i} url={item.url} icon={icon} className={linkClass} label={item.label} clickHandler={handleItemClick} tracking={item.tracking}/>
+          }
+          else {
+            let subnav = <ul className='navbar-dropdown'>{item.subnavigation.map((v, j) => {
+              return <LinkItem key={j} url={item.url} className='nav-item' label={v.label} clickHandler={handleItemClick} tracking={v.tracking}/>
+            })}</ul>
+            return <LinkItem key={i} url={item.url} className='nav-item' label={item.label} clickHandler={handleItemClick} tracking={item.tracking} subnav={subnav}/>
+          }
+
         })}
       </ul>
     </Wrapper>
