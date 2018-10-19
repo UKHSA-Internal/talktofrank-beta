@@ -138,12 +138,13 @@ router.get('/drugs/:slug', (req, res, next) => {
         'lawCaught': [
           'text'
         ],
+        'lawDetail': [],
         'lawClass': [
           'description',
           'possesion',
           'supplying',
           'dealersSupplying',
-          'driving'
+          'driving',
         ],
         'addiction': [],
         'additional': []
