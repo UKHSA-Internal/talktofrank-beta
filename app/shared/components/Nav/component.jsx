@@ -16,10 +16,13 @@ const LinkItem = props => {
 }
 
 export default class Nav extends React.PureComponent {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.dropDown = this.dropDown.bind(this)
+    this.setWrapperRef = this.setWrapperRef.bind(this)
     this.handleItemClick = this.handleItemClick.bind(this)
+    this.handleOutsideClick = this.handleOutsideClick.bind(this)
+
     this.state = {
       dropDown: false
     }
@@ -29,11 +32,29 @@ export default class Nav extends React.PureComponent {
     if (window.innerWidth > 767) {
       event.preventDefault()
 
+      if (!this.state.dropDown) {
+        document.addEventListener('click', this.handleOutsideClick, false)
+      } else {
+        document.removeEventListener('click', this.handleOutsideClick, false)
+      }
+
       this.setState({
         dropDown: !this.state.dropDown
       })
     }
     this.handleItemClick(e)
+  }
+
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  handleOutsideClick (event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({
+        dropDown: false
+      })
+    }
   }
 
   handleItemClick (e) {
@@ -44,7 +65,6 @@ export default class Nav extends React.PureComponent {
     })
   }
 
-
   render () {
     let classes = classNames('navbar', this.props.className)
     let aria = this.props.labelledBy ? {'aria-labelledby': this.props.labelledBy} : null
@@ -52,7 +72,7 @@ export default class Nav extends React.PureComponent {
     const Wrapper = `${this.props.type || 'section'}`
 
     return (
-      <Wrapper className={classes} {...aria}>
+      <Wrapper className={classes} {...aria} ref={this.setWrapperRef}>
         {this.props.labelledBy && <Heading id={this.props.id} className='visually-hidden' text='Drugs A to Z navigation'/>}
         <ul className='navbar-nav' {...role}>
           {this.props.navigation && this.props.navigation.map((item, i) => {
@@ -63,13 +83,11 @@ export default class Nav extends React.PureComponent {
 
             if (!item.subnavigation) {
               return <LinkItem key={i} url={item.url} icon={icon} className={linkClass} label={item.label} clickHandler={this.handleItemClick} tracking={item.tracking}/>
-            }
-
-            else {
+            } else {
               let subnav = <ul className='navbar-dropdown list-unstyled'>{item.subnavigation.map((v, j) => {
                 return <LinkItem key={j} url={v.url} className='nav-item' label={v.label} clickHandler={this.handleItemClick} tracking={v.tracking}/>
               })}</ul>
-              return <LinkItem key={i} url={item.url} className={'nav-item nav-item--has-dropdown' + (this.state.dropDown === true ? ' nav-item--dropdown-active' : '')} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
+              return <LinkItem key={i} url={item.url} ref={this.setWrapperRef} className={'nav-item nav-item--has-dropdown' + (this.state.dropDown === true ? ' nav-item--dropdown-active' : '')} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
             }
           })}
         </ul>

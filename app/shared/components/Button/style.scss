@@ -111,15 +111,8 @@
   }
 }
 
-.btn--static {
-  position: absolute;
-  top: .5rem;
-  right: 0;
+.btn--small {
   font-size: 1.5rem;
-
-  @include media-breakpoint-up(md) {
-    top: 2.2rem;
-  }
 
   @include media-breakpoint-up(lg) {
     font-size: 1.8rem;
@@ -193,19 +186,21 @@
 }
 
 .button-group {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-
-  @include media-breakpoint-up(sm) {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+  .btn {
+    margin-right: 0;
   }
 
-  .button + .button {
-    margin-top: 1.5rem;
+  &--static {
+    position: absolute;
+    top: .5rem;
+    right: 0;
 
-    @include media-breakpoint-up(sm) {
-      margin-top: 0;
+    @include media-breakpoint-up(md) {
+      top: 2.2rem;
     }
+  }
+
+  .btn + .btn {
+    margin-left: 1.5rem;
   }
 }
