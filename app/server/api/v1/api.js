@@ -144,7 +144,7 @@ router.get('/drugs/:slug', (req, res, next) => {
           'possesion',
           'supplying',
           'dealersSupplying',
-          'driving',
+          'driving'
         ],
         'addiction': [],
         'additional': []
