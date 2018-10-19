@@ -4,8 +4,7 @@
   "description": "Talk to Frank Alpha",
   "main": "index.js",
   "scripts": {
-    "pretest": "NODE_ENV=test grunt build && cd dist/app/ && node server.bundle.js",
-    "test": "npx cucumber-js",
+    "test": "npx cucumber-js --tags \"not @wip and not @ignore and not @duplicate\"",
     "start": "cd dist/app/ && node server.bundle.js",
     "postinstall": "node_modules/grunt-cli/bin/grunt build"
   },
