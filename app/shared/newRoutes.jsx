@@ -1,7 +1,13 @@
 import loadable from 'loadable-components'
 import React from 'react'
 
-import { fetchPage, fetchDrugList, fetchSearchTerm, receivePageError } from './actions'
+import {
+  fetchPage,
+  fetchDrugList,
+  fetchNewsList,
+  fetchSearchTerm,
+  receivePageError
+} from './actions'
 
 /**
  * These will be bundled in the main JS file (including client)
@@ -20,6 +26,8 @@ const asyncStaticPage = loadable(() => import(/*webpackChunkName: 'static-page'*
 const asyncSearchPage = loadable(() => import(/*webpackChunkName: 'search'*/'./containers/SearchPageContainer/component.jsx'))
 const asyncSearchResultsPage = loadable(() => import(/*webpackChunkName: 'search-results'*/'./containers/SearchResultsContainer/component.jsx'))
 const asyncDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
+const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
+const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
 /* eslint-enable */
 
 export default [{
@@ -60,6 +68,22 @@ export default [{
       component: asyncSearchPage,
       loadData: ({search}) => {
         return getSearchPage(search)
+      }
+    },
+    {
+      path: '/latest',
+      exact: true,
+      component: asyncPageNewsListContainer,
+      loadData: () => {
+        return fetchNewsList()
+      }
+    },
+    {
+      path: '/news/:slug',
+      exact: true,
+      component: asyncPageNewsContainer,
+      loadData: ({slug}) => {
+        return fetchPage(slug, 'news')
       }
     },
     {

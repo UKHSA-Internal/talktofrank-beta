@@ -10,6 +10,7 @@ sentry:
 contentful:
   contentTypes:
     drug: 'drug'
+    news: 'news'
     page: 'generalPage'
   entries:
     homepage: '6YkX4gZ5jawC0eAM6aOCum'
