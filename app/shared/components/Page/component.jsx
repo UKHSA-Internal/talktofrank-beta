@@ -90,9 +90,9 @@ const Page = props => {
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='The risks' className='collapsible--chevron' history={props.location}>
-            {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform className='has-unordered' text={props.fields.risksHealthMental} /></React.Fragment>
+            {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks`}/><Longform className='has-unordered' text={props.fields.risksHealthMental} /></React.Fragment>
             }
-            {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks of ${name}?`}/><Longform className='has-unordered' text={props.fields.risksPhysicalHealth} /></React.Fragment>
+            {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks`}/><Longform className='has-unordered' text={props.fields.risksPhysicalHealth} /></React.Fragment>
             }
             {props.fields.risksCutWith && <React.Fragment><Heading {...modifiers} text={`What is ${name} cut with?`}/><Longform className='has-unordered' text={props.fields.risksCutWith} /></React.Fragment>}
           </Toggle>
@@ -100,14 +100,14 @@ const Page = props => {
         {props.fields.mixingDangers &&
           <section className='section section--has-toggle'>
             <Toggle text='Mixing' className='collapsible--chevron' history={props.location}>
-              <React.Fragment><Heading {...modifiers} text={`Is ${name} dangerous to mix with other drugs?`}/><Longform text={props.fields.mixingDangers} /></React.Fragment>
+              <React.Fragment><Heading {...modifiers} text={`Is it dangerous to mix with other drugs?`}/><Longform text={props.fields.mixingDangers} /></React.Fragment>
             </Toggle>
           </section>
         }
         {props.fields.addiction &&
           <section className='section section--has-toggle'>
             <Toggle text='Addiction' className='collapsible--chevron' history={props.location}>
-              {props.fields.addiction && <React.Fragment><Heading {...modifiers} text={`Can you get addicted to ${name}?`}/><Longform text={props.fields.addiction} /></React.Fragment>
+              {props.fields.addiction && <React.Fragment><Heading {...modifiers} text={`Can you get addicted?`}/><Longform text={props.fields.addiction} /></React.Fragment>
               }
             </Toggle>
           </section>
@@ -116,18 +116,35 @@ const Page = props => {
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
               <Heading type='p' className='h3 inverted' text={'Class ' + props.fields.lawClass.fields.class} />
+              <Longform text={props.fields.lawClass.fields.description} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
+
               <Longform text={props.fields.lawClass.fields.driving} />
               <Longform text={props.fields.lawClass.fields.possesion} />
               <Longform text={props.fields.lawClass.fields.supplying} />
             </React.Fragment>
-
             {props.fields.lawCaught.fields.text && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
         </section>}
         <section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
+
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
+
+            <ul className='list-unstyled link-list link-list--has-arrow spacing--single'>
+              <li className='link-list__item'>
+                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
+              </li>
+            </ul>
+
+            {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform text={props.fields.additional} /></React.Fragment>
+            }
           </Toggle>
         </section>
 

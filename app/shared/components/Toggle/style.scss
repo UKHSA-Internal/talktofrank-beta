@@ -90,7 +90,9 @@ $dims: 2rem;
   .panel,
   ul,
   ol {
-    @include media-breakpoint-up(sm) {
+    margin-left: 0;
+
+    @include media-breakpoint-up(md) {
       margin-left: 2.5rem;
     }
   }
