@@ -4,6 +4,7 @@
   font-size: 2rem;
   line-height: 1;
   padding: 1rem;
+  font-family: $font-family-heavy;
   margin-right: 1.5em;
   color: inherit;
 
@@ -175,6 +176,7 @@
       content: '';
       position: absolute;
       bottom: -5px;
+      margin-left: .35rem;
       left: 50%;
       border-style: solid;
       border-color: $gray-200 transparent;
@@ -192,11 +194,21 @@
     right: 0;
 
     @include media-breakpoint-up(md) {
-      top: 2.4rem;
+      top: 2.2rem;
     }
 
-//  .btn + .btn {
-//
-//  }
+    .btn + .btn {
+      position: relative;
+
+      &:before {
+        content: '';
+        background-color: $gray-200;
+        position: absolute;
+        width: 2px;
+        top: 0;
+        bottom: 0;
+        left: -.75em;
+      }
+    }
   }
 }

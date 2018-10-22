@@ -28,7 +28,7 @@ export const primary = [
     }
   },
   {
-    label: 'Get help',
+    label: 'Help and advice',
     url: '/get-help',
     tracking: {
       label: 'Get help',

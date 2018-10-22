@@ -22,3 +22,15 @@
     display: none;
   }
 }
+
+.hidden--md {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.hidden--rg {
+  @include media-breakpoint-down(rg) {
+    display: none;
+  }
+}
