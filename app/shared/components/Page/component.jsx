@@ -23,6 +23,7 @@ const Page = props => {
     300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
   }
 
+  console.log(props.fields)
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
@@ -89,38 +90,41 @@ const Page = props => {
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='The risks' className='collapsible--chevron' history={props.location}>
-            {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform text={props.fields.risksHealthMental} /></React.Fragment>
+            {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform className='has-unordered' text={props.fields.risksHealthMental} /></React.Fragment>
             }
-            {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks of ${name}?`}/><Longform text={props.fields.risksPhysicalHealth} /></React.Fragment>
+            {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks of ${name}?`}/><Longform className='has-unordered' text={props.fields.risksPhysicalHealth} /></React.Fragment>
             }
-            {props.fields.risksCutWith && <React.Fragment><Heading {...modifiers} text={`What is ${name} cut with?`}/><Longform text={props.fields.risksCutWith} /></React.Fragment>}
+            {props.fields.risksCutWith && <React.Fragment><Heading {...modifiers} text={`What is ${name} cut with?`}/><Longform className='has-unordered' text={props.fields.risksCutWith} /></React.Fragment>}
           </Toggle>
         </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='Mixing' className='collapsible--chevron' history={props.location}>
-            {props.fields.mixingDangers && <React.Fragment><Heading {...modifiers} text={`Is ${name} dangerous to mix with other drugs?`}/><Longform text={props.fields.mixingDangers} /></React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
-          <Toggle text='Addiction' className='collapsible--chevron' history={props.location}>
-            {props.fields.addiction && <React.Fragment><Heading {...modifiers} text={`Can you get addicted to ${name}?`}/><Longform text={props.fields.addiction} /></React.Fragment>
-            }
-          </Toggle>
-        </section>
-        <section className='section section--has-toggle'>
+        {props.fields.mixingDangers &&
+          <section className='section section--has-toggle'>
+            <Toggle text='Mixing' className='collapsible--chevron' history={props.location}>
+              <React.Fragment><Heading {...modifiers} text={`Is ${name} dangerous to mix with other drugs?`}/><Longform text={props.fields.mixingDangers} /></React.Fragment>
+            </Toggle>
+          </section>
+        }
+        {props.fields.addiction &&
+          <section className='section section--has-toggle'>
+            <Toggle text='Addiction' className='collapsible--chevron' history={props.location}>
+              {props.fields.addiction && <React.Fragment><Heading {...modifiers} text={`Can you get addicted to ${name}?`}/><Longform text={props.fields.addiction} /></React.Fragment>
+              }
+            </Toggle>
+          </section>
+        }
+        {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
-            {props.fields.lawClass && <React.Fragment>
+            <React.Fragment>
               <Heading type='p' className='h3 inverted' text={'Class ' + props.fields.lawClass.fields.class} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
               <Longform text={props.fields.lawClass.fields.driving} />
               <Longform text={props.fields.lawClass.fields.possesion} />
               <Longform text={props.fields.lawClass.fields.supplying} />
             </React.Fragment>
-            }
+
             {props.fields.lawCaught.fields.text && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
-        </section>
+        </section>}
         <section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>

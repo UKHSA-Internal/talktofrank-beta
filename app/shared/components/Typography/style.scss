@@ -335,34 +335,28 @@ p {
 .definition-list {
   position: relative;
   background-color: $gray-200;
-  overflow: hidden;
   margin-top: -3rem;
   margin-bottom: 0;
-  display: flex;
-  flex-wrap: wrap;
 
   @include media-breakpoint-up(sm) {
+    display: flex;
+    flex-wrap: wrap;
+
     dd,
     dt {
       margin-bottom: 1rem;
-      flex: 0 1 auto;
-      max-width: 50%;
+      flex: 0 0 auto;
     }
 
     dt {
       margin-right: .1em;
-      clear: left;
       font-family: $headings-font-family;
+      flex-basis: 33%;
     }
 
     dd {
-      clear: right;
-
-      &:after {
-        content: '';
-        clear: both;
-        display: block;
-      }
+      margin-right: auto;
+      flex-basis: 66%;
     }
 
     p {
@@ -370,7 +364,7 @@ p {
       margin-bottom: 0;
 
       .collapsible & {
-        margin-left: 0;
+        margin-left: 0 !important;
       }
     }
 
