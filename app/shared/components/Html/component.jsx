@@ -6,7 +6,7 @@ import Head from '../Head/component.jsx'
 
 const Html = ({initialState, cacheBusterTS, children}) => {
   return (
-  <html lang='en'>
+  <html lang='en' className='has-hover'>
     <Head {...initialState.app.pageData} />
     <body>
       <Skiplinks/>

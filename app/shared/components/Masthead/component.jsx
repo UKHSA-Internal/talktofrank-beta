@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import Logo from '../Logo/component.jsx'
 import Button from '../Button/component.jsx'
+import ButtonGroup from '../ButtonGroup/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
@@ -55,9 +56,12 @@ export default class Masthead extends React.PureComponent {
               {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
             </Button>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
-            <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname} role='menuitem'/>
+            <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname} role='menu' type='nav'/>
           </section>
-          <Button className='btn--flat btn--static' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--sm'>Search </span><Icon {...icon}/></Button>
+          <ButtonGroup className='button-group--static'>
+            <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md'>Search </span><Icon {...icon}/></Button>
+            <Button className='btn--flat btn--small hidden--rg' url='tel:03001236600'><span className='btn__text'>0300 1236600</span></Button>
+          </ButtonGroup>
         </div>
         {this.state.takeover && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>

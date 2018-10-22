@@ -4,6 +4,7 @@
   font-size: 2rem;
   line-height: 1;
   padding: 1rem;
+  font-family: $font-family-heavy;
   margin-right: 1.5em;
   color: inherit;
 
@@ -38,11 +39,13 @@
       background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHRpdGxlPkdyb3VwIDI8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTM2NyAtMTEyMikiPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNjcgMTEyMikiPgo8cG9seWdvbiBwb2ludHM9IjE2IDAgMjQgOCAxNiAxNiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJtMTYgNy44MDU2aC0xNS41IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIvPgo8L2c+CjwvZz4KPC9nPgo8L3N2Zz4K');
     }
 
-    &:hover,
-    &:focus,
-    &:active {
-      &:after {
-        right: -10px;
+    .has-hover & {
+      &:hover,
+      &:focus,
+      &:active {
+        &:after {
+          right: -10px;
+        }
       }
     }
   }
@@ -111,15 +114,8 @@
   }
 }
 
-.btn--static {
-  position: absolute;
-  top: .5rem;
-  right: 0;
+.btn--small {
   font-size: 1.5rem;
-
-  @include media-breakpoint-up(md) {
-    top: 2.2rem;
-  }
 
   @include media-breakpoint-up(lg) {
     font-size: 1.8rem;
@@ -182,6 +178,7 @@
       content: '';
       position: absolute;
       bottom: -5px;
+      margin-left: .35rem;
       left: 50%;
       border-style: solid;
       border-color: $gray-200 transparent;
@@ -193,19 +190,31 @@
 }
 
 .button-group {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  &--static {
+    position: absolute;
+    top: .5rem;
+    right: 0;
 
-  @include media-breakpoint-up(sm) {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
+    @include media-breakpoint-up(md) {
+      top: 2.2rem;
+    }
 
-  .button + .button {
-    margin-top: 1.5rem;
+    @include media-breakpoint-up(lg) {
+      top: 2.6rem;
+    }
 
-    @include media-breakpoint-up(sm) {
-      margin-top: 0;
+    .btn + .btn {
+      position: relative;
+
+      &:before {
+        content: '';
+        background-color: $gray-200;
+        position: absolute;
+        width: 2px;
+        top: 0;
+        bottom: 0;
+        left: -.75em;
+      }
     }
   }
 }

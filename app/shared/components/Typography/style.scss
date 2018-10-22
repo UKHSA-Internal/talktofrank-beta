@@ -5,8 +5,12 @@
 //
 
 body {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: $body-text;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.8rem;
+  }
 }
 
 h1,
@@ -122,10 +126,10 @@ h4,
 .h4,
 %lead,
 %h4 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   @include media-breakpoint-up(lg) {
@@ -135,10 +139,10 @@ h4,
 
 h5,
 .h5 {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
 
   @include media-breakpoint-up(md) {
-    font-size: 1.9rem;
+    font-size: 1.8rem;
   }
 
   @include media-breakpoint-up(lg) {
@@ -239,7 +243,6 @@ mark,
 
 .display-4 {
   font-size: 7rem;
-  margin-left: -.05em;
 }
 
 .smaller {
@@ -268,11 +271,7 @@ b {
   }
 
   .list-link {
-    padding: 1em 1em 1em 0;
-
-    @include media-breakpoint-up(sm) {
-      padding-left: 1em;
-    }
+    padding: 1em;
 
     &:active,
     &:hover {
@@ -323,7 +322,7 @@ b {
 
 .long-form {
   p {
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
   }
 }
 
@@ -331,45 +330,43 @@ p {
   a {
     color: $pinkAccess;
     text-decoration: underline;
-
-    &:active,
-    &:hover {
-
-    }
   }
-}
-
-.displaced-top {
-  position: absolute;
-  bottom: 100%;
-  width: auto !important;
 }
 
 .definition-list {
   position: relative;
   background-color: $gray-200;
-  overflow: hidden;
+  margin-top: -3rem;
   margin-bottom: 0;
 
   @include media-breakpoint-up(sm) {
+    display: flex;
+    flex-wrap: wrap;
+
     dd,
     dt {
       margin-bottom: 1rem;
-      float: left;
+      flex: 0 0 auto;
     }
 
     dt {
-      margin-right: .3em;
-      clear: left;
+      margin-right: .1em;
       font-family: $headings-font-family;
+      flex-basis: 33%;
     }
 
     dd {
-      clear: right;
+      margin-right: auto;
+      flex-basis: 66%;
     }
 
     p {
+      display: inline-block;
       margin-bottom: 0;
+
+      .collapsible & {
+        margin-left: 0 !important;
+      }
     }
 
     dd:last-of-type,
@@ -389,4 +386,57 @@ p {
   color: $body-text;
   text-decoration: underline;
 }
+
+.link-list {
+  margin: 3rem 0 5rem;
+
+  &.link-list--has-arrow {
+    .link-list__item {
+      padding-left: 0;
+
+      &:before {
+        display: none;
+      }
+    }
+
+    .link-list__link {
+      background-color: $gray-200;
+      display: block;
+      font-size: 2.2rem;
+      transition: background-color .1s ease-in-out;
+      padding: .75em 3.5em .75em 1em;
+      color: $text-dark-blue;
+      position: relative;
+      font-family: $font-family-heavy;
+
+      &:after {
+        content: '';
+        position: absolute;
+        right: 2rem;
+        top: 50%;
+        margin-top: -8px;
+        height: 16px;
+        width: 24px;
+        background-image: url('/ui/svg/arrow-right.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: right .1s ease-in-out;
+      }
+
+      .has-hover & {
+        &:active,
+        &:hover {
+          background-color: $gray-300;
+
+          &:after {
+            right: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
 
