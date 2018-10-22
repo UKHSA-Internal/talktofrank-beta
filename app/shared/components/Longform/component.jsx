@@ -1,9 +1,8 @@
 import React from 'react'
-import classNames from 'classnames'
 
 const Longform = props => {
-  let {text, modifiers} = props
-  let classes = classNames('long-form', props.className)
+  let {text, className} = props
+  let classes = `long-form ${className || ''}`
 
   return (
     <React.Fragment>

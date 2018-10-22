@@ -1,7 +1,7 @@
 .panel {
+  position: relative;
   background-color: $gray-200;
   padding: 1.5rem;
-  position: relative;
 
   @include media-breakpoint-up(sm) {
     padding: 3rem;
@@ -25,6 +25,9 @@
   }
 
   .displaced-top {
-    margin-top: -1.5rem;
+    position: relative;
+    margin-left: -.25rem;
+    width: auto !important;
+    transform: translateY(-2em);
   }
 }

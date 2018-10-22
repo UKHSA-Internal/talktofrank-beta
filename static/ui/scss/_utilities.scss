@@ -11,14 +11,26 @@
 
 // Hiding
 
-.hidden--sm-up {
-  @include media-breakpoint-up(sm) {
+.hidden--md-up {
+  @include media-breakpoint-up(md) {
     display: none;
   }
 }
 
 .hidden--sm {
   @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.hidden--md {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.hidden--rg {
+  @include media-breakpoint-down(rg) {
     display: none;
   }
 }
