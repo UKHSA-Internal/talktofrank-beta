@@ -45,8 +45,8 @@ export default class Nav extends React.PureComponent {
     this.handleItemClick(e)
   }
 
-  setWrapperRef(node) {
-    this.wrapperRef = node;
+  setWrapperRef (node) {
+    this.wrapperRef = node
   }
 
   handleOutsideClick (event) {
