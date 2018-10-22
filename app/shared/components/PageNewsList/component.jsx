@@ -11,6 +11,8 @@ import Accent from '../Accent/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 const PageNewsList = props => {
+
+  console.log(props)
   return (
     <React.Fragment>
       <Masthead path={props.location}/>

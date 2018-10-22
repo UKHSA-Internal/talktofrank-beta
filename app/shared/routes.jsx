@@ -8,6 +8,7 @@ import PageContainer from './containers/PageContainer/component'
 import PageStaticContainer from './containers/PageStaticContainer/component'
 import SearchPageContainer from './containers/SearchPageContainer/component'
 import SearchResultsContainer from './containers/SearchResultsContainer/component'
+import PageNewsContainer from './containers/PageNewsContainer/component'
 import TypographyContainer from './containers/TypographyContainer/component' // @todo @refactor @joel - remove this in due time - replace with generic static page handler
 import PageDrugsAZContainer from './containers/PageDrugsAZContainer/component'
 import HomepageContainer from './containers/HomepageContainer/component'
@@ -95,6 +96,17 @@ let getRoutes = store => {
       })
   }
 
+  function getNewsList (nextState, replace, callback) {
+    store.dispatch(fetchNewsList())
+      .then(() => {
+        callback()
+      }).catch(err => {
+        console.log(err)
+        // error pushed to state
+        callback()
+      })
+  }
+
   function noMatchError (nextState, replace, callback) {
     store.dispatch(receivePageError(404))
     callback()
@@ -110,6 +122,10 @@ let getRoutes = store => {
         <Route path='search' component={withFallback(SearchPageContainer)} />
         <Route path='search/:term' component={withFallback(SearchPageContainer)} onEnter={getSearchPage} />
         <Route path=':drugName' component={withFallback(PageContainer)} onEnter={getDrug} />
+      </Route>
+      <Route path='latest'>
+        <IndexRoute component={withFallback(PageNewsContainer)} onEnter={getNewsList} />
+        <Route path=':newsArticle' component={withFallback(PageContainer)} onEnter={getDrug} />
       </Route>
       <Route path=':slug' component={withFallback(PageGeneralContainer)} onEnter={getContentfulPage} />
     </Route>
