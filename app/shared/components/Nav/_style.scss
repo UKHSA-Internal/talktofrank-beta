@@ -82,15 +82,13 @@
   }
 
   .nav-item {
-    @include media-breakpoint-down(md) {
-      &:not(:last-child) {
-        border-bottom: 1px solid $gray-400;
-      }
+    &:not(:last-child) {
+      border-bottom: 1px solid $gray-400;
     }
 
     @include media-breakpoint-up(md) {
       margin: .5em 1em .5em 0;
-      border: 0;
+      border-bottom: 0 !important;
     }
 
     @include media-breakpoint-up(lg) {
@@ -192,6 +190,7 @@
       &:hover,
       &:focus {
         color: $pinkAccess;
+        text-decoration: none;
         border-bottom-style: solid;
         border-bottom-color: $pinkAccess;
       }

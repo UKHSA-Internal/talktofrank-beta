@@ -106,6 +106,10 @@ $dims: 2rem;
         padding-left: 2.5rem;
         position: relative;
 
+        p {
+          margin-left: 0;
+        }
+
         &:before {
           content: '';
           position: absolute;
