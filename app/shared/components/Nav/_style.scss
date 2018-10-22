@@ -112,10 +112,12 @@
       padding-bottom: .5em;
     }
 
-    &:active,
-    &:hover,
-    &:focus {
-      color: $pinkAccess;
+    .has-hover & {
+      &:active,
+      &:hover,
+      &:focus {
+        color: $pinkAccess;
+      }
     }
   }
 }
@@ -186,13 +188,15 @@
       padding: .2em .3em 0;
       border-bottom: 2px dotted $pinkAccess;
 
-      &:active,
-      &:hover,
-      &:focus {
-        color: $pinkAccess;
-        text-decoration: none;
-        border-bottom-style: solid;
-        border-bottom-color: $pinkAccess;
+      .has-hover & {
+        &:active,
+        &:hover,
+        &:focus {
+          color: $pinkAccess;
+          text-decoration: none;
+          border-bottom-style: solid;
+          border-bottom-color: $pinkAccess;
+        }
       }
     }
   }

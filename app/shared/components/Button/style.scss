@@ -39,11 +39,13 @@
       background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHRpdGxlPkdyb3VwIDI8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTM2NyAtMTEyMikiPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNjcgMTEyMikiPgo8cG9seWdvbiBwb2ludHM9IjE2IDAgMjQgOCAxNiAxNiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJtMTYgNy44MDU2aC0xNS41IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIvPgo8L2c+CjwvZz4KPC9nPgo8L3N2Zz4K');
     }
 
-    &:hover,
-    &:focus,
-    &:active {
-      &:after {
-        right: -10px;
+    .has-hover & {
+      &:hover,
+      &:focus,
+      &:active {
+        &:after {
+          right: -10px;
+        }
       }
     }
   }

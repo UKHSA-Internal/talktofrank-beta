@@ -33,7 +33,7 @@ export default class Head extends React.Component {
         <script dangerouslySetInnerHTML={{__html:
         `
         window.addEventListener('touchstart', function onFirstTouch() {
-          document.body.classList.add('has-touch')
+          document.documentElement.classList.remove('has-hover')
           window.removeEventListener('touchstart', onFirstTouch, false)
         }, false)
         if ('serviceWorker' in navigator) {

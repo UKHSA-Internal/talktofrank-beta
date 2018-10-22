@@ -423,12 +423,14 @@ p {
         transition: right .1s ease-in-out;
       }
 
-      &:active,
-      &:hover {
-        background-color: $gray-300;
+      .has-hover & {
+        &:active,
+        &:hover {
+          background-color: $gray-300;
 
-        &:after {
-          right: 1rem;
+          &:after {
+            right: 1rem;
+          }
         }
       }
     }
