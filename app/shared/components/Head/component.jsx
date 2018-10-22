@@ -31,10 +31,15 @@ export default class Head extends React.Component {
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <link rel='stylesheet' href='/ui/css/main.css' />
         <script dangerouslySetInnerHTML={{__html:
-        `  if ('serviceWorker' in navigator) {
+        `
+        window.addEventListener('touchstart', function onFirstTouch() {
+          document.body.classList.add('has-touch')
+          window.removeEventListener('touchstart', onFirstTouch, false)
+        }, false)
+        if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js');
-        })};`
+          navigator.serviceWorker.register('/service-worker.js')
+        })}`
         }} />
       </head>
     )
