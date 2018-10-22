@@ -25,7 +25,7 @@ export default class Button extends React.PureComponent {
 
     // list out data- and aria- attributes and stick em in
     for (const prop in this.props) {
-      if (/^data-/.test(prop) || /^aria-/.test(prop)) {
+      if (/^aria-/.test(prop)) {
         data[prop] = this.props[prop]
       }
     }
