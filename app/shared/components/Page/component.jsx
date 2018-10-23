@@ -114,7 +114,7 @@ const Page = props => {
         {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
-              <Heading type='p' className='h3 inverted' text={'Class ' + props.fields.lawClass.fields.class} />
+              <Heading type='p' className='h2 inverted spacing-bottom--single' text={'Class ' + props.fields.lawClass.fields.class} />
               <Longform text={props.fields.lawClass.fields.description} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
 
