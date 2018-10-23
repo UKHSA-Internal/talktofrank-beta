@@ -40,6 +40,7 @@
 
 .read-more {
   @include link;
+  display: inline-block;
   font-size: 2rem;
 
   .card__link & {
