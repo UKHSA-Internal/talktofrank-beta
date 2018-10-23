@@ -24,31 +24,6 @@
     }
   }
 
-  &.has-arrow {
-    &:after {
-      content: '';
-      height: 16px;
-      width: 24px;
-      position: relative;
-      right: -8px;
-      display: inline-block;
-      background-repeat: no-repeat;
-      background-color: transparent;
-      background-size: contain;
-      transition: right .1s ease-in-out;
-      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHRpdGxlPkdyb3VwIDI8L3RpdGxlPgo8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTM2NyAtMTEyMikiPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNjcgMTEyMikiPgo8cG9seWdvbiBwb2ludHM9IjE2IDAgMjQgOCAxNiAxNiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJtMTYgNy44MDU2aC0xNS41IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIvPgo8L2c+CjwvZz4KPC9nPgo8L3N2Zz4K');
-    }
-
-    .has-hover & {
-      &:hover,
-      &:focus,
-      &:active {
-        &:after {
-          right: -10px;
-        }
-      }
-    }
-  }
 }
 
 .btn--large {
@@ -140,7 +115,7 @@
   position: absolute;
   right: 3rem;
 
-  &:after {
+  &::after {
     content: '';
     position: relative;
     top: -.2rem;
@@ -155,7 +130,7 @@
   }
 
   &.active {
-    &:after {
+    &::after {
       background-image: url(../svg/cross.svg);
       background-size: 70%;
     }
@@ -173,7 +148,7 @@
 // this pops a cheeky beak on it - @refactor could use a rename
 .active {
   @include media-breakpoint-down(md) {
-    &:before {
+    &::before {
       border-width: 0 15px 15px;
       content: '';
       position: absolute;
@@ -206,7 +181,7 @@
     .btn + .btn {
       position: relative;
 
-      &:before {
+      &::before {
         content: '';
         background-color: $gray-200;
         position: absolute;

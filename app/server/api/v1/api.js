@@ -170,18 +170,7 @@ router.get('/drugs/:slug', (req, res, next) => {
 })
 
 /**
- * @todo: refactor this into utilities file
- */
-const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) => (
-  markDownFields[fieldName]
-    .filter(fieldChildName => responseFields.hasOwnProperty(fieldChildName))
-    .map(fieldChildName => {
-      responseFields[fieldChildName] = marked(responseFields[fieldChildName])
-    })
-)
-
-/**
- * Get page data
+ * Get drugs list data (A-Z)
  */
 router.get('/drugs', (req, res, next) => {
   let response = {
@@ -252,6 +241,61 @@ router.get('/drugs', (req, res, next) => {
 })
 
 /**
+ * Get news
+ */
+router.get('/news', (req, res, next) => {
+  let response = {
+    list: []
+  }
+
+  contentfulClient.getEntries({
+    content_type: config.contentful.contentTypes.news,
+    order: '-sys.createdAt,sys.id'
+  })
+    .then((contentfulResponse) => {
+      if (contentfulResponse.total === 0) {
+        let error = new Error()
+        error.message = `Page not found ${pageUrl}`
+        error.status = 404
+        return next(error)
+      }
+      // merge contentful assets and includes
+      response.title = 'News'
+      response.list = resolveResponse(contentfulResponse)
+      res.send(response)
+    })
+    .catch(error => next(error.response))
+})
+
+router.get('/news/:slug', (req, res, next) => {
+  if (!req.params.slug) {
+    let error = new Error()
+    error.message = 'Page id not set'
+    error.status = 404
+    return next(error)
+  }
+
+  contentfulClient.getEntries({
+    content_type: config.contentful.contentTypes.news,
+    'fields.slug': req.params.slug
+  })
+    .then((contentfulResponse) => {
+      if (contentfulResponse.total === 0) {
+        let error = new Error()
+        error.message = `Page not found`
+        error.status = 404
+        return next(error)
+      }
+      // merge contentful assets and includes
+      let response = resolveResponse(contentfulResponse)[0]
+
+      response.title = response.fields.title
+      res.send(response)
+    })
+    .catch(error => next(error.response))
+})
+
+/**
  * Error handler
  */
 router.use(function (err, req, res, next) {
@@ -272,5 +316,16 @@ router.use(function (err, req, res, next) {
       error: msg
     })
 })
+
+/**
+ * @todo: refactor this into utilities file
+ */
+const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) => (
+  markDownFields[fieldName]
+    .filter(fieldChildName => responseFields.hasOwnProperty(fieldChildName))
+    .map(fieldChildName => {
+      responseFields[fieldChildName] = marked(responseFields[fieldChildName])
+    })
+)
 
 export default router

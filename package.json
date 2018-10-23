@@ -4,7 +4,7 @@
   "description": "Talk to Frank Alpha",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js --tags \"not @wip and not @ignore and not @duplicate\"",
+    "test": "npx cucumber-js --tags \"not @ignore and not @wip and not @duplicate\"",
     "start": "cd dist/app/ && node server.bundle.js",
     "postinstall": "node_modules/grunt-cli/bin/grunt build"
   },

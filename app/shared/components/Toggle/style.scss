@@ -55,7 +55,7 @@ $dims: 2rem;
     .collapsible__trigger {
       position: relative;
 
-      &:before {
+      &::before {
         content: '';
         position: absolute;
         width: $dims;
@@ -75,7 +75,7 @@ $dims: 2rem;
     }
 
     .collapsible__trigger--active {
-      &:before {
+      &::before {
         background-image: url('/ui/svg/minus.svg');
       }
     }
@@ -114,7 +114,7 @@ $dims: 2rem;
         margin-left: 0;
       }
 
-      &:before {
+      &::before {
         content: '';
         position: absolute;
         left: 0;
@@ -132,7 +132,7 @@ $dims: 2rem;
     > li {
       margin-bottom: 2.5rem;
 
-      &:before {
+      &::before {
         content: '';
         border-radius: 0;
         position: absolute;

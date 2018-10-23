@@ -128,7 +128,7 @@
     margin-left: 1.5rem;
     position: relative;
 
-    &:before {
+    &::before {
       content: '';
       width: 12px;
       height: 6px;
@@ -140,7 +140,7 @@
     }
 
     &.nav-item--dropdown-active {
-      &:before {
+      &::before {
         background-image: url('/ui/svg/arrow-up.svg');
       }
 
@@ -157,7 +157,6 @@
   &.list-unstyled {
     padding-left: 1.5rem;
   }
-
 
   @include media-breakpoint-up(md) {
     background-color: $white;
@@ -184,20 +183,8 @@
 
   .navbar-nav {
     .nav-link {
-      color: $text-dark-blue;
       padding: .2em .3em 0;
-      border-bottom: 2px dotted $pinkAccess;
-
-      .has-hover & {
-        &:active,
-        &:hover,
-        &:focus {
-          color: $pinkAccess;
-          text-decoration: none;
-          border-bottom-style: solid;
-          border-bottom-color: $pinkAccess;
-        }
-      }
+      @include link;
     }
   }
 }
