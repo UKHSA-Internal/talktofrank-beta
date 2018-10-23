@@ -128,7 +128,7 @@
     margin-left: 1.5rem;
     position: relative;
 
-    &:before {
+    &::before {
       content: '';
       width: 12px;
       height: 6px;
@@ -140,7 +140,7 @@
     }
 
     &.nav-item--dropdown-active {
-      &:before {
+      &::before {
         background-image: url('/ui/svg/arrow-up.svg');
       }
 

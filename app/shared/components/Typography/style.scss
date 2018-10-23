@@ -95,7 +95,7 @@ h3,
   display: inline;
   left: 4rem;
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     background-color: $text-dark-blue;
@@ -370,7 +370,7 @@ p {
     .link-list__item {
       padding-left: 0;
 
-      &:before {
+      &::before {
         display: none;
       }
     }

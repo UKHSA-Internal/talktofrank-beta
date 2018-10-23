@@ -115,7 +115,7 @@
   position: absolute;
   right: 3rem;
 
-  &:after {
+  &::after {
     content: '';
     position: relative;
     top: -.2rem;
@@ -130,7 +130,7 @@
   }
 
   &.active {
-    &:after {
+    &::after {
       background-image: url(../svg/cross.svg);
       background-size: 70%;
     }
@@ -148,7 +148,7 @@
 // this pops a cheeky beak on it - @refactor could use a rename
 .active {
   @include media-breakpoint-down(md) {
-    &:before {
+    &::before {
       border-width: 0 15px 15px;
       content: '';
       position: absolute;
@@ -181,7 +181,7 @@
     .btn + .btn {
       position: relative;
 
-      &:before {
+      &::before {
         content: '';
         background-color: $gray-200;
         position: absolute;
