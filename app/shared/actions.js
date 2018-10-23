@@ -66,7 +66,6 @@ export function fetchDrugList () {
   }
 }
 
-
 export function fetchNewsList () {
   return dispatch => {
     dispatch(requestPage())

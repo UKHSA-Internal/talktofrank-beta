@@ -19,7 +19,7 @@ const options = {
     [BLOCKS.HEADING_3]: (node, next) => renderToString(<Heading text={next(node.content)} type="h3" />),
     [BLOCKS.HEADING_4]: (node, next) => renderToString(<Heading text={next(node.content)} type="h4" />),
     [BLOCKS.HEADING_5]: (node, next) => renderToString(<Heading text={next(node.content)} type="h5" />),
-    [BLOCKS.HEADING_6]: (node, next) => renderToString(<Heading text={next(node.content)} type="h6" />),
+    [BLOCKS.HEADING_6]: (node, next) => renderToString(<Heading text={next(node.content)} type="h6" />)
 //     [BLOCKS.DOCUMENT]: (node, next) => `${next(node.content)}`,
 //     [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
 //     [BLOCKS.UL_LIST]: (node, next) => `${next(node.content)}`,
@@ -34,11 +34,11 @@ const options = {
 //     [INLINES.ASSET_HYPERLINK]: (node,next) => `${next(node.content)}`
   },
   renderMark: {
-    [MARKS.BOLD]: text => `<strong>${text}</strong>`,
+    [MARKS.BOLD]: text => `<strong>${text}</strong>`
 //     [MARKS.ITALIC]: text => `${text}`,
 //     [MARKS.UNDERLINE]: text => `${text}`,
 //     [MARKS.CODE]: text => `${text}`
-  },
+  }
 }
 
 const PageNews = props => (
@@ -63,4 +63,3 @@ const PageNews = props => (
 )
 
 export default PageNews
-
