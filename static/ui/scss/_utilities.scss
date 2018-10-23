@@ -13,25 +13,25 @@
 
 .hidden--md-up {
   @include media-breakpoint-up(md) {
-    display: none;
+    display: none !important;
   }
 }
 
 .hidden--sm {
   @include media-breakpoint-down(sm) {
-    display: none;
+    display: none !important;
   }
 }
 
 .hidden--md {
   @include media-breakpoint-down(md) {
-    display: none;
+    display: none !important;
   }
 }
 
 .hidden--rg {
   @include media-breakpoint-down(rg) {
-    display: none;
+    display: none !important;
   }
 }
 
