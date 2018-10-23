@@ -1,16 +1,16 @@
 import React from 'react'
-import Svg from '../Svg/component.jsx'
+import Picture from '../Picture/component.jsx'
 import Heading from '../Heading/component.jsx'
 
 const Card = props => {
   return (
-    <div className='card bg-black'>
-      <a href={props.url} className='has-arrow'>
-        <Svg url={props.imageUrl} alt='' className='card-img-top'/>
+    <div className={`card ${props.className || ''}`}>
+      <a href={props.url} className='card__link'>
+        {props.images && <Picture {...props.images}/>}
         <div className='card-body'>
-          {props.category && <small className='muted'>{props.category}</small>}
-          <Heading type='h3' className='card-title h3 spacing-top--flush' text={props.title}/>
+          <Heading {...props.heading}/>
           {props.content && <p className='card-text'>{props.content}</p>}
+          {props.linkLabel && <p className='read-more'>{props.linkLabel}</p>}
         </div>
       </a>
     </div>

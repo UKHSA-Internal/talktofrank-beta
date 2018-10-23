@@ -39,6 +39,16 @@ $vertical-spacing: 30px;
         margin-bottom: ($vertical-spacing * 2) !important;
       }
     }
+
+    .#{$prefix}spacing#{$direction}--huge {
+      @if ($direction != '') {
+        margin#{$direction}: ($vertical-spacing * 3) !important;
+      }
+      @else {
+        margin-top: ($vertical-spacing * 3) !important;
+        margin-bottom: ($vertical-spacing * 3) !important;
+      }
+    }
   }
 }
 

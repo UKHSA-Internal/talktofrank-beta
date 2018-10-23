@@ -1,5 +1,91 @@
+//
+// Base styles
+//
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+
+  &.card--quiet {
+    border: 0;
+    background-color: transparent;
+  }
+}
+
+.card-body {
+  // Enable `flex-grow: 1` for decks and groups so that card blocks take up
+  // as much space as possible, ensuring footers are aligned to the bottom.
+  flex: 1 1 auto;
+  padding: $card-spacer-x 0;
+}
+
+.card-title {
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  font-family: $font-family-heavy;
+
+  .card__link & {
+    color: $text-dark-blue;
+  }
+}
+
+.card-text:last-child {
+  margin-bottom: 0;
+}
+
+.read-more {
+  @include link;
+  font-size: 2rem;
+
+  .card__link & {
+    display: inline-block;
+  }
+}
+
+//
+// Header navs
+//
+.card-img {
+  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+}
+
+// Card image caps
+.card-img-top {
+  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+}
+
+// Card deck
 
 .card-deck {
+  display: flex;
+  flex-direction: column;
+
+  .card {
+    margin-bottom: $card-deck-margin;
+    padding: 2rem;
+  }
+
+  @include media-breakpoint-up(sm) {
+    flex-flow: row wrap;
+    margin-left: 0;
+    margin-right: 0;
+
+    .card {
+      display: flex;
+      // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
+      flex: 1 0 0%;
+      flex-direction: column;
+      margin-right: $card-deck-margin;
+      margin-bottom: 0; // Override the default
+      margin-left: $card-deck-margin;
+      padding: 0;
+    }
+  }
+
   &.card-deck--compact {
     padding: 0;
 
@@ -12,45 +98,5 @@
         margin-right: .3rem;
       }
     }
-  }
-
-  &--light {
-    background-color: $gray-100;
-    padding: 1.5rem;
-
-    @include media-breakpoint-up(md) {
-      padding: 6rem;
-    }
-  }
-}
-
-.card {
-  border-radius: 0;
-
-  &.card--quiet {
-    border: 0;
-    background-color: transparent;
-  }
-}
-
-.has-arrow {
-  &:after {
-    content: '';
-    position: absolute;
-    width: 5rem;
-    height: 5rem;
-    right: 0;
-    bottom: 0;
-    background-color: $pink;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-}
-
-
-
-.card-body {
-  .has-arrow & {
-    padding-right: 6rem;
   }
 }

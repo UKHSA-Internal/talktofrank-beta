@@ -267,7 +267,6 @@ router.get('/news', (req, res, next) => {
     .catch(error => next(error.response))
 })
 
-
 router.get('/news/:slug', (req, res, next) => {
   if (!req.params.slug) {
     let error = new Error()
@@ -318,7 +317,6 @@ router.use(function (err, req, res, next) {
     })
 })
 
-
 /**
  * @todo: refactor this into utilities file
  */
@@ -329,6 +327,5 @@ const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
       responseFields[fieldChildName] = marked(responseFields[fieldChildName])
     })
 )
-
 
 export default router
