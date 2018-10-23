@@ -35,7 +35,7 @@ const Page = props => {
             {props.fields.image && <GridCol className='col-12 col-md-3'>
               <Picture {...images} />
             </GridCol>}
-            <GridCol className={'col-12 col-md-8 ' + (!props.fields.image ? 'offset-md-3' : null)}>
+            <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
               {props.fields.synonyms && <p className='lead bold'>Also called:</p>}
               <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul>
@@ -44,7 +44,7 @@ const Page = props => {
           </Grid>
         </Accent>
         <section className='section section--has-toggle'>
-          <Toggle text='How it looks, tastes and smells' className='collapsible--chevron' history={props.location}>
+          <Toggle text='How it looks, tastes and smells' className='collapsible--chevron collapsible--first' history={props.location}>
             {props.fields.qualitiesAppearance && <React.Fragment><Heading {...modifiers} text='What does it look like?'/>
               <Longform text={props.fields.qualitiesAppearance}/></React.Fragment>
             }
@@ -53,11 +53,11 @@ const Page = props => {
             }
           </Toggle>
         </section>
-        <section className='section section--has-toggle'>
+        {props.fields.qualitiesAdministered && <section className='section section--has-toggle'>
           <Toggle text='How do people take it?' className='collapsible--chevron' history={props.location}>
-            {props.fields.qualitiesAdministered && <Longform text={props.fields.qualitiesAdministered} />}
+            <Longform text={props.fields.qualitiesAdministered} />
           </Toggle>
-        </section>
+        </section>}
         <section className='section section--has-toggle'>
           <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
             {props.fields.category && <Heading type='p' className='h3 inverted' text={props.fields.category} />}
