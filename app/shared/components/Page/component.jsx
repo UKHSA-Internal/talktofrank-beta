@@ -122,7 +122,7 @@ const Page = props => {
               <Longform text={props.fields.lawClass.fields.possesion} />
               <Longform text={props.fields.lawClass.fields.supplying} />
             </React.Fragment>
-            {props.fields.lawCaught.fields.text && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
+            {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
         </section>}
         <section className='section section--has-toggle'>

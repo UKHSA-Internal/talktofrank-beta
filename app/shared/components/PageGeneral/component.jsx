@@ -1,30 +1,35 @@
 import React from 'react'
-import Masthead from '../Masthead/component.jsx'
-import Footer from '../Footer/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
-import Grid from '../Grid/component.jsx'
-import GridCol from '../GridCol/component.jsx'
-import Main from '../Main/component.jsx'
-import Accent from '../Accent/component.jsx'
-import { factory } from '../../factory.jsx'
+import Accent from '../Accent/component'
+import Masthead from '../Masthead/component'
+import Divider from '../Divider/component'
+import Heading from '../Heading/component'
+import Footer from '../Footer/component'
+import GA from '../GoogleAnalytics/component'
+import Grid from '../Grid/component'
+import GridCol from '../GridCol/component'
+import Main from '../Main/component'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { contentFulFactory } from '../../contentful'
 
-export default class PageGeneral extends React.PureComponent {
-  render () {
-    return (
-      <React.Fragment>
-        <Masthead path={this.props.location}/>
-        <Main className='main--full-width'>
-          <Accent>
-            <Grid>
-              <GridCol className='col-12 col-md-8'>
-                { factory(this.props) }
-              </GridCol>
-            </Grid>
-          </Accent>
-        </Main>
-        <Footer />
-        <GA/>
-      </React.Fragment>
-    )
-  }
-}
+const PageGeneral = props => (
+  <React.Fragment>
+    <Masthead path={props.location}/>
+    <Accent className='accent--shallow'>
+      <Heading type='h1' className='h2 inverted spacing-left spacing--single' text={props.title} />
+    </Accent>
+    <Divider className='hr--muted' />
+    <Main>
+      <Grid>
+        <GridCol className='col-12 col-md-8'>
+          <div dangerouslySetInnerHTML={{
+            __html: documentToHtmlString(props.fields.body, contentFulFactory())
+          }} />
+        </GridCol>
+      </Grid>
+    </Main>
+    <Footer />
+    <GA/>
+  </React.Fragment>
+)
+
+export default PageGeneral

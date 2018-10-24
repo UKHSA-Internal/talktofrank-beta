@@ -5,7 +5,6 @@ import Heading from '../Heading/component'
 import Longform from '../Longform/component'
 import Masthead from '../Masthead/component'
 import Main from '../Main/component'
-import Accent from '../Accent/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 
