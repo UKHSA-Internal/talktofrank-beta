@@ -37,25 +37,19 @@ export default [{
       path: '/',
       exact: true,
       component: asyncHome,
-      loadData: () => {
-        return fetchPage('homepage')
-      }
+      loadData: () => fetchPage('homepage')
     },
     {
       path: '/drugs-a-z',
       exact: true,
       component: asyncDrugsAZContainer,
-      loadData: () => {
-        return fetchDrugList()
-      }
+      loadData: () => fetchDrugList()
     },
     {
       path: '/drug/:drugName',
       exact: true,
       component: asyncPage,
-      loadData: ({drugName}) => {
-        return fetchPage(drugName, 'drugs')
-      }
+      loadData: ({drugName}) => fetchPage(drugName, 'drug')
     },
     {
       path: '/search',
@@ -66,33 +60,39 @@ export default [{
       path: '/search/:term',
       exact: true,
       component: asyncSearchPage,
-      loadData: ({search}) => {
-        return getSearchPage(search)
-      }
+      loadData: ({search}) => getSearchPage(search)
     },
     {
       path: '/latest',
       exact: true,
       component: asyncPageNewsListContainer,
-      loadData: () => {
-        return fetchNewsList()
-      }
+      loadData: () => fetchNewsList()
     },
     {
       path: '/news/:slug',
       exact: true,
       component: asyncPageNewsContainer,
-      loadData: ({slug}) => {
-        return fetchPage(slug, 'news')
-      }
+      loadData: ({slug}) => fetchPage(slug, 'news')
     },
     {
       path: '/:slug',
       exact: true,
       component: asyncPageGeneral,
-      loadData: ({slug}) => {
-        return fetchPage(slug)
-      }
+      loadData: ({slug}) => fetchPage(slug)
+    },
+    {
+      path: '/:slug/:slug1',
+      exact: true,
+      component: asyncPageGeneral,
+      loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+    },
+    {
+      path: '/:slug/:slug1/:slug2',
+      exact: true,
+      component: asyncPageGeneral,
+      loadData: ({slug, slug1, slug2}) => (
+        fetchPage([slug, slug1, slug2].join('/'))
+      )
     },
     {
       component: asyncPageNotFound
