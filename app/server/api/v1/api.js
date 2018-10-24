@@ -1,6 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
+import { imageMap } from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -262,20 +263,19 @@ router.get('/news', (req, res, next) => {
       // merge contentful assets and includes
       response.title = 'Latest news'
       response.list = resolveResponse(contentfulResponse)
-
       response.list = response.list.map(v => {
         if (v.fields.originalPublishDate) {
-          let d = Date.parse(v.fields.originalPublishDate)
-          v['originalPublishDate'] = d
-          v['originalPublishDateFormatted'] = format(d, 'Do MMM YYYY')
+          v['originalPublishDate'] = v.fields.originalPublishDate
+          v['originalPublishDateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
         }
 
-        let created = Date.parse(v.sys.createdAt)
-        let updated = Date.parse(v.sys.updatedAt)
-        v['createdAt'] = created
-        v['createdAtFormatted'] = format(created, 'Do MMM YYYY')
-        v['updatedAt'] = updated
-        v['updatedAtFormatted'] = format(updated, 'Do MMM YYYY')
+        if (v.fields.image) {
+          v['image'] = imageMap(v.fields.image)
+        }
+        // v['createdAt'] = v.sys.createdAt
+        // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
+        v['updatedAt'] = v.sys.updatedAt
+        v['updatedAtFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
         return v
       })
       res.send(response)
