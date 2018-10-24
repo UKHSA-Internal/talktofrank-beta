@@ -73,14 +73,14 @@ const Page = props => {
             {props.fields.durationDetail && <Longform text={props.fields.durationDetail} />}
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
-                <article className='panel panel--padding-small panel--has-heading' key={i}>
+                <aside className='panel panel--padding-small panel--has-heading' key={i}>
                   <Heading type='h3' text={v.fields.methodName} className='h4 inverted displaced-top'/>
                   <dl className='definition-list'>
                     <dt>Start to feel effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsStart}} />
                     <dt>The effects last for:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsDuration}} />
                     {v.fields.methodAfterEffects && <React.Fragment><dt>After effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodAfterEffects}}/></React.Fragment>}
                   </dl>
-                </article>
+                </aside>
               )
             })}
             {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
@@ -114,7 +114,7 @@ const Page = props => {
         {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
-              <Heading type='p' className='h3 inverted' text={'Class ' + props.fields.lawClass.fields.class} />
+              <Heading type='p' className='h2 inverted spacing-bottom--single' text={'Class ' + props.fields.lawClass.fields.class} />
               <Longform text={props.fields.lawClass.fields.description} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
 
