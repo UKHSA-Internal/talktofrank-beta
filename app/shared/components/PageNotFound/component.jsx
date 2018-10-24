@@ -7,6 +7,7 @@ import Masthead from '../Masthead/component'
 import Main from '../Main/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
+import Accent from '../Accent/component'
 
 const PageNotFound = () => {
   const text = '<p>If you entered a web address please check it was correct.</p>' +
@@ -17,12 +18,14 @@ const PageNotFound = () => {
     <React.Fragment>
       <Masthead path={'no-match'}/>
       <Main>
-        <Grid>
-          <GridCol className='col-12 col-md-8'>
-            <Heading type='h2' text='Page not found' />
-            <Longform text={text} />
-          </GridCol>
-        </Grid>
+        <Accent>
+          <Grid>
+            <GridCol className='col-12 col-md-8'>
+              <Heading type='h2' text='Page not found' />
+              <Longform text={text} />
+            </GridCol>
+          </Grid>
+        </Accent>
       </Main>
       <Footer/>
       <GA/>

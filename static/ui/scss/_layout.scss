@@ -34,6 +34,8 @@ $grid-gutter: 30px;
 
   @include media-breakpoint-up(sm) {
     padding-top: 3rem;
+    min-height: 70vh;
+    min-height: calc(100vh - (162px + 93px)); // filthy - but javascriptless way of stretching for short pages
   }
 
   &--full-width {
@@ -50,12 +52,4 @@ main {
   margin-right: -1.5rem;
   position: relative;
   overflow: hidden;
-}
-
-// flex wrapper to force the footer to the bottom of the page when it is short
-.flex-wrapper {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  justify-content: space-between
 }
