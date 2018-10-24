@@ -1,6 +1,5 @@
 import { config } from 'config'
 import axios from 'axios'
-import { getContentfulHost } from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -68,7 +67,7 @@ router.get('/pages/:slug', (req, res, next) => {
   } else {
     contentfulClient.getEntries({
       content_type: config.contentful.contentTypes.page,
-      'fields.slug': req.params.slug
+      'fields.slug': decodeURIComponent(req.params.slug)
     })
       .then((contentfulResponse) => {
         if (contentfulResponse.total === 0) {
@@ -77,9 +76,9 @@ router.get('/pages/:slug', (req, res, next) => {
           error.status = 404
           return next(error)
         }
+
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
-
         response.title = response.fields.title
         res.send(response)
       })
@@ -87,7 +86,7 @@ router.get('/pages/:slug', (req, res, next) => {
   }
 })
 
-router.get('/drugs/:slug', (req, res, next) => {
+router.get('/drug/:slug', (req, res, next) => {
   if (!req.params.slug) {
     let error = new Error()
     error.message = 'Page id not set'
@@ -97,7 +96,7 @@ router.get('/drugs/:slug', (req, res, next) => {
 
   contentfulClient.getEntries({
     content_type: config.contentful.contentTypes.drug,
-    'fields.slug': req.params.slug
+    'fields.slug': decodeURIComponent(req.params.slug)
   })
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
@@ -275,9 +274,11 @@ router.get('/news/:slug', (req, res, next) => {
     return next(error)
   }
 
+  const slug = decodeURIComponent(req.params.slug)
+
   contentfulClient.getEntries({
     content_type: config.contentful.contentTypes.news,
-    'fields.slug': req.params.slug
+    'fields.slug': slug
   })
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {

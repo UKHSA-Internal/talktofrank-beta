@@ -5,7 +5,8 @@ import Heading from '../Heading/component'
 import Longform from '../Longform/component'
 import Masthead from '../Masthead/component'
 import Main from '../Main/component'
-import Accent from '../Accent/component'
+import Grid from '../Grid/component'
+import GridCol from '../GridCol/component'
 
 const PageNotFound = () => {
   const text = '<p>If you entered a web address please check it was correct.</p>' +
@@ -15,11 +16,13 @@ const PageNotFound = () => {
   return (
     <React.Fragment>
       <Masthead path={'no-match'}/>
-      <Main className='main--full-width'>
-        <Accent>
-          <Heading type='h2' text='Page not found' />
-          <Longform text={text} />
-        </Accent>
+      <Main>
+        <Grid>
+          <GridCol className='col-12 col-md-8'>
+            <Heading type='h2' text='Page not found' />
+            <Longform text={text} />
+          </GridCol>
+        </Grid>
       </Main>
       <Footer/>
       <GA/>
