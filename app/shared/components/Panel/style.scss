@@ -26,8 +26,9 @@
 
   .displaced-top {
     position: relative;
-    margin-left: -.25rem;
-    width: auto !important;
+    margin-left: -.75rem;
+    //width: auto !important;
+    padding-left: .3em;
     transform: translateY(-2em);
   }
 }

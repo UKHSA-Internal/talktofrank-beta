@@ -26,7 +26,7 @@ h6,
 .h5,
 .h6 {
   font-family: $headings-font-family;
-  color: $headings-color;
+  color: $text-dark-blue;
   font-weight: 700;
 }
 
@@ -244,6 +244,7 @@ mark,
 strong,
 .bold,
 b {
+  color: $text-dark-blue;
   font-family: $font-family-heavy;
 }
 
@@ -324,24 +325,26 @@ p {
   margin-bottom: 0;
 
   @include media-breakpoint-up(sm) {
-    display: flex;
-    flex-wrap: wrap;
 
     dd,
     dt {
       margin-bottom: 1rem;
-      flex: 0 0 auto;
     }
 
     dt {
       margin-right: .1em;
       font-family: $headings-font-family;
-      flex-basis: 33%;
+      color: $text-dark-blue;
+      float: left;
     }
 
     dd {
-      margin-right: auto;
-      flex-basis: 66%;
+      clear: right;
+      display: block;
+
+      p {
+        display: inline;
+      }
     }
 
     p {
