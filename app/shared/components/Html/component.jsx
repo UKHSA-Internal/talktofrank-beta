@@ -10,7 +10,7 @@ const Html = ({initialState, cacheBusterTS, children}) => {
     <Head {...initialState.app.pageData} />
     <body>
       <Skiplinks/>
-      <div id='app'>
+      <div id='app' className='flex-wrapper'>
         {children}
       </div>
       <script dangerouslySetInnerHTML={{__html: `window.$REDUX_STATE=${JSON.stringify(initialState)}`}} />

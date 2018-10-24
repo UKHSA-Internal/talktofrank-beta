@@ -51,3 +51,11 @@ main {
   position: relative;
   overflow: hidden;
 }
+
+// flex wrapper to force the footer to the bottom of the page when it is short
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between
+}
