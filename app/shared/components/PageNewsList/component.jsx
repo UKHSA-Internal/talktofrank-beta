@@ -11,24 +11,27 @@ import Accent from '../Accent/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 const PageNewsList = props => {
+
+  //console.log(props.list)
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
       <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 inverted spacing-left spacing--single' text={props.title} />
+        <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
       </Accent>
       <Divider className='hr--muted' />
       <Main>
         <Grid>
-          <GridCol className='col-12 col-sm-8 offset-sm-2'>
-            <ul>{ props.list
+          <GridCol className='col-12 col-sm-10 offset-sm-2'>
+            <ul className='list-unstyled list-'>{ props.list
               .map(newsItem => (
-                <li key={newsItem.sys.id} >
-                  <h2 className='h5'>
-                    <a href={`/news/${newsItem.fields.slug}`}>
-                      {newsItem.fields.title}
-                    </a>
+                <li className='' key={newsItem.sys.id} >
+                  <a href={`/news/${newsItem.fields.slug}`}>
+
+                  <h2 className='h3 has-arrow'>
+                    {newsItem.fields.title}
                   </h2>
+                  </a>
                 </li>
               ))
             }</ul>

@@ -1,5 +1,6 @@
 import { config } from 'config'
 import axios from 'axios'
+import { format } from 'date-fns'
 
 /**
  * Express routes
@@ -259,8 +260,24 @@ router.get('/news', (req, res, next) => {
         return next(error)
       }
       // merge contentful assets and includes
-      response.title = 'News'
+      response.title = 'Latest news'
       response.list = resolveResponse(contentfulResponse)
+
+      response.list = response.list.map(v => {
+        if (v.fields.originalPublishDate) {
+          let d = Date.parse(v.fields.originalPublishDate)
+          v['originalPublishDate'] = d
+          v['originalPublishDateFormatted'] = format(d, 'Do MMM YYYY')
+        }
+
+        let created = Date.parse(v.sys.createdAt)
+        let updated = Date.parse(v.sys.updatedAt)
+        v['createdAt'] = created
+        v['createdAtFormatted'] = format(created, 'Do MMM YYYY')
+        v['updatedAt'] = updated
+        v['updatedAtFormatted'] = format(updated, 'Do MMM YYYY')
+        return v
+      })
       res.send(response)
     })
     .catch(error => next(error.response))

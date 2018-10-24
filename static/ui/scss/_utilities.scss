@@ -46,6 +46,8 @@
 // mixins
 @mixin arrow {
   position: relative;
+  padding-right: 4rem;
+  line-height: 1.2;
 
   &:after {
     content: '';
