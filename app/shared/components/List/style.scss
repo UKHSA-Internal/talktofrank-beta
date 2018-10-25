@@ -21,6 +21,10 @@ $offset: 3.5rem;
     margin: 15rem auto;
     position: relative;
 
+    &:first-child {
+      margin-top: 5rem;
+    }
+
     &:not(.list-item--has-image) {
       @include fakeHr;
     }
