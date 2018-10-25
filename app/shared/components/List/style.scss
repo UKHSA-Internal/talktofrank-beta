@@ -51,10 +51,18 @@ $offset: 3.5rem;
     .list-item__link {
       display: block;
 
-      &:hover {
-        .long-form {
-          display: inline-block;
-          text-decoration: none;
+      .has-hover & {
+        &:hover {
+          .has-arrow {
+            &:after {
+              right: 1rem;
+            }
+          }
+
+          .long-form {
+            display: inline-block;
+            text-decoration: none;
+          }
         }
       }
     }
@@ -68,6 +76,7 @@ $offset: 3.5rem;
     .time {
       color: $body-text;
       margin-top: -$offset;
+      padding: .2em .4em .2em 0;
     }
 
     .read-more {
@@ -83,6 +92,43 @@ $offset: 3.5rem;
 
       .list-item__title {
         z-index: 1;
+      }
+    }
+
+    span + .has-arrow {
+      margin-left: 1rem;
+    }
+
+    &.list-item--alternate {
+      left: auto;
+      right: 4rem;
+
+      .list-item__title {
+        &::before {
+          left: auto;
+          right: -2rem;
+        }
+      }
+
+      span {
+        left: auto;
+        right: -1rem;
+      }
+
+      .read-more,
+      .time,
+      .list-item__title {
+        text-align: right;
+        left: auto;
+        right: 0;
+      }
+
+      .list-item__inner {
+        right: 0;
+      }
+
+      .has-arrow {
+        display: none;
       }
     }
   }
