@@ -25,9 +25,7 @@ const PageNewsList = props => {
         <Grid>
           <GridCol className='col-12 col-sm-10 offset-sm-1'>
             <ul className='list-unstyled list-offset'>{ props.list && props.list.map((item, i) => (
-              {/* eslint-disable */}
               <li className={`list-item ${item.fields.image ? ('list-item--has-image' + (item.fields.imagepos & 1 === 1 ? ' list-item--alternate' : '')) : ''} `} key={item.sys.id} >
-              {/* eslint-enable */}
                 <a className='list-item__link' href={`/news/${item.fields.slug}`}>
                   {item.fields.image && <Picture {...item.fields.image}/>}
                   <div className='list-item__inner'>
