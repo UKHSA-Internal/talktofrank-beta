@@ -140,6 +140,7 @@ router.get('/drug/:slug', (req, res, next) => {
         'lawCaught': [
           'text'
         ],
+        'lawDetail': [],
         'lawClass': [
           'description',
           'possesion',

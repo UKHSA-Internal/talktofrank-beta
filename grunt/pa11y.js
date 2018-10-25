@@ -8,6 +8,7 @@ module.exports = {
   },
   dev: {
     urls: [
+      'http://localhost:3000',
       'http://localhost:3000/drug',
       'http://localhost:3000/drug/cocaine',
       'http://localhost:3000/drug/cannabis'
