@@ -40,14 +40,18 @@ $dims: 2rem;
 
   .bordered {
     border-bottom: 1px solid $gray-300;
+  }
 
-    .collapsible--first & {
+  &.collapsible--first  {
+    .bordered {
       border-top: 1px solid $gray-300;
     }
   }
 
   .collapsible__trigger {
     display: block;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     font-family: $headings-font-family;
     color: $text-dark-blue;
   }
@@ -62,16 +66,13 @@ $dims: 2rem;
         width: $dims;
         height: $dims;
         left: 0;
-        top: ($dims / 4);
+        top: 50%;
+        margin-top: -($dims / 2);
         display: block;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         background-image: url('/ui/svg/plus.svg');
-
-        @include media-breakpoint-up(md) {
-          top: ($dims / 2);
-        }
       }
     }
 
@@ -80,6 +81,11 @@ $dims: 2rem;
         background-image: url('/ui/svg/minus.svg');
       }
     }
+  }
+
+  strong {
+    color: $text-dark-blue;
+    display: block;
   }
 
   // slightly smelly - this is in place to negate the need for a really complex
@@ -109,7 +115,7 @@ $dims: 2rem;
       list-style: none;
       padding-left: 2.5rem;
       position: relative;
-      margin-bottom: 1.5rem;
+      margin-bottom: .5rem;
 
       p {
         margin-left: 0;
@@ -119,7 +125,7 @@ $dims: 2rem;
         content: '';
         position: absolute;
         left: 0;
-        top: .55em;
+        top: .6em;
         border-radius: 100%;
         height: 6px;
         width: 6px;
@@ -131,7 +137,7 @@ $dims: 2rem;
 
   .has-unordered ul {
     > li {
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
 
       &::before {
         content: '';

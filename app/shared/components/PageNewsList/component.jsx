@@ -22,14 +22,16 @@ const PageNewsList = props => {
       <Divider className='hr--muted' />
       <Main>
         <Grid>
-          <GridCol className='col-12 col-sm-10 offset-sm-2'>
-            <ul className='list-unstyled list-offset'>{ props.list && props.list.map(newsItem => (
-              <li className='list-item' key={newsItem.sys.id} >
-                <a className='' href={`/news/${newsItem.fields.slug}`}>
-                  {newsItem.fields.image && <Picture {...newsItem.fields.image}/>}
-                  <Time time={newsItem.originalPublishDate ? newsItem.originalPublishDateFormatted : newsItem.updatedAtFormatted} dateTime={newsItem.originalPublishDate ? newsItem.originalPublishDate : newsItem.updatedAt}/>
-                  <Heading className='h3 has-arrow' text={newsItem.fields.title}/>
-                  <p className='read-more'>Read more</p>
+          <GridCol className='col-12 col-sm-10 offset-sm-1'>
+            <ul className='list-unstyled list-offset'>{ props.list && props.list.map((item, i) => (
+              <li className={`list-item ${item.fields.image ? 'list-item--has-image' : ''}`} key={item.sys.id} >
+                <a className='list-item__link' href={`/news/${item.fields.slug}`}>
+                  {item.fields.image && <Picture {...item.fields.image}/>}
+                  <div className='list-item__inner'>
+                    <h2 className='list-item__title h3 heading-inline'><span>{item.fields.title}<span className='has-arrow'></span></span></h2>
+                    <Time time={'Updated at: ' + item.originalPublishDate ? item.originalPublishDateFormatted : item.updatedAtFormatted} dateTime={item.originalPublishDate ? item.originalPublishDate : item.updatedAt}/>
+                    <p className='read-more'>Read more</p>
+                  </div>
                 </a>
               </li>
             ))}

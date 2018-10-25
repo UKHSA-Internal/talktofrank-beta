@@ -17,10 +17,12 @@ $max-width: 1200px;
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
 
+@import 'mixins';
 @import 'vertical-spacing';
 @import 'horizontal-spacing';
 @import 'layout';
 @import 'utilities';
+
 
 @import 'bootstrap/scss/root';
 @import 'bootstrap/scss/reboot';
@@ -56,3 +58,4 @@ $max-width: 1200px;
 @import '../../../app/shared/components/Hero/style';
 @import '../../../app/shared/components/Picture/style';
 @import '../../../app/shared/components/Header/style';
+@import '../../../app/shared/components/List/style';

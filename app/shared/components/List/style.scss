@@ -1,0 +1,49 @@
+$offset: 4rem;
+
+.list-offset {
+  .list-item {
+    max-width: 50rem;
+    margin: 3rem auto;
+    position: relative;
+
+    .list-item__inner {
+      position: relative;
+    }
+
+    .image {
+      img {
+        max-height: 45rem;
+        width: auto;
+      }
+    }
+
+    .list-item__link {
+      display: block;
+    }
+
+    .list-item__title {
+      max-width: 42rem;
+      margin-top: $offset;
+    }
+
+    .time {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+    }
+
+    &.list-item--has-image {
+      max-width: none;
+
+      .list-item__inner {
+        @include vertical-align;
+      }
+
+      .list-item__title {
+        z-index: 1;
+        margin-top: -($offset / 2);
+      }
+    }
+  }
+}

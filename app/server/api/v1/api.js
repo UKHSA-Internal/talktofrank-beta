@@ -270,7 +270,7 @@ router.get('/news', (req, res, next) => {
         }
 
         if (v.fields.image) {
-          v['image'] = imageMap(v.fields.image)
+          v.fields.image = imageMap(v.fields.image)
         }
         // v['createdAt'] = v.sys.createdAt
         // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')

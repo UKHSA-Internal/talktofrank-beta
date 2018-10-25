@@ -26,7 +26,7 @@ h6,
 .h5,
 .h6 {
   font-family: $headings-font-family;
-  color: $headings-color;
+  color: $text-dark-blue;
   font-weight: 700;
 }
 
@@ -96,17 +96,18 @@ h3,
   max-width: 70%;
 }
 
-.heading-inverted--inline {
+.heading-inline {
   position: relative;
   line-height: .9;
-  background-color: $text-dark-blue;
+  background-color: $white;
+  color: $text-dark-blue;
   display: inline;
   left: 4rem;
 
   &::before {
     content: '';
     position: absolute;
-    background-color: $text-dark-blue;
+    background-color: $white;
     width: 2rem;
     top: 0;
     left: -2rem;
@@ -115,10 +116,23 @@ h3,
 
   span {
     left: -1rem;
-    color: $white;
+    color: $text-dark-blue;
     margin: 0;
     position: relative;
     bottom: .3rem;
+  }
+
+  &.heading-inverted--inline {
+    background-color: $text-dark-blue;
+    color: $white;
+
+    &::before {
+      background-color: $text-dark-blue;
+    }
+
+    span {
+      color: $white;
+    }
   }
 }
 
@@ -244,6 +258,7 @@ mark,
 strong,
 .bold,
 b {
+  color: $text-dark-blue;
   font-family: $font-family-heavy;
 }
 
@@ -324,24 +339,26 @@ p {
   margin-bottom: 0;
 
   @include media-breakpoint-up(sm) {
-    display: flex;
-    flex-wrap: wrap;
 
     dd,
     dt {
       margin-bottom: 1rem;
-      flex: 0 0 auto;
     }
 
     dt {
       margin-right: .1em;
       font-family: $headings-font-family;
-      flex-basis: 33%;
+      color: $text-dark-blue;
+      float: left;
     }
 
     dd {
-      margin-right: auto;
-      flex-basis: 66%;
+      clear: right;
+      display: block;
+
+      p {
+        display: inline;
+      }
     }
 
     p {
