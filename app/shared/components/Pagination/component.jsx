@@ -12,8 +12,8 @@ const BreakView = (props) => {
 }
 
 const PageView = (props) => {
-  let className = props.pageClassName
   const onClick = props.onClick
+  let className = props.pageClassName
   let ariaLabel = `Page ${props.page} ${(props.extraAriaContext ? ' ' + props.extraAriaContext : '')}`
   let ariaCurrent = null
 
