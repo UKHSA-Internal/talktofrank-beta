@@ -255,7 +255,7 @@ router.get('/news', (req, res, next) => {
     order: '-sys.createdAt,sys.id'
   })
     .then((contentfulResponse) => {
-      let imageCount = 0
+      let imageCount = 1
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `Page not found ${pageUrl}`

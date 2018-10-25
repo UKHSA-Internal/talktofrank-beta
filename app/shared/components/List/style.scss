@@ -1,22 +1,28 @@
 $offset: 3.5rem;
 
+@mixin fakeHr {
+  &::after {
+    content: '';
+    height: 1px;
+    background-color: $gray-200;
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    bottom: -9rem;
+    width: 100%;
+    left: -1rem;
+  }
+}
+
 .list-offset {
   .list-item {
     max-width: 50rem;
     margin: 15rem auto;
     position: relative;
 
-    &::after {
-      content: '';
-      height: 1px;
-      background-color: $gray-200;
-      max-width: 50rem;
-      margin-left: auto;
-      margin-right: auto;
-      position: absolute;
-      bottom: -9rem;
-      width: 100%;
-      left: -1rem;
+    &:not(.list-item--has-image) {
+      @include fakeHr;
     }
 
     .list-item__inner {
@@ -44,6 +50,7 @@ $offset: 3.5rem;
     .image {
       img {
         max-height: 45rem;
+        max-width: 100%;
         width: auto;
       }
     }
@@ -71,6 +78,10 @@ $offset: 3.5rem;
       position: relative;
       max-width: 42rem;
       margin-top: $offset;
+
+      span {
+        bottom: 0;
+      }
     }
 
     .time {
@@ -80,7 +91,13 @@ $offset: 3.5rem;
     }
 
     .read-more {
-      top: 110%;
+      top: auto;
+      bottom: -6rem;
+    }
+
+    & + .list-item--has-image {
+      margin-top: -2rem;
+      margin-bottom: -2rem;
     }
 
     &.list-item--has-image {
@@ -93,6 +110,10 @@ $offset: 3.5rem;
       .list-item__title {
         z-index: 1;
       }
+
+      .has-arrow {
+        display: none;
+      }
     }
 
     span + .has-arrow {
@@ -101,7 +122,6 @@ $offset: 3.5rem;
 
     &.list-item--alternate {
       left: auto;
-      right: 4rem;
 
       .list-item__title {
         &::before {
@@ -112,7 +132,7 @@ $offset: 3.5rem;
 
       span {
         left: auto;
-        right: -1rem;
+        right: 0;
       }
 
       .read-more,
@@ -123,12 +143,13 @@ $offset: 3.5rem;
         right: 0;
       }
 
-      .list-item__inner {
-        right: 0;
+      .time {
+        padding-left: .4em;
+        padding-right: 0;
       }
 
-      .has-arrow {
-        display: none;
+      .list-item__inner {
+        right: 0;
       }
     }
   }
