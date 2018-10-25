@@ -255,6 +255,7 @@ router.get('/news', (req, res, next) => {
     order: '-sys.createdAt,sys.id'
   })
     .then((contentfulResponse) => {
+      let imageCount = 0
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `Page not found ${pageUrl}`
@@ -278,6 +279,8 @@ router.get('/news', (req, res, next) => {
 
         if (v.fields.image) {
           v.fields.image = imageMap(v.fields.image)
+          imageCount++
+          v.fields['imagepos'] = imageCount
         }
         // v['createdAt'] = v.sys.createdAt
         // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
