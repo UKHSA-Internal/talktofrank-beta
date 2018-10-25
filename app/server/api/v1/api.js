@@ -273,7 +273,7 @@ router.get('/news', (req, res, next) => {
 
         if (v.fields.bodyLegacy) {
           v.fields.bodyLegacy = _.truncate(v.fields.bodyLegacy, {
-            'length': 80
+            'length': 100
           })
         }
 

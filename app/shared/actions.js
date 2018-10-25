@@ -8,6 +8,8 @@ export const REQUEST_PAGE = 'REQUEST_PAGE'
 export const RECEIVE_PAGE = 'RECEIVE_PAGE'
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR'
 
+export const PAGE_SIZE = 10
+
 let apiHost = getApiHost()
 
 function requestPage () {
@@ -66,10 +68,12 @@ export function fetchDrugList () {
   }
 }
 
-export function fetchNewsList () {
+export function fetchNewsList (page = 0, pageSize) {
+  var queryString = '?skip=' + (page * PAGE_SIZE) + '&limit=' + PAGE_SIZE
+
   return dispatch => {
     dispatch(requestPage())
-    let lookupUrl = apiHost + '/api/v1/news'
+    let lookupUrl = apiHost + '/api/v1/news' + queryString
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
