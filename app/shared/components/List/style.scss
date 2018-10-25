@@ -1,13 +1,44 @@
-$offset: 4rem;
+$offset: 3.5rem;
 
 .list-offset {
   .list-item {
     max-width: 50rem;
-    margin: 3rem auto;
+    margin: 15rem auto;
     position: relative;
+
+    &::after {
+      content: '';
+      height: 1px;
+      background-color: $gray-200;
+      max-width: 50rem;
+      margin-left: auto;
+      margin-right: auto;
+      position: absolute;
+      bottom: -9rem;
+      width: 100%;
+      left: -1rem;
+    }
 
     .list-item__inner {
       position: relative;
+
+      .heading-inline {
+        left: 0;
+      }
+
+      .long-form {
+        color: $body-text;
+        margin-left: -1rem;
+      }
+    }
+
+    .read-more,
+    .time {
+      position: absolute;
+      background-color: $white;
+      margin-left: -1rem;
+      left: 0;
+      top: 0;
     }
 
     .image {
@@ -19,18 +50,28 @@ $offset: 4rem;
 
     .list-item__link {
       display: block;
+
+      &:hover {
+        .long-form {
+          display: inline-block;
+          text-decoration: none;
+        }
+      }
     }
 
     .list-item__title {
+      position: relative;
       max-width: 42rem;
       margin-top: $offset;
     }
 
     .time {
-      position: absolute;
-      top: 0;
-      left: 0;
+      color: $body-text;
+      margin-top: -$offset;
+    }
 
+    .read-more {
+      top: 110%;
     }
 
     &.list-item--has-image {
@@ -42,7 +83,6 @@ $offset: 4rem;
 
       .list-item__title {
         z-index: 1;
-        margin-top: -($offset / 2);
       }
     }
   }

@@ -16,6 +16,7 @@ const marked = require('marked')
 const router = express.Router()
 const sortBy = require('lodash.sortby')
 const groupBy = require('lodash.groupby')
+const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
@@ -267,6 +268,12 @@ router.get('/news', (req, res, next) => {
         if (v.fields.originalPublishDate) {
           v['originalPublishDate'] = v.fields.originalPublishDate
           v['originalPublishDateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+        }
+
+        if (v.fields.bodyLegacy) {
+          v.fields.bodyLegacy = _.truncate(v.fields.bodyLegacy, {
+            'length': 80
+          })
         }
 
         if (v.fields.image) {

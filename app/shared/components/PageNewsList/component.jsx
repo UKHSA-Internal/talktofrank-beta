@@ -8,6 +8,7 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Divider from '../Divider/component.jsx'
 import Picture from '../Picture/component.jsx'
+import Longform from '../Longform/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Time from '../Time/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
@@ -28,8 +29,10 @@ const PageNewsList = props => {
                 <a className='list-item__link' href={`/news/${item.fields.slug}`}>
                   {item.fields.image && <Picture {...item.fields.image}/>}
                   <div className='list-item__inner'>
-                    <h2 className='list-item__title h3 heading-inline'><span>{item.fields.title}<span className='has-arrow'></span></span></h2>
+                    <h2 className='list-item__title h3 heading-inline'><span>{item.fields.title}</span><span className='has-arrow'></span></h2>
                     <Time time={'Updated at: ' + item.originalPublishDate ? item.originalPublishDateFormatted : item.updatedAtFormatted} dateTime={item.originalPublishDate ? item.originalPublishDate : item.updatedAt}/>
+                    {item.fields.bodyLegacy && !item.fields.image && <Longform text={item.fields.bodyLegacy}/>}
+                    {item.fields.summary && !item.fields.image && <Longform text={item.fields.summary}/>}
                     <p className='read-more'>Read more</p>
                   </div>
                 </a>
