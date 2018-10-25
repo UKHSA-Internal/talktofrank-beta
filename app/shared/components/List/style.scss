@@ -48,7 +48,18 @@ $offset: 3.5rem;
       background-color: $white;
       margin-left: -1rem;
       left: 0;
-      top: 0;
+    }
+
+    .time {
+      color: $gray-700;
+      margin-top: -$offset;
+      padding: .2em .4em .2em 0;
+      bottom: 100%;
+    }
+
+    .read-more {
+      //bottom: -6rem;
+      top: calc(100% + 1rem);
     }
 
     .image {
@@ -86,17 +97,6 @@ $offset: 3.5rem;
       span {
         bottom: 0;
       }
-    }
-
-    .time {
-      color: $body-text;
-      margin-top: -$offset;
-      padding: .2em .4em .2em 0;
-    }
-
-    .read-more {
-      top: auto;
-      bottom: -6rem;
     }
 
     & + .list-item--has-image {
