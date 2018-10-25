@@ -124,23 +124,23 @@
 
 .nav-item--has-dropdown {
   @include media-breakpoint-up(md) {
-    padding-left: 1.5rem;
-    margin-left: 1.5rem;
+    padding-left: 1rem;
+    margin-left: 1rem;
     position: relative;
 
-    &::before {
+    > a::before {
       content: '';
       width: 12px;
       height: 6px;
       position: absolute;
-      left: -.5rem;
+      left: -2rem;
       top: 50%;
       margin-top: -3px;
       background-image: url('/ui/svg/arrow-down.svg');
     }
 
     &.nav-item--dropdown-active {
-      &::before {
+      > a::before {
         background-image: url('/ui/svg/arrow-up.svg');
       }
 

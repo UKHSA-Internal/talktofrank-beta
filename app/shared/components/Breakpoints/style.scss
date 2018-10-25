@@ -1,0 +1,10 @@
+body:before {
+  content: 'mobile';
+  display: none; /* Prevent from displaying. */
+}
+
+@include media-breakpoint-up(sm) {
+  body:before {
+    content: 'default';
+  }
+}

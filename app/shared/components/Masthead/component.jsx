@@ -8,6 +8,7 @@ import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
 import Icon from '../Icon/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
+import { ViewportMobile, ViewportDefault } from '../Breakpoints/component.jsx'
 
 export default class Masthead extends React.PureComponent {
   constructor () {
@@ -52,11 +53,19 @@ export default class Masthead extends React.PureComponent {
       <header className={classes} role='banner'>
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
-            <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+            <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
               {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
             </Button>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
-            <Nav className={navClasses} id='navigation-primary' navigation={primary} current={this.props.path.pathname} role='menu' type='nav'/>
+
+            <ViewportMobile>
+              <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
+            </ViewportMobile>
+
+            <ViewportDefault>
+              <Nav className={navClasses} menu-open={true} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
+            </ViewportDefault>
+
           </section>
           <ButtonGroup className='button-group--static'>
             <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md'>Search </span><Icon {...icon}/></Button>
