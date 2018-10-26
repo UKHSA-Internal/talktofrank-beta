@@ -13,7 +13,7 @@ class LinkItem extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if(state.menuOpen !== props.menuOpen) {
+    if (state.menuOpen !== props.menuOpen) {
       return {
         menuOpen: props.menuOpen
       }
@@ -102,7 +102,6 @@ export default class Nav extends React.PureComponent {
   }
 
   render () {
-
     let classes = classNames('navbar', this.props.className)
     let role = this.props.role ? {'role': this.props.role} : null
     let aria = {}

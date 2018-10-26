@@ -110,7 +110,7 @@ export const primary = [
       action: 'Click',
       category: 'Phone contact'
     }
-  },
+  }
 ]
 
 export const footerButton = [{
