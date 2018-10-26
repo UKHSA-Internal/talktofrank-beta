@@ -89,9 +89,9 @@ const Page = props => {
         </section>}
         {props.fields.risksHealthMental || props.fields.risksPhysicalHealth || props.fields.risksCutWith && <section className='section section--has-toggle'>
           <Toggle text='The risks' className='collapsible--chevron' history={props.location}>
-            {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks`}/><Longform className='has-unordered' text={props.fields.risksHealthMental} /></React.Fragment>
-            }
             {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks`}/><Longform className='has-unordered' text={props.fields.risksPhysicalHealth} /></React.Fragment>
+            }
+            {props.fields.risksHealthMental && <React.Fragment><Heading {...modifiers} text={`Mental health risks`}/><Longform className='has-unordered' text={props.fields.risksHealthMental} /></React.Fragment>
             }
             {props.fields.risksCutWith && <React.Fragment><Heading {...modifiers} text={`What is ${name} cut with?`}/><Longform className='has-unordered' text={props.fields.risksCutWith} /></React.Fragment>}
           </Toggle>
