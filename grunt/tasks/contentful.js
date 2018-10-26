@@ -62,10 +62,9 @@ module.exports = function (grunt) {
         config.elasticsearch.amazonES.credentials.secretAccessKey
       ),
       region: config.elasticsearch.amazonES.region
-    });
+    })
 
     let client = new elasticsearch.Client(elasticSearchConf)
-
 
     let [news, drugs, pages] = await Promise.all([
       contentfulClient.getEntries({

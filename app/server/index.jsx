@@ -51,7 +51,7 @@ AWS.config.update({
     config.elasticsearch.amazonES.credentials.secretAccessKey
   ),
   region: config.elasticsearch.amazonES.region
-});
+})
 
 const search = new elasticsearch.Client(elasticSearchConf)
 
