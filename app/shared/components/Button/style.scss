@@ -174,10 +174,6 @@
       top: 2.2rem;
     }
 
-    @include media-breakpoint-up(lg) {
-      top: 2.6rem;
-    }
-
     .btn + .btn {
       position: relative;
 

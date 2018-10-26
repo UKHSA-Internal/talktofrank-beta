@@ -2,21 +2,25 @@
 // mixins
 @mixin arrow {
   position: relative;
-  padding-right: 4rem;
-  line-height: 1.2;
+  padding-right: 5rem !important;
+  //line-height: 1.2;
 
   &:after {
     content: '';
     position: absolute;
     right: 2rem;
     top: 50%;
-    margin-top: -8px;
+    margin-top: -6px;
     height: 16px;
     width: 24px;
     background-image: url('/ui/svg/arrow-right.svg');
     background-position: center;
     background-repeat: no-repeat;
-    transition: right .1s ease-in-out;
+    transition: right .1s ease-in-out, left .1s ease-in-out;
+
+    @include media-breakpoint-down(sm) {
+      background-size: 70%;
+    }
   }
 
   .has-hover & {

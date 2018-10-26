@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import Masthead from '../Masthead/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
@@ -11,6 +11,7 @@ import Picture from '../Picture/component.jsx'
 import Longform from '../Longform/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Time from '../Time/component.jsx'
+import Pagination from '../Pagination/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 const PageNewsList = props => {
@@ -40,6 +41,7 @@ const PageNewsList = props => {
               </li>
             ))}
             </ul>
+            <Pagination />
           </GridCol>
         </Grid>
       </Main>
