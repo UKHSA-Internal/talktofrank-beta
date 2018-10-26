@@ -9,7 +9,7 @@ $offset: 3.5rem;
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    bottom: -9rem;
+    bottom: -10rem;
     width: 100%;
     left: -1rem;
   }
@@ -48,7 +48,16 @@ $offset: 3.5rem;
       background-color: $white;
       margin-left: -1rem;
       left: 0;
-      top: 0;
+    }
+
+    .time {
+      bottom: 100%;
+      color: $body-text;
+      padding: .2em .4em .2em 0;
+    }
+
+    .read-more {
+      top: calc(100% + 2rem);
     }
 
     .image {
@@ -88,17 +97,6 @@ $offset: 3.5rem;
       }
     }
 
-    .time {
-      color: $body-text;
-      margin-top: -$offset;
-      padding: .2em .4em .2em 0;
-    }
-
-    .read-more {
-      top: auto;
-      bottom: -6rem;
-    }
-
     & + .list-item--has-image {
       margin-top: -2rem;
       margin-bottom: -2rem;
@@ -108,7 +106,12 @@ $offset: 3.5rem;
       max-width: none;
 
       .list-item__inner {
-        @include vertical-align;
+        margin-top: -3rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-top: 0;
+          @include vertical-align;
+        }
       }
 
       .list-item__title {
@@ -118,6 +121,11 @@ $offset: 3.5rem;
       .has-arrow {
         display: none;
       }
+
+      & + .list-item:not(.list-item--has-image) {
+
+
+      }
     }
 
     span + .has-arrow {
@@ -125,35 +133,37 @@ $offset: 3.5rem;
     }
 
     &.list-item--alternate {
-      left: auto;
+      @include media-breakpoint-up(sm) {
+        left: auto;
 
-      .list-item__title {
-        &::before {
-          left: auto;
-          right: -2rem;
+        .list-item__title {
+          &::before {
+            left: auto;
+            right: -2rem;
+          }
         }
-      }
 
-      span {
-        left: auto;
-        right: 0;
-      }
+        span {
+          left: auto;
+          right: 0;
+        }
 
-      .read-more,
-      .time,
-      .list-item__title {
-        text-align: right;
-        left: auto;
-        right: 0;
-      }
+        .read-more,
+        .time,
+        .list-item__title {
+          text-align: right;
+          left: auto;
+          right: 0;
+        }
 
-      .time {
-        padding-left: .4em;
-        padding-right: 0;
-      }
+        .time {
+          padding-left: .4em;
+          padding-right: 0;
+        }
 
-      .list-item__inner {
-        right: 0;
+        .list-item__inner {
+          right: 0;
+        }
       }
     }
   }
