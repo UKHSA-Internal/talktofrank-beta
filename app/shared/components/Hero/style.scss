@@ -3,9 +3,7 @@
   position: relative;
 
   .hero__inner {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    @include vertical-align;
   }
 
   .image,

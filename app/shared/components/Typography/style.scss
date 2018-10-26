@@ -96,17 +96,18 @@ h3,
   max-width: 70%;
 }
 
-.heading-inverted--inline {
+.heading-inline {
   position: relative;
   line-height: .9;
-  background-color: $text-dark-blue;
+  background-color: $white;
+  color: $text-dark-blue;
   display: inline;
   left: 4rem;
 
   &::before {
     content: '';
     position: absolute;
-    background-color: $text-dark-blue;
+    background-color: $white;
     width: 2rem;
     top: 0;
     left: -2rem;
@@ -115,10 +116,24 @@ h3,
 
   span {
     left: -1rem;
-    color: $white;
+    color: $text-dark-blue;
+    line-height: inherit;
     margin: 0;
     position: relative;
     bottom: .3rem;
+  }
+
+  &.heading-inverted--inline {
+    background-color: $text-dark-blue;
+    color: $white;
+
+    &::before {
+      background-color: $text-dark-blue;
+    }
+
+    span {
+      color: $white;
+    }
   }
 }
 
@@ -408,5 +423,27 @@ p {
 
 .has-arrow {
   @include arrow;
+
+  &--left {
+    padding-right: 0 !important;
+    padding-left: 5rem !important;
+
+    &:after {
+      right: auto;
+      left: 2rem;
+      background-image: url('/ui/svg/arrow-left.svg');
+    }
+
+    .has-hover & {
+      &:active,
+      &:hover {
+
+        &:after {
+          right: auto;
+          left: 1rem;
+        }
+      }
+    }
+  }
 }
 

@@ -80,6 +80,24 @@ export function exists (obj, key) {
   })
 }
 
+export function imageMap (obj) {
+  let imageObj = {}
+  let path = obj.fields
+
+  if (path.imageLarge) {
+    imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url
+  }
+
+  if (path.imageMedium) {
+    imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file.url
+  }
+
+  if (path.imageSmall) {
+    imageObj[path.smallBreakpoint] = path.imageSmall.fields.file.url
+  }
+  return imageObj
+}
+
 export function scrollIntoView (node, duration = 300, offset = 80) {
   document.documentElement.scrollTop = 0
   const start = document.documentElement.scrollTop

@@ -1,0 +1,190 @@
+$offset: 3.5rem;
+
+@mixin fakeHr {
+
+  &::before,
+  &::after {
+    content: '';
+    height: 1px;
+    background-color: $gray-200;
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    bottom: -10rem;
+    width: 100%;
+    left: -1rem;
+  }
+}
+
+.list-offset {
+  .list-item {
+    max-width: 50rem;
+    margin: 15rem auto;
+    position: relative;
+
+    &:first-child {
+      margin-top: 5rem;
+    }
+
+    &:not(.list-item--has-image) {
+      @include fakeHr;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    .list-item__inner {
+      position: relative;
+
+      .heading-inline {
+        left: 0;
+      }
+
+      .long-form {
+        color: $body-text;
+        margin-left: -1rem;
+      }
+    }
+
+    .read-more,
+    .time {
+      position: absolute;
+      background-color: $white;
+      margin-left: -1rem;
+      left: 0;
+    }
+
+    .time {
+      bottom: 100%;
+      color: $body-text;
+      padding: .4em .4em .4em 0;
+    }
+
+    .read-more {
+      top: calc(100% + 2rem);
+    }
+
+    .image {
+      img {
+        max-height: 45rem;
+        max-width: 105%;
+        width: auto;
+        margin-left: -1rem;
+      }
+    }
+
+    .list-item__link {
+      display: block;
+
+      .has-hover & {
+        &:hover {
+          .has-arrow {
+            &:after {
+              right: 1rem;
+            }
+          }
+
+          .long-form {
+            display: inline-block;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    .list-item__title {
+      position: relative;
+      max-width: 42rem;
+      margin-top: $offset;
+
+      span {
+        bottom: 0;
+      }
+    }
+
+    & + .list-item--has-image {
+      margin-top: -2rem;
+      margin-bottom: -2rem;
+    }
+
+    &.list-item--has-image {
+      max-width: none;
+
+      .list-item__inner {
+        margin-top: -2.8rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-top: 0;
+          @include vertical-align;
+        }
+      }
+
+      .list-item__title {
+        z-index: 1;
+      }
+
+      .has-arrow {
+        display: none;
+      }
+
+      & + .list-item:not(.list-item--has-image) {
+        margin-top: 17rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-top: 10rem;
+        }
+
+        &::before {
+          display: block;
+          bottom: calc(100% + 5rem);
+        }
+      }
+    }
+
+    span + .has-arrow {
+      margin-left: 1rem;
+    }
+
+    &.list-item--alternate {
+      @include media-breakpoint-up(sm) {
+        left: auto;
+
+        .list-item__title {
+          &::before {
+            left: auto;
+            right: -2rem;
+          }
+        }
+
+        img {
+          margin-right: 0;
+          margin-left: auto;
+        }
+
+        span {
+          left: auto;
+          right: 0;
+        }
+
+        .read-more,
+        .time,
+        .list-item__title {
+          text-align: right;
+          left: auto;
+          right: 0;
+        }
+
+        .time {
+          padding-left: .4em;
+          padding-right: 0;
+        }
+
+        .list-item__inner {
+          right: 0;
+        }
+      }
+    }
+  }
+}
