@@ -146,7 +146,7 @@ const Page = props => {
                 <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
               </li>
             </ul>
-            {props.fields.additional && <React.Fragment><Heading {...modifiers} text='additional'/><Longform text={props.fields.additional} /></React.Fragment>
+            {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequency asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>
         </section>}
