@@ -30,7 +30,7 @@ const PageNewsList = props => {
                   {item.fields.image && <Picture {...item.fields.image}/>}
                   <div className='list-item__inner'>
                     <h2 className='list-item__title h3 heading-inline'><span>{item.fields.title}</span><span className='has-arrow'></span></h2>
-                    <Time time={'Updated at: ' + item.originalPublishDate ? item.originalPublishDateFormatted : item.updatedAtFormatted} dateTime={item.originalPublishDate ? item.originalPublishDate : item.updatedAt}/>
+                    <Time time={('Updated at: ' + item.originalPublishDate ? item.originalPublishDateFormatted : item.updatedAtFormatted)} dateTime={item.originalPublishDate ? item.originalPublishDate : item.updatedAt}/>
                     {item.fields.bodyLegacy && !item.fields.image && <Longform text={item.fields.bodyLegacy}/>}
                     {item.fields.summary && !item.fields.image && <Longform text={item.fields.summary}/>}
                     <p className='read-more'>Read more</p>

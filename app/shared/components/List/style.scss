@@ -1,6 +1,8 @@
 $offset: 3.5rem;
 
 @mixin fakeHr {
+
+  &::before,
   &::after {
     content: '';
     height: 1px;
@@ -27,6 +29,10 @@ $offset: 3.5rem;
 
     &:not(.list-item--has-image) {
       @include fakeHr;
+
+      &::before {
+        display: none;
+      }
     }
 
     .list-item__inner {
@@ -53,7 +59,7 @@ $offset: 3.5rem;
     .time {
       bottom: 100%;
       color: $body-text;
-      padding: .2em .4em .2em 0;
+      padding: .4em .4em .4em 0;
     }
 
     .read-more {
@@ -123,8 +129,12 @@ $offset: 3.5rem;
       }
 
       & + .list-item:not(.list-item--has-image) {
+        margin-top: 10rem;
 
-
+        &::before {
+          display: block;
+          bottom: calc(100% + 5rem);
+        }
       }
     }
 
