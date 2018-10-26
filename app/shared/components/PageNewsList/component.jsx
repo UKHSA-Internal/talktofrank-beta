@@ -26,12 +26,13 @@ const PageNewsList = props => {
         <Grid>
           <GridCol className='col-12 col-sm-10 offset-sm-1'>
             <ul className='list-unstyled list-offset'>{ props.list && props.list.map((item, i) => (
+              // eslint-disable-next-line no-self-compare
               <li className={`list-item ${item.fields.image ? ('list-item--has-image' + (item.fields.imagepos & 1 === 1 ? ' list-item--alternate' : '')) : ''} `} key={item.sys.id} >
                 <a className='list-item__link' href={`/news/${item.fields.slug}`}>
                   {item.fields.image && <Picture {...item.fields.image}/>}
                   <div className='list-item__inner'>
                     <h2 className='list-item__title h3 heading-inline'><span>{item.fields.title}</span><span className='has-arrow'></span></h2>
-                    <Time time={'Updated at: ' + item.originalPublishDate ? item.originalPublishDateFormatted : item.updatedAtFormatted} dateTime={item.originalPublishDate ? item.originalPublishDate : item.updatedAt}/>
+                    <Time time={('Updated at: ' + item.originalPublishDate ? item.originalPublishDateFormatted : item.updatedAtFormatted)} dateTime={item.originalPublishDate ? item.originalPublishDate : item.updatedAt}/>
                     {item.fields.bodyLegacy && !item.fields.image && <Longform text={item.fields.bodyLegacy}/>}
                     {item.fields.summary && !item.fields.image && <Longform text={item.fields.summary}/>}
                     <p className='read-more'>Read more</p>

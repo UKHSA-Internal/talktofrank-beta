@@ -1,6 +1,8 @@
 $offset: 3.5rem;
 
 @mixin fakeHr {
+
+  &::before,
   &::after {
     content: '';
     height: 1px;
@@ -9,7 +11,7 @@ $offset: 3.5rem;
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    bottom: -9rem;
+    bottom: -10rem;
     width: 100%;
     left: -1rem;
   }
@@ -27,6 +29,10 @@ $offset: 3.5rem;
 
     &:not(.list-item--has-image) {
       @include fakeHr;
+
+      &::before {
+        display: none;
+      }
     }
 
     .list-item__inner {
@@ -51,22 +57,21 @@ $offset: 3.5rem;
     }
 
     .time {
-      color: $gray-700;
-      margin-top: -$offset;
-      padding: .2em .4em .2em 0;
       bottom: 100%;
+      color: $body-text;
+      padding: .4em .4em .4em 0;
     }
 
     .read-more {
-      //bottom: -6rem;
-      top: calc(100% + 1rem);
+      top: calc(100% + 2rem);
     }
 
     .image {
       img {
         max-height: 45rem;
-        max-width: 100%;
+        max-width: 105%;
         width: auto;
+        margin-left: -1rem;
       }
     }
 
@@ -108,7 +113,12 @@ $offset: 3.5rem;
       max-width: none;
 
       .list-item__inner {
-        @include vertical-align;
+        margin-top: -2.8rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-top: 0;
+          @include vertical-align;
+        }
       }
 
       .list-item__title {
@@ -118,6 +128,19 @@ $offset: 3.5rem;
       .has-arrow {
         display: none;
       }
+
+      & + .list-item:not(.list-item--has-image) {
+        margin-top: 17rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-top: 10rem;
+        }
+
+        &::before {
+          display: block;
+          bottom: calc(100% + 5rem);
+        }
+      }
     }
 
     span + .has-arrow {
@@ -125,35 +148,42 @@ $offset: 3.5rem;
     }
 
     &.list-item--alternate {
-      left: auto;
+      @include media-breakpoint-up(sm) {
+        left: auto;
 
-      .list-item__title {
-        &::before {
-          left: auto;
-          right: -2rem;
+        .list-item__title {
+          &::before {
+            left: auto;
+            right: -2rem;
+          }
         }
-      }
 
-      span {
-        left: auto;
-        right: 0;
-      }
+        img {
+          margin-right: 0;
+          margin-left: auto;
+        }
 
-      .read-more,
-      .time,
-      .list-item__title {
-        text-align: right;
-        left: auto;
-        right: 0;
-      }
+        span {
+          left: auto;
+          right: 0;
+        }
 
-      .time {
-        padding-left: .4em;
-        padding-right: 0;
-      }
+        .read-more,
+        .time,
+        .list-item__title {
+          text-align: right;
+          left: auto;
+          right: 0;
+        }
 
-      .list-item__inner {
-        right: 0;
+        .time {
+          padding-left: .4em;
+          padding-right: 0;
+        }
+
+        .list-item__inner {
+          right: 0;
+        }
       }
     }
   }
