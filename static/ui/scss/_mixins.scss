@@ -1,0 +1,53 @@
+
+// mixins
+@mixin arrow {
+  position: relative;
+  padding-right: 4rem;
+  line-height: 1.2;
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    margin-top: -8px;
+    height: 16px;
+    width: 24px;
+    background-image: url('/ui/svg/arrow-right.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: right .1s ease-in-out;
+  }
+
+  .has-hover & {
+    &:active,
+    &:hover {
+
+      &:after {
+        right: 1rem;
+      }
+    }
+  }
+}
+
+@mixin link {
+  color: $text-dark-blue;
+  border-bottom: 2px dotted $pinkAccess;
+
+  .has-hover & {
+    &:active,
+    &:hover,
+    &:focus {
+      color: $pinkAccess;
+      text-decoration: none;
+      border-bottom-style: solid;
+      border-bottom-color: $pinkAccess;
+    }
+  }
+}
+
+@mixin vertical-align {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

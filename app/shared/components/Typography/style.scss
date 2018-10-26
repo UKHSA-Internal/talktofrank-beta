@@ -96,17 +96,18 @@ h3,
   max-width: 70%;
 }
 
-.heading-inverted--inline {
+.heading-inline {
   position: relative;
   line-height: .9;
-  background-color: $text-dark-blue;
+  background-color: $white;
+  color: $text-dark-blue;
   display: inline;
   left: 4rem;
 
   &::before {
     content: '';
     position: absolute;
-    background-color: $text-dark-blue;
+    background-color: $white;
     width: 2rem;
     top: 0;
     left: -2rem;
@@ -115,10 +116,23 @@ h3,
 
   span {
     left: -1rem;
-    color: $white;
+    color: $text-dark-blue;
     margin: 0;
     position: relative;
     bottom: .3rem;
+  }
+
+  &.heading-inverted--inline {
+    background-color: $text-dark-blue;
+    color: $white;
+
+    &::before {
+      background-color: $text-dark-blue;
+    }
+
+    span {
+      color: $white;
+    }
   }
 }
 

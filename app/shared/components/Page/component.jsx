@@ -115,12 +115,15 @@ const Page = props => {
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
               <Heading type='p' className='h2 inverted spacing-bottom--single' text={'Class ' + props.fields.lawClass.fields.class} />
-              <Longform text={props.fields.lawClass.fields.description} />
-              <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
-
+              <div className='has-unordered'>
+                <ul>
+                  <Heading type='li' text={props.fields.lawClass.fields.description}/>
+                  <Heading type='li' text={props.fields.lawClass.fields.possesion}/>
+                  <Heading type='li' text={props.fields.lawClass.fields.supplying}/>
+                </ul>
+              </div>
               <Longform text={props.fields.lawClass.fields.driving} />
-              <Longform text={props.fields.lawClass.fields.possesion} />
-              <Longform text={props.fields.lawClass.fields.supplying} />
+              <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
             </React.Fragment>
             {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>

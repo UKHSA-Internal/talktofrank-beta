@@ -19,7 +19,7 @@ export const primary = [
     }
   },
   {
-    label: 'Drugs news',
+    label: 'News',
     url: '/latest',
     tracking: {
       label: 'News listing',

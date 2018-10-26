@@ -1,5 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
+import { format } from 'date-fns'
+import { imageMap } from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -14,6 +16,7 @@ const marked = require('marked')
 const router = express.Router()
 const sortBy = require('lodash.sortby')
 const groupBy = require('lodash.groupby')
+const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
@@ -253,6 +256,7 @@ router.get('/news', (req, res, next) => {
     order: '-sys.createdAt,sys.id'
   })
     .then((contentfulResponse) => {
+      let imageCount = 1
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `Page not found ${pageUrl}`
@@ -260,8 +264,31 @@ router.get('/news', (req, res, next) => {
         return next(error)
       }
       // merge contentful assets and includes
-      response.title = 'News'
+      response.title = 'Latest news'
       response.list = resolveResponse(contentfulResponse)
+      response.list = response.list.map(v => {
+        if (v.fields.originalPublishDate) {
+          v['originalPublishDate'] = v.fields.originalPublishDate
+          v['originalPublishDateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+        }
+
+        if (v.fields.bodyLegacy) {
+          v.fields.bodyLegacy = _.truncate(v.fields.bodyLegacy, {
+            'length': 80
+          })
+        }
+
+        if (v.fields.image) {
+          v.fields.image = imageMap(v.fields.image)
+          imageCount++
+          v.fields['imagepos'] = imageCount
+        }
+        // v['createdAt'] = v.sys.createdAt
+        // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
+        v['updatedAt'] = v.sys.updatedAt
+        v['updatedAtFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
+        return v
+      })
       res.send(response)
     })
     .catch(error => next(error.response))

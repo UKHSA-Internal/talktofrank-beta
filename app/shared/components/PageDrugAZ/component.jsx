@@ -45,8 +45,7 @@ const DrugList = props => {
                     {val.values.map((v, index) => {
                       // @refactor - please tidy this up : )
                       let synonyms
-                      // let name = v.parent ? <span className='inverted inverted--quiet'>{v.name}</span> : <span className='inverted'>{v.name}</span>
-                      // let realName = v.parent ? <span>Real name: <strong>{v.parent}</strong></span> : null
+                      let realName = v.parent ? <strong>{v.parent}</strong> : null
 
                       if (v.synonyms) {
                         synonyms = v.synonyms.length > limit ? `${v.synonyms.splice(0, limit).join(' / ')} +${v.synonyms.length} more` : v.synonyms.join(' / ')
@@ -54,8 +53,8 @@ const DrugList = props => {
 
                       return (
                         <li key={'inner' + index} className='list-item list-item--underlined'>
-                          <a href={v.slug + '?a=' + v.name} className='list-link'><h3 className='h5 d-inline-block'><span className='inverted'>{v.name}</span></h3>{synonyms && <span className='grey d-inline-block'>{synonyms}</span>}
-
+                          <a href={v.slug + '?a=' + v.name} className='list-link'><h3 className='h5 d-inline-block spacing-right'><span className='inverted '>{v.name}</span></h3>
+                          {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}{realName && <p className='grey d-inline-block'>({realName})</p>}
                           {v.description && <p><span className='muted'>{v.description}</span></p>}
                           </a>
                         </li>
