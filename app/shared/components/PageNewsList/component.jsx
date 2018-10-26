@@ -40,7 +40,6 @@ const PageNewsList = props => {
               </li>
             ))}
             </ul>
-
             <Pagination />
           </GridCol>
         </Grid>
