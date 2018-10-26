@@ -45,13 +45,20 @@ const elasticSearchConf = {
   log: `info`,
   connectionClass: connectionClass
 }
-AWS.config.update({
-  credentials: new AWS.Credentials(
-    config.elasticsearch.amazonES.credentials.accessKeyId,
-    config.elasticsearch.amazonES.credentials.secretAccessKey
-  ),
-  region: config.elasticsearch.amazonES.region
-})
+
+if (config.elasticsearch.amazonES.credentials) {
+  AWS.config.update({
+    credentials: new AWS.Credentials(
+      config.elasticsearch.amazonES.credentials.accessKeyId,
+      config.elasticsearch.amazonES.credentials.secretAccessKey
+    ),
+    region: config.elasticsearch.amazonES.region
+  })
+} else if (amazonES.region) {
+  AWS.config.update({
+    region: config.elasticsearch.amazonES.region
+  })
+}
 
 const search = new elasticsearch.Client(elasticSearchConf)
 
