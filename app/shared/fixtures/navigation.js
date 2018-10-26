@@ -100,6 +100,16 @@ export const primary = [
       action: 'Click',
       category: 'Navigation'
     }
+  },
+  {
+    label: 'Call: 0300 1236600',
+    url: 'tel:03001236600',
+    modifier: 'hidden--md-up',
+    tracking: {
+      label: 'Telephone number mobile',
+      action: 'Click',
+      category: 'Phone contact'
+    }
   }
 ]
 
