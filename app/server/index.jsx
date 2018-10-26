@@ -11,7 +11,7 @@ import ReactDOMServer from 'react-dom/server'
 import routes from '../shared/newRoutes'
 import { matchRoutes, renderRoutes } from 'react-router-config'
 import { generateStore } from '../shared/store'
-import ContentfulTextSearch from 'contentful-text-search'
+const elasticsearch = require('elasticsearch')
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
 import { getLoadableState } from 'loadable-components/server'
@@ -39,13 +39,10 @@ if (config.sentry.logErrors) {
 /*
  * Elasticsearch config
 */
-const search = new ContentfulTextSearch({
-  space: config.contentful.contentSpace,
-  token: config.contentful.contentAccessToken,
-  elasticHost: config.elasticsearch.host,
-  contentType: config.contentful.contentTypes.drug,
-  amazonES: config.elasticsearch.amazonES
-})
+const search = new elasticsearch.Client({
+  host: config.elasticsearch.host,
+  log: config.elasticsearch.logLevel || `info`
+});
 
 /*
  * Authentication
