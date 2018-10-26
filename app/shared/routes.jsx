@@ -6,7 +6,7 @@ import PageNoMatchContainer from './containers/PageNoMatchContainer/component'
 import PageServerError from './components/PageServerError/component'
 import PageContainer from './containers/PageContainer/component'
 import PageStaticContainer from './containers/PageStaticContainer/component'
-import SearchPageContainer from './containers/SearchPageContainer/component'
+import SearchPageContainer from './containers/PageSearchContainer/component'
 import SearchResultsContainer from './containers/SearchResultsContainer/component'
 import PageNewsContainer from './containers/PageNewsContainer/component'
 import TypographyContainer from './containers/TypographyContainer/component' // @todo @refactor @joel - remove this in due time - replace with generic static page handler

@@ -2,6 +2,7 @@ import React from 'react'
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
+import { config } from 'config'
 
 export const contentFulFactory = () => {
   return {

@@ -317,7 +317,6 @@ router.get('/news/:slug', (req, res, next) => {
       }
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
-
       response.title = response.fields.title
       res.send(response)
     })
