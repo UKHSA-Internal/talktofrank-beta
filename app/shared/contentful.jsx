@@ -2,9 +2,7 @@ import React from 'react'
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
-const resolveResponse = require('contentful-resolve-response')
 import { config } from 'config'
-const contentful = require('contentful')
 
 export const contentFulFactory = () => {
   return {
@@ -41,9 +39,4 @@ export const contentFulFactory = () => {
 //     [MARKS.CODE]: text => `${text}`
     }
   }
-}
-
-export const fetchContent = async () => {
-
-
 }

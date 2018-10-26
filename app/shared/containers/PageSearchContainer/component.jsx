@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { fetchSearchTerm } from '../../actions'
 
-import SearchPage from '../../components/SearchPage/component.jsx'
+import SearchPage from '../../components/PageSearch/component.jsx'
 
 const mapStateToProps = (state, ownProps) => {
   return state.app
@@ -9,8 +9,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    searchForTerm: (searchTerm, drug, mustOrShould) => {
-      dispatch(fetchSearchTerm(searchTerm, drug, mustOrShould))
+    searchForTerm: (searchTerm) => {
+      dispatch(fetchSearchTerm(searchTerm))
     }
   })
 }

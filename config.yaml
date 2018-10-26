@@ -1,8 +1,12 @@
 useFixtures: false
 elasticsearch:
-  host: 'https://search-talktofrank-elastic-alpha-rqcui3cnc7qs3i2ns5glqw4m7i.eu-west-2.es.amazonaws.com/'
+  host: 'https://search-talktofrank-elastic-beta-tsq3jroogc3kwgtk4s77uab2he.eu-west-2.es.amazonaws.com/'
   amazonES:
     region: 'eu-west-2'
+  indices:
+    drugNames: 'talktofrank-beta-drug-name'
+    drug: 'talktofrank-beta-drug-text'
+    content: 'talktofrank-beta-content'
 
 sentry:
  logErrors: false

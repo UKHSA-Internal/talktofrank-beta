@@ -1,5 +1,3 @@
 module.exports = {
-  deleteAllIndices: {},
-  fullReindex: {},
-  reindexContent: {}
+  fullIndex: {}
 }

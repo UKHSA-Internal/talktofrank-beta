@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import classNames from 'classnames'
 import Button from '../Button/component.jsx'
 import Svg from '../Svg/component.jsx'
-import Autocomplete from 'react-autocomplete'
+import Autosuggest from 'react-autosuggest'
 import {browserHistory} from 'react-router'
 import axios from 'axios'
 
@@ -95,7 +95,12 @@ class FormGroup extends PureComponent {
       <div className={classes}>
         <label htmlFor={id} className={'form-label h3 ' + (labelHidden ? 'sr-only' : null)}>{label}</label>
         <div className='d-flex'>
-          <Autocomplete
+          <Autosuggest
+            suggestions={autoCompleteData}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
             inputProps={{
               className: controlClasses,
               id: id,
@@ -106,6 +111,9 @@ class FormGroup extends PureComponent {
               'aria-owns': this.props.resultsId,
               'aria-activedescendant': this.state.id
             }}
+            required
+          />
+          <Autocomplete
             value={searchTerm}
             items={autoCompleteData}
             getItemValue={(item) => item.name}

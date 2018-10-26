@@ -23,8 +23,7 @@ const asyncHome = loadable(() => import(/*webpackChunkName: 'homepage'*/'./conta
 const asyncPage = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageContainer/component.jsx'))
 const asyncPageGeneral = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageGeneralContainer/component.jsx'))
 const asyncStaticPage = loadable(() => import(/*webpackChunkName: 'static-page'*/'./containers/PageStaticContainer/component.jsx'))
-const asyncSearchPage = loadable(() => import(/*webpackChunkName: 'search'*/'./containers/SearchPageContainer/component.jsx'))
-const asyncSearchResultsPage = loadable(() => import(/*webpackChunkName: 'search-results'*/'./containers/SearchResultsContainer/component.jsx'))
+const asyncSearchPage = loadable(() => import(/*webpackChunkName: 'search'*/'./containers/PageSearchContainer/component.jsx'))
 const asyncDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
@@ -60,7 +59,7 @@ export default [{
       path: '/search/:term',
       exact: true,
       component: asyncSearchPage,
-      loadData: ({search}) => getSearchPage(search)
+      loadData: ({term}) => fetchSearchTerm(term)
     },
     {
       path: '/latest',

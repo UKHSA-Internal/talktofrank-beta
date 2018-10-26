@@ -1,5 +1,4 @@
 'use strict'
-
 import express from 'express'
 import basicAuth from 'express-basic-auth'
 import bodyParser from 'body-parser'
@@ -11,7 +10,6 @@ import ReactDOMServer from 'react-dom/server'
 import routes from '../shared/newRoutes'
 import { matchRoutes, renderRoutes } from 'react-router-config'
 import { generateStore } from '../shared/store'
-const elasticsearch = require('elasticsearch')
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
 import { getLoadableState } from 'loadable-components/server'
@@ -39,10 +37,23 @@ if (config.sentry.logErrors) {
 /*
  * Elasticsearch config
 */
-const search = new elasticsearch.Client({
-  host: config.elasticsearch.host,
-  log: config.elasticsearch.logLevel || `info`
+const AWS = require('aws-sdk')
+const connectionClass = require('http-aws-es')
+const elasticsearch = require('elasticsearch')
+const elasticSearchConf = {
+  host: config.elasticsearch.host || `http://localhost:9200`,
+  log: `info`,
+  connectionClass: connectionClass
+}
+AWS.config.update({
+  credentials: new AWS.Credentials(
+    config.elasticsearch.amazonES.credentials.accessKeyId,
+    config.elasticsearch.amazonES.credentials.secretAccessKey
+  ),
+  region: config.elasticsearch.amazonES.region
 });
+
+const search = new elasticsearch.Client(elasticSearchConf)
 
 /*
  * Authentication
