@@ -16,6 +16,7 @@ const Page = props => {
     type: 'h3',
     className: 'h5 spacing-top--single'
   }
+
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
   const syn = props.location.search ? props.location.search.split('=')[1] : null
   // @refactor - this will be wired up to contentful
@@ -43,7 +44,7 @@ const Page = props => {
             </GridCol>
           </Grid>
         </Accent>
-        {props.fields.qualitiesAppearance || props.fields.qualitiesTaste && <section className='section section--has-toggle'>
+        {(props.fields.qualitiesAppearance || props.fields.qualitiesTaste) && <section className='section section--has-toggle'>
           <Toggle text='How it looks, tastes and smells' className='collapsible--chevron collapsible--first' history={props.location}>
             {props.fields.qualitiesAppearance && <React.Fragment><Heading {...modifiers} text='What does it look like?'/>
               <Longform text={props.fields.qualitiesAppearance}/></React.Fragment>
@@ -58,7 +59,7 @@ const Page = props => {
             <Longform text={props.fields.qualitiesAdministered} />
           </Toggle>
         </section>}
-        {props.fields.category || props.fields.effectsFeeling || props.fields.effectsBehaviour && <section className='section section--has-toggle'>
+        {(props.fields.category || props.fields.effectsFeeling || props.fields.effectsBehaviour) && <section className='section section--has-toggle'>
           <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
             {props.fields.category && <Heading type='p' className='h3 inverted' text={props.fields.category} />}
             {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text='How does it make you feel?'/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
@@ -71,6 +72,7 @@ const Page = props => {
           <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
             {props.fields.durationDefault && <Longform text={props.fields.durationDefault.fields.text} />}
             {props.fields.durationDetail && <Longform text={props.fields.durationDetail} />}
+            <Longform text={props.fields.durationDetectableDefault.fields.text} />
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
                 <aside className='panel panel--padding-small panel--has-heading' key={i}>
@@ -87,7 +89,7 @@ const Page = props => {
             }
           </Toggle>
         </section>}
-        {props.fields.risksHealthMental || props.fields.risksPhysicalHealth || props.fields.risksCutWith && <section className='section section--has-toggle'>
+        {(props.fields.risksHealthMental || props.fields.risksPhysicalHealth || props.fields.risksCutWith) && <section className='section section--has-toggle'>
           <Toggle text='The risks' className='collapsible--chevron' history={props.location}>
             {props.fields.risksPhysicalHealth && <React.Fragment><Heading {...modifiers} text={`Physical health risks`}/><Longform className='has-unordered' text={props.fields.risksPhysicalHealth} /></React.Fragment>
             }
