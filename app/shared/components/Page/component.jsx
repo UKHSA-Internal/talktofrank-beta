@@ -13,7 +13,7 @@ import GA from '../GoogleAnalytics/component.jsx'
 
 const Page = props => {
   const modifiers = {
-    type: 'h4',
+    type: 'h3',
     className: 'h5 spacing-top--single'
   }
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
