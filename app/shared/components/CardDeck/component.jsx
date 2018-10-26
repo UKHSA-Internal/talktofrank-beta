@@ -8,7 +8,7 @@ import GridCol from '../GridCol/component.jsx'
 const CardDeck = props => {
   return (
     <section className='constrain-narrow spacing--large md-spacing--huge'>
-      {props.heading && <Header><Grid><GridCol className='col-12 col-sm-8'><Heading {...props.heading}/></GridCol><GridCol className='col-12 col-sm-4 align-right--sm'><a href={props.heading.url} className='d-inline-block spacing-top--tight hidden--sm read-more'>More news</a></GridCol></Grid></Header>}
+      {props.heading && <Header><Grid><GridCol className='col-12 col-sm-8'><Heading {...props.heading}/></GridCol><GridCol className='col-12 col-sm-4 align-right--sm'><a href={props.heading.url} className='spacing-top--tight hidden--sm read-more'>More news</a></GridCol></Grid></Header>}
       <div className={`card-deck ${props.className || ''}`}>
         {props.teasers && props.teasers.map((val, i) => <Card key={i} {...val}/>)}
       </div>
