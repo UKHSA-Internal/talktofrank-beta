@@ -69,7 +69,7 @@ const Page = props => {
         </section>
         <section className='section section--has-toggle'>
           <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
-            {props.fields.durationDefault && <React.Fragment><Heading {...modifiers} text={props.fields.durationDefault.fields.name}/><Longform text={props.fields.durationDefault.fields.text} /></React.Fragment>}
+            {props.fields.durationDefault && <Longform text={props.fields.durationDefault.fields.text} />}
             {props.fields.durationDetail && <Longform text={props.fields.durationDetail} />}
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
