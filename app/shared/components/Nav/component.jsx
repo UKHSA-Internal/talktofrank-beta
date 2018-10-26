@@ -12,8 +12,16 @@ class LinkItem extends React.Component {
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (state.menuOpen !== props.menuOpen) {
+      return {
+        menuOpen: props.menuOpen
+      }
+    }
+  }
+
   clickHandler(e) {
-    e.preventDefault()
+    this.props.clickHandler(this.props.tracking, e)
     this.setState({
       menuOpen: !this.state.menuOpen
     })
@@ -122,7 +130,7 @@ export default class Nav extends React.PureComponent {
               let subnav = <ul className='navbar-dropdown list-unstyled' role="menu">{item.subnavigation.map((v, j) => {
                 return <LinkItem key={j} url={v.url} className='nav-item' label={v.label} clickHandler={this.handleItemClick} tracking={v.tracking}/>
               })}</ul>
-              return <LinkItem key={i} url={item.url} ref={this.setWrapperRef} hasDropdown={true} className={'nav-item'} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
+              return <LinkItem key={i} url={item.url} ref={this.setWrapperRef} hasDropdown={true} menuOpen={this.state.dropDown} className={'nav-item'} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
             }
           })}
         </ul>
