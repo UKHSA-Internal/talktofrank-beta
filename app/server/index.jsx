@@ -54,7 +54,7 @@ if (config.elasticsearch.amazonES.credentials) {
     ),
     region: config.elasticsearch.amazonES.region
   })
-} else if (amazonES.region) {
+} else if (config.elasticsearch.amazonES.region) {
   AWS.config.update({
     region: config.elasticsearch.amazonES.region
   })
