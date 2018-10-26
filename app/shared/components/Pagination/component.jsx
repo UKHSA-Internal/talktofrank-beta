@@ -65,6 +65,7 @@ export default class PaginationBoxView extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
+      // eslint-disable-next-line key-spacing
       current
         : props.initialPage ? props.initialPage
         : props.forcePage ? props.forcePage
