@@ -36,9 +36,8 @@ class FormGroup extends PureComponent {
 
   fetchSearchResults (value) {
     return axios
-      .get(`/api/v1/search/autocomplete/${value}`)
-      .then(res => {
-        const result = res.data.results ? res.data.results : []
+      .get(`/api/v1/${value}`)
+      .then(result => {
         // eslint-disable-next-line
         this.setState({ autoCompleteData: result })
       })
