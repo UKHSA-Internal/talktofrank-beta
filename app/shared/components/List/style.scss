@@ -69,8 +69,9 @@ $offset: 3.5rem;
     .image {
       img {
         max-height: 45rem;
-        max-width: 100%;
+        max-width: 105%;
         width: auto;
+        margin-left: -1rem;
       }
     }
 
@@ -112,7 +113,7 @@ $offset: 3.5rem;
       max-width: none;
 
       .list-item__inner {
-        margin-top: -3rem;
+        margin-top: -2.8rem;
 
         @include media-breakpoint-up(sm) {
           margin-top: 0;
@@ -129,7 +130,11 @@ $offset: 3.5rem;
       }
 
       & + .list-item:not(.list-item--has-image) {
-        margin-top: 10rem;
+        margin-top: 17rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-top: 10rem;
+        }
 
         &::before {
           display: block;
