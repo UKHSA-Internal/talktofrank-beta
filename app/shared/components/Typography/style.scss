@@ -117,6 +117,7 @@ h3,
   span {
     left: -1rem;
     color: $text-dark-blue;
+    line-height: inherit;
     margin: 0;
     position: relative;
     bottom: .3rem;
@@ -422,5 +423,27 @@ p {
 
 .has-arrow {
   @include arrow;
+
+  &--left {
+    padding-right: 0 !important;
+    padding-left: 5rem !important;
+
+    &:after {
+      right: auto;
+      left: 2rem;
+      background-image: url('/ui/svg/arrow-left.svg');
+    }
+
+    .has-hover & {
+      &:active,
+      &:hover {
+
+        &:after {
+          right: auto;
+          left: 1rem;
+        }
+      }
+    }
+  }
 }
 

@@ -5,7 +5,7 @@ const BreakView = (props) => {
   const className = props.breakClassName || 'break'
 
   return (
-    <li className={className}>
+    <li className={`${className} nav-item`}>
       {label}
     </li>
   )
@@ -28,10 +28,10 @@ const PageView = (props) => {
   }
 
   return (
-    <li className={className}>
+    <li className={`${className} nav-item`}>
       <a onClick={onClick}
        role='button'
-       className={props.pageLinkClassName}
+       className={`${props.pageLinkClassName} nav-link`}
        href={props.href}
        tabIndex='0'
        aria-label={ariaLabel}
@@ -48,6 +48,10 @@ export default class PaginationBoxView extends React.PureComponent {
     pageCount: 10,
     pageRangeDisplayed: 2,
     marginPagesDisplayed: 3,
+    pageClassName: 'pagination__item',
+    pageLinkClassName: 'pagination__link',
+    nextLinkClassName: 'pagination__link--next',
+    previousLinkClassName: 'pagination__link--previous',
     activeClassName: 'pagination__item--current',
     previousClassName: 'pagination__item--previous',
     nextClassName: 'pagination__item--next',
@@ -236,11 +240,11 @@ export default class PaginationBoxView extends React.PureComponent {
     const nextClasses = nextClassName + (current === pageCount - 1 ? ` ${disabledClassName}` : '')
 
     return (
-      <nav role='navigation' aria-label='Pagination Navigation'>
-        <ul className={containerClassName}>
-          <li className={previousClasses}>
+      <nav role='navigation' aria-label='Pagination Navigation' className='pagination navbar navbar-expand navbar-list'>
+        <ul className='navbar-nav'>
+          <li className={`${previousClasses} nav-item`}>
             <a onClick={this.handlePreviousPage}
-               className={previousLinkClassName}
+               className={`${previousLinkClassName} nav-link has-arrow has-arrow--left`}
                href={this.hrefBuilder(current - 1)}
                tabIndex='0'
                role='button'
@@ -251,9 +255,9 @@ export default class PaginationBoxView extends React.PureComponent {
 
           {this.pagination()}
 
-          <li className={nextClasses}>
+          <li className={`${nextClasses} nav-item`}>
             <a onClick={this.handleNextPage}
-               className={nextLinkClassName}
+               className={`${nextLinkClassName} nav-link has-arrow`}
                href={this.hrefBuilder(current + 1)}
                tabIndex='0'
                role='button'
