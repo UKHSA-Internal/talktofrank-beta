@@ -126,6 +126,7 @@ const Page = props => {
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
             </React.Fragment>
             {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
+            {props.fields.lawDetail && <React.Fragment><Heading {...modifiers} text='Additional law details'/><Longform text={props.fields.lawDetail} /></React.Fragment>}
           </Toggle>
         </section>}
         <section className='section section--has-toggle'>
@@ -145,9 +146,9 @@ const Page = props => {
                 <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
               </li>
             </ul>
-
-            {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Mental health risks of ${name}?`}/><Longform text={props.fields.additional} /></React.Fragment>
+            {props.fields.additional && <React.Fragment><Heading {...modifiers} text='additional'/><Longform text={props.fields.additional} /></React.Fragment>
             }
+
           </Toggle>
         </section>
 
