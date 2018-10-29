@@ -18,6 +18,8 @@ $offset: 3.5rem;
 }
 
 .list-offset {
+  margin-bottom: 6rem;
+
   .list-item {
     max-width: 50rem;
     margin: 15rem auto;
@@ -37,14 +39,27 @@ $offset: 3.5rem;
 
     .list-item__inner {
       position: relative;
+      max-width: 50rem;
 
       .heading-inline {
         left: 0;
+
+        span {
+          left: 0;
+
+          @include media-breakpoint-up(sm) {
+            left: -1rem;
+          }
+        }
       }
 
       .long-form {
-        margin: 2rem 0 0 -1rem;
+        margin: 2rem 0 0;
         color: $body-text;
+
+        @include media-breakpoint-up(sm) {
+          margin-left: -1rem;
+        }
       }
     }
 
@@ -52,8 +67,11 @@ $offset: 3.5rem;
     .time {
       position: absolute;
       background-color: $white;
-      margin-left: -1rem;
       left: 0;
+
+      @include media-breakpoint-up(sm) {
+        margin-left: -1rem;
+      }
     }
 
     .time {
@@ -71,7 +89,6 @@ $offset: 3.5rem;
         max-height: 45rem;
         max-width: 105%;
         width: auto;
-        // margin-left: -1rem;
       }
     }
 
@@ -158,11 +175,6 @@ $offset: 3.5rem;
             right: -2rem;
           }
         }
-
-        // img {
-        //   margin-right: 0;
-        //   margin-left: auto;
-        // }
 
         span {
           left: auto;
