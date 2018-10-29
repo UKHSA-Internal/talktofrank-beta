@@ -261,8 +261,8 @@ router.get('/news', (req, res, next) => {
   contentfulClient.getEntries({
     content_type: config.contentful.contentTypes.news,
     order: '-sys.createdAt,sys.id',
-    limit: 5,
-    skip: 5
+    limit: req.query.pageSize,
+    skip: req.query.pageSize * req.query.page
   })
     .then((contentfulResponse) => {
       let imageCount = 1
@@ -274,6 +274,7 @@ router.get('/news', (req, res, next) => {
       }
       // merge contentful assets and includes
       response.title = 'Latest news'
+      response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
         if (v.fields.originalPublishDate) {

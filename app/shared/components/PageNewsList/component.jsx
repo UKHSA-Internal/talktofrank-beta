@@ -12,25 +12,30 @@ import Article from '../Article/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.Component {
-  handlePageChange (current) {
-    console.log(current)
+  constructor (props) {
+    super(props)
+    this.handlePageChange = this.handlePageChange.bind(this)
+  }
+
+  handlePageChange (pageNumber) {
+    this.props.fetchNewsList(pageNumber.current)
   }
 
   render () {
-    console.log(props.list[5])
+    const { title, location, list, total } = this.props
     return (
       <React.Fragment>
-        <Masthead path={props.location}/>
+        <Masthead path={location}/>
         <Accent className='accent--shallow'>
           <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={props.title}/>
+                   text={title}/>
         </Accent>
         <Main>
           <Grid>
             <GridCol className='col-12 col-sm-10 offset-sm-1'>
               <ul
                 className='list-unstyled list-offset'>
-                {props.list && props.list
+                {list && list
                   .map((item, i) => {
                     item['type'] = 'li'
                     return <Article {...item} key={item.sys.id}/>
