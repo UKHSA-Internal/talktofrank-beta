@@ -18,10 +18,12 @@ class FormGroup extends PureComponent {
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
+    this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.state = {
       id: '',
       searchTerm: '',
-      autoCompleteData: []
+      autoCompleteData: [],
+      resultsTotal: 0
     }
   }
 
@@ -46,6 +48,7 @@ class FormGroup extends PureComponent {
   onSuggestionsFetchRequested ({ value }) {
     this.getSuggestions(value).then(resp => {
       this.setState({
+        resultsTotal: resp.length,
         autoCompleteData: resp.splice(0, 5)
       })
     })
@@ -57,23 +60,21 @@ class FormGroup extends PureComponent {
     }
   }
 
+  // this prevents the thing from firing until at least two characters are added
   shouldRenderSuggestions(value) {
-    return value.trim().length > 1
+    return value.trim().length > 0
   }
 
   renderSuggestionsContainer({ containerProps , children, query }) {
+    let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
+
     return (
-      <React.Fragment>
-        <div className='input-group-append'>
-          <Button className='btn--flat'>
-            <span className='sr-only'>Submit search</span>
-            <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
-          </Button>
-        </div>
-        <div {...containerProps}>
-          {children}
-        </div>
-      </React.Fragment>
+      <div {...containerProps}>
+        {children}
+        {res && <a href={`/search/${this.state.searchTerm.toLowerCase()}`}>
+          +{res} more results
+        </a>}
+      </div>
     )
   }
 
@@ -133,7 +134,6 @@ class FormGroup extends PureComponent {
 
   render () {
     let classes = classNames('input-group', this.props.className)
-    let controlClasses = classNames('form-control', this.props.modifiers)
     const { searchTerm, autoCompleteData } = this.state
     const { id, labelHidden, label, button } = this.props
 
@@ -143,13 +143,14 @@ class FormGroup extends PureComponent {
         <Autosuggest
           suggestions={autoCompleteData}
           shouldRenderSuggestions={this.shouldRenderSuggestions}
+          renderSuggestionsContainer={this.renderSuggestionsContainer}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionSelected={this.onSuggestionSelected}
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={{
-            className: controlClasses,
+            className: 'form-control',
             id: id,
             value: searchTerm,
             onKeyDown: this.handleKeyPress,
@@ -163,7 +164,6 @@ class FormGroup extends PureComponent {
           ref={input => { this.searchInput = input }}
           required
         />
-
       </div>
     )
   }

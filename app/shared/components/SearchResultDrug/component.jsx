@@ -18,7 +18,7 @@ const ResultDrug = props => {
   return (
     <a href={`/drug/${props.item.slug}`} className='list-link'>
       <h3 className='h5 d-inline-block spacing-bottom--flush spacing-right'><span className='inverted '>{name}</span></h3>
-      <p className='grey d-inline-block'>({synonyms})</p>
+      {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}
     </a>
   )
 }
