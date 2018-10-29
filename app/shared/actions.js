@@ -35,7 +35,7 @@ function receivePage (pageData) {
 export function fetchSearchTerm (term) {
   return dispatch => {
     dispatch(requestPage())
-    let lookupUrl = apiHost + `/api/v1/search/${term}`
+    let lookupUrl = apiHost + `/api/v1/search/page/${term}`
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))

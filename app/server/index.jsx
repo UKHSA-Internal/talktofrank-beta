@@ -42,20 +42,23 @@ const connectionClass = require('http-aws-es')
 const elasticsearch = require('elasticsearch')
 const elasticSearchConf = {
   host: config.elasticsearch.host || `http://localhost:9200`,
-  log: `info`,
-  connectionClass: connectionClass
+  log: `info`
 }
 
-if (config.elasticsearch.amazonES.credentials) {
+if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
+  elasticSearchConf.connectionClass = connectionClass
+  AWS.config.update({
+    region: config.elasticsearch.amazonES.region
+  })
+}
+
+if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) {
+
   AWS.config.update({
     credentials: new AWS.Credentials(
       config.elasticsearch.amazonES.credentials.accessKeyId,
       config.elasticsearch.amazonES.credentials.secretAccessKey
     ),
-    region: config.elasticsearch.amazonES.region
-  })
-} else if (config.elasticsearch.amazonES.region) {
-  AWS.config.update({
     region: config.elasticsearch.amazonES.region
   })
 }
