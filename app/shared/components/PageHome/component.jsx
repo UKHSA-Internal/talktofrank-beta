@@ -7,6 +7,8 @@ import GA from '../GoogleAnalytics/component.jsx'
 import Button from '../Button/component.jsx'
 import Hero from '../Hero/component.jsx'
 import CardDeck from '../CardDeck/component.jsx'
+import Article from '../Article/component.jsx'
+import Accent from '../Accent/component.jsx'
 
 export default class PageHome extends React.PureComponent {
   render () {
@@ -24,6 +26,17 @@ export default class PageHome extends React.PureComponent {
       }
     }
 
+    let featuredItem = {
+      // date: '2012-05-10T10:44:00.000Z',
+      // dateFormatted: '10th May 2012',
+      fields: {
+        title: '5 top tips for a safe festival experience',
+        slug: 'new-drug-driving-offence',
+        image: {
+          800: '//images.ctfassets.net/ip74mqmfgvqf/7H8JBsy4ZqO2mygyyYakgQ/644912e3d894f16f16d3e31b307c597d/new-drug-driving-offence.jpg'
+        }
+      }
+    }
     //  @refactor @joel - this feature/TTF-583-news-listing
     //
     let news = {
@@ -93,7 +106,10 @@ export default class PageHome extends React.PureComponent {
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Hero {...hero}/>
-        <CardDeck {...news} />
+        <Accent className='list-offset'>
+          <Article {...featuredItem}/>
+        </Accent>
+        <CardDeck {...news} className='spacing-top--tight'/>
         <Footer />
         <GA/>
       </React.Fragment>
