@@ -1,7 +1,6 @@
 $offset: 3.5rem;
 
-@mixin fakeHr {
-
+@mixin fake-hr {
   &::before,
   &::after {
     content: '';
@@ -30,7 +29,7 @@ $offset: 3.5rem;
     }
 
     &:not(.list-item--has-image) {
-      @include fakeHr;
+      @include fake-hr;
 
       &::before {
         display: none;
