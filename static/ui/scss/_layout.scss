@@ -3,6 +3,10 @@
    ===========================================================================*/
 $grid-gutter: 30px;
 
+body {
+  background-color: $text-dark-blue;
+}
+
 %constrain {
   max-width: $max-width;
   margin-left: auto;
@@ -34,9 +38,6 @@ $grid-gutter: 30px;
 
   @include media-breakpoint-up(sm) {
     padding-top: 3rem;
-    // @joel - removing - need to reopen the ticket about the short footer and implement the jon method : )
-    // min-height: 70vh;
-    // min-height: calc(100vh - (162px + 93px)); // filthy - but javascriptless way of stretching for short pages
   }
 
   &--full-width {
@@ -46,6 +47,10 @@ $grid-gutter: 30px;
 
 main {
   outline: none;  // Prevent focus outline
+}
+
+.flex-wrapper {
+  background-color: $white; // @joel implementing Jon method footer fix
 }
 
 .section {
