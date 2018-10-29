@@ -11,29 +11,41 @@ import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
-const PageNewsList = props => {
-  console.log(props.list[5])
-  return (
-    <React.Fragment>
-      <Masthead path={props.location}/>
-      <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
-      </Accent>
-      <Main>
-        <Grid>
-          <GridCol className='col-12 col-sm-10 offset-sm-1'>
-            <ul className='list-unstyled list-offset'>{ props.list && props.list.map((item, i) => {
-              item['type'] = 'li'
-              return <Article {...item} key={item.sys.id}/>
-            })}
-            </ul>
-            <Pagination />
-          </GridCol>
-        </Grid>
-      </Main>
-      <Footer />
-      <GA />
-    </React.Fragment>
-  )
+export default class PageNewsList extends React.Component {
+  handlePageChange (current) {
+    console.log(current)
+  }
+
+  render () {
+    console.log(props.list[5])
+    return (
+      <React.Fragment>
+        <Masthead path={props.location}/>
+        <Accent className='accent--shallow'>
+          <Heading type='h1' className='h2 spacing-left spacing--single'
+                   text={props.title}/>
+        </Accent>
+        <Main>
+          <Grid>
+            <GridCol className='col-12 col-sm-10 offset-sm-1'>
+              <ul
+                className='list-unstyled list-offset'>
+                {props.list && props.list
+                  .map((item, i) => {
+                    item['type'] = 'li'
+                    return <Article {...item} key={item.sys.id}/>
+                  })}
+              </ul>
+              <Pagination
+                pageCount={total / 10}
+                onPageChange={this.handlePageChange}
+              />
+            </GridCol>
+          </Grid>
+        </Main>
+        <Footer/>
+        <GA/>
+      </React.Fragment>
+    )
+  }
 }
-export default PageNewsList

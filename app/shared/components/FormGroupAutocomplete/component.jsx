@@ -37,7 +37,6 @@ class FormGroup extends PureComponent {
 
   // @todo: refactor to container
   async getSuggestions (value) {
-    console.log('Get suggestions', value)
     const response = await axios
       .get(`/api/v1/search/autocomplete/${value}`)
     return response.data.hits
@@ -55,7 +54,7 @@ class FormGroup extends PureComponent {
     const item = suggestionItem.suggestion._source
     let url = ''
     switch (suggestionItem.suggestion._index) {
-      case 'talktofrank-beta-content':
+      case 'talktofrank-content':
         url = item.type === 'news'
           ? `/news/${item.slug}`
           : item.slug
@@ -83,26 +82,19 @@ class FormGroup extends PureComponent {
   }
 
   renderSuggestion (result) {
-    switch (result._index) {
-      // @todo: refactor to use config
-      case 'talktofrank-beta-content' :
-        return <SearchResultContent
-          item={result._source}
-          highlight={result.highlight
-            ? result.highlight
-            : null
-          }
-        />
-      default:
-        return <SearchResultDrug
-          item={result._source}
-          highlight={result.highlight
-            ? result.highlight
-            : null
-          }
-        />
-    }
-  };
+    const SearchResultComponent =
+      result._index.includes('talktofrank-content')
+        ? SearchResultContent
+        : SearchResultDrug
+
+    return <SearchResultComponent
+      item={result._source}
+      highlight={result.highlight
+        ? result.highlight
+        : null
+      }
+    />
+  }
 
   handleSubmit () {
     if (this.state.searchTerm !== '') {
