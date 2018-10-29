@@ -2,7 +2,6 @@ import * as actions from './actions'
 
 const initialState = {
   pageData: {},
-  userData: {},
   loading: false,
   error: false
 }
