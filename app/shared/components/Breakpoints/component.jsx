@@ -4,21 +4,18 @@ import React from 'react'
  * This does not respond to viewport resize
  */
 const getComponent = (component, componentVisibleBreakpoint) => {
-
   let viewPortBreakpoint = 'default'
-  const isSSR = typeof window === 'undefined' ? true : false
+  const isSSR = (typeof window === 'undefined')
 
   /*
    * If serverside, only render default
    */
-  if ( isSSR ) {
+  if (isSSR) {
     if (componentVisibleBreakpoint !== 'default') {
       // force server side to render default
-      //viewPortBreakpoint = 'default'
       return null
     }
-  }
-  else {
+  } else {
     viewPortBreakpoint = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/"/g, '')
   }
 
