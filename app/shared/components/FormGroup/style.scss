@@ -3,9 +3,9 @@
     border: 0;
     color: $text-dark-blue;
     font-size: 2.1rem;
-    padding-left: .4em;
+    padding: .4em;
     flex-grow: 1;
-    max-width: 60rem;
+    display: block;
     width: 100%;
   }
 }
@@ -33,3 +33,34 @@
 
   }
 }
+
+.react-autosuggest__container {
+
+}
+
+.react-autosuggest__suggestions-container {
+
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: $gray-200;
+}
+
+
+/////////////////////
+
+
+// container:                'react-autosuggest__container',
+// containerOpen:            'react-autosuggest__container--open',
+// input:                    'react-autosuggest__input',
+// inputOpen:                'react-autosuggest__input--open',
+// inputFocused:             'react-autosuggest__input--focused',
+// suggestionsContainer:     'react-autosuggest__suggestions-container',
+// suggestionsContainerOpen: 'react-autosuggest__suggestions-container--open',
+// suggestionsList:          'react-autosuggest__suggestions-list',
+// suggestion:               'react-autosuggest__suggestion',
+// suggestionFirst:          'react-autosuggest__suggestion--first',
+// suggestionHighlighted:    'react-autosuggest__suggestion--highlighted',
+// sectionContainer:         'react-autosuggest__section-container',
+// sectionContainerFirst:    'react-autosuggest__section-container--first',
+// sectionTitle:             'react-autosuggest__section-title'

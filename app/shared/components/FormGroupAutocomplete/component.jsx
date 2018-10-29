@@ -51,6 +51,20 @@ class FormGroup extends PureComponent {
     })
   }
 
+  renderSuggestionsContainer({ containerProps , children, query }) {
+    return (
+      <div {... containerProps}>
+        <div className='input-group-append'>
+          <Button className='btn--flat'>
+            <span className='sr-only'>Submit search</span>
+            <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
+          </Button>
+        </div>
+        {children}
+      </div>
+    )
+  }
+
   onSuggestionSelected (event, suggestionItem) {
     event.preventDefault()
     const item = suggestionItem.suggestion._source
@@ -86,7 +100,7 @@ class FormGroup extends PureComponent {
   renderSuggestion (result) {
     switch (result._index) {
       // @todo: refactor to use config
-      case 'talktofrank-beta-content' :
+      case 'talktofrank-content-v0.0.1' :
         return <SearchResultContent
           item={result._source}
           highlight={result.highlight
@@ -103,7 +117,7 @@ class FormGroup extends PureComponent {
           }
         />
     }
-  };
+  }
 
   handleSubmit () {
     if (this.state.searchTerm !== '') {
@@ -124,6 +138,7 @@ class FormGroup extends PureComponent {
           suggestions={autoCompleteData}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          renderSuggestionsContainer={this.renderSuggestionsContainer}
           onSuggestionSelected={this.onSuggestionSelected}
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
@@ -142,7 +157,7 @@ class FormGroup extends PureComponent {
           ref={input => { this.searchInput = input }}
           required
         />
-        {button && <div className='input-group-append'>
+{/*        {button && <div className='input-group-append'>
           <Button
             className='btn--flat'
             clickHandler={this.handleSubmit}
@@ -150,7 +165,7 @@ class FormGroup extends PureComponent {
             <span className='sr-only'>Submit search</span>
             <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
           </Button>
-        </div>}
+        </div>}*/}
       </div>
     )
   }
