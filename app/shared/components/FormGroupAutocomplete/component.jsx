@@ -57,21 +57,21 @@ class FormGroup extends PureComponent {
     }
   }
 
-  // renderSuggestionsContainer({ containerProps , children, query }) {
-  //   return (
-  //     <React.Fragment>
-  //       <div className='input-group-append'>
-  //         <Button className='btn--flat'>
-  //           <span className='sr-only'>Submit search</span>
-  //           <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
-  //         </Button>
-  //       </div>
-  //       <div {... containerProps}>
-  //         {children}
-  //       </div>
-  //     </React.Fragment>
-  //   )
-  // }
+  renderSuggestionsContainer({ containerProps , children, query }) {
+    return (
+      <React.Fragment>
+        <div className='input-group-append'>
+          <Button className='btn--flat'>
+            <span className='sr-only'>Submit search</span>
+            <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
+          </Button>
+        </div>
+        <div {...containerProps}>
+          {children}
+        </div>
+      </React.Fragment>
+    )
+  }
 
   onSuggestionSelected (event, suggestionItem) {
     event.preventDefault()
@@ -158,10 +158,7 @@ class FormGroup extends PureComponent {
           ref={input => { this.searchInput = input }}
           required
         />
-        {button && <Button className='btn--flat' clickHandler={this.handleSubmit}>
-          <span className='sr-only'>Submit search</span>
-          <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
-        </Button>}
+
       </div>
     )
   }

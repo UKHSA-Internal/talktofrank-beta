@@ -4,8 +4,7 @@
     color: $text-dark-blue;
     font-size: 2.1rem;
     padding: .4em;
-    flex-grow: 1;
-    width: 100%;
+    min-width: 100%;
   }
 }
 
@@ -46,20 +45,41 @@
 /////////////////////
 
 .react-autosuggest__container {
-
+  flex-basis: 100%;
+  max-width: 70rem;
 }
 
-.react-autosuggest__suggestions-container {
-
+.react-autosuggest__suggestions-list {
+  list-style: none;
+  padding-left: 0;
 }
 
 .react-autosuggest__suggestion--highlighted {
   background-color: $gray-200;
 }
 
+.react-autosuggest__suggestions-container--open,
+.react-autosuggest__container--open {
 
+}
 
+.react-autosuggest__container--open {
+  min-width: 100%;
+  max-width: 50rem;
+  flex-basis: 100%;
+}
 
+.react-autosuggest__suggestion {
+  @extend %list-item--underlined;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.react-autosuggest__suggestions-container--open {
+
+}
 
 // container:                'react-autosuggest__container',
 // containerOpen:            'react-autosuggest__container--open',
