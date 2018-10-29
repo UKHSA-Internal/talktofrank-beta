@@ -13,8 +13,8 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
   try {
     if (!req.params.term) {
       let error = new Error()
-      error.message = 'Page search tern not set'
-      error.status = 404
+      error.message = 'No search term'
+      error.status = 500
       return next(error)
     }
 
@@ -36,8 +36,8 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
   try {
     if (!req.params.term) {
       let error = new Error()
-      error.message = 'Page search tern not set'
-      error.status = 404
+      error.message = 'No search term'
+      error.status = 500
       return next(error)
     }
 

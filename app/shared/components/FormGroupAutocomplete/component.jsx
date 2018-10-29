@@ -63,7 +63,7 @@ class FormGroup extends PureComponent {
       default :
         url = `/drug/${item.slug}`
         if (item.realName && item.realName !== item.name) {
-          url += `?a=${item.name.toLowerCase()}`
+          url += `?a=${item.name}`
         }
     }
     window.location = url
