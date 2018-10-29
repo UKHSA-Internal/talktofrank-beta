@@ -57,6 +57,8 @@ export default class SearchPage extends React.Component {
                   <p>Searching...</p>
                 }
                 { total && total > 0 ? (
+                  <React.Fragment>
+                    <p>Results for <strong>{searchValue}</strong> ({total})</p>
                     <ul className="search__list list-unstyled">{ hits
                         .map(result => {
                           // @todo: refactor hardcoded index names
@@ -81,6 +83,7 @@ export default class SearchPage extends React.Component {
                           }
                         })
                     }</ul>
+                  </React.Fragment>
                 ) : (
                   <div className='search__no-results'>
                     <Grid>
