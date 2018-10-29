@@ -1,7 +1,6 @@
 $offset: 3.5rem;
 
-@mixin fakeHr {
-
+@mixin fake-hr {
   &::before,
   &::after {
     content: '';
@@ -18,17 +17,19 @@ $offset: 3.5rem;
 }
 
 .list-offset {
+  margin-bottom: 6rem;
+
   .list-item {
     max-width: 50rem;
     margin: 15rem auto;
     position: relative;
 
     &:first-child {
-      margin-top: 5rem;
+      margin-top: 0;
     }
 
     &:not(.list-item--has-image) {
-      @include fakeHr;
+      @include fake-hr;
 
       &::before {
         display: none;
@@ -37,14 +38,27 @@ $offset: 3.5rem;
 
     .list-item__inner {
       position: relative;
+      max-width: 50rem;
 
       .heading-inline {
         left: 0;
+
+        span {
+          left: 0;
+
+          @include media-breakpoint-up(sm) {
+            left: -1rem;
+          }
+        }
       }
 
       .long-form {
+        margin: 2rem 0 0;
         color: $body-text;
-        margin-left: -1rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-left: -1rem;
+        }
       }
     }
 
@@ -52,8 +66,11 @@ $offset: 3.5rem;
     .time {
       position: absolute;
       background-color: $white;
-      margin-left: -1rem;
       left: 0;
+
+      @include media-breakpoint-up(sm) {
+        margin-left: -1rem;
+      }
     }
 
     .time {
@@ -63,7 +80,7 @@ $offset: 3.5rem;
     }
 
     .read-more {
-      top: calc(100% + 2rem);
+      top: calc(100% + 2.5rem);
     }
 
     .image {
@@ -71,7 +88,6 @@ $offset: 3.5rem;
         max-height: 45rem;
         max-width: 105%;
         width: auto;
-        margin-left: -1rem;
       }
     }
 
@@ -111,6 +127,7 @@ $offset: 3.5rem;
 
     &.list-item--has-image {
       max-width: none;
+      margin-bottom: 3rem;
 
       .list-item__inner {
         margin-top: -2.8rem;
@@ -156,11 +173,6 @@ $offset: 3.5rem;
             left: auto;
             right: -2rem;
           }
-        }
-
-        img {
-          margin-right: 0;
-          margin-left: auto;
         }
 
         span {
