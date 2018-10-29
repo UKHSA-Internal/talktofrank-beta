@@ -267,9 +267,17 @@ router.get('/news', (req, res, next) => {
       response.title = 'Latest news'
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
+
         if (v.fields.originalPublishDate) {
-          v['originalPublishDate'] = v.fields.originalPublishDate
-          v['originalPublishDateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+          v['date'] = `Created at: ${v.fields.originalPublishDate}`
+          v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+        } else {
+          // @andy - this needs a bit more nuance - there is a created and an updated date for each
+          // so going to use the updated for now as that is the latest
+          v['date'] = `Updated at: ${v.sys.updatedAt}`
+          v['dateFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
+          // v['createdAt'] = v.sys.createdAt
+          // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
         if (v.fields.bodyLegacy) {
@@ -283,10 +291,7 @@ router.get('/news', (req, res, next) => {
           imageCount++
           v.fields['imagepos'] = imageCount
         }
-        // v['createdAt'] = v.sys.createdAt
-        // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
-        v['updatedAt'] = v.sys.updatedAt
-        v['updatedAtFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
+
         return v
       })
       res.send(response)
