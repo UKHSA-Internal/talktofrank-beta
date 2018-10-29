@@ -57,6 +57,10 @@ class FormGroup extends PureComponent {
     }
   }
 
+  shouldRenderSuggestions(value) {
+    return value.trim().length > 1
+  }
+
   renderSuggestionsContainer({ containerProps , children, query }) {
     return (
       <React.Fragment>
@@ -138,6 +142,7 @@ class FormGroup extends PureComponent {
         <label htmlFor={id} className='form-label h3'>{label}</label>
         <Autosuggest
           suggestions={autoCompleteData}
+          shouldRenderSuggestions={this.shouldRenderSuggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionSelected={this.onSuggestionSelected}
