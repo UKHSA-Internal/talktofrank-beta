@@ -23,4 +23,3 @@ const Article = props => {
 }
 
 export default Article
-

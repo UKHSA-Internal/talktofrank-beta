@@ -267,7 +267,6 @@ router.get('/news', (req, res, next) => {
       response.title = 'Latest news'
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
-
         if (v.fields.originalPublishDate) {
           v['date'] = v.fields.originalPublishDate
           v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
