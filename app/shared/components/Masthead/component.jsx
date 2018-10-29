@@ -57,15 +57,12 @@ export default class Masthead extends React.PureComponent {
               {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
             </Button>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
-
             <ViewportMobile>
               <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
             </ViewportMobile>
-
             <ViewportDefault>
               <Nav className={navClasses} hasPopup={true} menu-open={true} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
             </ViewportDefault>
-
           </section>
           <ButtonGroup className='button-group--static'>
             <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md'>Search </span><Icon {...icon}/></Button>
@@ -74,11 +71,11 @@ export default class Masthead extends React.PureComponent {
         </div>
         {this.state.takeover && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>
-            <Form>
+            <Form className='form--search'>
               <FormGroupAutocomplete
                 button='true'
                 modifiers='form-control--search'
-                className='input-group-autocomplete--inverse'
+                className='input-group-autocomplete'
                 id='search-masthead'
                 label='Search for any drug'
                 labelHidden='true'

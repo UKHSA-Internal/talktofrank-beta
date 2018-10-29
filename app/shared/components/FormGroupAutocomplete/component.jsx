@@ -50,6 +50,7 @@ class FormGroup extends PureComponent {
       })
     })
   }
+
   onSuggestionSelected (event, suggestionItem) {
     event.preventDefault()
     const item = suggestionItem.suggestion._source
@@ -119,39 +120,37 @@ class FormGroup extends PureComponent {
     return (
       <div className={classes}>
         <label htmlFor={id} className={'form-label h3 ' + (labelHidden ? 'sr-only' : null)}>{label}</label>
-        <div className='d-flex'>
-          <Autosuggest
-            suggestions={autoCompleteData}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            onSuggestionSelected={this.onSuggestionSelected}
-            getSuggestionValue={this.getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={{
-              className: controlClasses,
-              id: id,
-              value: searchTerm,
-              onKeyDown: this.handleKeyPress,
-              onChange: this.onChange,
-              placeholder: this.props.placeholder,
-              type: 'search',
-              role: 'combobox',
-              'aria-owns': this.props.resultsId,
-              'aria-activedescendant': this.state.id
-            }}
-            ref={input => { this.searchInput = input }}
-            required
-          />
-          {button && <div className='input-group-append'>
-            <Button
-              className='btn--primary icon-magnifying'
-              clickHandler={this.handleSubmit}
-            >
-              <span className='sr-only'>Submit search</span>
-              <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
-            </Button>
-          </div>}
-        </div>
+        <Autosuggest
+          suggestions={autoCompleteData}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={{
+            className: controlClasses,
+            id: id,
+            value: searchTerm,
+            onKeyDown: this.handleKeyPress,
+            onChange: this.onChange,
+            placeholder: this.props.placeholder,
+            type: 'search',
+            role: 'combobox',
+            'aria-owns': this.props.resultsId,
+            'aria-activedescendant': this.state.id
+          }}
+          ref={input => { this.searchInput = input }}
+          required
+        />
+        {button && <div className='input-group-append'>
+          <Button
+            className='btn--flat'
+            clickHandler={this.handleSubmit}
+          >
+            <span className='sr-only'>Submit search</span>
+            <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
+          </Button>
+        </div>}
       </div>
     )
   }

@@ -1,21 +1,35 @@
 .form-control {
   &--search {
     border: 0;
-    border-bottom-width: 3px;
-    border-bottom-style: solid;
-    border-bottom-color: $gray-900;
-    font-size: 1.8rem;
+    color: $text-dark-blue;
+    font-size: 2.1rem;
     padding-left: .4em;
     flex-grow: 1;
+    max-width: 60rem;
+    width: 100%;
   }
-}
-
-.raised,
-.input-group--raised {
-  box-shadow: 3px 3px 0 0 $text-dark-blue;
-  width: 100%;
 }
 
 .form-label {
   flex-basis: 100%;
+}
+
+////////////
+.input-group-autocomplete {
+  flex-grow: 1;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: $text-dark-blue;
+
+  .input-group-autocomplete-menu {
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    overflow: auto;
+    top: 40px;
+    left: 0px;
+    border-top: 0;
+    z-index: 5;
+
+  }
 }
