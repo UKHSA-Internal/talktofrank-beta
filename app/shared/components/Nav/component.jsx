@@ -5,6 +5,10 @@ import Heading from '../Heading/component.jsx'
 import Icon from '../Icon/component.jsx'
 
 class LinkItem extends React.Component {
+  static defaultProps = {
+    hasPopup: false
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -40,7 +44,7 @@ class LinkItem extends React.Component {
 
     return (
       <li className={liClasses} >
-        <a className={linkClasses} role="menuitem" href={this.props.url} onClick={this.clickHandler.bind(this)}>{this.props.icon && <Icon {...this.props.icon}/>}{label}</a>
+        <a className={linkClasses} aria-expanded={this.props.hasPopup ? this.state.menuOpen : undefined} aria-haspopup={this.props.hasPopup} role="menuitem" href={this.props.url} onClick={this.clickHandler.bind(this)}>{this.props.icon && <Icon {...this.props.icon}/>}{label}</a>
         {this.props.subnav}
       </li>
     )
@@ -127,10 +131,10 @@ export default class Nav extends React.PureComponent {
             if (!item.subnavigation) {
               return <LinkItem key={i} url={item.url} icon={icon} className={linkClass} label={item.label} clickHandler={this.handleItemClick} tracking={item.tracking}/>
             } else {
-              let subnav = <ul className='navbar-dropdown list-unstyled' role="menu">{item.subnavigation.map((v, j) => {
+              let subnav = <ul className='navbar-dropdown list-unstyled' role="menu" aria-hidden={!this.state.dropDown}>{item.subnavigation.map((v, j) => {
                 return <LinkItem key={j} url={v.url} className='nav-item' label={v.label} clickHandler={this.handleItemClick} tracking={v.tracking}/>
               })}</ul>
-              return <LinkItem key={i} url={item.url} ref={this.setWrapperRef} hasDropdown={true} menuOpen={this.state.dropDown} className={'nav-item'} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
+              return <LinkItem key={i} url={item.url} hasPopup={this.props.hasPopup} ref={this.setWrapperRef} hasDropdown={true} menuOpen={this.state.dropDown} className={'nav-item'} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
             }
           })}
         </ul>

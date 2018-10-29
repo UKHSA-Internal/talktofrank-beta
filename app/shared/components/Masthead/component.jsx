@@ -63,7 +63,7 @@ export default class Masthead extends React.PureComponent {
             </ViewportMobile>
 
             <ViewportDefault>
-              <Nav className={navClasses} menu-open={true} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
+              <Nav className={navClasses} hasPopup={true} menu-open={true} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
             </ViewportDefault>
 
           </section>
