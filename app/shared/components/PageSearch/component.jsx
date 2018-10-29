@@ -5,6 +5,8 @@ import GridCol from '../GridCol/component.jsx'
 import Footer from '../Footer/component.jsx'
 import Button from '../Button/component.jsx'
 import Svg from '../Svg/component.jsx'
+import SearchResultDrug from '../SearchResultDrug/component'
+import SearchResultContent from '../SearchResultContent/component'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -51,59 +53,27 @@ export default class SearchPage extends React.Component {
           <div className='main'>
             <Grid>
               <GridCol className='col-12 col-md-8'>
-                <div className='input-group' role='search'>
-                  <label htmlFor='search-site' className='form-label h3 sr-only'>Enter a drug name (e.g. Mandy, Cocaine, Weed)</label>
-                  <div className='input-group--raised d-flex'>
-                    <input
-                      className={`form-control form-control--search underlined`}
-                      placeholder='Enter a drug name (e.g. Mandy, Cocaine, Weed)'
-                      id='search-site'
-                      type='text'
-                      autoComplete='off'
-                      autoCorrect='off'
-                      autoCapitalize='off'
-                      spellCheck='false'
-                      value={searchValue}
-                      onChange={this.handleInputChange}
-                      />
-                    <div className='input-group-append'>
-                      <Button
-                        className='btn--primary icon-magnifying'
-                        clickHandler={this.handleSubmit}
-                      >
-                        <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
-                        <span>Search</span>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
                 { loading &&
                   <p>Searching...</p>
                 }
                 { total && total > 0 ? (
+                  <React.Fragment>
+                    <p>Results for <strong>{searchValue}</strong> ({total})</p>
                     <ul className="search__list list-unstyled">{ hits
                         .map(result => {
                           // @todo: refactor hardcoded index names
                           // to reference config file
                           switch (result._index) {
-                            case 'talktofrank-beta-drug-name' :
-                              return <ResultDrug
-                                item={result._source}
-                                highlight={result.highlight
-                                  ? result.highlight
-                                  : null
-                                }
-                              />
-                            case 'talktofrank-beta-drug-text' :
-                              return <ResultDrug
-                                item={result._source}
-                                highlight={result.highlight
-                                  ? result.highlight
-                                  : null
-                                }
-                              />
                             case 'talktofrank-beta-content' :
-                              return <ResultContent
+                              return <SearchResultContent
+                                item={result._source}
+                                highlight={result.highlight
+                                  ? result.highlight
+                                  : null
+                                }
+                              />
+                            default:
+                              return <SearchResultDrug
                                 item={result._source}
                                 highlight={result.highlight
                                   ? result.highlight
@@ -113,6 +83,7 @@ export default class SearchPage extends React.Component {
                           }
                         })
                     }</ul>
+                  </React.Fragment>
                 ) : (
                   <div className='search__no-results'>
                     <Grid>
@@ -140,27 +111,3 @@ export default class SearchPage extends React.Component {
     )
   }
 }
-
-const ResultDrug = ({item, highlight}) => {
-  // ES doesn't allow null values on completion fields, hence having to
-  // duplicate name/real name
-  let name = item.realName && item.realName !== item.name
-    ? `${item.name} (${item.realName})`
-    : item.name
-  if (highlight && highlight.synonyms) {
-    name = `${highlight.synonyms[0]} (${item.name})`
-  }
-
-  return (
-    <li key={item.id} className='list-item list-item--dotted'>
-      <a href={`/drug/${item.slug}`}><h4 dangerouslySetInnerHTML={{ __html: name }} /></a>
-    </li>
-  )
-}
-
-const ResultContent = ({item, highlight}) => (
-  <li key={item.id} className='list-item list-item--dotted'>
-    <a href={item.type === 'news' ? `/news/${item.slug}` : item.slug} ><h4>{item.title}</h4></a>
-    <p>{item.type}</p>
-  </li>
-)

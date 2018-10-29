@@ -51,21 +51,24 @@ module.exports = function (grunt) {
       host: config.contentful.contentHost
     })
 
-    const elasticSearchConf = {
+    let elasticSearchConf = {
       host: config.elasticsearch.host || `http://localhost:9200`,
-      log: `info`,
-      connectionClass: connectionClass
+      log: `info`
     }
-    if (config.elasticsearch.amazonES.credentials) {
+
+    if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
+      elasticSearchConf.connectionClass = connectionClass
+      AWS.config.update({
+        region: config.elasticsearch.amazonES.region
+      })
+    }
+
+    if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) {
       AWS.config.update({
         credentials: new AWS.Credentials(
           config.elasticsearch.amazonES.credentials.accessKeyId,
           config.elasticsearch.amazonES.credentials.secretAccessKey
         ),
-        region: config.elasticsearch.amazonES.region
-      })
-    } else if (amazonES.region) {
-      AWS.config.update({
         region: config.elasticsearch.amazonES.region
       })
     }
@@ -306,6 +309,7 @@ const addFormattedDrugName = (name, realName, drugItem) => {
     id: id.replace(' ', '-').toLowerCase(),
     name: name,
     realName: realName,
+    category: drugItem.fields.hasOwnProperty('category') ? cleanText(drugItem.fields.category) : 'None',
     slug: drugItem.fields.hasOwnProperty('slug') ? drugItem.fields.slug : '',
     tags: []
   }
