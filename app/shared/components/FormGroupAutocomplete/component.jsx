@@ -51,17 +51,25 @@ class FormGroup extends PureComponent {
     })
   }
 
+  handleSubmit () {
+    if (this.state.searchTerm !== '') {
+      window.location = `/search/${this.state.searchTerm.toLowerCase()}`
+    }
+  }
+
   renderSuggestionsContainer({ containerProps , children, query }) {
     return (
-      <div {... containerProps}>
+      <React.Fragment>
         <div className='input-group-append'>
           <Button className='btn--flat'>
             <span className='sr-only'>Submit search</span>
             <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
           </Button>
         </div>
-        {children}
-      </div>
+        <div {... containerProps}>
+          {children}
+        </div>
+      </React.Fragment>
     )
   }
 
@@ -119,12 +127,6 @@ class FormGroup extends PureComponent {
     }
   }
 
-  handleSubmit () {
-    if (this.state.searchTerm !== '') {
-      window.location = `/search/${this.state.searchTerm.toLowerCase()}`
-    }
-  }
-
   render () {
     let classes = classNames('input-group', this.props.className)
     let controlClasses = classNames('form-control', this.props.modifiers)
@@ -133,7 +135,7 @@ class FormGroup extends PureComponent {
 
     return (
       <div className={classes}>
-        <label htmlFor={id} className={'form-label h3 ' + (labelHidden ? 'sr-only' : null)}>{label}</label>
+        <label htmlFor={id} className='form-label h3'>{label}</label>
         <Autosuggest
           suggestions={autoCompleteData}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -157,15 +159,10 @@ class FormGroup extends PureComponent {
           ref={input => { this.searchInput = input }}
           required
         />
-{/*        {button && <div className='input-group-append'>
-          <Button
-            className='btn--flat'
-            clickHandler={this.handleSubmit}
-          >
-            <span className='sr-only'>Submit search</span>
-            <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
-          </Button>
-        </div>}*/}
+        {button && <Button className='btn--flat' clickHandler={this.handleSubmit}>
+          <span className='sr-only'>Submit search</span>
+          <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
+        </Button>}
       </div>
     )
   }

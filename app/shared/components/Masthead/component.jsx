@@ -83,7 +83,7 @@ export default class Masthead extends React.PureComponent {
                 placeholder='Enter drug name (e.g. Mandy)'
               />
             </Form>
-            <Button className='btn--flat active' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
+            <Button className='btn--flat active close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
         </section>}
         {this.state.takeover && <div className='takeover-bg'/>}

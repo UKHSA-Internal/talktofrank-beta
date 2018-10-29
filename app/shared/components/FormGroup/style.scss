@@ -5,7 +5,6 @@
     font-size: 2.1rem;
     padding: .4em;
     flex-grow: 1;
-    display: block;
     width: 100%;
   }
 }
@@ -34,6 +33,18 @@
   }
 }
 
+.close {
+  align-self: flex-start;
+}
+
+.input-group-append {
+
+}
+
+/////////////////////
+// autosuggest specific stylings - a theming layer if you will
+/////////////////////
+
 .react-autosuggest__container {
 
 }
@@ -47,7 +58,7 @@
 }
 
 
-/////////////////////
+
 
 
 // container:                'react-autosuggest__container',
