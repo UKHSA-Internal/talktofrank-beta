@@ -37,7 +37,6 @@ class FormGroup extends PureComponent {
 
   // @todo: refactor to container
   async getSuggestions (value) {
-    console.log('Get suggestions', value)
     const response = await axios
       .get(`/api/v1/search/autocomplete/${value}`)
     return response.data.hits

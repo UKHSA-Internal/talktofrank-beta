@@ -12,7 +12,6 @@ import Article from '../Article/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 const PageNewsList = props => {
-  console.log(props.list[5])
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
