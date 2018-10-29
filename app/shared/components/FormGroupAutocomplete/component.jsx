@@ -32,8 +32,8 @@ class FormGroup extends PureComponent {
   onChange (event, { newValue }) {
     this.setState({
       searchTerm: newValue
-    });
-  };
+    })
+  }
 
   // @todo: refactor to container
   async getSuggestions (value) {
@@ -55,7 +55,7 @@ class FormGroup extends PureComponent {
     const item = suggestionItem.suggestion._source
     let url = ''
     switch (suggestionItem.suggestion._index) {
-      case "talktofrank-beta-content":
+      case 'talktofrank-beta-content':
         url = item.type === 'news'
           ? `/news/${item.slug}`
           : item.slug
@@ -71,9 +71,9 @@ class FormGroup extends PureComponent {
 
   onSuggestionsClearRequested () {
     this.setState({
-      autoCompleteData: [],
-    });
-  };
+      autoCompleteData: []
+    })
+  }
 
   getSuggestionValue (suggestion) {
     // @todo: refactor to use config
@@ -139,7 +139,7 @@ class FormGroup extends PureComponent {
               'aria-owns': this.props.resultsId,
               'aria-activedescendant': this.state.id
             }}
-            ref={(input) => this.searchInput = input}
+            ref={input => { this.searchInput = input }}
             required
           />
           {button && <div className='input-group-append'>

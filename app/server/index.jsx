@@ -53,7 +53,6 @@ if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
 }
 
 if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) {
-
   AWS.config.update({
     credentials: new AWS.Credentials(
       config.elasticsearch.amazonES.credentials.accessKeyId,

@@ -61,7 +61,6 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
 })
 
 const buildMatchQuery = (searchTerm, fuzzy) => {
-
   const titleFields = [
     'title',
     'name^5',
@@ -107,7 +106,7 @@ const buildMatchQuery = (searchTerm, fuzzy) => {
   }
 
   if (fuzzy) {
-    titleConf.fuzziness = "auto"
+    titleConf.fuzziness = 'auto'
   }
 
   let query = bodybuilder()
