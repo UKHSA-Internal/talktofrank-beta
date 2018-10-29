@@ -82,10 +82,12 @@
 }
 
 .react-autosuggest__container {
-  ul, li {
+  ul,
+  li {
     list-style: none;
     padding-left: 0;
   }
+
   .react-autosuggest__suggestion--highlighted {
     background-color: #fffafa;
   }
