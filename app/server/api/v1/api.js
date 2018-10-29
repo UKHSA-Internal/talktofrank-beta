@@ -270,12 +270,12 @@ router.get('/news', (req, res, next) => {
 
         if (v.fields.originalPublishDate) {
           v['date'] = v.fields.originalPublishDate
-          v['dateFormatted'] = `Created at: ${format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')}`
+          v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
         } else {
           // @andy - this needs a bit more nuance - there is a created and an updated date for each
           // so going to use the updated for now as that is the latest
           v['date'] = v.sys.updatedAt
-          v['dateFormatted'] = `Updated at: ${format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')}`
+          v['dateFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
           // v['createdAt'] = v.sys.createdAt
           // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
