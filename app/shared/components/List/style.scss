@@ -43,8 +43,8 @@ $offset: 3.5rem;
       }
 
       .long-form {
+        margin: 2rem 0 0 -1rem;
         color: $body-text;
-        margin-left: -1rem;
       }
     }
 
@@ -63,7 +63,7 @@ $offset: 3.5rem;
     }
 
     .read-more {
-      top: calc(100% + 2rem);
+      top: calc(100% + 2.5rem);
     }
 
     .image {
