@@ -247,13 +247,22 @@ router.get('/drugs', (req, res, next) => {
  * Get news
  */
 router.get('/news', (req, res, next) => {
+  if (!req.query.page || !req.query.pageSize) {
+    let error = new Error()
+    error.message = 'No pagination options provided'
+    error.status = 500
+    return next(error)
+  }
+
   let response = {
     list: []
   }
 
   contentfulClient.getEntries({
     content_type: config.contentful.contentTypes.news,
-    order: '-sys.createdAt,sys.id'
+    order: '-sys.createdAt,sys.id',
+    limit: req.query.pageSize,
+    skip: req.query.pageSize * req.query.page
   })
     .then((contentfulResponse) => {
       let imageCount = 1
@@ -265,6 +274,7 @@ router.get('/news', (req, res, next) => {
       }
       // merge contentful assets and includes
       response.title = 'Latest news'
+      response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
         if (v.fields.originalPublishDate) {

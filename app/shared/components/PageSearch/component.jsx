@@ -1,10 +1,11 @@
 import React from 'react'
-import Masthead from '../Masthead/component.jsx'
-import Grid from '../Grid/component.jsx'
-import GridCol from '../GridCol/component.jsx'
-import Footer from '../Footer/component.jsx'
-import Button from '../Button/component.jsx'
-import Svg from '../Svg/component.jsx'
+import Masthead from '../Masthead/component'
+import Grid from '../Grid/component'
+import Heading from '../Heading/component'
+import Main from '../Main/component'
+import GridCol from '../GridCol/component'
+import Footer from '../Footer/component'
+import Pagination from '../Pagination/component'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
 
@@ -12,6 +13,7 @@ export default class SearchPage extends React.Component {
   constructor (props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.state = {
       searchValue: this.props.match.params.term
@@ -37,6 +39,10 @@ export default class SearchPage extends React.Component {
     })
   }
 
+  handlePageChange (pageNumber) {
+    this.props.fetchSearchTerm(this.props.match.params.term, pageNumber.current)
+  }
+
   render () {
     const { loading } = this.props
     const { total, hits } = this.props.pageData
@@ -44,15 +50,10 @@ export default class SearchPage extends React.Component {
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
-        <main className='search' id='main' name='main'>
-          <div className='search--header'>
-            <div>
-              <h1>Search</h1>
-            </div>
-          </div>
-          <div className='main'>
-            <Grid>
-              <GridCol className='col-12 col-md-8'>
+        <Main>
+          <Grid>
+            <GridCol className='col-12 col-sm-8'>
+              <Heading type='h1' className='h2' text='Search results' />
                 { loading &&
                   <p>Searching...</p>
                 }
@@ -61,28 +62,26 @@ export default class SearchPage extends React.Component {
                     <p>Results for <strong>{searchValue}</strong> ({total})</p>
                     <ul className="search__list list-unstyled">{ hits
                         .map(result => {
-                          // @todo: refactor hardcoded index names
-                          // to reference config file
-                          switch (result._index) {
-                            case 'talktofrank-beta-content' :
-                              return <SearchResultContent
-                                item={result._source}
-                                highlight={result.highlight
-                                  ? result.highlight
-                                  : null
-                                }
-                              />
-                            default:
-                              return <SearchResultDrug
-                                item={result._source}
-                                highlight={result.highlight
-                                  ? result.highlight
-                                  : null
-                                }
-                              />
-                          }
+                          const SearchResultComponent =
+                            result._index.includes('talktofrank-content')
+                          ? SearchResultContent
+                              : SearchResultDrug
+
+                          return <SearchResultComponent
+                            item={result._source}
+                            highlight={result.highlight
+                              ? result.highlight
+                              : null
+                            }
+                          />
                         })
                     }</ul>
+                    {total > 10 &&
+                      <Pagination
+                        pageCount={total / 10}
+                        onPageChange={this.handlePageChange}
+                      />
+                    }
                   </React.Fragment>
                 ) : (
                   <div className='search__no-results'>
@@ -104,8 +103,7 @@ export default class SearchPage extends React.Component {
                 )}
               </GridCol>
             </Grid>
-          </div>
-        </main>
+        </Main>
         <Footer />
       </React.Fragment>
     )
