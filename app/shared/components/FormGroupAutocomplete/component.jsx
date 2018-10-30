@@ -76,7 +76,7 @@ class FormGroup extends PureComponent {
     return value.trim().length > 0
   }
 
-  renderSuggestionsContainer({ containerProps , children, query }) {
+  renderSuggestionsContainer({ containerProps, children, query }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
     return (
       <div {...containerProps}>
@@ -115,7 +115,7 @@ class FormGroup extends PureComponent {
 
   getSuggestionValue (suggestion) {
     // @todo: refactor to use config
-    return suggestion._index === 'talktofrank-beta-content'
+    return suggestion._index.includes('talktofrank-content')
       ? suggestion._source.title
       : suggestion._source.name
   }
