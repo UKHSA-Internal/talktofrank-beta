@@ -262,6 +262,7 @@ b {
   font-family: $font-family-heavy;
 }
 
+%list-item--underlined,
 .list-item--underlined {
   border-bottom: 1px solid $gray-300;
 
@@ -272,20 +273,22 @@ b {
   .list-link {
     padding: 1em;
 
-    &:active,
-    &:hover {
-      color: $body-text;
-      background-color: $gray-100;
+    .has-hover & {
+      &:active,
+      &:hover {
+        color: $body-text;
+        background-color: $gray-100;
 
-      p,
-      span {
-        display: inline-block;
-        text-decoration: none;
+        p,
+        span {
+          display: inline-block;
+          text-decoration: none;
+        }
       }
-    }
 
-    &:visited {
-      text-decoration: underline;
+      &:visited {
+        text-decoration: underline;
+      }
     }
   }
 }
