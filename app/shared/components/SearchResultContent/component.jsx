@@ -1,13 +1,10 @@
 import React from 'react'
-import Heading from '../Heading/component'
 
-const ResultDrug = props => (
-  <li key={props.item.id} className='list-item list-item--dotted'>
-    <a href={props.item.type === 'news' ? `/news/${props.item.slug}` : props.item.slug} >
-      <Heading type={'h4'} text={props.item.title} />
-    </a>
-    <p>{props.item.type}</p>
-  </li>
+const ResultContent = props => (
+  <a href={props.item.type === 'news' ? `/news/${props.item.slug}` : props.item.slug} >
+    <h3 className='h5'>{props.item.title}</h3>
+    <p className='grey'>{props.item.type}</p>
+  </a>
 )
 
-export default ResultDrug
+export default ResultContent

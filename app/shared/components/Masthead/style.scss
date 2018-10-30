@@ -12,6 +12,14 @@
   @extend %constrain-narrow;
 }
 
+.masthead__takeover__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .masthead__takeover {
   position: absolute;
   z-index: 95;
@@ -28,7 +36,7 @@
 }
 
 .takeover-bg {
-  position: absolute;
+  position: fixed;
   z-index: 90;
   top: 0;
   right: 0;

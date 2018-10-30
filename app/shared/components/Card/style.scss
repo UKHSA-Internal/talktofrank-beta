@@ -78,8 +78,8 @@
 
   @include media-breakpoint-up(sm) {
     flex-flow: row wrap;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: -1rem;
+    margin-right: -1rem;
     padding-top: 0;
 
     .card {

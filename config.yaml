@@ -4,9 +4,9 @@ elasticsearch:
   amazonES:
     region: 'eu-west-2'
   indices:
-    drugNames: 'talktofrank-beta-drug-name'
-    drug: 'talktofrank-beta-drug-text'
-    content: 'talktofrank-beta-content'
+    drugNames: 'talktofrank-drug-name'
+    drug: 'talktofrank-drug-text'
+    content: 'talktofrank-content'
 
 sentry:
  logErrors: false
@@ -18,3 +18,6 @@ contentful:
     page: 'generalPage'
   entries:
     homepage: '6YkX4gZ5jawC0eAM6aOCum'
+
+pagination:
+  pageSize: 10

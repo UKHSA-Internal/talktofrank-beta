@@ -154,7 +154,7 @@ export default class PaginationBoxView extends React.PureComponent {
       page={index + 1} />
   }
 
-  pagination = () => {
+  pagination () {
     const items = []
     const {
       pageRangeDisplayed,
