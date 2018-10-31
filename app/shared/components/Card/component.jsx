@@ -10,7 +10,7 @@ const Card = props => {
         <div className='card-body'>
           <Heading {...props.heading}/>
           {props.content && <p className='card-text'>{props.content}</p>}
-          {props.linkLabel && <p className='read-more'>{props.linkLabel}</p>}
+          {props.linkLabel && <p className='read-more' aria-hidden="true">{props.linkLabel}</p>}
         </div>
       </a>
     </div>
