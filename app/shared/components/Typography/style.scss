@@ -196,8 +196,16 @@ mark,
 //
 // Misc
 //
+.white {
+  color: $white;
+}
+
 .muted {
   color: $gray-600;
+}
+
+.light-grey {
+  color: $gray-200;
 }
 
 .grey {
@@ -281,7 +289,7 @@ b {
 
         p,
         span {
-          display: inline-block;
+          //display: inline-block;
           text-decoration: none;
         }
       }
@@ -317,6 +325,10 @@ b {
   &--quiet {
     background-color: $gray-200;
     color: $body-text;
+  }
+
+  &--muted {
+    color: $gray-500;
   }
 }
 

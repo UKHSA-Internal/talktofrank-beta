@@ -17,6 +17,7 @@ class FormGroup extends PureComponent {
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
+    this.renderSuggestion = this.renderSuggestion.bind(this)
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.state = {
@@ -36,7 +37,8 @@ class FormGroup extends PureComponent {
     if (event.type === 'change') {
       this.setState({
         searchTerm: newValue,
-        currentSuggestion: ''
+        currentSuggestion: '',
+        resultsTotal: 0
       })
     } else {
       this.setState({
@@ -48,7 +50,7 @@ class FormGroup extends PureComponent {
   // @todo: refactor to container
   async getSuggestions (value) {
     const response = await axios
-      .get(`/api/v1/search/autocomplete/${value}`)
+      .get(`/api/v1/search/autocomplete/${value}?page=0&pageSize=5`)
     return response.data
   }
 
@@ -81,7 +83,7 @@ class FormGroup extends PureComponent {
     return (
       <div {...containerProps}>
         {children}
-        {res && <a href={`/search/${this.state.searchTerm.toLowerCase()}`}>
+        {res && <a className='read-more' href={`/search/${this.state.searchTerm.toLowerCase()}`}>
           +{res} more results
         </a>}
       </div>
@@ -99,7 +101,6 @@ class FormGroup extends PureComponent {
     } else {
       url = `/drug/${item.slug}`
       if (item.realName && item.realName !== item.name) {
-        console.log('Item ', item)
         url += `?a=${item.name.trim()}`
       }
     }
@@ -128,6 +129,8 @@ class FormGroup extends PureComponent {
 
     return <SearchResultComponent
       item={result._source}
+      prefix={true}
+      searchTerm={this.state.searchTerm}
       highlight={result.highlight
         ? result.highlight
         : null

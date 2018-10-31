@@ -44,3 +44,12 @@
   left: 0;
   background-color: rgba($text-dark-blue, .4);
 }
+
+.form--search {
+  flex-basis: 75%;
+
+  input[type='search'] {
+    width: 100%;
+    border: 0;
+  }
+}
