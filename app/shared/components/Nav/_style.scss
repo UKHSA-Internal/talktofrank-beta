@@ -60,6 +60,11 @@
       color: $white;
       padding-bottom: 0;
       border-bottom: 1px dotted $white;
+
+      &:hover {
+        border-bottom-style: solid;
+        text-decoration: none;
+      }
     }
 
   }
@@ -192,5 +197,9 @@
     text-decoration: underline;
     font-size: 1.4rem;
     margin-right: 1.5rem;
+
+    &:hover {
+      color: $white;
+    }
   }
 }

@@ -68,7 +68,7 @@ export default class Masthead extends React.PureComponent {
           </section>
           <ButtonGroup className='button-group--static'>
             <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md'>Search </span><Icon {...icon}/></Button>
-            <Button className='btn--flat btn--small hidden--rg' url='tel:03001236600'><span className='btn__text'>0300 1236600</span></Button>
+            <Button className='btn--alink btn--small hidden--rg' url='tel:03001236600'><span className='nav-link'>0300 1236600</span></Button>
           </ButtonGroup>
         </div>
         {this.state.takeover && <section className='masthead__takeover'>
