@@ -23,15 +23,15 @@
   padding: $card-spacer-x 0 0;
 }
 
+.card__link:hover {
+  text-decoration: none;
+}
+
 .card-title {
   margin-top: 1rem;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   font-family: $font-family-heavy;
-
-  .card__link & {
-    color: $text-dark-blue;
-  }
 }
 
 .card-text:last-child {
