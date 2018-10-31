@@ -26,6 +26,15 @@
 
 }
 
+.btn--alink {
+  &:active,
+  &:hover,
+  &:focus {
+    color: $pinkAccess;
+    text-decoration: underline;
+  }
+}
+
 .btn--large {
   font-size: 2.4rem;
   padding-top: 2.2rem;
