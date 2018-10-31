@@ -183,7 +183,7 @@ const buildPrefixQuery = (searchTerm, page, pageSize) => {
     'name.completion^10'
   ]
 
-  if (searchTerm.length > 3) {
+  if (searchTerm.length > 2) {
     fields.push(
       'title.completion',
       'relatedDrugs.drugName.completion',
