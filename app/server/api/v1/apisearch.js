@@ -71,7 +71,6 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
 })
 
 const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
-
   // Add a prefix query
   let nameFields = [
     'drugName^10',

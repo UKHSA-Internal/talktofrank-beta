@@ -12,8 +12,8 @@
   flex-basis: 100%;
 }
 
-input[type="search"],
-input[type="text"] {
+input[type='search'],
+input[type='text'] {
   caret-color: $pink;
 }
 
@@ -34,8 +34,8 @@ input[type="text"] {
   flex-basis: 100%;
   max-width: 79rem;
 
-  input[type="search"] {
-    padding:10px;
+  input[type='search'] {
+    padding: 10px;
     border-bottom-width: 3px;
     border-bottom-style: solid;
     border-bottom-color: $text-dark-blue;

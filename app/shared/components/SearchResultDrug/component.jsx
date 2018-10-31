@@ -1,5 +1,5 @@
-const truncate = require('lodash.truncate')
 import React from 'react'
+const truncate = require('lodash.truncate')
 
 const ResultDrug = props => {
   // ES doesn't allow null values on completion fields, hence having to
@@ -17,9 +17,8 @@ const ResultDrug = props => {
     synonyms = props.item.name
   }
 
-  if (props.prefix
-    && props.searchTerm && props.searchTerm.split(' ').length < 2) {
-    
+  if (props.prefix &&
+    props.searchTerm && props.searchTerm.split(' ').length < 2) {
     invertedMuted = true
     const regexp = new RegExp('(' + props.searchTerm + ')', 'i')
     // prevent rerender happening whilst data is loading
@@ -32,7 +31,7 @@ const ResultDrug = props => {
   return (
     <a href={`/drug/${props.item.slug}`} className='list-link'>
       <h3 className='h5 d-inline-block spacing-bottom--flush spacing-right'>
-        <span className={`inverted ${invertedMuted ? 'inverted--muted' : null}`} dangerouslySetInnerHTML={{ __html: name}} />
+        <span className={`inverted ${invertedMuted ? 'inverted--muted' : null}`} dangerouslySetInnerHTML={{ __html: name }} />
       </h3>
       {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}
       {props.summary &&
