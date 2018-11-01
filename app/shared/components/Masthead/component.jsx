@@ -4,8 +4,6 @@ import Logo from '../Logo/component.jsx'
 import Button from '../Button/component.jsx'
 import ButtonGroup from '../ButtonGroup/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
-import Grid from '../Grid/component'
-import GridCol from '../GridCol/component'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
 import Icon from '../Icon/component.jsx'
@@ -18,6 +16,12 @@ export default class Masthead extends React.PureComponent {
     this.state = {
       mobileMenuOpen: false,
       takeover: false
+    }
+  }
+
+  handleSearchSubmit () {
+    if (this.formAutocomplete.searchInput.input.value !== '') {
+      window.location = `/search/${this.formAutocomplete.searchInput.input.value}`
     }
   }
 
@@ -41,6 +45,10 @@ export default class Masthead extends React.PureComponent {
     let icon = {
       label: 'search',
       url: '/ui/svg/magnifying.svg'
+    }
+    let iconSubmit = {
+      label: 'Submit search',
+      url: '/ui/svg/magnifying-pink.svg'
     }
     let iconClose = {
       label: 'close',
@@ -83,7 +91,9 @@ export default class Masthead extends React.PureComponent {
                 labelHidden='true'
                 showContent={false}
                 placeholder='Enter drug name (e.g. Mandy)'
+                ref={input => { this.formAutocomplete = input }}
               />
+              <Button className='btn--flat active submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
             </Form>
             <Button className='btn--flat active close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>

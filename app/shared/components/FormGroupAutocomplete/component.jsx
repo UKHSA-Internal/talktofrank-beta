@@ -156,7 +156,8 @@ class FormGroup extends PureComponent {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={{
-            className: 'form-control',
+            className: `form-control ` +
+            `${!autoCompleteData.length && searchTerm.length > 2 ? 'form-control--underline' : null}`,
             id: id,
             value: searchTerm,
             onKeyDown: this.handleKeyPress,

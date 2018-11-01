@@ -428,7 +428,7 @@ p {
       padding: .75em 3.5em .75em 1em;
       color: $text-dark-blue;
       font-family: $font-family-heavy;
-      @include arrow;
+      @include arrow-hover;
 
       .has-hover & {
         &:active,
@@ -441,7 +441,7 @@ p {
 }
 
 .has-arrow {
-  @include arrow;
+  @include arrow-hover;
 
   &--left {
     padding-right: 0 !important;
