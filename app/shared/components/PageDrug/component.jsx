@@ -131,7 +131,7 @@ const Page = props => {
             {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
         </section>}
-        {<section className='section section--has-toggle'>
+        <section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
@@ -154,7 +154,7 @@ const Page = props => {
             {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequency asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>
-        </section>}
+        </section>
 
       </Main>
       <Footer />
