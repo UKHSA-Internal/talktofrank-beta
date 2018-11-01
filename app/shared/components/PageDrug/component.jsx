@@ -116,7 +116,7 @@ const Page = props => {
         {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
-              <Heading type='p' className='h2 inverted spacing-bottom--single' text={'Class ' + props.fields.lawClass.fields.class} />
+              {props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
               <div className='has-unordered'>
                 <ul>
                   <Heading type='li' text={props.fields.lawClass.fields.description}/>
@@ -127,8 +127,8 @@ const Page = props => {
               <Longform text={props.fields.lawClass.fields.driving} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
             </React.Fragment>
-            {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
             {props.fields.lawDetail && <React.Fragment><Heading {...modifiers} text='Additional law details'/><Longform text={props.fields.lawDetail} /></React.Fragment>}
+            {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
         </section>}
         {props.fields.additional && <section className='section section--has-toggle'>

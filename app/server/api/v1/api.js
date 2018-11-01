@@ -213,7 +213,7 @@ router.get('/drugs', (req, res, next) => {
         })
 
       let grouped = groupBy(response.list, val => {
-        return val.name.charAt(0)
+        return val.name.toUpperCase().charAt(0)
       })
 
       let groupedArray = []
