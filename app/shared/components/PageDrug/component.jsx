@@ -131,23 +131,26 @@ const Page = props => {
             {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
         </section>}
-        {props.fields.additional && <section className='section section--has-toggle'>
+        {<section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
 
-            {/* @refactor @joel - haul this out into component or something */}
-            <ul className='list-unstyled link-list link-list--has-arrow'>
+            {/* @refactor @joel - haul this out into component or something
+                @andy hiding this for now until we know how links will work in CMS */}
+            {false &&
+              <ul className='list-unstyled link-list link-list--has-arrow'>
               <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
+              <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
               </li>
               <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
+              <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
               </li>
               <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
+              <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
               </li>
-            </ul>
+              </ul>
+            }
             {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequency asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>
