@@ -86,11 +86,22 @@ export default class PaginationBoxView extends React.PureComponent {
     }
   }
 
+  scrollUp () {
+    const doc = document.documentElement
+    const top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
+
+    if (top > 0) {
+      window.scrollTo(0, top - 15)
+      setTimeout(this.scrollUp, 10)
+    }
+  }
+
   handlePreviousPage = e => {
     const { current } = this.state
     e.preventDefault ? e.preventDefault() : (e.returnValue = false)
     if (current > 0) {
       this.handlePagecurrent(current - 1, e)
+      this.scrollUp()
     }
   }
 
@@ -101,6 +112,7 @@ export default class PaginationBoxView extends React.PureComponent {
     e.preventDefault ? e.preventDefault() : (e.returnValue = false)
     if (current < pageCount - 1) {
       this.handlePagecurrent(current + 1, e)
+      this.scrollUp()
     }
   }
 

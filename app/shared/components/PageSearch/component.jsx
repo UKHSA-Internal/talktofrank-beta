@@ -44,9 +44,68 @@ export default class SearchPage extends React.Component {
     this.props.fetchSearchTerm(this.props.match.params.term, pageNumber.current)
   }
 
+  renderResults() {
+    const { total, hits } = this.props.pageData
+    return (
+      <React.Fragment>
+        <ul className='list-unstyled list-offset'>
+          {hits
+            .map(result => {
+              const SearchResultComponent =
+                result._index.includes('talktofrank-content')
+                  ? SearchResultContent
+                  : SearchResultDrug
+
+              return (
+                <li className={`list-item--underlined`}>
+                  <SearchResultComponent
+                    item={result._source}
+                    highlight={result.highlight
+                      ? result.highlight
+                      : null
+                    }
+                    summary={true}
+                  />
+                </li>
+              )
+            })
+          }</ul>
+        {total > 10 &&
+        <Pagination
+          pageCount={total / 10}
+          onPageChange={this.handlePageChange}
+        />
+        }
+      </React.Fragment>
+    )
+  }
+
+  renderNoResults() {
+    return (
+      <div className='search__no-results'>
+        <Grid>
+          <GridCol className='col-12 col-sm-10'>
+            <h2 className='h3'><span className='smilie'>:(</span> Sorry, no results were found</h2>
+            <h5>Perhaps try...</h5>
+            <ul>
+              <li>Checking your spelling</li>
+              <li>A more general word</li>
+              <li>Words with a similar meanings</li>
+            </ul>
+          </GridCol>
+        </Grid>
+        <hr className='light-grey' />
+        <h5>Get in touch...</h5>
+        <p><a className='read-more' href="tel:03001236600">Call: 0300 123 6600</a></p>
+        <p><a className='read-more' href="sms:82111">Text: 82111</a></p>
+        <p><a className='read-more' href="mailto:03001236600">frank@talktofrank.com</a></p>
+      </div>
+    )
+  }
+
   render () {
     const { loading, location } = this.props
-    const { total, hits } = this.props.pageData
+    const { total } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
     return (
       <React.Fragment>
@@ -61,57 +120,12 @@ export default class SearchPage extends React.Component {
               { loading &&
                 <p>Searching...</p>
               }
-              { total && total > 0 ? (
-                <React.Fragment>
-                  <ul className='list-unstyled list-offset'>
-                    { hits
-                      .map(result => {
-                        const SearchResultComponent =
-                          result._index.includes('talktofrank-content')
-                        ? SearchResultContent
-                            : SearchResultDrug
-
-                        return (
-                          <li className={`list-item--underlined`} >
-                            <SearchResultComponent
-                            item={result._source}
-                            highlight={result.highlight
-                              ? result.highlight
-                              : null
-                            }
-                            summary={true}
-                            />
-                          </li>
-                        )
-                      })
-                  }</ul>
-                  {total > 10 &&
-                    <Pagination
-                      pageCount={total / 10}
-                      onPageChange={this.handlePageChange}
-                    />
-                  }
-                </React.Fragment>
-              ) : (
-                <div className='search__no-results'>
-                  <Grid>
-                    <GridCol className='col-12 col-sm-10'>
-                      <h2 className='h3'><span className='smilie'>:(</span> Sorry, no results were found</h2>
-                      <h5>Perhaps try...</h5>
-                      <ul>
-                        <li>Checking your spelling</li>
-                        <li>A more general word</li>
-                        <li>Words with a similar meanings</li>
-                      </ul>
-                    </GridCol>
-                  </Grid>
-                  <hr className='light-grey' />
-                  <h5>Get in touch...</h5>
-                  <p><a className='read-more' href="tel:03001236600">Call: 0300 123 6600</a></p>
-                  <p><a className='read-more' href="sms:82111">Text: 82111</a></p>
-                  <p><a className='read-more' href="mailto:03001236600">frank@talktofrank.com</a></p>
-                </div>
-              )}
+              {!loading && total && total > 0 &&
+                this.renderResults()
+              }
+              {!loading && total && total === 0 &&
+                this.renderNoResults()
+              }
             </GridCol>
           </Grid>
         </Main>

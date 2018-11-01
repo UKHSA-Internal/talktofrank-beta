@@ -6,6 +6,13 @@
     padding: .4em;
     min-width: 100%;
   }
+
+  &--underline {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: $pink;
+    text-underline-position: under;
+  }
 }
 
 .form-label {
@@ -50,6 +57,10 @@ input[type='text'] {
 
 .react-autosuggest__suggestion--highlighted {
   background-color: $gray-200;
+
+  a:after {
+    @include arrow;
+  }
 }
 
 .react-autosuggest__suggestions-container--open,
