@@ -452,7 +452,7 @@ p {
     padding-right: 0 !important;
     padding-left: 5rem !important;
 
-    &:after {
+    &:hover:after {
       right: auto;
       left: 2rem;
       background-image: url('/ui/svg/arrow-left.svg');
