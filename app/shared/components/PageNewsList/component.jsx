@@ -41,10 +41,12 @@ export default class PageNewsList extends React.Component {
                     return <Article {...item} key={item.sys.id}/>
                   })}
               </ul>
+              {total > 10 &&
               <Pagination
                 pageCount={total / 10}
                 onPageChange={this.handlePageChange}
               />
+              }
             </GridCol>
           </Grid>
         </Main>

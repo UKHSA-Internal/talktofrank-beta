@@ -20,8 +20,13 @@ export default class Masthead extends React.PureComponent {
   }
 
   handleSearchSubmit () {
-    if (this.formAutocomplete.searchInput.input.value !== '') {
-      window.location = `/search/${this.formAutocomplete.searchInput.input.value}`
+    const searchTerm = encodeURIComponent(
+      this.formAutocomplete.searchInput.input.value
+        .toLowerCase()
+        .trim()
+    )
+    if (searchTerm !== '') {
+      window.location = `/search/${searchTerm}`
     }
   }
 

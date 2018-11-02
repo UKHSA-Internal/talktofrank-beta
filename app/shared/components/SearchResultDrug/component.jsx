@@ -30,9 +30,9 @@ const ResultDrug = props => {
 
   return (
     <a href={`/drug/${props.item.slug}`} className='list-link has-arrow'>
-      <h3 className='h5 d-inline-block spacing-bottom--flush spacing-right'>
+      <h2 className='h5 d-inline-block spacing-bottom--flush spacing-right'>
         <span className={`inverted ${invertedMuted ? 'inverted--muted' : null}`} dangerouslySetInnerHTML={{ __html: name }} />
-      </h3>
+      </h2>
       {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}
       {props.summary &&
         <p>{ truncate(props.item.description, {

@@ -58,6 +58,9 @@ export function isEmpty (obj) {
   return true
 }
 
+export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\[|\]|\(|\)|>|`/g, '')
+export const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
+
 /**
  * Usage: getIfExists(obj, 'prop1.prop2')
  * Returns undefined if it does not exist
