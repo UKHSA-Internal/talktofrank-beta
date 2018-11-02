@@ -58,7 +58,7 @@ export function isEmpty (obj) {
   return true
 }
 
-export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\[|\]|\(|\)|>|`/g, '')
+export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\|>|\[|\]|\(.*\)|`/g, '')
 export const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
 
 /**

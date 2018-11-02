@@ -13,7 +13,6 @@ const Article = props => {
         <div className='list-item__inner'>
           <h2 className='list-item__title h3 heading-inline'><span>{props.fields.title}</span></h2>
           {props.date && <Time time={props.dateFormatted} dateTime={props.date}/>}
-          {props.fields.bodyLegacy && !props.fields.image && <Longform text={props.fields.bodyLegacy}/>}
           {props.fields.summary && !props.fields.image && <Longform text={props.fields.summary}/>}
           <p className='read-more' aria-hidden='true'>Read more</p>
         </div>

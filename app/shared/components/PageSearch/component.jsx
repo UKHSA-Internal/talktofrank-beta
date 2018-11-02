@@ -81,9 +81,6 @@ export default class SearchPage extends React.Component {
         <Main>
           <Grid>
             <GridCol className='col-12 col-sm-10 offset-sm-1'>
-              { loading &&
-                <p>Searching...</p>
-              }
               {!loading && total > 0 &&
                 <React.Fragment>
                   <ul className='list-unstyled list-offset'>

@@ -22,7 +22,8 @@ export default class PageNewsList extends React.Component {
   }
 
   render () {
-    const { title, location, list, total } = this.props
+    const { loading, location } = this.props
+    const { title, list, total } = this.props.pageData
     return (
       <React.Fragment>
         <Masthead path={location}/>

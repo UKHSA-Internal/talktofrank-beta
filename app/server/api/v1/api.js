@@ -1,7 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
-import { imageMap } from '../../../shared/utilities'
+import { imageMap, removeMarkdown } from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -289,8 +289,8 @@ router.get('/news', (req, res, next) => {
           // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
-        if (v.fields.bodyLegacy) {
-          v.fields.bodyLegacy = _.truncate(marked(v.fields.bodyLegacy), {
+        if (!v.fields.summary && v.fields.bodyLegacy) {
+          v.fields.summary = _.truncate(removeMarkdown(v.fields.bodyLegacy), {
             'length': 100
           })
         }

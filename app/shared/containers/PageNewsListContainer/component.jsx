@@ -4,7 +4,7 @@ import PageNewsList from '../../components/PageNewsList/component.jsx'
 import { fetchNewsList } from '../../actions'
 
 const mapStateToProps = (state, ownProps) => {
-  return state.app.pageData
+  return state.app
 }
 
 const mapDispatchToProps = (dispatch) => {
