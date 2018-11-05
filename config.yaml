@@ -34,10 +34,11 @@ etherealEmail:
 
 mailgun:
   auth:
-    api_key: 'key-1234123412341234',
+    api_key: 'key-1234123412341234'
     domain: 'talktofrank.com'
 
 serco:
   contact:
     to: 'Jon Brace <jon.brace@cxpartners.co.uk>'
     subject: 'test email'
+    from: test@test.com

@@ -77,6 +77,10 @@ workbox injectManifest ./workbox-config.js
 
 [ethereal.email](https://ethereal.email/) is used for testing emails.
 
+To use the Mailgun testing sandbox, you first need to add your email address
+to this page (which isn't shown on the dashboard):
+https://app.mailgun.com/app/account/authorized
+
 ### Elasticsearch
 
 AWS Elasticsearch is used to provide the search capability, access is restricted using AWS IAM accounts:
