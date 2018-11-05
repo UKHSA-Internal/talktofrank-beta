@@ -4,6 +4,6 @@ module.exports = {
     'app/**/*.jsx',
     'grunt/**/*.js',
     '!app/server/api/static/**/*',
-    '!app/client/index.jsx'
+    '!app/server/lib/**/*'
   ]
 }

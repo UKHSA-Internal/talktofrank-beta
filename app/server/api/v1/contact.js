@@ -5,7 +5,7 @@ const router = express.Router()
 const nodemailer = require('nodemailer')
 const mailgunTransport = require('../../lib/mailgun-transport')
 const bodyParser = require('body-parser')
-const { celebrate, Joi, errors } = require('celebrate');
+const {celebrate, Joi} = require('celebrate')
 const jsonParser = bodyParser.json()
 
 const transports = {
@@ -15,7 +15,7 @@ const transports = {
 const mailTransportFactory = () => {
   let emailConfig = config[config.email.transport]
 
-  if ( transports[config.email.transport] ) {
+  if (transports[config.email.transport]) {
     emailConfig = transports[config.email.transport](emailConfig)
   }
 
@@ -83,7 +83,6 @@ router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema)], async (req
 
   res.json(emailResponse)
 })
-
 
 /**
  * Error handler
