@@ -6,6 +6,7 @@ import Footer from '../Footer/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Hero from '../Hero/component.jsx'
 import CardDeck from '../CardDeck/component.jsx'
+import Accent from '../Accent/component.jsx'
 import Article from '../Article/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
@@ -27,8 +28,6 @@ export default class PageHome extends React.PureComponent {
     }
 
     let featuredItem = {
-      // date: '2012-05-10T10:44:00.000Z',
-      // dateFormatted: '10th May 2012',
       fields: {
         title: '5 top tips for a safe festival experience',
         slug: 'new-drug-driving-offence',
