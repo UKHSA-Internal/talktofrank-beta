@@ -48,6 +48,7 @@ h1,
 h2,
 .h2,
 %h2 {
+  line-height: 1;
   font-size: 3.2rem;
 
   @include media-breakpoint-up(md) {
