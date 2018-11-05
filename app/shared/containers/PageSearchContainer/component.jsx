@@ -9,8 +9,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    searchForTerm: (searchTerm) => {
-      dispatch(fetchSearchTerm(searchTerm))
+    fetchSearchTerm: (searchTerm, pageNumber) => {
+      dispatch(fetchSearchTerm(searchTerm, pageNumber))
     }
   })
 }

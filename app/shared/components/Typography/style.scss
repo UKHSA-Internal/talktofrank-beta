@@ -196,8 +196,16 @@ mark,
 //
 // Misc
 //
+.white {
+  color: $white;
+}
+
 .muted {
   color: $gray-600;
+}
+
+.light-grey {
+  color: $gray-200;
 }
 
 .grey {
@@ -281,7 +289,7 @@ b {
 
         p,
         span {
-          display: inline-block;
+          //display: inline-block;
           text-decoration: none;
         }
       }
@@ -317,6 +325,10 @@ b {
   &--quiet {
     background-color: $gray-200;
     color: $body-text;
+  }
+
+  &--muted {
+    color: $gray-500;
   }
 }
 
@@ -416,7 +428,7 @@ p {
       padding: .75em 3.5em .75em 1em;
       color: $text-dark-blue;
       font-family: $font-family-heavy;
-      @include arrow;
+      @include arrow-hover;
 
       .has-hover & {
         &:active,
@@ -429,7 +441,7 @@ p {
 }
 
 .has-arrow {
-  @include arrow;
+  @include arrow-hover;
 
   &--left {
     padding-right: 0 !important;

@@ -135,11 +135,13 @@ module.exports = function (grunt) {
 
         formattedDrugsNames.push(addFormattedDrugName(name, name, drugItem))
 
-        drugItem.fields.synonyms
-          .map(synonymName => {
-            const synonymItem = addFormattedDrugName(synonymName, name, drugItem)
-            formattedDrugsNames.push(synonymItem)
-          })
+        if (drugItem.fields.synonyms) {
+          drugItem.fields.synonyms
+            .map(synonymName => {
+              const synonymItem = addFormattedDrugName(synonymName, name, drugItem)
+              formattedDrugsNames.push(synonymItem)
+            })
+        }
       })
     console.log(util.inspect(formattedDrugsNames, {showHidden: false, depth: null}))
     let formattedGeneralPages = []
@@ -163,7 +165,7 @@ module.exports = function (grunt) {
     let bulk = []
     await formattedDrugsText
       .map(item => {
-        let action = {update: {_index: 'talktofrank-beta-drug-text', _type: '_doc', _id: `${item.id}-${item.name}`}}
+        let action = {update: {_index: config.elasticsearch.indices.drug, _type: '_doc', _id: `${item.id}-${item.name}`}}
         bulk.push(action, {doc: item, doc_as_upsert: true})
       })
 
@@ -185,7 +187,7 @@ module.exports = function (grunt) {
     bulk = []
     await formattedDrugsNames
       .map(item => {
-        let action = {update: {_index: 'talktofrank-beta-drug-name', _type: '_doc', _id: `${item.id}-${item.name}`}}
+        let action = {update: {_index: config.elasticsearch.indices.drugName, _type: '_doc', _id: `${item.id}-${item.name}`}}
         bulk.push(action, {doc: item, doc_as_upsert: true})
       })
 
@@ -207,7 +209,7 @@ module.exports = function (grunt) {
     bulk = []
     await formattedNews
       .map(item => {
-        let action = {update: {_index: 'talktofrank-beta-content', _type: '_doc', _id: `${item.id}`}}
+        let action = {update: {_index: config.elasticsearch.indices.content, _type: '_doc', _id: `${item.id}`}}
         bulk.push(action, {doc: item, doc_as_upsert: true})
       })
 
@@ -230,7 +232,7 @@ module.exports = function (grunt) {
     await formattedGeneralPages
       .map(item => {
         console.log(item)
-        let action = {update: {_index: 'talktofrank-beta-content', _type: '_doc', _id: `${item.id}`}}
+        let action = {update: {_index: 'talktofrank-content', _type: '_doc', _id: `${item.id}`}}
         bulk.push(action, {doc: item, doc_as_upsert: true})
       })
 

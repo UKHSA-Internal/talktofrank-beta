@@ -11,7 +11,9 @@ const jsonParser = bodyParser.json()
 
 router.get('/page/:term', jsonParser, (req, res, next) => {
   try {
-    if (!req.params.term) {
+    if (!req.params.term ||
+      !req.query.page ||
+      !req.query.pageSize) {
       let error = new Error()
       error.message = 'No search term'
       error.status = 500
@@ -20,8 +22,14 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase()
-    const query = buildMatchQuery(searchTerm, true)
-    const indices = `${config.elasticsearch.indices.drug},${config.elasticsearch.indices.content}`
+    const query = buildMatchQuery(
+      searchTerm,
+      true,
+      req.query.page,
+      req.query.pageSize
+    )
+    const indices = `${config.elasticsearch.indices.drug},` +
+    `${config.elasticsearch.indices.content}`
 
     search.search({
       index: indices,
@@ -34,7 +42,9 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
 
 router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
   try {
-    if (!req.params.term) {
+    if (!req.params.term ||
+      !req.query.page ||
+      !req.query.pageSize) {
       let error = new Error()
       error.message = 'No search term'
       error.status = 500
@@ -45,8 +55,8 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
     const searchTerm = req.params.term.toLowerCase()
     const multiWordSearch = searchTerm.split(' ').length > 1
     const query = multiWordSearch
-      ? buildMatchQuery(searchTerm, false)
-      : buildPrefixQuery(searchTerm)
+      ? buildMatchQuery(searchTerm, false, req.query.page, req.query.pageSize)
+      : buildPrefixQuery(searchTerm, req.query.page, req.query.pageSize)
     const indices = multiWordSearch
       ? `${config.elasticsearch.indices.drug},${config.elasticsearch.indices.content}`
       : `${config.elasticsearch.indices.drugNames},${config.elasticsearch.indices.content}`
@@ -60,9 +70,21 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
   }
 })
 
-const buildMatchQuery = (searchTerm, fuzzy) => {
+const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
+  // Add a prefix query
+  let nameFields = [
+    'drugName^10',
+    'synonyms^5'
+  ]
+
+  let nameConf = {
+    fields: nameFields,
+    query: searchTerm,
+    type: 'phrase_prefix'
+  }
+
+  // Add a fuzzy search query on drug name fields
   const titleFields = [
-    'title',
     'name^5',
     'tags^2',
     'synonyms^5',
@@ -76,7 +98,13 @@ const buildMatchQuery = (searchTerm, fuzzy) => {
     type: 'best_fields'
   }
 
+  if (fuzzy) {
+    titleConf.fuzziness = 'auto'
+  }
+
+  // Add a full text search on all other text fields
   const textFields = [
+    'title',
     'body',
     'addiction',
     'additional',
@@ -105,22 +133,22 @@ const buildMatchQuery = (searchTerm, fuzzy) => {
     minimum_should_match: '100%'
   }
 
-  if (fuzzy) {
-    titleConf.fuzziness = 'auto'
-  }
-
   let query = bodybuilder()
+    .from(page * pageSize)
+    .size(pageSize)
+    .orQuery('multi_match', nameConf)
     .orQuery('multi_match', titleConf)
     .orQuery('multi_match', textConf)
     .rawOption('highlight', {
       'order': 'score',
       'number_of_fragments': 2,
-      'pre_tags': ['<strong>'],
-      'post_tags': ['</strong>'],
+      'pre_tags': [''],
+      'post_tags': [''],
       'fragment_size': 150,
       'fields': {
         'title': {},
         'name': {},
+        'drugName': {},
         'tags': {},
         'relatedDrugs.drugName': {},
         'relatedDrugs.synonyms': {},
@@ -150,12 +178,12 @@ const buildMatchQuery = (searchTerm, fuzzy) => {
   return query.build()
 }
 
-const buildPrefixQuery = (searchTerm) => {
+const buildPrefixQuery = (searchTerm, page, pageSize) => {
   let fields = [
     'name.completion^10'
   ]
 
-  if (searchTerm.length > 3) {
+  if (searchTerm.length > 2) {
     fields.push(
       'title.completion',
       'relatedDrugs.drugName.completion',
@@ -170,12 +198,14 @@ const buildPrefixQuery = (searchTerm) => {
   }
 
   let query = bodybuilder()
+    .from(page * pageSize)
+    .size(pageSize)
     .query('multi_match', conf)
     .rawOption('highlight', {
       'order': 'score',
       'number_of_fragments': 2,
-      'pre_tags': ['<strong>'],
-      'post_tags': ['</strong>'],
+      'pre_tags': [''],
+      'post_tags': [''],
       'fragment_size': 150,
       'fields': {
         'title.completion': {},

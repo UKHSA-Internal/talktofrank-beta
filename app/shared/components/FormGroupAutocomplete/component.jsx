@@ -11,17 +11,19 @@ import SearchResultContent from '../SearchResultContent/component'
 class FormGroup extends PureComponent {
   constructor (props) {
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
     this.onChange = this.onChange.bind(this)
     this.getSuggestions = this.getSuggestions.bind(this)
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
+    this.renderSuggestion = this.renderSuggestion.bind(this)
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.state = {
       id: '',
       searchTerm: '',
+      currentSuggestion: '',
       autoCompleteData: [],
       resultsTotal: 0
     }
@@ -32,31 +34,42 @@ class FormGroup extends PureComponent {
   }
 
   onChange (event, { newValue }) {
-    this.setState({
-      searchTerm: newValue
-    })
+    if (event.type === 'change') {
+      this.setState({
+        searchTerm: newValue,
+        currentSuggestion: '',
+        resultsTotal: 0
+      })
+    } else {
+      this.setState({
+        currentSuggestion: newValue
+      })
+    }
   }
 
   // @todo: refactor to container
   async getSuggestions (value) {
-    console.log('Get suggestions', value)
     const response = await axios
-      .get(`/api/v1/search/autocomplete/${value}`)
-    return response.data.hits
+      .get(`/api/v1/search/autocomplete/${value}?page=0&pageSize=5`)
+    return response.data
   }
 
   onSuggestionsFetchRequested ({ value }) {
     this.getSuggestions(value).then(resp => {
       this.setState({
-        resultsTotal: resp.length,
-        autoCompleteData: resp.splice(0, 5)
+        resultsTotal: resp.total,
+        autoCompleteData: resp.hits
       })
     })
   }
 
-  handleSubmit () {
-    if (this.state.searchTerm !== '') {
-      window.location = `/search/${this.state.searchTerm.toLowerCase()}`
+  handleKeyPress (e) {
+    // Theres a race condition with the keyup/onchange events
+    // adding in a check
+    if (e.key === 'Enter' && this.state.currentSuggestion === '') {
+      e.preventDefault()
+      const searchTerm = this.state.searchTerm
+      window.location = `/search/${searchTerm}`
     }
   }
 
@@ -65,9 +78,8 @@ class FormGroup extends PureComponent {
     return value.trim().length > 0
   }
 
-  renderSuggestionsContainer({ containerProps , children, query }) {
+  renderSuggestionsContainer({ containerProps, children, query }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
-
     return (
       <div {...containerProps}>
         {children}
@@ -82,18 +94,17 @@ class FormGroup extends PureComponent {
     event.preventDefault()
     const item = suggestionItem.suggestion._source
     let url = ''
-    switch (suggestionItem.suggestion._index) {
-      case 'talktofrank-beta-content':
-        url = item.type === 'news'
-          ? `/news/${item.slug}`
-          : item.slug
-        break
-      default :
-        url = `/drug/${item.slug}`
-        if (item.realName && item.realName !== item.name) {
-          url += `?a=${item.name.trim()}`
-        }
+    if (suggestionItem.suggestion._index.includes('talktofrank-content')) {
+      url = item.type === 'news'
+        ? `/news/${item.slug}`
+        : item.slug
+    } else {
+      url = `/drug/${item.slug}`
+      if (item.realName && item.realName !== item.name) {
+        url += `?a=${item.name.trim()}`
+      }
     }
+
     window.location = url
   }
 
@@ -105,31 +116,26 @@ class FormGroup extends PureComponent {
 
   getSuggestionValue (suggestion) {
     // @todo: refactor to use config
-    return suggestion._index === 'talktofrank-beta-content'
+    return suggestion._index.includes('talktofrank-content')
       ? suggestion._source.title
       : suggestion._source.name
   }
 
   renderSuggestion (result) {
-    switch (result._index) {
-      // @todo: refactor to use config
-      case 'talktofrank-content-v0.0.1' :
-        return <SearchResultContent
-          item={result._source}
-          highlight={result.highlight
-            ? result.highlight
-            : null
-          }
-        />
-      default:
-        return <SearchResultDrug
-          item={result._source}
-          highlight={result.highlight
-            ? result.highlight
-            : null
-          }
-        />
-    }
+    const SearchResultComponent =
+      result._index.includes('talktofrank-content')
+        ? SearchResultContent
+        : SearchResultDrug
+
+    return <SearchResultComponent
+      item={result._source}
+      prefix={true}
+      searchTerm={this.state.searchTerm}
+      highlight={result.highlight
+        ? result.highlight
+        : null
+      }
+    />
   }
 
   render () {
@@ -150,16 +156,15 @@ class FormGroup extends PureComponent {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={{
-            className: 'form-control',
+            className: `form-control ` +
+            `${!autoCompleteData.length && searchTerm.length > 2 ? 'form-control--underline' : null}`,
             id: id,
             value: searchTerm,
             onKeyDown: this.handleKeyPress,
             onChange: this.onChange,
             placeholder: this.props.placeholder,
             type: 'search',
-            role: 'combobox',
-            'aria-owns': this.props.resultsId,
-            'aria-activedescendant': this.state.id
+            role: 'combobox'
           }}
           ref={input => { this.searchInput = input }}
           required

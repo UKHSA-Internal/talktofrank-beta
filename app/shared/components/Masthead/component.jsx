@@ -19,6 +19,12 @@ export default class Masthead extends React.PureComponent {
     }
   }
 
+  handleSearchSubmit () {
+    if (this.formAutocomplete.searchInput.input.value !== '') {
+      window.location = `/search/${this.formAutocomplete.searchInput.input.value}`
+    }
+  }
+
   handleSearchClick () {
     const el = document.documentElement.classList
     this.setState({
@@ -39,6 +45,10 @@ export default class Masthead extends React.PureComponent {
     let icon = {
       label: 'search',
       url: '/ui/svg/magnifying.svg'
+    }
+    let iconSubmit = {
+      label: 'Submit search',
+      url: '/ui/svg/magnifying-pink.svg'
     }
     let iconClose = {
       label: 'close',
@@ -81,7 +91,9 @@ export default class Masthead extends React.PureComponent {
                 labelHidden='true'
                 showContent={false}
                 placeholder='Enter drug name (e.g. Mandy)'
+                ref={input => { this.formAutocomplete = input }}
               />
+              <Button className='btn--flat active submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
             </Form>
             <Button className='btn--flat active close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>

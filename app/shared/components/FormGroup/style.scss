@@ -6,32 +6,25 @@
     padding: .4em;
     min-width: 100%;
   }
+
+  &--underline {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: $pink;
+    text-underline-position: under;
+  }
 }
 
 .form-label {
   flex-basis: 100%;
 }
 
-////////////
-.input-group-autocomplete {
-  flex-grow: 1;
-  border-bottom-width: 3px;
-  border-bottom-style: solid;
-  border-bottom-color: $text-dark-blue;
-
-  .input-group-autocomplete-menu {
-    list-style: none;
-    padding: 0;
-    position: absolute;
-    overflow: auto;
-    top: 40px;
-    left: 0px;
-    border-top: 0;
-    z-index: 5;
-
-  }
+input[type='search'],
+input[type='text'] {
+  caret-color: $pink;
 }
 
+////////////
 .close {
   align-self: flex-start;
 }
@@ -46,7 +39,15 @@
 
 .react-autosuggest__container {
   flex-basis: 100%;
-  max-width: 70rem;
+  max-width: 79rem;
+
+  input[type='search'] {
+    padding: 10px;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: $text-dark-blue;
+    margin-bottom: 10px;
+  }
 }
 
 .react-autosuggest__suggestions-list {
@@ -56,6 +57,10 @@
 
 .react-autosuggest__suggestion--highlighted {
   background-color: $gray-200;
+
+  a:after {
+    @include arrow;
+  }
 }
 
 .react-autosuggest__suggestions-container--open,

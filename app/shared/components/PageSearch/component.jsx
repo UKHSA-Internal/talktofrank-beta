@@ -1,10 +1,12 @@
 import React from 'react'
-import Masthead from '../Masthead/component.jsx'
-import Grid from '../Grid/component.jsx'
-import GridCol from '../GridCol/component.jsx'
-import Footer from '../Footer/component.jsx'
-import Button from '../Button/component.jsx'
-import Svg from '../Svg/component.jsx'
+import Masthead from '../Masthead/component'
+import Grid from '../Grid/component'
+import Heading from '../Heading/component'
+import Main from '../Main/component'
+import GridCol from '../GridCol/component'
+import Accent from '../Accent/component.jsx'
+import Footer from '../Footer/component'
+import Pagination from '../Pagination/component'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
 
@@ -12,6 +14,7 @@ export default class SearchPage extends React.Component {
   constructor (props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.state = {
       searchValue: this.props.match.params.term
@@ -37,75 +40,95 @@ export default class SearchPage extends React.Component {
     })
   }
 
-  render () {
-    const { loading } = this.props
+  handlePageChange (pageNumber) {
+    this.props.fetchSearchTerm(this.props.match.params.term, pageNumber.current)
+  }
+
+  renderResults() {
     const { total, hits } = this.props.pageData
+    return (
+      <React.Fragment>
+        <ul className='list-unstyled list-offset'>
+          {hits
+            .map(result => {
+              const SearchResultComponent =
+                result._index.includes('talktofrank-content')
+                  ? SearchResultContent
+                  : SearchResultDrug
+
+              return (
+                <li className={`list-item--underlined`}>
+                  <SearchResultComponent
+                    item={result._source}
+                    highlight={result.highlight
+                      ? result.highlight
+                      : null
+                    }
+                    summary={true}
+                  />
+                </li>
+              )
+            })
+          }</ul>
+        {total > 10 &&
+        <Pagination
+          pageCount={total / 10}
+          onPageChange={this.handlePageChange}
+        />
+        }
+      </React.Fragment>
+    )
+  }
+
+  renderNoResults() {
+    return (
+      <div className='search__no-results'>
+        <Grid>
+          <GridCol className='col-12 col-sm-10'>
+            <h2 className='h3'><span className='smilie'>:(</span> Sorry, no results were found</h2>
+            <h5>Perhaps try...</h5>
+            <ul>
+              <li>Checking your spelling</li>
+              <li>A more general word</li>
+              <li>Words with a similar meanings</li>
+            </ul>
+          </GridCol>
+        </Grid>
+        <hr className='light-grey' />
+        <h5>Get in touch...</h5>
+        <p><a className='read-more' href="tel:03001236600">Call: 0300 123 6600</a></p>
+        <p><a className='read-more' href="sms:82111">Text: 82111</a></p>
+        <p><a className='read-more' href="mailto:03001236600">frank@talktofrank.com</a></p>
+      </div>
+    )
+  }
+
+  render () {
+    const { loading, location } = this.props
+    const { total } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
     return (
       <React.Fragment>
-        <Masthead path={this.props.location}/>
-        <main className='search' id='main' name='main'>
-          <div className='search--header'>
-            <div>
-              <h1>Search</h1>
-            </div>
-          </div>
-          <div className='main'>
-            <Grid>
-              <GridCol className='col-12 col-md-8'>
-                { loading &&
-                  <p>Searching...</p>
-                }
-                { total && total > 0 ? (
-                  <React.Fragment>
-                    <p>Results for <strong>{searchValue}</strong> ({total})</p>
-                    <ul className="search__list list-unstyled">{ hits
-                        .map(result => {
-                          // @todo: refactor hardcoded index names
-                          // to reference config file
-                          switch (result._index) {
-                            case 'talktofrank-beta-content' :
-                              return <SearchResultContent
-                                item={result._source}
-                                highlight={result.highlight
-                                  ? result.highlight
-                                  : null
-                                }
-                              />
-                            default:
-                              return <SearchResultDrug
-                                item={result._source}
-                                highlight={result.highlight
-                                  ? result.highlight
-                                  : null
-                                }
-                              />
-                          }
-                        })
-                    }</ul>
-                  </React.Fragment>
-                ) : (
-                  <div className='search__no-results'>
-                    <Grid>
-                      <GridCol className='col-12 col-sm-10'>
-                        <p>Our search isn't clever enough to answer your question yet.</p>
-                        <p>Try searching for a drug name (e.g. Mandy, Cocaine, Balloons).
-                          If you're still stuck you can contact Frank:</p>
-                      </GridCol>
-                      <GridCol className='col-12 col-sm-2'>
-                        <span className='smilie'>:(</span>
-                      </GridCol>
-                    </Grid>
-                    <hr />
-                    <p>Phone: <a href="tel:03001236600">0300 123 6600</a></p>
-                    <p>Email: <a href="mailto:03001236600">frank@talktofrank.com</a></p>
-                    <p>Text: <a href="sms:82111">82111</a></p>
-                  </div>
-                )}
-              </GridCol>
-            </Grid>
-          </div>
-        </main>
+        <Masthead path={location}/>
+        <Accent className='accent--shallow'>
+          <Heading type='h1' className='h2 spacing-left spacing--single'
+                   text={`Search results for '${searchValue}'`} />
+        </Accent>
+        <Main>
+          <Grid>
+            <GridCol className='col-12 col-sm-10 offset-sm-1'>
+              { loading &&
+                <p>Searching...</p>
+              }
+              {!loading && total && total > 0 &&
+                this.renderResults()
+              }
+              {!loading && total && total === 0 &&
+                this.renderNoResults()
+              }
+            </GridCol>
+          </Grid>
+        </Main>
         <Footer />
       </React.Fragment>
     )
