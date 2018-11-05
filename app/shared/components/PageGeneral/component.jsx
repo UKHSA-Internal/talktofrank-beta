@@ -15,7 +15,7 @@ const PageGeneral = props => (
   <React.Fragment>
     <Masthead path={props.location}/>
     <Accent className='accent--shallow'>
-      <Heading type='h1' className='h2 inverted spacing-left spacing--single' text={props.title} />
+      <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
     </Accent>
     <Divider className='hr--muted' />
     <Main>
