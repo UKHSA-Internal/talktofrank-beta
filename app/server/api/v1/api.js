@@ -1,7 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
-import { imageMap } from '../../../shared/utilities'
+import { imageMap, removeMarkdown } from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -213,7 +213,7 @@ router.get('/drugs', (req, res, next) => {
         })
 
       let grouped = groupBy(response.list, val => {
-        return val.name.charAt(0)
+        return val.name.toUpperCase().charAt(0)
       })
 
       let groupedArray = []
@@ -247,13 +247,22 @@ router.get('/drugs', (req, res, next) => {
  * Get news
  */
 router.get('/news', (req, res, next) => {
+  if (!req.query.page || !req.query.pageSize) {
+    let error = new Error()
+    error.message = 'No pagination options provided'
+    error.status = 500
+    return next(error)
+  }
+
   let response = {
     list: []
   }
 
   contentfulClient.getEntries({
     content_type: config.contentful.contentTypes.news,
-    order: '-sys.createdAt,sys.id'
+    order: '-sys.createdAt,sys.id',
+    limit: req.query.pageSize,
+    skip: req.query.pageSize * req.query.page
   })
     .then((contentfulResponse) => {
       let imageCount = 1
@@ -265,16 +274,24 @@ router.get('/news', (req, res, next) => {
       }
       // merge contentful assets and includes
       response.title = 'Latest news'
+      response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
         if (v.fields.originalPublishDate) {
-          v['originalPublishDate'] = v.fields.originalPublishDate
-          v['originalPublishDateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+          v['date'] = v.fields.originalPublishDate
+          v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+        } else {
+          // @andy - this needs a bit more nuance - there is a created and an updated date for each
+          // so going to use the updated for now as that is the latest
+          v['date'] = v.sys.updatedAt
+          v['dateFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
+          // v['createdAt'] = v.sys.createdAt
+          // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
-        if (v.fields.bodyLegacy) {
-          v.fields.bodyLegacy = _.truncate(v.fields.bodyLegacy, {
-            'length': 80
+        if (!v.fields.summary && v.fields.bodyLegacy) {
+          v.fields.summary = _.truncate(removeMarkdown(v.fields.bodyLegacy), {
+            'length': 100
           })
         }
 
@@ -283,10 +300,7 @@ router.get('/news', (req, res, next) => {
           imageCount++
           v.fields['imagepos'] = imageCount
         }
-        // v['createdAt'] = v.sys.createdAt
-        // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
-        v['updatedAt'] = v.sys.updatedAt
-        v['updatedAtFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
+
         return v
       })
       res.send(response)
@@ -317,7 +331,6 @@ router.get('/news/:slug', (req, res, next) => {
       }
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
-
       response.title = response.fields.title
       res.send(response)
     })

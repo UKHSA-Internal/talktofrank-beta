@@ -8,7 +8,7 @@ export const REQUEST_PAGE = 'REQUEST_PAGE'
 export const RECEIVE_PAGE = 'RECEIVE_PAGE'
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR'
 
-export const PAGE_SIZE = 10
+const PAGE_SIZE = 10
 
 let apiHost = getApiHost()
 
@@ -32,13 +32,12 @@ function receivePage (pageData) {
   }
 }
 
-export function fetchSearchTerm (term, drug, shouldOrMustQuery) {
+export function fetchSearchTerm (term, page = 0) {
+  const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
+
   return dispatch => {
     dispatch(requestPage())
-    let lookupUrl = apiHost + `/api/v1/search/page/${term}`
-//     if (shouldOrMustQuery === 'must') {
-//       lookupUrl = apiHost + `/api/v1/search/must/${term}/${drug}`
-//     }
+    let lookupUrl = apiHost + `/api/v1/search/page/${term}` + queryString
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
@@ -68,8 +67,8 @@ export function fetchDrugList () {
   }
 }
 
-export function fetchNewsList (page = 0, pageSize) {
-  var queryString = '?skip=' + (page * PAGE_SIZE) + '&limit=' + PAGE_SIZE
+export function fetchNewsList (page = 0) {
+  const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
 
   return dispatch => {
     dispatch(requestPage())

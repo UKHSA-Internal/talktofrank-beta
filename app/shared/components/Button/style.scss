@@ -26,6 +26,15 @@
 
 }
 
+.btn--alink {
+  &:active,
+  &:hover,
+  &:focus {
+    color: $pinkAccess;
+    text-decoration: underline;
+  }
+}
+
 .btn--large {
   font-size: 2.4rem;
   padding-top: 2.2rem;
@@ -111,7 +120,6 @@
   border-radius: 0;
   margin-top: -.5rem;
   font-size: 1.3rem;
-  color: $gray-500;
   position: absolute;
   right: 3rem;
 
@@ -172,10 +180,6 @@
 
     @include media-breakpoint-up(md) {
       top: 2.2rem;
-    }
-
-    @include media-breakpoint-up(lg) {
-      top: 2.6rem;
     }
 
     .btn + .btn {

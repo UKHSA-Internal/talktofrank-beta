@@ -4,10 +4,12 @@ import Main from '../Main/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
-import Button from '../Button/component.jsx'
 import Hero from '../Hero/component.jsx'
 import CardDeck from '../CardDeck/component.jsx'
 import Accent from '../Accent/component.jsx'
+import Article from '../Article/component.jsx'
+import Grid from '../Grid/component.jsx'
+import GridCol from '../GridCol/component.jsx'
 
 export default class PageHome extends React.PureComponent {
   render () {
@@ -25,6 +27,15 @@ export default class PageHome extends React.PureComponent {
       }
     }
 
+    let featuredItem = {
+      fields: {
+        title: '5 top tips for a safe festival experience',
+        slug: 'new-drug-driving-offence',
+        image: {
+          800: '//images.ctfassets.net/ip74mqmfgvqf/7H8JBsy4ZqO2mygyyYakgQ/644912e3d894f16f16d3e31b307c597d/new-drug-driving-offence.jpg'
+        }
+      }
+    }
     //  @refactor @joel - this feature/TTF-583-news-listing
     //
     let news = {
@@ -94,25 +105,14 @@ export default class PageHome extends React.PureComponent {
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Hero {...hero}/>
-        <Accent>
-          <ul className='list-unstyled list-offset'>{ props.list && props.list.map((item, i) => (
-            // eslint-disable-next-line no-self-compare
-            <li className={`list-item ${item.fields.image ? ('list-item--has-image' + (item.fields.imagepos & 1 === 1 ? ' list-item--alternate' : '')) : ''} `} key={item.sys.id} >
-              <a className='list-item__link' href={`/news/${item.fields.slug}`}>
-                {item.fields.image && <Picture {...item.fields.image}/>}
-                <div className='list-item__inner'>
-                  <h2 className='list-item__title h3 heading-inline'><span>{item.fields.title}</span></h2>
-                  <Time time={('Updated at: ' + item.originalPublishDate ? item.originalPublishDateFormatted : item.updatedAtFormatted)} dateTime={item.originalPublishDate ? item.originalPublishDate : item.updatedAt}/>
-                  {item.fields.bodyLegacy && !item.fields.image && <Longform text={item.fields.bodyLegacy}/>}
-                  {item.fields.summary && !item.fields.image && <Longform text={item.fields.summary}/>}
-                  <p className='read-more'>Read more</p>
-                </div>
-              </a>
-            </li>
-          ))}
-          </ul>
-        </Accent>
-        <CardDeck {...news} />
+        <Main>
+          <Grid>
+            <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
+              <Article {...featuredItem}/>
+            </GridCol>
+          </Grid>
+          <CardDeck {...news} className='spacing-top--tight'/>
+        </Main>
         <Footer />
         <GA/>
       </React.Fragment>

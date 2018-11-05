@@ -117,6 +117,7 @@ h3,
   span {
     left: -1rem;
     color: $text-dark-blue;
+    line-height: inherit;
     margin: 0;
     position: relative;
     bottom: .3rem;
@@ -147,7 +148,6 @@ h5,
 .h5 {
   font-size: 2rem;
 }
-
 
 .lead {
   @extend %lead;
@@ -196,8 +196,16 @@ mark,
 //
 // Misc
 //
+.white {
+  color: $white;
+}
+
 .muted {
   color: $gray-600;
+}
+
+.light-grey {
+  color: $gray-200;
 }
 
 .grey {
@@ -262,6 +270,7 @@ b {
   font-family: $font-family-heavy;
 }
 
+%list-item--underlined,
 .list-item--underlined {
   border-bottom: 1px solid $gray-300;
 
@@ -272,20 +281,22 @@ b {
   .list-link {
     padding: 1em;
 
-    &:active,
-    &:hover {
-      color: $body-text;
-      background-color: $gray-100;
+    .has-hover & {
+      &:active,
+      &:hover {
+        color: $body-text;
+        background-color: $gray-100;
 
-      p,
-      span {
-        display: inline-block;
-        text-decoration: none;
+        p,
+        span {
+          //display: inline-block;
+          text-decoration: none;
+        }
       }
-    }
 
-    &:visited {
-      text-decoration: underline;
+      &:visited {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -315,6 +326,10 @@ b {
     background-color: $gray-200;
     color: $body-text;
   }
+
+  &--muted {
+    color: $gray-500;
+  }
 }
 
 // long-form content overrides
@@ -322,6 +337,16 @@ b {
 .long-form {
   p {
     margin-bottom: 1em;
+  }
+
+  h3 {
+    margin-top: 1.5em;
+    font-size: 2rem;
+  }
+
+  h4 {
+    margin-top: 1.5em;
+    font-size: 1.8rem;
   }
 }
 
@@ -408,7 +433,7 @@ p {
       padding: .75em 3.5em .75em 1em;
       color: $text-dark-blue;
       font-family: $font-family-heavy;
-      @include arrow;
+      @include arrow-hover;
 
       .has-hover & {
         &:active,
@@ -421,6 +446,28 @@ p {
 }
 
 .has-arrow {
-  @include arrow;
+  @include arrow-hover;
+
+  &--left {
+    padding-right: 0 !important;
+    padding-left: 5rem !important;
+
+    &:hover:after {
+      right: auto;
+      left: 2rem;
+      background-image: url('/ui/svg/arrow-left.svg');
+    }
+
+    .has-hover & {
+      &:active,
+      &:hover {
+
+        &:after {
+          right: auto;
+          left: 1rem;
+        }
+      }
+    }
+  }
 }
 

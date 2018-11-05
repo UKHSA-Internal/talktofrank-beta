@@ -20,12 +20,11 @@ import HTMLWrapper from './components/HTMLWrapper/component.jsx'
 /* eslint-disable */
 const asyncPageNotFound = loadable(() => import(/*webpackChunkName: 'homepage'*/'./components/PageNotFound/component.jsx'))
 const asyncHome = loadable(() => import(/*webpackChunkName: 'homepage'*/'./containers/HomepageContainer/component.jsx'))
-const asyncPage = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageContainer/component.jsx'))
-const asyncPageGeneral = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageGeneralContainer/component.jsx'))
+const asyncPageDrug = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageDrugContainer/component.jsx'))
+const asyncPageGeneral = loadable(() => import(/*webpackChunkName: 'page'*/'./containers/PageGeneralContainer/component.jsx'))
 const asyncStaticPage = loadable(() => import(/*webpackChunkName: 'static-page'*/'./containers/PageStaticContainer/component.jsx'))
-const asyncSearchPage = loadable(() => import(/*webpackChunkName: 'search'*/'./containers/SearchPageContainer/component.jsx'))
-const asyncSearchResultsPage = loadable(() => import(/*webpackChunkName: 'search-results'*/'./containers/SearchResultsContainer/component.jsx'))
-const asyncDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
+const asyncPageSearch = loadable(() => import(/*webpackChunkName: 'search'*/'./containers/PageSearchContainer/component.jsx'))
+const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
 /* eslint-enable */
@@ -42,25 +41,25 @@ export default [{
     {
       path: '/drugs-a-z',
       exact: true,
-      component: asyncDrugsAZContainer,
+      component: asyncPageDrugsAZContainer,
       loadData: () => fetchDrugList()
     },
     {
       path: '/drug/:drugName',
       exact: true,
-      component: asyncPage,
+      component: asyncPageDrug,
       loadData: ({drugName}) => fetchPage(drugName, 'drug')
     },
     {
       path: '/search',
       exact: true,
-      component: asyncSearchPage
+      component: asyncPageSearch
     },
     {
       path: '/search/:term',
       exact: true,
-      component: asyncSearchPage,
-      loadData: ({search}) => getSearchPage(search)
+      component: asyncPageSearch,
+      loadData: ({term}) => fetchSearchTerm(term)
     },
     {
       path: '/latest',

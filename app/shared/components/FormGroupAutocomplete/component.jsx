@@ -2,145 +2,175 @@ import React, { PureComponent } from 'react'
 import classNames from 'classnames'
 import Button from '../Button/component.jsx'
 import Svg from '../Svg/component.jsx'
-import Autocomplete from 'react-autocomplete'
+import Autosuggest from 'react-autosuggest'
 import {browserHistory} from 'react-router'
 import axios from 'axios'
+import SearchResultDrug from '../SearchResultDrug/component'
+import SearchResultContent from '../SearchResultContent/component'
 
 class FormGroup extends PureComponent {
-  constructor () {
-    super()
-    this.autoCompleteOnChange = this.autoCompleteOnChange.bind(this)
+  constructor (props) {
+    super(props)
     this.handleKeyPress = this.handleKeyPress.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.getSuggestions = this.getSuggestions.bind(this)
+    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
+    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
+    this.renderSuggestion = this.renderSuggestion.bind(this)
+    this.getSuggestionValue = this.getSuggestionValue.bind(this)
+    this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.state = {
       id: '',
       searchTerm: '',
-      autoCompleteData: []
+      currentSuggestion: '',
+      autoCompleteData: [],
+      resultsTotal: 0
     }
   }
 
-  handleSubmit () {
-    if (this.state.searchTerm !== '') {
-      const searchTerm = this.state.searchTerm
-      window.location = `/drug/search/${searchTerm}`
+  componentDidMount() {
+    this.searchInput.input.focus()
+  }
+
+  onChange (event, { newValue }) {
+    if (event.type === 'change') {
+      this.setState({
+        searchTerm: newValue,
+        searchTermClean: encodeURIComponent(newValue),
+        currentSuggestion: '',
+        resultsTotal: 0
+      })
+    } else {
+      this.setState({
+        currentSuggestion: newValue
+      })
     }
+  }
+
+  // @todo: refactor to container
+  async getSuggestions (value) {
+    const searchTerm = encodeURIComponent(value.toLowerCase().trim())
+    const response = await axios
+      .get(`/api/v1/search/autocomplete/${searchTerm}?page=0&pageSize=5`)
+    return response.data
+  }
+
+  onSuggestionsFetchRequested ({ value }) {
+    this.getSuggestions(value).then(resp => {
+      this.setState({
+        resultsTotal: resp.total,
+        autoCompleteData: resp.hits
+      })
+    })
   }
 
   handleKeyPress (e) {
-    if (e.key === 'Enter' && this.state.searchTerm !== '') {
+    // Theres a race condition with the keyup/onchange events
+    // this.state.currentSuggestion is set when up/down keys are used
+    // if its empty enter has been pressed whilst the input is focussed
+    if (e.key === 'Enter' && this.state.currentSuggestion === '') {
       e.preventDefault()
-      const searchTerm = this.state.searchTerm
-      window.location = `/drug/search/${searchTerm}`
+      window.location = `/search/${this.state.searchTermClean}`
     }
   }
 
-  fetchSearchResults (value) {
-    return axios
-      .get(`/api/v1/search/autocomplete/${value}`)
-      .then(res => {
-        const result = res.data.results ? res.data.results : []
-        // eslint-disable-next-line
-        this.setState({ autoCompleteData: result })
-      })
-      .catch(err => console.log(err))
+  // this prevents the thing from firing until at least two characters are added
+  shouldRenderSuggestions(value) {
+    return value.trim().length > 0
   }
 
-  renderMenuItem (item, isHighlighted) {
-    const { showContent, titleClass } = this.props
-    const { searchTerm } = this.state
-
-    const regexp = new RegExp('(' + searchTerm + ')', 'ig')
-    const searchHighlight = item.name.replace(regexp, '<span class="input-group-autocomplete-menu-item__highlight">$&</span>')
-
-    let linkText = item.name !== item.drug
-      ? `${searchHighlight} <span className="input-group-autocomplete-menu-item-drugname">(${item.drug})</span>`
-      : searchHighlight
-
+  renderSuggestionsContainer({ containerProps, children, query }) {
+    let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
     return (
-      <li
-        key={`${item.drug} - ${item.name}`}
-        className={ isHighlighted ? 'input-group-autocomplete-menu-item__hover' : 'input-group-autocomplete-menu-item ' }
-        aria-selected={ isHighlighted }
-        role='option'
-        tabIndex='-1'
-        id={item.name}
-      >
-        <p className={'mt-1 mb-0 grey ' + titleClass}>
-          <span>
-            <a href={`/drug/${item.link}`} dangerouslySetInnerHTML={{__html: linkText}}>
-            </a>
-          </span>
-        </p>
-        {showContent && <p dangerouslySetInnerHTML={{__html: item.description}}/>}
-      </li>
+      <div {...containerProps}>
+        {children}
+        {res && children && <a className='read-more' href={`/search/${this.state.searchTermClean}`}>
+          View more results
+        </a>}
+      </div>
     )
   }
 
-  autoCompleteOnChange (e) {
-    const value = e.target.value
+  onSuggestionSelected (event, suggestionItem) {
+    event.preventDefault()
+    const item = suggestionItem.suggestion._source
+    let url = ''
+    if (suggestionItem.suggestion._index.includes('talktofrank-content')) {
+      url = item.type === 'news'
+        ? `/news/${item.slug}`
+        : item.slug
+    } else {
+      url = `/drug/${item.slug}`
+      if (item.realName && item.realName !== item.name) {
+        url += `?a=${item.name.trim()}`
+      }
+    }
+
+    window.location = url
+  }
+
+  onSuggestionsClearRequested () {
     this.setState({
-      searchTerm: e.target.value
-    }, () => {
-      this.fetchSearchResults(value)
+      autoCompleteData: []
     })
+  }
+
+  getSuggestionValue (suggestion) {
+    // @todo: refactor to use config
+    return suggestion._index.includes('talktofrank-content')
+      ? suggestion._source.title
+      : suggestion._source.name
+  }
+
+  renderSuggestion (result) {
+    const SearchResultComponent =
+      result._index.includes('talktofrank-content')
+        ? SearchResultContent
+        : SearchResultDrug
+
+    return <SearchResultComponent
+      item={result._source}
+      prefix={true}
+      searchTerm={this.state.searchTerm}
+      highlight={result.highlight
+        ? result.highlight
+        : null
+      }
+    />
   }
 
   render () {
     let classes = classNames('input-group', this.props.className)
-    let controlClasses = classNames('form-control', this.props.modifiers)
     const { searchTerm, autoCompleteData } = this.state
     const { id, labelHidden, label, button } = this.props
 
     return (
       <div className={classes}>
-        <label htmlFor={id} className={'form-label h3 ' + (labelHidden ? 'sr-only' : null)}>{label}</label>
-        <div className='d-flex'>
-          <Autocomplete
-            inputProps={{
-              className: controlClasses,
-              id: id,
-              onKeyDown: this.handleKeyPress,
-              placeholder: this.props.placeholder,
-              type: 'search',
-              role: 'combobox',
-              'aria-owns': this.props.resultsId,
-              'aria-activedescendant': this.state.id
-            }}
-            value={searchTerm}
-            items={autoCompleteData}
-            getItemValue={(item) => item.name}
-            onSelect={(value, item) => {
-              if (value.trim().length) {
-                document.location = '/drug/' + item.link
-              }
-            }}
-            onChange={event => {
-              this.autoCompleteOnChange(event)
-            }}
-            renderItem={(item, isHighlighted) => {
-              // @refactor - this feels appallingly unperformant
-              if (isHighlighted) {
-                this.setState({id: item.name})
-              }
-              return this.renderMenuItem(item, isHighlighted)
-            }}
-
-            renderMenu={items => {
-              return <div><ul className='input-group-autocomplete-menu' role='listbox' children={items} id={this.props.resultsId}/><div className='sr-only' aria-live='assertive'>{items.length} suggestions found </div></div>
-            }}
-            required
-          />
-
-          {button && <div className='input-group-append'>
-            <Button
-              className='btn--primary icon-magnifying'
-              clickHandler={this.handleSubmit}
-            >
-              <span className='sr-only'>Submit search</span>
-              <Svg url='/ui/svg/magnifying.svg' alt='Submit search'/>
-            </Button>
-          </div>}
-        </div>
+        <label htmlFor={id} className='form-label h3'>{label}</label>
+        <Autosuggest
+          suggestions={autoCompleteData}
+          shouldRenderSuggestions={this.shouldRenderSuggestions}
+          renderSuggestionsContainer={this.renderSuggestionsContainer}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={{
+            className: `form-control ` +
+            `${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : null}`,
+            id: id,
+            value: searchTerm,
+            onKeyDown: this.handleKeyPress,
+            onChange: this.onChange,
+            placeholder: this.props.placeholder,
+            type: 'search',
+            role: 'combobox'
+          }}
+          ref={input => { this.searchInput = input }}
+          required
+        />
       </div>
     )
   }

@@ -19,7 +19,7 @@ const PageNotFound = () => {
       <Main>
         <Grid>
           <GridCol className='col-12 col-sm-8'>
-            <Heading type='h1' text='Page not found' />
+            <Heading type='h1' className='h2' text='Page not found' />
             <Longform text={text} />
           </GridCol>
         </Grid>

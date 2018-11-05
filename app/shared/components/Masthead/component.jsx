@@ -19,6 +19,17 @@ export default class Masthead extends React.PureComponent {
     }
   }
 
+  handleSearchSubmit () {
+    const searchTerm = encodeURIComponent(
+      this.formAutocomplete.searchInput.input.value
+        .toLowerCase()
+        .trim()
+    )
+    if (searchTerm !== '') {
+      window.location = `/search/${searchTerm}`
+    }
+  }
+
   handleSearchClick () {
     const el = document.documentElement.classList
     this.setState({
@@ -40,6 +51,10 @@ export default class Masthead extends React.PureComponent {
       label: 'search',
       url: '/ui/svg/magnifying.svg'
     }
+    let iconSubmit = {
+      label: 'Submit search',
+      url: '/ui/svg/magnifying-pink.svg'
+    }
     let iconClose = {
       label: 'close',
       url: '/ui/svg/cross.svg'
@@ -57,36 +72,35 @@ export default class Masthead extends React.PureComponent {
               {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
             </Button>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
-
             <ViewportMobile>
               <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
             </ViewportMobile>
-
             <ViewportDefault>
-              <Nav className={navClasses} menu-open={true} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
+              <Nav className={navClasses} hasPopup={true} menu-open={true} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
             </ViewportDefault>
-
           </section>
           <ButtonGroup className='button-group--static'>
             <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md'>Search </span><Icon {...icon}/></Button>
-            <Button className='btn--flat btn--small hidden--rg' url='tel:03001236600'><span className='btn__text'>0300 1236600</span></Button>
+            <Button className='btn--alink btn--small hidden--rg' url='tel:03001236600'><span className='nav-link'>0300 1236600</span></Button>
           </ButtonGroup>
         </div>
         {this.state.takeover && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>
-            <Form>
+            <Form className='form--search'>
               <FormGroupAutocomplete
                 button='true'
                 modifiers='form-control--search'
-                className='input-group-autocomplete--inverse'
+                className='input-group-autocomplete'
                 id='search-masthead'
                 label='Search for any drug'
                 labelHidden='true'
                 showContent={false}
                 placeholder='Enter drug name (e.g. Mandy)'
+                ref={input => { this.formAutocomplete = input }}
               />
+              <Button className='btn--flat active submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
             </Form>
-            <Button className='btn--flat active' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
+            <Button className='btn--flat active close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
         </section>}
         {this.state.takeover && <div className='takeover-bg'/>}

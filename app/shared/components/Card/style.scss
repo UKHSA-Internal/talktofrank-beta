@@ -23,15 +23,15 @@
   padding: $card-spacer-x 0 0;
 }
 
+.card__link:hover {
+  text-decoration: none;
+}
+
 .card-title {
   margin-top: 1rem;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   font-family: $font-family-heavy;
-
-  .card__link & {
-    color: $text-dark-blue;
-  }
 }
 
 .card-text:last-child {
@@ -67,14 +67,20 @@
   flex-direction: column;
 
   .card {
-    padding: 2rem;
     margin-top: 0;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+
+    &:first-of-type {
+      padding-top: 0;
+    }
   }
 
   @include media-breakpoint-up(sm) {
     flex-flow: row wrap;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-top: 0;
 
     .card {
       display: flex;
