@@ -116,7 +116,7 @@ const Page = props => {
         {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
-              <Heading type='p' className='h2 inverted spacing-bottom--single' text={'Class ' + props.fields.lawClass.fields.class} />
+              {props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
               <div className='has-unordered'>
                 <ul>
                   <Heading type='li' text={props.fields.lawClass.fields.description}/>
@@ -127,31 +127,34 @@ const Page = props => {
               <Longform text={props.fields.lawClass.fields.driving} />
               <Longform text={props.fields.lawClass.fields.dealersSupplying}/>
             </React.Fragment>
-            {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
             {props.fields.lawDetail && <React.Fragment><Heading {...modifiers} text='Additional law details'/><Longform text={props.fields.lawDetail} /></React.Fragment>}
+            {props.fields.lawCaught && <React.Fragment><Heading {...modifiers} text='What if you are caught?'/><Longform text={props.fields.lawCaught.fields.text} /></React.Fragment>}
           </Toggle>
         </section>}
-        {props.fields.additional && <section className='section section--has-toggle'>
+        <section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
 
-            {/* @refactor @joel - haul this out into component or something */}
-            <ul className='list-unstyled link-list link-list--has-arrow'>
-              <li className='link-list__item'>
+            {/* @refactor @joel - haul this out into component or something
+                @andy hiding this for now until we know how links will work in CMS */}
+            {false &&
+              <ul className='list-unstyled link-list link-list--has-arrow'>
+                <li className='link-list__item'>
                 <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-              </li>
-              <li className='link-list__item'>
+                </li>
+                <li className='link-list__item'>
                 <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-              </li>
-              <li className='link-list__item'>
+                </li>
+                <li className='link-list__item'>
                 <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-              </li>
-            </ul>
+                </li>
+              </ul>
+            }
             {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequency asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>
-        </section>}
+        </section>
 
       </Main>
       <Footer />

@@ -1,4 +1,5 @@
 import { config } from 'config'
+import { removeMarkdown } from '../../../shared/utilities'
 const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
@@ -21,7 +22,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
     }
 
     const search = res.search
-    const searchTerm = req.params.term.toLowerCase()
+    const searchTerm = req.params.term.toLowerCase().trim()
     const query = buildMatchQuery(
       searchTerm,
       true,
@@ -34,7 +35,15 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
     search.search({
       index: indices,
       body: query
-    }).then(results => res.status(200).json(results.hits))
+    }).then(results => {
+      results.hits.hits
+        .filter(hit => hit._source.description)
+        .map(hit => {
+          hit._source.description = removeMarkdown(hit._source.description)
+        })
+      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      return res.status(200).json(results.hits)
+    })
   } catch (err) {
     return next(err.response)
   }
@@ -52,7 +61,7 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
     }
 
     const search = res.search
-    const searchTerm = req.params.term.toLowerCase()
+    const searchTerm = req.params.term.toLowerCase().trim()
     const multiWordSearch = searchTerm.split(' ').length > 1
     const query = multiWordSearch
       ? buildMatchQuery(searchTerm, false, req.query.page, req.query.pageSize)
@@ -64,7 +73,15 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
     search.search({
       index: indices,
       body: query
-    }).then(results => res.status(200).json(results.hits))
+    }).then(results => {
+      if (!multiWordSearch) {
+        results.hits.hits.sort((a, b) => {
+          return a._source.name > b._source.name
+        })
+      }
+      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      return res.status(200).json(results.hits)
+    })
   } catch (err) {
     return next(err.response)
   }
@@ -139,6 +156,9 @@ const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
     .orQuery('multi_match', nameConf)
     .orQuery('multi_match', titleConf)
     .orQuery('multi_match', textConf)
+    .sort([
+      {'_score': 'desc'}
+    ])
     .rawOption('highlight', {
       'order': 'score',
       'number_of_fragments': 2,
@@ -200,6 +220,9 @@ const buildPrefixQuery = (searchTerm, page, pageSize) => {
   let query = bodybuilder()
     .from(page * pageSize)
     .size(pageSize)
+    .sort([
+      {'_score': 'desc'}
+    ])
     .query('multi_match', conf)
     .rawOption('highlight', {
       'order': 'score',

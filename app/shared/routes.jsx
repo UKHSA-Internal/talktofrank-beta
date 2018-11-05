@@ -4,7 +4,7 @@ import { fetchPage, fetchDrugList, fetchSearchTerm, receivePageError } from './a
 import PageGeneralContainer from './containers/PageGeneralContainer/component'
 import PageNoMatchContainer from './containers/PageNoMatchContainer/component'
 import PageServerError from './components/PageServerError/component'
-import PageContainer from './containers/PageContainer/component'
+import PageContainer from './containers/PageDrugContainer/component'
 import PageStaticContainer from './containers/PageStaticContainer/component'
 import SearchPageContainer from './containers/PageSearchContainer/component'
 import SearchResultsContainer from './containers/SearchResultsContainer/component'

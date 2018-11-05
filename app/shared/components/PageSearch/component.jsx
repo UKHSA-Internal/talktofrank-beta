@@ -17,7 +17,7 @@ export default class SearchPage extends React.Component {
     this.handlePageChange = this.handlePageChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.state = {
-      searchValue: this.props.match.params.term
+      searchValue: this.props.pageData.searchTerm
     }
   }
 
@@ -41,43 +41,7 @@ export default class SearchPage extends React.Component {
   }
 
   handlePageChange (pageNumber) {
-    this.props.fetchSearchTerm(this.props.match.params.term, pageNumber.current)
-  }
-
-  renderResults() {
-    const { total, hits } = this.props.pageData
-    return (
-      <React.Fragment>
-        <ul className='list-unstyled list-offset'>
-          {hits
-            .map(result => {
-              const SearchResultComponent =
-                result._index.includes('talktofrank-content')
-                  ? SearchResultContent
-                  : SearchResultDrug
-
-              return (
-                <li className={`list-item--underlined`}>
-                  <SearchResultComponent
-                    item={result._source}
-                    highlight={result.highlight
-                      ? result.highlight
-                      : null
-                    }
-                    summary={true}
-                  />
-                </li>
-              )
-            })
-          }</ul>
-        {total > 10 &&
-        <Pagination
-          pageCount={total / 10}
-          onPageChange={this.handlePageChange}
-        />
-        }
-      </React.Fragment>
-    )
+    this.props.fetchSearchTerm(this.state.searchValue, pageNumber.current)
   }
 
   renderNoResults() {
@@ -105,7 +69,7 @@ export default class SearchPage extends React.Component {
 
   render () {
     const { loading, location } = this.props
-    const { total } = this.props.pageData
+    const { total, hits } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
     return (
       <React.Fragment>
@@ -117,13 +81,39 @@ export default class SearchPage extends React.Component {
         <Main>
           <Grid>
             <GridCol className='col-12 col-sm-10 offset-sm-1'>
-              { loading &&
-                <p>Searching...</p>
+              {!loading && total > 0 &&
+                <React.Fragment>
+                  <ul className='list-unstyled list-offset'>
+                    {hits
+                      .map(result => {
+                        const SearchResultComponent =
+                          result._index.includes('talktofrank-content')
+                            ? SearchResultContent
+                            : SearchResultDrug
+
+                        return (
+                          <li className={`list-item--underlined`}>
+                            <SearchResultComponent
+                              item={result._source}
+                              highlight={result.highlight
+                                ? result.highlight
+                                : null
+                              }
+                              summary={true}
+                            />
+                          </li>
+                        )
+                      })
+                    }</ul>
+                </React.Fragment>
               }
-              {!loading && total && total > 0 &&
-                this.renderResults()
+              {total > 10 &&
+              <Pagination
+                pageCount={total / 10}
+                onPageChange={this.handlePageChange}
+              />
               }
-              {!loading && total && total === 0 &&
+              {!loading && !total &&
                 this.renderNoResults()
               }
             </GridCol>

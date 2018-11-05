@@ -37,6 +37,7 @@ class FormGroup extends PureComponent {
     if (event.type === 'change') {
       this.setState({
         searchTerm: newValue,
+        searchTermClean: encodeURIComponent(newValue),
         currentSuggestion: '',
         resultsTotal: 0
       })
@@ -49,8 +50,9 @@ class FormGroup extends PureComponent {
 
   // @todo: refactor to container
   async getSuggestions (value) {
+    const searchTerm = encodeURIComponent(value.toLowerCase().trim())
     const response = await axios
-      .get(`/api/v1/search/autocomplete/${value}?page=0&pageSize=5`)
+      .get(`/api/v1/search/autocomplete/${searchTerm}?page=0&pageSize=5`)
     return response.data
   }
 
@@ -65,11 +67,11 @@ class FormGroup extends PureComponent {
 
   handleKeyPress (e) {
     // Theres a race condition with the keyup/onchange events
-    // adding in a check
+    // this.state.currentSuggestion is set when up/down keys are used
+    // if its empty enter has been pressed whilst the input is focussed
     if (e.key === 'Enter' && this.state.currentSuggestion === '') {
       e.preventDefault()
-      const searchTerm = this.state.searchTerm
-      window.location = `/search/${searchTerm}`
+      window.location = `/search/${this.state.searchTermClean}`
     }
   }
 
@@ -83,8 +85,8 @@ class FormGroup extends PureComponent {
     return (
       <div {...containerProps}>
         {children}
-        {res && <a className='read-more' href={`/search/${this.state.searchTerm.toLowerCase()}`}>
-          +{res} more results
+        {res && children && <a className='read-more' href={`/search/${this.state.searchTermClean}`}>
+          View more results
         </a>}
       </div>
     )
@@ -157,7 +159,7 @@ class FormGroup extends PureComponent {
           renderSuggestion={this.renderSuggestion}
           inputProps={{
             className: `form-control ` +
-            `${!autoCompleteData.length && searchTerm.length > 2 ? 'form-control--underline' : null}`,
+            `${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : null}`,
             id: id,
             value: searchTerm,
             onKeyDown: this.handleKeyPress,
