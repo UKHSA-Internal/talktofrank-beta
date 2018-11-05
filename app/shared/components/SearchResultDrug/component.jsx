@@ -19,13 +19,11 @@ const ResultDrug = props => {
 
   if (props.prefix &&
     props.searchTerm && props.searchTerm.split(' ').length < 2) {
-    invertedMuted = true
     const regexp = new RegExp('(' + props.searchTerm + ')', 'i')
-    // prevent rerender happening whilst data is loading
-    if (!regexp.test(name)) {
-      return null
+    if (name.match(regexp)) {
+      invertedMuted = true
+      name = name.replace(regexp, '<span class=\'white\'>$&</span>')
     }
-    name = name.replace(regexp, '<span class=\'white\'>$&</span>')
   }
 
   const Tag = `${props.tag || 'h2'}`

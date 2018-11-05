@@ -21,9 +21,11 @@ const PageNews = props => (
     <Main>
       <Grid>
         <GridCol className='col-12 col-md-8'>
-          <div dangerouslySetInnerHTML={{
-            __html: documentToHtmlString(props.fields.body, contentFulFactory())
-          }} />
+          {props.fields.body &&
+            <div dangerouslySetInnerHTML={{
+              __html: documentToHtmlString(props.fields.body, contentFulFactory())
+            }}/>
+          }
         </GridCol>
       </Grid>
     </Main>
