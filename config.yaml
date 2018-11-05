@@ -21,3 +21,14 @@ contentful:
 
 pagination:
   pageSize: 10
+
+etherealEmail:
+  auth:
+    user: pzyvt74kik2vs4cm@ethereal.email
+  host: smtp.ethereal.email
+  port: 587
+
+serco:
+  contact:
+    to: 'Jon Brace <jon.brace@cxpartners.co.uk>'
+    subject: 'test email'

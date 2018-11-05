@@ -18,6 +18,8 @@ import { getLoadableState } from 'loadable-components/server'
  * Express routes
  */
 import apiRoutes from './api/v1/api.js'
+import apiContactRoutes from './api/v1/contact.js'
+
 import contentFulWebhookRoutes from './contentful/webhooks.js'
 
 /*
@@ -88,6 +90,8 @@ app.use('/contentful/webhook', addSearch)
 
 app.use('/api/v1', apiRoutes)
 app.use('/contentful/webhook', contentFulWebhookRoutes)
+
+app.use('/api/v1/contact', apiContactRoutes)
 
 /*
  * Adding service worker files direct to express callbacks

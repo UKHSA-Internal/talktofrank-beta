@@ -128,5 +128,8 @@
     "workbox-cli": "^3.6.2",
     "yaml-import": "^0.2.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "nodemailer": "^4.6.8",
+    "nodemailer-mailgun-transport": "^1.4.0"
+  }
 }
