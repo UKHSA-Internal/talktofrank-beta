@@ -33,7 +33,7 @@ const Page = props => {
         }
         <Accent>
           <Grid>
-            {props.fields.image && <GridCol className='col-12 col-md-3'>
+            {props.fields.imageGroup && <GridCol className='col-12 col-md-3'>
               <Picture {...images} />
             </GridCol>}
             <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : null)}>
@@ -72,7 +72,6 @@ const Page = props => {
           <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
             {props.fields.durationDefault && <Longform text={props.fields.durationDefault.fields.text} />}
             {props.fields.durationDetail && <Longform text={props.fields.durationDetail} />}
-            <Longform text={props.fields.durationDetectableDefault.fields.text} />
             {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
               return (
                 <aside className='panel panel--padding-small panel--has-heading' key={i}>
@@ -85,8 +84,8 @@ const Page = props => {
                 </aside>
               )
             })}
-            {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>
-            }
+            {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>}
+            <Longform text={props.fields.durationDetectableDefault.fields.text} />
           </Toggle>
         </section>}
         {(props.fields.risksHealthMental || props.fields.risksPhysicalHealth || props.fields.risksCutWith) && <section className='section section--has-toggle'>

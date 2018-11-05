@@ -132,6 +132,7 @@ class FormGroup extends PureComponent {
     return <SearchResultComponent
       item={result._source}
       prefix={true}
+      tag={'p'}
       searchTerm={this.state.searchTerm}
       highlight={result.highlight
         ? result.highlight
