@@ -40,7 +40,7 @@ router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema)]
 
   let message = {
     to: config.serco.contact.to,
-    from: config.serco.contact.from,
+    from: `${req.body.nickname} <${req.body.email}>`,
     subject: config.serco.contact.subject,
     html: `|Age: ${req.body.ageRange}|<br />
       |Gender: ${req.body.gender}|<br />
@@ -55,6 +55,35 @@ router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema)]
 
   res.json(emailResponse)
 })
+
+const feedbackSchema = {
+  body: Joi.object().keys({
+    subject: Joi.string().required().max(100),
+    feedback: Joi.string().required().max(500)
+  })
+}
+router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema)], async (req, res, next) => {
+  let emailResponse
+
+  const transporter = mailTransportFactory()
+  const contactConfig = config.serco.feedback
+
+  let message = {
+    to: config.serco.feedback.to,
+    from: `${config.serco.feedback.from} <${config.serco.feedback.fromName}>`,
+    subject: `${config.serco.feedback.subjectPrefix}: ${req.body.subject}`,
+    html: req.body.feedback
+  }
+
+  try {
+    emailResponse = await transporter.sendMail(message)
+  } catch (err) {
+    return next(err)
+  }
+
+  res.json(emailResponse)
+})
+
 
 /**
  * Error handler

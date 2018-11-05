@@ -24,7 +24,6 @@ pagination:
 
 email:
   transport: mailgun
-  from: test@test.com
 
 etherealEmail:
   auth:
@@ -40,4 +39,9 @@ mailgun:
 serco:
   contact:
     to: 'Jon Brace <jon.brace@cxpartners.co.uk>'
-    subject: 'Talk to frank - contact'
+    subject: 'Talk To Frank'
+
+  feedback:
+    to: 'Jon Brace <jon.brace@cxpartners.co.uk>'
+    subjectPrefix: 'TALKTOFRANK User Feedback: '
+    from: no-reply@talktofrank.com
