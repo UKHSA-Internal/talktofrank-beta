@@ -3,9 +3,19 @@ import { config } from 'config'
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
+const mailgunTransport = require('nodemailer-mailgun-transport')
+
+const transports = {
+  mailgun: mailgunTransport
+}
 
 const mailTransportFactory = () => {
   const emailConfig = config[config.email.transport]
+
+  if ( transports[config.email.transport] ) {
+    emailConfig = transports[config.email.transport](emailConfig)
+  }
+
   return nodemailer.createTransport(emailConfig)
 }
 
