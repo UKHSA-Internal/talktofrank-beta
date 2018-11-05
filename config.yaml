@@ -40,5 +40,4 @@ mailgun:
 serco:
   contact:
     to: 'Jon Brace <jon.brace@cxpartners.co.uk>'
-    subject: 'test email'
-    from: test@test.com
+    subject: 'Talk to frank - contact'

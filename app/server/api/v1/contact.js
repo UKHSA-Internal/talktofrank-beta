@@ -4,6 +4,9 @@ const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
 const mailgunTransport = require('../../lib/mailgun-transport')
+const bodyParser = require('body-parser')
+const { celebrate, Joi, errors } = require('celebrate');
+const jsonParser = bodyParser.json()
 
 const transports = {
   mailgun: mailgunTransport
@@ -19,7 +22,17 @@ const mailTransportFactory = () => {
   return nodemailer.createTransport(emailConfig)
 }
 
-router.post('/sendSupportEnquiry', async (req, res, next) => {
+const supportEnquirySchema = {
+  body: Joi.object().keys({
+    nickname: Joi.string().required(),
+    email: Joi.string().email().required(),
+    ageRange: Joi.string().optional().default('Undisclosed'),
+    gender: Joi.string().optional().valid(['Male', 'Female']).default('Undisclosed'),
+    message: Joi.string().required().max(500)
+  })
+}
+
+router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema)], async (req, res, next) => {
   let emailResponse
 
   const transporter = mailTransportFactory()
@@ -29,10 +42,9 @@ router.post('/sendSupportEnquiry', async (req, res, next) => {
     to: config.serco.contact.to,
     from: config.serco.contact.from,
     subject: config.serco.contact.subject,
-    text: 'Hello to myself!',
-    html:
-      '<p><b>Hello</b> to myself <img src="cid:note@example.com"/></p>' +
-      '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@example.com"/></p>'
+    html: `|Age: ${req.body.ageRange}|<br />
+      |Gender: ${req.body.gender}|<br />
+      |Message: ${req.body.message}|`
   }
 
   try {

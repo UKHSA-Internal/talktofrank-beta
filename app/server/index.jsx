@@ -103,7 +103,6 @@ app.use('/service-worker.js', (req, res) => {
   res.sendFile(path.resolve('../static/ui/js/service-worker.js'))
 })
 
-app.use(bodyParser.json())
 app.use(express.static('../static'))
 app.use(favicon('../static/ui/favicon.ico'))
 app.use((req, res, next) => shouldAuthenticate(req) ? basicAuthMiddleware(req, res, next) : next())
