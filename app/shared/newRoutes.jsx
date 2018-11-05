@@ -27,7 +27,7 @@ const asyncPageSearch = loadable(() => import(/*webpackChunkName: 'search'*/'./c
 const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
-const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx'))
+const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
 /* eslint-enable */
 
 export default [{

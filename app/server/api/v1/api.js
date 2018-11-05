@@ -47,8 +47,7 @@ router.get('/pages/:slug', (req, res, next) => {
     return next(error)
   }
 
-  if (req.params.slug === 'no-match' ||
-    req.params.slug === 'support-near-you') {
+  if (req.params.slug === 'no-match') {
     try {
       return res.send(yaml.safeLoad(fs.readFileSync('./static/' + req.params.slug + '.yml', 'utf8')))
     } catch (error) {

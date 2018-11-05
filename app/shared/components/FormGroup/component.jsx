@@ -1,23 +1,18 @@
 import React from 'react'
-import classNames from 'classnames'
-import Button from '../Button/component.jsx'
-import Svg from '../Svg/component.jsx'
+import PropTypes from 'prop-types'
 
 const FormGroup = props => {
-  let classes = classNames('input-group', props.className)
-  let controlClasses = classNames('form-control', props.modifiers)
-
+  const id = props.id
   return (
-    <div className={classes}>
-      <label htmlFor={props.id} className={'form-label h3 ' + (props.labelHidden ? 'sr-only' : null)}>{props.label}</label>
-      <div className='d-flex'>
-        <input className={controlClasses} id={props.id} name={props.name} type={props.type || 'text'} autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'/>
-          {props.button && <div className='input-group-append'>
-          <Button className='btn--flat'><span className='sr-only'>Submit search</span><Svg url='/ui/svg/magnifying.svg'/></Button>
-        </div>}
-      </div>
+    <div className={`input-group ${props.className}`}>
+      <label htmlFor={id} className='form-label'>{props.label}</label>
+      <input className='form-control' id={id} name={props.name} type='text'/>
     </div>
   )
+}
+
+FormGroup.propTypes = {
+  id: PropTypes.string
 }
 
 export default FormGroup
