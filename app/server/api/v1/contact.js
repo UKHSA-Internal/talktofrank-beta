@@ -10,7 +10,6 @@ const mailTransportFactory = () => {
 }
 
 router.post('/sendSupportEnquiry', async (req, res, next) => {
-
   let emailResponse
 
   const transporter = mailTransportFactory()
@@ -22,7 +21,7 @@ router.post('/sendSupportEnquiry', async (req, res, next) => {
     text: 'Hello to myself!',
     html:
       '<p><b>Hello</b> to myself <img src="cid:note@example.com"/></p>' +
-      '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@example.com"/></p>',
+      '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@example.com"/></p>'
   }
 
   try {
@@ -32,9 +31,7 @@ router.post('/sendSupportEnquiry', async (req, res, next) => {
   }
 
   res.json(emailResponse)
-
 })
-
 
 /**
  * Error handler

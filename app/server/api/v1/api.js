@@ -337,37 +337,6 @@ router.get('/news/:slug', (req, res, next) => {
     .catch(error => next(error.response))
 })
 
-const nodemailer = require('nodemailer')
-
-const mailTransportFactory = () => {
-  const emailConfig = config.email[config.email.transport]
-  return nodemailer.createTransport(emailConfig)
-}
-
-router.post('/sendContact', async (req, res, next) => {
-  const mailer = mailTransportFactory()
-
-  let message = {
-    to: config.serco.to,
-    subject: config.serco.subject,
-    text: 'Hello to myself!',
-    html:
-      '<p><b>Hello</b> to myself <img src="cid:note@example.com"/></p>' +
-      '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@example.com"/></p>',
-  }
-
-  try {
-    let emailResponse = await transporter.sendMail(message)
-  } catch (err) {
-    console.log(err)
-  }
-
-
-
-  // sentry
-
-})
-
 /**
  * Error handler
  */
