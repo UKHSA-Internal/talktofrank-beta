@@ -15,10 +15,19 @@ export default class PageNewsList extends React.Component {
   constructor (props) {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
+    this.updateAddress = this.updateAddress.bind(this)
   }
 
   handlePageChange (pageNumber) {
     this.props.fetchNewsList(pageNumber.current)
+    this.updateAddress(pageNumber.current)
+  }
+
+  updateAddress (page) {
+    if ('replaceState' in history) {
+      let path = page === 0 ? this.props.location.pathname : `${this.props.location.pathname}/${(page + 1)}`
+      window.history.replaceState({}, document.title, path)
+    }
   }
 
   render () {
@@ -28,8 +37,7 @@ export default class PageNewsList extends React.Component {
       <React.Fragment>
         <Masthead path={location}/>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={title}/>
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
         </Accent>
         <Main>
           <Grid>
