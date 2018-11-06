@@ -38,10 +38,11 @@ mailgun:
 
 serco:
   contact:
-    to: 'Jon Brace <jon.brace@cxpartners.co.uk>'
+    to: talktofrank@serco.com
     subject: 'Talk To Frank'
 
   feedback:
-    to: 'Jon Brace <jon.brace@cxpartners.co.uk>'
+    to: talktofrank@serco.com
     subjectPrefix: 'TALKTOFRANK User Feedback: '
     from: no-reply@talktofrank.com
+    fromName: Anonymous user
