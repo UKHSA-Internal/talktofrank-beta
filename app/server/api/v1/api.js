@@ -1,12 +1,14 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
-import { imageMap, removeMarkdown } from '../../../shared/utilities'
+import { imageMap, removeMarkdown, removeTags } from '../../../shared/utilities'
 
 /**
  * Express routes
  */
 import searchRoutes from './apisearch.js'
+import { contentFulFactory } from '../../../shared/contentful'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 
 const express = require('express')
 const yaml = require('js-yaml')
@@ -288,10 +290,16 @@ router.get('/news', (req, res, next) => {
           // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
-        if (!v.fields.summary && v.fields.bodyLegacy) {
-          v.fields.summary = _.truncate(removeMarkdown(v.fields.bodyLegacy), {
-            'length': 100
-          })
+        if (!v.fields.summary) {
+          if (v.fields.body) {
+            v.fields.summary = _.truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
+              'length': 100
+            })
+          } else if (v.fields.bodyLegacy) {
+            v.fields.summary = _.truncate(removeMarkdown(v.fields.bodyLegacy), {
+              'length': 100
+            })
+          }
         }
 
         if (v.fields.image) {

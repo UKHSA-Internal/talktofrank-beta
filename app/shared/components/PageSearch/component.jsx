@@ -71,12 +71,14 @@ export default class SearchPage extends React.Component {
     const { loading, location } = this.props
     const { total, hits } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
+    let title = `Search results for '${searchValue}'`
+    title = total && total > 0 ? `${total} ${title.toLowerCase()}` : title
     return (
       <React.Fragment>
         <Masthead path={location}/>
         <Accent className='accent--shallow'>
           <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={`Search results for '${searchValue}'`} />
+                   text={title} />
         </Accent>
         <Main>
           <Grid>

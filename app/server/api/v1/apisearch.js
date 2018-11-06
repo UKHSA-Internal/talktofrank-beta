@@ -74,11 +74,6 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
       index: indices,
       body: query
     }).then(results => {
-      if (!multiWordSearch) {
-        results.hits.hits.sort((a, b) => {
-          return a._source.name > b._source.name
-        })
-      }
       results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
       return res.status(200).json(results.hits)
     })
@@ -221,7 +216,12 @@ const buildPrefixQuery = (searchTerm, page, pageSize) => {
     .from(page * pageSize)
     .size(pageSize)
     .sort([
-      {'_score': 'desc'}
+      {'_score': 'desc'},
+      { 'name.raw': {
+        'missing': '_last',
+        'unmapped_type': 'string',
+        'order': 'asc'
+      }}
     ])
     .query('multi_match', conf)
     .rawOption('highlight', {
