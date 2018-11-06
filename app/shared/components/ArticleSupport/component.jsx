@@ -13,11 +13,11 @@ const ArticleSupport = props => {
       </Anchor>
       <Heading type='p' className='h3' text={`(${props.distance})`}/>
       <Grid>
-        <GridCol className='col-12 col-md-8 spacing-bottom--single'>
+        <GridCol className='col-12 col-md-7 spacing-bottom--single'>
           {props.address && <address className='lead' dangerouslySetInnerHTML={{__html: props.address}}/>}
           <Longform text={props.summary} className='spacing-top--tight sm-spacing-top--flush'/>
         </GridCol>
-        <GridCol className='col-12 col-md-4 spacing-bottom--single'>
+        <GridCol className='col-12 col-md-4 offset-md-1 spacing-bottom--single'>
           {props.phone && <p><Anchor text={`Phone: ${props.phone}`} className='break-word' href={`tel:${props.phoneRaw}`} /></p>}
           {props.email && <p><Anchor text='Email' className='break-word' href={`mailto:${props.email}`} /></p>}
           {props.website && <p><Anchor text='Website' className='break-word' href={props.website} /></p>}
