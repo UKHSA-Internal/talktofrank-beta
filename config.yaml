@@ -23,7 +23,7 @@ pagination:
   pageSize: 10
 
 email:
-  transport: mailgun
+  transport: etherealEmail
 
 etherealEmail:
   auth:

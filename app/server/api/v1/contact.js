@@ -5,8 +5,12 @@ const router = express.Router()
 const nodemailer = require('nodemailer')
 const mailgunTransport = require('../../lib/mailgun-transport')
 const bodyParser = require('body-parser')
-const {celebrate, Joi} = require('celebrate')
+const {celebrate, Joi, isCelebrate} = require('celebrate')
 const jsonParser = bodyParser.json()
+
+const joiOptions = {
+  abortEarly: false
+}
 
 const transports = {
   mailgun: mailgunTransport
@@ -27,12 +31,12 @@ const supportEnquirySchema = {
     nickname: Joi.string().required(),
     email: Joi.string().email().required(),
     ageRange: Joi.string().optional().default('Undisclosed'),
-    gender: Joi.string().optional().valid(['Male', 'Female']).default('Undisclosed'),
-    message: Joi.string().required().max(500)
+    gender: Joi.string().optional().valid(['Male', 'Female', 'Undisclosed']).default('Undisclosed'),
+    message: Joi.string().required().max(500).error(() => 'Please enter your message')
   })
 }
 
-router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema)], async (req, res, next) => {
+router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema, joiOptions)], async (req, res, next) => {
   let emailResponse
 
   const transporter = mailTransportFactory()
@@ -62,7 +66,7 @@ const feedbackSchema = {
     feedback: Joi.string().required().max(500)
   })
 }
-router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema)], async (req, res, next) => {
+router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema, joiOptions)], async (req, res, next) => {
   let emailResponse
 
   const transporter = mailTransportFactory()
@@ -98,6 +102,17 @@ router.use(function (err, req, res, next) {
 
   if (config.sentry.logErrors) {
     Sentry.captureException(err)
+  }
+
+  if ( isCelebrate(err) ) {
+    let respponse = err.details.map((item) => {
+      return {
+        message: item.message,
+        field: item.context.key
+      }
+    })
+
+    res.status(400).json(respponse)
   }
 
   res.status(status)
