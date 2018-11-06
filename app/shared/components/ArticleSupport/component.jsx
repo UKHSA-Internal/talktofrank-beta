@@ -9,7 +9,7 @@ const ArticleSupport = props => {
       <Anchor className='list-item__link' href={`/support-near-you/${props.slug}`}>
         <Heading className='h3' text={props.text}/>
       </Anchor>
-      <p>{props.distance} - <span dangerouslySetInnerHTML={{__html: props.address}}/></p>
+      <p><strong>{props.distance}</strong> - <span dangerouslySetInnerHTML={{__html: props.address}}/></p>
       <ul class='list-inline spacing--single'>
         {props.phone && <li class='list-inline-item'><Anchor text={props.phone} className='break-word link-text' href={`tel:${props.phoneRaw}`} /></li>}
         {props.email && <li class='list-inline-item'><Anchor text='Send email' className='break-word link-text' href={`mailto:${props.email}`} /></li>}
