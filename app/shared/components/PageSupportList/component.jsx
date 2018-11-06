@@ -23,7 +23,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -34,7 +34,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -45,7 +45,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -56,7 +56,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -67,7 +67,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -78,7 +78,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -89,7 +89,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -100,7 +100,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -111,7 +111,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -122,7 +122,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -133,7 +133,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -144,7 +144,7 @@ export default class PageSupportList extends React.PureComponent {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',
-        address: '20 Avonvale Road<br/>Redfield<br/>Gloucestershire<br/>Bristol BS5 9RL',
+        address: '20 Avonvale Road, Redfield, Gloucestershire, Bristol BS5 9RL',
         phone: '0117 904 4366',
         phoneRaw: '01179044366',
         email: 'enquiries@chrysalissupportedassociationltd.co.uk',
@@ -186,7 +186,7 @@ export default class PageSupportList extends React.PureComponent {
               <p className='lead'>Find details of local and national services that provide counselling and treatment in England.</p>
               <p><a href='#'>What drug treatment is like?</a></p>
               <Form>
-                <FormGroup className='form-control-lg' name='' label='' id=''/>
+                <FormGroup className='form-control-lg' name='support-centre-postcode' label='Please enter your full postcode' id='support-centre-postcode'/>
                 <Select {...supportOptions} className='form-control-lg'/>
                 <Button className='btn--primary'>
                   Search
@@ -198,7 +198,6 @@ export default class PageSupportList extends React.PureComponent {
               <p>Some services listed below may only be available to a certain age group, or require a referral from GP or health professional. We recommend you ring ahead first, to see if it's the most suitable choice.</p>
               <ul className='list-unstyled'>
                 {results && results.map((item, i) => {
-                  item['type'] = 'li'
                   return <ArticleSupport {...item} key={i}/>
                 })}
               </ul>

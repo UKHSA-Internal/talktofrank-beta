@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
 import Masthead from '../Masthead/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
@@ -9,6 +8,7 @@ import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
+import Spinner from '../Spinner/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.Component {
@@ -50,6 +50,7 @@ export default class PageNewsList extends React.Component {
               }
             </GridCol>
           </Grid>
+          {loading && <Spinner />}
         </Main>
         <Footer/>
         <GA/>

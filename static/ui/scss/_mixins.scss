@@ -21,7 +21,6 @@
 @mixin arrow-hover {
   position: relative;
   padding-right: 5rem !important;
-  //line-height: 1.2;
 
   &:hover:after {
     @include arrow;
