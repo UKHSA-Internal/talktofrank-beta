@@ -173,7 +173,6 @@ export default class PageSupportList extends React.PureComponent {
       ]
     }
 
-
     return (
       <React.Fragment>
         <Masthead/>

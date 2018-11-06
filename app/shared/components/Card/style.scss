@@ -38,10 +38,10 @@
   margin-bottom: 0;
 }
 
-.read-more {
+.link-text {
   @include link;
   display: inline-block;
-  font-size: 2rem;
+  font-size: inherit;
 
   .card__link & {
     display: inline-block;

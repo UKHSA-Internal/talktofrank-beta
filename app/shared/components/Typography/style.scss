@@ -189,7 +189,7 @@ mark,
   display: inline-block;
 
   &:not(:last-child) {
-    margin-right: $list-inline-padding;
+    margin-right: 1.5rem;
   }
 }
 
