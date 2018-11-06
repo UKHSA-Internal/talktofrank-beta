@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
 import Masthead from '../Masthead/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
@@ -25,13 +24,13 @@ export default class PageNewsList extends React.Component {
 
   updateAddress (page) {
     if ('replaceState' in history) {
-      let path = page === 0 ? this.props.location.pathname : `${this.props.location.pathname}/${(page + 1)}`
+      let path = page === 0 ? '/latest' : `/latest/${(page + 1)}`
       window.history.replaceState({}, document.title, path)
     }
   }
 
   render () {
-    const { loading, location } = this.props
+    const { loading, location, pageNumber } = this.props
     const { title, list, total } = this.props.pageData
     return (
       <React.Fragment>
@@ -52,6 +51,7 @@ export default class PageNewsList extends React.Component {
               </ul>
               {total > 10 &&
               <Pagination
+                initialPage={pageNumber}
                 pageCount={total / 10}
                 onPageChange={this.handlePageChange}
               />
