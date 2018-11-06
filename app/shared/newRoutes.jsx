@@ -68,6 +68,12 @@ export default [{
       loadData: () => fetchNewsList()
     },
     {
+      path: '/latest/:number',
+      exact: true,
+      component: asyncPageNewsListContainer,
+      loadData: ({number}) => fetchNewsList(number - 1)
+    },
+    {
       path: '/news/:slug',
       exact: true,
       component: asyncPageNewsContainer,
