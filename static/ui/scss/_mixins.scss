@@ -39,7 +39,7 @@
 
 @mixin link {
   color: $text-dark-blue;
-  border-bottom: 2px dotted $pinkAccess;
+  border-bottom: 2px dashed $pinkAccess;
 
   .has-hover & {
     &:active,

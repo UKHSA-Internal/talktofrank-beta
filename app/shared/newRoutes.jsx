@@ -69,10 +69,15 @@ export default [{
       loadData: () => fetchNewsList()
     },
     {
+      path: '/latest/:number',
+      exact: true,
+      component: asyncPageNewsListContainer,
+      loadData: ({number}) => fetchNewsList(number - 1)
+    },
+    {
       path: '/support-near-you',
       exact: true,
       component: asyncPageSupportListContainer
-      // ,loadData: () => fetchNewsList()
     },
     {
       path: '/news/:slug',

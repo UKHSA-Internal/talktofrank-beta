@@ -176,11 +176,7 @@ mark,
 // Lists
 //
 
-.list-unstyled {
-  @include list-unstyled;
-}
-
-// Inline turns list items into inline-block
+.list-unstyled,
 .list-inline {
   @include list-unstyled;
 }
@@ -189,7 +185,7 @@ mark,
   display: inline-block;
 
   &:not(:last-child) {
-    margin-right: 1.5rem;
+    margin-right: 2rem;
   }
 }
 

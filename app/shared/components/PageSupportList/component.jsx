@@ -181,7 +181,7 @@ export default class PageSupportList extends React.PureComponent {
         </Accent>
         <Main>
           <Grid>
-            <GridCol className='col-12 col-sm-10 offset-sm-1'>
+            <GridCol className='col-12 col-sm-8 offset-sm-1'>
               <p className='lead'>Find details of local and national services that provide counselling and treatment in England.</p>
               <p><a href='#'>What drug treatment is like?</a></p>
               <Form>

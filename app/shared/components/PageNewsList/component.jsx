@@ -15,21 +15,30 @@ export default class PageNewsList extends React.Component {
   constructor (props) {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
+    this.updateAddress = this.updateAddress.bind(this)
   }
 
   handlePageChange (pageNumber) {
     this.props.fetchNewsList(pageNumber.current)
+    this.updateAddress(pageNumber.current)
+  }
+
+  updateAddress (page) {
+    if ('replaceState' in history) {
+      let path = page === 0 ? '/latest' : `/latest/${(page + 1)}`
+      window.history.replaceState({}, document.title, path)
+    }
   }
 
   render () {
     const { loading, location } = this.props
-    const { title, list, total } = this.props.pageData
+    const { title, list, total, pageNumber } = this.props.pageData
+
     return (
       <React.Fragment>
         <Masthead path={location}/>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={title}/>
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
         </Accent>
         <Main>
           <Grid>
@@ -44,6 +53,7 @@ export default class PageNewsList extends React.Component {
               </ul>
               {total > 10 &&
               <Pagination
+                initialPage={(pageNumber - 1)}
                 pageCount={total / 10}
                 onPageChange={this.handlePageChange}
               />
