@@ -104,15 +104,15 @@ router.use(function (err, req, res, next) {
     Sentry.captureException(err)
   }
 
-  if ( isCelebrate(err) ) {
-    let respponse = err.details.map((item) => {
+  if (isCelebrate(err)) {
+    let response = err.details.map((item) => {
       return {
         message: item.message,
         field: item.context.key
       }
     })
 
-    res.status(400).json(respponse)
+    res.status(400).json(response)
   }
 
   res.status(status)
