@@ -30,8 +30,9 @@ export default class PageNewsList extends React.Component {
   }
 
   render () {
-    const { loading, location, pageNumber } = this.props
-    const { title, list, total } = this.props.pageData
+    const { loading, location } = this.props
+    const { title, list, total, pageNumber } = this.props.pageData
+
     return (
       <React.Fragment>
         <Masthead path={location}/>
@@ -51,7 +52,7 @@ export default class PageNewsList extends React.Component {
               </ul>
               {total > 10 &&
               <Pagination
-                initialPage={pageNumber}
+                initialPage={(pageNumber - 1)}
                 pageCount={total / 10}
                 onPageChange={this.handlePageChange}
               />
