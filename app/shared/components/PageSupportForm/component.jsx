@@ -60,7 +60,7 @@ export default class PageSupportForm extends React.PureComponent {
                   <Select {...supportOptions} className='form-control--reversed form-control--large'/>
                   <Button className='btn--primary'>
                     Search
-                    <Icon {...icon}/>
+                    <Icon className='spacing-left' {...icon}/>
                   </Button>
                 </Form>
               </GridCol>
