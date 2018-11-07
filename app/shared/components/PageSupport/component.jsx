@@ -36,23 +36,22 @@ export default class PageSupport extends React.PureComponent {
         </Accent>
         <Main>
           <Grid>
-            <GridCol className='col-12 col-sm-8 col-md-7 order-2 order-sm-1'>
+            <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6 order-2 order-sm-1'>
               <Heading className='h4' text='Information' />
               <Longform text={text1} className='spacing-bottom--large'/>
               <Heading className='h4' text='Referral' />
               <Longform text={text1} className='spacing-bottom--large'/>
             </GridCol>
-            <GridCol className='col-12 col-sm-4 offset-md-1 order-1 order-sm-2'>
+            <GridCol className='col-12 col-sm-4 col-md-3 order-1 order-sm-2 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
               <Heading className='h4' text='Get in touch' />
-              <ul class='list-unstyled list-unstyled--single spacing-bottom--large'>
+              <ul class='list-unstyled list-unstyled--single spacing-bottom--single sm-spacing-bottom--large'>
                 {phone && <li class='list-item'><Anchor text={phone} label={`Telephone ${text}`} className='break-word link-text' href={`tel:${phoneRaw}`} /></li>}
                 {email && <li class='list-item'><Anchor text='Send email' label={`Send email to ${text}`} className='break-word link-text' href={`mailto:${email}`} /></li>}
                 {website && <li class='list-item'><Anchor text='Visit website' label={`Visit ${text} website`} className='break-word link-text' href={website} /></li>}
               </ul>
               <Heading className='h4' text='Address' />
               <Longform text={address}/>
-              <a href='https://google.com' aria-label={`View ${text} location on Google maps`} className='link has-icon spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
-
+              <a href='https://google.com' aria-label={`View ${text} location on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
               <Heading className='h4' text='Catchment' />
               <p>Bristol and surrounding areas</p>
             </GridCol>
