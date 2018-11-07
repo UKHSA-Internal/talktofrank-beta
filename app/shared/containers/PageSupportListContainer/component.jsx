@@ -15,4 +15,4 @@ const mapStateToProps = (state, ownProps) => {
 //   })
 // }
 
-export default connect(mapStateToProps /*, mapDispatchToProps*/)(PageSupportList)
+export default connect(mapStateToProps)(PageSupportList)

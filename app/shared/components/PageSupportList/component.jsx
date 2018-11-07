@@ -85,7 +85,7 @@ export default class PageSupportList extends React.PureComponent {
         website: 'www.chrysalissupportedassociationltd.co.uk',
         summary: 'An integrated and modified approach from within a structured safe abstinent environment offering intensive treatment and support through to resettlement with very low support...'
       },
-                      {
+      {
         slug: 'link-1-first',
         text: 'Something somehting drug treatment centre',
         distance: '1.2 miles',

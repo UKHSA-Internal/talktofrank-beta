@@ -86,7 +86,6 @@ export function fetchNewsList (page = 0) {
   }
 }
 
-
 export function fetchSupportList (page = 0) {
   return true
   // const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
