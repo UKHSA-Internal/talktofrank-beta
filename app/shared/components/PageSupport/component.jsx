@@ -36,13 +36,13 @@ export default class PageSupport extends React.PureComponent {
         </Accent>
         <Main>
           <Grid>
-            <GridCol className='col-12 col-sm-7'>
+            <GridCol className='col-12 col-sm-8 col-md-7'>
               <Heading className='h4' text='Information' />
               <Longform text={text1} className='spacing-bottom--large'/>
               <Heading className='h4' text='Referral' />
               <Longform text={text1} className='spacing-bottom--large'/>
             </GridCol>
-            <GridCol className='col-12 col-sm-4 offset-sm-1'>
+            <GridCol className='col-12 col-sm-4 offset-md-1'>
               <Heading className='h4' text='Get in touch' />
               <ul class='list-unstyled list-unstyled--single spacing-bottom--large'>
                 {phone && <li class='list-item'><Anchor text={phone} label={`Telephone ${text}`} className='break-word link-text' href={`tel:${phoneRaw}`} /></li>}
