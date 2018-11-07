@@ -27,6 +27,7 @@ const asyncPageSearch = loadable(() => import(/*webpackChunkName: 'search'*/'./c
 const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
+const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./components/PageContact/component.jsx'))
 /* eslint-enable */
 
 export default [{
@@ -90,6 +91,12 @@ export default [{
       exact: true,
       component: asyncPageGeneral,
       loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+    },
+    {
+      path: '/contact-frank',
+      exact: true,
+      component: asyncPageGeneral
+      //,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
     },
     {
       path: '/:slug/:slug1/:slug2',
