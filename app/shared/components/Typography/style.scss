@@ -420,7 +420,17 @@ p {
 .link-list {
   margin: 3rem 0 5rem;
 
-  &.link-list--has-arrow {
+  &--reversed {
+    .link-list__item {
+      border-bottom: 1px solid $gray-300;
+    }
+
+    .link-list__item:first-of-type {
+      border-top: 1px solid $gray-300;
+    }
+  }
+
+  &--has-arrow {
     .link-list__item {
       padding-left: 0;
 
@@ -444,6 +454,13 @@ p {
         &:hover {
           background-color: $gray-300;
         }
+      }
+    }
+
+
+    &.link-list--reversed {
+      .link-list__link {
+        padding-left: 0;
       }
     }
   }
