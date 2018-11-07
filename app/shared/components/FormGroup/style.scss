@@ -2,12 +2,11 @@
   display: block;
   width: 100%;
   max-width: 50rem; // @joel - stuffing this in here as it all feels well big otherwise
-  font-size: 1rem;
   line-height: 1.5;
   background-clip: padding-box;
   background-color: $white;
   box-sizing: border-box;
-  padding: .375rem .75rem;
+  padding: .375em .75em;
   border-width: 1px;
   border-style: solid;
   border-color: $text-dark-blue;
@@ -61,10 +60,22 @@
     text-decoration-skip-ink: none;
     text-underline-position: under;
   }
+
+  &--reversed {
+    border: 0;
+    background-color: $white;
+    border-radius: 0;
+  }
+
+  &--large {
+    height: 3em;
+  }
 }
 
 .form-label {
+  font-size: 2.1rem;
   flex-basis: 100%;
+  font-family: $headings-font-family;
 }
 
 input[type='search'],
@@ -78,8 +89,6 @@ input[type='text'] {
 }
 
 select.form-control {
-  -moz-appearance: none;
-  -webkit-appearance: none;
   appearance: none;
   line-height: 1;
   height: 2em;
@@ -87,8 +96,14 @@ select.form-control {
   background-size: .5em auto;
   background-position: right .5em center;
   padding: .5em;
+  background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'><polygon points='0,0 60,0 30,40' style='fill:#D10058;'/></svg>"); // sass-lint:disable-line quotes
 
-  background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'><polygon points='0,0 60,0 30,40' style='fill:$pinkAccess;'/></svg>"); // sass-lint:disable-line quotes
+  &--large {
+    height: 3em;
+    padding: .75em;
+    background-size: .8em auto;
+    background-position: right .8em center;
+  }
 
   &:focus::-ms-value {
     // Suppress the nested default white text on blue background highlight given to
@@ -108,26 +123,19 @@ select.form-control {
 //
 // Repeated in `_input_group.scss` to avoid Sass extend issues.
 
-
-.form-control-lg {
-  font-size: 2rem;
-  line-height: $input-line-height-lg;
-}
-
 // Form groups
 //
 // Designed to help with the organization and spacing of vertical forms. For
 // horizontal forms, use the predefined grid classes.
 
 .form-group {
-  margin-bottom: $form-group-margin-bottom;
+  margin-bottom: 3rem;
 }
 
 .form-text {
   display: block;
   margin-top: $form-text-margin-top;
 }
-
 
 // Form grid
 //
