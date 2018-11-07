@@ -11,9 +11,9 @@ const ArticleSupport = props => {
       </Anchor>
       <p><strong>{props.distance}</strong> - <span dangerouslySetInnerHTML={{__html: props.address}}/></p>
       <ul class='list-inline spacing--single'>
-        {props.phone && <li class='list-inline-item'><Anchor text={props.phone} className='break-word link-text' href={`tel:${props.phoneRaw}`} /></li>}
-        {props.email && <li class='list-inline-item'><Anchor text='Send email' className='break-word link-text' href={`mailto:${props.email}`} /></li>}
-        {props.website && <li class='list-inline-item'><Anchor text='Visit website' className='break-word link-text' href={props.website} /></li>}
+        {props.phone && <li class='list-inline-item'><Anchor text={props.phone} label={`Telephone ${props.text}`} className='break-word link-text' href={`tel:${props.phoneRaw}`} /></li>}
+        {props.email && <li class='list-inline-item'><Anchor text='Send email' label={`Send email to ${props.text}`} className='break-word link-text' href={`mailto:${props.email}`} /></li>}
+        {props.website && <li class='list-inline-item'><Anchor text='Visit website' label={`Visit ${props.text} website`} className='break-word link-text' href={props.website} /></li>}
       </ul>
       <Longform text={props.summary} className='spacing-bottom--single'/>
     </li>
