@@ -81,6 +81,12 @@ export default [{
       loadData: ({slug}) => fetchPage(slug, 'news')
     },
     {
+      path: '/contact-frank',
+      exact: true,
+      component: asyncContactPage
+      //,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+    },
+    {
       path: '/:slug',
       exact: true,
       component: asyncPageGeneral,
@@ -91,12 +97,6 @@ export default [{
       exact: true,
       component: asyncPageGeneral,
       loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
-    },
-    {
-      path: '/contact-frank',
-      exact: true,
-      component: asyncPageGeneral
-      //,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
     },
     {
       path: '/:slug/:slug1/:slug2',

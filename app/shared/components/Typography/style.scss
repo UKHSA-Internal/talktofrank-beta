@@ -274,10 +274,6 @@ b {
 .list-item--underlined {
   border-bottom: 1px solid $gray-300;
 
-  &:first-child {
-    border-top: 1px solid $gray-300;
-  }
-
   .list-link {
     padding: 1em;
 
