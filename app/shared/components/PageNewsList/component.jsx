@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
 import Masthead from '../Masthead/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
@@ -9,27 +8,37 @@ import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
+import Spinner from '../Spinner/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.Component {
   constructor (props) {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
+    this.updateAddress = this.updateAddress.bind(this)
   }
 
   handlePageChange (pageNumber) {
     this.props.fetchNewsList(pageNumber.current)
+    this.updateAddress(pageNumber.current)
+  }
+
+  updateAddress (page) {
+    if ('replaceState' in history) {
+      let path = page === 0 ? '/latest' : `/latest/${(page + 1)}`
+      window.history.replaceState({}, document.title, path)
+    }
   }
 
   render () {
     const { loading, location } = this.props
-    const { title, list, total } = this.props.pageData
+    const { title, list, total, pageNumber } = this.props.pageData
+
     return (
       <React.Fragment>
         <Masthead path={location}/>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={title}/>
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
         </Accent>
         <Main>
           <Grid>
@@ -44,12 +53,14 @@ export default class PageNewsList extends React.Component {
               </ul>
               {total > 10 &&
               <Pagination
+                initialPage={pageNumber}
                 pageCount={total / 10}
                 onPageChange={this.handlePageChange}
               />
               }
             </GridCol>
           </Grid>
+          {loading && <Spinner />}
         </Main>
         <Footer/>
         <GA/>

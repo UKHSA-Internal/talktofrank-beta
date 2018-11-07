@@ -21,7 +21,6 @@
 @mixin arrow-hover {
   position: relative;
   padding-right: 5rem !important;
-  //line-height: 1.2;
 
   &:hover:after {
     @include arrow;
@@ -40,7 +39,7 @@
 
 @mixin link {
   color: $text-dark-blue;
-  border-bottom: 2px dotted $pinkAccess;
+  border-bottom: 2px dashed $pinkAccess;
 
   .has-hover & {
     &:active,

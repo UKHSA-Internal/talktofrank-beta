@@ -48,6 +48,7 @@ h1,
 h2,
 .h2,
 %h2 {
+  line-height: 1;
   font-size: 3.2rem;
 
   @include media-breakpoint-up(md) {
@@ -141,6 +142,7 @@ h4,
 .h4,
 %lead,
 %h4 {
+  margin-bottom: 1rem;
   font-size: 2.4rem;
 }
 
@@ -175,20 +177,22 @@ mark,
 // Lists
 //
 
-.list-unstyled {
+.list-unstyled,
+.list-inline {
   @include list-unstyled;
 }
 
-// Inline turns list items into inline-block
-.list-inline {
-  @include list-unstyled;
+.list-unstyled--single {
+  > li {
+    margin-bottom: 1rem;
+  }
 }
 
 .list-inline-item {
   display: inline-block;
 
   &:not(:last-child) {
-    margin-right: $list-inline-padding;
+    margin-right: 2rem;
   }
 }
 
@@ -274,10 +278,6 @@ b {
 .list-item--underlined {
   border-bottom: 1px solid $gray-300;
 
-  &:first-child {
-    border-top: 1px solid $gray-300;
-  }
-
   .list-link {
     padding: 1em;
 
@@ -299,6 +299,10 @@ b {
       }
     }
   }
+}
+
+.link {
+  display: block;
 }
 
 .list-link {

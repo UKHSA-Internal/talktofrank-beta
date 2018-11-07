@@ -63,6 +63,7 @@ export default class Masthead extends React.PureComponent {
     let navClasses = classNames('navbar-primary navbar-expand-md', {
       'd-none': !this.state.mobileMenuOpen
     })
+    let current = this.props.path ? this.props.path.pathname : ''
 
     return (
       <header className={classes} role='banner'>
@@ -73,10 +74,10 @@ export default class Masthead extends React.PureComponent {
             </Button>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
             <ViewportMobile>
-              <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
+              <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' role='menubar' type='nav'/>
             </ViewportMobile>
             <ViewportDefault>
-              <Nav className={navClasses} hasPopup={true} menu-open={true} id='navigation-primary' navigation={primary} current={this.props.path.pathname} aria-label='Main Menu' role='menubar' type='nav'/>
+              <Nav className={navClasses} hasPopup={true} menu-open={true} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' role='menubar' type='nav'/>
             </ViewportDefault>
           </section>
           <ButtonGroup className='button-group--static'>
