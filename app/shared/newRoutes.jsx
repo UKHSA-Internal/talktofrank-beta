@@ -48,7 +48,7 @@ export default [{
       path: '/drug/:drugName',
       exact: true,
       component: asyncPageDrug,
-      loadData: ({drugName}) => fetchPage(drugName, 'drug')
+      loadData: ({drugName}) => fetchPage(drugName, 'drugs')
     },
     {
       path: '/search',

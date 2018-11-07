@@ -16,6 +16,7 @@ contentful:
     drug: 'drug'
     news: 'news'
     page: 'generalPage'
+    treatmentCentre: 'treatmentCentre'
   entries:
     homepage: '6YkX4gZ5jawC0eAM6aOCum'
 
