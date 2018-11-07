@@ -181,6 +181,12 @@ mark,
   @include list-unstyled;
 }
 
+.list-unstyled--single {
+  > li {
+    margin-bottom: 1rem;
+  }
+}
+
 .list-inline-item {
   display: inline-block;
 

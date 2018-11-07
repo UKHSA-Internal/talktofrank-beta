@@ -28,6 +28,7 @@ const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'dru
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
+const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre-page'*/'./components/PageSupport/component.jsx')) // need to swap this out with an actual container
 /* eslint-enable */
 
 export default [{
@@ -78,6 +79,11 @@ export default [{
       path: '/support-near-you',
       exact: true,
       component: asyncPageSupportListContainer
+    },
+    {
+      path: '/support-near-you/:slug',
+      exact: true,
+      component: asyncPageSupportContainer
     },
     {
       path: '/news/:slug',
