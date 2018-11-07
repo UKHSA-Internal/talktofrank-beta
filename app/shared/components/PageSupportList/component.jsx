@@ -8,7 +8,7 @@ import Main from '../Main/component.jsx'
 import Form from '../Form/component.jsx'
 import FormGroup from '../FormGroup/component.jsx'
 import Longform from '../Longform/component.jsx'
-import Button from '../Button/component.jsx'
+import Anchor from '../Anchor/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import ArticleSupport from '../ArticleSupport/component.jsx'
@@ -157,13 +157,12 @@ export default class PageSupportList extends React.PureComponent {
       <React.Fragment>
         <Masthead/>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text='Find support near you'/>
+          <Heading type='h1' className='h2 spacing-left spacing--single' text='234 results returned for BS5 5UE'/>
+          <Anchor className='spacing-left link-text' href='/support-near-you' text='Search again'/>
         </Accent>
         <Main>
           <Grid>
-            <GridCol className='col-12 col-sm-8 offset-sm-1'>
-              <p className='lead'>Find details of local and national services that provide counselling and treatment in England.</p>
-              <p><a href='#'>What drug treatment is like?</a></p>
+            <GridCol className='col-12 col-sm-8 offset-sm-2'>
                <ul className='list-unstyled'>
                 {results && results.map((item, i) => {
                   return <ArticleSupport {...item} key={i}/>

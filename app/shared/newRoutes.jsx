@@ -90,7 +90,8 @@ export default [{
       path: '/treatment-centre/:slug',
       exact: true,
       component: asyncPageSupportContainer
-      // loadData: ({number}) => fetchSupportCentreList(number - 1)
+      // loadData: ({number}) => fetchSupportCentreList(number - 1) // for when the centres are wired up
+
     },
     {
       path: '/news/:slug',

@@ -61,7 +61,6 @@ export default class PageSupportForm extends React.PureComponent {
                 </Button>
                 <p>If you live in Scotland please visit the <a href='#'>Scottish Drug Services website</a>. If you live in Wales please visit <a href='#'>the Dan website</a>. If you live in Northern Ireland please visit <a href='#'>the Public Health Agency</a> website.</p>
               </Form>
-              <Heading type='h2' className='h2' text={`${results.length} results for: ${postcode}`}/>
               <p className='lead'>This is a list of local services, and national agencies you can contact no matter where you live.</p>
               <p>Some services listed below may only be available to a certain age group, or require a referral from GP or health professional. We recommend you ring ahead first, to see if it's the most suitable choice.</p>
             </GridCol>
