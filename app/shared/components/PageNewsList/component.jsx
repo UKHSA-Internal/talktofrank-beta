@@ -52,7 +52,7 @@ export default class PageNewsList extends React.Component {
               </ul>
               {total > 10 &&
               <Pagination
-                initialPage={(pageNumber - 1)}
+                initialPage={pageNumber}
                 pageCount={total / 10}
                 onPageChange={this.handlePageChange}
               />
