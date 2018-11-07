@@ -142,6 +142,7 @@ h4,
 .h4,
 %lead,
 %h4 {
+  margin-bottom: 1rem;
   font-size: 2.4rem;
 }
 
@@ -302,6 +303,10 @@ b {
       }
     }
   }
+}
+
+.link {
+  display: block;
 }
 
 .list-link {
