@@ -1,0 +1,48 @@
+$dims: 1rem;
+
+.toggle {
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  .toggle__content {
+    display: none;
+
+    &.toggle__content--active {
+      display: block;
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  .toggle__content,
+  .toggle__trigger {
+    padding-left: ($dims * 2);
+  }
+
+  .toggle__trigger {
+    position: relative;
+    display: block;
+    color: $text-dark-blue;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: $dims;
+      height: $dims;
+      left: 0;
+      top: 50%;
+      margin-top: -($dims / 2);
+      display: block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url('/ui/svg/plus.svg');
+    }
+  }
+
+  .toggle__trigger--active {
+    &::before {
+      background-image: url('/ui/svg/minus.svg');
+    }
+  }
+}

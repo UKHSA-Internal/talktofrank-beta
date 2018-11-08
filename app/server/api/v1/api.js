@@ -180,7 +180,6 @@ router.get('/drugs/:slug', (req, res, next) => {
  * Get drugs list data (A-Z)
  */
 router.get('/drugs', (req, res, next) => {
-
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.drug
   }
@@ -392,11 +391,8 @@ router.get('/treatment-centres', (req, res, next) => {
   if (req.query.serviceType &&
     req.query.serviceType !== 'All Services' &&
     req.query.serviceType !== '') {
-    console.log('Query', req.query)
     contentfulRequest['fields.serviceType'] = req.query.serviceType
   }
-
-  console.log('contentfulRequest', contentfulRequest)
 
   let response = {
     results: []
@@ -424,7 +420,6 @@ router.get('/treatment-centres', (req, res, next) => {
               responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
             })
           response.results.sort((a, b) => a.distance > b.distance)
-
         })
       res.send(response)
     })

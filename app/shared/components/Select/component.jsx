@@ -6,8 +6,6 @@ const Select = props => {
     return <option value={val.value} key={i}>{val.label}</option>
   })
 
-  console.log(props.selected)
-
   return (
     <div className='form-group'>
       <label className='form-label' htmlFor={props.id}>{props.label}{props.supporting && <FormHint>{props.supporting}</FormHint>}</label>

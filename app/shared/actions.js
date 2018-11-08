@@ -90,14 +90,12 @@ export function fetchSupportList (page = 0, {location, serviceType}) {
   let queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
 
   if (location) {
-    queryString += `&location=${location}`
+    queryString += `&location=${encodeURIComponent(location)}`
   }
 
   if (serviceType) {
-    queryString += `&serviceType=${serviceType}`
+    queryString += `&serviceType=${encodeURIComponent(serviceType)}`
   }
-
-  console.log('Querystring ', queryString)
 
   return dispatch => {
     dispatch(requestPage())
