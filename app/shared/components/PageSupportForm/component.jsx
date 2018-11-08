@@ -195,7 +195,7 @@ export default class PageSupportForm extends React.PureComponent {
                 <p><a href='#'>What drug treatment is like?</a></p>
                 <Form className='spacing--large'>
                   <FormGroup onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter your full postcode' id='support-centre-postcode' placeholder=''/>
-                  <Select {...supportOptions} onChange={this.onServiceTypeChange} selected={locationValue}  className='form-control--reversed form-control--large'/>
+                  <Select {...supportOptions} onChange={this.onServiceTypeChange} selected={seviceTypeValue}  className='form-control--reversed form-control--large'/>
                   <Button className='btn--primary' clickHandler={this.submitAction}>
                     Search
                   </Button>

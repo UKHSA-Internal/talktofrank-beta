@@ -3,8 +3,10 @@ import FormHint from '../FormHint/component.jsx'
 
 const Select = props => {
   let options = props.options.map((val, i) => {
-    return <option value={val.value} key={i} {val.value === props.selected ? 'selected' : null}>{val.label}</option>
+    return <option value={val.value} key={i}>{val.label}</option>
   })
+
+  console.log(props.selected)
 
   return (
     <div className='form-group'>
