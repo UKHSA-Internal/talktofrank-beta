@@ -33,6 +33,7 @@ export default class PageSupport extends React.PureComponent {
       postCode,
       serviceInfo,
       referralMethod,
+      timesSessions,
       catchmentArea
     } = this.props.pageData.fields
     const phoneRaw = telephone1.replace(/ /g, '')
@@ -62,6 +63,8 @@ export default class PageSupport extends React.PureComponent {
               <Heading className='h4' text='Address' />
               <Longform text={address}/>
               <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} location on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
+              <Heading className='h4' text='Open' />
+              <p className={'spacing-bottom--single sm-spacing-bottom--large'} dangerouslySetInnerHTML={{ __html: timesSessions }} />
               <Heading className='h4' text='Catchment' />
               <p dangerouslySetInnerHTML={{ __html: catchmentArea }} />
             </GridCol>
