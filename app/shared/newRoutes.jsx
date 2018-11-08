@@ -31,6 +31,7 @@ const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page
 const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
 const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre-page'*/'./components/PageSupport/component.jsx')) // need to swap this out with an actual container
+const asyncContactFormPage = loadable(() => import(/*webpackChunkName: 'contact-form-page'*/'./components/PageContactForm/component.jsx'))
 /* eslint-enable */
 
 export default [{
@@ -92,7 +93,6 @@ export default [{
       exact: true,
       component: asyncPageSupportContainer
       // loadData: ({number}) => fetchSupportCentreList(number - 1) // for when the centres are wired up
-
     },
     {
       path: '/news/:slug',
@@ -104,7 +104,11 @@ export default [{
       path: '/contact-frank',
       exact: true,
       component: asyncContactPage
-      //  ,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+    },
+    {
+      path: '/contact',
+      exact: true,
+      component: asyncContactFormPage
     },
     {
       path: '/:slug',
