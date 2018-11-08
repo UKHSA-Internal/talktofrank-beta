@@ -74,6 +74,7 @@ h3,
   }
 }
 
+
 .heading-inverted {
   background-color: $gray-900;
   color: $white;
@@ -149,6 +150,19 @@ h4,
 h5,
 .h5 {
   font-size: 2rem;
+}
+
+
+// a weird one, this. There is no clear-cut scale
+// so I've pinned this to an H6 - hate this : (
+h6,
+.h6,
+%h6 {
+  font-size: 2.8rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 3.2rem;
+  }
 }
 
 .lead {
@@ -259,7 +273,9 @@ mark,
   font-size: 80%;
 }
 
-.regular {
+// essentially a paragraph reset
+.p {
+  font-size: 1.8rem;
   font-family: $font-family-sans-serif;
 }
 
@@ -355,7 +371,7 @@ b {
 }
 
 p {
-  a {
+  a:not(.link-text) {
     color: $pinkAccess;
     text-decoration: underline;
   }

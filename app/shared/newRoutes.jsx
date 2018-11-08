@@ -27,6 +27,7 @@ const asyncPageSearch = loadable(() => import(/*webpackChunkName: 'search'*/'./c
 const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
+const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./components/PageContact/component.jsx'))
 const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
 const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre-page'*/'./components/PageSupport/component.jsx')) // need to swap this out with an actual container
@@ -98,6 +99,12 @@ export default [{
       exact: true,
       component: asyncPageNewsContainer,
       loadData: ({slug}) => fetchPage(slug, 'news')
+    },
+    {
+      path: '/contact-frank',
+      exact: true,
+      component: asyncContactPage
+      //  ,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
     },
     {
       path: '/:slug',
