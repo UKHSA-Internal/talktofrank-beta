@@ -6,7 +6,7 @@ export default class Collapsible extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      visible: this.props.open || this.props.className === 'collapsible_trigger--active'
+      visible: this.props.open || this.props.className === 'toggle__trigger--active'
     }
   }
 
@@ -29,7 +29,7 @@ export default class Collapsible extends React.PureComponent {
 
     return (
       <div className={classes} id={id}>
-        <h3 className='h4'>
+        <h3 className='p'>
           <a role='button' href={`#${id}`} data-target={`#${id}`} className={toggleClass} onClick={this.toggle.bind(this)} aria-expanded={this.state.visible} aria-controls={`section-${id}`}>
           {text}
           </a>
