@@ -4,15 +4,16 @@ import PageSupportList from '../../components/PageSupportList/component.jsx'
 import { fetchSupportList } from '../../actions'
 
 const mapStateToProps = (state, ownProps) => {
+  state.app.pageData['pageNumber'] = ownProps.match.params.number ? parseInt((ownProps.match.params.number - 1), 10) : 0
   return state.app
 }
-// @joel reinstate when the backend is in place
-// const mapDispatchToProps = (dispatch) => {
-//   return ({
-//     fetchSupportList: (page) => {
-//       dispatch(fetchSupportList(page))
-//     }
-//   })
-// }
 
-export default connect(mapStateToProps)(PageSupportList)
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    fetchSupportList: (page) => {
+      dispatch(fetchSupportList(page))
+    }
+  })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageSupportList)

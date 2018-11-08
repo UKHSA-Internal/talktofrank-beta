@@ -6,6 +6,7 @@ import {
   fetchDrugList,
   fetchNewsList,
   fetchSearchTerm,
+  fetchSupportList,
   receivePageError
 } from './actions'
 
@@ -55,7 +56,7 @@ export default [{
       path: '/drug/:drugName',
       exact: true,
       component: asyncPageDrug,
-      loadData: ({drugName}) => fetchPage(drugName, 'drug')
+      loadData: ({params}) => fetchPage(params.drugName, 'drugs')
     },
     {
       path: '/contact',
@@ -78,7 +79,7 @@ export default [{
       path: '/search/:term',
       exact: true,
       component: asyncPageSearch,
-      loadData: ({term}) => fetchSearchTerm(term)
+      loadData: ({params}) => fetchSearchTerm(params.term)
     },
     {
       path: '/latest',
@@ -90,7 +91,13 @@ export default [{
       path: '/latest/:number',
       exact: true,
       component: asyncPageNewsListContainer,
-      loadData: ({number}) => fetchNewsList(number - 1)
+      loadData: ({params}) => fetchNewsList(params.number - 1)
+    },
+    {
+      path: '/news/:slug',
+      exact: true,
+      component: asyncPageNewsContainer,
+      loadData: ({params}) => fetchPage(params.slug, 'news')
     },
     {
       path: '/support-near-you',
@@ -100,45 +107,49 @@ export default [{
     {
       path: '/treatment-centre',
       exact: true,
-      component: asyncPageSupportListContainer
+      component: asyncPageSupportListContainer,
+      loadData: ({params, query}) => fetchSupportList(0, query)
     },
     {
       path: '/treatment-centre/:slug',
       exact: true,
-      component: asyncPageSupportContainer
-      // loadData: ({number}) => fetchSupportCentreList(number - 1) // for when the centres are wired up
-
+      component: asyncPageSupportContainer,
+      loadData: ({params}) => fetchPage(params.slug, 'treatment-centres')
     },
     {
       path: '/news/:slug',
       exact: true,
       component: asyncPageNewsContainer,
-      loadData: ({slug}) => fetchPage(slug, 'news')
+      loadData: ({params}) => fetchPage(params.slug, 'news')
     },
     {
       path: '/contact-frank',
       exact: true,
       component: asyncContactPage
-      //  ,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+    },
+    {
+      path: '/contact',
+      exact: true,
+      component: asyncContactFormPage
     },
     {
       path: '/:slug',
       exact: true,
       component: asyncPageGeneral,
-      loadData: ({slug}) => fetchPage(slug)
+      loadData: ({params}) => fetchPage(params.slug)
     },
     {
       path: '/:slug/:slug1',
       exact: true,
       component: asyncPageGeneral,
-      loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+      loadData: ({params}) => fetchPage([params.slug, params.slug1].join('/'))
     },
     {
       path: '/:slug/:slug1/:slug2',
       exact: true,
       component: asyncPageGeneral,
-      loadData: ({slug, slug1, slug2}) => (
-        fetchPage([slug, slug1, slug2].join('/'))
+      loadData: ({params}) => (
+        fetchPage([params.slug, params.slug1, params.slug2].join('/'))
       )
     },
     {

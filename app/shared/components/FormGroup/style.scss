@@ -7,12 +7,10 @@
   background-color: $white;
   box-sizing: border-box;
   padding: .375em .75em;
-  border-width: 1px;
-  border-style: solid;
-  border-color: $text-dark-blue;
   border-image: initial;
   border-radius: 3px;
   transition: border-color .15s ease-in-out 0s, box-shadow .15s ease-in-out 0s;
+  font-size: 1.8rem;
 
   @include box-shadow($input-box-shadow);
   @include transition($input-transition);
@@ -130,6 +128,10 @@ select.form-control {
 
 .form-group {
   margin-bottom: 3rem;
+}
+
+.form-hint {
+  @extend %p;
 }
 
 .form-text {
