@@ -62,7 +62,7 @@ $offset: 3.5rem;
       }
     }
 
-    .read-more,
+    .link-text,
     .time {
       position: absolute;
       background-color: $white;
@@ -79,7 +79,7 @@ $offset: 3.5rem;
       padding: .4em .4em .4em 0;
     }
 
-    .read-more {
+    .link-text {
       top: calc(100% + 2.5rem);
     }
 
@@ -180,7 +180,7 @@ $offset: 3.5rem;
           right: 0;
         }
 
-        .read-more,
+        .link-text,
         .time,
         .list-item__title {
           text-align: right;

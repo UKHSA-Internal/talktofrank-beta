@@ -27,6 +27,9 @@ const asyncPageSearch = loadable(() => import(/*webpackChunkName: 'search'*/'./c
 const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
+const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
+const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
+const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre-page'*/'./components/PageSupport/component.jsx')) // need to swap this out with an actual container
 /* eslint-enable */
 
 export default [{
@@ -72,6 +75,23 @@ export default [{
       exact: true,
       component: asyncPageNewsListContainer,
       loadData: ({number}) => fetchNewsList(number - 1)
+    },
+    {
+      path: '/support-near-you',
+      exact: true,
+      component: asyncPageSupportFormContainer
+    },
+    {
+      path: '/treatment-centre',
+      exact: true,
+      component: asyncPageSupportListContainer
+    },
+    {
+      path: '/treatment-centre/:slug',
+      exact: true,
+      component: asyncPageSupportContainer
+      // loadData: ({number}) => fetchSupportCentreList(number - 1) // for when the centres are wired up
+
     },
     {
       path: '/news/:slug',

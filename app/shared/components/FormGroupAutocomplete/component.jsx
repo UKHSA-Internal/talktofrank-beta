@@ -87,7 +87,7 @@ class FormGroup extends PureComponent {
     return (
       <div {...containerProps}>
         {children}
-        {res && children && <a className='read-more' href={`/search/${this.state.searchTermClean}`}>
+        {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
           View more results
         </a>}
       </div>
