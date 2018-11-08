@@ -19,20 +19,20 @@ const ResultDrug = props => {
 
   if (props.prefix &&
     props.searchTerm && props.searchTerm.split(' ').length < 2) {
-    invertedMuted = true
     const regexp = new RegExp('(' + props.searchTerm + ')', 'i')
-    // prevent rerender happening whilst data is loading
-    if (!regexp.test(name)) {
-      return null
+    if (name.match(regexp)) {
+      invertedMuted = true
+      name = name.replace(regexp, '<span class=\'white\'>$&</span>')
     }
-    name = name.replace(regexp, '<span class=\'white\'>$&</span>')
   }
+
+  const Tag = `${props.tag || 'h2'}`
 
   return (
     <a href={`/drug/${props.item.slug}`} className='list-link has-arrow'>
-      <h2 className='h5 d-inline-block spacing-bottom--flush spacing-right'>
+      <Tag className='h5 d-inline-block spacing-bottom--flush spacing-right'>
         <span className={`inverted ${invertedMuted ? 'inverted--muted' : null}`} dangerouslySetInnerHTML={{ __html: name }} />
-      </h2>
+      </Tag>
       {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}
       {props.summary &&
         <p>{ truncate(props.item.description, {

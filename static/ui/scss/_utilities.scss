@@ -46,3 +46,7 @@
 .vertical-align {
   @include vertical-align;
 }
+
+.break-word {
+  word-break: break-word;
+}

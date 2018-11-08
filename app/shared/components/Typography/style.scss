@@ -48,6 +48,7 @@ h1,
 h2,
 .h2,
 %h2 {
+  line-height: 1;
   font-size: 3.2rem;
 
   @include media-breakpoint-up(md) {
@@ -72,6 +73,7 @@ h3,
     font-size: 3.8rem;
   }
 }
+
 
 .heading-inverted {
   background-color: $gray-900;
@@ -141,12 +143,26 @@ h4,
 .h4,
 %lead,
 %h4 {
+  margin-bottom: 1rem;
   font-size: 2.4rem;
 }
 
 h5,
 .h5 {
   font-size: 2rem;
+}
+
+
+// a weird one, this. There is no clear-cut scale
+// so I've pinned this to an H6 - hate this : (
+h6,
+.h6,
+%h6 {
+  font-size: 2.8rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 3.2rem;
+  }
 }
 
 .lead {
@@ -175,20 +191,22 @@ mark,
 // Lists
 //
 
-.list-unstyled {
+.list-unstyled,
+.list-inline {
   @include list-unstyled;
 }
 
-// Inline turns list items into inline-block
-.list-inline {
-  @include list-unstyled;
+.list-unstyled--single {
+  > li {
+    margin-bottom: 1rem;
+  }
 }
 
 .list-inline-item {
   display: inline-block;
 
   &:not(:last-child) {
-    margin-right: $list-inline-padding;
+    margin-right: 2rem;
   }
 }
 
@@ -255,7 +273,9 @@ mark,
   font-size: 80%;
 }
 
-.regular {
+// essentially a paragraph reset
+.p {
+  font-size: 1.8rem;
   font-family: $font-family-sans-serif;
 }
 
@@ -273,10 +293,6 @@ b {
 %list-item--underlined,
 .list-item--underlined {
   border-bottom: 1px solid $gray-300;
-
-  &:first-child {
-    border-top: 1px solid $gray-300;
-  }
 
   .list-link {
     padding: 1em;
@@ -299,6 +315,10 @@ b {
       }
     }
   }
+}
+
+.link {
+  display: block;
 }
 
 .list-link {
@@ -351,7 +371,7 @@ b {
 }
 
 p {
-  a {
+  a:not(.link-text) {
     color: $pinkAccess;
     text-decoration: underline;
   }
@@ -416,7 +436,17 @@ p {
 .link-list {
   margin: 3rem 0 5rem;
 
-  &.link-list--has-arrow {
+  &--reversed {
+    .link-list__item {
+      border-bottom: 1px solid $gray-300;
+    }
+
+    .link-list__item:first-of-type {
+      border-top: 1px solid $gray-300;
+    }
+  }
+
+  &--has-arrow {
     .link-list__item {
       padding-left: 0;
 
@@ -440,6 +470,13 @@ p {
         &:hover {
           background-color: $gray-300;
         }
+      }
+    }
+
+
+    &.link-list--reversed {
+      .link-list__link {
+        padding-left: 0;
       }
     }
   }

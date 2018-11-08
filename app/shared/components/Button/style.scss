@@ -13,17 +13,29 @@
       width: auto;
     }
   }
+}
 
-  &.has-icon {
-    .btn__text {
-      border-bottom: 1px dashed;
-      border-bottom-color: $white;
-      display: inline-block;
-      margin-left: 1rem;
-      padding-bottom: .2em;
+
+.has-icon {
+  .link__text,
+  .btn__text {
+    border-bottom: 2px dashed;
+    border-bottom-color: $white;
+    display: inline-block;
+    margin-left: 1rem;
+    padding-bottom: .2em;
+
+    &.link__text--right {
+      color: $text-dark-blue;
+      margin-left: auto;
+      margin-right: 1rem;
+      border-bottom-color: $pink;
+    }
+
+    .icon {
+      margin-left: -4px;
     }
   }
-
 }
 
 .btn--alink {

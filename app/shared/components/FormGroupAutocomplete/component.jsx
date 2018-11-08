@@ -58,10 +58,12 @@ class FormGroup extends PureComponent {
 
   onSuggestionsFetchRequested ({ value }) {
     this.getSuggestions(value).then(resp => {
-      this.setState({
-        resultsTotal: resp.total,
-        autoCompleteData: resp.hits
-      })
+      if (resp.hits) {
+        this.setState({
+          resultsTotal: resp.total,
+          autoCompleteData: resp.hits
+        })
+      }
     })
   }
 
@@ -85,7 +87,7 @@ class FormGroup extends PureComponent {
     return (
       <div {...containerProps}>
         {children}
-        {res && children && <a className='read-more' href={`/search/${this.state.searchTermClean}`}>
+        {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
           View more results
         </a>}
       </div>
@@ -132,6 +134,7 @@ class FormGroup extends PureComponent {
     return <SearchResultComponent
       item={result._source}
       prefix={true}
+      tag={'p'}
       searchTerm={this.state.searchTerm}
       highlight={result.highlight
         ? result.highlight
@@ -144,7 +147,6 @@ class FormGroup extends PureComponent {
     let classes = classNames('input-group', this.props.className)
     const { searchTerm, autoCompleteData } = this.state
     const { id, labelHidden, label, button } = this.props
-
     return (
       <div className={classes}>
         <label htmlFor={id} className='form-label h3'>{label}</label>

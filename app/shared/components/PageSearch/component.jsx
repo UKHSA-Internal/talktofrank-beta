@@ -60,9 +60,9 @@ export default class SearchPage extends React.Component {
         </Grid>
         <hr className='light-grey' />
         <h5>Get in touch...</h5>
-        <p><a className='read-more' href="tel:03001236600">Call: 0300 123 6600</a></p>
-        <p><a className='read-more' href="sms:82111">Text: 82111</a></p>
-        <p><a className='read-more' href="mailto:03001236600">frank@talktofrank.com</a></p>
+        <p><a className='link-text' href="tel:03001236600">Call: 0300 123 6600</a></p>
+        <p><a className='link-text' href="sms:82111">Text: 82111</a></p>
+        <p><a className='link-text' href="mailto:03001236600">frank@talktofrank.com</a></p>
       </div>
     )
   }
@@ -71,12 +71,14 @@ export default class SearchPage extends React.Component {
     const { loading, location } = this.props
     const { total, hits } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
+    let title = `Search results for '${searchValue}'`
+    title = total && total > 0 ? `${total} ${title.toLowerCase()}` : title
     return (
       <React.Fragment>
         <Masthead path={location}/>
         <Accent className='accent--shallow'>
           <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={`Search results for '${searchValue}'`} />
+                   text={title} />
         </Accent>
         <Main>
           <Grid>

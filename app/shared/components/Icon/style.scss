@@ -1,0 +1,26 @@
+
+.icon--circle {
+  position: relative;
+  margin-right: 1rem;
+  background-color: $gray-300;
+  height: 18px;
+  width: 18px;
+  content: '';
+  display: inline-block;
+  border-radius: 100%;
+
+  &.icon--circle-red {
+    background-color: $red;
+    animation: pulse 1.5s infinite linear;
+  }
+}
+
+.icon--live-chat {
+  display: block;
+}
+
+@keyframes pulse {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}

@@ -28,8 +28,7 @@ $max-width: 1200px;
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/transitions';
-@import 'bootstrap/scss/input-group';
-//@import 'bootstrap/scss/card';
+//@import 'bootstrap/scss/input-group';
 // @import 'bootstrap/scss/utilities'; // not going to haul them all down
 // going to itemise these a bit as there is a lot of rubbish coming down
 
@@ -44,6 +43,7 @@ $max-width: 1200px;
 @import '../../../app/shared/components/Typography/style';
 @import '../../../app/shared/components/Masthead/style';
 @import '../../../app/shared/components/Toggle/style';
+@import '../../../app/shared/components/Collapsible/style';
 @import '../../../app/shared/components/PageSearch/style';
 @import '../../../app/shared/components/Button/style';
 @import '../../../app/shared/components/FormGroup/style';
@@ -61,3 +61,4 @@ $max-width: 1200px;
 @import '../../../app/shared/components/List/style';
 @import '../../../app/shared/components/Pagination/style';
 @import '../../../app/shared/components/Breakpoints/style';
+@import '../../../app/shared/components/Icon/style';

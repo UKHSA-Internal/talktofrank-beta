@@ -43,6 +43,10 @@ body {
   &--full-width {
     max-width: none;
   }
+
+  &--muted {
+    background-color: $gray-100;
+  }
 }
 
 main {

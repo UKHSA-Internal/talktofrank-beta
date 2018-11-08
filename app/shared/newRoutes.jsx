@@ -29,6 +29,10 @@ const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'ne
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
 const asyncPageContactForm = loadable(() => import(/*webpackChunkName: 'contact-form'*/'./containers/PageContactFormContainer/component.jsx'))
 const asyncPageFeedbackForm = loadable(() => import(/*webpackChunkName: 'feedback-form'*/'./containers/PageFeedbackFormContainer/component.jsx'))
+const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./components/PageContact/component.jsx'))
+const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
+const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
+
 /* eslint-enable */
 
 export default [{
@@ -82,10 +86,39 @@ export default [{
       loadData: () => fetchNewsList()
     },
     {
+      path: '/latest/:number',
+      exact: true,
+      component: asyncPageNewsListContainer,
+      loadData: ({number}) => fetchNewsList(number - 1)
+    },
+    {
+      path: '/support-near-you',
+      exact: true,
+      component: asyncPageSupportFormContainer
+    },
+    {
+      path: '/treatment-centre',
+      exact: true,
+      component: asyncPageSupportListContainer
+    },
+    {
+      path: '/treatment-centre/:slug',
+      exact: true,
+      component: asyncPageSupportContainer
+      // loadData: ({number}) => fetchSupportCentreList(number - 1) // for when the centres are wired up
+
+    },
+    {
       path: '/news/:slug',
       exact: true,
       component: asyncPageNewsContainer,
       loadData: ({slug}) => fetchPage(slug, 'news')
+    },
+    {
+      path: '/contact-frank',
+      exact: true,
+      component: asyncContactPage
+      //  ,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
     },
     {
       path: '/:slug',
