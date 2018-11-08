@@ -120,10 +120,10 @@ export default class PageContactForm extends React.PureComponent {
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
                 {this.props.fields.body &&
-    	    	      <div dangerouslySetInnerHTML={{
-        	    	    __html: documentToHtmlString(this.props.fields.body, contentFulFactory())
-              		}}/>
-            	  }
+                  <div dangerouslySetInnerHTML={{
+                    __html: documentToHtmlString(this.props.fields.body, contentFulFactory())
+                  }}/>
+                }
 
                 <Form className='spacing-bottom--large'>
                   <FormGroup type='email' className='form-control--reversed form-control--large' name='your-email' label='Your email' id='email-please' type='email'/>
