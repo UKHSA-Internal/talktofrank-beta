@@ -12,7 +12,7 @@ const FormGroup = props => {
 }
 
 FormGroup.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string
 }
 
 FormGroup.defaultProps = {

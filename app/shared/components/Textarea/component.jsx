@@ -17,7 +17,7 @@ const Textarea = props => {
 }
 
 Textarea.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string
 }
 
 Textarea.defaultProps = {
