@@ -1,7 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
-import { imageMap, removeMarkdown, removeTags } from '../../../shared/utilities'
+import { imageMap, removeMarkdown, removeTags, haversineDistance } from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -366,42 +366,65 @@ const treatmentCentresMarkedFields = [
 ]
 
 router.get('/treatment-centres', (req, res, next) => {
-  if (!req.query.page || !req.query.pageSize) {
+  if (!req.query.page ||
+    !req.query.pageSize ||
+    !req.query.location) {
     let error = new Error()
-    error.message = 'No pagination options provided'
+    error.message = 'No pagination options or geopoint provided'
     error.status = 500
     return next(error)
   }
 
+  // replace with google geocode lookup on location
+  const location = {
+    lat: 51.4507814,
+    lon: -2.603886399999965
+  }
+
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.treatmentCentre,
-    order: 'fields.name,sys.id',
     limit: req.query.pageSize,
-    skip: req.query.pageSize * req.query.page
+    skip: req.query.pageSize * req.query.page,
+    'fields.location[near]': `${location.lat},${location.lon}`,
+    'fields.addressStatus': true
   }
 
-  if (req.query.near) {
-    contentfulRequest['fields.location[near]'] = req.query.near
-  }
-
-  if (req.query.serviceType) {
+  if (req.query.serviceType &&
+    req.query.serviceType !== 'All Services' &&
+    req.query.serviceType !== '') {
+    console.log('Query', req.query)
     contentfulRequest['fields.serviceType'] = req.query.serviceType
   }
 
+  console.log('contentfulRequest', contentfulRequest)
+
   let response = {
-    list: []
+    results: []
   }
 
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
-      response.list = resolveResponse(contentfulResponse)
-      response.list
+      response.location = req.query.location
+      response.results = resolveResponse(contentfulResponse)
+      response.results
         .map(responseItem => {
+          responseItem.distance = haversineDistance(
+            location.lon,
+            location.lat,
+            responseItem.fields.location.lon,
+            responseItem.fields.location.lat,
+            true
+          )
+          responseItem.fields.summary = truncate(removeMarkdown(responseItem.fields.serviceInfo), {
+            'length': 100
+          })
           Object.keys(responseItem.fields)
-            .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) > 0)
+            .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
             .map(fieldKey => {
               responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
             })
+          response.results.sort((a, b) => a.distance > b.distance)
+
         })
       res.send(response)
     })
@@ -420,7 +443,8 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.treatmentCentre,
-    'fields.slug': slug
+    'fields.slug': slug,
+    'fields.addressStatus': true
   }
 
   contentfulClient.getEntries(contentfulRequest)
@@ -431,11 +455,12 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
         error.status = 404
         return next(error)
       }
+
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
-      response.title = response.fields.title
+      response.title = response.fields.name
       Object.keys(response.fields)
-        .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) > 0)
+        .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
         .map(fieldKey => {
           response.fields[fieldKey] = marked(response.fields[fieldKey])
         })

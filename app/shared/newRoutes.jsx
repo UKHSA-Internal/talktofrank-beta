@@ -6,6 +6,7 @@ import {
   fetchDrugList,
   fetchNewsList,
   fetchSearchTerm,
+  fetchSupportList,
   receivePageError
 } from './actions'
 
@@ -28,8 +29,8 @@ const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'dru
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
 const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
-const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
-const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre-page'*/'./components/PageSupport/component.jsx')) // need to swap this out with an actual container
+const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./containers/PageSupportListContainer/component.jsx'))
+const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre-page'*/'./containers/PageSupportContainer/component.jsx'))
 /* eslint-enable */
 
 export default [{
@@ -51,7 +52,7 @@ export default [{
       path: '/drug/:drugName',
       exact: true,
       component: asyncPageDrug,
-      loadData: ({drugName}) => fetchPage(drugName, 'drugs')
+      loadData: ({params}) => fetchPage(params.drugName, 'drugs')
     },
     {
       path: '/search',
@@ -62,7 +63,7 @@ export default [{
       path: '/search/:term',
       exact: true,
       component: asyncPageSearch,
-      loadData: ({term}) => fetchSearchTerm(term)
+      loadData: ({params}) => fetchSearchTerm(params.term)
     },
     {
       path: '/latest',
@@ -74,7 +75,13 @@ export default [{
       path: '/latest/:number',
       exact: true,
       component: asyncPageNewsListContainer,
-      loadData: ({number}) => fetchNewsList(number - 1)
+      loadData: ({params}) => fetchNewsList(params.number - 1)
+    },
+    {
+      path: '/news/:slug',
+      exact: true,
+      component: asyncPageNewsContainer,
+      loadData: ({params}) => fetchPage(params.slug, 'news')
     },
     {
       path: '/support-near-you',
@@ -84,39 +91,40 @@ export default [{
     {
       path: '/treatment-centre',
       exact: true,
-      component: asyncPageSupportListContainer
+      component: asyncPageSupportListContainer,
+      loadData: ({params, query}) => {
+        const queryObj = {
+          location: query['support-centre-postcode'],
+          serviceType: query['support-centre-options']
+        }
+        return fetchSupportList(0, queryObj)
+      }
     },
     {
       path: '/treatment-centre/:slug',
       exact: true,
-      component: asyncPageSupportContainer
-      // loadData: ({number}) => fetchSupportCentreList(number - 1) // for when the centres are wired up
+      component: asyncPageSupportContainer,
+      loadData: ({params}) => fetchPage(params.slug, 'treatment-centres')
 
-    },
-    {
-      path: '/news/:slug',
-      exact: true,
-      component: asyncPageNewsContainer,
-      loadData: ({slug}) => fetchPage(slug, 'news')
     },
     {
       path: '/:slug',
       exact: true,
       component: asyncPageGeneral,
-      loadData: ({slug}) => fetchPage(slug)
+      loadData: ({params}) => fetchPage(params.slug)
     },
     {
       path: '/:slug/:slug1',
       exact: true,
       component: asyncPageGeneral,
-      loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+      loadData: ({params}) => fetchPage([params.slug, params.slug1].join('/'))
     },
     {
       path: '/:slug/:slug1/:slug2',
       exact: true,
       component: asyncPageGeneral,
-      loadData: ({slug, slug1, slug2}) => (
-        fetchPage([slug, slug1, slug2].join('/'))
+      loadData: ({params}) => (
+        fetchPage([params.slug, params.slug1, params.slug2].join('/'))
       )
     },
     {

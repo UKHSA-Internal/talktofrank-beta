@@ -239,7 +239,6 @@ export default class PaginationBoxView extends React.PureComponent {
     const { current } = this.state
 
     const previousClasses = previousClassName + (current === 0 ? ` ${disabledClassName}` : '')
-    console.log(pageCount)
     const nextClasses = nextClassName + (current === pageCount - 1 ? ` ${disabledClassName}` : '')
 
     return (
