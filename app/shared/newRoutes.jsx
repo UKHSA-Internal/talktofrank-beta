@@ -104,7 +104,7 @@ export default [{
       path: '/contact-frank',
       exact: true,
       component: asyncContactPage
-      //,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
+      //  ,loadData: ({slug, slug1}) => fetchPage([slug, slug1].join('/'))
     },
     {
       path: '/:slug',

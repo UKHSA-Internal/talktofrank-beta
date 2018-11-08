@@ -14,11 +14,6 @@ $dims: 1rem;
     }
   }
 
-  .toggle__trigger {
-    display: block;
-    color: $text-dark-blue;
-  }
-
   .toggle__content,
   .toggle__trigger {
     padding-left: ($dims * 2);
@@ -26,6 +21,8 @@ $dims: 1rem;
 
   .toggle__trigger {
     position: relative;
+    display: block;
+    color: $text-dark-blue;
 
     &::before {
       content: '';
