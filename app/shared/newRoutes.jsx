@@ -32,6 +32,7 @@ const asyncPageFeedbackForm = loadable(() => import(/*webpackChunkName: 'feedbac
 const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./components/PageContact/component.jsx'))
 const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
+const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./components/PageSupport/component.jsx')) // need to swap this out with an actual container
 
 /* eslint-enable */
 

@@ -7,7 +7,10 @@ import { config } from 'config'
 export const REQUEST_PAGE = 'REQUEST_PAGE'
 export const RECEIVE_PAGE = 'RECEIVE_PAGE'
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR'
-export const RECEIVE_FORM_ERROR = 'RECEIVE_FORM_ERROR'
+
+export const FORM_REQUEST = 'FORM_REQUEST'
+export const FORM_REQUEST_SUCCESS = 'FORM_REQUEST_SUCCESS'
+export const FORM_REQUEST_ERROR = 'FORM_REQUEST_ERROR'
 
 const BAD_REQUEST = 400
 
@@ -25,14 +28,6 @@ export function receivePageError (status) {
   return {
     type: RECEIVE_PAGE_ERROR,
     error: status
-  }
-}
-
-export function receiveFormError (status, errors) {
-  return {
-    type: RECEIVE_FORM_ERROR,
-    status: status,
-    errors: errors
   }
 }
 
@@ -61,20 +56,40 @@ export function fetchSearchTerm (term, page = 0) {
   }
 }
 
-export function submitFeedbackForm() {
+export function formRequest (status) {
+  return {
+    type: FORM_REQUEST
+  }
+}
+
+export function formRequestSuccess (status, errors) {
+  return {
+    type: FORM_REQUEST_SUCCESS
+  }
+}
+
+export function formRequestError (status, errors) {
+  return {
+    type: FORM_REQUEST_ERROR,
+    status: status,
+    errors: errors
+  }
+}
+
+export function submitFeedbackForm(data) {
+  console.log(data)
   return dispatch => {
-    dispatch(requestPage())
+    dispatch(formRequest())
     let lookupUrl = apiHost + '/api/v1/contact/sendFeedback'
-    return axios.post(lookupUrl)
+    return axios.post(lookupUrl, data)
       .then(res => {
-        dispatch(receivePage(res.data))
+        dispatch(formRequestSuccess(res.data))
         return Promise.resolve(null)
       })
       .catch(err => {
-        if ( err.response.status === BAD_REQUEST ) {
-          dispatch(receiveFormError(err.response.status, err.response.data))
-        }
-        else {
+        if (err.response.status === BAD_REQUEST) {
+          dispatch(formRequestError(err.response.status, err.response.data))
+        } else {
           let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
           dispatch(receivePageError(status))
         }

@@ -62,8 +62,8 @@ router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema, 
 
 const feedbackSchema = {
   body: Joi.object().keys({
-    subject: Joi.string().required().max(100),
-    feedback: Joi.string().required().max(500)
+    subject: Joi.string().required().max(100).error(() => 'Enter a subject'),
+    feedback: Joi.string().required().max(500).error(() => 'Enter feedback')
   })
 }
 router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema, joiOptions)], async (req, res, next) => {
@@ -74,7 +74,7 @@ router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema, joiOptions)]
 
   let message = {
     to: config.serco.feedback.to,
-    from: `${config.serco.feedback.from} <${config.serco.feedback.fromName}>`,
+    from: `"${config.serco.feedback.fromName}" <${config.serco.feedback.from}>`,
     subject: `${config.serco.feedback.subjectPrefix}: ${req.body.subject}`,
     html: req.body.feedback
   }

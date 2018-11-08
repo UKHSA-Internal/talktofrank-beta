@@ -8,31 +8,36 @@ const initialState = {
 
 export function app (state = initialState, action) {
   switch (action.type) {
-    case actions.RECEIVE_FORM_ERROR:
+    case actions.FORM_REQUEST:
+      return Object.assign({}, state, {
+        loading: true
+      })
+    case actions.FORM_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        submitted: true
+      })
+    case actions.FORM_REQUEST_ERROR:
       return Object.assign({}, state, {
         status: action.status,
         errors: action.errors,
         error: true,
         loading: false
       })
-      break
     case actions.RECEIVE_PAGE:
       return Object.assign({}, state, {
         pageData: action.pageData,
         loading: false
       })
-      break
     case actions.REQUEST_PAGE:
       return Object.assign({}, state, {
         loading: true
       })
-      break
     case actions.RECEIVE_PAGE_ERROR:
       return Object.assign({}, state, {
         error: action.error,
         loading: false
       })
-      break
     default:
       return state
   }
