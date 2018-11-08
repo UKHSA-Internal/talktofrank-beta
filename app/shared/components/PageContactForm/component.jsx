@@ -10,6 +10,7 @@ import FormGroup from '../FormGroup/component.jsx'
 import FormHint from '../FormHint/component.jsx'
 import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
+import Anchor from '../Anchor/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
@@ -127,10 +128,10 @@ export default class PageContactForm extends React.PureComponent {
               </GridCol>
               <GridCol className='col-12 col-sm-5 col-md-4'>
                 <Heading className='h4' text='What happens next?'/>
-                <p>You’ll receive a reply from frank@talktofrank.com and the subject line won't have your question in it.</p>
+                <p>You’ll receive a reply from <Anchor label='Send an email to frank@talktofrank.com' href='mailto:frank@talktofrank.com' text='frank@talktofrank.com'/> and the subject line won't have your question in it.</p>
                 <p>FRANK will only reply to you - you'll never receive emails you didn't ask for.</p>
                 <p>If you're worried someone’s reading your messages, you can always call us or set up an alternative email account.</p>
-                <p>Learn more about our privacy policy</p>
+                <p>Learn more about our <a href='/privacy_policy'>privacy policy</a></p>
               </GridCol>
             </Grid>
           </Accent>
