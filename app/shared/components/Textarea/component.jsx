@@ -11,7 +11,7 @@ const Textarea = props => {
       <label className='form-label' htmlFor={props.id}>{props.label}
         {props.supporting && <FormHint>{props.supporting}</FormHint>}
       </label>
-      <textarea className='form-control form-control-full' id={props.id} name={props.name} rows={props.rows} defaultValue={props.value} {...required}></textarea>
+      <textarea className='form-control form-control-full form-control--reversed' id={props.id} name={props.name} rows={props.rows} defaultValue={props.value} {...required}></textarea>
     </div>
   )
 }

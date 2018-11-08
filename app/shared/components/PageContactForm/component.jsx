@@ -19,8 +19,7 @@ export default class PageContactForm extends React.PureComponent {
     const message = {
       label: 'Your message',
       id: 'Your-message',
-      name: 'message',
-      className: 'form-control--reversed form-control--large'
+      name: 'message'
     }
 
     const age = {
