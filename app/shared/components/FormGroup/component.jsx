@@ -6,13 +6,17 @@ const FormGroup = props => {
   return (
     <div className='form-group'>
       <label htmlFor={id} className='form-label'>{props.label}</label>
-      <input className={`form-control ${props.className || ''}`} id={id} name={props.name} type='text'/>
+      <input className={`form-control ${props.className || ''}`} id={id} name={props.name} type={props.type}/>
     </div>
   )
 }
 
 FormGroup.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.string,
+}
+
+FormGroup.defaultProps = {
+  type: 'text'
 }
 
 export default FormGroup

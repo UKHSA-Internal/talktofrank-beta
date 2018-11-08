@@ -12,18 +12,26 @@ import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
+import Textarea from '../Textarea/component.jsx'
 
 export default class PageContactForm extends React.PureComponent {
   render () {
+    const message = {
+      label: 'Your message',
+      id: 'Your-message',
+      name: 'message',
+      className: 'form-control--reversed form-control--large'
+    }
+
     const age = {
-      label: 'Choose a service type',
+      label: 'Your age ',
       supporting: '(optional)',
       selected: '',
       name: 'age-options',
       id: 'age-options',
       options: [
         {
-          label: 'Select one',
+          label: 'Please select',
           value: ''
         },
         {
@@ -70,13 +78,13 @@ export default class PageContactForm extends React.PureComponent {
     }
 
     const gender = {
-      label: 'Choose a service type',
+      label: 'Your gender ',
       supporting: '(optional)',
       name: 'gender-options',
       id: 'gender-options',
       options: [
         {
-          label: 'Select one',
+          label: 'Please select',
           value: ''
         },
         {
@@ -108,12 +116,13 @@ export default class PageContactForm extends React.PureComponent {
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
-                <Form className='spacing--large'>
-                  <FormGroup className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter your full postcode' id='support-centre-postcode' placeholder=''/>
+                <Form className='spacing-bottom--large'>
+                  <FormGroup type='email' className='form-control--reversed form-control--large' name='your-email' label='Your email' id='email-please' type='email'/>
                   <Select {...age} className='form-control--reversed form-control--large'/>
                   <Select {...gender} className='form-control--reversed form-control--large'/>
+                  <Textarea {...message}/>
                   <Button className='btn--primary'>
-                    Search
+                    Send message
                   </Button>
                 </Form>
               </GridCol>
