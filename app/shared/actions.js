@@ -86,24 +86,31 @@ export function fetchNewsList (page = 0) {
   }
 }
 
-export function fetchSupportList (page = 0) {
-  return true
-  // const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
+export function fetchSupportList (page = 0, {location, serviceType}) {
+  let queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
 
-  // return dispatch => {
-  //   dispatch(requestPage())
-  //   let lookupUrl = apiHost + '/api/v1/support' + queryString
-  //   return axios.get(lookupUrl)
-  //     .then(res => {
-  //       dispatch(receivePage(res.data))
-  //       return Promise.resolve(null)
-  //     })
-  //     .catch(err => {
-  //       let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
-  //       dispatch(receivePageError(status))
-  //       return Promise.reject(err)
-  //     })
-  // }
+  if (location) {
+    queryString += `&location=${encodeURIComponent(location)}`
+  }
+
+  if (serviceType) {
+    queryString += `&serviceType=${encodeURIComponent(serviceType)}`
+  }
+
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + '/api/v1/treatment-centres' + queryString
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+        return Promise.resolve(null)
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
+  }
 }
 
 export function fetchPage (slug, type = 'pages') {

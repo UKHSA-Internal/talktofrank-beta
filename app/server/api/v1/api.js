@@ -1,7 +1,7 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
-import { imageMap, removeMarkdown, removeTags } from '../../../shared/utilities'
+import { imageMap, removeMarkdown, removeTags, haversineDistance } from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -13,7 +13,6 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 const express = require('express')
 const yaml = require('js-yaml')
 const fs = require('fs')
-const util = require('util')
 const marked = require('marked')
 const router = express.Router()
 const sortBy = require('lodash.sortby')
@@ -69,10 +68,12 @@ router.get('/pages/:slug', (req, res, next) => {
       })
       .catch(error => next(error.response))
   } else {
-    contentfulClient.getEntries({
+    const contentfulRequest = {
       content_type: config.contentful.contentTypes.page,
       'fields.slug': decodeURIComponent(req.params.slug)
-    })
+    }
+
+    contentfulClient.getEntries(contentfulRequest)
       .then((contentfulResponse) => {
         if (contentfulResponse.total === 0) {
           let error = new Error()
@@ -90,7 +91,7 @@ router.get('/pages/:slug', (req, res, next) => {
   }
 })
 
-router.get('/drug/:slug', (req, res, next) => {
+router.get('/drugs/:slug', (req, res, next) => {
   if (!req.params.slug) {
     let error = new Error()
     error.message = 'Page id not set'
@@ -98,10 +99,12 @@ router.get('/drug/:slug', (req, res, next) => {
     return next(error)
   }
 
-  contentfulClient.getEntries({
+  const contentfulRequest = {
     content_type: config.contentful.contentTypes.drug,
     'fields.slug': decodeURIComponent(req.params.slug)
-  })
+  }
+
+  contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
@@ -177,13 +180,15 @@ router.get('/drug/:slug', (req, res, next) => {
  * Get drugs list data (A-Z)
  */
 router.get('/drugs', (req, res, next) => {
+  const contentfulRequest = {
+    content_type: config.contentful.contentTypes.drug
+  }
+
   let response = {
     list: []
   }
 
-  contentfulClient.getEntries({
-    content_type: config.contentful.contentTypes.drug
-  })
+  contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
@@ -255,16 +260,18 @@ router.get('/news', (req, res, next) => {
     return next(error)
   }
 
-  let response = {
-    list: []
-  }
-
-  contentfulClient.getEntries({
+  const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
     order: '-sys.createdAt,sys.id',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
-  })
+  }
+
+  let response = {
+    list: []
+  }
+
+  contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       let imageCount = 1
       if (contentfulResponse.total === 0) {
@@ -292,11 +299,11 @@ router.get('/news', (req, res, next) => {
 
         if (!v.fields.summary) {
           if (v.fields.body) {
-            v.fields.summary = _.truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
+            v.fields.summary = truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
               'length': 100
             })
           } else if (v.fields.bodyLegacy) {
-            v.fields.summary = _.truncate(removeMarkdown(v.fields.bodyLegacy), {
+            v.fields.summary = truncate(removeMarkdown(v.fields.bodyLegacy), {
               'length': 100
             })
           }
@@ -324,11 +331,12 @@ router.get('/news/:slug', (req, res, next) => {
   }
 
   const slug = decodeURIComponent(req.params.slug)
-
-  contentfulClient.getEntries({
+  const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
     'fields.slug': slug
-  })
+  }
+
+  contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
@@ -339,6 +347,118 @@ router.get('/news/:slug', (req, res, next) => {
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
       response.title = response.fields.title
+      res.send(response)
+    })
+    .catch(error => next(error.response))
+})
+
+/**
+ * treatment centres
+ */
+
+const treatmentCentresMarkedFields = [
+  'serviceInfo',
+  'timesSessions',
+  'catchmentArea',
+  'referralMethod',
+  'notes'
+]
+
+router.get('/treatment-centres', (req, res, next) => {
+  if (!req.query.page ||
+    !req.query.pageSize ||
+    !req.query.location) {
+    let error = new Error()
+    error.message = 'No pagination options or geopoint provided'
+    error.status = 500
+    return next(error)
+  }
+
+  // replace with google geocode lookup on location
+  const location = {
+    lat: 51.4507814,
+    lon: -2.603886399999965
+  }
+
+  const contentfulRequest = {
+    content_type: config.contentful.contentTypes.treatmentCentre,
+    limit: req.query.pageSize,
+    skip: req.query.pageSize * req.query.page,
+    'fields.location[near]': `${location.lat},${location.lon}`,
+    'fields.addressStatus': true
+  }
+
+  if (req.query.serviceType &&
+    req.query.serviceType !== 'All Services' &&
+    req.query.serviceType !== '') {
+    contentfulRequest['fields.serviceType'] = req.query.serviceType
+  }
+
+  let response = {
+    results: []
+  }
+
+  contentfulClient.getEntries(contentfulRequest)
+    .then((contentfulResponse) => {
+      response.location = req.query.location
+      response.results = resolveResponse(contentfulResponse)
+      response.results
+        .map(responseItem => {
+          responseItem.distance = haversineDistance(
+            location.lon,
+            location.lat,
+            responseItem.fields.location.lon,
+            responseItem.fields.location.lat,
+            true
+          )
+          responseItem.fields.summary = truncate(removeMarkdown(responseItem.fields.serviceInfo), {
+            'length': 100
+          })
+          Object.keys(responseItem.fields)
+            .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
+            .map(fieldKey => {
+              responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
+            })
+          response.results.sort((a, b) => a.distance > b.distance)
+        })
+      res.send(response)
+    })
+    .catch(error => next(error.response))
+})
+
+router.get('/treatment-centres/:slug', (req, res, next) => {
+  if (!req.params.slug) {
+    let error = new Error()
+    error.message = 'Page id not set'
+    error.status = 404
+    return next(error)
+  }
+
+  const slug = decodeURIComponent(req.params.slug)
+
+  const contentfulRequest = {
+    content_type: config.contentful.contentTypes.treatmentCentre,
+    'fields.slug': slug,
+    'fields.addressStatus': true
+  }
+
+  contentfulClient.getEntries(contentfulRequest)
+    .then((contentfulResponse) => {
+      if (contentfulResponse.total === 0) {
+        let error = new Error()
+        error.message = `Page not found`
+        error.status = 404
+        return next(error)
+      }
+
+      // merge contentful assets and includes
+      let response = resolveResponse(contentfulResponse)[0]
+      response.title = response.fields.name
+      Object.keys(response.fields)
+        .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
+        .map(fieldKey => {
+          response.fields[fieldKey] = marked(response.fields[fieldKey])
+        })
       res.send(response)
     })
     .catch(error => next(error.response))
