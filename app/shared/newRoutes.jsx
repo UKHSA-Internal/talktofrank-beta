@@ -128,11 +128,6 @@ export default [{
       component: asyncContactPage
     },
     {
-      path: '/contact',
-      exact: true,
-      component: asyncContactFormPage
-    },
-    {
       path: '/:slug',
       exact: true,
       component: asyncPageGeneral,

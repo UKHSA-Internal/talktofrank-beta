@@ -14,6 +14,8 @@ import Anchor from '../Anchor/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { contentFulFactory } from '../../contentful'
 
 export default class PageContactForm extends React.PureComponent {
   render () {
@@ -117,9 +119,9 @@ export default class PageContactForm extends React.PureComponent {
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {props.fields.body &&
+                {this.props.fields.body &&
     	    	      <div dangerouslySetInnerHTML={{
-        	    	    __html: documentToHtmlString(props.fields.body, contentFulFactory())
+        	    	    __html: documentToHtmlString(this.props.fields.body, contentFulFactory())
               		}}/>
             	  }
 
