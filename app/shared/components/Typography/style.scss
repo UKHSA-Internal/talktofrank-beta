@@ -274,6 +274,7 @@ mark,
 }
 
 // essentially a paragraph reset
+%p,
 .p {
   font-size: 1.8rem;
   font-family: $font-family-sans-serif;
@@ -371,9 +372,8 @@ b {
 }
 
 p {
-  a:not(.link-text) {
-    color: $pinkAccess;
-    text-decoration: underline;
+  a {
+    @include link;
   }
 }
 
