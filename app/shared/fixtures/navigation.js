@@ -150,7 +150,7 @@ export const footer = [
   },
   {
     label: 'Find a support centre',
-    url: '#',
+    url: '/support-near-you',
     tracking: {
       label: 'Find a support centre - footer',
       action: 'Click',

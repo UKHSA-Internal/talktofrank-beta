@@ -8,6 +8,7 @@ import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
+import Spinner from '../Spinner/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.Component {
@@ -59,6 +60,7 @@ export default class PageNewsList extends React.Component {
               }
             </GridCol>
           </Grid>
+          {loading && <Spinner />}
         </Main>
         <Footer/>
         <GA/>

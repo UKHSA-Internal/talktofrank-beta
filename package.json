@@ -109,6 +109,7 @@
     "npm": "^5.10.0",
     "pa11y": "^5.0.4",
     "picturefill": "^3.0.2",
+    "prop-types": "^15.6.2",
     "puppeteer": "^1.9.0",
     "react": "^16.5.2",
     "react-autosuggest": "^9.4.2",
