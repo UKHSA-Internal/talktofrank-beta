@@ -77,7 +77,7 @@ export default class PageSupport extends React.PureComponent {
               <Heading className='h4' text='Address' />
               <Longform text={address}/>
               <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
-              <div className='hidden--xs'>
+              <div className='hidden--sm-up'>
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Get in touch' />
                 {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
