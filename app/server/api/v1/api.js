@@ -349,11 +349,11 @@ router.get('/news/:slug', (req, res, next) => {
       response.title = response.fields.title
 
       if (response.fields.originalPublishDate) {
-        response.fields['date'] = response.fields.originalPublishDate
-        response.fields['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+        response['date'] = response.fields.originalPublishDate
+        response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
       } else {
-        response.fields['date'] = response.sys.updatedAt
-        response.fields['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+        response['date'] = response.sys.updatedAt
+        response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
       }
 
       if (response.fields.image) {

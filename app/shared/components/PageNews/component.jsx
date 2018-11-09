@@ -26,13 +26,13 @@ export default class PageNews extends React.PureComponent {
             {this.props.fields.image && <GridCol className='col-12 list-offset'>
               <Article {...this.props} />
             </GridCol>}
-            {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2'>
-              {this.props.fields.date && <Time time={this.props.fields.dateFormatted} dateTime={this.props.fields.date}/>}
+            {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--large'>
+              {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
               <Heading text={this.props.fields.title} className='h3 spacing-bottom--large'/>
             </GridCol>}
             <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
               {this.props.fields.body &&
-                <div dangerouslySetInnerHTML={{
+                <div className='long-form' dangerouslySetInnerHTML={{
                   __html: documentToHtmlString(this.props.fields.body, contentFulFactory())
                 }}/>
               }
