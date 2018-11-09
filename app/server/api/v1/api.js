@@ -348,6 +348,14 @@ router.get('/news/:slug', (req, res, next) => {
       let response = resolveResponse(contentfulResponse)[0]
       response.title = response.fields.title
 
+      if (response.fields.originalPublishDate) {
+        response['date'] = response.fields.originalPublishDate
+        response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+      } else {
+        response['date'] = response.sys.updatedAt
+        response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+      }
+
       if (response.fields.image) {
         response.fields.image = imageMap(response.fields.image)
       }
@@ -355,6 +363,7 @@ router.get('/news/:slug', (req, res, next) => {
       if (response.fields.slug) {
         delete response.fields.slug
       }
+
       response.fields['type'] = 'h1'
       res.send(response)
     })
