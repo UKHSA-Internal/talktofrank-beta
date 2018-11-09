@@ -17,7 +17,6 @@ import { contentFulFactory } from '../../contentful'
 export default class PageNews extends React.PureComponent {
 
   render () {
-    console.log(this.props.fields)
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
@@ -26,7 +25,7 @@ export default class PageNews extends React.PureComponent {
             {this.props.fields.image && <GridCol className='col-12 list-offset'>
               <Article {...this.props} />
             </GridCol>}
-            {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--large'>
+            {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--single'>
               {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
               <Heading text={this.props.fields.title} className='h3 spacing-bottom--large'/>
             </GridCol>}
