@@ -27,6 +27,24 @@ const PageNews = props => (
             }}/>
           }
         </GridCol>
+        <GridCol className='col-12 col-md-8 spacing-top--single sm-spacing-top--large'>
+          {props.fields.relatedDrugs && props.fields.relatedDrugs.length > 0 &&
+            <React.Fragment>
+              <Heading className='h4' text='Related drugs' />
+              <ul className='list-unstyled list-offset'>
+                {props.fields.relatedDrugs
+                  .map(item => (
+                    <li className='list-item--underlined'>
+                      <a className='list-link' href={`/drug/${item.fields.slug}`} >
+                        <Heading type='h3' className='list-item__title h5 d-inline-block' text={item.fields.drugName} />
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </React.Fragment>
+          }
+        </GridCol>
       </Grid>
     </Main>
     <Footer />
