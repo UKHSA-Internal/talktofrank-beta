@@ -23,6 +23,12 @@
   }
 }
 
+.hidden--xs {
+  @include media-breakpoint-down(xs) {
+    display: none !important;
+  }
+}
+
 .hidden--md {
   @include media-breakpoint-down(md) {
     display: none !important;
