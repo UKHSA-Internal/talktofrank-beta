@@ -8,6 +8,7 @@ import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Picture from '../Picture/component'
 import Main from '../Main/component'
+import Longform from '../Longform/component'
 import Article from '../Article/component'
 import Time from '../Time/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
@@ -22,18 +23,14 @@ export default class PageNews extends React.PureComponent {
         <Main>
           <Grid>
             {this.props.fields.image && <GridCol className='col-12 list-offset'>
-              <Article {...this.props} />
+              <Article {...this.props} synonyms={null} realName={null}/>
             </GridCol>}
             {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--single'>
               {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
               <Heading text={this.props.fields.title} className='h3 spacing-bottom--large'/>
             </GridCol>}
             <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
-              {this.props.fields.body &&
-                <div className='long-form' dangerouslySetInnerHTML={{
-                  __html: documentToHtmlString(this.props.fields.body, contentFulFactory())
-                }}/>
-              }
+              {this.props.fields.body && <Longform text={documentToHtmlString(this.props.fields.body, contentFulFactory())}/>}
               {this.props.fields.relatedDrugs && <React.Fragment><Heading text='Related drugs' className='h3 spacing-top--large spacing-bottom--single'/><ul className='list-unstyled'>
                 {this.props.fields.relatedDrugs.map((v, i) => {
                   v.fields.description = ''

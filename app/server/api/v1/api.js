@@ -300,11 +300,11 @@ router.get('/news', (req, res, next) => {
         if (!v.fields.summary) {
           if (v.fields.body) {
             v.fields.summary = truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
-              'length': 100
+              'length': 240
             })
           } else if (v.fields.bodyLegacy) {
             v.fields.summary = truncate(removeMarkdown(v.fields.bodyLegacy), {
-              'length': 100
+              'length': 240
             })
           }
         }
@@ -354,6 +354,18 @@ router.get('/news/:slug', (req, res, next) => {
       } else {
         response['date'] = response.sys.updatedAt
         response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+      }
+
+      if (!response.fields.summary) {
+        if (response.fields.body) {
+          response.fields.summary = truncate(removeTags(documentToHtmlString(response.fields.body, contentFulFactory())), {
+            'length': 120
+          })
+        } else if (response.fields.bodyLegacy) {
+          response.fields.summary = truncate(removeMarkdown(response.fields.bodyLegacy), {
+            'length': 120
+          })
+        }
       }
 
       if (response.fields.image) {
