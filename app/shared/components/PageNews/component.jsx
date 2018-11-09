@@ -7,31 +7,39 @@ import Footer from '../Footer/component'
 import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
+import Picture from '../Picture/component'
 import Main from '../Main/component'
+import Article from '../Article/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
-const PageNews = props => (
-  <React.Fragment>
-    <Masthead path={props.location}/>
-    <Accent className='accent--shallow'>
-      <Heading type='h1' className='h2 inverted spacing-left spacing--single' text={props.title} />
-    </Accent>
-    <Divider className='hr--muted' />
-    <Main>
-      <Grid>
-        <GridCol className='col-12 col-md-8'>
-          {props.fields.body &&
-            <div dangerouslySetInnerHTML={{
-              __html: documentToHtmlString(props.fields.body, contentFulFactory())
-            }}/>
-          }
-        </GridCol>
-      </Grid>
-    </Main>
-    <Footer />
-    <GA />
-  </React.Fragment>
-)
+export default class PageNews extends React.PureComponent {
 
-export default PageNews
+  render () {
+
+
+console.log(this.props.fields)
+
+    return (
+      <React.Fragment>
+        <Masthead path={this.props.location}/>
+        <Main>
+          <Grid>
+            <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
+              <Article {...this.props} />
+            </GridCol>
+            <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
+              {this.props.fields.body &&
+                <div dangerouslySetInnerHTML={{
+                  __html: documentToHtmlString(this.props.fields.body, contentFulFactory())
+                }}/>
+              }
+            </GridCol>
+          </Grid>
+        </Main>
+        <Footer />
+        <GA />
+      </React.Fragment>
+    )
+  }
+}

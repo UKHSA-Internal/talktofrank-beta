@@ -347,6 +347,15 @@ router.get('/news/:slug', (req, res, next) => {
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
       response.title = response.fields.title
+
+      if (response.fields.image) {
+        response.fields.image = imageMap(response.fields.image)
+      }
+
+      if (response.fields.slug) {
+        delete response.fields.slug
+      }
+      response.fields['type'] = 'h1'
       res.send(response)
     })
     .catch(error => next(error.response))
