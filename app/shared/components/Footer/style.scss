@@ -3,6 +3,11 @@
   color: $white;
   background-color: $text-dark-blue;
   font-family: $font-family-heavy;
+  margin-top: 8rem;
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 12rem;
+  }
 
   .nav-item {
     display: inline-block;
