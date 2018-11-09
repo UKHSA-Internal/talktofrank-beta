@@ -25,7 +25,7 @@ console.log(this.props.fields)
         <Masthead path={this.props.location}/>
         <Main>
           <Grid>
-            <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
+            <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2 list-offset'>
               <Article {...this.props} />
             </GridCol>
             <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
