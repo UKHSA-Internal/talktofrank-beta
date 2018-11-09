@@ -203,7 +203,7 @@ router.get('/drugs', (req, res, next) => {
           response.list.push({
             // name: item.fields.name.toLowerCase(),
             name: item.fields.drugName,
-            slug: `/drug/${item.fields.slug}`,
+            slug: item.fields.slug,
             synonyms: item.fields.synonyms,
             description: item.fields.description
           })
@@ -212,7 +212,7 @@ router.get('/drugs', (req, res, next) => {
             .map(synonym => {
               response.list.push({
                 name: synonym.trim(),
-                slug: `/drug/${item.fields.slug}`,
+                slug: item.fields.slug,
                 parent: item.fields.drugName
               })
             })
@@ -349,11 +349,11 @@ router.get('/news/:slug', (req, res, next) => {
       response.title = response.fields.title
 
       if (response.fields.originalPublishDate) {
-        response['date'] = response.fields.originalPublishDate
-        response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+        response.fields['date'] = response.fields.originalPublishDate
+        response.fields['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
       } else {
-        response['date'] = response.sys.updatedAt
-        response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+        response.fields['date'] = response.sys.updatedAt
+        response.fields['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
       }
 
       if (response.fields.image) {
