@@ -15,7 +15,6 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
 export default class PageNews extends React.PureComponent {
-
   render () {
     return (
       <React.Fragment>

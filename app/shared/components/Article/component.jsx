@@ -5,10 +5,10 @@ import Time from '../Time/component.jsx'
 import Heading from '../Heading/component.jsx'
 import PropTypes from 'prop-types'
 
-const Link = ({ href, children }) => (href !== undefined ?
-  <a href={href} className='list-item__link'>
-    {children}
-  </a>
+const Link = ({ href, children }) => (href !== undefined
+  ? <a href={href} className='list-item__link'>
+      {children}
+    </a>
   : children
 )
 
