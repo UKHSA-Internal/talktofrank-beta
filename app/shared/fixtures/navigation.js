@@ -94,7 +94,7 @@ export const primary = [
   },
   {
     label: 'Contact',
-    url: '/contact',
+    url: '/contact-frank',
     tracking: {
       label: 'Contact Frank',
       action: 'Click',

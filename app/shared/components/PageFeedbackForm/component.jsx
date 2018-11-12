@@ -8,23 +8,13 @@ import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
+import Form from '../Form/component.jsx'
+import FormGroup from '../FormGroup/component'
+import Textarea from '../Textarea/component'
+import Button from '../Button/component.jsx'
+import { ErrorSummary, ErrorMessage } from '../FormErrors/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
-
-const ErrorMessage = ({message}) => (
-  <div className="invalid-feedback">{message}</div>
-)
-
-const ErrorSummary = ({errors}) => (
-  <div>
-    <h3>There is a problem</h3>
-    <ul>
-      {errors.map(error => (
-        <li><a href={`#${error.field}`}>{error.message}</a></li>
-      ))}
-    </ul>
-  </div>
-)
 
 export default class PageFeedbackForm extends React.Component {
   constructor(props) {
@@ -49,6 +39,7 @@ export default class PageFeedbackForm extends React.Component {
   }
 
   handleSubmit(event) {
+    console.log(this.state)
     event.preventDefault()
     this.props.submitForm(this.state)
   }
@@ -60,7 +51,7 @@ export default class PageFeedbackForm extends React.Component {
 
     let errors = []
     this.props.errors.forEach(error => {
-      errors[error.field] = <ErrorMessage message={error.message} />
+      errors[error.field] = error.message
     })
 
     return errors
@@ -75,44 +66,39 @@ export default class PageFeedbackForm extends React.Component {
         <Accent className='accent--shallow'>
           <Heading type='h1' className='h2 inverted spacing-left spacing--single' text={this.props.pageData.title} />
         </Accent>
-        <Divider className='hr--muted' />
-        <Main>
-          <Grid>
-            <GridCol className='col-12 col-md-8'>
-              {this.props.pageData.fields.body &&
-                <div dangerouslySetInnerHTML={{
-                  __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
-                }}/>
-              }
+        <Main className='main--muted main--full-width'>
+          <Accent>
+            <Grid>
+              <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
+                {this.props.pageData.fields.body &&
+                  <div dangerouslySetInnerHTML={{
+                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
+                  }}/>
+                }
 
-              {this.props.error &&
-                <ErrorSummary errors={this.props.errors} />
-              }
+                {this.props.error &&
+                  <ErrorSummary errors={this.props.errors} />
+                }
 
-              {this.props.submitted &&
-                <div className="alert alert-success" role="alert">
+                {this.props.submitted &&
+                  <div className="alert alert-success" role="alert">
                     Thank you for your feedback!
-                </div>
-              }
+                  </div>
+                }
 
-              <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <label className="form-label" for="subject">Subject</label>
-                  <input className={`form-control`} id="subject" type="text" name="subject" type="text" value={this.state.subject} onChange={this.handleChange} />
-                  {errors['subject']}
-                  <span>Must be less than 100 characters</span>
-                </div>
-                <div class="form-group">
-                  <label className="form-label" for="feeback">Feedback</label>
-                  <textarea className="form-control" id="feedback" name="feedback" value={this.state.feedback} onChange={this.handleChange} />
-                  {errors['feedback']}
-                  <span>Must be less than 500 characters</span>
-                </div>
-                <input type="submit" value="Submit" disabled={this.props.loading} />
-              </form>
+                {!this.props.submitted &&
+                <Form className='spacing-bottom--large' handleSubmit={this.handleSubmit}>
+                  <FormGroup className='form-control--reversed form-control--large' label="Subject" id="subject" name="subject" value={this.state.subject} onChange={this.handleChange} error={errors.subject} hint="Must be less than 100 characters" />
+                  <Textarea label="Feedback" id="feedback" name="feedback" value={this.state.feedback} onChange={this.handleChange} error={errors.feedback} hint="Must be less than 500 characters" />
+                  <Button className='btn--primary' disabled={this.props.loading}>
+                    Send feedback
+                  </Button>
+                </Form>
+                }
 
-            </GridCol>
-          </Grid>
+              </GridCol>
+            </Grid>
+          </Accent>
         </Main>
         <Footer />
         <GA/>
