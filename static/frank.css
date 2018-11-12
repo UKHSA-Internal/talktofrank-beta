@@ -1,109 +1,124 @@
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6;
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+@-ms-viewport {
+  width: device-width; }
+
 body {
-    font-family: ITC Avant Garde Gothic, Arial;
-    font-size: 12pt;
-    color:#3a3145;
-    width:500px;
-    height:450px;
-    margin-top:0px;
-    margin-bottom:0px;
-    margin-left:auto;
-    margin-right:auto;
-    background-color:#F2F2F2; /*#F4F4F4;*/
-}
+  margin: 0;
+  font-family: "robotoregular", Roboto, Arial, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #0E3944;
+  text-align: left;
+  background-color: #fff; }
 
 #helpline
 {
-    font-family: ITC Avant Garde Gothic, Arial;
-    height:40px;
-    width:500px;
-    float:none;
-    /*color: black;*/
-    text-align:justify;
     padding-top:15px;
+    margin-bottom: 30px;
 }
 
 .details
 {
-    font-family: ITC Avant Garde Gothic, Arial;
     margin:none;
     padding:none;
-    font-size: 10pt;
     font-weight: normal;
     color: Black;
 }
 
 #chatOffLine
 {
-    font-family: ITC Avant Garde Gothic, Arial;
     margin:none;
-    font-size: 10pt;
     font-weight: normal;
     text-align:left;
     color: Red;
 }
 
-#entryForm
-{
-    width: 600px;
-    /*width:75%;    */
+#entryForm,
+#entryForm1,
+#entryForm2,
+#entryForm3 {
+    width: 100% !important;
+    margin-bottom: 3rem;
 }
 
-#ChatOnline
-{
-    font-family: ITC Avant Garde Gothic, Arial;
-    font-size:14pt;
-    color:Black;
-    font-weight:normal;
-    padding: none;
+#ChatOnline {
+  font-size: 2.1rem;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  font-family: "Archivo Bold", sans-serif;
 }
 
 .LabelColumn
 {
-    font-family: ITC Avant Garde Gothic, Arial;
-    font-size:14pt;
     font-weight:normal;
-    color:Black;
-    width:200px;
+    display: block;
+    text-transform: lowercase !important;
+    text-transform: capitalize !important;
+    width: auto !important;
+}
+
+td[style] {
+  width: 0 !important;
 }
 
 .FormHint
 {
-    font-family: ITC Avant Garde Gothic, Arial;
-    font-size:10pt;
+    font-size: 1.4rem;
     font-weight:normal;
-    color:#FC006A;
-    width:200px;
+    color: #D10058;
 }
 
-.ControlWhite
-{
-    font-family: ITC Avant Garde Gothic, Arial;
-    font-size:11pt;
-    font-weight:normal;
-    background-color:White;
-    border-color:Black; border-left-width:3px; border-top-width:3px; border-bottom-width:1px; border-right-width:1px;
-    color:#666666;
-    width: 490px;
-    overflow:auto;
+.ControlWhite,
+.ControlBlack {
+  display: block;
+  width: 100%;
+  height: 3em;
+  max-width: 50rem;
+  background-clip: padding-box;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: .375em .75em;
+  -o-border-image: initial;
+     border-image: initial;
+  border-radius: 3px;
+  -o-transition: border-color .15s ease-in-out 0s, box-shadow .15s ease-in-out 0s;
+  transition: border-color .15s ease-in-out 0s, box-shadow .15s ease-in-out 0s;
+  font-size: 1.8rem;
+  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.ControlBlack
-{
-    font-family: ITC Avant Garde Gothic, Arial;
-    text-align:right;
-    font-size:11pt;
-    font-weight:normal;
-    background-color:Black;
-    border-color:Black;
-    color:white;
-    width: 225px;
+.ControlBlack {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  line-height: 1;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 40'><polygon points='0,0 60,0 30,40' style='fill:#D10058;'/></svg>");
+
+  padding: .75em;
+  background-size: .8em auto;
+  background-position: right .8em center;
 }
 
 #chatArea
 {
-    /*background:white url('bgBox.gif') no-repeat scroll center bottom;*/
-    /*width:100%;*/
-    width: 500px;
+
     min-height:300px;
     max-height:300px;
 }
@@ -114,15 +129,12 @@ body {
     padding: 0px;
     height:60px;
     max-height: 300px;
-    width:500px;
 }
 
 #ChatWindow
 {
-    font-family: ITC Avant Garde Gothic, Arial;
     margin: 2px;
     padding: 0px;
-    width:500px;
     height:200px;
     border: 0;
     overflow: -moz-scrollbars-vertical;
@@ -132,7 +144,6 @@ body {
 
 #WhoIsTyping
 {
-    width: 500px;
     height: 20px;
 }
 
@@ -152,13 +163,11 @@ body {
 
 #ChatStatus
 {
-    width:600px;
     height:30px;
     margin: 0px;
     border:none;
     vertical-align:middle;
     text-align: center;
-    font-family: ITC Avant Garde Gothic, Arial;
     font-size: 14pt;
 }
 
