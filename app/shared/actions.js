@@ -76,11 +76,10 @@ export function formRequestError (status, errors) {
   }
 }
 
-export function submitFeedbackForm(data) {
-  console.log(data)
+export function submitForm(data, form) {
   return dispatch => {
     dispatch(formRequest())
-    let lookupUrl = apiHost + '/api/v1/contact/sendFeedback'
+    let lookupUrl = apiHost + '/api/v1/contact/' + form
     return axios.post(lookupUrl, data)
       .then(res => {
         dispatch(formRequestSuccess(res.data))

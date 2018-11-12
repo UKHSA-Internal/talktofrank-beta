@@ -9,9 +9,9 @@ const FormGroup = props => {
   return (
     <div className='form-group'>
       <label htmlFor={id} className='form-label'>{props.label}</label>
-      <input className={`form-control ${props.className || ''}`} id={id} name={props.name} value={props.value} type="text" onChange={props.onChange}/>
-      {props.error && <ErrorMessage message={props.error} />}
       {props.hint && <FormHint>{props.hint}</FormHint>}
+      {props.error && <ErrorMessage message={props.error} />}
+      <input className={`is-invalid form-control ${props.className || ''}`} id={id} name={props.name} value={props.value} type="text" onChange={props.onChange}/>
     </div>
   )
 }

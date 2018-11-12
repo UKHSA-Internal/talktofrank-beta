@@ -7,6 +7,7 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Form from '../Form/component.jsx'
 import FormGroup from '../FormGroup/component.jsx'
+import ScrollTo from '../ScrollTo/component.jsx'
 import FormHint from '../FormHint/component.jsx'
 import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
@@ -14,14 +15,49 @@ import Anchor from '../Anchor/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
+import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
 export default class PageContactForm extends React.PureComponent {
+  static defaultProps = {
+    errors: [],
+    error: false
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      nickname: '',
+      ageRange: 'Undisclosed',
+      gender: 'Undisclosed',
+      message: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(event) {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.submitForm(this.state)
+  }
+
   render () {
     const message = {
       label: 'Your message',
-      id: 'Your-message',
+      id: 'message',
       name: 'message'
     }
 
@@ -29,12 +65,12 @@ export default class PageContactForm extends React.PureComponent {
       label: 'Your age ',
       supporting: '(optional)',
       selected: '',
-      name: 'age-options',
-      id: 'age-options',
+      name: 'ageRange',
+      id: 'ageRange',
       options: [
         {
           label: 'Please select',
-          value: ''
+          value: 'Undisclosed'
         },
         {
           label: 'Under 11',
@@ -82,31 +118,33 @@ export default class PageContactForm extends React.PureComponent {
     const gender = {
       label: 'Your gender ',
       supporting: '(optional)',
-      name: 'gender-options',
-      id: 'gender-options',
+      name: 'gender',
+      id: 'gender',
       options: [
         {
           label: 'Please select',
-          value: ''
+          value: 'Undisclosed'
         },
         {
           label: 'Female',
-          value: 'female'
+          value: 'Female'
         },
         {
           label: 'Male',
-          value: 'male'
+          value: 'Male'
         },
         {
           label: 'Other',
-          value: 'other'
+          value: 'Other'
         },
         {
           label: 'Prefer not to say',
-          value: 'not-saying'
+          value: 'Undisclosed'
         }
       ]
     }
+
+    let errors = this.props.error ? getErrors(this.props.errors) : []
 
     return (
       <React.Fragment>
@@ -119,21 +157,38 @@ export default class PageContactForm extends React.PureComponent {
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {this.props.fields.body &&
+                {this.props.pageData.fields.body &&
                   <div dangerouslySetInnerHTML={{
-                    __html: documentToHtmlString(this.props.fields.body, contentFulFactory())
+                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
                   }}/>
                 }
 
-                <Form className='spacing-bottom--large'>
-                  <FormGroup type='email' className='form-control--reversed form-control--large' name='your-email' label='Your email' id='email-please' type='email'/>
-                  <Select {...age} className='form-control--reversed form-control--large'/>
-                  <Select {...gender} className='form-control--reversed form-control--large'/>
-                  <Textarea {...message}/>
-                  <Button className='btn--primary'>
+                {this.props.error &&
+                  <ScrollTo>
+                    <ErrorSummary errors={this.props.errors} />
+                  </ScrollTo>
+                }
+
+                {this.props.submitted &&
+                  <ScrollTo>
+                    <div className="alert alert-success" role="alert">
+                      Thank you for your message!
+                    </div>
+                  </ScrollTo>
+                }
+
+                {!this.props.submitted &&
+                <Form className='spacing-bottom--large' handleSubmit={this.handleSubmit}>
+                  <FormGroup type='email' error={errors.email} className='form-control--reversed form-control--large' label='Your email' id='email' value={this.state.email} onChange={this.handleChange} name='email'/>
+                  <FormGroup type='text' error={errors.nickname} className='form-control--reversed form-control--large' label='Your nickname' id='nickname' value={this.state.nickname} onChange={this.handleChange} name='nickname'/>
+                  <Select {...age} error={errors.ageRange} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.ageRange}/>
+                  <Select {...gender} error={errors.gender} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.gender}/>
+                  <Textarea {...message} error={errors.message} value={this.state.message} onChange={this.handleChange}/>
+                  <Button className='btn--primary' disabled={this.props.loading}>
                     Send message
                   </Button>
                 </Form>
+                }
               </GridCol>
               <GridCol className='col-12 col-sm-5 col-md-4'>
                 <Heading className='h4' text='What happens next?'/>

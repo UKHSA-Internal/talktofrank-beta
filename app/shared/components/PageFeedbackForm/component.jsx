@@ -9,14 +9,20 @@ import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
 import Form from '../Form/component.jsx'
+import ScrollTo from '../ScrollTo/component.jsx'
 import FormGroup from '../FormGroup/component'
 import Textarea from '../Textarea/component'
 import Button from '../Button/component.jsx'
-import { ErrorSummary, ErrorMessage } from '../FormErrors/component'
+import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
 export default class PageFeedbackForm extends React.Component {
+  static defaultProps = {
+    errors: [],
+    error: false
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -39,26 +45,12 @@ export default class PageFeedbackForm extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state)
     event.preventDefault()
     this.props.submitForm(this.state)
   }
 
-  getErrors() {
-    if (!this.props.error) {
-      return []
-    }
-
-    let errors = []
-    this.props.errors.forEach(error => {
-      errors[error.field] = error.message
-    })
-
-    return errors
-  }
-
   render() {
-    let errors = this.getErrors()
+    let errors = this.props.error ? getErrors(this.props.errors) : []
 
     return (
       <React.Fragment>
@@ -70,20 +62,19 @@ export default class PageFeedbackForm extends React.Component {
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
-                {this.props.pageData.fields.body &&
-                  <div dangerouslySetInnerHTML={{
-                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
-                  }}/>
-                }
 
                 {this.props.error &&
-                  <ErrorSummary errors={this.props.errors} />
+                  <ScrollTo>
+                    <ErrorSummary ref={this.formMessage} errors={this.props.errors} />
+                  </ScrollTo>
                 }
 
                 {this.props.submitted &&
-                  <div className="alert alert-success" role="alert">
-                    Thank you for your feedback!
-                  </div>
+                  <ScrollTo>
+                    <div className="alert alert-success" ref={this.formMessage} role="alert">
+                      Thank you for your feedback!
+                    </div>
+                  </ScrollTo>
                 }
 
                 {!this.props.submitted &&
@@ -96,6 +87,13 @@ export default class PageFeedbackForm extends React.Component {
                 </Form>
                 }
 
+              </GridCol>
+              <GridCol className='col-12 col-sm-5 col-md-4'>
+                {this.props.pageData.fields.body &&
+                  <div dangerouslySetInnerHTML={{
+                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
+                  }}/>
+                }
               </GridCol>
             </Grid>
           </Accent>

@@ -156,6 +156,15 @@ export const footer = [
       action: 'Click',
       category: 'Navigation'
     }
+  },
+  {
+    label: 'Feedback',
+    url: '/feedback',
+    tracking: {
+      label: 'Send feedback',
+      action: 'Click',
+      category: 'Navigation'
+    }
   }
 ]
 

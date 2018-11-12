@@ -15,6 +15,7 @@ export function app (state = initialState, action) {
     case actions.FORM_REQUEST_SUCCESS:
       return Object.assign({}, state, {
         loading: false,
+        error: false,
         submitted: true
       })
     case actions.FORM_REQUEST_ERROR:

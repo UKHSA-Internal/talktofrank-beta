@@ -12,9 +12,9 @@ const Textarea = props => {
       <label className='form-label' htmlFor={props.id}>{props.label}
         {props.supporting && <FormHint>{props.supporting}</FormHint>}
       </label>
-      <textarea className='form-control form-control-full form-control--reversed' id={props.id} name={props.name} rows={props.rows} value={props.value} onChange={props.onChange} {...required} />
-      {props.error && <ErrorMessage message={props.error} />}
       {props.hint && <FormHint>{props.hint}</FormHint>}
+      {props.error && <ErrorMessage message={props.error} />}
+      <textarea className='form-control form-control-full form-control--reversed' id={props.id} name={props.name} rows={props.rows} value={props.value} onChange={props.onChange} {...required} />
     </div>
   )
 }
