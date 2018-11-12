@@ -12,34 +12,36 @@ import Toggle from '../Toggle/component'
 import Main from '../Main/component'
 
 const PageGetHelpPage = props => {
-return (
-  <React.Fragment>
-    <Masthead path={props.location}/>
-    <Accent className='accent--shallow'>
-      <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
-    </Accent>
-    <Divider className='hr--muted' />
-    <Main className='main--full-width'>
+  return (
+    <React.Fragment>
+      <Masthead path={props.location}/>
       <Accent className='accent--shallow'>
-        <Grid>
-          <GridCol className='col-12 col-md-8 offset-md-3'>
-            {props.fields.body && <Longform text={props.fields.body}/>}
-          </GridCol>
-        </Grid>
+        <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
       </Accent>
-      {props.fields.contentExtra && props.fields.contentExtra.map((v, i) => {
-        return (
-          <section className='section section--has-toggle' key={i}>
-            <Toggle text={v.fields.title} className='collapsible--chevron collapsible--first' history={props.location}>
-              <Longform text={v.fields.content} />
-            </Toggle>
-          </section>
-        )
-      })}
-    </Main>
-    <Footer />
-    <GA/>
-  </React.Fragment>
-)}
+      <Divider className='hr--muted' />
+      <Main className='main--full-width'>
+        <Accent className='accent--shallow'>
+          <Grid>
+            <GridCol className='col-12 col-md-8 offset-md-3'>
+              {props.fields.body && <Longform text={props.fields.body} />}
+            </GridCol>
+          </Grid>
+        </Accent>
+        {props.fields.contentExtra && props.fields.contentExtra.map((v, i) => {
+          return (
+            <section className='section section--has-toggle' key={i}>
+              <Toggle text={v.fields.title} className='collapsible--chevron collapsible--first' history={props.location}>
+                <Longform text={v.fields.content} />
+              </Toggle>
+            </section>
+          )
+        })
+        }
+      </Main>
+      <Footer />
+      <GA/>
+    </React.Fragment>
+  )
+}
 
 export default PageGetHelpPage
