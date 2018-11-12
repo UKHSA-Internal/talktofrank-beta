@@ -1,0 +1,189 @@
+body {
+    font-family: ITC Avant Garde Gothic, Arial;
+    font-size: 12pt;
+    color:#3a3145;
+    width:500px;
+    height:450px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#F2F2F2; /*#F4F4F4;*/
+}
+
+#helpline
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    height:40px;
+    width:500px;
+    float:none;
+    /*color: black;*/
+    text-align:justify;
+    padding-top:15px;
+}
+
+.details
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    margin:none;
+    padding:none;
+    font-size: 10pt;
+    font-weight: normal;
+    color: Black;
+}
+
+#chatOffLine
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    margin:none;
+    font-size: 10pt;
+    font-weight: normal;
+    text-align:left;
+    color: Red;
+}
+
+#entryForm
+{
+    width: 600px;
+    /*width:75%;    */
+}
+
+#ChatOnline
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    font-size:14pt;
+    color:Black;
+    font-weight:normal;
+    padding: none;
+}
+
+.LabelColumn
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    font-size:14pt;
+    font-weight:normal;
+    color:Black;
+    width:200px;
+}
+
+.FormHint
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    font-size:10pt;
+    font-weight:normal;
+    color:#FC006A;
+    width:200px;
+}
+
+.ControlWhite
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    font-size:11pt;
+    font-weight:normal;
+    background-color:White;
+    border-color:Black; border-left-width:3px; border-top-width:3px; border-bottom-width:1px; border-right-width:1px;
+    color:#666666;
+    width: 490px;
+    overflow:auto;
+}
+
+.ControlBlack
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    text-align:right;
+    font-size:11pt;
+    font-weight:normal;
+    background-color:Black;
+    border-color:Black;
+    color:white;
+    width: 225px;
+}
+
+#chatArea
+{
+    /*background:white url('bgBox.gif') no-repeat scroll center bottom;*/
+    /*width:100%;*/
+    width: 500px;
+    min-height:300px;
+    max-height:300px;
+}
+
+#txtMsg
+{
+    margin-top: 5px;
+    padding: 0px;
+    height:60px;
+    max-height: 300px;
+    width:500px;
+}
+
+#ChatWindow
+{
+    font-family: ITC Avant Garde Gothic, Arial;
+    margin: 2px;
+    padding: 0px;
+    width:500px;
+    height:200px;
+    border: 0;
+    overflow: -moz-scrollbars-vertical;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#WhoIsTyping
+{
+    width: 500px;
+    height: 20px;
+}
+
+.Username
+{
+    font-weight: bold;
+}
+
+.Agent {
+    color: #5192a2;
+ }
+.Agent .Message {
+    color: #5192a2;
+ }
+
+/* CHAT STATUS*/
+
+#ChatStatus
+{
+    width:600px;
+    height:30px;
+    margin: 0px;
+    border:none;
+    vertical-align:middle;
+    text-align: center;
+    font-family: ITC Avant Garde Gothic, Arial;
+    font-size: 14pt;
+}
+
+.initialising
+{
+    color: #e38307;
+}
+
+.waiting
+{
+    color: #85c1e6;
+    /*color: #5192a2;*/
+}
+
+.talking
+{
+    color: #99cc02;
+}
+
+.ended
+{
+    color: #6b918d;
+}
+
+.failed
+{
+    color: #d22c00;
+}

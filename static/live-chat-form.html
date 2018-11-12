@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Language" content="en-gb" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>FRANK Webchat</title>
+    <link rel="stylesheet" type="text/css" href="frank.css" />
+    <script language="javascript" type="text/javascript">
+      <!--
+      function checkform(form) {
+          // ** START **
+
+      document.forms[0].im_subject.value = "FRANK";
+      document.forms[0].im_showname.value = "0";
+
+          if (form.im_name.value == "") {
+              alert("Please enter your Nickname.");
+              form.im_name.focus();
+              return false;
+          }
+      else
+      {
+      document.forms[0].action = "post1.aspx";
+      }
+          // ** END **
+
+          return true;
+      }
+
+      //-->
+    </script>
+  </head>
+  <body>
+    <script language="javascript" type="text/javascript" src="./checkClosed.js.aspx"> </script>
+    <script language="javascript" type="text/javascript" ></script>
+    <div id="helpline">
+      <span class="details">Want a quick, friendly chat about drugs? FRANK is on hand to give you some confidential advice. You don't even have to pick up the phone.</span>
+    </div>
+    <div id="chatArea">
+      <noscript>
+        <img src="disabled.jpg" alt="webchat disabled" />
+        <strong>Error:</strong>Your browser does not support Javascript.  It is required for live webchat to function.
+      </noscript>
+      <!--    <div style="text-align:center; display:table-cell">
+        <a id="ChatOffline" href="offlinepage.htm" style="display:none">
+        </a>
+        </div>-->
+      <div id="ChatOnline">
+        YOUR NICKNAME<span class="FormHint"> (Mandatory)</span>
+        <form name="entryForm" target="_blank" method="get" onsubmit="return checkform(this);">
+          <table id="entryForm" style="width:500px">
+            <tr>
+              <td>
+                <input class="ControlWhite" type="text" name="im_name" maxlength="20"/>
+                <input type="hidden" name="im_subject"  maxlength="10" />
+                <input type="hidden" name="im_showname" maxlength="10" />
+              </td>
+            </tr>
+          </table>
+          <table id="entryForm2">
+            <tr style="width:500px">
+              <td class="LabelColumn" style="width:225px">GENDER<span class="FormHint"> (Optional)</span></td>
+              <td style="width:50px"></td>
+              <td class="LabelColumn" style="width:225px">AGE<span class="FormHint"> (Optional)</span></td>
+            </tr>
+          </table>
+          <table id="entryForm3">
+            <td style="width:225px">
+              <select name="info_gender" class="ControlBlack">
+                <option value="Undisclosed"></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </td>
+            <td style="width:50px"></td>
+            <td style="width:225px">
+              <select name="info_age" class="ControlBlack">
+                <option value="Undisclosed"></option>
+                <option value="Under 11">Under 11</option>
+                <option value="11 to 14">11 to 14</option>
+                <option value="15 to 18">15 to 18</option>
+                <option value="19 to 25">19 to 25</option>
+                <option value="26 to 35">26 to 35</option>
+                <option value="36 to 45">36 to 45</option>
+                <option value="46 to 55">46 to 55</option>
+                <option value="56 to 65">56 to 65</option>
+                <option value="66 to 75">66 to 75</option>
+                <option value="Over 75">Over 75</option>
+              </select>
+            </td>
+          </table>
+          <table id="entryForm4" style="width:500px">
+            <tr>
+              <td colspan="2" style="width:500px">
+                <input type="image"src="resources/images/button/start_chat.GIF" align="right"
+                  alt="Start Chat"/>
+              </td>
+            </tr>
+          </table>
+          <tr>
+          </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
