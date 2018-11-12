@@ -33,6 +33,8 @@ const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./containers/PageSupportListContainer/component.jsx'))
 const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre-page'*/'./containers/PageSupportContainer/component.jsx'))
 const asyncContactFormPage = loadable(() => import(/*webpackChunkName: 'contact-form-page'*/'./components/PageContactForm/component.jsx'))
+const asyncGetHelpListContainer = loadable(() => import(/*webpackChunkName: 'get-help-list'*/'./containers/PageGetHelpListContainer/component.jsx'))
+const asyncGetHelpPageContainer = loadable(() => import(/*webpackChunkName: 'get-help-page'*/'./containers/PageGetHelpPageContainer/component.jsx'))
 /* eslint-enable */
 
 export default [{
@@ -117,6 +119,17 @@ export default [{
       path: '/contact',
       exact: true,
       component: asyncContactFormPage
+    },
+    {
+      path: '/get-help',
+      exact: true,
+      component: asyncGetHelpListContainer
+    },
+    {
+      path: '/get-help/:slug',
+      exact: true,
+      component: asyncGetHelpPageContainer,
+      loadData: ({params}) => fetchPage(['get-help', params.slug].join('/'))
     },
     {
       path: '/:slug',

@@ -1,26 +1,29 @@
 import React from 'react'
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
+import Toggle from './components/Toggle/component'
 import { config } from 'config'
 
 export const contentFulFactory = () => {
   return {
     renderNode: {
       [BLOCKS.HEADING_1]: (node, next) => renderToString(<Heading
-        text={next(node.content)} type="h1"/>),
+        text={next(node.content)} type='h1'/>),
       [BLOCKS.HEADING_2]: (node, next) => renderToString(<Heading
-        text={next(node.content)} type="h2"/>),
+        text={next(node.content)} type='h2'/>),
       [BLOCKS.HEADING_3]: (node, next) => renderToString(<Heading
-        text={next(node.content)} type="h3"/>),
+        text={next(node.content)} type='h3'/>),
       [BLOCKS.HEADING_4]: (node, next) => renderToString(<Heading
-        text={next(node.content)} type="h4"/>),
+        text={next(node.content)} type='h4'/>),
       [BLOCKS.HEADING_5]: (node, next) => renderToString(<Heading
-        text={next(node.content)} type="h5"/>),
+        text={next(node.content)} type='h5'/>),
       [BLOCKS.HEADING_6]: (node, next) => renderToString(<Heading
-        text={next(node.content)} type="h6"/>),
+        text={next(node.content)} type='h6'/>),
+      [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
 //     [BLOCKS.DOCUMENT]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
+
 //     [BLOCKS.UL_LIST]: (node, next) => `${next(node.content)}`,
 //     [BLOCKS.OL_LIST]: (node, next) => `${next(node.content)}`,
 //     [BLOCKS.LIST_ITEM]: (node, next) => `${next(node.content)}`,

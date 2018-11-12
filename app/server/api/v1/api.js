@@ -64,6 +64,14 @@ router.get('/pages/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = entry
         response.title = response.fields.title
+
+        if (response.fields.contentExtra) {
+          response.fields.contentExtra.map((fieldName, i) => {
+            console.log(fieldName, i)
+            fieldName.fields.content = marked(fieldName.fields.content)
+            return fieldName
+          })
+        }
         res.send(response)
       })
       .catch(error => next(error.response))
@@ -85,6 +93,13 @@ router.get('/pages/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
+        if (response.fields.contentExtra) {
+          response.fields.contentExtra.map((fieldName, i) => {
+            console.log(fieldName, i)
+            fieldName.fields.content = marked(fieldName.fields.content)
+            return fieldName
+          })
+        }
         res.send(response)
       })
       .catch(error => next(error.response))
