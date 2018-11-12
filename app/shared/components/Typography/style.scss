@@ -360,6 +360,10 @@ b {
     margin-bottom: 1em;
   }
 
+  a {
+    @include link;
+  }
+
   h3 {
     margin-top: 1.5em;
     font-size: 2rem;
