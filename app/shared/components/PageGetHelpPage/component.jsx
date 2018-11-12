@@ -10,8 +10,6 @@ import GridCol from '../GridCol/component'
 import Longform from '../Longform/component'
 import Toggle from '../Toggle/component'
 import Main from '../Main/component'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { contentFulFactory } from '../../contentful'
 
 const PageGetHelpPage = props => {
 return (
@@ -22,15 +20,13 @@ return (
     </Accent>
     <Divider className='hr--muted' />
     <Main className='main--full-width'>
-      <Grid>
-        <GridCol className='col-12 col-md-8'>
-          {props.fields.body &&
-            <div dangerouslySetInnerHTML={{
-              __html: documentToHtmlString(props.fields.body, contentFulFactory())
-            }}/>
-          }
-        </GridCol>
-      </Grid>
+      <Accent className='accent--shallow'>
+        <Grid>
+          <GridCol className='col-12 col-md-8 offset-md-3'>
+            {props.fields.body && <Longform text={props.fields.body}/>}
+          </GridCol>
+        </Grid>
+      </Accent>
       {props.fields.contentExtra && props.fields.contentExtra.map((v, i) => {
         return (
           <section className='section section--has-toggle' key={i}>
@@ -39,8 +35,7 @@ return (
             </Toggle>
           </section>
         )
-      })
-      }
+      })}
     </Main>
     <Footer />
     <GA/>

@@ -65,9 +65,12 @@ router.get('/pages/:slug', (req, res, next) => {
         let response = entry
         response.title = response.fields.title
 
+        if (response.fields.body) {
+          response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+        }
+
         if (response.fields.contentExtra) {
           response.fields.contentExtra.map((fieldName, i) => {
-            console.log(fieldName, i)
             fieldName.fields.content = marked(fieldName.fields.content)
             return fieldName
           })
@@ -93,9 +96,13 @@ router.get('/pages/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
+
+        if (response.fields.body) {
+          response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+        }
+
         if (response.fields.contentExtra) {
           response.fields.contentExtra.map((fieldName, i) => {
-            console.log(fieldName, i)
             fieldName.fields.content = marked(fieldName.fields.content)
             return fieldName
           })
