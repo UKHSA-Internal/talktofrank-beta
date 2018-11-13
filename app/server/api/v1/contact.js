@@ -94,6 +94,10 @@ router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema, joiOptions)]
 router.use(function (err, req, res, next) {
   let status = err.status || 500
 
+  /* eslint-disable */
+  console.log(err)
+  /* eslint-enable */
+
   let msg = err.message || err.stack || err.name || 'General error'
 
   if (config.sentry.logErrors) {
