@@ -143,7 +143,6 @@ export default [{
       component: asyncContactPage
     },
     {
-<<<<<<< HEAD
       path: '/contact',
       exact: true,
       component: asyncContactFormPage
@@ -160,8 +159,6 @@ export default [{
       loadData: ({params}) => fetchPage(['get-help', params.slug].join('/'))
     },
     {
-=======
->>>>>>> develop
       path: '/:slug',
       exact: true,
       component: asyncPageGeneral,
