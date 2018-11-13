@@ -18,6 +18,8 @@ import { getLoadableState } from 'loadable-components/server'
  * Express routes
  */
 import apiRoutes from './api/v1/api.js'
+import apiContactRoutes from './api/v1/contact.js'
+
 import contentFulWebhookRoutes from './contentful/webhooks.js'
 
 /*
@@ -89,6 +91,8 @@ app.use('/contentful/webhook', addSearch)
 app.use('/api/v1', apiRoutes)
 app.use('/contentful/webhook', contentFulWebhookRoutes)
 
+app.use('/api/v1/contact', apiContactRoutes)
+
 /*
  * Adding service worker files direct to express callbacks
  */
@@ -99,7 +103,6 @@ app.use('/service-worker.js', (req, res) => {
   res.sendFile(path.resolve('../static/ui/js/service-worker.js'))
 })
 
-app.use(bodyParser.json())
 app.use(express.static('../static'))
 app.use(favicon('../static/ui/favicon.ico'))
 app.use((req, res, next) => shouldAuthenticate(req) ? basicAuthMiddleware(req, res, next) : next())

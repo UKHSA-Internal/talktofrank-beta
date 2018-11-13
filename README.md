@@ -58,20 +58,28 @@ Migration and API query tools available using [contentful-cli](https://github.co
 
 **Note: service workers require an HTTPS connection**
 
-[Workbox](https://developers.google.com/web/tools/workbox/modules/) is used to handle service-worker logic.  Configuration is 
+[Workbox](https://developers.google.com/web/tools/workbox/modules/) is used to handle service-worker logic.  Configuration is
 found in ```/workbox-config.js```
 
 * service worker files are found in ```/static/ui/js``` & ```/static/offline```
 * all requests for png, ico, css and png & offline.html files are precached
-* a **'Network first'** policy is used so that 
+* a **'Network first'** policy is used so that
   * requests made while online will always go to the server first
   * offline requests will correctly load the cached files so that offline.html can be loaded correctly
-  
+
 To refresh the list of assets to precache:
 
 ```
-workbox injectManifest ./workbox-config.js 
+workbox injectManifest ./workbox-config.js
 ```
+
+### Emails
+
+[ethereal.email](https://ethereal.email/) is used for testing emails.
+
+To use the Mailgun testing sandbox, you first need to add your email address
+to this page (which isn't shown on the dashboard):
+https://app.mailgun.com/app/account/authorized
 
 ### Elasticsearch
 
@@ -108,7 +116,7 @@ Smoke tests available using cucumber-js and puppeteer.  Folder structure for the
 .
 └── features                        # Folder containing all cucumber feature files
     ├── debug                       # Debugging console output and screenshots saved here
-    ├── step_definition             # 
+    ├── step_definition             #
     │   ├── common.js               # Cucumber give/then/when step defintions
     ├── support                     # Helper files
     │   ├── actions.js              # Implementations of step definitions using puppeteer API
@@ -116,9 +124,9 @@ Smoke tests available using cucumber-js and puppeteer.  Folder structure for the
     │   ├── pages.js                # URLs used as part of the scenariuos
     │   ├── scope.js                # initialises a global scope used to store access to the browser
     │   └── selectors.js            # DOM selectors found on the site used to assert scenarios
-    ├── hooks.js                    # Before/After cucumber hooks 
+    ├── hooks.js                    # Before/After cucumber hooks
     └── world.js                    # Global cucmber js config
-``` 
+```
 
 #### Tags used
 

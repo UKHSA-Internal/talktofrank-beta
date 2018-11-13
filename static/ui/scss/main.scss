@@ -28,6 +28,8 @@ $max-width: 1200px;
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/alert';
+@import 'bootstrap/scss/forms';
 //@import 'bootstrap/scss/input-group';
 // @import 'bootstrap/scss/utilities'; // not going to haul them all down
 // going to itemise these a bit as there is a lot of rubbish coming down
@@ -62,3 +64,6 @@ $max-width: 1200px;
 @import '../../../app/shared/components/Pagination/style';
 @import '../../../app/shared/components/Breakpoints/style';
 @import '../../../app/shared/components/Icon/style';
+@import '../../../app/shared/components/FormErrors/style';
+@import '../../../app/shared/components/FormHint/style';
+@import '../../../app/shared/components/FormSuccess/style';
