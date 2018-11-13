@@ -10,6 +10,7 @@ import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
+import { imageMap } from '../../utilities'
 
 const Page = props => {
   const modifiers = {
@@ -19,10 +20,6 @@ const Page = props => {
 
   const name = props.fields.drugName && props.fields.drugName.toLowerCase()
   const syn = props.location.search ? props.location.search.split('=')[1] : null
-  // @refactor - this will be wired up to contentful
-  let images = {
-    300: '//images.ctfassets.net/ip74mqmfgvqf/1hvzrLAx0Oa64Wk0SmYY4C/cf0b27e5fcbbc8f689b7a87953cffa16/Cannabis.jpg'
-  }
 
   return (
     <React.Fragment>
@@ -33,8 +30,8 @@ const Page = props => {
         }
         <Accent>
           <Grid>
-            {props.fields.imageGroup && <GridCol className='col-12 col-md-3'>
-              <Picture {...images} />
+            {props.fields.image && <GridCol className='col-12 col-md-3'>
+              <Picture {...imageMap(props.fields.image)} />
             </GridCol>}
             <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
