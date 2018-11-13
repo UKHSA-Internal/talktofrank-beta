@@ -22,3 +22,6 @@ contentful:
 
 pagination:
   pageSize: 10
+
+googleAPI:
+  places: ''
