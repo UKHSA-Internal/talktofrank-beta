@@ -41,7 +41,7 @@ router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema, 
 
   const transporter = mailTransportFactory()
   const contactConfig = config.serco.contact
-console.log(config)
+  console.log(config)
   let message = {
     to: config.serco.contact.to,
     from: `${req.body.nickname} <${req.body.email}>`,
