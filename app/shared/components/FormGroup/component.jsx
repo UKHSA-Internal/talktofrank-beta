@@ -8,7 +8,7 @@ const FormGroup = props => {
   const id = props.id
 
   let inputClassNames = classNames('form-control', props.className, {
-    'is-invalid': props.error ? true : false
+    'is-invalid': props.error
   })
 
   return (

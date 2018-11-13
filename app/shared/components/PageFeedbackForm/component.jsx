@@ -51,7 +51,7 @@ export default class PageFeedbackForm extends React.Component {
   }
 
   render() {
-    if ( this.props.submitted ) {
+    if (this.props.submitted) {
       window.location.href = '/feedback/success'
       return null
     }

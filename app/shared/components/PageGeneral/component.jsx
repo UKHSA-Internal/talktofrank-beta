@@ -11,9 +11,7 @@ import Main from '../Main/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
-const PageGeneral = props => {
-  console.log(props)
-  return (
+const PageGeneral = props => (
   <React.Fragment>
     <Masthead path={props.location}/>
     <Accent className='accent--shallow'>
@@ -34,8 +32,6 @@ const PageGeneral = props => {
     <Footer />
     <GA/>
   </React.Fragment>
- )
-}
-
+)
 
 export default PageGeneral

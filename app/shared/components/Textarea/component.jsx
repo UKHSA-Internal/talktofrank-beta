@@ -9,7 +9,7 @@ const Textarea = props => {
   let required = props.required ? {'required': true} : null
 
   let textareaClassNames = classNames('form-control form-control-full form-control--reversed', {
-    'is-invalid': props.error ? true : false
+    'is-invalid': props.error
   })
 
   return (

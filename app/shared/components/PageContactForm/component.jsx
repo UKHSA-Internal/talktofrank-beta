@@ -55,8 +55,7 @@ export default class PageContactForm extends React.PureComponent {
   }
 
   render () {
-
-    if ( this.props.submitted ) {
+    if (this.props.submitted) {
       window.location.href = 'contact/success'
       return null
     }

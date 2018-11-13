@@ -2,7 +2,6 @@ import React from 'react'
 import classNames from 'classnames'
 
 const FormHint = props => {
-
   let classnames = classNames('text-muted', {
     'form-hint': props.inline,
     'form-hint--block': !props.inline

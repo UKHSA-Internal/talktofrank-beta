@@ -5,7 +5,7 @@ import PageGeneral from '../../components/PageGeneral/component.jsx'
 const mapStateToProps = (state, ownProps) => {
   return {
     ...state.app.pageData,
-    className: "col-12 col-sm-7 col-md-6 offset-md-2"
+    className: 'col-12 col-sm-7 col-md-6 offset-md-2'
   }
 }
 
