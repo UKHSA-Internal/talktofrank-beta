@@ -3,7 +3,7 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
-import Toggle from './components/Toggle/component'
+import Divider from './components/Divider/component'
 import { config } from 'config'
 
 export const contentFulFactory = () => {
@@ -28,7 +28,7 @@ export const contentFulFactory = () => {
 //     [BLOCKS.OL_LIST]: (node, next) => `${next(node.content)}`,
 //     [BLOCKS.LIST_ITEM]: (node, next) => `${next(node.content)}`,
 //     [BLOCKS.QUOTE]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.HR]: (node, next) => `${next(node.content)}`,
+      [BLOCKS.HR]: (node, next) => renderToString(<Divider className='hr--muted hr--large'/>),
 //     [BLOCKS.EMBEDDED_ENTRY]: (node, next) => `${next(node.content)}`,
       [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
         let image = `<img src='${node.data.target.fields.file.url}' alt='${node.data.target.fields.title ? node.data.target.fields.title : null}' />`

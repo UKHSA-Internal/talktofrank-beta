@@ -23,7 +23,8 @@ const PageGetHelpPage = props => {
         <Accent className='accent--shallow'>
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
-              {props.fields.body && <Longform text={props.fields.body} />}
+              {props.fields.intro && <Longform className='lead' text={props.fields.intro} />}
+              {props.fields.body && <Longform className='long-form--indented' text={props.fields.body} />}
             </GridCol>
           </Grid>
         </Accent>

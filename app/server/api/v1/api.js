@@ -65,6 +65,10 @@ router.get('/pages/:slug', (req, res, next) => {
         let response = entry
         response.title = response.fields.title
 
+        if (response.fields.intro) {
+          fieldName.fields.intro = marked(fieldName.fields.intro)
+        }
+
         if (response.fields.body) {
           response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
         }
@@ -96,6 +100,10 @@ router.get('/pages/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
+
+        if (response.fields.intro) {
+          fieldName.fields.intro = marked(fieldName.fields.intro)
+        }
 
         if (response.fields.body) {
           response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
