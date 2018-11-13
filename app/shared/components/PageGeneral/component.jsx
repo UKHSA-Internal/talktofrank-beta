@@ -20,7 +20,7 @@ const PageGeneral = props => (
     <Divider className='hr--muted' />
     <Main>
       <Grid>
-        <GridCol className='col-12 col-md-8'>
+        <GridCol className={props.className}>
           {props.fields.body &&
             <div dangerouslySetInnerHTML={{
               __html: documentToHtmlString(props.fields.body, contentFulFactory())
