@@ -1,55 +1,50 @@
 import React from 'react'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
-import Divider from '../Divider/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
 import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
+import Picture from '../Picture/component'
 import Main from '../Main/component'
+import Longform from '../Longform/component'
+import Article from '../Article/component'
+import Time from '../Time/component.jsx'
+import LinkDrugName from '../LinkDrugName/component.jsx'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
-const PageNews = props => (
-  <React.Fragment>
-    <Masthead path={props.location}/>
-    <Accent className='accent--shallow'>
-      <Heading type='h1' className='h2 inverted spacing-left spacing--single' text={props.title} />
-    </Accent>
-    <Divider className='hr--muted' />
-    <Main>
-      <Grid>
-        <GridCol className='col-12 col-md-8'>
-          {props.fields.body &&
-            <div dangerouslySetInnerHTML={{
-              __html: documentToHtmlString(props.fields.body, contentFulFactory())
-            }}/>
-          }
-        </GridCol>
-        <GridCol className='col-12 col-md-8 spacing-top--single sm-spacing-top--large'>
-          {props.fields.relatedDrugs && props.fields.relatedDrugs.length > 0 &&
-            <React.Fragment>
-              <Heading className='h4' text='Related drugs' />
-              <ul className='list-unstyled list-offset'>
-                {props.fields.relatedDrugs
-                  .map(item => (
-                    <li className='list-item--underlined'>
-                      <a className='list-link' href={`/drug/${item.fields.slug}`} >
-                        <Heading type='h3' className='list-item__title h5 d-inline-block' text={item.fields.drugName} />
-                      </a>
-                    </li>
-                  ))
-                }
-              </ul>
-            </React.Fragment>
-          }
-        </GridCol>
-      </Grid>
-    </Main>
-    <Footer />
-    <GA />
-  </React.Fragment>
-)
-
-export default PageNews
+export default class PageNews extends React.PureComponent {
+  render () {
+    return (
+      <React.Fragment>
+        <Masthead path={this.props.location}/>
+        <Main>
+          <Grid>
+            {this.props.fields.image && <GridCol className='col-12 list-offset'>
+              <Article {...this.props} synonyms={null} realName={null}/>
+            </GridCol>}
+            {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--single'>
+              {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
+              <Heading text={this.props.fields.title} className='h3 spacing-bottom--large'/>
+            </GridCol>}
+            <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
+              {this.props.fields.body && <Longform text={documentToHtmlString(this.props.fields.body, contentFulFactory())}/>}
+              {this.props.fields.relatedDrugs && <React.Fragment><Heading text='Related drugs' className='h3 spacing-top--large spacing-bottom--single'/><ul className='list-unstyled'>
+                {this.props.fields.relatedDrugs.map((v, i) => {
+                  v.fields.description = ''
+                  v.fields.name = v.fields.drugName
+                  return <LinkDrugName key={i} {...v.fields}/>
+                })}
+                </ul></React.Fragment>
+              }
+            </GridCol>
+          </Grid>
+        </Main>
+        <Footer />
+        <GA />
+      </React.Fragment>
+    )
+  }
+}

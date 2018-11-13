@@ -8,6 +8,7 @@ import Main from '../Main/component.jsx'
 import Nav from '../Nav/component.jsx'
 import Divider from '../Divider/component.jsx'
 import Accent from '../Accent/component.jsx'
+import LinkDrugName from '../LinkDrugName/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 const DrugList = props => {
@@ -52,12 +53,7 @@ const DrugList = props => {
                       }
 
                       return (
-                        <li key={'inner' + index} className='list-item list-item--underlined'>
-                          <a href={v.slug + '?a=' + v.name} className='list-link'><h3 className='h5 d-inline-block spacing-right'><span className='inverted '>{v.name}</span></h3>
-                          {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}{realName && <p className='grey d-inline-block'>({realName})</p>}
-                          {v.description && <p><span className='muted'>{v.description}</span></p>}
-                          </a>
-                        </li>
+                        <LinkDrugName key={index} {...v} synonyms={synonyms || null} realName={realName || null}/>
                       )
                     })}
                     </ul>
