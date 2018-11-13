@@ -453,6 +453,7 @@ p {
   &--has-arrow {
     .link-list__item {
       padding-left: 0;
+      margin-bottom: 1.5rem;
 
       &::before {
         display: none;

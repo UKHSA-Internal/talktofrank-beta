@@ -9,6 +9,7 @@ import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Longform from '../Longform/component'
 import Toggle from '../Toggle/component'
+import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
 
 const PageGetHelpPage = props => {
@@ -36,6 +37,13 @@ const PageGetHelpPage = props => {
           )
         })
         }
+        {props.fields.relatedLinks && <Accent className='accent--shallow'>
+          <Grid>
+            <GridCol className='col-12 col-md-8 offset-md-3'>
+              <RelatedLinks links={props.fields.relatedLinks} />
+            </GridCol>
+          </Grid>
+        </Accent>}
       </Main>
       <Footer />
       <GA/>
