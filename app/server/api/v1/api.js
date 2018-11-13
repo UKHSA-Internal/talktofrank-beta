@@ -60,10 +60,19 @@ router.get('/pages/:slug', (req, res, next) => {
   // If the slug value exists in the config contentful 'entries' list use that
   // to fetch a single content item, fallback to slug value
   if (config.contentful.entries[req.params.slug]) {
-    contentfulClient.getEntry(config.contentful.entries[req.params.slug])
-      .then((entry) => {
+    contentfulClient.getEntries({
+      'sys.id': config.contentful.entries[req.params.slug],
+      include: 10
+    })
+      .then((contentfulResponse) => {
+        if (contentfulResponse.total === 0) {
+          let error = new Error()
+          error.message = `Page not found`
+          error.status = 404
+          return next(error)
+        }
         // merge contentful assets and includes
-        let response = entry
+        let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
         res.send(response)
       })
