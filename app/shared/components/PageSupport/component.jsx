@@ -37,7 +37,7 @@ export default class PageSupport extends React.PureComponent {
       timesSessions,
       catchmentArea
     } = this.props.pageData.fields
-    const phoneRaw = telephone1.replace(/ /g, '')
+    const phoneRaw = telephone1.replace(/\D/g, '')
     const address = [address1, address2, address3, town, county, postCode].filter(Boolean).join(', ')
 
     return (
