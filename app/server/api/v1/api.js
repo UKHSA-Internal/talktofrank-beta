@@ -403,7 +403,7 @@ const treatmentCentresMarkedFields = [
   'notes'
 ]
 
-router.get('/treatment-centres', (req, res, next) => {
+router.get('/treatment-centres', async (req, res, next) => {
   if (!req.query.page ||
     !req.query.pageSize ||
     !req.query.location) {
@@ -413,17 +413,26 @@ router.get('/treatment-centres', (req, res, next) => {
     return next(error)
   }
 
-  // replace with google geocode lookup on location
-  const location = {
-    lat: 51.4507814,
-    lon: -2.603886399999965
+  let response = {
+    location: removeTags(req.query.location),
+    results: []
   }
+
+  const geocodeLocation = await axios
+    .get(`https://maps.googleapis.com/maps/api/geocode/json?address=` +
+    `${encodeURIComponent(response.location)},united%20kingdom&key=${config.googleAPI.places}`)
+
+  if (!geocodeLocation.data || geocodeLocation.data.results.length < 1) {
+    return res.send(response)
+  }
+
+  const location = geocodeLocation.data.results[0].geometry.location
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.treatmentCentre,
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page,
-    'fields.location[near]': `${location.lat},${location.lon}`,
+    'fields.location[near]': `${location.lat},${location.lng}`,
     'fields.addressStatus': true
   }
 
@@ -433,18 +442,13 @@ router.get('/treatment-centres', (req, res, next) => {
     contentfulRequest['fields.serviceType'] = req.query.serviceType
   }
 
-  let response = {
-    results: []
-  }
-
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
-      response.location = req.query.location
       response.results = resolveResponse(contentfulResponse)
       response.results
         .map(responseItem => {
           responseItem.distance = haversineDistance(
-            location.lon,
+            location.lng,
             location.lat,
             responseItem.fields.location.lon,
             responseItem.fields.location.lat,
@@ -458,7 +462,7 @@ router.get('/treatment-centres', (req, res, next) => {
             .map(fieldKey => {
               responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
             })
-          response.results.sort((a, b) => a.distance > b.distance)
+          response.results.sort((a, b) => parseFloat(a.distance) > parseFloat(b.distance))
         })
       res.send(response)
     })

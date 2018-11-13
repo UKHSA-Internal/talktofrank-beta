@@ -8,5 +8,8 @@ contentful:
   environment: 'develop'
 
 sentry:
- dsn: !!import/single '../config.sentry.yaml'
- logErrors: true
+  dsn: !!import/single '../config.sentry.yaml'
+  logErrors: true
+
+googleAPI:
+  places: !!import/single '../config.google.yaml'
