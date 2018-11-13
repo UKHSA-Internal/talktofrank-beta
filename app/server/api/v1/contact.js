@@ -1,5 +1,5 @@
 import { config } from 'config'
-console.log(config)
+
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
@@ -7,6 +7,7 @@ const mailgunTransport = require('../../lib/mailgun-transport')
 const bodyParser = require('body-parser')
 const {celebrate, Joi, isCelebrate} = require('celebrate')
 const jsonParser = bodyParser.json()
+const Sentry = require('@sentry/node')
 
 const joiOptions = {
   abortEarly: false
