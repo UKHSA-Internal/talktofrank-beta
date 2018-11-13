@@ -442,15 +442,17 @@ b {
   }
 
   &--indented {
-    h3,
-    h4,
-    p:not(.lead) {
-      margin-left: 4rem;
-    }
+    @include media-breakpoint-up(sm) {
+      h3,
+      h4,
+      p:not(.lead) {
+        margin-left: 4rem;
+      }
 
-    li {
-      &::before {
-        left: 4rem !important;
+      li {
+        &::before {
+          left: 4rem !important;
+        }
       }
     }
   }

@@ -2,12 +2,12 @@ import React from 'react'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Divider from '../Divider/component'
-import Heading from '../Heading/component'
 import Footer from '../Footer/component'
 import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Longform from '../Longform/component'
+import SplitText from '../SplitText/component'
 import Toggle from '../Toggle/component'
 import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
@@ -17,7 +17,7 @@ const PageGetHelpPage = props => {
     <React.Fragment>
       <Masthead path={props.location}/>
       <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 spacing-left inverted spacing--single' text={props.title} />
+        <SplitText text={props.title} wrapper='h1' className='h2 inverted spacing--single'/>
       </Accent>
       <Main className='main--full-width'>
         <Accent className='accent--shallow'>
