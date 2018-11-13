@@ -29,7 +29,7 @@ const PageGetHelpPage = props => {
         {props.fields.contentExtra && props.fields.contentExtra.map((v, i) => {
           return (
             <section className='section section--has-toggle' key={i}>
-              <Toggle text={v.fields.title} className='collapsible--chevron collapsible--first' history={props.location}>
+              <Toggle text={v.fields.title} toggleFancyList={v.fields.toggleFancyList} className='collapsible--chevron collapsible--first' history={props.location}>
                 <Longform text={v.fields.content} />
               </Toggle>
             </section>

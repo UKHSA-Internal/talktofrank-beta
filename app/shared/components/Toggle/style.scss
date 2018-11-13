@@ -7,6 +7,10 @@ $dims: 2rem;
 .collapsible {
   background-color: $gray-100;
 
+  h2 {
+    margin-bottom: 0;
+  }
+
   @include media-breakpoint-down(md) {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -50,8 +54,8 @@ $dims: 2rem;
 
   .collapsible__trigger {
     display: block;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
     font-family: $headings-font-family;
     color: $text-dark-blue;
   }
@@ -66,8 +70,7 @@ $dims: 2rem;
         width: $dims;
         height: $dims;
         left: 0;
-        top: 50%;
-        margin-top: -($dims / 2);
+        top: 2.6rem;
         display: block;
         background-size: contain;
         background-repeat: no-repeat;
@@ -106,7 +109,6 @@ $dims: 2rem;
   .inverted {
     margin-left: 0;
   }
-
 
   ol,
   ul {
