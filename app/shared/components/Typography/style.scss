@@ -380,15 +380,6 @@ b {
     font-size: 1.8rem;
   }
 
-  &--indented {
-    h3,
-    h4,
-    p:not(.lead) {
-      margin-left: 4rem;
-    }
-  }
-
-
   ol,
   ul {
     padding-left: 0;
@@ -450,8 +441,19 @@ b {
     }
   }
 
+  &--indented {
+    h3,
+    h4,
+    p:not(.lead) {
+      margin-left: 4rem;
+    }
 
-
+    li {
+      &::before {
+        left: 4rem !important;
+      }
+    }
+  }
 }
 
 p {

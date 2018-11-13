@@ -24,7 +24,7 @@ const PageGetHelpPage = props => {
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
               {props.fields.intro && <Longform className='lead' text={props.fields.intro} />}
-              {props.fields.body && <Longform className='long-form--indented' text={props.fields.body} />}
+              {props.fields.body && <Longform className={props.fields.indentedText ? 'long-form--indented' : null} text={props.fields.body} />}
             </GridCol>
           </Grid>
         </Accent>
