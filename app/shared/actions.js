@@ -175,3 +175,19 @@ export function fetchPage (slug, type = 'pages') {
       })
   }
 }
+
+export function fetchFeaturedBlock (slug) {
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + '/api/v1/' + type + '/' + encodeURIComponent(slug)
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
+  }
+}

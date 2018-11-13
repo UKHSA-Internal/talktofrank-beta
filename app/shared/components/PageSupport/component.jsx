@@ -11,6 +11,7 @@ import Accent from '../Accent/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Icon from '../Icon/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
+import Divider from '../Divider/component.jsx'
 
 export default class PageSupport extends React.PureComponent {
   render () {
@@ -47,26 +48,40 @@ export default class PageSupport extends React.PureComponent {
         </Accent>
         <Main>
           <Grid>
-            <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6 order-2 order-sm-1'>
+            <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
               <Heading className='h4' text='Information' />
-              <Longform text={serviceInfo} className='spacing-bottom--large'/>
+              <Longform text={serviceInfo}/>
+              <Divider className='hr--muted hr--large'/>
               <Heading className='h4' text='Referral' />
-              <Longform text={referralMethod} className='spacing-bottom--large'/>
+              <Longform text={referralMethod}/>
+              <Divider className='hr--muted hr--large'/>
+              <Heading className='h4' text='Catchment' />
+              <p dangerouslySetInnerHTML={{ __html: catchmentArea }} />
+              <Divider className='hr--muted hr--large'/>
+              <div className='hidden--xs'>
+                <Heading className='h4' text='Get in touch' />
+                {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
+              </div>
             </GridCol>
-            <GridCol className='col-12 col-sm-4 col-md-3 order-1 order-sm-2 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
+            <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
               <Heading className='h4' text='Get in touch' />
-              <ul class='list-unstyled list-unstyled--single spacing-bottom--single sm-spacing-bottom--large'>
+              <ul class='list-unstyled list-unstyled--single'>
                 {telephone1 && <li class='list-item'><Anchor text={telephone1} label={`Telephone ${name}`} className='break-word link-text' href={`tel:${phoneRaw}`} /></li>}
                 {email && <li class='list-item'><Anchor text='Send email' label={`Send email to ${name}`} className='break-word link-text' href={`mailto:${email}`} /></li>}
                 {website && <li class='list-item'><Anchor text='Visit website' label={`Visit ${name} website`} className='break-word link-text' href={website} /></li>}
               </ul>
+              <Divider className='hr--muted hr--large'/>
+              <Heading className='h4' text='Opening times' />
+              <p dangerouslySetInnerHTML={{ __html: timesSessions }} />
+              <Divider className='hr--muted hr--large'/>
               <Heading className='h4' text='Address' />
               <Longform text={address}/>
-              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} location on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
-              <Heading className='h4' text='Open' />
-              <p className={'spacing-bottom--single sm-spacing-bottom--large'} dangerouslySetInnerHTML={{ __html: timesSessions }} />
-              <Heading className='h4' text='Catchment' />
-              <p dangerouslySetInnerHTML={{ __html: catchmentArea }} />
+              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
+              <div className='hidden--sm-up'>
+                <Divider className='hr--muted hr--large'/>
+                <Heading className='h4' text='Get in touch' />
+                {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
+              </div>
             </GridCol>
           </Grid>
         </Main>

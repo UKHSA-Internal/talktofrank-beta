@@ -11,7 +11,7 @@ import Article from '../Article/component.jsx'
 import Spinner from '../Spinner/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
-export default class PageNewsList extends React.Component {
+export default class PageNewsList extends React.PureComponent {
   constructor (props) {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
