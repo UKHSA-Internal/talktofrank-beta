@@ -24,7 +24,7 @@ pagination:
   pageSize: 10
 
 googleAPI:
-  places: ''
+  places: 'AIzaSyCenz8aq4H5QmOjzkN-QlOArzdSznlXjQ4'
 
 email:
   transport: etherealEmail
