@@ -7,7 +7,6 @@ node_modules
 
 config.development.yaml
 config.users.yaml
-config.yaml
 
 features/debug/*
 !features/debug/readme.txt

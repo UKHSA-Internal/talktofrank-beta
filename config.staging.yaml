@@ -10,3 +10,7 @@ contentful:
 sentry:
  dsn: !!import/single '../config.sentry.yaml'
  logErrors: true
+
+etherealEmail:
+  auth:
+    pass: !!import/single '../config.ethereal.yaml'
