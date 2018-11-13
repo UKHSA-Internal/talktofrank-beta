@@ -22,3 +22,28 @@ contentful:
 
 pagination:
   pageSize: 10
+
+email:
+  transport: etherealEmail
+
+etherealEmail:
+  auth:
+    user: pzyvt74kik2vs4cm@ethereal.email
+  host: smtp.ethereal.email
+  port: 587
+
+mailgun:
+  auth:
+    api_key: 'key-1234123412341234'
+    domain: 'talktofrank.com'
+
+serco:
+  contact:
+    to: talktofrank@serco.com
+    subject: 'Talk To Frank'
+
+  feedback:
+    to: talktofrank@serco.com
+    subjectPrefix: 'TALKTOFRANK User Feedback: '
+    from: no-reply@talktofrank.com
+    fromName: Anonymous user
