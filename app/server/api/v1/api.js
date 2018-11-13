@@ -422,7 +422,6 @@ router.get('/treatment-centres', async (req, res, next) => {
     .get(`https://maps.googleapis.com/maps/api/geocode/json?address=` +
     `${encodeURIComponent(response.location)},united%20kingdom&key=${config.googleAPI.places}`)
 
-
   if (!geocodeLocation.data || geocodeLocation.data.results.length < 1) {
     return res.send(response)
   }
@@ -445,7 +444,6 @@ router.get('/treatment-centres', async (req, res, next) => {
 
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
-
       response.results = resolveResponse(contentfulResponse)
       response.results
         .map(responseItem => {
