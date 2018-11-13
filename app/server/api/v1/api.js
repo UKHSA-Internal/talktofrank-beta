@@ -203,7 +203,7 @@ router.get('/drugs', (req, res, next) => {
           response.list.push({
             // name: item.fields.name.toLowerCase(),
             name: item.fields.drugName,
-            slug: `/drug/${item.fields.slug}`,
+            slug: item.fields.slug,
             synonyms: item.fields.synonyms,
             description: item.fields.description
           })
@@ -212,7 +212,7 @@ router.get('/drugs', (req, res, next) => {
             .map(synonym => {
               response.list.push({
                 name: synonym.trim(),
-                slug: `/drug/${item.fields.slug}`,
+                slug: item.fields.slug,
                 parent: item.fields.drugName
               })
             })
@@ -300,11 +300,11 @@ router.get('/news', (req, res, next) => {
         if (!v.fields.summary) {
           if (v.fields.body) {
             v.fields.summary = truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
-              'length': 100
+              'length': 240
             })
           } else if (v.fields.bodyLegacy) {
             v.fields.summary = truncate(removeMarkdown(v.fields.bodyLegacy), {
-              'length': 100
+              'length': 240
             })
           }
         }
@@ -347,6 +347,36 @@ router.get('/news/:slug', (req, res, next) => {
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
       response.title = response.fields.title
+
+      if (response.fields.originalPublishDate) {
+        response['date'] = response.fields.originalPublishDate
+        response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+      } else {
+        response['date'] = response.sys.updatedAt
+        response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+      }
+
+      if (!response.fields.summary) {
+        if (response.fields.body) {
+          response.fields.summary = truncate(removeTags(documentToHtmlString(response.fields.body, contentFulFactory())), {
+            'length': 120
+          })
+        } else if (response.fields.bodyLegacy) {
+          response.fields.summary = truncate(removeMarkdown(response.fields.bodyLegacy), {
+            'length': 120
+          })
+        }
+      }
+
+      if (response.fields.image) {
+        response.fields.image = imageMap(response.fields.image)
+      }
+
+      if (response.fields.slug) {
+        delete response.fields.slug
+      }
+
+      response.fields['type'] = 'h1'
       res.send(response)
     })
     .catch(error => next(error.response))
