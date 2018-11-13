@@ -131,7 +131,7 @@ select.form-control {
 }
 
 .form-hint {
-  font-size: 1.8rem;
+  @extend %p;
 }
 
 .form-text {

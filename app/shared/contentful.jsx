@@ -27,11 +27,20 @@ export const contentFulFactory = () => {
 //     [BLOCKS.QUOTE]: (node, next) => `${next(node.content)}`,
 //     [BLOCKS.HR]: (node, next) => `${next(node.content)}`,
 //     [BLOCKS.EMBEDDED_ENTRY]: (node, next) => `${next(node.content)}`,
+      [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
+        let image = `<img src='${node.data.target.fields.file.url}' alt='${node.data.target.fields.title ? node.data.target.fields.title : null}' />`
+        if (node.data.target.fields.description) {
+          return `<figure>${image}<figcaption>${node.data.target.fields.description}</figcaption></figure>`
+        } else {
+          return image
+        }
+      },
 //     [INLINES.EMBEDDED_ENTRY]: (node,next) => `${next(node.content)}`,
       [INLINES.HYPERLINK]: (node, next) => renderToString(
         <a href={cleanLink(node.data.uri)}>{next(node.content)}</a>)
 //     [INLINES.ENTRY_HYPERLINK]: (node,next) => `${next(node.content)}`,
 //     [INLINES.ASSET_HYPERLINK]: (node,next) => `${next(node.content)}`
+
     },
     renderMark: {
       [MARKS.BOLD]: text => `<strong>${text}</strong>`

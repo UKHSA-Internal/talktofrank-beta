@@ -61,7 +61,7 @@ const Page = props => {
         </section>}
         {(props.fields.category || props.fields.effectsFeeling || props.fields.effectsBehaviour) && <section className='section section--has-toggle'>
           <Toggle text='How it feels' className='collapsible--chevron' history={props.location}>
-            {props.fields.category && <Heading type='p' className='h3 inverted' text={props.fields.category} />}
+            {props.fields.category && props.fields.category.toLowerCase() !== 'none' && <Heading type='p' className='h3 inverted' text={props.fields.category} />}
             {props.fields.effectsFeeling && <React.Fragment><Heading {...modifiers} text='How does it make you feel?'/><Longform text={props.fields.effectsFeeling} /></React.Fragment>
             }
             {props.fields.effectsBehaviour && <React.Fragment><Heading {...modifiers} text={`How does it make people behave?`}/><Longform text={props.fields.effectsBehaviour} /></React.Fragment>
@@ -84,8 +84,13 @@ const Page = props => {
                 </aside>
               )
             })}
-            {props.fields.durationDetectable && <React.Fragment><Heading {...modifiers} text='How long will it be detectable?'/><Longform text={props.fields.durationDetectable} /></React.Fragment>}
-            <Longform text={props.fields.durationDetectableDefault.fields.text} />
+            {props.fields.durationDetectable &&
+              <React.Fragment>
+                <Heading {...modifiers} text='How long will it be detectable?'/>
+                <Longform text={props.fields.durationDetectable} />
+                {props.fields.durationDetectableDefault && <Longform text={props.fields.durationDetectableDefault.fields.text} />}
+              </React.Fragment>
+            }
           </Toggle>
         </section>}
         {(props.fields.risksHealthMental || props.fields.risksPhysicalHealth || props.fields.risksCutWith) && <section className='section section--has-toggle'>
@@ -115,7 +120,7 @@ const Page = props => {
         {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
-              {props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
+              {props.fields.lawClass.fields.class && props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
               <div className='has-unordered'>
                 <ul>
                   <Heading type='li' text={props.fields.lawClass.fields.description}/>

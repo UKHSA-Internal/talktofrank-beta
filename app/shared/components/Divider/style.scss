@@ -10,15 +10,25 @@ hr {
   border: 0;
   border-top: 1px solid $gray-900;
 
-  &.hr--inverse {
+  &--inverse {
     margin-top: 2.5rem;
     border-top-color: $teal;
     margin-right: 2rem;
     margin-left: 2rem;
   }
 
-  &.hr--muted {
+  &--muted {
     margin-top: 0;
     border-top-color: $gray-300;
+  }
+
+  &--large {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    @include media-breakpoint-up(sm) {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
   }
 }

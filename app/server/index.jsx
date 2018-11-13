@@ -124,8 +124,7 @@ app.get('*', (req, res) => {
     if (!match) {
       return Promise.resolve(null)
     }
-
-    return store.dispatch(match.route.loadData(match.match.params))
+    return store.dispatch(match.route.loadData({ params: match.match.params, query: req.query }))
   }
 
   (async () => {

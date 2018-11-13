@@ -9,7 +9,7 @@ const Select = props => {
   return (
     <div className='form-group'>
       <label className='form-label' htmlFor={props.id}>{props.label}{props.supporting && <FormHint>{props.supporting}</FormHint>}</label>
-      <select className={`form-control ${props.className || ''}`} id={props.id} name={props.name}>
+      <select className={`form-control ${props.className || ''}`} id={props.id} name={props.name} value={props.selected || null} onChange={props.onChange || null}>
         {options}
       </select>
     </div>
