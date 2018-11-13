@@ -30,7 +30,7 @@ const DrugList = props => {
       <Masthead path={props.location}/>
       <Accent className='accent--shallow'>
         <Heading type='h1' className='h2 inverted spacing-left spacing--single' text='Drugs A to Z'/>
-        <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation'/>
+        <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation' visible='true'/>
       </Accent>
       <Divider className='hr--muted' />
       <Main>

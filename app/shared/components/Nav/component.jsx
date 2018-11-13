@@ -121,7 +121,7 @@ export default class Nav extends React.PureComponent {
     return (
       <Wrapper className={classes} ref={this.setWrapperRef}>
         {this.props.labelledBy && <Heading id={this.props.id} className='visually-hidden' text='Drugs A to Z navigation'/>}
-        <ul className='navbar-nav' aria-hidden={!this.props['menu-open']} {...aria} {...role}>
+        <ul className='navbar-nav' aria-hidden={!this.props.visible && !this.props['menu-open']} {...aria} {...role}>
           {this.props.navigation && this.props.navigation.map((item, i) => {
             let icon = item.icon || null
             let linkClass = classNames('nav-item', item.modifier, {
