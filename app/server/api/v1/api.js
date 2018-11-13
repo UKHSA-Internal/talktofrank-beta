@@ -66,7 +66,7 @@ router.get('/pages/:slug', (req, res, next) => {
         response.title = response.fields.title
 
         if (response.fields.intro) {
-          fieldName.fields.intro = marked(fieldName.fields.intro)
+          response.fields.intro = marked(response.fields.intro)
         }
 
         if (response.fields.body) {
@@ -102,7 +102,7 @@ router.get('/pages/:slug', (req, res, next) => {
         response.title = response.fields.title
 
         if (response.fields.intro) {
-          fieldName.fields.intro = marked(fieldName.fields.intro)
+          response.fields.intro = marked(response.fields.intro)
         }
 
         if (response.fields.body) {
