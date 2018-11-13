@@ -2,10 +2,15 @@ import React from 'react'
 import FormHint from '../FormHint/component.jsx'
 import PropTypes from 'prop-types'
 import { ErrorMessage } from '../FormErrors/component'
+import classNames from 'classnames'
 
 const Textarea = props => {
   let classes = `form-group ${props.className || ''}`
   let required = props.required ? {'required': true} : null
+
+  let textareaClassNames = classNames('form-control form-control-full form-control--reversed', {
+    'is-invalid': props.error ? true : false
+  })
 
   return (
     <div className={classes}>
@@ -14,7 +19,7 @@ const Textarea = props => {
       </label>
       {props.hint && <FormHint>{props.hint}</FormHint>}
       {props.error && <ErrorMessage message={props.error} />}
-      <textarea className='form-control form-control-full form-control--reversed' id={props.id} name={props.name} rows={props.rows} value={props.value} onChange={props.onChange} {...required} />
+      <textarea className={textareaClassNames} id={props.id} name={props.name} rows={props.rows} value={props.value} onChange={props.onChange} {...required} />
     </div>
   )
 }

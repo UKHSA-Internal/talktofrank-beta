@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from '../Icon/component.jsx'
 
 export const getErrors = (formErrors) => {
   let errors = []
@@ -23,11 +24,11 @@ export class ErrorSummary extends React.Component {
     })
 
     return (
-      <div className="alert alert-danger">
-        <strong>There is a problem</strong>
-        <ul>
+      <div className="alert alert-danger spacing-bottom--single">
+        <strong className="h4">There is a problem</strong>
+        <ul className="alert-danger__list">
           {errors.map(error => (
-            <li><a href={`#${error.field}`}>{error.message}</a></li>
+            <li><a className="alert-danger__link" href={`#${error.field}`}>{error.message}</a></li>
           ))}
         </ul>
       </div>
@@ -40,5 +41,5 @@ ErrorSummary.defaultProps = {
 }
 
 export const ErrorMessage = ({message}) => (
-  <div className="invalid-feedback">{message}</div>
+  <div className="invalid-feedback"><Icon alt="warning" className="spacing-right" url="/ui/svg/warning.svg" label="warning" />{message}</div>
 )

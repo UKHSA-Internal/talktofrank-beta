@@ -14,6 +14,7 @@ import FormGroup from '../FormGroup/component'
 import Textarea from '../Textarea/component'
 import Button from '../Button/component.jsx'
 import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
+import SuccessMessage from '../FormSuccess/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
@@ -63,6 +64,12 @@ export default class PageFeedbackForm extends React.Component {
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
+                {this.props.pageData.fields.body &&
+                  <div className="spacing-bottom--single" dangerouslySetInnerHTML={{
+                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
+                  }}/>
+                }
+
                 {this.props.error &&
                   <ScrollTo>
                     <ErrorSummary ref={this.formMessage} errors={this.props.errors} />
@@ -71,9 +78,7 @@ export default class PageFeedbackForm extends React.Component {
 
                 {this.props.submitted &&
                   <ScrollTo>
-                    <div className="alert alert-success" ref={this.formMessage} role="alert">
-                      Thank you for your feedback!
-                    </div>
+                    <SuccessMessage>Thank you for your feedback!</SuccessMessage>
                   </ScrollTo>
                 }
 
@@ -85,14 +90,6 @@ export default class PageFeedbackForm extends React.Component {
                     Send feedback
                   </Button>
                 </Form>
-                }
-
-              </GridCol>
-              <GridCol className='col-12 col-sm-5 col-md-4'>
-                {this.props.pageData.fields.body &&
-                  <div dangerouslySetInnerHTML={{
-                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
-                  }}/>
                 }
               </GridCol>
             </Grid>

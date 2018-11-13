@@ -158,7 +158,7 @@ export default class PageContactForm extends React.PureComponent {
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
                 {this.props.pageData.fields.body &&
-                  <div dangerouslySetInnerHTML={{
+                  <div className="spacing-bottom--single" dangerouslySetInnerHTML={{
                     __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
                   }}/>
                 }
