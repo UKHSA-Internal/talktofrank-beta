@@ -42,7 +42,7 @@ router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema, 
 
   const transporter = mailTransportFactory()
   const contactConfig = config.serco.contact
-  console.log(config)
+
   let message = {
     to: config.serco.contact.to,
     from: `${req.body.nickname} <${req.body.email}>`,
@@ -94,10 +94,6 @@ router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema, joiOptions)]
  */
 router.use(function (err, req, res, next) {
   let status = err.status || 500
-
-  /* eslint-disable */
-  console.log(err)
-  /* eslint-enable */
 
   let msg = err.message || err.stack || err.name || 'General error'
 
