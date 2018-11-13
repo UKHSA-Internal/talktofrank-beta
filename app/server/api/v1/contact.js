@@ -1,5 +1,5 @@
 import { config } from 'config'
-
+console.log(config)
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
@@ -41,7 +41,7 @@ router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema, 
 
   const transporter = mailTransportFactory()
   const contactConfig = config.serco.contact
-
+console.log(config)
   let message = {
     to: config.serco.contact.to,
     from: `${req.body.nickname} <${req.body.email}>`,
