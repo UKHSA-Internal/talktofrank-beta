@@ -55,6 +55,12 @@ export default class PageContactForm extends React.PureComponent {
   }
 
   render () {
+
+    if ( this.props.submitted ) {
+      window.location.href = 'contact/success'
+      return null
+    }
+
     const message = {
       label: 'Your message',
       id: 'message',
@@ -166,14 +172,6 @@ export default class PageContactForm extends React.PureComponent {
                 {this.props.error &&
                   <ScrollTo>
                     <ErrorSummary errors={this.props.errors} />
-                  </ScrollTo>
-                }
-
-                {this.props.submitted &&
-                  <ScrollTo>
-                    <div className="alert alert-success" role="alert">
-                      Thank you for your message!
-                    </div>
                   </ScrollTo>
                 }
 

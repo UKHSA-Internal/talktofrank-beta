@@ -34,7 +34,7 @@ const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page
 const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./components/PageSupportList/component.jsx')) // need to swap this out with an actual container
 const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./components/PageSupport/component.jsx')) // need to swap this out with an actual container
-
+const asyncPageContactSuccessContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageContactSuccessContainer/component.jsx')) // need to swap this out with an actual container
 /* eslint-enable */
 
 export default [{
@@ -69,6 +69,18 @@ export default [{
       exact: true,
       component: asyncPageFeedbackForm,
       loadData: () => fetchPage('feedback')
+    },
+    {
+      path: '/feedback/success',
+      exact: true,
+      component: asyncPageContactSuccessContainer,
+      loadData: () => fetchPage('feedback/success')
+    },
+    {
+      path: '/contact/success',
+      exact: true,
+      component: asyncPageContactSuccessContainer,
+      loadData: () => fetchPage('contact/success')
     },
     {
       path: '/search',

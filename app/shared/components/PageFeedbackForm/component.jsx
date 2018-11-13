@@ -51,6 +51,11 @@ export default class PageFeedbackForm extends React.Component {
   }
 
   render() {
+    if ( this.props.submitted ) {
+      window.location.href = '/feedback/success'
+      return null
+    }
+
     let errors = this.props.error ? getErrors(this.props.errors) : []
 
     return (
@@ -73,12 +78,6 @@ export default class PageFeedbackForm extends React.Component {
                 {this.props.error &&
                   <ScrollTo>
                     <ErrorSummary ref={this.formMessage} errors={this.props.errors} />
-                  </ScrollTo>
-                }
-
-                {this.props.submitted &&
-                  <ScrollTo>
-                    <SuccessMessage>Thank you for your feedback!</SuccessMessage>
                   </ScrollTo>
                 }
 

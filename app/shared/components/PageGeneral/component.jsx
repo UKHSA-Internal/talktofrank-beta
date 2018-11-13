@@ -11,7 +11,9 @@ import Main from '../Main/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
-const PageGeneral = props => (
+const PageGeneral = props => {
+  console.log(props)
+  return (
   <React.Fragment>
     <Masthead path={props.location}/>
     <Accent className='accent--shallow'>
@@ -20,7 +22,7 @@ const PageGeneral = props => (
     <Divider className='hr--muted' />
     <Main>
       <Grid>
-        <GridCol className='col-12 col-md-8'>
+        <GridCol className={props.className}>
           {props.fields.body &&
             <div dangerouslySetInnerHTML={{
               __html: documentToHtmlString(props.fields.body, contentFulFactory())
@@ -32,6 +34,8 @@ const PageGeneral = props => (
     <Footer />
     <GA/>
   </React.Fragment>
-)
+ )
+}
+
 
 export default PageGeneral
