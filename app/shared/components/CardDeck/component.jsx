@@ -1,14 +1,11 @@
 import React from 'react'
 import Card from '../Card/component.jsx'
-import Heading from '../Heading/component.jsx'
 import Header from '../Header/component.jsx'
-import Grid from '../Grid/component.jsx'
-import GridCol from '../GridCol/component.jsx'
 
 const CardDeck = props => {
   return (
     <section className={`constrain-narrow ${props.className || null}`}>
-      {props.heading && <Header><Grid><GridCol className='col-12 col-sm-8'><Heading {...props.heading}/></GridCol><GridCol className='col-12 col-sm-4 align-right--sm'><a href={props.heading.url} className='spacing-top--tight hidden--sm link-text'>More news</a></GridCol></Grid></Header>}
+      {props.heading && <Header heading={props.heading} href={props.all.url} text={props.all.text}/>}
       <div className={`card-deck ${props.className || ''}`}>
         {props.teasers && props.teasers.map((val, i) => <Card key={i} {...val}/>)}
       </div>

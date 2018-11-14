@@ -8,6 +8,7 @@ import CardDeck from '../CardDeck/component.jsx'
 import Article from '../Article/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
+import Header from '../Header/component.jsx'
 import { imageMap } from '../../utilities'
 
 export default class PageHome extends React.PureComponent {
@@ -51,7 +52,7 @@ export default class PageHome extends React.PureComponent {
           url: featuredContentBlock.fields.readMoreLink,
           className: 'h3'
         },
-        allnews: {
+        all: {
           type: 'h3',
           text: featuredContentBlock.fields.readMoreText,
           url: featuredContentBlock.fields.readMoreLink,
@@ -100,7 +101,7 @@ export default class PageHome extends React.PureComponent {
           url: '/drugs-a-z',
           className: 'h3'
         },
-        allDrugs: {
+        all: {
           type: 'h3',
           text: 'See full drugs A - Z',
           url: '/drugs-a-z',
@@ -132,7 +133,6 @@ export default class PageHome extends React.PureComponent {
           commonDrugsBlock.teasers.push(featuredItem)
         })
     }
-
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
@@ -146,6 +146,10 @@ export default class PageHome extends React.PureComponent {
           </Grid>
           }
           {featuredNewsBlock && <CardDeck {...featuredNewsBlock} className='spacing-top--tight'/>}
+          {commonDrugsBlock &&
+          <React.Fragment>
+            <CardDeck {...commonDrugsBlock} className='spacing-top--tight'/>
+          </React.Fragment>}
         </Main>
         <Footer />
         <GA/>
