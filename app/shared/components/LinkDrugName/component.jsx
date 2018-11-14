@@ -13,9 +13,9 @@ const LinkDrugName = props => {
 }
 
 LinkDrugName.defaultProps = {
-  synonyms: undefined,
-  realName: undefined,
-  description: undefined
+  synonyms: null,
+  realName: null,
+  description: null
 }
 
 export default LinkDrugName
