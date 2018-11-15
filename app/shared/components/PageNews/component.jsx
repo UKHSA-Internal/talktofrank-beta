@@ -35,6 +35,7 @@ export default class PageNews extends React.PureComponent {
                 {this.props.fields.relatedDrugs.map((v, i) => {
                   v.fields.description = ''
                   v.fields.name = v.fields.drugName
+                  delete v.fields.synonyms
                   return <LinkDrugName key={i} {...v.fields}/>
                 })}
                 </ul></React.Fragment>

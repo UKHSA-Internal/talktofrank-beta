@@ -1,8 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const SplitText = ({text, wrapper, modifiers = 'heading-inline heading-inverted--inline'}) => {
+const SplitText = props => {
   // this has been reworked - grab the old one from Github history
-  let Wrapper = `${wrapper || 'h2'}`
-  return <Wrapper className={modifiers}><span dangerouslySetInnerHTML={{__html: text}} /></Wrapper>
+  let Wrapper = `${props.wrapper}`
+  return <Wrapper className={`heading-inline heading-inverted--inline ${props.className}`}><span dangerouslySetInnerHTML={{__html: props.text}} /></Wrapper>
 }
+
+SplitText.defaultProps = {
+  wrapper: 'h2',
+  className: ''
+}
+
 export default SplitText

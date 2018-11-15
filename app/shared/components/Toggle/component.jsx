@@ -43,7 +43,8 @@ export default class Toggle extends React.PureComponent {
       'collapsible--active': this.state.visible
     })
     let contentClasses = classNames('collapsible__content', {
-      'collapsible__content--active': this.state.visible
+      'collapsible__content--active': this.state.visible,
+      'has-unordered': this.props.toggleFancyList
     })
     let toggleClass = classNames('collapsible__trigger', {
       'collapsible__trigger--active': this.state.visible

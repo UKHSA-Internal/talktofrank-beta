@@ -360,6 +360,16 @@ b {
     margin-bottom: 1em;
   }
 
+  a {
+    @include link;
+  }
+
+  h2 {
+    @extend %h3;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
   h3 {
     margin-top: 1.5em;
     font-size: 2rem;
@@ -369,6 +379,83 @@ b {
     margin-top: 1.5em;
     font-size: 1.8rem;
   }
+
+  ol,
+  ul {
+    padding-left: 0;
+    margin-bottom: 5rem;
+
+    > li {
+      padding-left: 2.5rem;
+      position: relative;
+      margin-bottom: .5rem;
+      list-style: none;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+      }
+
+      p {
+        margin-left: 0;
+      }
+    }
+  }
+
+  ul {
+    > li {
+      &::before {
+        background-color: $body-text;
+        border-radius: 100%;
+        height: 6px;
+        top: .6em;
+        width: 6px;
+      }
+    }
+  }
+
+  ol {
+    counter-reset: counter;
+
+    > li::before {
+      content: counter(counter);
+      counter-increment: counter;
+    }
+  }
+
+  .has-unordered ul {
+    > li {
+      margin-bottom: 1.5rem;
+
+      &::before {
+        content: '';
+        border-radius: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: auto;
+        width: 5px;
+        background-color: $gray-300;
+      }
+    }
+  }
+
+  &--indented {
+    @include media-breakpoint-up(sm) {
+      h3,
+      h4,
+      p:not(.lead) {
+        margin-left: 4rem;
+      }
+
+      li {
+        &::before {
+          left: 4rem !important;
+        }
+      }
+    }
+  }
 }
 
 p {
@@ -376,6 +463,7 @@ p {
     @include link;
   }
 }
+
 
 .definition-list {
   position: relative;
@@ -449,6 +537,7 @@ p {
   &--has-arrow {
     .link-list__item {
       padding-left: 0;
+      margin-bottom: 1.5rem;
 
       &::before {
         display: none;
