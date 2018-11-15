@@ -8,6 +8,7 @@ import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
+import Longform from '../Longform/component'
 
 const PageGeneral = props => {
   return (
