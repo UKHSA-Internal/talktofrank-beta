@@ -90,7 +90,7 @@
       comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
       revision: "INHERIT"
       next_pipeline_id: 155377
-- pipeline: "Build & Deploy (production)"
+- pipeline: "Build & Deploy (uat)"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "master"
   actions:
