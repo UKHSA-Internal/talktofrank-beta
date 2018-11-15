@@ -13,6 +13,7 @@ import ScrollTo from '../ScrollTo/component.jsx'
 import FormGroup from '../FormGroup/component'
 import Textarea from '../Textarea/component'
 import Button from '../Button/component.jsx'
+import Longform from '../Longform/component'
 import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
 import SuccessMessage from '../FormSuccess/component'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
@@ -69,11 +70,7 @@ export default class PageFeedbackForm extends React.Component {
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {this.props.pageData.fields.body &&
-                  <div className="spacing-bottom--single" dangerouslySetInnerHTML={{
-                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
-                  }}/>
-                }
+                {this.props.pageData.fields.body && <Longform className="spacing-bottom--single" text={this.props.pageData.fields.body}/>}
 
                 {this.props.error &&
                   <ScrollTo>

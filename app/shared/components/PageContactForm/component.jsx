@@ -12,6 +12,7 @@ import FormHint from '../FormHint/component.jsx'
 import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Anchor from '../Anchor/component.jsx'
+import Longform from '../Longform/component'
 import GA from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
@@ -162,11 +163,7 @@ export default class PageContactForm extends React.PureComponent {
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {this.props.pageData.fields.body &&
-                  <div className="spacing-bottom--single" dangerouslySetInnerHTML={{
-                    __html: documentToHtmlString(this.props.pageData.fields.body, contentFulFactory())
-                  }}/>
-                }
+                {this.props.pageData.fields.body && <Longform className="spacing-bottom--single" text={this.props.pageData.fields.body}/>}
 
                 {this.props.error &&
                   <ScrollTo>
