@@ -87,14 +87,27 @@ router.get('/pages/:slug', (req, res, next) => {
         response.title = response.fields.title
 
         if (response.fields.featuredNewsItem) {
-
           dateFormat(response.fields.featuredNewsItem)
         }
 
         if (response.fields.featuredContentBlock && response.fields.featuredContentBlock.fields.featuredContentItems) {
           response.fields.featuredContentBlock.fields.featuredContentItems.map(item => {
-            console.log(dateFormat(item))
             return dateFormat(item)
+          })
+        }
+
+        if (response.fields.intro) {
+          response.fields.intro = marked(response.fields.intro)
+        }
+
+        if (response.fields.body) {
+          response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+        }
+
+        if (response.fields.contentExtra) {
+          response.fields.contentExtra.map((fieldName, i) => {
+            fieldName.fields.content = marked(fieldName.fields.content)
+            return fieldName
           })
         }
 
@@ -126,6 +139,21 @@ router.get('/pages/:slug', (req, res, next) => {
         } else {
           response['date'] = response.sys.updatedAt
           response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+        }
+
+        if (response.fields.intro) {
+          response.fields.intro = marked(response.fields.intro)
+        }
+
+        if (response.fields.body) {
+          response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+        }
+
+        if (response.fields.contentExtra) {
+          response.fields.contentExtra.map((fieldName, i) => {
+            fieldName.fields.content = marked(fieldName.fields.content)
+            return fieldName
+          })
         }
         res.send(response)
       })

@@ -24,16 +24,20 @@ class FormGroup extends PureComponent {
       searchTerm: '',
       currentSuggestion: '',
       autoCompleteData: [],
-      resultsTotal: 0
+      resultsTotal: 0,
+      loading: false
     }
   }
 
   componentDidMount() {
-    // this.searchInput.input.focus()
+    if (this.props.focus) {
+      this.searchInput.input.focus()
+    }
   }
 
   onChange (event, { newValue }) {
     if (event.type === 'change') {
+      console.log(newValue, event.type)
       this.setState({
         searchTerm: newValue,
         searchTermClean: encodeURIComponent(newValue),
@@ -56,11 +60,15 @@ class FormGroup extends PureComponent {
   }
 
   onSuggestionsFetchRequested ({ value }) {
+    this.setState({
+      loading: true
+    })
     this.getSuggestions(value).then(resp => {
       if (resp.hits) {
         this.setState({
           resultsTotal: resp.total,
-          autoCompleteData: resp.hits
+          autoCompleteData: resp.hits,
+          loading: false
         })
       }
     })
@@ -85,6 +93,7 @@ class FormGroup extends PureComponent {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
     return (
       <div {...containerProps}>
+        {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
           View {res} more results
@@ -143,9 +152,10 @@ class FormGroup extends PureComponent {
   }
 
   render () {
-    let classes = classNames('form-group', this.props.className)
     const { searchTerm, autoCompleteData } = this.state
     const { id, labelHidden, label, button } = this.props
+    let classes = classNames('form-group', this.props.className)
+
     return (
       <div className={classes}>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>

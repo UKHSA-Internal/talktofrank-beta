@@ -36,8 +36,8 @@ export default class PageHome extends React.PureComponent {
         fields: {
           title: featuredNewsItem.fields.title,
           slug: featuredNewsItem.fields.slug,
-          datetime: featuredNewsItem.date,
-          time: featuredNewsItem.dateFormatted
+          date: featuredNewsItem.date,
+          dateFormatted: featuredNewsItem.dateFormatted
         }
       }
       if (featuredNewsItem.fields.image) {
