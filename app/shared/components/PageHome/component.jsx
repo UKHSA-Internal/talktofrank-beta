@@ -35,10 +35,10 @@ export default class PageHome extends React.PureComponent {
       featuredItemBlock = {
         fields: {
           title: featuredNewsItem.fields.title,
-          slug: featuredNewsItem.fields.slug,
-          date: featuredNewsItem.date,
-          dateFormatted: featuredNewsItem.dateFormatted
-        }
+          slug: featuredNewsItem.fields.slug
+        },
+        date: featuredNewsItem.date,
+        dateFormatted: featuredNewsItem.dateFormatted
       }
       if (featuredNewsItem.fields.image) {
         featuredItemBlock.fields.image = imageMap(featuredNewsItem.fields.image)

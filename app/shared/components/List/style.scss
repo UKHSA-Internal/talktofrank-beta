@@ -17,7 +17,14 @@ $offset: 3.5rem;
 }
 
 .list-offset {
-  margin-bottom: 6rem;
+
+  &.list-unstyled {
+    margin-top: 3rem;
+  }
+
+  @include media-breakpoint-up(sm) {
+     margin-bottom: 6rem;
+  }
 
   .list-item {
     max-width: 50rem;
