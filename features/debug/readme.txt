@@ -1,0 +1,1 @@
+Debugging screenshots and log files saved to this directory on scenario failure.

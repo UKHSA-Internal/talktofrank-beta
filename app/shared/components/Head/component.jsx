@@ -23,13 +23,24 @@ export default class Head extends React.Component {
 
     return (
       <head>
-        <title>{title + ` | Talk to Frank`}</title>
+        <title>{title + ` | Talk to Frank: honest information about drugs`}</title>
         <meta charSet='utf-8' />
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <link rel='stylesheet' href='/ui/css/main.css' />
+        <script dangerouslySetInnerHTML={{__html:
+        `
+        window.addEventListener('touchstart', function onFirstTouch() {
+          document.documentElement.classList.remove('has-hover')
+          window.removeEventListener('touchstart', onFirstTouch, false)
+        }, false)
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js')
+        })}`
+        }} />
       </head>
     )
   }

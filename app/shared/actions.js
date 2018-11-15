@@ -7,7 +7,14 @@ import { config } from 'config'
 export const REQUEST_PAGE = 'REQUEST_PAGE'
 export const RECEIVE_PAGE = 'RECEIVE_PAGE'
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR'
-export const SEND_NOTIFICATION = 'SEND_NOTIFICATION'
+
+export const FORM_REQUEST = 'FORM_REQUEST'
+export const FORM_REQUEST_SUCCESS = 'FORM_REQUEST_SUCCESS'
+export const FORM_REQUEST_ERROR = 'FORM_REQUEST_ERROR'
+
+const BAD_REQUEST = 400
+
+const PAGE_SIZE = 10
 
 let apiHost = getApiHost()
 
@@ -31,17 +38,148 @@ function receivePage (pageData) {
   }
 }
 
-function sendNotification (notifyData) {
+export function fetchSearchTerm (term, page = 0) {
+  const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
+
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + `/api/v1/search/page/${term}` + queryString
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
+  }
+}
+
+export function formRequest (status) {
   return {
-    type: SEND_NOTIFICATION,
-    notifyData
+    type: FORM_REQUEST
+  }
+}
+
+export function formRequestSuccess (status, errors) {
+  return {
+    type: FORM_REQUEST_SUCCESS
+  }
+}
+
+export function formRequestError (status, errors) {
+  return {
+    type: FORM_REQUEST_ERROR,
+    status: status,
+    errors: errors
+  }
+}
+
+export function submitForm(data, form) {
+  return dispatch => {
+    dispatch(formRequest())
+    let lookupUrl = apiHost + '/api/v1/contact/' + form
+    return axios.post(lookupUrl, data)
+      .then(res => {
+        dispatch(formRequestSuccess(res.data))
+        return Promise.resolve(null)
+      })
+      .catch(err => {
+        if (err.response.status === BAD_REQUEST) {
+          dispatch(formRequestError(err.response.status, err.response.data))
+        } else {
+          let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+          dispatch(receivePageError(status))
+        }
+
+        return Promise.reject(err)
+      })
+  }
+}
+
+export function fetchDrugList () {
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + '/api/v1/drugs'
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+        return Promise.resolve(null)
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
+  }
+}
+
+export function fetchNewsList (page = 0) {
+  const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + '/api/v1/news' + queryString
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+        return Promise.resolve(null)
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
+  }
+}
+
+export function fetchSupportList (page = 0, {location, serviceType}) {
+  let queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
+
+  if (location) {
+    queryString += `&location=${encodeURIComponent(location)}`
+  }
+
+  if (serviceType) {
+    queryString += `&serviceType=${encodeURIComponent(serviceType)}`
+  }
+
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + '/api/v1/treatment-centres' + queryString
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+        return Promise.resolve(null)
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
   }
 }
 
 export function fetchPage (slug, type = 'pages') {
   return dispatch => {
     dispatch(requestPage())
-    let lookupUrl = apiHost + '/api/v1/' + type + '/' + slug
+    let lookupUrl = apiHost + '/api/v1/' + type + '/' + encodeURIComponent(slug)
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
+  }
+}
+
+export function fetchFeaturedBlock (slug) {
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + '/api/v1/' + type + '/' + encodeURIComponent(slug)
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))

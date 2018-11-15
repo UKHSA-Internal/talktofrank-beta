@@ -1,8 +1,10 @@
 import React from 'react'
 
-const Scripts = () => {
+const Scripts = ({cacheBusterTS}) => {
   return (
     <React.Fragment>
+      <script src={'/ui/js/vendor/promise.polyfill.min.js'}></script>
+      <script src={`/ui/js/client.bundle.js?v=${cacheBusterTS}`}></script>
     </React.Fragment>
   )
 }

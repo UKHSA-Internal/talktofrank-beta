@@ -15,8 +15,18 @@ export function getApiHost () {
   return apiHost
 }
 
+export function getContentfulHost () {
+  return `${config.contentful.contentHost}` +
+    `/spaces/${config.contentful.contentSpace}` +
+    `/environments/${config.contentful.environment}`
+}
+
 export function isArray (obj) {
   return obj.constructor === Array
+}
+
+export function shouldAuthenticate () {
+  return config.basicAuth && config.basicAuth.username && config.basicAuth.password
 }
 
 export function stringContains (haystack, needles) {
@@ -48,6 +58,9 @@ export function isEmpty (obj) {
   return true
 }
 
+export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\|>|\[|\]|\(.*\)|`/g, '')
+export const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
+
 /**
  * Usage: getIfExists(obj, 'prop1.prop2')
  * Returns undefined if it does not exist
@@ -70,12 +83,71 @@ export function exists (obj, key) {
   })
 }
 
-// a silly little map to gauge class names for grid columns
-export const mapper = {
-  1: 'full',
-  2: 'half',
-  3: 'third',
-  4: 'quarter',
-  5: 'fifth',
-  6: 'sixth'
+export function imageMap (obj) {
+  let imageObj = {}
+  let path = obj.fields
+
+  if (path.imageLarge) {
+    imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url
+  }
+
+  if (path.imageMedium) {
+    imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file.url
+  }
+
+  if (path.imageSmall) {
+    imageObj[path.smallBreakpoint] = path.imageSmall.fields.file.url
+  }
+  return imageObj
+}
+
+export function scrollIntoView (node, duration = 300, offset = 80) {
+  document.documentElement.scrollTop = 0
+  const start = document.documentElement.scrollTop
+  const change = (node.getBoundingClientRect().top - offset) - start
+  const increment = 20
+  let currentTime = 0
+  let timerid
+
+  const animateScroll = () => {
+    currentTime += increment
+    const val = Math.easeInOutQuad(currentTime, start, change, duration)
+    document.documentElement.scrollTop = val
+
+    if (currentTime < duration) {
+      setTimeout(animateScroll, increment)
+    }
+  }
+
+  Math.easeInOutQuad = function (t, b, c, d) {
+    t /= d / 2
+    if (t < 1) return c / 2 * t * t + b
+    t--
+    return -c / 2 * (t * (t - 2) - 1) + b
+  }
+
+  if (timerid) {
+    clearTimeout(timerid)
+  }
+
+  timerid = setTimeout(() => {
+    animateScroll()
+  }, duration)
+}
+
+const toRad = (x) => x * Math.PI / 180
+
+export const haversineDistance = (lon1, lat1, lon2, lat2, isMiles) => {
+  const R = 6371 // km
+  const x1 = lat2 - lat1
+  const dLat = toRad(x1)
+  const x2 = lon2 - lon1
+  const dLon = toRad(x2)
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2)
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  let d = R * c
+  if (isMiles) d /= 1.60934
+  return d.toFixed(1)
 }

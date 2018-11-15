@@ -1,0 +1,53 @@
+useFixtures: false
+elasticsearch:
+  host: 'https://search-talktofrank-elastic-beta-tsq3jroogc3kwgtk4s77uab2he.eu-west-2.es.amazonaws.com/'
+  amazonES:
+    region: 'eu-west-2'
+  indices:
+    drugNames: 'talktofrank-drug-name'
+    drug: 'talktofrank-drug-text'
+    content: 'talktofrank-content'
+
+sentry:
+ logErrors: false
+
+contentful:
+  contentTypes:
+    drug: 'drug'
+    news: 'news'
+    page: 'generalPage'
+    treatmentCentre: 'treatmentCentre'
+  entries:
+    homepage: '6YkX4gZ5jawC0eAM6aOCum'
+
+pagination:
+  pageSize: 10
+
+googleAPI:
+  places: ''
+
+email:
+  transport: etherealEmail
+
+etherealEmail:
+  auth:
+    user: pzyvt74kik2vs4cm@ethereal.email
+  host: smtp.ethereal.email
+  port: 587
+
+mailgun:
+  auth:
+    api_key: 'key-1234123412341234'
+    domain: 'talktofrank.com'
+
+serco:
+  contact:
+    to: talktofrank@serco.com
+    subject: 'Talk To Frank'
+
+  feedback:
+    to: talktofrank@serco.com
+    subjectPrefix: 'TALKTOFRANK User Feedback: '
+    from: no-reply@talktofrank.com
+    fromName: Anonymous user
+

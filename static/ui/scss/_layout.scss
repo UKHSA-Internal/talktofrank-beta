@@ -1,0 +1,65 @@
+/* =============================================================================
+   Layout
+   ===========================================================================*/
+$grid-gutter: 30px;
+
+body {
+  background-color: $text-dark-blue;
+}
+
+%constrain {
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-left: $grid-gutter / 2;
+  padding-right: $grid-gutter / 2;
+
+  @include media-breakpoint-up(lg) {
+    padding-left: $grid-gutter;
+    padding-right: $grid-gutter;
+  }
+}
+
+%constrain-narrow {
+  max-width: $max-width-inner;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.constrain-narrow {
+  @extend %constrain-narrow;
+}
+
+.main {
+  @extend %constrain-narrow;
+  padding: 2rem 2rem 5rem;
+  overflow: hidden;
+
+  @include media-breakpoint-up(sm) {
+    padding-top: 3rem;
+  }
+
+  &--full-width {
+    max-width: none;
+  }
+
+  &--muted {
+    background-color: $gray-100;
+  }
+}
+
+main {
+  outline: none;  // Prevent focus outline
+}
+
+.flex-wrapper {
+  background-color: $white; // @joel implementing Jon method footer fix
+}
+
+.section {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  position: relative;
+  overflow: hidden;
+}

@@ -1,0 +1,70 @@
+.masthead {
+  position: relative;
+  z-index: 100;
+  background-color: $white;
+  width: 100%;
+  box-shadow: 0 3px 5px -2px rgba($text-dark-blue, .2);
+}
+
+.masthead__takeover__inner,
+.masthead__inner {
+  position: relative;
+  @extend %constrain-narrow;
+}
+
+.masthead__takeover__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.masthead__takeover {
+  position: absolute;
+  z-index: 95;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $white;
+}
+
+.navbar-expand-md {
+  @include media-breakpoint-up(md) {
+    display: flex !important;
+  }
+}
+
+.takeover-bg {
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($text-dark-blue, .4);
+}
+
+/**
+  @todo: to be reviewed to Joel, absolute positioning is
+  fugly.
+*/
+.form--search {
+  flex-basis: 75%;
+  position: relative;
+
+  input[type='search'] {
+    width: 100%;
+    border: 0;
+  }
+
+  .btn--flat.submit {
+    position: absolute;
+    right: 0px;
+    top: 35px;
+    margin-right: 0px;
+    @include media-breakpoint-up(md) {
+      top: 50px;
+    }
+  }
+}

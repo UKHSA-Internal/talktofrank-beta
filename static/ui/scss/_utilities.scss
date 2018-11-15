@@ -1,0 +1,63 @@
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+// Hiding
+
+.hidden--md-up {
+  @include media-breakpoint-up(md) {
+    display: none !important;
+  }
+}
+
+.hidden--sm {
+  @include media-breakpoint-down(sm) {
+    display: none !important;
+  }
+}
+
+.hidden--xs {
+  @include media-breakpoint-down(xs) {
+    display: none !important;
+  }
+}
+
+.hidden--md {
+  @include media-breakpoint-down(md) {
+    display: none !important;
+  }
+}
+
+.hidden--rg {
+  @include media-breakpoint-down(rg) {
+    display: none !important;
+  }
+}
+
+.hidden--sm-up {
+  @include media-breakpoint-up(sm) {
+    display: none !important;
+  }
+}
+
+// aligning
+.align-right--sm {
+  @include media-breakpoint-up(sm) {
+    text-align: right;
+  }
+}
+
+.vertical-align {
+  @include vertical-align;
+}
+
+.break-word {
+  word-break: break-word;
+}

@@ -1,0 +1,599 @@
+// stylelint-disable declaration-no-important, selector-list-comma-newline-after
+
+//
+// Headings
+//
+
+body {
+  font-size: 1.5rem;
+  color: $body-text;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.8rem;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: $headings-font-family;
+  color: $text-dark-blue;
+  font-weight: 700;
+}
+
+h1,
+.h1,
+%h1 {
+  font-size: 4rem;
+  line-height: (90px / 86px);
+
+  @include media-breakpoint-up(md) {
+    font-size: 6rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 9rem;
+  }
+}
+
+h2,
+.h2,
+%h2 {
+  line-height: 1;
+  font-size: 3.2rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 4rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 5rem;
+  }
+}
+
+h3,
+.h3,
+%h3 {
+  font-size: 2.8rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 3.2rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 3.8rem;
+  }
+}
+
+
+.heading-inverted {
+  background-color: $gray-900;
+  color: $white;
+  display: inline;
+  position: relative;
+  bottom: .06em;
+  padding: 0;
+
+  &.heading-inverted--primary {
+    color: $white;
+    padding: .2em .5em;
+    background-color: $pink;
+  }
+}
+
+.constrained-text {
+  max-width: 50%;
+}
+
+.constrained-text--wide {
+  max-width: 70%;
+}
+
+.heading-inline {
+  position: relative;
+  line-height: .9;
+  background-color: $white;
+  color: $text-dark-blue;
+  display: inline;
+  left: 4rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: $white;
+    width: 2rem;
+    top: 0;
+    left: -2rem;
+    bottom: 0;
+  }
+
+  span {
+    left: -1rem;
+    color: $text-dark-blue;
+    line-height: inherit;
+    margin: 0;
+    position: relative;
+    bottom: .3rem;
+  }
+
+  &.heading-inverted--inline {
+    background-color: $text-dark-blue;
+    color: $white;
+
+    &::before {
+      background-color: $text-dark-blue;
+    }
+
+    span {
+      color: $white;
+    }
+  }
+}
+
+h4,
+.h4,
+%lead,
+%h4 {
+  margin-bottom: 1rem;
+  font-size: 2.4rem;
+}
+
+h5,
+.h5 {
+  font-size: 2rem;
+}
+
+
+// a weird one, this. There is no clear-cut scale
+// so I've pinned this to an H6 - hate this : (
+h6,
+.h6,
+%h6 {
+  font-size: 2.8rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 3.2rem;
+  }
+}
+
+.lead {
+  @extend %lead;
+}
+
+
+//
+// Emphasis
+//
+
+small,
+.small {
+  font-size: $small-font-size;
+  font-weight: $font-weight-normal;
+}
+
+mark,
+.mark {
+  padding: $mark-padding;
+  background-color: $mark-bg;
+}
+
+
+//
+// Lists
+//
+
+.list-unstyled,
+.list-inline {
+  @include list-unstyled;
+}
+
+.list-unstyled--single {
+  > li {
+    margin-bottom: 1rem;
+  }
+}
+
+.list-inline-item {
+  display: inline-block;
+
+  &:not(:last-child) {
+    margin-right: 2rem;
+  }
+}
+
+
+//
+// Misc
+//
+.white {
+  color: $white;
+}
+
+.muted {
+  color: $gray-600;
+}
+
+.light-grey {
+  color: $gray-200;
+}
+
+.grey {
+  color: $gray-900;
+}
+
+.heading--primary {
+  color: $pink;
+}
+
+.display-2,
+.display-3,
+.display-4 {
+  margin-top: .3em;
+  line-height: .9;
+}
+
+.display-2 {
+  font-size: 6rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 8rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 12rem;
+  }
+}
+
+.display-3 {
+  font-size: 4rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 6rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 9rem;
+  }
+}
+
+.display-4 {
+  font-size: 7rem;
+}
+
+.smaller {
+  font-size: 80%;
+}
+
+// essentially a paragraph reset
+%p,
+.p {
+  font-size: 1.8rem;
+  font-family: $font-family-sans-serif;
+}
+
+.italic {
+  font-style: italic;
+}
+
+strong,
+.bold,
+b {
+  color: $text-dark-blue;
+  font-family: $font-family-heavy;
+}
+
+%list-item--underlined,
+.list-item--underlined {
+  border-bottom: 1px solid $gray-300;
+
+  .list-link {
+    padding: 1em;
+
+    .has-hover & {
+      &:active,
+      &:hover {
+        color: $body-text;
+        background-color: $gray-100;
+
+        p,
+        span {
+          //display: inline-block;
+          text-decoration: none;
+        }
+      }
+
+      &:visited {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.link {
+  display: block;
+}
+
+.list-link {
+  display: block;
+  color: inherit;
+
+  &:hover p {
+    text-decoration: none;
+  }
+}
+
+.fake-link {
+  cursor: pointer;
+}
+
+.inverted {
+  line-height: 1;
+  display: inline-block;
+  margin-bottom: .2em;
+  background-color: $gray-900;
+  color: $white;
+  padding: .2em .4em;
+
+  &--quiet {
+    background-color: $gray-200;
+    color: $body-text;
+  }
+
+  &--muted {
+    color: $gray-500;
+  }
+}
+
+// long-form content overrides
+
+.long-form {
+  p {
+    margin-bottom: 1em;
+  }
+
+  a {
+    @include link;
+  }
+
+  h2 {
+    @extend %h3;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    margin-top: 1.5em;
+    font-size: 2rem;
+  }
+
+  h4 {
+    margin-top: 1.5em;
+    font-size: 1.8rem;
+  }
+
+  ol,
+  ul {
+    padding-left: 0;
+    margin-bottom: 5rem;
+
+    > li {
+      padding-left: 2.5rem;
+      position: relative;
+      margin-bottom: .5rem;
+      list-style: none;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+      }
+
+      p {
+        margin-left: 0;
+      }
+    }
+  }
+
+  ul {
+    > li {
+      &::before {
+        background-color: $body-text;
+        border-radius: 100%;
+        height: 6px;
+        top: .6em;
+        width: 6px;
+      }
+    }
+  }
+
+  ol {
+    counter-reset: counter;
+
+    > li::before {
+      content: counter(counter);
+      counter-increment: counter;
+    }
+  }
+
+  .has-unordered ul {
+    > li {
+      margin-bottom: 1.5rem;
+
+      &::before {
+        content: '';
+        border-radius: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: auto;
+        width: 5px;
+        background-color: $gray-300;
+      }
+    }
+  }
+
+  &--indented {
+    @include media-breakpoint-up(sm) {
+      h3,
+      h4,
+      p:not(.lead) {
+        margin-left: 4rem;
+      }
+
+      li {
+        &::before {
+          left: 4rem !important;
+        }
+      }
+    }
+  }
+}
+
+p {
+  a {
+    @include link;
+  }
+}
+
+
+.definition-list {
+  position: relative;
+  background-color: $gray-200;
+  margin-top: -3rem;
+  margin-bottom: 0;
+
+  @include media-breakpoint-up(sm) {
+
+    dd,
+    dt {
+      margin-bottom: 1rem;
+    }
+
+    dt {
+      margin-right: .1em;
+      font-family: $headings-font-family;
+      color: $text-dark-blue;
+      float: left;
+    }
+
+    dd {
+      clear: right;
+      display: block;
+
+      p {
+        display: inline;
+      }
+    }
+
+    p {
+      display: inline-block;
+      margin-bottom: 0;
+
+      .collapsible & {
+        margin-left: 0 !important;
+      }
+    }
+
+    dd:last-of-type,
+    dt:last-of-type {
+      margin-bottom: 0;
+    }
+
+    & + & {
+      border-top: 1px solid $gray-200;
+    }
+  }
+}
+
+.return-to-top {
+  display: block;
+  padding-top: 1.5rem;
+  color: $body-text;
+  text-decoration: underline;
+}
+
+.link-list {
+  margin: 3rem 0 5rem;
+
+  &--reversed {
+    .link-list__item {
+      border-bottom: 1px solid $gray-300;
+    }
+
+    .link-list__item:first-of-type {
+      border-top: 1px solid $gray-300;
+    }
+  }
+
+  &--has-arrow {
+    .link-list__item {
+      padding-left: 0;
+      margin-bottom: 1.5rem;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    .link-list__link {
+      background-color: $gray-200;
+      display: block;
+      font-size: 2.2rem;
+      transition: background-color .1s ease-in-out;
+      padding: .75em 3.5em .75em 1em;
+      color: $text-dark-blue;
+      font-family: $font-family-heavy;
+      @include arrow-hover;
+
+      .has-hover & {
+        &:active,
+        &:hover {
+          background-color: $gray-300;
+        }
+      }
+    }
+
+
+    &.link-list--reversed {
+      .link-list__link {
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+.has-arrow {
+  @include arrow-hover;
+
+  &--left {
+    padding-right: 0 !important;
+    padding-left: 5rem !important;
+
+    &:hover:after {
+      right: auto;
+      left: 2rem;
+      background-image: url('/ui/svg/arrow-left.svg');
+    }
+
+    .has-hover & {
+      &:active,
+      &:hover {
+
+        &:after {
+          right: auto;
+          left: 1rem;
+        }
+      }
+    }
+  }
+}
+

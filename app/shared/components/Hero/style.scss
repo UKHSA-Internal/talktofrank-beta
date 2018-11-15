@@ -1,0 +1,13 @@
+.hero {
+  overflow: hidden;
+  position: relative;
+
+  .hero__inner {
+    @include vertical-align;
+  }
+
+  .image,
+  img {
+    width: 100%;
+  }
+}

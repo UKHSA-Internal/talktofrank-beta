@@ -1,0 +1,110 @@
+//
+// Base styles
+//
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+
+  &.card--quiet {
+    border: 0;
+    background-color: transparent;
+  }
+}
+
+.card-body {
+  // Enable `flex-grow: 1` for decks and groups so that card blocks take up
+  // as much space as possible, ensuring footers are aligned to the bottom.
+  flex: 1 1 auto;
+  padding: $card-spacer-x 0 0;
+}
+
+.card__link:hover {
+  text-decoration: none;
+}
+
+.card-title {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  font-family: $font-family-heavy;
+}
+
+.card-text:last-child {
+  margin-bottom: 0;
+}
+
+.link-text {
+  @include link;
+  display: inline-block;
+  font-size: inherit;
+
+  .card__link & {
+    display: inline-block;
+  }
+}
+
+//
+// Header navs
+//
+.card-img {
+  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+}
+
+// Card image caps
+.card-img-top {
+  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+}
+
+// Card deck
+
+.card-deck {
+  display: flex;
+  flex-direction: column;
+
+  .card {
+    margin-top: 0;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+
+    &:first-of-type {
+      padding-top: 0;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    flex-flow: row wrap;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-top: 0;
+
+    .card {
+      display: flex;
+      // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
+      flex: 1 0 0%;
+      flex-direction: column;
+      margin-right: $card-deck-margin;
+      margin-bottom: 0; // Override the default
+      margin-left: $card-deck-margin;
+      padding: 0;
+    }
+  }
+
+  &.card-deck--compact {
+    padding: 0;
+
+    @include media-breakpoint-up(md) {
+      margin-left: -.3rem;
+      margin-right: -.3rem;
+
+      .card {
+        margin-left: .3rem;
+        margin-right: .3rem;
+      }
+    }
+  }
+}

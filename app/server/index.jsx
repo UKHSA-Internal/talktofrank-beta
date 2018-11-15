@@ -1,117 +1,191 @@
 'use strict'
-
 import express from 'express'
-import bodyParser from 'body-parser'
 import basicAuth from 'express-basic-auth'
-import { RouterContext, match } from 'react-router'
+import bodyParser from 'body-parser'
+import favicon from 'serve-favicon'
+import { StaticRouter } from 'react-router-dom'
 import React from 'react'
 import { Provider } from 'react-redux'
 import ReactDOMServer from 'react-dom/server'
-import cookie from 'react-cookie'
-import cookieParser from 'cookie-parser'
-import { getRoutes } from '../shared/routes'
-import { exists } from '../shared/utilities'
+import routes from '../shared/newRoutes'
+import { matchRoutes, renderRoutes } from 'react-router-config'
 import { generateStore } from '../shared/store'
-
-import Head from '../shared/components/Head/component.jsx'
-import Scripts from '../shared/components/Scripts/component.jsx'
+import * as path from 'path'
+import { exists, shouldAuthenticate } from '../shared/utilities'
+import { getLoadableState } from 'loadable-components/server'
 
 /*
  * Express routes
  */
 import apiRoutes from './api/v1/api.js'
+import apiContactRoutes from './api/v1/contact.js'
+
+import contentFulWebhookRoutes from './contentful/webhooks.js'
 
 /*
  * Project configuration
 */
 import { config } from 'config'
-
 import packageInfo from '../../package.json'
+import Html from '../shared/components/Html/component'
+import PageNotFound from '../shared/components/PageNotFound/component'
+
+const Sentry = require('@sentry/node')
+if (config.sentry.logErrors) {
+  console.log(`Error logging enabled: Sentry DSN ${config.sentry.dsn}`)
+  Sentry.init({ dsn: config.sentry.dsn })
+}
+
+/*
+ * Elasticsearch config
+*/
+const AWS = require('aws-sdk')
+const connectionClass = require('http-aws-es')
+const elasticsearch = require('elasticsearch')
+const elasticSearchConf = {
+  host: config.elasticsearch.host || `http://localhost:9200`,
+  log: `info`
+}
+
+if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
+  elasticSearchConf.connectionClass = connectionClass
+  AWS.config.update({
+    region: config.elasticsearch.amazonES.region
+  })
+}
+
+if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) {
+  AWS.config.update({
+    credentials: new AWS.Credentials(
+      config.elasticsearch.amazonES.credentials.accessKeyId,
+      config.elasticsearch.amazonES.credentials.secretAccessKey
+    ),
+    region: config.elasticsearch.amazonES.region
+  })
+}
+
+const search = new elasticsearch.Client(elasticSearchConf)
+
+/*
+ * Authentication
+*/
+const basicAuthHandler = (username, password) => {
+  return username === config.basicAuth.username && password === config.basicAuth.password
+}
+const basicAuthMiddleware = basicAuth({ authorizer: basicAuthHandler, challenge: true })
 
 var store
 
 const app = express()
+const cacheBusterTS = Date.now()
+
+const addSearch = (req, res, next) => {
+  res.search = search
+  return next()
+}
+
+// Add search middleware
+app.use('/api/v1/search', addSearch)
+app.use('/contentful/webhook', addSearch)
 
 app.use('/api/v1', apiRoutes)
-app.use(cookieParser())
-app.use(bodyParser.json())
+app.use('/contentful/webhook', contentFulWebhookRoutes)
+
+app.use('/api/v1/contact', apiContactRoutes)
+
+/*
+ * Adding service worker files direct to express callbacks
+ */
+app.use('/sw.js', (req, res) => {
+  res.sendFile(path.resolve('../static/ui/js/sw.js'))
+})
+app.use('/service-worker.js', (req, res) => {
+  res.sendFile(path.resolve('../static/ui/js/service-worker.js'))
+})
+
 app.use(express.static('../static'))
+app.use(favicon('../static/ui/favicon.ico'))
+app.use((req, res, next) => shouldAuthenticate(req) ? basicAuthMiddleware(req, res, next) : next())
+
+app.get('/robots.txt', function (req, res) {
+  res.type('text/plain')
+  res.send('User-agent: *\nDisallow: /')
+})
 
 /*
  * Pass Express over to the App via the React Router
  */
-app.get('*', function (req, res) {
-  store = generateStore()
+app.get('*', (req, res) => {
+  const store = generateStore()
+  const loadData = () => {
+    const branches = matchRoutes(routes, req.path)
 
-  cookie.plugToRequest(req, res)
+    let match = branches.find(({ route, match }) => {
+      return match.isExact && route.loadData
+    })
 
-  match({routes: getRoutes(store), location: req.url}, (error, redirectLocation, renderProps) => {
-    if (error) {
-      // Error with routing
-      res.status(500).send(error.message)
-      return
+    if (!match) {
+      return Promise.resolve(null)
     }
+    return store.dispatch(match.route.loadData({ params: match.match.params, query: req.query }))
+  }
 
-    if (redirectLocation) {
-      // Handle redirects
-      console.log('REDIRECTING TO: ' + redirectLocation.pathname + redirectLocation.search)
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
-      return
-    }
+  (async () => {
+    // @todo: refactor this - enforcing header here to verify whether this
+    // fixes windows 7 chrome not rendering the site correctly
+    res.type('text/html;charset=UTF-8')
 
-    let componentHtml = ''
-    let state = store.getState()
-
-    // changed from renderToString to renderToStaticMarkup
     try {
-      componentHtml = ReactDOMServer.renderToStaticMarkup((
+      await loadData()
+    } catch (err) {
+      const state = store.getState()
+      state.app.pageData.title = 'Page not found'
+      state.app.pageData.error = 404
+      const props = {
+        routes: null,
+        initialState: state,
+        cacheBusterTS: cacheBusterTS
+      }
+      res.write('<!DOCTYPE html>')
+
+      return ReactDOMServer
+        .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
+        .pipe(res)
+    }
+
+    try {
+      const state = store.getState()
+      const staticContext = {}
+
+      const AppComponent = (
         <Provider store={store}>
-          <RouterContext {...renderProps} />
+          <StaticRouter location={req.path} context={staticContext}>
+            {renderRoutes(routes, {
+              initialState: state,
+              cacheBusterTS: cacheBusterTS
+            })}
+          </StaticRouter>
         </Provider>
-      ))
+      )
+
+      res.write('<!DOCTYPE html>')
+
+      getLoadableState(AppComponent).then(loadableState => {
+        ReactDOMServer
+          .renderToNodeStream(AppComponent)
+          .pipe(res)
+      })
     } catch (err) {
       console.log(err)
+      // need to render the NoMatch component here
+      res.status(500).send('' +
+        '<html>' +
+        '<body><h2>Internal server error :(</h2></body>' +
+        '</html>'
+      )
     }
-
-    let title = 'Talk to Frank'
-
-    if (state.error) {
-      switch (state.error) {
-        case '404':
-          title = 'Page not found (404)'
-          break
-        case 500:
-        default:
-          title = 'Server error'
-          break
-      }
-    } else if (exists(state, 'app.pageData.head.title')) {
-      title = state.app.pageData.head.title
-    }
-
-    let status = state.error ? state.error : 200
-
-    let componentHead = ReactDOMServer.renderToStaticMarkup(<Head {...state.app.pageData} error={state.app.error} />)
-    let componentScripts = ReactDOMServer.renderToStaticMarkup(<Scripts />)
-    let renderedHtml = renderFullPageHtml(componentHtml, componentHead, componentScripts, JSON.stringify(state))
-
-    return res.status(status).send(renderedHtml)
-  })
+  })()
 })
-
-function renderFullPageHtml (html, head, scripts, initialState) {
-  return `
-    <!DOCTYPE html>
-    <html lang='en'>
-    ${head}
-    <body>
-      <div id='app'>${html}</div>
-      <script>window.$REDUX_STATE=${initialState};</script>
-      ${scripts}
-    </body>
-    </html>
-  `
-}
 
 const port = process.env.PORT || 3000
 

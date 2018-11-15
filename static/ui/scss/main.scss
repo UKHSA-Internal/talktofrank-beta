@@ -1,9 +1,69 @@
-// Path to assets for use with the file-url function
-// in the govuk frontend toolkit's url-helpers partial
-$path: '/ui/img';
-$text-max-width: 65rem;
-
-
-// exported css files as scss for speed as the kit is not complete
-// and a litle disparate if not imported using Gulp
 @charset 'UTF-8';
+
+$max-width: 1200px;
+
+// base
+@import 'base';
+
+// custom fonts
+@import 'fonts';
+
+// Bootstrap yay
+// imported separately for finer control
+@import 'bootstrap/scss/functions';
+
+// Overrides for variables
+@import 'custom';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+@import 'mixins';
+@import 'vertical-spacing';
+@import 'horizontal-spacing';
+@import 'layout';
+@import 'utilities';
+
+
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/alert';
+@import 'bootstrap/scss/forms';
+//@import 'bootstrap/scss/input-group';
+// @import 'bootstrap/scss/utilities'; // not going to haul them all down
+// going to itemise these a bit as there is a lot of rubbish coming down
+
+@import 'bootstrap/scss/utilities/display';
+@import 'bootstrap/scss/utilities/float';
+@import 'bootstrap/scss/utilities/screenreaders';
+@import 'bootstrap/scss/utilities/text';
+
+// Added components!!
+@import '../../../app/shared/components/Nav/style';
+@import '../../../app/shared/components/Nav/navbar';
+@import '../../../app/shared/components/Typography/style';
+@import '../../../app/shared/components/Masthead/style';
+@import '../../../app/shared/components/Toggle/style';
+@import '../../../app/shared/components/Collapsible/style';
+@import '../../../app/shared/components/PageSearch/style';
+@import '../../../app/shared/components/Button/style';
+@import '../../../app/shared/components/FormGroup/style';
+@import '../../../app/shared/components/FormGroupAutocomplete/style';
+@import '../../../app/shared/components/Logo/style';
+@import '../../../app/shared/components/Footer/style';
+@import '../../../app/shared/components/Skiplinks/style';
+@import '../../../app/shared/components/Panel/style';
+@import '../../../app/shared/components/Card/style';
+@import '../../../app/shared/components/Accent/style';
+@import '../../../app/shared/components/Divider/style';
+@import '../../../app/shared/components/Hero/style';
+@import '../../../app/shared/components/Picture/style';
+@import '../../../app/shared/components/Header/style';
+@import '../../../app/shared/components/List/style';
+@import '../../../app/shared/components/Pagination/style';
+@import '../../../app/shared/components/Breakpoints/style';
+@import '../../../app/shared/components/Icon/style';
+@import '../../../app/shared/components/FormErrors/style';
+@import '../../../app/shared/components/FormHint/style';
+@import '../../../app/shared/components/FormSuccess/style';

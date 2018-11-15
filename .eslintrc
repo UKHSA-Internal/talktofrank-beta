@@ -7,8 +7,10 @@
   "extends": "standard",
   "rules": {
     "no-undef": 0,
-    "no-unused-vars": 0
+    "no-unused-vars": 0,
+    "space-before-function-paren": 0
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "allowImportExportEverywhere": true,
     "ecmaVersion": 6,

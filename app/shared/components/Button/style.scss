@@ -1,0 +1,211 @@
+
+.btn {
+  border-radius: 0;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 1rem;
+  font-family: $font-family-heavy;
+  margin-right: 1.5em;
+  color: inherit;
+
+  &.raised {
+    @include media-breakpoint-up(sm) {
+      width: auto;
+    }
+  }
+}
+
+
+.has-icon {
+  .link__text,
+  .btn__text {
+    border-bottom: 2px dashed;
+    border-bottom-color: $white;
+    display: inline-block;
+    margin-left: 1rem;
+    padding-bottom: .2em;
+
+    &.link__text--right {
+      color: $text-dark-blue;
+      margin-left: auto;
+      margin-right: 1rem;
+      border-bottom-color: $pink;
+    }
+
+    .icon {
+      margin-left: -4px;
+    }
+  }
+}
+
+.btn--alink {
+  &:active,
+  &:hover,
+  &:focus {
+    color: $pinkAccess;
+    text-decoration: underline;
+  }
+}
+
+.btn--large {
+  font-size: 2.4rem;
+  padding-top: 2.2rem;
+  padding-bottom: 1.8rem;
+
+  &:active {
+    padding-top: 3rem;
+    padding-bottom: 1.6rem;
+  }
+}
+
+.btn--flat,
+.btn--link {
+  background-color: transparent;
+  border-color: transparent;
+  text-decoration: none;
+  padding-left: 0;
+  padding-right: 0;
+  box-shadow: none;
+  border-bottom: 2px dashed $pink;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    text-decoration: none;
+  }
+}
+
+.btn--flat {
+  border-bottom: 0;
+  font-size: 1.5rem;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.8rem;
+  }
+}
+
+.btn--primary {
+  color: $white;
+  background-color: $pink;
+  text-decoration: none;
+  text-align: center;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+
+  .btn__text {
+    color: $white;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:active {
+    position: relative;
+    top: .1em;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 2.3rem;
+  }
+}
+
+.btn--small {
+  font-size: 1.5rem;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 1.8rem;
+  }
+}
+
+.btn--full-width {
+  @include media-breakpoint-up(sm) {
+    display: block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+  }
+}
+
+// Dropping it here for the moment as they are indeed buttons
+.navbar-toggler {
+  border-radius: 0;
+  margin-top: -.5rem;
+  font-size: 1.3rem;
+  position: absolute;
+  right: 3rem;
+
+  &::after {
+    content: '';
+    position: relative;
+    top: -.2rem;
+    margin-left: .3em;
+    display: inline-block;
+    vertical-align: middle;
+    width: 2.5rem;
+    height: 3rem;
+    background-image: url(../svg/menu.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &.active {
+    &::after {
+      background-image: url(../svg/cross.svg);
+      background-size: 70%;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}
+
+.navbar-toggler-icon {
+  visibility: hidden;
+}
+
+// this pops a cheeky beak on it - @refactor could use a rename
+.active {
+  @include media-breakpoint-down(md) {
+    &::before {
+      border-width: 0 15px 15px;
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      margin-left: .35rem;
+      left: 50%;
+      border-style: solid;
+      border-color: $gray-200 transparent;
+      display: block;
+      width: 0;
+      z-index: 0;
+    }
+  }
+}
+
+.button-group {
+  &--static {
+    position: absolute;
+    top: .5rem;
+    right: 0;
+
+    @include media-breakpoint-up(md) {
+      top: 2.2rem;
+    }
+
+    .btn + .btn {
+      position: relative;
+
+      &::before {
+        content: '';
+        background-color: $gray-200;
+        position: absolute;
+        width: 2px;
+        top: 0;
+        bottom: 0;
+        left: -.75em;
+      }
+    }
+  }
+}

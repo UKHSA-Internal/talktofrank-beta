@@ -3,6 +3,11 @@ default:
   - build
   - concurrent:monitor
 
+localtunnel:
+  - clean
+  - build
+  - concurrent:monitorTunnel
+
 css:
   - sass
   - postcss
@@ -10,6 +15,7 @@ css:
 build:
   - css
   - copy
+  - cssmin
   - js
 
 js:
@@ -18,3 +24,12 @@ js:
 validate:
   - eslint
   - sasslint
+
+post-build-validate:
+  - pa11y:stage
+  - lighthouse
+
+cucumbertests:
+  - clean
+  - build
+  - concurrent:cucumber

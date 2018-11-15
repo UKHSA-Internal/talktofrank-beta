@@ -4,10 +4,6 @@
 
 - nodejs version `9.8.0`
 
-## development
-
-`grunt`
-
 ## Building
 
 To build files to `./dist`:
@@ -20,6 +16,10 @@ The `BUILD_CONFIG=staging|production|development` (defaults to `development`) en
 
 Setting `BUILD_CONFIG` sets `NODE_ENV` automatically accordingly in webpack.js.
 
+### Live configuration
+
+No passwords / keys etc. are kept in the repo. Any live environments needs a `config.creds.yaml` file in the root of the project to store keys etc.
+
 ## Development
 
 A feature branch branching strategy is in use, specifically:
@@ -28,6 +28,130 @@ A feature branch branching strategy is in use, specifically:
 - When the work is ready (tested, linted etc.), a pull request should be opened against the `develop` branch.
 - A peer review should be undertaken against the pull request and the branch merged.
 - The CI server will build from the develop and deploy to the staging server.
+
+### Grunt tasks
+
+| Task | Description                                                                      |
+| --------------- | -------------------------------------------------------------------------------- |
+| `grunt`  (default)                    | Clean existing & build new bundled files. Run your app on the development server at `localhost:3000`.  |
+| `grunt build `                        | Create new bundled files                                                      |
+| `grunt ngrok`                         | Setup an grok tunnel to your local web server                                 |
+| `grunt contentful:deleteAllIndices`   | Delete all elasticsearch indexes                                              |
+| `grunt contentful:fullReindex`        | Delete existing index, create a new ES index and pull entries from contentful |
+| `grunt contentful:reindexContent`     | Pull entries from contentful into Elasticsearch & reindex                     |
+| `grunt localtunnel`                   | Run local server (monitor for changes) with ngrok tunnel                      |
+
+
+### Contenftul CLI
+
+Migration and API query tools available using [contentful-cli](https://github.com/contentful/contentful-cli).
+
+
+| `contentful <script>` | Description                                                                      |
+| --------------- | -------------------------------------------------------------------------------- |
+| `login / logout`           | Start/end a CLI tool session |
+| `content-type list --space-id xxx` | List all content types |
+| `content-type get --space-id xxx --id [content type id]`| Get a list of content type fields |
+
+
+### Workbox (service worker)
+
+**Note: service workers require an HTTPS connection**
+
+[Workbox](https://developers.google.com/web/tools/workbox/modules/) is used to handle service-worker logic.  Configuration is
+found in ```/workbox-config.js```
+
+* service worker files are found in ```/static/ui/js``` & ```/static/offline```
+* all requests for png, ico, css and png & offline.html files are precached
+* a **'Network first'** policy is used so that
+  * requests made while online will always go to the server first
+  * offline requests will correctly load the cached files so that offline.html can be loaded correctly
+
+To refresh the list of assets to precache:
+
+```
+workbox injectManifest ./workbox-config.js
+```
+
+### Emails
+
+[ethereal.email](https://ethereal.email/) is used for testing emails.
+
+To use the Mailgun testing sandbox, you first need to add your email address
+to this page (which isn't shown on the dashboard):
+https://app.mailgun.com/app/account/authorized
+
+### Elasticsearch
+
+AWS Elasticsearch is used to provide the search capability, access is restricted using AWS IAM accounts:
+
+- The Alpha server has been given the IAM Role 'TalkToFrank-EC2-ElasticSearch' and therefore credentials are auto loaded
+- For development add the following to your config file, requesting the access key id/secrets where required.
+
+```
+elasticsearch:
+  host: ''
+  amazonES:
+    credentials:
+      accessKeyId: ''
+      secretAccessKey: ''
+    region: ''
+```
+
+### Sentry logging
+
+Server side logging via [Sentry](http://sentry.io) can be enabled using the following configuration:
+
+```
+sentry:
+ logErrors: true
+ dsn: ''
+```
+
+### Testing
+
+Smoke tests available using cucumber-js and puppeteer.  Folder structure for the tests:
+
+```
+.
+└── features                        # Folder containing all cucumber feature files
+    ├── debug                       # Debugging console output and screenshots saved here
+    ├── step_definition             #
+    │   ├── common.js               # Cucumber give/then/when step defintions
+    ├── support                     # Helper files
+    │   ├── actions.js              # Implementations of step definitions using puppeteer API
+    │   ├── assertions.js           # Text found on the site used to assert scenarios
+    │   ├── pages.js                # URLs used as part of the scenariuos
+    │   ├── scope.js                # initialises a global scope used to store access to the browser
+    │   └── selectors.js            # DOM selectors found on the site used to assert scenarios
+    ├── hooks.js                    # Before/After cucumber hooks
+    └── world.js                    # Global cucmber js config
+```
+
+#### Tags used
+
+* `@wip` - work in progress, to be implemented
+* `@duplicate` - should be ignored / are not implemented as the functionality is duplicated into another scenario
+* `@ignore` - any other tests that should not be run (aren't going to be implemented and are not duplicates)
+
+#### Running the test
+
+To run the cucumber-js test the site must already be running, i.e. this command does not start the server.
+You can either run the tests via the CLI:
+
+```
+CUCUMBER_HOST=[http://testdomain] cucumber-js --tags "not @ignore and not @wip and not @duplicate"
+```
+
+Or using Grunt, which assumes the config found in `./grunt/cucumberjs`:
+
+```
+CUCUMBER_HOST=[http://testdomain] grunt cucumberjs
+```
+
+This will create an HTML formatted results page at `./features/report.html`
+
+
 
 ## Releasing
 

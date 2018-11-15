@@ -1,24 +1,49 @@
-import { render } from 'react-dom'
+import { hydrate } from 'react-dom'
 import React from 'react'
-import { Router, browserHistory } from 'react-router'
+import loadable from 'loadable-components'
+
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
-import { getRoutes } from '../shared/routes'
-import { generateStore } from '../shared/store'
+import { app } from '../shared/reducers'
+import thunkMiddleware from 'redux-thunk'
 
-var store = generateStore(window.$REDUX_STATE)
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter } from 'react-router-redux'
+import { renderRoutes } from 'react-router-config'
+import routes from '../shared/newRoutes.jsx'
 
-let routes = (
- <Provider store={store}>
-   <Router history={browserHistory}>
-       {getRoutes(store)}
-   </Router>
- </Provider>
+import { Switch, Route } from 'react-router'
+
+// @todo - this is not lazyloaded
+import PageNotFound from '../shared/components/PageNotFound/component.jsx'
+
+const rootReducer = combineReducers({
+  app
+})
+let store = createStore(
+  rootReducer,
+  window.$REDUX_STATE,
+  applyMiddleware(
+    thunkMiddleware
+  )
 )
 
-/*
-* If there is an error, don't invoke the client app, the server will show it
-*/
-if (!store.getState().error) {
-  render(routes, document.getElementById('app'))
+const history = createHistory()
+const state = store.getState()
+const appRoot = document.getElementById('app')
+
+if (state.app.error) {
+  switch (state.app.error) {
+    case 404:
+      hydrate(<PageNotFound />, appRoot)
+      break
+  }
+} else {
+  hydrate(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        {renderRoutes(routes[0].routes)}
+      </ConnectedRouter>
+    </Provider>, appRoot)
 }

@@ -1,0 +1,112 @@
+$dims: 2rem;
+
+.collapsible-wrapper {
+  margin-bottom: 5rem;
+}
+
+.collapsible {
+  background-color: $gray-100;
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  &--active {
+    background-color: transparent;
+  }
+
+  .collapsible__content,
+  .collapsible__trigger {
+    .section--has-toggle & {
+      padding-left: ($dims * 2);
+    }
+  }
+
+  .collapsible__content {
+    display: none;
+
+    &.collapsible__content--active {
+      display: block;
+      padding-bottom: 3rem;
+    }
+
+    .section--has-toggle & {
+      @include media-breakpoint-down(sm) {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .bordered {
+    border-bottom: 1px solid $gray-300;
+  }
+
+  &.collapsible--first  {
+    .bordered {
+      border-top: 1px solid $gray-300;
+    }
+  }
+
+  .collapsible__trigger {
+    display: block;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    font-family: $headings-font-family;
+    color: $text-dark-blue;
+  }
+
+  &.collapsible--chevron {
+    .collapsible__trigger {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: $dims;
+        height: $dims;
+        left: 0;
+        top: 2.6rem;
+        display: block;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('/ui/svg/plus.svg');
+      }
+    }
+
+    .collapsible__trigger--active {
+      &::before {
+        background-image: url('/ui/svg/minus.svg');
+      }
+    }
+  }
+
+  strong {
+    color: $text-dark-blue;
+    display: block;
+  }
+
+  // slightly smelly - this is in place to negate the need for a really complex
+  // overhaul of Contentful. The rules will need to be written out for content editors
+  // @joel @refactor - write readme.md
+
+  p,
+  .panel,
+  ul,
+  ol {
+    margin-left: 0;
+
+    @include media-breakpoint-up(md) {
+      margin-left: 2.5rem;
+    }
+  }
+
+  .inverted {
+    margin-left: 0;
+  }
+}
