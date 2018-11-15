@@ -13,8 +13,18 @@ import { ConnectedRouter } from 'react-router-redux'
 import { renderRoutes } from 'react-router-config'
 import routes from '../shared/newRoutes.jsx'
 
+import { Switch, Route } from 'react-router'
+
 // @todo - this is not lazyloaded
 import PageNotFound from '../shared/components/PageNotFound/component.jsx'
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/ui/js/service-worker.js', {
+      scope: '/'
+    })
+  })
+}
 
 const rootReducer = combineReducers({
   app
@@ -28,7 +38,6 @@ let store = createStore(
 )
 
 const history = createHistory()
-import { Switch, Route } from "react-router";
 const state = store.getState()
 const appRoot = document.getElementById('app')
 
@@ -36,7 +45,7 @@ if (state.app.error) {
   switch (state.app.error) {
     case 404:
       hydrate(<PageNotFound />, appRoot)
-      break;
+      break
   }
 } else {
   hydrate(

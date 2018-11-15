@@ -1,104 +1,136 @@
 import React from 'react'
 import Masthead from '../Masthead/component.jsx'
 import Main from '../Main/component.jsx'
-import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Hero from '../Hero/component.jsx'
 import CardDeck from '../CardDeck/component.jsx'
-import Accent from '../Accent/component.jsx'
 import Article from '../Article/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
+import { imageMap } from '../../utilities'
 
 export default class PageHome extends React.PureComponent {
   render () {
-    // @refactor @joel - this image data and heading stuff should be coming form contentful
+    const { fields } = this.props
+    const { featuredContentBlock, featuredNewsItem, featuredDrugsBlock } = fields
+    let featuredNewsBlock = false
+    let featuredItemBlock = false
+    let commonDrugsBlock = false
+
     let hero = {
       heading: {
         wrapper: 'h1',
-        text: 'Honest <br/>information <br/>about drugs'
+        text: 'Honest <br />information <br />about drugs'
       },
-      url: '/',
-      images: {
-        400: '/ui/img/hero/hero-small__323x310.jpg',
-        600: '/ui/img/hero/hero-medium__882x481.jpg',
-        1200: '/ui/img/hero/hero-large__1445x460.jpg'
+      url: '/'
+    }
+    if (fields.heroImages) {
+      hero.images = imageMap(fields.heroImages)
+    }
+
+    if (featuredNewsItem) {
+      featuredItemBlock = {
+        fields: {
+          title: featuredNewsItem.fields.title,
+          slug: featuredNewsItem.fields.slug
+        }
+      }
+      if (featuredNewsItem.fields.image) {
+        featuredItemBlock.fields.image = imageMap(featuredNewsItem.fields.image)
       }
     }
 
-    let featuredItem = {
-      fields: {
-        title: '5 top tips for a safe festival experience',
-        slug: 'new-drug-driving-offence',
-        image: {
-          800: '//images.ctfassets.net/ip74mqmfgvqf/7H8JBsy4ZqO2mygyyYakgQ/644912e3d894f16f16d3e31b307c597d/new-drug-driving-offence.jpg'
-        }
+    if (featuredContentBlock &&
+      featuredContentBlock.fields.featuredContentItems &&
+      featuredContentBlock.fields.featuredContentItems.length > 0) {
+      featuredNewsBlock = {
+        heading: {
+          type: 'h2',
+          text: featuredContentBlock.fields.title,
+          url: featuredContentBlock.fields.readMoreLink,
+          className: 'h3'
+        },
+        allnews: {
+          type: 'h3',
+          text: featuredContentBlock.fields.readMoreText,
+          url: featuredContentBlock.fields.readMoreLink,
+          className: 'h4'
+        },
+        teasers: []
       }
+      featuredContentBlock.fields.featuredContentItems
+        .map((item, i) => {
+          let featuredItem = {
+            url: `/news/${item.fields.slug}`,
+            className: 'card--quiet',
+            category: 'drugs news',
+            heading: {
+              type: 'h3',
+              text: item.fields.title,
+              className: 'h4 card-title'
+            },
+            linkLabel: 'Read more'
+          }
+
+          if (item.fields.image) {
+            featuredItem.images = imageMap(item.fields.image)
+            featuredItem.imageClass = 'card-img'
+          }
+
+          // crudely setting 2nd item STICKY
+          if (i === 1) {
+            featuredItem.sticky = true
+          }
+
+          featuredNewsBlock.teasers.push(featuredItem)
+        })
     }
-    //  @refactor @joel - this feature/TTF-583-news-listing
-    //
-    let news = {
-      heading: {
-        type: 'h2',
-        text: 'Featured news',
-        url: '/latest',
-        className: 'h3'
-      },
-      allnews: {
-        type: 'h3',
-        text: 'All news',
-        url: '/latest',
-        className: 'h4'
-      },
-      teasers: [
-        {
-          url: '/news/something-else',
-          className: 'card--quiet',
-          imageClass: 'card-img',
-          images: {
-            400: '/ui/img/content/featured-news-1.jpg'
-          },
-          category: 'drugs news',
-          heading: {
-            type: 'h3',
-            text: 'Ecstasy - How do I know what I’m taking?',
-            className: 'h4 d-inline-block card-title'
-          },
-          linkLabel: 'Read more'
+
+    // @joel - common drugs data matches featured news block
+    // leaving this out of the markup until it can be styled
+    // inspect 'commonDrugsBlock' var for the contents
+    if (featuredDrugsBlock &&
+      featuredDrugsBlock.fields.featuredContentItems &&
+      featuredDrugsBlock.fields.featuredContentItems.length > 0) {
+      commonDrugsBlock = {
+        heading: {
+          type: 'h2',
+          text: featuredDrugsBlock.fields.title,
+          url: '/drugs-a-z',
+          className: 'h3'
         },
-        {
-          url: '/news/something-else',
-          className: 'card--quiet',
-          imageClass: 'card-img',
-          images: {
-            400: '/ui/img/content/featured-news-2.jpg'
-          },
-          category: 'drugs news',
-          heading: {
-            type: 'h3',
-            text: 'The total truth about illegal highs',
-            className: 'h4 card-title'
-          },
-          isSticky: true,
-          linkLabel: 'Read more'
+        allDrugs: {
+          type: 'h3',
+          text: 'See full drugs A - Z',
+          url: '/drugs-a-z',
+          className: 'h4'
         },
-        {
-          url: '/news/something-else',
-          className: 'card--quiet',
-          imageClass: 'card-img',
-          images: {
-            400: '/ui/img/content/featured-news-3.jpg'
-          },
-          category: 'drugs news',
-          heading: {
-            type: 'h3',
-            text: 'The text of the thing',
-            className: 'h4 card-title'
-          },
-          linkLabel: 'Read more'
-        }
-      ]
+        teasers: []
+      }
+      featuredDrugsBlock.fields.featuredContentItems
+        .map((item, i) => {
+          let featuredItem = {
+            url: `/drug/${item.fields.slug}`,
+            heading: {
+              type: 'h3',
+              text: item.fields.drugName
+            },
+            linkLabel: 'Read more'
+          }
+
+          if (item.fields.image) {
+            featuredItem.images = imageMap(item.fields.image)
+            featuredItem.imageClass = 'card-img'
+          }
+
+          // crudely setting 2nd item STICKY
+          if (i === 1) {
+            featuredItem.sticky = true
+          }
+
+          commonDrugsBlock.teasers.push(featuredItem)
+        })
     }
 
     return (
@@ -106,12 +138,14 @@ export default class PageHome extends React.PureComponent {
         <Masthead path={this.props.location}/>
         <Hero {...hero}/>
         <Main>
+          {featuredItemBlock &&
           <Grid>
             <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
-              <Article {...featuredItem}/>
+              <Article {...featuredItemBlock}/>
             </GridCol>
           </Grid>
-          <CardDeck {...news} className='spacing-top--tight'/>
+          }
+          {featuredNewsBlock && <CardDeck {...featuredNewsBlock} className='spacing-top--tight'/>}
         </Main>
         <Footer />
         <GA/>

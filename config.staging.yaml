@@ -5,8 +5,14 @@ contentful:
   contentHost: 'cdn.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
-  environment: 'develop'
 
 sentry:
- dsn: !!import/single '../config.sentry.yaml'
- logErrors: true
+  dsn: !!import/single '../config.sentry.yaml'
+  logErrors: true
+
+googleAPI:
+  places: !!import/single '../config.google.yaml'
+
+etherealEmail:
+  auth:
+    pass: !!import/single '../config.ethereal.yaml'  

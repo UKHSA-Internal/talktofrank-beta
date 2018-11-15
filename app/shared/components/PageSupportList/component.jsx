@@ -42,7 +42,7 @@ export default class PageSupportList extends React.PureComponent {
                       item.fields.postCode
                     ].filter(Boolean).join(', ')}
                     phone={item.fields.telephone1}
-                    phoneRaw={item.fields.telephone1.replace(/ /g, '')}
+                    phoneRaw={item.fields.telephone1.replace(/\D/g, '')}
                     {...item.fields} key={i}
                   />
                 })}

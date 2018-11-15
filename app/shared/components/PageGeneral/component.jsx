@@ -8,30 +8,27 @@ import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { contentFulFactory } from '../../contentful'
+import Longform from '../Longform/component'
 
-const PageGeneral = props => (
-  <React.Fragment>
-    <Masthead path={props.location}/>
-    <Accent className='accent--shallow'>
-      <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
-    </Accent>
-    <Divider className='hr--muted' />
-    <Main>
-      <Grid>
-        <GridCol className='col-12 col-md-8'>
-          {props.fields.body &&
-            <div dangerouslySetInnerHTML={{
-              __html: documentToHtmlString(props.fields.body, contentFulFactory())
-            }}/>
-          }
-        </GridCol>
-      </Grid>
-    </Main>
-    <Footer />
-    <GA/>
-  </React.Fragment>
-)
+const PageGeneral = props => {
+  return (
+    <React.Fragment>
+      <Masthead path={props.location}/>
+      <Accent className='accent--shallow'>
+        <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
+      </Accent>
+      <Divider className='hr--muted' />
+      <Main>
+        <Grid>
+          <GridCol className='col-12 col-md-8'>
+            {props.fields.body && <Longform text={props.fields.body}/>}
+          </GridCol>
+        </Grid>
+      </Main>
+      <Footer />
+      <GA/>
+    </React.Fragment>
+  )
+}
 
 export default PageGeneral

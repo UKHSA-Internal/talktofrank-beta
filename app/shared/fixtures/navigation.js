@@ -94,7 +94,7 @@ export const primary = [
   },
   {
     label: 'Contact',
-    url: '/contact',
+    url: '/contact-frank',
     tracking: {
       label: 'Contact Frank',
       action: 'Click',
@@ -153,6 +153,15 @@ export const footer = [
     url: '/support-near-you',
     tracking: {
       label: 'Find a support centre - footer',
+      action: 'Click',
+      category: 'Navigation'
+    }
+  },
+  {
+    label: 'Feedback',
+    url: '/feedback',
+    tracking: {
+      label: 'Send feedback',
       action: 'Click',
       category: 'Navigation'
     }

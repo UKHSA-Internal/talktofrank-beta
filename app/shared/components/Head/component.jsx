@@ -35,11 +35,7 @@ export default class Head extends React.Component {
         window.addEventListener('touchstart', function onFirstTouch() {
           document.documentElement.classList.remove('has-hover')
           window.removeEventListener('touchstart', onFirstTouch, false)
-        }, false)
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js')
-        })}`
+        }, false)`
         }} />
       </head>
     )

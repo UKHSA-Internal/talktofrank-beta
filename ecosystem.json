@@ -11,6 +11,10 @@
     "env_preview": {
       "BUILD_CONFIG": "preview",
       "NODE_ENV": "production"
+    },
+    "env_uat": {
+      "BUILD_CONFIG": "uat",
+      "NODE_ENV": "production"
     }
   }]
 }

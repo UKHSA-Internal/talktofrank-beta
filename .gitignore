@@ -6,10 +6,7 @@ node_modules
 /.idea/
 
 config.development.yaml
-config.production.yaml
-config.staging.yaml
 config.users.yaml
-config.yaml
 
 features/debug/*
 !features/debug/readme.txt
