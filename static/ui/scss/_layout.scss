@@ -40,6 +40,11 @@ body {
 .wrapper {
   @extend %constrain-narrow;
   padding: 2rem;
+
+  &--tight {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .main {
@@ -53,8 +58,6 @@ body {
 
   &--full-width {
     max-width: none;
-    padding-left: 0;
-    padding-right: 0;
   }
 
   &--muted {

@@ -158,7 +158,7 @@ export default class PageHome extends React.PureComponent {
               </Grid>
             </section>
           }
-          {featuredNewsBlock && <section className='wrapper'><CardDeck {...featuredNewsBlock} className='spacing-top--tight'/></section>}
+          {featuredNewsBlock && <section className='wrapper wrapper--tight'><CardDeck {...featuredNewsBlock} className='spacing-top--tight'/></section>}
         </Main>
         <Footer />
         <GA/>
