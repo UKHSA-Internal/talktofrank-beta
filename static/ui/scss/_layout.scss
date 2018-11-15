@@ -31,9 +31,15 @@ body {
   @extend %constrain-narrow;
 }
 
-.main {
+%wrapper,
+.wrapper {
   @extend %constrain-narrow;
-  padding: 2rem 2rem 5rem;
+  padding: 2rem;
+}
+
+.main {
+  @extend %wrapper;
+  padding-bottom: 5rem;
   overflow: hidden;
 
   @include media-breakpoint-up(sm) {
@@ -42,6 +48,8 @@ body {
 
   &--full-width {
     max-width: none;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   &--muted {

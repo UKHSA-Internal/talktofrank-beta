@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import Button from '../Button/component.jsx'
 import Svg from '../Svg/component.jsx'
 import Autosuggest from 'react-autosuggest'
-import {browserHistory} from 'react-router'
 import axios from 'axios'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
@@ -79,7 +78,7 @@ class FormGroup extends PureComponent {
 
   // this prevents the thing from firing until at least two characters are added
   shouldRenderSuggestions(value) {
-    return value.trim().length > 0
+    return value.trim().length > 1
   }
 
   renderSuggestionsContainer({ containerProps, children, query }) {
@@ -88,7 +87,7 @@ class FormGroup extends PureComponent {
       <div {...containerProps}>
         {children}
         {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
-          View more results
+          View {res} more results
         </a>}
       </div>
     )
@@ -144,7 +143,7 @@ class FormGroup extends PureComponent {
   }
 
   render () {
-    let classes = classNames('input-group', this.props.className)
+    let classes = classNames('form-group', this.props.className)
     const { searchTerm, autoCompleteData } = this.state
     const { id, labelHidden, label, button } = this.props
     return (
@@ -160,8 +159,7 @@ class FormGroup extends PureComponent {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={{
-            className: `form-control ` +
-            `${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : null}`,
+            className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,
             value: searchTerm,
             onKeyDown: this.handleKeyPress,
