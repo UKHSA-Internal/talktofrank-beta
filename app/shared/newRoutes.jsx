@@ -20,6 +20,7 @@ import HTMLWrapper from './components/HTMLWrapper/component.jsx'
  */
 /* eslint-disable */
 const asyncPageNotFound = loadable(() => import(/*webpackChunkName: 'pagenotfound'*/'./components/PageNotFound/component.jsx'))
+const asyncPageOffline = loadable(() => import(/*webpackChunkName: 'pageoffline'*/'./components/PageOffline/component.jsx'))
 const asyncHome = loadable(() => import(/*webpackChunkName: 'homepage'*/'./containers/HomepageContainer/component.jsx'))
 const asyncPageDrug = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageDrugContainer/component.jsx'))
 const asyncPageGeneral = loadable(() => import(/*webpackChunkName: 'page'*/'./containers/PageGeneralContainer/component.jsx'))
@@ -157,6 +158,12 @@ export default [{
       exact: true,
       component: asyncGetHelpPageContainer,
       loadData: ({params}) => fetchPage(['get-help', params.slug].join('/'))
+    },
+    {
+
+      path: '/offline',
+      exact: true,
+      component: asyncPageOffline
     },
     {
       path: '/:slug',

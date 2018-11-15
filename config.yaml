@@ -19,6 +19,7 @@ contentful:
     treatmentCentre: 'treatmentCentre'
   entries:
     homepage: '6YkX4gZ5jawC0eAM6aOCum'
+  environment: 'develop'
 
 pagination:
   pageSize: 10
@@ -50,4 +51,3 @@ serco:
     subjectPrefix: 'TALKTOFRANK User Feedback: '
     from: no-reply@talktofrank.com
     fromName: Anonymous user
-

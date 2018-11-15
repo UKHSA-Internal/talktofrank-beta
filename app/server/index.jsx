@@ -93,17 +93,13 @@ app.use('/contentful/webhook', contentFulWebhookRoutes)
 
 app.use('/api/v1/contact', apiContactRoutes)
 
-/*
- * Adding service worker files direct to express callbacks
- */
-app.use('/sw.js', (req, res) => {
-  res.sendFile(path.resolve('../static/ui/js/sw.js'))
-})
-app.use('/service-worker.js', (req, res) => {
-  res.sendFile(path.resolve('../static/ui/js/service-worker.js'))
-})
+const options = {
+  setHeaders: function (res, path, stat) {
+    res.set('Service-Worker-Allowed', '/')
+  }
+}
 
-app.use(express.static('../static'))
+app.use(express.static('../static', options))
 app.use(favicon('../static/ui/favicon.ico'))
 app.use((req, res, next) => shouldAuthenticate(req) ? basicAuthMiddleware(req, res, next) : next())
 

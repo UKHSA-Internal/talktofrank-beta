@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+const { InjectManifest } = require('workbox-webpack-plugin')
 
 const processEnv = {
   NODE_ENV: JSON.stringify('production'), // !process.env.BUILD_CONFIG ? JSON.stringify('development') : process.env.BUILD_CONFIG === 'development' ? JSON.stringify('development') : JSON.stringify('production'),
@@ -48,6 +49,11 @@ module.exports = {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': processEnv
+      }),
+      new InjectManifest({
+        swSrc: path.resolve(__dirname, '../app/client/service-worker.js'),
+        swDest: path.resolve(__dirname, '../dist/static/ui/js/service-worker.js'),
+        exclude: [/\.js$/]
       })
     ],
     stats: {
