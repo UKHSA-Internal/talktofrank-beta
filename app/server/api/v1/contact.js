@@ -7,6 +7,7 @@ const mailgunTransport = require('../../lib/mailgun-transport')
 const bodyParser = require('body-parser')
 const {celebrate, Joi, isCelebrate} = require('celebrate')
 const jsonParser = bodyParser.json()
+const Sentry = require('@sentry/node')
 
 const joiOptions = {
   abortEarly: false

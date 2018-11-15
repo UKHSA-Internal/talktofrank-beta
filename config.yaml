@@ -23,6 +23,9 @@ contentful:
 pagination:
   pageSize: 10
 
+googleAPI:
+  places: ''
+
 email:
   transport: etherealEmail
 
@@ -47,3 +50,4 @@ serco:
     subjectPrefix: 'TALKTOFRANK User Feedback: '
     from: no-reply@talktofrank.com
     fromName: Anonymous user
+

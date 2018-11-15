@@ -62,7 +62,7 @@ export default class PageFeedbackForm extends React.Component {
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 inverted spacing-left spacing--single' text={this.props.pageData.title} />
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={this.props.pageData.title} />
         </Accent>
         <Main className='main--muted main--full-width'>
           <Accent>
