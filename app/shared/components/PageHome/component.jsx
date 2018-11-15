@@ -140,8 +140,8 @@ export default class PageHome extends React.PureComponent {
         <Masthead path={this.props.location}/>
         <Hero {...hero}/>
         <section className='accent accent--muted'>
-          <div className='wrapper'>
-            <FormGroupAutocomplete id='homepage-large-search' label='Search for any drug…'/>
+          <div className='wrapper constrain'>
+            <FormGroupAutocomplete id='homepage-large-search' label='Search for any drug…' placeholder='Enter a drug (e.g. Mandy)'/>
           </div>
         </section>
         <Main className='main--full-width'>

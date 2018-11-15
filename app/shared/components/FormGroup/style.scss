@@ -8,7 +8,7 @@
   box-sizing: border-box;
   padding: .375em .75em;
   border-image: initial;
-  border-radius: 3px;
+  border-radius: 0;
   transition: border-color .15s ease-in-out 0s, box-shadow .15s ease-in-out 0s;
   font-size: 1.8rem;
 
@@ -74,6 +74,12 @@
   font-size: 2.1rem;
   flex-basis: 100%;
   font-family: $headings-font-family;
+
+  &--large {
+    @include media-breakpoint-up(sm) {
+      font-size: 3.8rem;
+    }
+  }
 }
 
 input[type='search'],
@@ -162,13 +168,10 @@ select.form-control {
 
 .react-autosuggest__container {
   flex-basis: 100%;
-  max-width: 79rem;
+  max-width: 70rem;
 
   input[type='search'] {
     padding: 10px;
-    border-bottom-width: 3px;
-    border-bottom-style: solid;
-    border-bottom-color: $text-dark-blue;
     margin-bottom: 10px;
   }
 }

@@ -29,7 +29,7 @@ class FormGroup extends PureComponent {
   }
 
   componentDidMount() {
-    this.searchInput.input.focus()
+    // this.searchInput.input.focus()
   }
 
   onChange (event, { newValue }) {
@@ -148,7 +148,7 @@ class FormGroup extends PureComponent {
     const { id, labelHidden, label, button } = this.props
     return (
       <div className={classes}>
-        <label htmlFor={id} className='form-label h3'>{label}</label>
+        <label htmlFor={id} className='form-label form-label--large'>{label}</label>
         <Autosuggest
           suggestions={autoCompleteData}
           shouldRenderSuggestions={this.shouldRenderSuggestions}
