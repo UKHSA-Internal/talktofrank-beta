@@ -21,19 +21,15 @@ const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
-const contentfulClient = contentful.createClient({
-  // This is the space ID. A space is like a project folder in Contentful terms
+const contentfulConf = {
   space: config.contentful.contentSpace,
-  environment: config.contentful.environment,
-  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
   accessToken: config.contentful.contentAccessToken,
   host: config.contentful.contentHost
-})
-
-/**
- * Axios global config
- */
-axios.defaults.headers.common['Authorization'] = `Bearer ${config.contentful.contentAccessToken}`
+}
+if (config.contentful.environment) {
+  contentfulConf.environment = config.contentful.environment
+}
+const contentfulClient = contentful.createClient(contentfulConf)
 
 /**
  * Get page data

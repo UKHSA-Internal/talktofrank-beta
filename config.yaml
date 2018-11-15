@@ -19,7 +19,6 @@ contentful:
     treatmentCentre: 'treatmentCentre'
   entries:
     homepage: '6YkX4gZ5jawC0eAM6aOCum'
-  environment: 'master'
 
 pagination:
   pageSize: 10
