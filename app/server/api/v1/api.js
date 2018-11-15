@@ -30,6 +30,18 @@ const contentfulClient = contentful.createClient({
   host: config.contentful.contentHost
 })
 
+const dateFormat = (response) => {
+  if (response.fields.originalPublishDate) {
+    response['date'] = response.fields.originalPublishDate
+    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+  } else {
+    response['date'] = response.sys.updatedAt
+    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+  }
+
+  return response
+}
+
 /**
  * Axios global config
  */
@@ -73,6 +85,19 @@ router.get('/pages/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
+
+        if (response.fields.featuredNewsItem) {
+
+          dateFormat(response.fields.featuredNewsItem)
+        }
+
+        if (response.fields.featuredContentBlock && response.fields.featuredContentBlock.fields.featuredContentItems) {
+          response.fields.featuredContentBlock.fields.featuredContentItems.map(item => {
+            console.log(dateFormat(item))
+            return dateFormat(item)
+          })
+        }
+
         res.send(response)
       })
       .catch(error => next(error.response))
@@ -94,6 +119,14 @@ router.get('/pages/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
+
+        if (response.fields.originalPublishDate) {
+          response['date'] = response.fields.originalPublishDate
+          response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+        } else {
+          response['date'] = response.sys.updatedAt
+          response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+        }
         res.send(response)
       })
       .catch(error => next(error.response))

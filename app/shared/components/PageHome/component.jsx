@@ -35,7 +35,9 @@ export default class PageHome extends React.PureComponent {
       featuredItemBlock = {
         fields: {
           title: featuredNewsItem.fields.title,
-          slug: featuredNewsItem.fields.slug
+          slug: featuredNewsItem.fields.slug,
+          datetime: featuredNewsItem.date,
+          time: featuredNewsItem.dateFormatted
         }
       }
       if (featuredNewsItem.fields.image) {
@@ -66,6 +68,8 @@ export default class PageHome extends React.PureComponent {
           let featuredItem = {
             url: `/news/${item.fields.slug}`,
             className: 'card--quiet',
+            datetime: item.date,
+            time: item.dateFormatted,
             category: 'drugs news',
             heading: {
               type: 'h3',
