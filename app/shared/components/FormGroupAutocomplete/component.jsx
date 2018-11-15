@@ -154,7 +154,7 @@ class FormGroup extends PureComponent {
   render () {
     const { searchTerm, autoCompleteData } = this.state
     const { id, labelHidden, label, button } = this.props
-    let classes = classNames('form-group', this.props.className)
+    let classes = classNames('form-group form-group--flush', this.props.className)
 
     return (
       <div className={classes}>

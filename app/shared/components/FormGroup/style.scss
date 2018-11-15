@@ -133,6 +133,10 @@ select.form-control {
 
 .form-group {
   margin-bottom: 3rem;
+
+  &--flush {
+    margin-bottom: 0;
+  }
 }
 
 .form-hint {
