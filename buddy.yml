@@ -138,7 +138,7 @@
       authentication_mode: "PUBLIC_KEY"
       working_directory: "/home/deploy/app/"
       commands:
-      - "pm2 startOrRestart ecosystem.json --env staging"
+      - "pm2 startOrRestart ecosystem.json --env uat"
     - action: "Send notification to Public Health England - Talk To Frank"
       type: "SENTRY"
       environment: "$BUDDY_PIPELINE_NAME"
