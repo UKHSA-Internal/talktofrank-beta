@@ -451,7 +451,6 @@ router.get('/treatment-centres', async (req, res, next) => {
     contentfulRequest['fields.serviceType'] = req.query.serviceType
   }
 
-
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       response.results = resolveResponse(contentfulResponse)
