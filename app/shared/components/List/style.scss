@@ -77,6 +77,7 @@ $offset: 3.5rem;
       bottom: 100%;
       color: $body-text;
       padding: .4em .4em .4em 0;
+      white-space: nowrap;
     }
 
     .link-text {
@@ -114,6 +115,8 @@ $offset: 3.5rem;
       position: relative;
       max-width: 42rem;
       margin-top: $offset;
+      padding-bottom: .15em;
+      padding-top: .15em;
 
       span {
         bottom: 0;
