@@ -1,6 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-const { InjectManifest } = require('workbox-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin')
 
 const processEnv = {
   NODE_ENV: JSON.stringify('production'), // !process.env.BUILD_CONFIG ? JSON.stringify('development') : process.env.BUILD_CONFIG === 'development' ? JSON.stringify('development') : JSON.stringify('production'),
@@ -53,12 +53,7 @@ module.exports = {
       new InjectManifest({
         swSrc: path.resolve(__dirname, '../app/client/service-worker.js'),
         swDest: path.resolve(__dirname, '../dist/static/ui/js/service-worker.js'),
-        globDirectory: path.resolve(__dirname, '../dist/static/ui/'),
-        globPatterns: [
-          path.resolve(__dirname, '../dist/static/ui/font'),
-          path.resolve(__dirname, '../dist/static/ui/css'),
-          path.resolve(__dirname, '../dist/static/ui/img')
-        ],
+        exclude: [/\.js$/]
       })
     ],
     stats: {

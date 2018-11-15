@@ -1,21 +1,27 @@
 if (workbox) {
   workbox.setConfig({
-    debug: true
+    debug: false
   })
   // Custom tracking for GA see
   // https://developers.google.com/web/tools/workbox/modules/workbox-google-analytics
   workbox.googleAnalytics.initialize({
     parameterOverrides: {
-      dimension1: 'offline',
+      dimension1: 'offline'
     },
     hitFilter: (params) => {
       const queueTimeInSeconds = Math.round(params.get('qt') / 1000)
       params.set('metric1', queueTimeInSeconds)
-    },
+    }
   })
   workbox.skipWaiting()
   workbox.clientsClaim()
-  workbox.precaching.precacheAndRoute([])
+  // Offline page is the only precaching required
+  // manually setting the revision here as there's no way for webpack / workbox
+  // to pick up a react route when generating precache files
+  workbox.precaching.precacheAndRoute([{
+    'url': '/offline',
+    'revision': '20181115'
+  }])
 
   // Using network first for development, cache will then be used
   // for offline connections
@@ -27,6 +33,8 @@ if (workbox) {
   workbox.routing.registerRoute(
     ({event}) => event.request.mode === 'navigate',
     ({url}) => fetch(url.href)
-      .catch(() => caches.match('/offline'))
+      .catch(() => {
+        return caches.match('/offline')
+      })
   )
 }

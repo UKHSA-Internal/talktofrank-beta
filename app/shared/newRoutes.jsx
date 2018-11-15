@@ -32,10 +32,13 @@ const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*
 const asyncPageContactForm = loadable(() => import(/*webpackChunkName: 'contact-form'*/'./containers/PageContactFormContainer/component.jsx'))
 const asyncPageFeedbackForm = loadable(() => import(/*webpackChunkName: 'feedback-form'*/'./containers/PageFeedbackFormContainer/component.jsx'))
 const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./components/PageContact/component.jsx'))
-const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx'))
+const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
+const asyncContactFormPage = loadable(() => import(/*webpackChunkName: 'contact-form-page'*/'./components/PageContactForm/component.jsx'))
+const asyncGetHelpListContainer = loadable(() => import(/*webpackChunkName: 'get-help-list'*/'./containers/PageGetHelpListContainer/component.jsx'))
+const asyncGetHelpPageContainer = loadable(() => import(/*webpackChunkName: 'get-help-page'*/'./containers/PageGetHelpPageContainer/component.jsx'))
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./containers/PageSupportListContainer/component.jsx'))
 const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageSupportContainer/component.jsx'))
-const asyncPageContactSuccessContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageContactSuccessContainer/component.jsx')) // need to swap this out with an actual container
+const asyncPageContactSuccessContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageContactSuccessContainer/component.jsx'))
 /* eslint-enable */
 
 export default [{
@@ -141,6 +144,23 @@ export default [{
       component: asyncContactPage
     },
     {
+      path: '/contact',
+      exact: true,
+      component: asyncContactFormPage
+    },
+    {
+      path: '/get-help',
+      exact: true,
+      component: asyncGetHelpListContainer
+    },
+    {
+      path: '/get-help/:slug',
+      exact: true,
+      component: asyncGetHelpPageContainer,
+      loadData: ({params}) => fetchPage(['get-help', params.slug].join('/'))
+    },
+    {
+
       path: '/offline',
       exact: true,
       component: asyncPageOffline

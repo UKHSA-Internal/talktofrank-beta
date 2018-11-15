@@ -13,3 +13,7 @@ sentry:
 
 googleAPI:
   places: !!import/single '../config.google.yaml'
+
+etherealEmail:
+  auth:
+    pass: !!import/single '../config.ethereal.yaml'  
