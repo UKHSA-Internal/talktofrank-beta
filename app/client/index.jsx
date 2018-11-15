@@ -18,6 +18,14 @@ import { Switch, Route } from 'react-router'
 // @todo - this is not lazyloaded
 import PageNotFound from '../shared/components/PageNotFound/component.jsx'
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/ui/js/service-worker.js', {
+      scope: '/'
+    })
+  })
+}
+
 const rootReducer = combineReducers({
   app
 })

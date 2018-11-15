@@ -61,17 +61,13 @@ Migration and API query tools available using [contentful-cli](https://github.co
 [Workbox](https://developers.google.com/web/tools/workbox/modules/) is used to handle service-worker logic.  Configuration is
 found in ```/workbox-config.js```
 
-* service worker files are found in ```/static/ui/js``` & ```/static/offline```
-* all requests for png, ico, css and png & offline.html files are precached
-* a **'Network first'** policy is used so that
+* service worker is found in ```app/client```
+* all requests for png, ico, css and png files are routed via the service worker using a **'Network first'** policy:
   * requests made while online will always go to the server first
   * offline requests will correctly load the cached files so that offline.html can be loaded correctly
+* the page at '/offline' is precached when a user first visits the site.  This page is then served to users when they go offline via the service worker.
+* when updating the offline page, the service worker cached version can be invalidated by updating the corresponding 'revision' value in the workbox.precaching.precacheAndRoute options within service-worker.js
 
-To refresh the list of assets to precache:
-
-```
-workbox injectManifest ./workbox-config.js
-```
 
 ### Emails
 
@@ -156,6 +152,7 @@ This will create an HTML formatted results page at `./features/report.html`
 ## Releasing
 
 - Determine the new semantic version of the release.
+- if updating the offline page content, change the 'revision' number in `app/client/service-worker.js` to invalidate existing caches
 - Update `package.json`.
 - Ensure `changelog` is up to date, whereby changes for the release are listed underneath the version.
 - Merge `develop` into `master`.
