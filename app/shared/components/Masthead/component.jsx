@@ -95,6 +95,7 @@ export default class Masthead extends React.PureComponent {
                 id='search-masthead'
                 label='Search for any drug'
                 labelHidden='true'
+                focus='true'
                 showContent={false}
                 placeholder='Enter drug name (e.g. Mandy)'
                 ref={input => { this.formAutocomplete = input }}

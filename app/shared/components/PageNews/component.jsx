@@ -33,9 +33,9 @@ export default class PageNews extends React.PureComponent {
               {this.props.fields.body && <Longform text={documentToHtmlString(this.props.fields.body, contentFulFactory())}/>}
               {this.props.fields.relatedDrugs && <React.Fragment><Heading text='Related drugs' className='h3 spacing-top--large spacing-bottom--single'/><ul className='list-unstyled'>
                 {this.props.fields.relatedDrugs.map((v, i) => {
-                  v.fields.description = ''
                   v.fields.name = v.fields.drugName
                   delete v.fields.synonyms
+                  delete v.fields.description
                   return <LinkDrugName key={i} {...v.fields}/>
                 })}
                 </ul></React.Fragment>

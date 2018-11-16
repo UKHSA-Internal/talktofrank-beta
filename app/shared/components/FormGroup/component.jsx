@@ -16,7 +16,7 @@ const FormGroup = props => {
       <label htmlFor={id} className='form-label'>{props.label}</label>
       {props.hint && <FormHint>{props.hint}</FormHint>}
       {props.error && <ErrorMessage message={props.error} />}
-      <input className={inputClassNames} id={id} name={props.name} value={props.value} type="text" onChange={props.onChange}/>
+      <input className={inputClassNames} id={id} name={props.name} value={props.value} type='text' onChange={props.onChange}/>
     </div>
   )
 }

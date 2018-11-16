@@ -30,6 +30,18 @@ const contentfulClient = contentful.createClient({
   host: config.contentful.contentHost
 })
 
+const dateFormat = (response) => {
+  if (response.fields.originalPublishDate) {
+    response['date'] = response.fields.originalPublishDate
+    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+  } else {
+    response['date'] = response.sys.updatedAt
+    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+  }
+
+  return response
+}
+
 /**
  * Axios global config
  */
@@ -74,6 +86,16 @@ router.get('/pages/:slug', (req, res, next) => {
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
 
+        if (response.fields.featuredNewsItem) {
+          dateFormat(response.fields.featuredNewsItem)
+        }
+
+        if (response.fields.featuredContentBlock && response.fields.featuredContentBlock.fields.featuredContentItems) {
+          response.fields.featuredContentBlock.fields.featuredContentItems.map(item => {
+            return dateFormat(item)
+          })
+        }
+
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro)
         }
@@ -88,6 +110,7 @@ router.get('/pages/:slug', (req, res, next) => {
             return fieldName
           })
         }
+
         res.send(response)
       })
       .catch(error => next(error.response))
@@ -109,6 +132,8 @@ router.get('/pages/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
+
+        dateFormat(response)
 
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro)
@@ -387,13 +412,7 @@ router.get('/news/:slug', (req, res, next) => {
       let response = resolveResponse(contentfulResponse)[0]
       response.title = response.fields.title
 
-      if (response.fields.originalPublishDate) {
-        response['date'] = response.fields.originalPublishDate
-        response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
-      } else {
-        response['date'] = response.sys.updatedAt
-        response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
-      }
+      dateFormat(response)
 
       if (!response.fields.summary) {
         if (response.fields.body) {
@@ -445,12 +464,21 @@ router.get('/treatment-centres', async (req, res, next) => {
 
   let response = {
     location: removeTags(req.query.location),
+    serviceType: req.query.serviceType ? req.query.serviceType : '',
     results: []
   }
 
   const geocodeLocation = await axios
     .get(`https://maps.googleapis.com/maps/api/geocode/json?address=` +
     `${encodeURIComponent(response.location)},united%20kingdom&key=${config.googleAPI.places}`)
+
+  if ((geocodeLocation.data !== 'OK' || geocodeLocation.data !== 'ZERO_RESULTS') &&
+    geocodeLocation.data.error_message) {
+    let error = new Error()
+    error.message = geocodeLocation.data.error_message
+    error.status = 500
+    return next(error)
+  }
 
   if (!geocodeLocation.data || geocodeLocation.data.results.length < 1) {
     return res.send(response)
@@ -475,6 +503,7 @@ router.get('/treatment-centres', async (req, res, next) => {
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       response.results = resolveResponse(contentfulResponse)
+      response.total = contentfulResponse.total
       response.results
         .map(responseItem => {
           responseItem.distance = haversineDistance(
