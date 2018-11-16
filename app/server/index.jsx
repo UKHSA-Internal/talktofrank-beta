@@ -13,6 +13,8 @@ import { generateStore } from '../shared/store'
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
 import { getLoadableState } from 'loadable-components/server'
+// import cookie from 'react-cookie'
+// import cookieParser from 'cookie-parser'
 
 /*
  * Express routes
@@ -87,7 +89,7 @@ const addSearch = (req, res, next) => {
 // Add search middleware
 app.use('/api/v1/search', addSearch)
 app.use('/contentful/webhook', addSearch)
-
+// app.use(cookieParser())
 app.use('/api/v1', apiRoutes)
 app.use('/contentful/webhook', contentFulWebhookRoutes)
 
@@ -113,6 +115,7 @@ app.get('/robots.txt', function (req, res) {
  */
 app.get('*', (req, res) => {
   const store = generateStore()
+  //  cookie.plugToRequest(req, res)
   const loadData = () => {
     const branches = matchRoutes(routes, req.path)
 
@@ -143,7 +146,6 @@ app.get('*', (req, res) => {
         cacheBusterTS: cacheBusterTS
       }
       res.write('<!DOCTYPE html>')
-
       return ReactDOMServer
         .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
         .pipe(res)

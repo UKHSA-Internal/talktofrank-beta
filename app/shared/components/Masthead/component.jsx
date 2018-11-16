@@ -6,6 +6,7 @@ import ButtonGroup from '../ButtonGroup/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
+import CookieBar from '../CookieBar/component.jsx'
 import Icon from '../Icon/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
 import { ViewportMobile, ViewportDefault } from '../Breakpoints/component.jsx'
@@ -67,6 +68,7 @@ export default class Masthead extends React.PureComponent {
 
     return (
       <header className={classes} role='banner'>
+        <CookieBar />
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
             <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
