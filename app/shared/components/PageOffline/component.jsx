@@ -11,7 +11,7 @@ import { isInBrowser } from '../../utilities'
 
 const PageOffline = () => {
   if (isInBrowser()) {
-    setTimeout(() => window.location.reload(true), 3000)
+    setTimeout(() => window.location.reload(true), 30000)
   }
   return (
     <React.Fragment>
