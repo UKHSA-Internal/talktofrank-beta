@@ -96,6 +96,12 @@ router.get('/entries/:slug', (req, res, next) => {
           })
         }
 
+        if (response.fields.callout) {
+          if (response.fields.callout.fields.content) {
+            response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+          }
+        }
+
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro)
         }
@@ -134,6 +140,12 @@ router.get('/entries/:slug', (req, res, next) => {
         response.title = response.fields.title
 
         dateFormat(response)
+
+        if (response.fields.callout) {
+          if (response.fields.callout.fields.content) {
+            response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+          }
+        }
 
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro)
@@ -464,12 +476,21 @@ router.get('/treatment-centres', async (req, res, next) => {
 
   let response = {
     location: removeTags(req.query.location),
+    serviceType: req.query.serviceType ? req.query.serviceType : '',
     results: []
   }
 
   const geocodeLocation = await axios
     .get(`https://maps.googleapis.com/maps/api/geocode/json?address=` +
     `${encodeURIComponent(response.location)},united%20kingdom&key=${config.googleAPI.places}`)
+
+  if ((geocodeLocation.data !== 'OK' || geocodeLocation.data !== 'ZERO_RESULTS') &&
+    geocodeLocation.data.error_message) {
+    let error = new Error()
+    error.message = geocodeLocation.data.error_message
+    error.status = 500
+    return next(error)
+  }
 
   if (!geocodeLocation.data || geocodeLocation.data.results.length < 1) {
     return res.send(response)
@@ -494,6 +515,7 @@ router.get('/treatment-centres', async (req, res, next) => {
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       response.results = resolveResponse(contentfulResponse)
+      response.total = contentfulResponse.total
       response.results
         .map(responseItem => {
           responseItem.distance = haversineDistance(

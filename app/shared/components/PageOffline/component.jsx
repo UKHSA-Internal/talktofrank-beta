@@ -18,7 +18,7 @@ const PageOffline = () => {
       <Masthead path={'no-match'}/>
       <Main>
         <Grid>
-          <GridCol className='col-12 col-sm-8'>
+          <GridCol className='col-12 col-sm-8 offset-md-2'>
             <Heading type='h1' className='h2' text={'You\'re offline'} />
             <p>
               It looks like you're offline.  You can still talk to Frank by calling us on

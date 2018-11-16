@@ -10,8 +10,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    fetchSupportList: (page) => {
-      dispatch(fetchSupportList(page))
+    fetchSupportList: (page, location, serviceType) => {
+      dispatch(fetchSupportList(page, { location, serviceType }))
     }
   })
 }
