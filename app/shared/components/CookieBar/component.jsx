@@ -1,5 +1,5 @@
 import React from 'react'
-import cookie from 'react-cookie'
+// import {Cookies} from 'react-cookie'
 import Accent from '../Accent/component'
 import Svg from '../Svg/component'
 import Anchor from '../Anchor/component'
@@ -7,7 +7,7 @@ import Anchor from '../Anchor/component'
 export default class CookieBar extends React.Component {
 
   componentWillMount() {
-    // let showBar = (cookie.get('notification_dismissed') == 1) ? false : true
+    // let showBar = (Cookies.get('notification_dismissed') == 1) ? false : true
     this.state =  {
       visible: true
     }
@@ -18,7 +18,7 @@ export default class CookieBar extends React.Component {
       visible: false
     })
 
-    // cookie.save('notification_dismissed', 1, {
+    // Cookies.set('notification_dismissed', 1, {
     //   'path': '/'
     // })
   }
