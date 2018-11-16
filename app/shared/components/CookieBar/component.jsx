@@ -5,10 +5,9 @@ import Svg from '../Svg/component'
 import Anchor from '../Anchor/component'
 
 export default class CookieBar extends React.Component {
-
   componentWillMount() {
     // let showBar = (Cookies.get('notification_dismissed') == 1) ? false : true
-    this.state =  {
+    this.state = {
       visible: true
     }
   }
@@ -17,7 +16,6 @@ export default class CookieBar extends React.Component {
     this.setState({
       visible: false
     })
-
     // Cookies.set('notification_dismissed', 1, {
     //   'path': '/'
     // })
