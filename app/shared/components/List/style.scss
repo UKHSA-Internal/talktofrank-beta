@@ -17,7 +17,13 @@ $offset: 3.5rem;
 }
 
 .list-offset {
-  margin-bottom: 6rem;
+  &.list-unstyled {
+    margin-top: 3rem;
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 6rem;
+  }
 
   .list-item {
     max-width: 50rem;
@@ -77,6 +83,7 @@ $offset: 3.5rem;
       bottom: 100%;
       color: $body-text;
       padding: .4em .4em .4em 0;
+      white-space: nowrap;
     }
 
     .link-text {
@@ -114,6 +121,8 @@ $offset: 3.5rem;
       position: relative;
       max-width: 42rem;
       margin-top: $offset;
+      padding-bottom: .15em;
+      padding-top: .15em;
 
       span {
         bottom: 0;

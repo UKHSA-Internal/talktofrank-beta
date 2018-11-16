@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import Button from '../Button/component.jsx'
 import Svg from '../Svg/component.jsx'
 import Autosuggest from 'react-autosuggest'
-import {browserHistory} from 'react-router'
 import axios from 'axios'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
@@ -25,16 +24,20 @@ class FormGroup extends PureComponent {
       searchTerm: '',
       currentSuggestion: '',
       autoCompleteData: [],
-      resultsTotal: 0
+      resultsTotal: 0,
+      loading: false
     }
   }
 
   componentDidMount() {
-    this.searchInput.input.focus()
+    if (this.props.focus) {
+      this.searchInput.input.focus()
+    }
   }
 
   onChange (event, { newValue }) {
     if (event.type === 'change') {
+      console.log(newValue, event.type)
       this.setState({
         searchTerm: newValue,
         searchTermClean: encodeURIComponent(newValue),
@@ -57,11 +60,15 @@ class FormGroup extends PureComponent {
   }
 
   onSuggestionsFetchRequested ({ value }) {
+    this.setState({
+      loading: true
+    })
     this.getSuggestions(value).then(resp => {
       if (resp.hits) {
         this.setState({
           resultsTotal: resp.total,
-          autoCompleteData: resp.hits
+          autoCompleteData: resp.hits,
+          loading: false
         })
       }
     })
@@ -79,16 +86,17 @@ class FormGroup extends PureComponent {
 
   // this prevents the thing from firing until at least two characters are added
   shouldRenderSuggestions(value) {
-    return value.trim().length > 0
+    return value.trim().length > 1
   }
 
   renderSuggestionsContainer({ containerProps, children, query }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
     return (
       <div {...containerProps}>
+        {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
-          View more results
+          View {res} more results
         </a>}
       </div>
     )
@@ -144,12 +152,13 @@ class FormGroup extends PureComponent {
   }
 
   render () {
-    let classes = classNames('input-group', this.props.className)
     const { searchTerm, autoCompleteData } = this.state
     const { id, labelHidden, label, button } = this.props
+    let classes = classNames('form-group form-group--flush', this.props.className)
+
     return (
       <div className={classes}>
-        <label htmlFor={id} className='form-label h3'>{label}</label>
+        <label htmlFor={id} className='form-label form-label--large'>{label}</label>
         <Autosuggest
           suggestions={autoCompleteData}
           shouldRenderSuggestions={this.shouldRenderSuggestions}
@@ -160,8 +169,7 @@ class FormGroup extends PureComponent {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={{
-            className: `form-control ` +
-            `${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : null}`,
+            className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,
             value: searchTerm,
             onKeyDown: this.handleKeyPress,

@@ -5,9 +5,11 @@ import Footer from '../Footer/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Hero from '../Hero/component.jsx'
 import CardDeck from '../CardDeck/component.jsx'
+import Accent from '../Accent/component.jsx'
 import Article from '../Article/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
+import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import { imageMap } from '../../utilities'
 
 export default class PageHome extends React.PureComponent {
@@ -34,7 +36,9 @@ export default class PageHome extends React.PureComponent {
         fields: {
           title: featuredNewsItem.fields.title,
           slug: featuredNewsItem.fields.slug
-        }
+        },
+        date: featuredNewsItem.date,
+        dateFormatted: featuredNewsItem.dateFormatted
       }
       if (featuredNewsItem.fields.image) {
         featuredItemBlock.fields.image = imageMap(featuredNewsItem.fields.image)
@@ -64,6 +68,8 @@ export default class PageHome extends React.PureComponent {
           let featuredItem = {
             url: `/news/${item.fields.slug}`,
             className: 'card--quiet',
+            datetime: item.date,
+            time: item.dateFormatted,
             category: 'drugs news',
             heading: {
               type: 'h3',
@@ -137,15 +143,22 @@ export default class PageHome extends React.PureComponent {
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Hero {...hero}/>
-        <Main>
+        <section className='accent accent--muted'>
+          <div className='wrapper constrain'>
+            <FormGroupAutocomplete id='homepage-large-search' label='Search for any drug…' placeholder='Enter a drug (e.g. Mandy)'/>
+          </div>
+        </section>
+        <Main className='main--full-width'>
           {featuredItemBlock &&
-          <Grid>
-            <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
-              <Article {...featuredItemBlock}/>
-            </GridCol>
-          </Grid>
+            <section className='wrapper'>
+              <Grid>
+                <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
+                  <Article {...featuredItemBlock}/>
+                </GridCol>
+              </Grid>
+            </section>
           }
-          {featuredNewsBlock && <CardDeck {...featuredNewsBlock} className='spacing-top--tight'/>}
+          {featuredNewsBlock && <section className='wrapper wrapper--tight'><CardDeck {...featuredNewsBlock} className='spacing-top--tight'/></section>}
         </Main>
         <Footer />
         <GA/>

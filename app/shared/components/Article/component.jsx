@@ -23,7 +23,7 @@ const Article = props => {
           <Heading type={props.fields.type} className='list-item__title h3 heading-inline' text={`<span>${props.fields.title}</span>`}/>
           {props.date && <Time time={props.dateFormatted} dateTime={props.date}/>}
           {props.fields.summary && !props.fields.image && <Longform text={props.fields.summary}/>}
-          {props.fields.slug && <p className='link-text' aria-hidden='true'>Read more</p>}
+          {(props.fields.slug && !props.fields.image) && <p className='link-text' aria-hidden='true'>Read more</p>}
         </div>
       </Link>
     </Tag>

@@ -19,10 +19,14 @@
 
   &--dark {
     color: $white;
-    background-color: $gray-900;
+    background-color: $text-dark-blue;
 
     hr {
       border-top-color: rgba($white, .3);
     }
+  }
+
+  &--muted {
+    background-color: $gray-100;
   }
 }

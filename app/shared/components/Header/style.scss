@@ -2,8 +2,8 @@
   padding: 0;
 
   @include media-breakpoint-up(sm) {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
   }
 
   & + .card-deck {

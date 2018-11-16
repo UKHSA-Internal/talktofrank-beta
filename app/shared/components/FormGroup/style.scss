@@ -8,7 +8,7 @@
   box-sizing: border-box;
   padding: .375em .75em;
   border-image: initial;
-  border-radius: 3px;
+  border-radius: 0;
   transition: border-color .15s ease-in-out 0s, box-shadow .15s ease-in-out 0s;
   font-size: 1.8rem;
 
@@ -44,7 +44,6 @@
   }
 
   &--search {
-    border: 0;
     color: $text-dark-blue;
     font-size: 2.1rem;
     padding: .4em;
@@ -74,6 +73,12 @@
   font-size: 2.1rem;
   flex-basis: 100%;
   font-family: $headings-font-family;
+
+  &--large {
+    @include media-breakpoint-up(sm) {
+      font-size: 3.8rem;
+    }
+  }
 }
 
 input[type='search'],
@@ -128,6 +133,10 @@ select.form-control {
 
 .form-group {
   margin-bottom: 3rem;
+
+  &--flush {
+    margin-bottom: 0;
+  }
 }
 
 .form-hint {
@@ -162,14 +171,17 @@ select.form-control {
 
 .react-autosuggest__container {
   flex-basis: 100%;
-  max-width: 79rem;
+  max-width: 70rem;
+  position: relative;
+
+  .form-control {
+    max-width: none;
+    border-color: $gray-300;
+  }
 
   input[type='search'] {
     padding: 10px;
-    border-bottom-width: 3px;
-    border-bottom-style: solid;
-    border-bottom-color: $text-dark-blue;
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
 }
 
