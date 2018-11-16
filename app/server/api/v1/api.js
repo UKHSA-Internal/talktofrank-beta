@@ -96,6 +96,12 @@ router.get('/pages/:slug', (req, res, next) => {
           })
         }
 
+        if (response.fields.callout) {
+          if (response.fields.callout.fields.content) {
+            response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+          }
+        }
+
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro)
         }
@@ -134,6 +140,12 @@ router.get('/pages/:slug', (req, res, next) => {
         response.title = response.fields.title
 
         dateFormat(response)
+
+        if (response.fields.callout) {
+          if (response.fields.callout.fields.content) {
+            response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+          }
+        }
 
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro)
