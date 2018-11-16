@@ -16,13 +16,23 @@ import GA from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 
 export default class PageSupportList extends React.PureComponent {
+  constructor (props) {
+    super(props)
+    this.handlePageChange = this.handlePageChange.bind(this)
+  }
+
+  handlePageChange (pageNumber) {
+    const { location, serviceType } = this.props.pageData
+    this.props.fetchSupportList(pageNumber.current, location, serviceType)
+  }
+
   render () {
-    const { results, location } = this.props.pageData
+    const { results, location, total } = this.props.pageData
     return (
       <React.Fragment>
         <Masthead/>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={`${results.length} results returned for ${location}`} />
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={`${total} results returned for ${location}`} />
           <Anchor className='spacing-left link-text' href='/support-near-you' text='Search again'/>
         </Accent>
         <Main>
@@ -47,9 +57,10 @@ export default class PageSupportList extends React.PureComponent {
                   />
                 })}
               </ul>
-              {results.length > 10 &&
+              {total > 10 &&
                 <Pagination
-                  pageCount={results.length / 10}
+                  pageCount={total / 10}
+                  onPageChange={this.handlePageChange}
                 />
               }
             </GridCol>
