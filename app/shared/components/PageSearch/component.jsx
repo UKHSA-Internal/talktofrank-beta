@@ -6,9 +6,12 @@ import Main from '../Main/component'
 import GridCol from '../GridCol/component'
 import Accent from '../Accent/component.jsx'
 import Footer from '../Footer/component'
+import Divider from '../Divider/component.jsx'
 import Pagination from '../Pagination/component'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
+import Anchor from '../Anchor/component'
+import Svg from '../Svg/component'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -48,21 +51,25 @@ export default class SearchPage extends React.Component {
     return (
       <div className='search__no-results'>
         <Grid>
-          <GridCol className='col-12 col-sm-10'>
-            <h2 className='h3'><span className='smilie'>:(</span> Sorry, no results were found</h2>
-            <h5>Perhaps try...</h5>
+          <GridCol className='col-12 col-md-2 spacing-bottom--single'>
+            <Svg url='/ui/svg/magnifying-large.svg' alt=''/>
+          </GridCol>
+          <GridCol className='col-12 col-md-8'>
+            <Heading className='h3' text='Sorry, no results were found'/>
+            <Heading type='p' className='lead' text='Perhaps try...'/>
             <ul>
               <li>Checking your spelling</li>
               <li>A more general word</li>
               <li>Words with a similar meanings</li>
             </ul>
+            <Divider className='hr--muted hr--large' />
+            <Heading type='h3' className='h5' text='Get in touch'/>
+            <p><Anchor className='link-text' href='tel:03001236600' label='Call FRANK on 0300 123 6600'>Call: 0300 123 6600</Anchor></p>
+            <p><Anchor className='link-text' href='sms:82111' label='Text FRANK on 82111'>Text: 82111</Anchor></p>
+            <p><Anchor className='link-text' href='mailto:03001236600' label='Send an email to FRANK at frank@talktofrank.com'>frank@talktofrank.com</Anchor></p>
           </GridCol>
         </Grid>
-        <hr className='light-grey' />
-        <h5>Get in touch...</h5>
-        <p><a className='link-text' href="tel:03001236600">Call: 0300 123 6600</a></p>
-        <p><a className='link-text' href="sms:82111">Text: 82111</a></p>
-        <p><a className='link-text' href="mailto:03001236600">frank@talktofrank.com</a></p>
+
       </div>
     )
   }
@@ -77,8 +84,7 @@ export default class SearchPage extends React.Component {
       <React.Fragment>
         <Masthead path={location}/>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={title} />
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={title} />
         </Accent>
         <Main>
           <Grid>
