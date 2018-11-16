@@ -63,20 +63,7 @@ body {
   font-family: "Archivo Bold", sans-serif;
 }
 
-.LabelColumn
-{
-    font-weight:normal;
-    display: block;
-    text-transform: lowercase !important;
-    text-transform: capitalize !important;
-    width: auto !important;
-}
-
-td[style] {
-  width: 0 !important;
-}
-
-.FormHint
+.form-hint
 {
     font-size: 1.4rem;
     font-weight:normal;
@@ -196,3 +183,50 @@ td[style] {
 {
     color: #d22c00;
 }
+
+////
+
+
+.btn {
+  border-radius: 0;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 1rem;
+  border: 0;
+  font-family: "Archivo SemiBold", "Arial Bold", sans-serif;
+  margin-right: 1.5em;
+  color: inherit; }
+  @media (min-width: 576px) {
+    .btn.raised {
+      width: auto; } }
+
+.btn--alink:active, .btn--alink:hover, .btn--alink:focus {
+  color: #D10058;
+  text-decoration: underline; }
+
+.btn--large {
+  font-size: 2.4rem;
+  padding-top: 2.2rem;
+  padding-bottom: 1.8rem; }
+  .btn--large:active {
+    padding-top: 3rem;
+    padding-bottom: 1.6rem; }
+
+.btn--primary {
+  color: #fff;
+  background-color: #FC016A;
+  text-decoration: none;
+  text-align: center;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem; }
+  .btn--primary .btn__text {
+    color: #fff; }
+  .btn--primary:last-child {
+    margin-right: 0; }
+  .btn--primary:active {
+    position: relative;
+    top: .1em; }
+  @media (min-width: 768px) {
+    .btn--primary {
+      font-size: 2.3rem; } }
+
