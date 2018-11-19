@@ -25,7 +25,7 @@ const PageGetHelpPage = props => {
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
               {props.fields.callout && <aside className='panel panel--padding-small panel--has-heading spacing-bottom--large'>
-                  <h2 className='h4 inverted displaced-top inverted--primary'><Svg url={props.fields.callout.fields.icon} alt=''/> {props.fields.callout.fields.title}</h2>
+                  <h2 className='h4 inverted displaced-top inverted--primary'>{props.fields.callout.fields.icon && <Svg url={props.fields.callout.fields.icon} alt=''/>} {props.fields.callout.fields.title}</h2>
                   <Longform text={props.fields.callout.fields.content}/>
                 </aside>}
               {props.fields.intro && <Longform className='lead' text={props.fields.intro} />}
