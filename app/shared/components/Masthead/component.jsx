@@ -67,6 +67,7 @@ export default class Masthead extends React.PureComponent {
 
     return (
       <header className={classes} role='banner'>
+        <span className='visually-hidden'>Talk to Frank - Honest information about drugs</span>
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
             <ViewportMobile>
