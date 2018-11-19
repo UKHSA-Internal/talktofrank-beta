@@ -59,7 +59,7 @@ export default class PageContact extends React.PureComponent {
             <GridCol className='col-12 col-sm-7 col-md-6 offset-md-1'>
               <ul className='list-unstyled'>
                 <li className='list-item list-item--underlined spacing--single' >
-                  <h2 className='h6 spacing--single'><Icon {...icons[0]}/> Call <Anchor className='link-text' label='Click to phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></h2>
+                  <h2 className='h6 spacing--single'><Icon {...icons[0]}/> Call <Anchor className='link-text' label='Phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></h2>
                   <p>Call FRANK 24 hours a day, 7 days a week.</p>
                   <Collapsible text='Call service details' id='call-service-details'>
                     <p>For people with hearing impairments, you can textphone FRANK on 0300 123 1099.</p>
