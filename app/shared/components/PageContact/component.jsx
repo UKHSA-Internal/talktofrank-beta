@@ -79,7 +79,7 @@ export default class PageContact extends React.PureComponent {
                   </Collapsible>
                 </li>
                 <li className='list-item list-item--underlined spacing--single' >
-                  <h2 className='h6 spacing--single'><Icon {...icons[2]}/> <span aria-hidden='true'>Send an</span> <Anchor className='link-text' label='Email FRANK at ' href='/contact' text='email'/></h2>
+                  <h2 className='h6 spacing--single'><Icon {...icons[2]}/> <span aria-hidden='true'>Send an</span> <Anchor className='link-text' label='Send an email to FRANK' href='/contact' text='email'/></h2>
                   <p>Send an email and FRANK will message you back.</p>
                   <Collapsible text='Email service details' id='email-service-details'>
                     <p>The reply will come from frank@talktofrank.com and the subject line won't have your question in it.</p>
