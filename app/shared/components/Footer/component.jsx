@@ -5,7 +5,7 @@ import { footer, footerUtility, footerButton } from '../../fixtures/navigation.j
 
 const Footer = props => {
   return (
-    <footer className='footer' role='contentinfo'>
+    <footer className='footer'>
       <section className='footer__inner'>
         <Nav className='displaced-top' navigation={footerButton} visible='true'/>
         <Nav role={null} className='navbar-expand navbar-raised' navigation={footer} visible='true'/>
