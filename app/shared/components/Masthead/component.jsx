@@ -66,7 +66,7 @@ export default class Masthead extends React.PureComponent {
     let current = this.props.path ? this.props.path.pathname : ''
 
     return (
-      <header className={classes} role='banner'>
+      <header className={classes}>
         <span className='visually-hidden'>Talk to Frank - Honest information about drugs</span>
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
