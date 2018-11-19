@@ -56,23 +56,23 @@ export default class PageSupport extends React.PureComponent {
               <Longform text={referralMethod}/>
               <Divider className='hr--muted hr--large'/>
               <Heading className='h4' text='Catchment' />
-              <p dangerouslySetInnerHTML={{ __html: catchmentArea }} />
+              <Heading type='p' text={catchmentArea} />
               <Divider className='hr--muted hr--large'/>
               <div className='hidden--xs'>
                 <Heading className='h4' text='Get in touch' />
-                {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
+                {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
               </div>
             </GridCol>
             <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
               <Heading className='h4' text='Get in touch' />
               <ul class='list-unstyled list-unstyled--single'>
-                {telephone1 && <li class='list-item'><Anchor text={telephone1} label={`Telephone ${name}`} className='break-word link-text' href={`tel:${phoneRaw}`} /></li>}
+                {telephone1 && <li class='list-item'><Anchor text={`Telephone ${name} on ${telephone1}`} className='break-word link-text' href={`tel:${phoneRaw}`} /></li>}
                 {email && <li class='list-item'><Anchor text='Send email' label={`Send email to ${name}`} className='break-word link-text' href={`mailto:${email}`} /></li>}
                 {website && <li class='list-item'><Anchor text='Visit website' label={`Visit ${name} website`} className='break-word link-text' href={website} /></li>}
               </ul>
               <Divider className='hr--muted hr--large'/>
               <Heading className='h4' text='Opening times' />
-              <p dangerouslySetInnerHTML={{ __html: timesSessions }} />
+              <Heading type='p' text={timesSessions} />
               <Divider className='hr--muted hr--large'/>
               <Heading className='h4' text='Address' />
               <Longform text={address}/>
@@ -80,7 +80,7 @@ export default class PageSupport extends React.PureComponent {
               <div className='hidden--sm-up'>
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Get in touch' />
-                {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
+                {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
               </div>
             </GridCol>
           </Grid>
