@@ -105,14 +105,17 @@ export default class PaginationBoxView extends React.PureComponent {
 
   handlePagecurrent = (current, e) => {
     e.preventDefault ? e.preventDefault() : (e.returnValue = false)
-    if (this.state.current === current) return
+    if (this.state.current === current) {
+      return
+    }
+
+    this.setState({current: current})
+    this.callCallback(current)
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
-
-    this.setState({current: current})
-    this.callCallback(current)
   }
 
   hrefBuilder (pageIndex) {
