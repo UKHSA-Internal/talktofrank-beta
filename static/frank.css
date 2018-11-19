@@ -1,4 +1,24 @@
 
+@font-face {
+  font-family: 'robotoregular';
+  src: url("./ui/font/Roboto-Regular.woff") format("woff"), url("./ui/font/Roboto-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Archivo SemiBold';
+  src: url("./ui/font/Archivo-SemiBold.eot");
+  /* IE9 Compat Modes */
+  src: url("./ui/font/Archivo-SemiBold.eot?#iefix") format("embedded-opentype"), url("./ui/font/Archivo-SemiBold.woff2") format("woff2"), url("./ui/font/Archivo-SemiBold.woff") format("woff"), url("./ui/font/Archivo-SemiBold.ttf") format("truetype"), url("./ui/font/Archivo-SemiBold.svg#svgFontName") format("svg");
+  /* Legacy iOS */ }
+
+@font-face {
+  font-family: 'Archivo Bold';
+  src: url("./ui/font/Archivo-Bold.eot");
+  /* IE9 Compat Modes */
+  src: url("./ui/font/Archivo-Bold.eot?#iefix") format("embedded-opentype"), url("./ui/font/Archivo-Bold.woff2") format("woff2"), url("./ui/font/Archivo-Bold.woff") format("woff"), url("./ui/font/Archivo-Bold.ttf") format("truetype"), url("./ui/font/Archivo-Bold.svg#svgFontName") format("svg");
+}
+
 *,
 *::before,
 *::after {
@@ -11,10 +31,14 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 
 @-ms-viewport {
-  width: device-width; }
+  width: device-width;
+}
+
+
 
 body {
   margin: 0;
@@ -24,8 +48,40 @@ body {
   line-height: 1.5;
   color: #0E3944;
   text-align: left;
-  background-color: #fff; }
+  background-color: #fff;
+}
 
+
+.constrain-narrow,
+.main {
+  max-width: 105rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+
+@media (min-width: 576px) {
+  .constrain-narrow,
+  .main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.main {
+  padding: 2rem 2rem 5rem;
+  overflow: hidden;
+}
+
+.main--muted {
+  background-color: #F0F4F5;
+}
+
+@media (min-width: 576px) {
+  .main {
+    padding-top: 3rem;
+  }
+}
 #helpline
 {
     padding-top:15px;
@@ -60,7 +116,7 @@ body {
   font-size: 2.1rem;
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
-  font-family: "Archivo Bold", sans-serif;
+  font-family: "Archivo SemiBold", "Arial Bold", sans-serif;
 }
 
 .form-hint
@@ -105,9 +161,8 @@ body {
 
 #chatArea
 {
-
     min-height:300px;
-    max-height:300px;
+    /*max-height:300px;*/ /* joel - I see no reason for this */
 }
 
 #txtMsg
@@ -184,49 +239,82 @@ body {
     color: #d22c00;
 }
 
-////
-
-
+/* buttons */
 .btn {
   border-radius: 0;
   font-size: 2rem;
   line-height: 1;
   padding: 1rem;
-  border: 0;
   font-family: "Archivo SemiBold", "Arial Bold", sans-serif;
   margin-right: 1.5em;
-  color: inherit; }
-  @media (min-width: 576px) {
-    .btn.raised {
-      width: auto; } }
+  color: inherit;
+}
 
-.btn--alink:active, .btn--alink:hover, .btn--alink:focus {
-  color: #D10058;
-  text-decoration: underline; }
-
-.btn--large {
+.btn.btn--large {
   font-size: 2.4rem;
   padding-top: 2.2rem;
-  padding-bottom: 1.8rem; }
-  .btn--large:active {
-    padding-top: 3rem;
-    padding-bottom: 1.6rem; }
+  padding-bottom: 1.8rem;
+}
 
-.btn--primary {
+.btn.btn--large:active {
+  padding-top: 3rem;
+  padding-bottom: 1.6rem;
+}
+
+.btn.btn--primary {
   color: #fff;
   background-color: #FC016A;
   text-decoration: none;
   text-align: center;
   padding-left: 2.5rem;
-  padding-right: 2.5rem; }
-  .btn--primary .btn__text {
-    color: #fff; }
-  .btn--primary:last-child {
-    margin-right: 0; }
-  .btn--primary:active {
-    position: relative;
-    top: .1em; }
-  @media (min-width: 768px) {
-    .btn--primary {
-      font-size: 2.3rem; } }
+  padding-right: 2.5rem;
+}
+
+.btn.btn--primary .btn__text {
+  color: #fff;
+}
+
+.btn.btn--primary:last-child {
+  margin-right: 0;
+}
+
+.btn.btn--primary:active {
+  position: relative;
+  top: .1em;
+}
+
+@media (min-width: 768px) {
+  .btn.btn--primary {
+    font-size: 2.3rem;
+  }
+}
+
+/* for screenreaders */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/*
+form */
+
+.form-group {
+  margin-bottom: 3rem;
+}
 
