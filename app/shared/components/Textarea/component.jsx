@@ -17,9 +17,9 @@ const Textarea = props => {
       <label className='form-label' htmlFor={props.id}>{props.label}
         {props.supporting && <FormHint>{props.supporting}</FormHint>}
       </label>
-      {props.hint && <FormHint>{props.hint}</FormHint>}
-      {props.error && <ErrorMessage message={props.error} />}
-      <textarea className={textareaClassNames} id={props.id} name={props.name} rows={props.rows} value={props.value} onChange={props.onChange} {...required} />
+      {props.hint && <FormHint id={props.hintId || null}>{props.hint}</FormHint>}
+      {props.error && <ErrorMessage message={props.error}/>}
+      <textarea className={textareaClassNames} id={props.id} aria-describedby={props.hintId || null} name={props.name} rows={props.rows} value={props.value} onChange={props.onChange} {...required} />
     </div>
   )
 }
