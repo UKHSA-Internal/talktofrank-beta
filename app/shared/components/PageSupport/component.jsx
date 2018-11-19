@@ -58,7 +58,7 @@ export default class PageSupport extends React.PureComponent {
               <Heading className='h4' text='Catchment' />
               <Heading type='p' text={catchmentArea} />
               <Divider className='hr--muted hr--large'/>
-              <div className='hidden--xs'>
+              <div className='hidden--xs' aria-hidden='true'>
                 <Heading className='h4' text='Get in touch' />
                 {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
               </div>
@@ -77,7 +77,7 @@ export default class PageSupport extends React.PureComponent {
               <Heading className='h4' text='Address' />
               <Longform text={address}/>
               <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
-              <div className='hidden--sm-up'>
+              <div className='hidden--sm-up' aria-hidden='true'>
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Get in touch' />
                 {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
