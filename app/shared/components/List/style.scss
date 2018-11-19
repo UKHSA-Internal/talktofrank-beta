@@ -168,6 +168,10 @@ $offset: 3.5rem;
           bottom: calc(100% + 5rem);
         }
       }
+
+      & + .list-item--has-image {
+        margin-top: 10rem;
+      }
     }
 
     span + .has-arrow {
