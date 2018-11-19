@@ -62,7 +62,7 @@ export default class PageContact extends React.PureComponent {
                   <h2 className='h6 spacing--single'><Icon {...icons[0]}/> Call <Anchor className='link-text' label='Phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></h2>
                   <p>Call FRANK 24 hours a day, 7 days a week.</p>
                   <Collapsible text='Call service details' id='call-service-details'>
-                    <p>For people with hearing impairments, you can textphone FRANK on 0300 123 1099.</p>
+                    <p>For people with hearing impairments, you can <Anchor className='link-text' label='Textphone FRANK on 0300 123 1099' href='tel:03001231099' text='Textphone FRANK on 0300 123 1099'/>.</p>
                     <p>If you call when your friends are around we may ask you to call back when you're on your own.</p>
                     <p>Calls from a landline cost no more than a normal national call (to an 01 or 02 number). The calls may show up on the bill.</p>
                     <p>Calls from a mobile phone vary in cost depending on what network you’re on. The call may show up on the bill.</p>
@@ -79,7 +79,7 @@ export default class PageContact extends React.PureComponent {
                   </Collapsible>
                 </li>
                 <li className='list-item list-item--underlined spacing--single' >
-                  <h2 className='h6 spacing--single'><Icon {...icons[2]}/> Send an <Anchor className='link-text' label='Send an email to FRANK at ' href='/contact' text='email'/></h2>
+                  <h2 className='h6 spacing--single'><Icon {...icons[2]}/> <span aria-hidden='true'>Send an</span> <Anchor className='link-text' label='Email FRANK at ' href='/contact' text='email'/></h2>
                   <p>Send an email and FRANK will message you back.</p>
                   <Collapsible text='Email service details' id='email-service-details'>
                     <p>The reply will come from frank@talktofrank.com and the subject line won't have your question in it.</p>
