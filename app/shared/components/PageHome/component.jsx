@@ -23,7 +23,7 @@ export default class PageHome extends React.PureComponent {
         </section>
         <Main className='main--full-width'>
           {this.props.featuredItemBlock &&
-            <section className='wrapper'>
+            <section className='wrapper wrapper--tight'>
               <Grid>
                 <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
                   <Article {...this.props.featuredItemBlock}/>
