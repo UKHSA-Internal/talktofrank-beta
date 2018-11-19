@@ -7,7 +7,7 @@ import classNames from 'classnames'
 const Textarea = props => {
   let classes = `form-group ${props.className || ''}`
   let required = props.required ? {'required': true} : null
-
+  let error = props.error ? {'aria-invalid': true} : null
   let textareaClassNames = classNames('form-control form-control-full form-control--reversed', {
     'is-invalid': props.error
   })
@@ -19,7 +19,7 @@ const Textarea = props => {
       </label>
       {props.hint && <FormHint id={props.hintId || null}>{props.hint}</FormHint>}
       {props.error && <ErrorMessage message={props.error}/>}
-      <textarea className={textareaClassNames} id={props.id} aria-describedby={props.hintId || null} name={props.name} rows={props.rows} value={props.value} onChange={props.onChange} {...required} />
+      <textarea className={textareaClassNames} id={props.id} aria-describedby={props.hintId || null} name={props.name} rows={props.rows} {...error} value={props.value} onChange={props.onChange} {...required} />
     </div>
   )
 }

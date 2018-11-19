@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 const FormGroup = props => {
   const id = props.id
-
+  let error = props.error ? {'aria-invalid': true} : null
   let inputClassNames = classNames('form-control', props.className, {
     'is-invalid': props.error
   })
@@ -16,7 +16,7 @@ const FormGroup = props => {
       <label htmlFor={id} className='form-label'>{props.label}</label>
       {props.hint && <FormHint>{props.hint}</FormHint>}
       {props.error && <ErrorMessage message={props.error} />}
-      <input className={inputClassNames} id={id} name={props.name} value={props.value} type='text' onChange={props.onChange}/>
+      <input className={inputClassNames} id={id} name={props.name} value={props.value} type='text' {...error} onChange={props.onChange} />
     </div>
   )
 }

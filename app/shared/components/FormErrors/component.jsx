@@ -10,11 +10,6 @@ export const getErrors = (formErrors) => {
 }
 
 export class ErrorSummary extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.summary = React.createRef()
-  }
-
   render() {
     let { errors } = this.props
 
@@ -29,7 +24,7 @@ export class ErrorSummary extends React.PureComponent {
     })
 
     return (
-      <div className='alert alert-danger spacing-bottom--single' ref={this.summary}>
+      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive'>
         <strong className='h4'>There is a problem</strong>
         <ul className='alert-danger__list'>
           {errors.map((error, i) => (
