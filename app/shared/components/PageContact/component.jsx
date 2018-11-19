@@ -94,7 +94,7 @@ export default class PageContact extends React.PureComponent {
                 <Icon {...icons[3]}/>
                 <h2 className='h4'><span className='icon icon--circle icon--circle-red'></span>Live chat <span className='quieter'>(online)</span></h2>
                 <p>Our live chat service operates from 2pm - 6pm, 7 days a week.</p>
-                <p><Anchor className='link-text' label='Click to start live chat' href='#' text='Get started'/></p>
+                <p><Anchor className='link-text' label='Start live chat' href='#' text='Get started'/></p>
               </Panel>
               <Panel>
                 <Icon {...icons[4]}/>
