@@ -113,7 +113,7 @@
       docker_image_name: "library/node"
       docker_image_tag: "9.8.0"
       execute_commands:
-      - "BUILD_CONFIG=staging grunt build"
+      - "BUILD_CONFIG=uat grunt build"
       setup_commands:
       - "npm install -g grunt-cli"
     - action: "Deploy"
