@@ -1,40 +1,20 @@
+// import es6 files in grunt seems to cause issues
+// const elasticSearchFunctions = require('../../app/shared/elasticSearch.jsx')
 const yaml = require('js-yaml')
 const fs = require('fs')
-const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
+const documentToHtmlString = require('@contentful/rich-text-html-renderer')
 const env = process.env.BUILD_CONFIG || 'development'
 const merge = require('merge')
-const richTextHTMLRedered = require('@contentful/rich-text-html-renderer')
-const util = require('util')
 const AWS = require('aws-sdk')
 const connectionClass = require('http-aws-es')
 const elasticsearch = require('elasticsearch')
+const util = require('util')
 
 module.exports = function (grunt) {
   grunt.registerMultiTask('contentful', 'Sync and reindex entries from contentful to Elasticsearch', async function () {
     const done = this.async()
-
-    let envConfig = {}
-    let baseConfig = {}
-    let configLoaded = false
-
-    try {
-      baseConfig = yaml.load(fs.readFileSync(process.cwd() + '/config.yaml', 'utf8'))
-      grunt.log.writeln('Using config.yaml file')
-      if (baseConfig.contentful && baseConfig.elasticsearch) configLoaded = true
-    } catch (e) {
-      grunt.log.writeln('No config.yaml file found, searching for development config')
-    }
-
-    try {
-      envConfig = yaml.load(fs.readFileSync(process.cwd() + '/config.' + env + '.yaml', 'utf8'))
-      if (envConfig.contentful && envConfig.elasticsearch) configLoaded = true
-    } catch (e) {
-      grunt.log.error('No development config file found')
-    }
-
-    baseConfig.buildTimestamp = Date.now()
-    let config = merge.recursive(true, baseConfig, envConfig)
+    const config = buildConfig(grunt)
 
     if (!config.contentful && !config.elasticsearch) {
       grunt.log.error('No config files found')
@@ -42,38 +22,8 @@ module.exports = function (grunt) {
       return
     }
 
-    const contentfulClient = contentful.createClient({
-      // This is the space ID. A space is like a project folder in Contentful terms
-      space: config.contentful.contentSpace,
-      environment: config.contentful.environment,
-      // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
-      accessToken: config.contentful.contentAccessToken,
-      host: config.contentful.contentHost
-    })
-
-    let elasticSearchConf = {
-      host: config.elasticsearch.host || `http://localhost:9200`,
-      log: `info`
-    }
-
-    if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
-      elasticSearchConf.connectionClass = connectionClass
-      AWS.config.update({
-        region: config.elasticsearch.amazonES.region
-      })
-    }
-
-    if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) {
-      AWS.config.update({
-        credentials: new AWS.Credentials(
-          config.elasticsearch.amazonES.credentials.accessKeyId,
-          config.elasticsearch.amazonES.credentials.secretAccessKey
-        ),
-        region: config.elasticsearch.amazonES.region
-      })
-    }
-
-    let client = new elasticsearch.Client(elasticSearchConf)
+    const contentfulClient = contentfulConnection(config)
+    const elasticClient = elasticConnection(config)
 
     let [news, drugs, pages] = await Promise.all([
       contentfulClient.getEntries({
@@ -83,200 +33,197 @@ module.exports = function (grunt) {
         content_type: config.contentful.contentTypes.drug
       }),
       contentfulClient.getEntries({
-        content_type: config.contentful.contentTypes.page
+        content_type: config.contentful.contentTypes.page,
+        'fields.includeInSearch': true
       })
     ])
 
+    // Format all entries
     let formattedNews = []
     news.items
-      .map(newsItem => {
-        const formattedNewsItem = {
-          id: newsItem.sys.id,
-          relatedDrugs: [],
-          title: newsItem.fields.title,
-          slug: newsItem.fields.slug,
-          tags: [],
-          type: 'news'
-        }
-
-        if (newsItem.fields.body) {
-          formattedNewsItem['body'] = cleanText(richTextHTMLRedered.documentToHtmlString(newsItem.fields.body))
-        }
-
-        if (newsItem.fields.relatedDrugs) {
-          newsItem.fields.relatedDrugs
-            .filter(relatedDrug => relatedDrug.fields && relatedDrug.fields.drugName && relatedDrug.fields.slug && relatedDrug.fields.synonyms)
-            .map(relatedDrug => {
-              formattedNewsItem.relatedDrugs.push({
-                drugName: relatedDrug.fields.drugName,
-                slug: relatedDrug.fields.slug,
-                synonyms: relatedDrug.fields.synonyms
-              })
-            })
-        }
-
-        if (newsItem.fields.tags) {
-          newsItem.fields.tags
-            .filter(tag => tag.fields)
-            .map(tag => {
-              formattedNewsItem.tags.push(tag.fields.tagName)
-            })
-        }
-        formattedNews.push(formattedNewsItem)
-      })
+      .map(newsItem => formattedNews.push(formatNewsEntryForSearch(newsItem)))
 
     let formattedDrugsText = []
     let formattedDrugsNames = []
     drugs.items
       .map(drugItem => {
         const name = drugItem.fields.hasOwnProperty('drugName') ? drugItem.fields.drugName : null
-        const item = addFormattedDrugText(name, null, drugItem)
-        formattedDrugsText.push(item)
-
-        formattedDrugsNames.push(addFormattedDrugName(name, name, drugItem))
+        formattedDrugsText.push(formatDrugEntryForSearch(name, drugItem))
+        formattedDrugsNames.push(formatDrugNameEntryForSearch(name, name, drugItem))
 
         if (drugItem.fields.synonyms) {
           drugItem.fields.synonyms
             .map(synonymName => {
-              const synonymItem = addFormattedDrugName(synonymName, name, drugItem)
+              const synonymItem = formatDrugNameEntryForSearch(synonymName, name, drugItem)
               formattedDrugsNames.push(synonymItem)
             })
         }
       })
-    console.log(util.inspect(formattedDrugsNames, {showHidden: false, depth: null}))
+
     let formattedGeneralPages = []
     pages.items
-      .map(pageItem => {
-        const formattedGeneralPagesItem = {
-          id: pageItem.sys.id,
-          relatedDrugs: [],
-          title: pageItem.fields.title,
-          slug: pageItem.fields.slug,
-          tags: [],
-          type: 'page'
-        }
+      .map(pageItem => formattedGeneralPages.push(formatGeneralContentEntryForSearch(pageItem)))
 
-        if (pageItem.fields.body) {
-          formattedGeneralPagesItem['body'] = cleanText(richTextHTMLRedered.documentToHtmlString(pageItem.fields.body))
-        }
-        formattedGeneralPages.push(formattedGeneralPagesItem)
-      })
+    // Create bulk actions for ES
+    await buildBulkUpdateAction(
+      config.elasticsearch.indices.drug,
+      '_doc',
+      formattedDrugsText,
+      elasticClient,
+      'drugName'
+    )
 
-    let bulk = []
-    await formattedDrugsText
-      .map(item => {
-        let action = {update: {_index: config.elasticsearch.indices.drug, _type: '_doc', _id: `${item.id}-${item.name}`}}
-        bulk.push(action, {doc: item, doc_as_upsert: true})
-      })
+    await buildBulkUpdateAction(
+      config.elasticsearch.indices.drugNames,
+      '_doc',
+      formattedDrugsNames,
+      elasticClient,
+      'name'
+    )
 
-    const drugTextResponse = await client.bulk({
-      maxRetries: 5,
-      index: config.elasticsearch.indices.drug,
-      body: bulk
-    })
+    await buildBulkUpdateAction(
+      config.elasticsearch.indices.content,
+      '_doc',
+      formattedNews,
+      elasticClient,
+      'title'
+    )
 
-    console.log('Drug text Indexed items: ', drugTextResponse.items.length)
-    console.log('Errors: ', drugTextResponse.errors.length)
-
-    drugTextResponse.items
-      .filter(reponseItem => reponseItem.update.status === 400)
-      .map(reponseItem => {
-        console.log(util.inspect(reponseItem, {showHidden: false, depth: null}))
-      })
-
-    bulk = []
-    await formattedDrugsNames
-      .map(item => {
-        let action = {update: {_index: config.elasticsearch.indices.drugName, _type: '_doc', _id: `${item.id}-${item.name}`}}
-        bulk.push(action, {doc: item, doc_as_upsert: true})
-      })
-
-    const drugNameResponse = await client.bulk({
-      maxRetries: 5,
-      index: config.elasticsearch.indices.drugNames,
-      body: bulk
-    })
-
-    console.log('Drug name Indexed items: ', drugNameResponse.items.length)
-    console.log('Errors: ', drugNameResponse.errors.length)
-
-    drugNameResponse.items
-      .filter(reponseItem => reponseItem.update.status === 400)
-      .map(reponseItem => {
-        console.log(util.inspect(reponseItem, {showHidden: false, depth: null}))
-      })
-
-    bulk = []
-    await formattedNews
-      .map(item => {
-        let action = {update: {_index: config.elasticsearch.indices.content, _type: '_doc', _id: `${item.id}`}}
-        bulk.push(action, {doc: item, doc_as_upsert: true})
-      })
-
-    const newsResponse = await client.bulk({
-      maxRetries: 5,
-      index: config.elasticsearch.indices.page,
-      body: bulk
-    })
-
-    console.log('News Indexed items: ', newsResponse.items.length)
-    console.log('Errors: ', newsResponse.errors.length)
-
-    newsResponse.items
-      .filter(reponseItem => reponseItem.update.status === 400)
-      .map(reponseItem => {
-        console.log(util.inspect(reponseItem, {showHidden: false, depth: null}))
-      })
-
-    bulk = []
-    await formattedGeneralPages
-      .map(item => {
-        console.log(item)
-        let action = {update: {_index: 'talktofrank-content', _type: '_doc', _id: `${item.id}`}}
-        bulk.push(action, {doc: item, doc_as_upsert: true})
-      })
-
-    const pageResponse = await client.bulk({
-      maxRetries: 5,
-      index: config.elasticsearch.indices.page,
-      body: bulk
-    })
-
-    console.log('General page indexed items: ', pageResponse.items.length)
-    console.log('Errors: ', pageResponse.errors.length)
-
-    pageResponse.items
-      .filter(reponseItem => reponseItem.update.status === 400)
-      .map(reponseItem => {
-        console.log(util.inspect(reponseItem, {showHidden: false, depth: null}))
-      })
+    await buildBulkUpdateAction(
+      config.elasticsearch.indices.content,
+      '_doc',
+      formattedGeneralPages,
+      elasticClient,
+      'title'
+    )
 
     done()
   })
 }
 
-const addFormattedDrugText = (name, realName, drugItem) => {
+const buildConfig = (grunt) => {
+  let envConfig = {}
+  let baseConfig = {}
+  let configLoaded = false
+
+  try {
+    baseConfig = yaml.load(fs.readFileSync(process.cwd() + '/config.yaml', 'utf8'))
+    grunt.log.writeln('Using config.yaml file')
+    if (baseConfig.contentful && baseConfig.elasticsearch) configLoaded = true
+  } catch (e) {
+    grunt.log.writeln('No config.yaml file found, searching for development config')
+  }
+
+  try {
+    envConfig = yaml.load(fs.readFileSync(process.cwd() + '/config.' + env + '.yaml', 'utf8'))
+    if (envConfig.contentful && envConfig.elasticsearch) configLoaded = true
+  } catch (e) {
+    grunt.log.error('No development config file found')
+  }
+
+  baseConfig.buildTimestamp = Date.now()
+  return merge.recursive(true, baseConfig, envConfig)
+}
+
+const contentfulConnection = (config) => {
+  const contentfulClient = contentful.createClient({
+    // This is the space ID. A space is like a project folder in Contentful terms
+    space: config.contentful.contentSpace,
+    environment: config.contentful.environment,
+    // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+    accessToken: config.contentful.contentAccessToken,
+    host: config.contentful.contentHost
+  })
+
+  return contentfulClient
+}
+
+const elasticConnection = (config) => {
+  let elasticSearchConf = {
+    host: config.elasticsearch.host || `http://localhost:9200`,
+    log: `info`
+  }
+
+  if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
+    elasticSearchConf.connectionClass = connectionClass
+    AWS.config.update({
+      region: config.elasticsearch.amazonES.region
+    })
+  }
+
+  if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) {
+    AWS.config.update({
+      credentials: new AWS.Credentials(
+        config.elasticsearch.amazonES.credentials.accessKeyId,
+        config.elasticsearch.amazonES.credentials.secretAccessKey
+      ),
+      region: config.elasticsearch.amazonES.region
+    })
+  }
+
+  return new elasticsearch.Client(elasticSearchConf)
+}
+
+const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
+
+const formatNewsEntryForSearch = (newsItem) => {
+  let formattedNewsItem = {
+    id: newsItem.sys.id,
+    relatedDrugs: [],
+    title: newsItem.fields.title,
+    slug: newsItem.fields.slug,
+    tags: [],
+    type: 'news'
+  }
+
+  if (newsItem.fields.body) {
+    formattedNewsItem['body'] = removeTags(documentToHtmlString.documentToHtmlString(newsItem.fields.body))
+  }
+
+  if (newsItem.fields.relatedDrugs) {
+    newsItem.fields.relatedDrugs
+      .filter(relatedDrug => relatedDrug.fields && relatedDrug.fields.drugName && relatedDrug.fields.slug && relatedDrug.fields.synonyms)
+      .map(relatedDrug => {
+        formattedNewsItem.relatedDrugs.push({
+          drugName: relatedDrug.fields.drugName,
+          slug: relatedDrug.fields.slug,
+          synonyms: relatedDrug.fields.synonyms
+        })
+      })
+  }
+
+  if (newsItem.fields.tags) {
+    newsItem.fields.tags
+      .filter(tag => tag.fields)
+      .map(tag => {
+        formattedNewsItem.tags.push(tag.fields.tagName)
+      })
+  }
+  return formattedNewsItem
+}
+
+const formatDrugEntryForSearch = (name, drugItem) => {
   let formattedDrugItem = {
     id: drugItem.sys.id,
     name: name,
     synonyms: drugItem.fields.hasOwnProperty('synonyms') ? drugItem.fields.synonyms : '',
     slug: drugItem.fields.hasOwnProperty('slug') ? drugItem.fields.slug : null,
-    addiction: drugItem.fields.hasOwnProperty('addiction') ? cleanText(drugItem.fields.addiction) : null,
-    additional: drugItem.fields.hasOwnProperty('additional') ? cleanText(drugItem.fields.additional) : null,
-    category: drugItem.fields.hasOwnProperty('category') ? cleanText(drugItem.fields.category) : 'None',
-    description: drugItem.fields.hasOwnProperty('description') ? cleanText(drugItem.fields.description) : null,
-    drugName: drugItem.fields.hasOwnProperty('drugName') ? cleanText(drugItem.fields.drugName) : null,
-    durationDetail: drugItem.fields.hasOwnProperty('durationDetail') ? cleanText(drugItem.fields.durationDetail) : null,
-    durationDetectable: drugItem.fields.hasOwnProperty('durationDetectable') ? cleanText(drugItem.fields.durationDetectable) : null,
-    effectsBehaviour: drugItem.fields.hasOwnProperty('effectsBehaviour') ? cleanText(drugItem.fields.effectsBehaviour) : null,
-    effectsFeeling: drugItem.fields.hasOwnProperty('effectsFeeling') ? cleanText(drugItem.fields.effectsFeeling) : null,
-    mixingDangers: drugItem.fields.hasOwnProperty('mixingDangers') ? cleanText(drugItem.fields.mixingDangers) : null,
-    qualitiesAdministered: drugItem.fields.hasOwnProperty('qualitiesAdministered') ? cleanText(drugItem.fields.qualitiesAdministered) : null,
-    qualitiesAppearance: drugItem.fields.hasOwnProperty('qualitiesAppearance') ? cleanText(drugItem.fields.qualitiesAppearance) : null,
-    qualitiesTaste: drugItem.fields.hasOwnProperty('qualitiesTaste') ? cleanText(drugItem.fields.qualitiesTaste) : null,
-    risksCutWith: drugItem.fields.hasOwnProperty('risksCutWith') ? cleanText(drugItem.fields.risksCutWith) : null,
-    risksHealthMental: drugItem.fields.hasOwnProperty('risksHealthMental') ? cleanText(drugItem.fields.risksHealthMental) : null,
-    risksPhysicalHealth: drugItem.fields.hasOwnProperty('risksPhysicalHealth') ? cleanText(drugItem.fields.risksPhysicalHealth) : null,
+    addiction: drugItem.fields.hasOwnProperty('addiction') ? removeTags(drugItem.fields.addiction) : null,
+    additional: drugItem.fields.hasOwnProperty('additional') ? removeTags(drugItem.fields.additional) : null,
+    category: drugItem.fields.hasOwnProperty('category') ? removeTags(drugItem.fields.category) : 'None',
+    description: drugItem.fields.hasOwnProperty('description') ? removeTags(drugItem.fields.description) : null,
+    drugName: drugItem.fields.hasOwnProperty('drugName') ? removeTags(drugItem.fields.drugName) : null,
+    durationDetail: drugItem.fields.hasOwnProperty('durationDetail') ? removeTags(drugItem.fields.durationDetail) : null,
+    durationDetectable: drugItem.fields.hasOwnProperty('durationDetectable') ? removeTags(drugItem.fields.durationDetectable) : null,
+    effectsBehaviour: drugItem.fields.hasOwnProperty('effectsBehaviour') ? removeTags(drugItem.fields.effectsBehaviour) : null,
+    effectsFeeling: drugItem.fields.hasOwnProperty('effectsFeeling') ? removeTags(drugItem.fields.effectsFeeling) : null,
+    mixingDangers: drugItem.fields.hasOwnProperty('mixingDangers') ? removeTags(drugItem.fields.mixingDangers) : null,
+    qualitiesAdministered: drugItem.fields.hasOwnProperty('qualitiesAdministered') ? removeTags(drugItem.fields.qualitiesAdministered) : null,
+    qualitiesAppearance: drugItem.fields.hasOwnProperty('qualitiesAppearance') ? removeTags(drugItem.fields.qualitiesAppearance) : null,
+    qualitiesTaste: drugItem.fields.hasOwnProperty('qualitiesTaste') ? removeTags(drugItem.fields.qualitiesTaste) : null,
+    risksCutWith: drugItem.fields.hasOwnProperty('risksCutWith') ? removeTags(drugItem.fields.risksCutWith) : null,
+    risksHealthMental: drugItem.fields.hasOwnProperty('risksHealthMental') ? removeTags(drugItem.fields.risksHealthMental) : null,
+    risksPhysicalHealth: drugItem.fields.hasOwnProperty('risksPhysicalHealth') ? removeTags(drugItem.fields.risksPhysicalHealth) : null,
     tags: []
   }
 
@@ -305,13 +252,14 @@ const addFormattedDrugText = (name, realName, drugItem) => {
   return formattedDrugItem
 }
 
-const addFormattedDrugName = (name, realName, drugItem) => {
-  let id = `${drugItem.sys.id}-${name}`
+const formatDrugNameEntryForSearch = (name, realName, drugItem) => {
+  let id = `${drugItem.sys.id}-${name.trim()}`.toLowerCase()
   let formattedDrugItem = {
-    id: id.replace(' ', '-').toLowerCase(),
-    name: name,
-    realName: realName,
-    category: drugItem.fields.hasOwnProperty('category') ? cleanText(drugItem.fields.category) : 'None',
+    id: id.replace(/\s/g, '-').toLowerCase(),
+    entryId: drugItem.sys.id,
+    name: name.trim(),
+    realName: realName.trim(),
+    category: drugItem.fields.hasOwnProperty('category') ? removeTags(drugItem.fields.category) : 'None',
     slug: drugItem.fields.hasOwnProperty('slug') ? drugItem.fields.slug : '',
     tags: []
   }
@@ -326,4 +274,58 @@ const addFormattedDrugName = (name, realName, drugItem) => {
   return formattedDrugItem
 }
 
-const cleanText = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
+const formatGeneralContentEntryForSearch = (pageItem) => {
+  let formattedGeneralPagesItem = {
+    id: pageItem.sys.id,
+    relatedDrugs: [],
+    title: pageItem.fields.title,
+    slug: pageItem.fields.slug,
+    tags: [],
+    type: 'page'
+  }
+
+  if (pageItem.fields.body) {
+    formattedGeneralPagesItem['body'] = removeTags(documentToHtmlString.documentToHtmlString(pageItem.fields.body))
+  }
+
+  if (pageItem.fields.tags) {
+    pageItem.fields.tags
+      .filter(tag => tag.fields)
+      .map(tag => {
+        formattedGeneralPagesItem.tags.push(tag.fields.tagName)
+      })
+  }
+  return formattedGeneralPagesItem
+}
+
+const buildBulkUpdateAction = async (index, type, data, esClient, nameField) => {
+  let bulk = []
+
+  console.log('\nUpdating index', index)
+
+  await data
+    .map(item => {
+      let action = {update: {_index: index, _type: type, _id: item.id}}
+      bulk.push(action, {doc: item, doc_as_upsert: true, _source: [nameField]})
+    })
+
+  const response = await esClient.bulk({
+    maxRetries: 5,
+    index: index,
+    body: bulk
+  })
+
+  console.log('Indexed', response.items.length)
+
+  response.items
+    .filter(item => !item.update.error)
+    .map(item => {
+      console.log(`Adding item ${item.update.get._source[nameField]} (id: ${item.update._id}) - result: ${item.update.result}`)
+    })
+
+  response.items
+    .filter(item => item.update.error)
+    .map(item => {
+      console.log('Error: ', item)
+    })
+}

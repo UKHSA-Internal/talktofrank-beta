@@ -31,6 +31,7 @@ router.use(bodyParser.json({type: 'application/*'}))
 
 /**
  * Get page data
+ * @todo: refactor this into smaller dry-er functions
  */
 router.use('/', async (req, res, next) => {
   try {
