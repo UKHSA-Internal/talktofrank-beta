@@ -7,6 +7,21 @@ import Divider from './components/Divider/component'
 import { config } from 'config'
 
 export const contentFulFactory = () => {
+  /*
+    Remaining options
+    [BLOCKS.DOCUMENT]
+    [BLOCKS.UL_LIST]
+    [BLOCKS.OL_LIST]
+    [BLOCKS.LIST_ITEM]
+    [BLOCKS.QUOTE]
+    [INLINES.EMBEDDED_ENTRY]
+    [INLINES.ENTRY_HYPERLINK]
+    [INLINES.ASSET_HYPERLINK]
+    [MARKS.ITALIC]
+    [MARKS.UNDERLINE]
+    [MARKS.CODE]
+    [BLOCKS.EMBEDDED_ENTRY]
+   */
   return {
     renderNode: {
       [BLOCKS.HEADING_1]: (node, next) => renderToString(<Heading
@@ -22,15 +37,8 @@ export const contentFulFactory = () => {
       [BLOCKS.HEADING_6]: (node, next) => renderToString(<Heading
         text={next(node.content)} type='h6'/>),
       [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
-//     [BLOCKS.DOCUMENT]: (node, next) => `${next(node.content)}`,
-
-//     [BLOCKS.UL_LIST]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.OL_LIST]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.LIST_ITEM]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.QUOTE]: (node, next) => `${next(node.content)}`,
-      [BLOCKS.HR]: (node, next) => renderToString(<Divider className='hr--muted hr--large'/>),
-//     [BLOCKS.EMBEDDED_ENTRY]: (node, next) => `${next(node.content)}`,
-      [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
+      [BLOCKS.HR]: () => renderToString(<Divider className='hr--muted hr--large'/>),
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
         let image = `<img src='${node.data.target.fields.file.url}' alt='${node.data.target.fields.title ? node.data.target.fields.title : null}' />`
         if (node.data.target.fields.description) {
           return `<figure>${image}<figcaption>${node.data.target.fields.description}</figcaption></figure>`
@@ -38,18 +46,12 @@ export const contentFulFactory = () => {
           return image
         }
       },
-//     [INLINES.EMBEDDED_ENTRY]: (node,next) => `${next(node.content)}`,
       [INLINES.HYPERLINK]: (node, next) => renderToString(
         <a href={cleanLink(node.data.uri)}>{next(node.content)}</a>)
-//     [INLINES.ENTRY_HYPERLINK]: (node,next) => `${next(node.content)}`,
-//     [INLINES.ASSET_HYPERLINK]: (node,next) => `${next(node.content)}`
-
     },
     renderMark: {
       [MARKS.BOLD]: text => `<strong>${text}</strong>`
-//     [MARKS.ITALIC]: text => `${text}`,
-//     [MARKS.UNDERLINE]: text => `${text}`,
-//     [MARKS.CODE]: text => `${text}`
+
     }
   }
 }
