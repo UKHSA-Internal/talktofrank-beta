@@ -33,38 +33,40 @@ export default class PageSupportList extends React.PureComponent {
         <Masthead/>
          <Main>
          <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 spacing-left spacing--single' text={`${total} results returned for ${location}`} />
-            <Anchor className='spacing-left link-text' href='/support-near-you' text='Search again'/>
+            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={`${total} results returned for ${location}`} />
+            <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
           </Accent>
-          <Grid>
-            <GridCol className='col-12 col-sm-8 offset-sm-2'>
-               <ul className='list-unstyled'>
-                {results && results.map((item, i) => {
-                  return <ArticleSupport
-                    text={item.fields.name}
-                    distance={item.distance}
-                    address={[
-                      item.fields.address1,
-                      item.fields.address2,
-                      item.fields.address3,
-                      item.fields.town,
-                      item.fields.county,
-                      item.fields.postCode
-                    ].filter(Boolean).join(', ')}
-                    phone={item.fields.telephone1}
-                    phoneRaw={item.fields.telephone1.replace(/\D/g, '')}
-                    {...item.fields} key={i}
+          <Accent className='accent--shallow'>
+            <Grid>
+              <GridCol className='col-12 col-sm-8 offset-sm-2'>
+                 <ul className='list-unstyled'>
+                  {results && results.map((item, i) => {
+                    return <ArticleSupport
+                      text={item.fields.name}
+                      distance={item.distance}
+                      address={[
+                        item.fields.address1,
+                        item.fields.address2,
+                        item.fields.address3,
+                        item.fields.town,
+                        item.fields.county,
+                        item.fields.postCode
+                      ].filter(Boolean).join(', ')}
+                      phone={item.fields.telephone1}
+                      phoneRaw={item.fields.telephone1.replace(/\D/g, '')}
+                      {...item.fields} key={i}
+                    />
+                  })}
+                </ul>
+                {total > 10 &&
+                  <Pagination
+                    pageCount={total / 10}
+                    onPageChange={this.handlePageChange}
                   />
-                })}
-              </ul>
-              {total > 10 &&
-                <Pagination
-                  pageCount={total / 10}
-                  onPageChange={this.handlePageChange}
-                />
-              }
-            </GridCol>
-          </Grid>
+                }
+              </GridCol>
+            </Grid>
+          </Accent>
         </Main>
         <Footer/>
         <GA/>
