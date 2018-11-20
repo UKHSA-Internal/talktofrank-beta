@@ -16,6 +16,7 @@ export default class PageNewsList extends React.PureComponent {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.updateAddress = this.updateAddress.bind(this)
+    this.main = React.createRef()
   }
 
   handlePageChange (pageNumber) {
@@ -40,7 +41,7 @@ export default class PageNewsList extends React.PureComponent {
         <Accent className='accent--shallow'>
           <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
         </Accent>
-        <Main>
+        <Main ref={this.main}>
           <Grid>
             <GridCol className='col-12 col-sm-10 offset-sm-1'>
               <ul
