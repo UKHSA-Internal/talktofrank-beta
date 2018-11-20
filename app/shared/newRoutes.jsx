@@ -67,7 +67,7 @@ export default [{
       path: '/livechat',
       exact: true,
       component: asyncPageLiveChat
-    },    
+    },
     {
       path: '/contact',
       exact: true,
