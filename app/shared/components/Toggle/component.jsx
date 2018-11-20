@@ -52,7 +52,7 @@ export default class Toggle extends React.PureComponent {
 
     return (
       <div className={classes} id={id} ref={node => { this.node = node }}>
-        <div className='constrain-narrow'>
+        <div className='wrapper'>
           <Grid>
             <GridCol className='col-12 col-md-7 offset-md-3 bordered'>
               <h2 className='h4'>

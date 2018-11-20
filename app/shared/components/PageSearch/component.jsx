@@ -2,13 +2,15 @@ import React from 'react'
 import Masthead from '../Masthead/component'
 import Grid from '../Grid/component'
 import Heading from '../Heading/component'
-import Main from '../Main/component'
 import GridCol from '../GridCol/component'
 import Accent from '../Accent/component.jsx'
 import Footer from '../Footer/component'
+import Divider from '../Divider/component.jsx'
 import Pagination from '../Pagination/component'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
+import Anchor from '../Anchor/component'
+import Svg from '../Svg/component'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -16,6 +18,8 @@ export default class SearchPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.main = React.createRef()
+    this.focusMain = this.focusMain.bind(this)
     this.state = {
       searchValue: this.props.pageData.searchTerm
     }
@@ -40,6 +44,12 @@ export default class SearchPage extends React.Component {
     })
   }
 
+  focusMain() {
+    setTimeout(() => {
+      this.main.current.focus()
+    }, 1500)
+  }
+
   handlePageChange (pageNumber) {
     this.props.fetchSearchTerm(this.state.searchValue, pageNumber.current)
   }
@@ -48,21 +58,25 @@ export default class SearchPage extends React.Component {
     return (
       <div className='search__no-results'>
         <Grid>
-          <GridCol className='col-12 col-sm-10'>
-            <h2 className='h3'><span className='smilie'>:(</span> Sorry, no results were found</h2>
-            <h5>Perhaps try...</h5>
+          <GridCol className='col-12 col-md-2 spacing-bottom--single'>
+            <Svg url='/ui/svg/magnifying-large.svg' alt=''/>
+          </GridCol>
+          <GridCol className='col-12 col-md-8'>
+            <Heading className='h3' text='Sorry, no results were found'/>
+            <Heading type='p' className='lead' text='Perhaps try...'/>
             <ul>
               <li>Checking your spelling</li>
               <li>A more general word</li>
               <li>Words with a similar meanings</li>
             </ul>
+            <Divider className='hr--muted hr--large' />
+            <Heading type='h3' className='h5' text='Get in touch'/>
+            <p><Anchor className='link-text' href='tel:03001236600' label='Call FRANK on 0300 123 6600'>Call: 0300 123 6600</Anchor></p>
+            <p><Anchor className='link-text' href='sms:82111' label='Text FRANK on 82111'>Text: 82111</Anchor></p>
+            <p><Anchor className='link-text' href='mailto:03001236600' label='Send an email to FRANK at frank@talktofrank.com'>frank@talktofrank.com</Anchor></p>
           </GridCol>
         </Grid>
-        <hr className='light-grey' />
-        <h5>Get in touch...</h5>
-        <p><a className='link-text' href="tel:03001236600">Call: 0300 123 6600</a></p>
-        <p><a className='link-text' href="sms:82111">Text: 82111</a></p>
-        <p><a className='link-text' href="mailto:03001236600">frank@talktofrank.com</a></p>
+
       </div>
     )
   }
@@ -76,51 +90,53 @@ export default class SearchPage extends React.Component {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single'
-                   text={title} />
-        </Accent>
-        <Main>
-          <Grid>
-            <GridCol className='col-12 col-sm-10 offset-sm-1'>
-              {!loading && total > 0 &&
-                <React.Fragment>
-                  <ul className='list-unstyled list-offset'>
-                    {hits
-                      .map(result => {
-                        const SearchResultComponent =
-                          result._index.includes('talktofrank-content')
-                            ? SearchResultContent
-                            : SearchResultDrug
+        <main className='main' id='main' ref={this.main} tabIndex='-1'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={title} />
+          </Accent>
+          <Accent className='accent--shallow'>
+            <Grid>
+              <GridCol className='col-12 col-sm-10 offset-sm-1'>
+                {!loading && total > 0 &&
+                  <React.Fragment>
+                    <ul className='list-unstyled list-offset'>
+                      {hits
+                        .map(result => {
+                          const SearchResultComponent =
+                            result._index.includes('talktofrank-content')
+                              ? SearchResultContent
+                              : SearchResultDrug
 
-                        return (
-                          <li className={`list-item--underlined`}>
-                            <SearchResultComponent
-                              item={result._source}
-                              highlight={result.highlight
-                                ? result.highlight
-                                : null
-                              }
-                              summary={true}
-                            />
-                          </li>
-                        )
-                      })
-                    }</ul>
-                </React.Fragment>
-              }
-              {total > 10 &&
-              <Pagination
-                pageCount={total / 10}
-                onPageChange={this.handlePageChange}
-              />
-              }
-              {!loading && !total &&
-                this.renderNoResults()
-              }
-            </GridCol>
-          </Grid>
-        </Main>
+                          return (
+                            <li className={`list-item--underlined`}>
+                              <SearchResultComponent
+                                item={result._source}
+                                highlight={result.highlight
+                                  ? result.highlight
+                                  : null
+                                }
+                                summary={true}
+                              />
+                            </li>
+                          )
+                        })
+                      }</ul>
+                  </React.Fragment>
+                }
+                {total > 10 &&
+                <Pagination
+                  pageCount={total / 10}
+                  onPageChange={this.handlePageChange}
+                  onPaginateFocus={this.focusMain}
+                />
+                }
+                {!loading && !total &&
+                  this.renderNoResults()
+                }
+              </GridCol>
+            </Grid>
+          </Accent>
+        </main>
         <Footer />
       </React.Fragment>
     )

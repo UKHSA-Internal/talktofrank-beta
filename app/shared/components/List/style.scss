@@ -93,7 +93,7 @@ $offset: 3.5rem;
     .image {
       img {
         max-height: 45rem;
-        max-width: 105%;
+        max-width: 100%;
         width: auto;
       }
     }
@@ -167,6 +167,10 @@ $offset: 3.5rem;
           display: block;
           bottom: calc(100% + 5rem);
         }
+      }
+
+      & + .list-item--has-image {
+        margin-top: 10rem;
       }
     }
 

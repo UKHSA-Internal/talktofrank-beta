@@ -24,7 +24,7 @@ const Page = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Main className='main--full-width'>
+      <Main>
         {props.fields.schemaDefinitions &&
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
         }
@@ -69,18 +69,6 @@ const Page = props => {
           <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
             {props.fields.durationDefault && <Longform text={props.fields.durationDefault.fields.text} />}
             {props.fields.durationDetail && <Longform text={props.fields.durationDetail} />}
-            {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
-              return (
-                <aside className='panel panel--padding-small panel--has-heading' key={i}>
-                  <Heading type='h3' text={v.fields.methodName} className='h4 inverted displaced-top'/>
-                  <dl className='definition-list'>
-                    <dt>Start to feel effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsStart}} />
-                    <dt>The effects last for:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsDuration}} />
-                    {v.fields.methodAfterEffects && <React.Fragment><dt>After effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodAfterEffects}}/></React.Fragment>}
-                  </dl>
-                </aside>
-              )
-            })}
             {props.fields.durationDetectable &&
               <React.Fragment>
                 <Heading {...modifiers} text='How long will it be detectable?'/>
@@ -118,7 +106,7 @@ const Page = props => {
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
               {props.fields.lawClass.fields.class && props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
-              <div className='has-unordered'>
+              <div className='long-form has-unordered'>
                 <ul>
                   <Heading type='li' text={props.fields.lawClass.fields.description}/>
                   <Heading type='li' text={props.fields.lawClass.fields.possesion}/>

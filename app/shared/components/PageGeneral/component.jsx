@@ -14,11 +14,11 @@ const PageGeneral = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
-      </Accent>
-      <Divider className='hr--muted' />
       <Main>
+        <Accent className='accent--shallow'>
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
+        </Accent>
+        <Divider className='hr--muted' />
         <Grid>
           <GridCol className='col-12 col-md-8'>
             {props.fields.body && <Longform text={props.fields.body}/>}

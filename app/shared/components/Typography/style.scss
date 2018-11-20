@@ -351,6 +351,10 @@ b {
   &--muted {
     color: $gray-500;
   }
+
+  &--primary {
+    background-color: $pink;
+  }
 }
 
 // long-form content overrides
@@ -424,22 +428,6 @@ b {
     }
   }
 
-  .has-unordered ul {
-    > li {
-      margin-bottom: 1.5rem;
-
-      &::before {
-        content: '';
-        border-radius: 0;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        height: auto;
-        width: 5px;
-        background-color: $gray-300;
-      }
-    }
-  }
 
   &--indented {
     @include media-breakpoint-up(sm) {
@@ -464,6 +452,23 @@ p {
   }
 }
 
+
+.has-unordered ul {
+  > li {
+    margin-bottom: 1.5rem;
+
+    &::before {
+      content: '';
+      border-radius: 0;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      height: auto;
+      width: 5px;
+      background-color: $gray-300;
+    }
+  }
+}
 
 .definition-list {
   position: relative;

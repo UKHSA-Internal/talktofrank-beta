@@ -3,7 +3,7 @@ body:before {
   display: none; /* Prevent from displaying. */
 }
 
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-up(md) {
   body:before {
     content: 'default';
   }

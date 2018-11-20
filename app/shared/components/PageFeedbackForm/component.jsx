@@ -62,15 +62,15 @@ export default class PageFeedbackForm extends React.Component {
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={this.props.pageData.title} />
-        </Accent>
-        <Main className='main--muted main--full-width'>
+        <Main className='main--muted'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={this.props.pageData.title} />
+          </Accent>
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {this.props.pageData.fields.body && <Longform className="spacing-bottom--single" text={this.props.pageData.fields.body}/>}
+                {this.props.pageData.fields.body && <Longform className='spacing-bottom--single' text={this.props.pageData.fields.body}/>}
 
                 {this.props.error &&
                   <ScrollTo>
@@ -80,8 +80,8 @@ export default class PageFeedbackForm extends React.Component {
 
                 {!this.props.submitted &&
                 <Form className='spacing-bottom--large' handleSubmit={this.handleSubmit}>
-                  <FormGroup className='form-control--reversed form-control--large' label="Subject" id="subject" name="subject" value={this.state.subject} onChange={this.handleChange} error={errors.subject} hint="Must be less than 100 characters" />
-                  <Textarea label="Feedback" id="feedback" name="feedback" value={this.state.feedback} onChange={this.handleChange} error={errors.feedback} hint="Must be less than 500 characters" />
+                  <FormGroup className='form-control--reversed form-control--large' label='Subject' id='subject' name='subject' value={this.state.subject} onChange={this.handleChange} error={errors.subject} hint='Must be fewer than 100 characters' />
+                  <Textarea label='Feedback' id='feedback' name='feedback' value={this.state.feedback} onChange={this.handleChange} error={errors.feedback} hint='Must be fewer than 500 characters' hintId='feedback-hint-id'/>
                   <Button className='btn--primary' disabled={this.props.loading}>
                     Send feedback
                   </Button>

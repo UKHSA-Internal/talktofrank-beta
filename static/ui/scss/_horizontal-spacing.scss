@@ -2,6 +2,12 @@
   margin-left: 2rem;
 }
 
+.md-spacing-left {
+  @include media-breakpoint-up(sm){
+    margin-left: 2rem;
+  }
+}
+
 .spacing-right {
   margin-right: 1.5rem;
 }
