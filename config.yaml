@@ -19,11 +19,7 @@ contentful:
     treatmentCentre: 'treatmentCentre'
   entries:
     homepage: '6YkX4gZ5jawC0eAM6aOCum'
-<<<<<<< Updated upstream
     featuredNewsBlock: '55dmoU8jhmWO24cUISWkSu'
-  environment: 'develop'
-=======
->>>>>>> Stashed changes
 
 pagination:
   pageSize: 10
