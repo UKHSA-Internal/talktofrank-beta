@@ -108,6 +108,7 @@ export default class Nav extends React.PureComponent {
   render () {
     let classes = classNames('navbar', this.props.className)
     let role = this.props.role ? {'role': this.props.role} : null
+    let label = this.props.labelledBy ? {'aria-labelledby': this.props.labelledBy} : null
     let aria = {}
 
     const Wrapper = `${this.props.type || 'section'}`
@@ -119,8 +120,8 @@ export default class Nav extends React.PureComponent {
     }
 
     return (
-      <Wrapper className={classes} ref={this.setWrapperRef}>
-        {this.props.labelledBy && <Heading id={this.props.id} className='visually-hidden' text='Drugs A to Z navigation'/>}
+      <Wrapper className={classes} ref={this.setWrapperRef} {...label}>
+        {this.props.labelledBy && <Heading type='p' id={this.props.id} className='visually-hidden' text={this.props.labelledBy}/>}
         <ul className='navbar-nav' aria-hidden={!this.props.visible && !this.props['menu-open']} {...aria} {...role}>
           {this.props.navigation && this.props.navigation.map((item, i) => {
             let icon = item.icon || null
