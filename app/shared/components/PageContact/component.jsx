@@ -13,6 +13,25 @@ import Icon from '../Icon/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Collapsible from '../Collapsible/component.jsx'
 
+const today = new Date()
+const hour = today.getHours()
+
+const LiveChatOn = props => {
+  if (typeof window !== 'undefined' && (hour >= 14 && hour < 18)) {
+    return props.children
+  }
+
+  return null
+}
+
+const LiveChatOff = props => {
+  if (typeof window !== 'undefined' && (hour < 14 || hour >= 18)) {
+    return props.children
+  }
+
+  return null
+}
+
 export default class PageContact extends React.PureComponent {
   render () {
     const icons = [
@@ -90,17 +109,21 @@ export default class PageContact extends React.PureComponent {
               </ul>
             </GridCol>
             <GridCol className='col-12 col-sm-5 col-md-4 offset-md-1'>
-              <Panel>
-                <Icon {...icons[3]}/>
-                <h2 className='h4'><span className='icon icon--circle icon--circle-red'></span>Live chat <span className='quieter'>(online)</span></h2>
-                <p>Our live chat service operates from 2pm - 6pm, 7 days a week.</p>
-                <p><Anchor className='link-text' label='Click to start live chat' href='#' text='Get started'/></p>
-              </Panel>
-              <Panel>
-                <Icon {...icons[4]}/>
-                <h2 className='h4'><span className='icon icon--circle'></span>Live chat <span className='quieter'>(offline)</span></h2>
-                <p>Our live chat service operates from 2pm - 6pm, 7 days a week.</p>
-              </Panel>
+              <LiveChatOn>
+                <Panel>
+                  <Icon {...icons[3]}/>
+                  <h2 className='h4'><span className='icon icon--circle icon--circle-red'></span>Live chat <span className='quieter'>(online)</span></h2>
+                  <p>Our live chat service operates from 2pm - 6pm, 7 days a week.</p>
+                  <p><Anchor className='link-text' label='Click to start live chat' href='/livechat' text='Get started'/></p>
+                </Panel>
+              </LiveChatOn>
+              <LiveChatOff>
+                <Panel>
+                  <Icon {...icons[4]}/>
+                  <h2 className='h4'><span className='icon icon--circle'></span>Live chat <span className='quieter'>(offline)</span></h2>
+                  <p>Our live chat service operates from 2pm - 6pm, 7 days a week.</p>
+                </Panel>
+              </LiveChatOff>
             </GridCol>
           </Grid>
         </Main>
