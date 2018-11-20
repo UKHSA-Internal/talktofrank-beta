@@ -37,7 +37,6 @@ class FormGroup extends PureComponent {
 
   onChange (event, { newValue }) {
     if (event.type === 'change') {
-      console.log(newValue, event.type)
       this.setState({
         searchTerm: newValue,
         searchTermClean: encodeURIComponent(newValue),

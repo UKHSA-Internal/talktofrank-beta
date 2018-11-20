@@ -12,6 +12,9 @@ export const FORM_REQUEST = 'FORM_REQUEST'
 export const FORM_REQUEST_SUCCESS = 'FORM_REQUEST_SUCCESS'
 export const FORM_REQUEST_ERROR = 'FORM_REQUEST_ERROR'
 
+export const REQUEST_FEATURED_BLOCK = 'REQUEST_FEATURED_BLOCK'
+export const RECEIVE_FEATURED_BLOCK = 'RECEIVE_FEATURED_BLOCK'
+export const RECEIVE_FEATURED_BLOCK_ERROR = 'RECEIVE_FEATURED_BLOCK_ERROR'
 const BAD_REQUEST = 400
 
 const PAGE_SIZE = 10
@@ -38,24 +41,6 @@ function receivePage (pageData) {
   }
 }
 
-export function fetchSearchTerm (term, page = 0) {
-  const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
-
-  return dispatch => {
-    dispatch(requestPage())
-    let lookupUrl = apiHost + `/api/v1/search/page/${term}` + queryString
-    return axios.get(lookupUrl)
-      .then(res => {
-        dispatch(receivePage(res.data))
-      })
-      .catch(err => {
-        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
-        dispatch(receivePageError(status))
-        return Promise.reject(err)
-      })
-  }
-}
-
 export function formRequest (status) {
   return {
     type: FORM_REQUEST
@@ -73,6 +58,44 @@ export function formRequestError (status, errors) {
     type: FORM_REQUEST_ERROR,
     status: status,
     errors: errors
+  }
+}
+
+function requestFeaturedBlock () {
+  return {
+    type: REQUEST_FEATURED_BLOCK
+  }
+}
+
+export function receiveFeaturedBlockError (status) {
+  return {
+    type: RECEIVE_FEATURED_BLOCK_ERROR,
+    error: status
+  }
+}
+
+function receiveFeaturedBlock (featuredBlockData) {
+  return {
+    type: RECEIVE_FEATURED_BLOCK,
+    featuredBlockData
+  }
+}
+
+export function fetchSearchTerm (term, page = 0) {
+  const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
+
+  return dispatch => {
+    dispatch(requestPage())
+    let lookupUrl = apiHost + `/api/v1/search/page/${term}` + queryString
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receivePage(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receivePageError(status))
+        return Promise.reject(err)
+      })
   }
 }
 
@@ -160,7 +183,7 @@ export function fetchSupportList (page = 0, {location, serviceType}) {
   }
 }
 
-export function fetchPage (slug, type = 'pages') {
+export function fetchPage (slug, type = 'entries') {
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/' + type + '/' + encodeURIComponent(slug)
@@ -176,17 +199,17 @@ export function fetchPage (slug, type = 'pages') {
   }
 }
 
-export function fetchFeaturedBlock (slug) {
+export function fetchFeaturedBlock (blockId) {
   return dispatch => {
-    dispatch(requestPage())
-    let lookupUrl = apiHost + '/api/v1/' + type + '/' + encodeURIComponent(slug)
+    dispatch(requestFeaturedBlock())
+    let lookupUrl = apiHost + '/api/v1/entries/' + encodeURIComponent(blockId)
     return axios.get(lookupUrl)
       .then(res => {
-        dispatch(receivePage(res.data))
+        dispatch(receiveFeaturedBlock(res.data))
       })
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
-        dispatch(receivePageError(status))
+        dispatch(receiveFeaturedBlockError(status))
         return Promise.reject(err)
       })
   }

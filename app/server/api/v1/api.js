@@ -52,7 +52,7 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${config.contentful.con
  */
 router.use('/search', searchRoutes)
 
-router.get('/pages/:slug', (req, res, next) => {
+router.get('/entries/:slug', (req, res, next) => {
   if (!req.params.slug) {
     let error = new Error()
     error.message = 'Page id not set'

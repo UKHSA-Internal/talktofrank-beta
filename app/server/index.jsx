@@ -115,15 +115,16 @@ app.get('*', (req, res) => {
   const store = generateStore()
   const loadData = () => {
     const branches = matchRoutes(routes, req.path)
-
-    let match = branches.find(({ route, match }) => {
-      return match.isExact && route.loadData
-    })
-
-    if (!match) {
-      return Promise.resolve(null)
-    }
-    return store.dispatch(match.route.loadData({ params: match.match.params, query: req.query }))
+    const promises = branches
+      .filter(({ route, match }) => { return match.isExact && route.loadData })
+      .map(({ route, match }) => {
+        return Promise.all(
+          route
+            .loadData({ params: match.params, query: req.query, getState: store.getState })
+            .map(item => store.dispatch(item))
+        )
+      })
+    return Promise.all(promises)
   }
 
   (async () => {
