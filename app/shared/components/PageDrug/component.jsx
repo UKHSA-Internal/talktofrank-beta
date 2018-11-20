@@ -24,7 +24,7 @@ const Page = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Main className='main--full-width'>
+      <Main>
         {props.fields.schemaDefinitions &&
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
         }

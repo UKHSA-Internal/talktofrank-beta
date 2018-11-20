@@ -43,10 +43,10 @@ export default class PageSupport extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={name}/>
-        </Accent>
         <Main>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 spacing-left spacing--single' text={name}/>
+          </Accent>
           <Grid>
             <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
               <Heading className='h4' text='Information' />

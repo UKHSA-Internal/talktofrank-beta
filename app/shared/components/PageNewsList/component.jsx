@@ -33,7 +33,9 @@ export default class PageNewsList extends React.PureComponent {
   }
 
   focusMain() {
-    this.main.current.focus()
+    setTimeout(() => {
+      this.main.current.focus()
+    }, 1500)
   }
 
   render () {
@@ -43,10 +45,10 @@ export default class PageNewsList extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
-        </Accent>
-        <Main ref={this.main}>
+        <main className='main' id='main' ref={this.main} tabIndex='-1'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
+          </Accent>
           <Grid>
             <GridCol className='col-12 col-sm-10 offset-sm-1'>
               <ul
@@ -68,7 +70,7 @@ export default class PageNewsList extends React.PureComponent {
             </GridCol>
           </Grid>
           {loading && <Spinner />}
-        </Main>
+        </main>
         <Footer/>
         <GA/>
       </React.Fragment>

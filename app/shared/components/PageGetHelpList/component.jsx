@@ -14,10 +14,10 @@ export default class PageGetHelpList extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text='Get help section' />
-        </Accent>
         <Main>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 spacing-left spacing--single' text='Get help section' />
+          </Accent>
           <Grid>
             <GridCol className='col-12 col-sm-8 offset-sm-2'>
               <ul className='list-unstyled'>

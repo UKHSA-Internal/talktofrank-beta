@@ -51,10 +51,10 @@ export default class PageContact extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text='Need some friendly advice?'/>
-        </Accent>
         <Main>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 spacing-left spacing--single' text='Need some friendly advice?'/>
+          </Accent>
           <Grid>
             <GridCol className='col-12 col-sm-7 col-md-6 offset-md-1'>
               <ul className='list-unstyled'>

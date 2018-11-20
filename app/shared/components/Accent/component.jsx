@@ -6,7 +6,7 @@ const Accent = props => {
 
   return (
     <section className={classes}>
-      <div className='constrain-narrow'>
+      <div className='wrapper'>
         {props.children}
       </div>
     </section>

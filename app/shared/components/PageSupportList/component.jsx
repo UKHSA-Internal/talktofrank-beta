@@ -31,11 +31,11 @@ export default class PageSupportList extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={`${total} results returned for ${location}`} />
-          <Anchor className='spacing-left link-text' href='/support-near-you' text='Search again'/>
-        </Accent>
-        <Main>
+         <Main>
+         <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 spacing-left spacing--single' text={`${total} results returned for ${location}`} />
+            <Anchor className='spacing-left link-text' href='/support-near-you' text='Search again'/>
+          </Accent>
           <Grid>
             <GridCol className='col-12 col-sm-8 offset-sm-2'>
                <ul className='list-unstyled'>

@@ -21,7 +21,7 @@ export default class PageHome extends React.PureComponent {
             <FormGroupAutocomplete id='homepage-large-search' label='Search for any drug…' placeholder='Enter a drug (e.g. Mandy)'/>
           </div>
         </section>
-        <Main className='main--full-width'>
+        <Main>
           {this.props.featuredItemBlock &&
             <section className='wrapper wrapper--tight'>
               <Grid>

@@ -83,10 +83,10 @@ export default class SearchPage extends React.Component {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={title} />
-        </Accent>
         <Main>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 spacing-left spacing--single' text={title} />
+          </Accent>
           <Grid>
             <GridCol className='col-12 col-sm-10 offset-sm-1'>
               {!loading && total > 0 &&

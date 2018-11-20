@@ -17,10 +17,10 @@ const PageGetHelpPage = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Accent className='accent--shallow'>
-        <SplitText text={props.title} wrapper='h1' className='h2 inverted spacing--single'/>
-      </Accent>
-      <Main className='main--full-width'>
+      <Main>
+        <Accent className='accent--shallow'>
+          <SplitText text={props.title} wrapper='h1' className='h2 inverted spacing--single'/>
+        </Accent>
         <Accent className='accent--shallow'>
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>

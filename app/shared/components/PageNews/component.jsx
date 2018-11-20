@@ -25,7 +25,7 @@ export default class PageNews extends React.PureComponent {
         <Main>
           <Grid>
             {this.props.fields.image && <GridCol className='col-12 list-offset'>
-              <Article {...this.props} synonyms={null} realName={null}/>
+              <Article {...this.props}/>
             </GridCol>}
             {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--single'>
               {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
