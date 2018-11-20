@@ -39,6 +39,7 @@ const asyncGetHelpPageContainer = loadable(() => import(/*webpackChunkName: 'get
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./containers/PageSupportListContainer/component.jsx'))
 const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageSupportContainer/component.jsx'))
 const asyncPageContactSuccessContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageContactSuccessContainer/component.jsx'))
+const asyncPageLiveChat = loadable(() => import(/*webpackChunkName: 'live-chat'*/'./components/PageLiveChat/component.jsx'))
 /* eslint-enable */
 
 export default [{
@@ -62,6 +63,11 @@ export default [{
       component: asyncPageDrug,
       loadData: ({params}) => fetchPage(params.drugName, 'drugs')
     },
+    {
+      path: '/livechat',
+      exact: true,
+      component: asyncPageLiveChat
+    },    
     {
       path: '/contact',
       exact: true,
