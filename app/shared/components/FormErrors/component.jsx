@@ -10,6 +10,17 @@ export const getErrors = (formErrors) => {
 }
 
 export class ErrorSummary extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.panel = React.createRef()
+  }
+
+  componentDidMount() {
+    if (typeof (this.panel.current) !== 'undefined') {
+      this.panel.current.focus()
+    }
+  }
+
   render() {
     let { errors } = this.props
 
@@ -24,7 +35,7 @@ export class ErrorSummary extends React.PureComponent {
     })
 
     return (
-      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive' tabIndex='-1'>
+      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive' tabIndex='-1' ref={this.panel}>
         <strong className='h4'>There is a problem</strong>
         <ul className='alert-danger__list'>
           {errors.map((error, i) => (
