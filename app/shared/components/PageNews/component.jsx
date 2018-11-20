@@ -1,4 +1,5 @@
 import React from 'react'
+import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Heading from '../Heading/component'
@@ -12,6 +13,7 @@ import Longform from '../Longform/component'
 import Article from '../Article/component'
 import Time from '../Time/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
+// @todo refactor all contentful "factory" stuffs to api
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
@@ -41,6 +43,7 @@ export default class PageNews extends React.PureComponent {
                 </ul></React.Fragment>
               }
             </GridCol>
+            <BlockFeaturedContent />
           </Grid>
         </Main>
         <Footer />

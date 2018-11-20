@@ -19,13 +19,14 @@ contentful:
     treatmentCentre: 'treatmentCentre'
   entries:
     homepage: '6YkX4gZ5jawC0eAM6aOCum'
+    featuredNewsBlock: '55dmoU8jhmWO24cUISWkSu'
   environment: 'develop'
 
 pagination:
   pageSize: 10
 
 googleAPI:
-  places: ''
+  places: 'AIzaSyCD_SzOCkmx8DEfCwUsqSdO3gOHPvsDQQ8'
 
 email:
   transport: etherealEmail

@@ -1,11 +1,10 @@
 buildConfig: production
-api: https://beta-talktofrank.cxp.io
+api: https://uat-beta-talktofrank.cxp.io
 ga: UA-129232-18 # @joel - update this as this is the test account
 contentful:
   contentHost: 'cdn.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
-  environment: 'master'
 
 sentry:
   dsn: !!import/single '../config.sentry.yaml'
