@@ -91,7 +91,7 @@ class FormGroup extends PureComponent {
   renderSuggestionsContainer({ containerProps, children, query }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
     return (
-      <div {...containerProps}>
+      <div {...containerProps} id={this.props.id + '_container'}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
