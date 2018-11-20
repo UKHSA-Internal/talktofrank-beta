@@ -23,7 +23,7 @@ export default class PageHome extends React.PureComponent {
         </section>
         <Main>
           {this.props.featuredItemBlock &&
-            <section className='wrapper wrapper--tight'>
+            <section className='wrapper spacing-top--large'>
               <Grid>
                 <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
                   <Article {...this.props.featuredItemBlock}/>
@@ -31,7 +31,7 @@ export default class PageHome extends React.PureComponent {
               </Grid>
             </section>
           }
-          {this.props.featuredNewsBlock && <section className='wrapper wrapper--tight'><CardDeck {...this.props.featuredNewsBlock} className='spacing-top--tight'/></section>}
+          {this.props.featuredNewsBlock && <section className='wrapper wrapper--mid'><CardDeck {...this.props.featuredNewsBlock} className='spacing-top--tight'/></section>}
         </Main>
         <Footer />
         <GA/>

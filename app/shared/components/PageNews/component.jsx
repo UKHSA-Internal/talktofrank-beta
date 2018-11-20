@@ -23,7 +23,7 @@ export default class PageNews extends React.PureComponent {
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Main>
-          <Accent className='accent--shallow'>
+          <Accent className='accent--shallow' modifier='wrapper--constant'>
             <Grid>
               {this.props.fields.image && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
@@ -44,9 +44,9 @@ export default class PageNews extends React.PureComponent {
                   </ul></React.Fragment>
                 }
               </GridCol>
-              <BlockFeaturedContent />
             </Grid>
           </Accent>
+          <BlockFeaturedContent />
         </Main>
         <Footer />
         <GA />
