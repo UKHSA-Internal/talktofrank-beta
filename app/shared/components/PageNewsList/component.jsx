@@ -17,6 +17,7 @@ export default class PageNewsList extends React.PureComponent {
     this.handlePageChange = this.handlePageChange.bind(this)
     this.updateAddress = this.updateAddress.bind(this)
     this.main = React.createRef()
+    this.focusMain = this.focusMain.bind(this)
   }
 
   handlePageChange (pageNumber) {
@@ -29,6 +30,10 @@ export default class PageNewsList extends React.PureComponent {
       let path = page === 0 ? '/latest' : `/latest/${(page + 1)}`
       window.history.replaceState({}, document.title, path)
     }
+  }
+
+  focusMain() {
+    this.main.current.focus()
   }
 
   render () {
@@ -57,6 +62,7 @@ export default class PageNewsList extends React.PureComponent {
                 initialPage={pageNumber}
                 pageCount={total / 10}
                 onPageChange={this.handlePageChange}
+                onPaginateFocus={this.focusMain}
               />
               }
             </GridCol>
