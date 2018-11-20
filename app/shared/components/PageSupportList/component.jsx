@@ -4,7 +4,6 @@ import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
-import Main from '../Main/component.jsx'
 import Form from '../Form/component.jsx'
 import FormGroup from '../FormGroup/component.jsx'
 import Longform from '../Longform/component.jsx'
@@ -19,6 +18,8 @@ export default class PageSupportList extends React.PureComponent {
   constructor (props) {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
+    this.main = React.createRef()
+    this.focusMain = this.focusMain.bind(this)
   }
 
   handlePageChange (pageNumber) {
@@ -26,12 +27,18 @@ export default class PageSupportList extends React.PureComponent {
     this.props.fetchSupportList(pageNumber.current, location, serviceType)
   }
 
+  focusMain() {
+    setTimeout(() => {
+      this.main.current.focus()
+    }, 1500)
+  }
+
   render () {
     const { results, location, total } = this.props.pageData
     return (
       <React.Fragment>
         <Masthead/>
-         <Main>
+         <main className='main' id='main' ref={this.main} tabIndex='-1'>
          <Accent className='accent--shallow'>
             <Heading type='h1' className='h2 md-spacing-left spacing--single' text={`${total} results returned for ${location}`} />
             <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
@@ -61,13 +68,14 @@ export default class PageSupportList extends React.PureComponent {
                 {total > 10 &&
                   <Pagination
                     pageCount={total / 10}
+                    onPaginateFocus={this.focusMain}
                     onPageChange={this.handlePageChange}
                   />
                 }
               </GridCol>
             </Grid>
           </Accent>
-        </Main>
+        </main>
         <Footer/>
         <GA/>
       </React.Fragment>

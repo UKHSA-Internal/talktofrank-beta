@@ -8,6 +8,7 @@ import CardDeck from '../CardDeck/component.jsx'
 import Article from '../Article/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
+import Form from '../Form/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 
 export default class PageHome extends React.PureComponent {
@@ -18,7 +19,9 @@ export default class PageHome extends React.PureComponent {
         <Hero {...this.props.hero}/>
         <section className='accent accent--muted'>
           <div className='wrapper constrain'>
-            <FormGroupAutocomplete id='homepage-large-search' label='Search for any drug…' placeholder='Enter a drug (e.g. Mandy)'/>
+            <Form role='search'>
+              <FormGroupAutocomplete id='homepage-large-search' label='Search for any drug…' placeholder='Enter a drug (e.g. Mandy)'/>
+            </Form>
           </div>
         </section>
         <Main>

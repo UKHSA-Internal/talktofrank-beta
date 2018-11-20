@@ -2,7 +2,6 @@ import React from 'react'
 import Masthead from '../Masthead/component'
 import Grid from '../Grid/component'
 import Heading from '../Heading/component'
-import Main from '../Main/component'
 import GridCol from '../GridCol/component'
 import Accent from '../Accent/component.jsx'
 import Footer from '../Footer/component'
@@ -19,6 +18,8 @@ export default class SearchPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.main = React.createRef()
+    this.focusMain = this.focusMain.bind(this)
     this.state = {
       searchValue: this.props.pageData.searchTerm
     }
@@ -41,6 +42,12 @@ export default class SearchPage extends React.Component {
         this.props.searchForTerm(searchValue)
       }
     })
+  }
+
+  focusMain() {
+    setTimeout(() => {
+      this.main.current.focus()
+    }, 1500)
   }
 
   handlePageChange (pageNumber) {
@@ -83,7 +90,7 @@ export default class SearchPage extends React.Component {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <Main>
+        <main className='main' id='main' ref={this.main} tabIndex='-1'>
           <Accent className='accent--shallow'>
             <Heading type='h1' className='h2 md-spacing-left spacing--single' text={title} />
           </Accent>
@@ -120,6 +127,7 @@ export default class SearchPage extends React.Component {
                 <Pagination
                   pageCount={total / 10}
                   onPageChange={this.handlePageChange}
+                  onPaginateFocus={this.focusMain}
                 />
                 }
                 {!loading && !total &&
@@ -128,7 +136,7 @@ export default class SearchPage extends React.Component {
               </GridCol>
             </Grid>
           </Accent>
-        </Main>
+        </main>
         <Footer />
       </React.Fragment>
     )

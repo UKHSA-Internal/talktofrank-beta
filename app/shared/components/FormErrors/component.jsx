@@ -24,7 +24,7 @@ export class ErrorSummary extends React.PureComponent {
     })
 
     return (
-      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive'>
+      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive' tabIndex='-1'>
         <strong className='h4'>There is a problem</strong>
         <ul className='alert-danger__list'>
           {errors.map((error, i) => (

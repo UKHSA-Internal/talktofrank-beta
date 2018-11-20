@@ -94,7 +94,7 @@ export default class Masthead extends React.PureComponent {
         </div>
         {this.state.takeover && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>
-            <Form className='form--search'>
+            <Form className='form--search' role='search'>
               <FormGroupAutocomplete
                 button='true'
                 modifiers='form-control--search'
