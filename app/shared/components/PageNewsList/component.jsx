@@ -47,29 +47,31 @@ export default class PageNewsList extends React.PureComponent {
         <Masthead path={location}/>
         <main className='main' id='main' ref={this.main} tabIndex='-1'>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
+            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={title}/>
           </Accent>
-          <Grid>
-            <GridCol className='col-12 col-sm-10 offset-sm-1'>
-              <ul
-                className='list-unstyled list-offset'>
-                {list && list
-                  .map((item, i) => {
-                    item['type'] = 'li'
-                    return <Article {...item} key={item.sys.id}/>
-                  })}
-              </ul>
-              {total > 10 &&
-              <Pagination
-                initialPage={pageNumber}
-                pageCount={total / 10}
-                onPageChange={this.handlePageChange}
-                onPaginateFocus={this.focusMain}
-              />
-              }
-            </GridCol>
-          </Grid>
-          {loading && <Spinner />}
+          <Accent className='accent--shallow'>
+            <Grid>
+              <GridCol className='col-12 col-sm-10 offset-sm-1'>
+                <ul
+                  className='list-unstyled list-offset'>
+                  {list && list
+                    .map((item, i) => {
+                      item['type'] = 'li'
+                      return <Article {...item} key={item.sys.id}/>
+                    })}
+                </ul>
+                {total > 10 &&
+                <Pagination
+                  initialPage={pageNumber}
+                  pageCount={total / 10}
+                  onPageChange={this.handlePageChange}
+                  onPaginateFocus={this.focusMain}
+                />
+                }
+              </GridCol>
+            </Grid>
+            {loading && <Spinner />}
+          </Accent>
         </main>
         <Footer/>
         <GA/>
