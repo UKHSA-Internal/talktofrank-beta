@@ -184,10 +184,10 @@ export default class PageSupportForm extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text='Find support near you'/>
-        </Accent>
-        <Main className='main--muted main--full-width'>
+        <Main className='main--muted'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 md-spacing-left spacing--single' text='Find support near you'/>
+          </Accent>
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>

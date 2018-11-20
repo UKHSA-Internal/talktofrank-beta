@@ -116,6 +116,11 @@ export default class PaginationBoxView extends React.PureComponent {
       top: 0,
       behavior: 'smooth'
     })
+
+    // if there is a paginate focus function, call it
+    if (typeof (this.props.onPaginateFocus) !== 'undefined' && typeof (this.props.onPaginateFocus) === 'function') {
+      this.props.onPaginateFocus()
+    }
   }
 
   hrefBuilder (pageIndex) {

@@ -1,10 +1,9 @@
 import React from 'react'
-import classNames from 'classnames'
-
 const Form = props => {
-  let classes = classNames('form', props.className)
+  let classes = `form ${props.className || ''}`
+  let role = props.role ? {'role': props.role} : null
   return (
-    <form className={classes} method='post' role='search' onSubmit={props.handleSubmit}>
+    <form className={classes} method='post' {...role} onSubmit={props.handleSubmit}>
       {props.children}
     </form>
   )

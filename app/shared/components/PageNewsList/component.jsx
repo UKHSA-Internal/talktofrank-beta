@@ -4,7 +4,6 @@ import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
-import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
@@ -17,6 +16,7 @@ export default class PageNewsList extends React.PureComponent {
     this.handlePageChange = this.handlePageChange.bind(this)
     this.updateAddress = this.updateAddress.bind(this)
     this.main = React.createRef()
+    this.focusMain = this.focusMain.bind(this)
   }
 
   handlePageChange (pageNumber) {
@@ -31,6 +31,12 @@ export default class PageNewsList extends React.PureComponent {
     }
   }
 
+  focusMain() {
+    setTimeout(() => {
+      this.main.current.focus()
+    }, 1500)
+  }
+
   render () {
     const { loading, location } = this.props
     const { title, list, total, pageNumber } = this.props.pageData
@@ -38,31 +44,34 @@ export default class PageNewsList extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={title}/>
-        </Accent>
-        <Main ref={this.main}>
-          <Grid>
-            <GridCol className='col-12 col-sm-10 offset-sm-1'>
-              <ul
-                className='list-unstyled list-offset'>
-                {list && list
-                  .map((item, i) => {
-                    item['type'] = 'li'
-                    return <Article {...item} key={item.sys.id}/>
-                  })}
-              </ul>
-              {total > 10 &&
-              <Pagination
-                initialPage={pageNumber}
-                pageCount={total / 10}
-                onPageChange={this.handlePageChange}
-              />
-              }
-            </GridCol>
-          </Grid>
-          {loading && <Spinner />}
-        </Main>
+        <main className='main' id='main' ref={this.main} tabIndex='-1'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={title}/>
+          </Accent>
+          <Accent className='accent--shallow'>
+            <Grid>
+              <GridCol className='col-12 col-sm-10 offset-sm-1'>
+                <ul
+                  className='list-unstyled list-offset'>
+                  {list && list
+                    .map((item, i) => {
+                      item['type'] = 'li'
+                      return <Article {...item} key={item.sys.id}/>
+                    })}
+                </ul>
+                {total > 10 &&
+                <Pagination
+                  initialPage={pageNumber}
+                  pageCount={total / 10}
+                  onPageChange={this.handlePageChange}
+                  onPaginateFocus={this.focusMain}
+                />
+                }
+              </GridCol>
+            </Grid>
+            {loading && <Spinner />}
+          </Accent>
+        </main>
         <Footer/>
         <GA/>
       </React.Fragment>

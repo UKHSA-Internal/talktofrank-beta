@@ -24,7 +24,7 @@ const Page = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Main className='main--full-width'>
+      <Main>
         {props.fields.schemaDefinitions &&
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
         }
@@ -106,7 +106,7 @@ const Page = props => {
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
               {props.fields.lawClass.fields.class && props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
-              <div className='has-unordered'>
+              <div className='long-form has-unordered'>
                 <ul>
                   <Heading type='li' text={props.fields.lawClass.fields.description}/>
                   <Heading type='li' text={props.fields.lawClass.fields.possesion}/>

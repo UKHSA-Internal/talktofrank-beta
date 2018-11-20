@@ -74,6 +74,11 @@ export default class Masthead extends React.PureComponent {
                 {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
               </Button>
             </ViewportMobile>
+            <ViewportDefault>
+              <Button aria-hidden='true' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+                {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
+              </Button>
+            </ViewportDefault>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
             <ViewportMobile>
               <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' role='menubar' type='nav'/>
@@ -89,7 +94,7 @@ export default class Masthead extends React.PureComponent {
         </div>
         {this.state.takeover && <section className='masthead__takeover'>
           <div className='masthead__takeover__inner'>
-            <Form className='form--search'>
+            <Form className='form--search' role='search'>
               <FormGroupAutocomplete
                 button='true'
                 modifiers='form-control--search'

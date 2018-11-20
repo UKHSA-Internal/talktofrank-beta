@@ -4,7 +4,6 @@ import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
-import Main from '../Main/component.jsx'
 import Form from '../Form/component.jsx'
 import FormGroup from '../FormGroup/component.jsx'
 import Longform from '../Longform/component.jsx'
@@ -19,6 +18,8 @@ export default class PageSupportList extends React.PureComponent {
   constructor (props) {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
+    this.main = React.createRef()
+    this.focusMain = this.focusMain.bind(this)
   }
 
   handlePageChange (pageNumber) {
@@ -26,46 +27,55 @@ export default class PageSupportList extends React.PureComponent {
     this.props.fetchSupportList(pageNumber.current, location, serviceType)
   }
 
+  focusMain() {
+    setTimeout(() => {
+      this.main.current.focus()
+    }, 1500)
+  }
+
   render () {
     const { results, location, total } = this.props.pageData
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={`${total} results returned for ${location}`} />
-          <Anchor className='spacing-left link-text' href='/support-near-you' text='Search again'/>
-        </Accent>
-        <Main>
-          <Grid>
-            <GridCol className='col-12 col-sm-8 offset-sm-2'>
-               <ul className='list-unstyled'>
-                {results && results.map((item, i) => {
-                  return <ArticleSupport
-                    text={item.fields.name}
-                    distance={item.distance}
-                    address={[
-                      item.fields.address1,
-                      item.fields.address2,
-                      item.fields.address3,
-                      item.fields.town,
-                      item.fields.county,
-                      item.fields.postCode
-                    ].filter(Boolean).join(', ')}
-                    phone={item.fields.telephone1}
-                    phoneRaw={item.fields.telephone1.replace(/\D/g, '')}
-                    {...item.fields} key={i}
+         <main className='main' id='main' ref={this.main} tabIndex='-1'>
+         <Accent className='accent--shallow'>
+            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={`${total} results returned for ${location}`} />
+            <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
+          </Accent>
+          <Accent className='accent--shallow'>
+            <Grid>
+              <GridCol className='col-12 col-sm-8 offset-sm-2'>
+                 <ul className='list-unstyled'>
+                  {results && results.map((item, i) => {
+                    return <ArticleSupport
+                      text={item.fields.name}
+                      distance={item.distance}
+                      address={[
+                        item.fields.address1,
+                        item.fields.address2,
+                        item.fields.address3,
+                        item.fields.town,
+                        item.fields.county,
+                        item.fields.postCode
+                      ].filter(Boolean).join(', ')}
+                      phone={item.fields.telephone1}
+                      phoneRaw={item.fields.telephone1.replace(/\D/g, '')}
+                      {...item.fields} key={i}
+                    />
+                  })}
+                </ul>
+                {total > 10 &&
+                  <Pagination
+                    pageCount={total / 10}
+                    onPaginateFocus={this.focusMain}
+                    onPageChange={this.handlePageChange}
                   />
-                })}
-              </ul>
-              {total > 10 &&
-                <Pagination
-                  pageCount={total / 10}
-                  onPageChange={this.handlePageChange}
-                />
-              }
-            </GridCol>
-          </Grid>
-        </Main>
+                }
+              </GridCol>
+            </Grid>
+          </Accent>
+        </main>
         <Footer/>
         <GA/>
       </React.Fragment>

@@ -1,12 +1,11 @@
 import React from 'react'
-import classNames from 'classnames'
 
 const Accent = props => {
-  let classes = classNames('accent', props.className)
+  let classes = `accent ${props.className || ''}`
 
   return (
     <section className={classes}>
-      <div className='constrain-narrow'>
+      <div className={`wrapper ${props.modifier || ''}`}>
         {props.children}
       </div>
     </section>
