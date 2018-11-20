@@ -59,10 +59,10 @@ export default class PageContact extends React.PureComponent {
             <GridCol className='col-12 col-sm-7 col-md-6 offset-md-1'>
               <ul className='list-unstyled'>
                 <li className='list-item list-item--underlined spacing--single' >
-                  <h2 className='h6 spacing--single'><Icon {...icons[0]}/> Call <Anchor className='link-text' label='Click to phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></h2>
+                  <h2 className='h6 spacing--single'><Icon {...icons[0]}/> Call <Anchor className='link-text' label='Phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></h2>
                   <p>Call FRANK 24 hours a day, 7 days a week.</p>
                   <Collapsible text='Call service details' id='call-service-details'>
-                    <p>For people with hearing impairments, you can textphone FRANK on 0300 123 1099.</p>
+                    <p>For people with hearing impairments, you can <Anchor className='link-text' label='Textphone FRANK on 0300 123 1099' href='tel:03001231099' text='Textphone FRANK on 0300 123 1099'/>.</p>
                     <p>If you call when your friends are around we may ask you to call back when you're on your own.</p>
                     <p>Calls from a landline cost no more than a normal national call (to an 01 or 02 number). The calls may show up on the bill.</p>
                     <p>Calls from a mobile phone vary in cost depending on what network you’re on. The call may show up on the bill.</p>
@@ -79,10 +79,10 @@ export default class PageContact extends React.PureComponent {
                   </Collapsible>
                 </li>
                 <li className='list-item list-item--underlined spacing--single' >
-                  <h2 className='h6 spacing--single'><Icon {...icons[2]}/> Send <Anchor className='link-text' label='Send an email to FRANK at ' href='/contact' text='an email'/></h2>
+                  <h2 className='h6 spacing--single'><Icon {...icons[2]}/> <span aria-hidden='true'>Send an</span> <Anchor className='link-text' label='Send an email to FRANK' href='/contact' text='email'/></h2>
                   <p>Send an email and FRANK will message you back.</p>
                   <Collapsible text='Email service details' id='email-service-details'>
-                    <p>The reply will come from frank@talktofrank.com and the subject line won't have your question in it.</p>
+                    <p>The reply will come from <Anchor className='link-text' label='Email FRANK at frank@talktofrank.com' href='mailto:frank@talktofrank.com' text='frank@talktofrank.com'/> and the subject line won't have your question in it.</p>
                     <p>FRANK will only ever reply to you. You'll never receive an email you didn't ask for.</p>
                     <p>If you're worried about someone reading your messages, you can always set up a special email account with something like Gmail or Yahoo.</p>
                   </Collapsible>
@@ -94,7 +94,7 @@ export default class PageContact extends React.PureComponent {
                 <Icon {...icons[3]}/>
                 <h2 className='h4'><span className='icon icon--circle icon--circle-red'></span>Live chat <span className='quieter'>(online)</span></h2>
                 <p>Our live chat service operates from 2pm - 6pm, 7 days a week.</p>
-                <p><Anchor className='link-text' label='Click to start live chat' href='#' text='Get started'/></p>
+                <p><Anchor className='link-text' label='Start live chat' href='#' text='Get started'/></p>
               </Panel>
               <Panel>
                 <Icon {...icons[4]}/>

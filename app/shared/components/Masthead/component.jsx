@@ -59,19 +59,21 @@ export default class Masthead extends React.PureComponent {
       label: 'close',
       url: '/ui/svg/cross.svg'
     }
-    let classes = classNames('masthead', this.props.className)
     let navClasses = classNames('navbar-primary navbar-expand-md', {
       'd-none': !this.state.mobileMenuOpen
     })
     let current = this.props.path ? this.props.path.pathname : ''
 
     return (
-      <header className={classes} role='banner'>
+      <header className='masthead'>
+        <span className='visually-hidden'>Talk to Frank - Honest information about drugs</span>
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
-            <Button className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
-              {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
-            </Button>
+            <ViewportMobile>
+              <Button aria-hidden='false' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+                {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
+              </Button>
+            </ViewportMobile>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
             <ViewportMobile>
               <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' role='menubar' type='nav'/>
@@ -100,9 +102,9 @@ export default class Masthead extends React.PureComponent {
                 placeholder='Enter drug name (e.g. Mandy)'
                 ref={input => { this.formAutocomplete = input }}
               />
-              <Button className='btn--flat active submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
+              <Button className='btn--flat submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
             </Form>
-            <Button className='btn--flat active close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
+            <Button className='btn--flat close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
         </section>}
         {this.state.takeover && <div className='takeover-bg'/>}

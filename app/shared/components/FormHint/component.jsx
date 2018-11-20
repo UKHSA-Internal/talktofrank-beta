@@ -8,7 +8,7 @@ const FormHint = props => {
   })
 
   return (
-    <span className={classnames} dangerouslySetInnerHTML={{__html: props.children}} />
+    <span className={classnames} dangerouslySetInnerHTML={{__html: props.children}} id={props.id || null}/>
   )
 }
 

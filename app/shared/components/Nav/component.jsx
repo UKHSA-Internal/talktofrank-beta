@@ -4,7 +4,7 @@ import ReactGA from 'react-ga'
 import Heading from '../Heading/component.jsx'
 import Icon from '../Icon/component.jsx'
 
-class LinkItem extends React.Component {
+class LinkItem extends React.PureComponent {
   static defaultProps = {
     hasPopup: false
   }

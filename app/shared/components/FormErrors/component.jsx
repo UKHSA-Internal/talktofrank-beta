@@ -9,7 +9,7 @@ export const getErrors = (formErrors) => {
   return errors
 }
 
-export class ErrorSummary extends React.Component {
+export class ErrorSummary extends React.PureComponent {
   render() {
     let { errors } = this.props
 
@@ -24,11 +24,11 @@ export class ErrorSummary extends React.Component {
     })
 
     return (
-      <div className="alert alert-danger spacing-bottom--single">
-        <strong className="h4">There is a problem</strong>
-        <ul className="alert-danger__list">
-          {errors.map(error => (
-            <li><a className="alert-danger__link" href={`#${error.field}`}>{error.message}</a></li>
+      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive'>
+        <strong className='h4'>There is a problem</strong>
+        <ul className='alert-danger__list'>
+          {errors.map((error, i) => (
+            <li key={i}><a className='alert-danger__link link-text' href={`#${error.field}`}>{error.message}</a></li>
           ))}
         </ul>
       </div>
@@ -41,5 +41,5 @@ ErrorSummary.defaultProps = {
 }
 
 export const ErrorMessage = ({message}) => (
-  <div className="invalid-feedback"><Icon alt="warning" className="spacing-right" url="/ui/svg/warning.svg" label="warning" />{message}</div>
+  <div className='invalid-feedback'><Icon alt='' className='spacing-right' url='/ui/svg/warning.svg' label='warning' />{message}</div>
 )
