@@ -8,6 +8,7 @@ import CardDeck from '../CardDeck/component.jsx'
 import Article from '../Article/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
+import Accent from '../Accent/component.jsx'
 import Form from '../Form/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 
@@ -17,17 +18,15 @@ export default class PageHome extends React.PureComponent {
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Hero {...this.props.hero}/>
-        <section className='accent accent--muted'>
-          <div className='wrapper constrain'>
-            <Form role='search'>
-              <FormGroupAutocomplete
-               id='homepage-large-search'
-               label='Search for any drug…'
-               placeholder='Enter a drug (e.g. Mandy)'
-               />
-            </Form>
-          </div>
-        </section>
+        <Accent className='accent--muted' modifier='wrapper--constant'>
+          <Form role='search'>
+            <FormGroupAutocomplete
+             id='homepage-large-search'
+             label='Search for any drug…'
+             placeholder='Enter a drug (e.g. Mandy)'
+             />
+          </Form>
+        </Accent>
         <Main>
           {this.props.featuredItemBlock &&
             <section className='wrapper spacing-top--large'>
