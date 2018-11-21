@@ -39,11 +39,12 @@ export class ErrorSummary extends React.PureComponent {
         <strong className='h4'>There is a problem</strong>
         <ul className='alert-danger__list'>
           {errors.map((error, i) => {
-            let focus = (i === 0) ?  {'ref': this.item} : null
+            let focus = (i === 0) ? {'ref': this.item} : null
             return (
               <li key={i}><a {...focus} className='alert-danger__link link-text' href={`#${error.field}`}>{error.message}</a></li>
-            )}
-          )}
+            )
+          })
+          }
         </ul>
       </div>
     )
