@@ -284,7 +284,7 @@ router.get('/drugs', (req, res, next) => {
             name: item.fields.drugName,
             slug: item.fields.slug,
             synonyms: item.fields.synonyms,
-            description: item.fields.description
+            description: marked(item.fields.description)
           })
 
           item.fields.synonyms
