@@ -73,7 +73,7 @@ export const primary = [
         }
       },
       {
-        label: 'What is drug treatment like',
+        label: 'What is drug treatment like?',
         url: '/get-help/what-is-drug-treatment-like',
         tracking: {
           label: 'What is drug treatment like',
