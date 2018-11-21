@@ -14,9 +14,9 @@ const FormGroup = props => {
   return (
     <div className='form-group'>
       <label htmlFor={id} className='form-label'>{props.label}</label>
-      {props.hint && <FormHint>{props.hint}</FormHint>}
+      {props.hint && <FormHint id={props.hintId || null}>{props.hint}</FormHint>}
       {props.error && <ErrorMessage message={props.error} />}
-      <input className={inputClassNames} id={id} name={props.name} value={props.value} type='text' {...error} onChange={props.onChange} />
+      <input className={inputClassNames} id={id} name={props.name} value={props.value} type='text' {...error} onChange={props.onChange} aria-describedby={props.hintId || null}/>
     </div>
   )
 }

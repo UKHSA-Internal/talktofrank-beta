@@ -18,12 +18,13 @@ const PageGeneral = props => {
         <Accent className='accent--shallow'>
           <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
         </Accent>
-        <Divider className='hr--muted' />
-        <Grid>
-          <GridCol className='col-12 col-md-8'>
-            {props.fields.body && <Longform text={props.fields.body}/>}
-          </GridCol>
-        </Grid>
+        <Accent className='accent--shallow' modifier='wrapper--constant'>
+          <Grid>
+            <GridCol className='col-12 col-md-8 md-offset-2'>
+              {props.fields.body && <Longform text={props.fields.body}/>}
+            </GridCol>
+          </Grid>
+        </Accent>
       </Main>
       <Footer />
       <GA/>

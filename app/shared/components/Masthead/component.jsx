@@ -7,6 +7,7 @@ import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
 import Icon from '../Icon/component.jsx'
+import Anchor from '../Anchor/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
 import { ViewportMobile, ViewportDefault } from '../Breakpoints/component.jsx'
 
@@ -89,7 +90,7 @@ export default class Masthead extends React.PureComponent {
           </section>
           <ButtonGroup className='button-group--static'>
             <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md'>Search </span><Icon {...icon}/></Button>
-            <Button className='btn--alink btn--small hidden--rg' url='tel:03001236600'><span className='nav-link'>0300 1236600</span></Button>
+            <Anchor className='btn btn--link btn--small hidden--rg link-text' label='Call Frank on 0300 1236600' href='tel:03001236600'><span className='nav-link'>0300 1236600</span></Anchor>
           </ButtonGroup>
         </div>
         {this.state.takeover && <section className='masthead__takeover'>

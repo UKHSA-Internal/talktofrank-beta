@@ -73,7 +73,7 @@ export const primary = [
         }
       },
       {
-        label: 'What is drug treatment like',
+        label: 'What is drug treatment like?',
         url: '/get-help/what-is-drug-treatment-like',
         tracking: {
           label: 'What is drug treatment like',
@@ -82,10 +82,10 @@ export const primary = [
         }
       },
       {
-        label: 'Find support near you',
-        url: '/get-help/find-support-near-you',
+        label: 'Find a support centre',
+        url: '/support-near-you',
         tracking: {
-          label: 'Find support near you',
+          label: 'Find a support centre - primary nav',
           action: 'Click',
           category: 'Navigation'
         }
