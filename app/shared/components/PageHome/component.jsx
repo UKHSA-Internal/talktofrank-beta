@@ -20,7 +20,11 @@ export default class PageHome extends React.PureComponent {
         <section className='accent accent--muted'>
           <div className='wrapper constrain'>
             <Form role='search'>
-              <FormGroupAutocomplete id='homepage-large-search' label='Search for any drug…' placeholder='Enter a drug (e.g. Mandy)'/>
+              <FormGroupAutocomplete
+               id='homepage-large-search'
+               label='Search for any drug…'
+               placeholder='Enter a drug (e.g. Mandy)'
+               />
             </Form>
           </div>
         </section>
