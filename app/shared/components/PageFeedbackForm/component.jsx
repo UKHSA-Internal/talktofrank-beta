@@ -80,7 +80,7 @@ export default class PageFeedbackForm extends React.Component {
 
                 {!this.props.submitted &&
                 <Form className='spacing-bottom--large' handleSubmit={this.handleSubmit}>
-                  <FormGroup className='form-control--reversed form-control--large' label='Subject' id='subject' name='subject' value={this.state.subject} onChange={this.handleChange} error={errors.subject} hint='Must be fewer than 100 characters' />
+                  <FormGroup className='form-control--reversed form-control--large' label='Subject' id='subject' name='subject' value={this.state.subject} onChange={this.handleChange} error={errors.subject} hint='Must be fewer than 100 characters' hintId='subject-hint-id'/>
                   <Textarea label='Feedback' id='feedback' name='feedback' value={this.state.feedback} onChange={this.handleChange} error={errors.feedback} hint='Must be fewer than 500 characters' hintId='feedback-hint-id'/>
                   <Button className='btn--primary' disabled={this.props.loading}>
                     Send feedback
