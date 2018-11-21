@@ -5,6 +5,7 @@ contentful:
   contentHost: 'cdn.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
+  environment: 'develop'
 
 sentry:
   dsn: !!import/single '../config.sentry.yaml'
