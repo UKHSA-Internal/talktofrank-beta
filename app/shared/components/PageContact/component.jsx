@@ -12,25 +12,7 @@ import Panel from '../Panel/component.jsx'
 import Icon from '../Icon/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Collapsible from '../Collapsible/component.jsx'
-
-const today = new Date()
-const hour = today.getHours()
-
-const LiveChatOn = props => {
-  if (typeof window !== 'undefined' && (hour >= 14 && hour < 18)) {
-    return props.children
-  }
-
-  return null
-}
-
-const LiveChatOff = props => {
-  if (typeof window !== 'undefined' && (hour < 14 || hour >= 18)) {
-    return props.children
-  }
-
-  return null
-}
+import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component.jsx'
 
 export default class PageContact extends React.PureComponent {
   render () {
