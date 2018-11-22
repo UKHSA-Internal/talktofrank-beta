@@ -194,6 +194,7 @@ class FormGroup extends PureComponent {
             placeholder: this.props.placeholder,
             type: 'text',
             role: 'combobox',
+            'aria-owns': `${this.props.id}_container`,
             'aria-activedescendant': activedescendant
           }}
           ref={input => { this.searchInput = input }}
