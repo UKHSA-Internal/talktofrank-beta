@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 
 const FormHint = props => {
   let classnames = classNames('text-muted', {
@@ -8,8 +9,12 @@ const FormHint = props => {
   })
 
   return (
-    <span className={classnames} dangerouslySetInnerHTML={{__html: props.children}} id={props.id || null}/>
+    <span className={classnames} dangerouslySetInnerHTML={{__html: props.children}} id={props.id}/>
   )
+}
+
+FormHint.propTypes = {
+  id: null
 }
 
 export default FormHint
