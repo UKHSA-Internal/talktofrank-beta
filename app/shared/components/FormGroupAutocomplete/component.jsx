@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import classNames from 'classnames'
 import Button from '../Button/component.jsx'
 import Svg from '../Svg/component.jsx'
 import Autosuggest from 'react-autosuggest'
@@ -7,7 +6,6 @@ import axios from 'axios'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
 import FormHint from '../FormHint/component'
-
 
 class FormGroup extends PureComponent {
   constructor (props) {
@@ -171,10 +169,9 @@ class FormGroup extends PureComponent {
   render () {
     const { searchTerm, autoCompleteData, currentSuggestion, activedescendant } = this.state
     const { id, labelHidden, label, button } = this.props
-    let classes = classNames('form-group form-group--flush', this.props.className)
 
     return (
-      <div className={classes}>
+      <div className='form-group form-group--flush'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
         <FormHint id={`${this.props.id}_hint`} className='visually-hidden'>When autocomplete results are available use up and down arrows to review and enter to select. </FormHint>
         <Autosuggest
