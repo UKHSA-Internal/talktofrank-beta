@@ -30,12 +30,12 @@ const DrugList = props => {
     <React.Fragment>
       <Masthead path={props.location}/>
       <Main>
-        <Accent className='accent--shallow'>
+        <Accent className='accent--shallow' modifier='wrapper--tight'>
           <Heading type='h1' className='h2 inverted spacing-left spacing--single' text='Drugs A to Z'/>
           <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation' visible='true' type='nav'/>
         </Accent>
         <Divider className='hr--muted' />
-        <Accent className='accent--shallow' modifier='wrapper--tight'>
+        <Accent className='accent--shallow'>
           <Grid>
             <GridCol className='col-12 col-sm-8 offset-sm-2'>
               <ul className='list-unstyled' role='list'>
