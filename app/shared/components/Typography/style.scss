@@ -583,10 +583,12 @@ p {
     padding-right: 0 !important;
     padding-left: 5rem !important;
 
-    &:hover:after {
-      right: auto;
-      left: 2rem;
-      background-image: url('/ui/svg/arrow-left.svg');
+    .has-hover & {
+      &:hover:after {
+        right: auto;
+        left: 2rem;
+        background-image: url('/ui/svg/arrow-left.svg');
+      }
     }
 
     .has-hover & {

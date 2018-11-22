@@ -54,8 +54,13 @@
     color: $gray-400 !important;
     cursor: default;
 
-    &::hover {
-      border-bottom-color: transparent !important;
+    .has-hover & {
+      &:hover {
+        border-bottom-color: transparent !important;
+      }
     }
   }
 }
+
+
+

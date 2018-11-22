@@ -61,12 +61,13 @@
       padding-bottom: 0;
       border-bottom: 1px dotted $white;
 
-      &:hover {
-        border-bottom-style: solid;
-        text-decoration: none;
+      .has-hover & {
+        &:hover {
+          border-bottom-style: solid;
+          text-decoration: none;
+        }
       }
     }
-
   }
 }
 
