@@ -3,8 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 
 const FormHint = props => {
-  let classnames = classNames('text-muted', {
-    'form-hint': props.inline,
+  let classnames = classNames('form-hint text-muted', props.className, {
     'form-hint--block': !props.inline
   })
 
