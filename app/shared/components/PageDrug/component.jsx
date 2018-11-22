@@ -123,7 +123,7 @@ const Page = props => {
         <section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
-            <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
+            <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:03001236600'>0300 1236600</a> for friendly, confidential advice.</p>
 
             {/* @refactor @joel - haul this out into component or something
                 @andy hiding this for now until we know how links will work in CMS */}
