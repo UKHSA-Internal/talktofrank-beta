@@ -40,7 +40,7 @@ export default class PageSupportList extends React.PureComponent {
         <Masthead/>
          <main className='main' id='main' ref={this.main} tabIndex='-1'>
          <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={`${total} results returned for ${location}`} />
+            <Heading type='h1' className='page-title' text={`${total} results returned for ${location}`} />
             <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
           </Accent>
           <Accent className='accent--shallow'>

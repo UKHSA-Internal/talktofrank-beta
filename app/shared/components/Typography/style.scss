@@ -568,3 +568,13 @@ p {
   }
 }
 
+.page-title {
+  @extend %h2;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  margin-right: 2rem;
+
+  @include media-breakpoint-up(sm){
+    margin-left: 2rem;
+  }
+}

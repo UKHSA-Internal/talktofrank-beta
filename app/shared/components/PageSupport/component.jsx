@@ -45,7 +45,7 @@ export default class PageSupport extends React.PureComponent {
         <Masthead/>
         <Main>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={name}/>
+            <Heading type='h1' className='page-title' text={name}/>
           </Accent>
           <Accent className='accent--shallow'>
             <Grid>

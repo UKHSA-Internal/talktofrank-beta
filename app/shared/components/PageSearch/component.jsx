@@ -92,7 +92,7 @@ export default class SearchPage extends React.Component {
         <Masthead path={location}/>
         <main className='main' id='main' ref={this.main} tabIndex='-1'>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={title} />
+            <Heading type='h1' className='page-title' text={title} />
           </Accent>
           <Accent className='accent--shallow'>
             <Grid>
