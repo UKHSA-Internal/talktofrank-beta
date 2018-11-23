@@ -101,10 +101,10 @@ class FormGroup extends PureComponent {
 
   // this prevents the thing from firing until at least two characters are added
   shouldRenderSuggestions(value) {
-    return value.trim().length > 1
+    return value.trim().length > 0
   }
 
-  renderSuggestionsContainer({ containerProps, children, query }) {
+  renderSuggestionsContainer({ containerProps, children }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
     return (
       <div {...containerProps} id={this.props.id + '_container'}>
