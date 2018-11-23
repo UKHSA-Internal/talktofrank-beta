@@ -558,11 +558,24 @@ p {
   }
 }
 
+
 .page-title {
   @extend %h2;
   margin: 3rem 2rem 3rem 0;
 
   @include media-breakpoint-up(md) {
     margin-left: 2rem;
+  }
+}
+
+p.has-icon {
+  position: relative;
+  padding-right: 6rem;
+  padding-left: 2rem;
+  margin-bottom: 0;
+
+  .btn--static {
+    right: -1em;
+    top: -.4em;
   }
 }
