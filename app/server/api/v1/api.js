@@ -30,6 +30,8 @@ const contentfulClientConf = {
 if (config.contentful.environment && config.contentful.environment !== 'master') {
   console.log(`Using contentful environment: ${config.contentful.environment}`)
   contentfulClientConf.environment = config.contentful.environment
+} else {
+  console.log(`Using contentful environment: master`)
 }
 const contentfulClient = contentful.createClient(contentfulClientConf)
 
@@ -71,17 +73,18 @@ router.get('/entries/:slug', (req, res, next) => {
     }
   }
 
+  const slug = decodeURIComponent(req.params.slug)
   // If the slug value exists in the config contentful 'entries' list use that
   // to fetch a single content item, fallback to slug value
-  if (config.contentful.entries[req.params.slug]) {
+  if (config.contentful.entries[slug]) {
     contentfulClient.getEntries({
-      'sys.id': config.contentful.entries[req.params.slug],
+      'sys.id': config.contentful.entries[slug],
       include: 10
     })
       .then((contentfulResponse) => {
         if (contentfulResponse.total === 0) {
           let error = new Error()
-          error.message = `Page not found`
+          error.message = `'${slug}': Page not found`
           error.status = 404
           return next(error)
         }
@@ -126,14 +129,14 @@ router.get('/entries/:slug', (req, res, next) => {
   } else {
     const contentfulRequest = {
       content_type: config.contentful.contentTypes.page,
-      'fields.slug': decodeURIComponent(req.params.slug)
+      'fields.slug': slug.toLowerCase()
     }
 
     contentfulClient.getEntries(contentfulRequest)
       .then((contentfulResponse) => {
         if (contentfulResponse.total === 0) {
           let error = new Error()
-          error.message = `Page not found`
+          error.message = `'${slug.toLowerCase()}': Page not found`
           error.status = 404
           return next(error)
         }
@@ -178,16 +181,17 @@ router.get('/drugs/:slug', (req, res, next) => {
     return next(error)
   }
 
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.drug,
-    'fields.slug': decodeURIComponent(req.params.slug)
+    'fields.slug': slug
   }
 
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found`
+        error.message = `'${slug}': Page not found`
         error.status = 404
         return next(error)
       }
@@ -271,7 +275,7 @@ router.get('/drugs', (req, res, next) => {
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found ${pageUrl}`
+        error.message = `'drugs-a-z': Page not found`
         error.status = 404
         return next(error)
       }
@@ -355,7 +359,7 @@ router.get('/news', (req, res, next) => {
       let imageCount = 1
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found ${pageUrl}`
+        error.message = `'news': Page not found`
         error.status = 404
         return next(error)
       }
@@ -409,7 +413,7 @@ router.get('/news/:slug', (req, res, next) => {
     return next(error)
   }
 
-  const slug = decodeURIComponent(req.params.slug)
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
     'fields.slug': slug
@@ -419,7 +423,7 @@ router.get('/news/:slug', (req, res, next) => {
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found`
+        error.message = `'${slug}': Page not found`
         error.status = 404
         return next(error)
       }
@@ -551,7 +555,7 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
     return next(error)
   }
 
-  const slug = decodeURIComponent(req.params.slug)
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.treatmentCentre,
@@ -563,7 +567,7 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found`
+        error.message = `'${slug}': Page not found`
         error.status = 404
         return next(error)
       }
