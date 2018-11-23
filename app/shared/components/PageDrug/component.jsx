@@ -140,7 +140,7 @@ const Page = props => {
                 </li>
               </ul>
             }
-            {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequency asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
+            {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequently asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>
         </section>
