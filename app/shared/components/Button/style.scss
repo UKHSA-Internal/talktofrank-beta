@@ -7,6 +7,12 @@
   font-family: $font-family-heavy;
   margin-right: 1.5em;
   color: inherit;
+
+  &.raised {
+    @include media-breakpoint-up(sm) {
+      width: auto;
+    }
+  }
 }
 
 
@@ -41,10 +47,6 @@
   }
 }
 
-.btn--static {
-  position: absolute;
-}
-
 .btn--large {
   font-size: 2.4rem;
   padding-top: 2.2rem;
@@ -70,15 +72,6 @@
   &:focus {
     background-color: transparent;
     text-decoration: none;
-  }
-}
-
-.btn--link {
-  &:active,
-  &:hover,
-  &:focus {
-    color: $pinkAccess;
-    text-decoration: underline;
   }
 }
 
