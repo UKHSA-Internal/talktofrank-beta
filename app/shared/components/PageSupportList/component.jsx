@@ -63,15 +63,15 @@ export default class PageSupportList extends React.PureComponent {
                     />
                   })}
                 </ul>
-                {total > 10 &&
-                  <Pagination
-                    pageCount={total / 10}
-                    onPaginateFocus={this.focusMain}
-                    onPageChange={this.handlePageChange}
-                  />
-                }
               </GridCol>
             </Grid>
+            {total > 10 &&
+              <Pagination
+                pageCount={total / 10}
+                onPaginateFocus={this.focusMain}
+                onPageChange={this.handlePageChange}
+              />
+            }
           </Accent>
         </Main>
         <Footer/>
