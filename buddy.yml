@@ -236,7 +236,6 @@
   ref_name: "master"
   ref_type: "BRANCH"
   actions:
-  trigger_condition: "ALWAYS"
   - action: "Install dependencies"
     type: "BUILD"
     docker_image_name: "library/node"
