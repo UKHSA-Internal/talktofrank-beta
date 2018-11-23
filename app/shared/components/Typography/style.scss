@@ -304,16 +304,12 @@ b {
       &:hover {
         color: $body-text;
         background-color: $gray-100;
+        text-decoration: none;
 
         p,
         span {
-          //display: inline-block;
-          text-decoration: none;
+          text-decoration: none !important;
         }
-      }
-
-      &:visited {
-        text-decoration: underline;
       }
     }
   }

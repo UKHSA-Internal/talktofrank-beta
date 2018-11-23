@@ -193,7 +193,6 @@ class FormGroup extends PureComponent {
             onChange: this.onChange,
             placeholder: this.props.placeholder,
             type: 'text',
-            role: 'combobox',
             'aria-describedby': `${this.props.id}_hint`,
             'aria-owns': `${this.props.id}_container`,
             'aria-activedescendant': activedescendant
