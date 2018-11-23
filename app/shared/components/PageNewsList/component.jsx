@@ -8,6 +8,7 @@ import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
 import Spinner from '../Spinner/component.jsx'
+import Main from '../Main/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.PureComponent {
@@ -44,7 +45,8 @@ export default class PageNewsList extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <main className='main' id='main' ref={this.main} tabIndex='-1'>
+        <Main>
+          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
           <Accent className='accent--shallow'>
             <Heading type='h1' className='page-title' text={title}/>
           </Accent>
@@ -71,7 +73,7 @@ export default class PageNewsList extends React.PureComponent {
             </Grid>
             {loading && <Spinner />}
           </Accent>
-        </main>
+        </Main>
         <Footer/>
         <GA/>
       </React.Fragment>

@@ -4,15 +4,12 @@ import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
-import Form from '../Form/component.jsx'
-import FormGroup from '../FormGroup/component.jsx'
-import Longform from '../Longform/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import ArticleSupport from '../ArticleSupport/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
-import Select from '../Select/component.jsx'
+import Main from '../Main/component.jsx'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
@@ -38,7 +35,8 @@ export default class PageSupportList extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead/>
-         <main className='main' id='main' ref={this.main} tabIndex='-1'>
+         <Main>
+         <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
          <Accent className='accent--shallow'>
             <Heading type='h1' className='page-title' text={`${total} results returned for ${location}`} />
             <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
@@ -75,7 +73,7 @@ export default class PageSupportList extends React.PureComponent {
               </GridCol>
             </Grid>
           </Accent>
-        </main>
+        </Main>
         <Footer/>
         <GA/>
       </React.Fragment>
