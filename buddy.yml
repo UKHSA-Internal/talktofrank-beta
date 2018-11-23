@@ -243,21 +243,3 @@
     execute_commands:
     - "npm install"
     shell: "SH"
-  - action: "Validate"
-    type: "BUILD"
-    docker_image_name: "library/node"
-    docker_image_tag: "9.8.0"
-    execute_commands:
-    - "grunt validate"
-    setup_commands:
-    - "npm install -g grunt-cli"
-    shell: "SH"
-  - action: "Build"
-    type: "BUILD"
-    docker_image_name: "library/node"
-    docker_image_tag: "9.8.0"
-    execute_commands:
-    - "BUILD_CONFIG=production grunt build"
-    setup_commands:
-    - "npm install -g grunt-cli"
-    shell: "SH"
