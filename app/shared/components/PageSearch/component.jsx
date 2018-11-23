@@ -11,6 +11,7 @@ import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
 import Anchor from '../Anchor/component'
 import Svg from '../Svg/component'
+import Main from '../Main/component.jsx'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -90,9 +91,10 @@ export default class SearchPage extends React.Component {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <main className='main' id='main' ref={this.main} tabIndex='-1'>
+        <Main>
+          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={title} />
+            <Heading type='h1' className='page-title' text={title} />
           </Accent>
           <Accent className='accent--shallow'>
             <Grid>
@@ -136,7 +138,7 @@ export default class SearchPage extends React.Component {
               </GridCol>
             </Grid>
           </Accent>
-        </main>
+        </Main>
         <Footer />
       </React.Fragment>
     )

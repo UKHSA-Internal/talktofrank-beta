@@ -379,11 +379,11 @@ router.get('/news', (req, res, next) => {
         if (!v.fields.summary) {
           if (v.fields.body) {
             v.fields.summary = truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
-              'length': 240
+              'length': 120
             })
           } else if (v.fields.bodyLegacy) {
             v.fields.summary = truncate(removeMarkdown(v.fields.bodyLegacy), {
-              'length': 240
+              'length': 120
             })
           }
         }

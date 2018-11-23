@@ -7,7 +7,7 @@ import Footer from '../Footer/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
-import Spinner from '../Spinner/component.jsx'
+import Main from '../Main/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.PureComponent {
@@ -44,9 +44,10 @@ export default class PageNewsList extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead path={location}/>
-        <main className='main' id='main' ref={this.main} tabIndex='-1'>
+        <Main>
+          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 md-spacing-left spacing--single' text={title}/>
+            <Heading type='h1' className='page-title' text={title}/>
           </Accent>
           <Accent className='accent--shallow'>
             <Grid>
@@ -59,19 +60,18 @@ export default class PageNewsList extends React.PureComponent {
                       return <Article {...item} key={item.sys.id}/>
                     })}
                 </ul>
-                {total > 10 &&
-                <Pagination
-                  initialPage={pageNumber}
-                  pageCount={total / 10}
-                  onPageChange={this.handlePageChange}
-                  onPaginateFocus={this.focusMain}
-                />
-                }
               </GridCol>
             </Grid>
-            {loading && <Spinner />}
+            {total > 10 &&
+            <Pagination
+              initialPage={pageNumber}
+              pageCount={total / 10}
+              onPageChange={this.handlePageChange}
+              onPaginateFocus={this.focusMain}
+            />
+            }
           </Accent>
-        </main>
+        </Main>
         <Footer/>
         <GA/>
       </React.Fragment>

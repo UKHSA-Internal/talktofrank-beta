@@ -72,7 +72,7 @@ export default class PageContact extends React.PureComponent {
         <Masthead/>
         <Main>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 md-spacing-left spacing--single' text='Need some friendly advice?'/>
+            <Heading type='h1' className='page-title' text='Need some friendly advice?'/>
           </Accent>
           <Accent className='accent--shallow' modifier='wrapper--constant'>
             <Grid>

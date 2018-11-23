@@ -3,10 +3,6 @@
    ===========================================================================*/
 $grid-gutter: 30px;
 
-body {
-  background-color: $text-dark-blue;
-}
-
 %constrain {
   max-width: $max-width;
   margin-left: auto;
@@ -72,6 +68,7 @@ body {
   padding-bottom: 5rem;
   padding-top: 0;
   overflow: hidden;
+  min-height: calc(100vh - 368px);
 
   &--full-width {
     max-width: none;
@@ -84,10 +81,6 @@ body {
 
 main {
   outline: none;  // Prevent focus outline
-}
-
-.flex-wrapper {
-  background-color: $white; // @joel implementing Jon method footer fix
 }
 
 .section {

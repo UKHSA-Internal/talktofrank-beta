@@ -141,7 +141,7 @@ export const footer = [
   },
   {
     label: 'Text 82111',
-    url: 'tel:82111',
+    url: 'sms:82111',
     tracking: {
       label: 'Text 82111',
       action: 'Click',

@@ -151,11 +151,6 @@ $offset: 3.5rem;
         z-index: 1;
       }
 
-      // temp disabling to reinstate images on news listing
-      //      .has-arrow {
-      //        display: none;
-      //      }
-
       & + .list-item:not(.list-item--has-image) {
         margin-top: 17rem;
 
@@ -209,6 +204,7 @@ $offset: 3.5rem;
 
         .list-item__inner {
           right: 0;
+          text-align: right;
         }
       }
     }

@@ -186,7 +186,7 @@ export default class PageSupportForm extends React.PureComponent {
         <Masthead/>
         <Main className='main--muted'>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 md-spacing-left spacing--single' text='Find support near you'/>
+            <Heading type='h1' className='page-title' text='Find support near you'/>
           </Accent>
           <Accent>
             <Grid>
