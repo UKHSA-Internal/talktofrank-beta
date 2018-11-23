@@ -6,6 +6,7 @@ import ButtonGroup from '../ButtonGroup/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
+import CookieBar from '../CookieBar/component.jsx'
 import Icon from '../Icon/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
@@ -68,6 +69,7 @@ export default class Masthead extends React.PureComponent {
     return (
       <header className='masthead'>
         <span className='visually-hidden'>Talk to Frank - Honest information about drugs</span>
+        <CookieBar />
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
             <ViewportMobile>

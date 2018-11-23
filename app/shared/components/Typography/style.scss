@@ -602,3 +602,14 @@ p {
   }
 }
 
+p.has-icon {
+  position: relative;
+  padding-right: 6rem;
+  padding-left: 2rem;
+  margin-bottom: 0;
+
+  .btn--static {
+    right: -1em;
+    top: -.4em;
+  }
+}
