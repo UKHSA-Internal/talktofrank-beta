@@ -18,7 +18,7 @@ const Page = props => {
     className: 'h5 spacing-top--single'
   }
 
-  const name = props.fields.drugName && props.fields.drugName.toLowerCase()
+  const name = props.fields.drugName
   const syn = props.location.search ? props.location.search.split('=')[1] : null
 
   return (
