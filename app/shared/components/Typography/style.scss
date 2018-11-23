@@ -570,11 +570,9 @@ p {
 
 .page-title {
   @extend %h2;
-  margin-bottom: 3rem;
-  margin-top: 3rem;
-  margin-right: 2rem;
+  margin: 3rem 2rem 3rem 0;
 
-  @include media-breakpoint-up(sm){
+  @include media-breakpoint-up(md) {
     margin-left: 2rem;
   }
 }
