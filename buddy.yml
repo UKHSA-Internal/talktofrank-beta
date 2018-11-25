@@ -162,6 +162,8 @@
     docker_image_tag: "latest"
     execute_commands:
     - "npm install"
+    - "npm install -g grunt-cli cucumber"
+    - "CUCUMBER_HOST=https://beta-talktofrank.cxp.io npm test"
     shell: "SH"
     trigger_condition: "ALWAYS"
 - pipeline: "Build & Deploy (uat)"
