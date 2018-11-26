@@ -186,6 +186,10 @@
     .nav-link {
       padding: .2em .3em 0;
       @include link;
+
+      .has-hover & {
+        text-decoration: none;
+      }
     }
   }
 }

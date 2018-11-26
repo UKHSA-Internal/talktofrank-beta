@@ -16,12 +16,21 @@ export default class PageSupportList extends React.PureComponent {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.main = React.createRef()
+    this.updateAddress = this.updateAddress.bind(this)
     this.focusMain = this.focusMain.bind(this)
   }
 
   handlePageChange (pageNumber) {
     const { location, serviceType } = this.props.pageData
     this.props.fetchSupportList(pageNumber.current, location, serviceType)
+    this.updateAddress(pageNumber.current)
+  }
+
+  updateAddress (page, location) {
+    if ('replaceState' in history) {
+      let path = page === 0 ? `/treatment-centre${this.props.location.search}` : `/treatment-centre/${(page + 1)}/${this.props.location.search}`
+      window.history.replaceState({}, document.title, path)
+    }
   }
 
   focusMain() {
@@ -31,14 +40,14 @@ export default class PageSupportList extends React.PureComponent {
   }
 
   render () {
-    const { results, location, total } = this.props.pageData
+    const { results, location, total, pageNumber } = this.props.pageData
     return (
       <React.Fragment>
         <Masthead/>
          <Main>
          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
          <Accent className='accent--shallow'>
-            <Heading type='h1' className='page-title' text={`${total} results returned for ${location}`} />
+            <Heading type='h1' className='page-title' text={`Results ordered by nearest to ${location}`} />
             <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
           </Accent>
           <Accent className='accent--shallow'>
@@ -67,6 +76,7 @@ export default class PageSupportList extends React.PureComponent {
             </Grid>
             {total > 10 &&
               <Pagination
+                initialPage={pageNumber}
                 pageCount={total / 10}
                 onPaginateFocus={this.focusMain}
                 onPageChange={this.handlePageChange}
