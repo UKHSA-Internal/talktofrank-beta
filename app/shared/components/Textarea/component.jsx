@@ -14,7 +14,7 @@ const Textarea = props => {
 
   return (
     <div className={classes}>
-      <label className='form-label' htmlFor={props.id}>{props.label}
+      <label className='form-label' id={`${props.id}-label`} htmlFor={props.id}>{props.label}
         {props.supporting && <FormHint>{props.supporting}</FormHint>}
       </label>
       {props.hint && <FormHint id={props.hintId || null}>{props.hint}</FormHint>}
