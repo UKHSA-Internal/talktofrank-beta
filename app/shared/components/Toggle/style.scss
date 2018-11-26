@@ -88,7 +88,7 @@ $dims: 2rem;
 
   strong {
     color: $text-dark-blue;
-    display: block;
+    display: inline-block;
   }
 
   // slightly smelly - this is in place to negate the need for a really complex
