@@ -35,13 +35,12 @@ export class ErrorSummary extends React.PureComponent {
     })
 
     return (
-      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive' tabIndex='-1'>
+      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive' tabIndex='-1' ref={this.item}>
         <strong className='h4'>There is a problem</strong>
         <ul className='alert-danger__list'>
           {errors.map((error, i) => {
-            let focus = (i === 0) ? {'ref': this.item} : null
             return (
-              <li key={i}><a {...focus} className='alert-danger__link link-text' href={`#${error.field}`}>{error.message}</a></li>
+              <li key={i}><a id={`${error.field}_error`} className='alert-danger__link link-text' href={`#${error.field}`}>{error.message}</a></li>
             )
           })
           }
