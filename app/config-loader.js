@@ -16,9 +16,8 @@ function loadConfig (filename) {
     const schema = yimp.getSchema(path.join(process.cwd(), '../'))
     return yaml.safeLoad(src, { schema: schema })
   } catch (err) {
-    if (err.name === 'YAMLException') {
-      throw err
-    }
+    // Show all errors
+    throw err
   }
 }
 
