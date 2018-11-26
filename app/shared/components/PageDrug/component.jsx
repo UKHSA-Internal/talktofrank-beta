@@ -15,7 +15,7 @@ import { imageMap } from '../../utilities'
 const Page = props => {
   const modifiers = {
     type: 'h3',
-    className: 'h5 spacing-top--single'
+    className: 'h5'
   }
 
   const name = props.fields.drugName

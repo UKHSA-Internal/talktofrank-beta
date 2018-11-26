@@ -58,13 +58,16 @@
     border: 0;
   }
 
-  .btn--flat.submit {
-    position: absolute;
-    right: 0px;
-    top: 35px;
-    margin-right: 0px;
-    @include media-breakpoint-up(md) {
-      top: 50px;
+  .btn--flat {
+    &.submit {
+      position: absolute;
+      right: 0px;
+      top: 35px;
+      margin-right: 0px;
+
+      @include media-breakpoint-up(md) {
+        top: 50%;
+      }
     }
   }
 }

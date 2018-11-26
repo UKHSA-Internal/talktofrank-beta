@@ -58,6 +58,18 @@ $dims: 2rem;
     padding-bottom: 2.5rem;
     font-family: $headings-font-family;
     color: $text-dark-blue;
+
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+
+    .has-hover & {
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
   }
 
   &.collapsible--chevron {

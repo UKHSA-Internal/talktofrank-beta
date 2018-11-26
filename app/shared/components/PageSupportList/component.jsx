@@ -23,14 +23,6 @@ export default class PageSupportList extends React.PureComponent {
   handlePageChange (pageNumber) {
     const { location, serviceType } = this.props.pageData
     this.props.fetchSupportList(pageNumber.current, location, serviceType)
-    this.updateAddress(pageNumber.current)
-  }
-
-  updateAddress (page, location) {
-    if ('replaceState' in history) {
-      let path = page === 0 ? `/treatment-centre${this.props.location.search}` : `/treatment-centre/${(page + 1)}/${this.props.location.search}`
-      window.history.replaceState({}, document.title, path)
-    }
   }
 
   focusMain() {
@@ -76,7 +68,6 @@ export default class PageSupportList extends React.PureComponent {
             </Grid>
             {total > 10 &&
               <Pagination
-                initialPage={pageNumber}
                 pageCount={total / 10}
                 onPaginateFocus={this.focusMain}
                 onPageChange={this.handlePageChange}
