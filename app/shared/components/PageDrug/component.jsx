@@ -124,22 +124,17 @@ const Page = props => {
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:03001236600'>0300 1236600</a> for friendly, confidential advice.</p>
-
-            {/* @refactor @joel - haul this out into component or something
-                @andy hiding this for now until we know how links will work in CMS */}
-            {false &&
-              <ul className='list-unstyled link-list link-list--has-arrow'>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-              </ul>
-            }
+            <ul className='list-unstyled link-list link-list--has-arrow'>
+              <li className='link-list__item'>
+                <a href='/get-help/worried-about-a-friend' className='link-list__link'>Worried about a friend?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='/get-help/worried-about-a-child' className='link-list__link'>Worried about a child?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='/get-help/dealing-with-peer-pressure' className='link-list__link'>Feeling pressured to take drugs?</a>
+              </li>
+            </ul>
             {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequently asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>
