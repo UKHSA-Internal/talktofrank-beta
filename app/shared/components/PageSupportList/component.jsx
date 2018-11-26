@@ -47,7 +47,7 @@ export default class PageSupportList extends React.PureComponent {
          <Main>
          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
          <Accent className='accent--shallow'>
-            <Heading type='h1' className='page-title' text={`Results ordered by nearest to ${location}`} />
+            <Heading type='h1' className='page-title' text={`Results ordered by nearest to “${location}”`} />
             <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
           </Accent>
           <Accent className='accent--shallow'>
