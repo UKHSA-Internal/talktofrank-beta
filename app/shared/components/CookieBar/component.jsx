@@ -25,7 +25,7 @@ export default class CookieBar extends React.Component {
     return (
       <React.Fragment>
        {this.state.visible &&
-       <Accent className='accent--muted accent--shallow'>
+       <Accent className='accent--muted accent--shallow' modifier='wrapper--tight'>
         <p className='has-icon'>
           This website uses cookies to make it simpler to use. <Anchor href='/cookie-policy' text='Find out more about cookies'/>
           <button type='button'
