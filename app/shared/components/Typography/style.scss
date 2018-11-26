@@ -299,6 +299,11 @@ b {
   .list-link {
     padding: 1em;
 
+    h5,
+    p {
+      margin-bottom: 0;
+    }
+
     .has-hover & {
       &:active,
       &:hover {
