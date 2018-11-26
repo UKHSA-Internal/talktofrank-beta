@@ -1,5 +1,5 @@
 buildConfig: production
-api: http://preview.alpha-talktofrank.cxp.io:3000
+api: https://ttf-preview.cxp.io:3000
 
 contentful:
   contentHost: 'preview.contentful.com'
