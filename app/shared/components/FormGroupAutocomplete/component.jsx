@@ -71,7 +71,6 @@ class FormGroup extends PureComponent {
           v['pos'] = `react-autowhatever-${this.props.id}--item-${i}`
           return v
         })
-        console.log(resp.hits)
         this.setState({
           resultsTotal: resp.total,
           autoCompleteData: resp.hits,
@@ -124,7 +123,7 @@ class FormGroup extends PureComponent {
     if (suggestionItem.suggestion._index.includes('talktofrank-content')) {
       url = item.type === 'news'
         ? `/news/${item.slug}`
-        : item.slug
+        : item.slug.charAt(0) === '/' ? item.slug : `/${item.slug}`
     } else {
       url = `/drug/${item.slug}`
       if (item.realName && item.realName !== item.name) {

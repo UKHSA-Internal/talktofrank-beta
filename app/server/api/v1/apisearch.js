@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
 const bodybuilder = require('bodybuilder')
-
+const searchTermsBlackList = require('./searchBlackList')
 /**
  * Add middleware to parse json
  */
@@ -23,6 +23,16 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+
+    if (searchTermsBlackList.indexOf(searchTerm) !== -1) {
+      console.log('Blacklist search terms hit')
+      return res.status(200).json({
+        hits: [],
+        searchTerm: decodeURIComponent(req.params.term.trim()),
+        total: 0
+      })
+    }
+
     const query = buildMatchQuery(
       searchTerm,
       true,
@@ -62,6 +72,16 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+
+    if (searchTermsBlackList.indexOf(searchTerm) !== -1) {
+      console.log('Blacklist search terms hit')
+      return res.status(200).json({
+        hits: [],
+        searchTerm: decodeURIComponent(req.params.term.trim()),
+        total: 0
+      })
+    }
+
     const multiWordSearch = searchTerm.split(' ').length > 1
     const query = multiWordSearch
       ? buildMatchQuery(searchTerm, false, req.query.page, req.query.pageSize)
