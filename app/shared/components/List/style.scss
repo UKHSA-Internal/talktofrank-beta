@@ -129,11 +129,6 @@ $offset: 3.5rem;
       }
     }
 
-    & + .list-item--has-image {
-      margin-top: -2rem;
-      margin-bottom: -2rem;
-    }
-
     &.list-item--has-image {
       max-width: none;
       margin-bottom: 3rem;
@@ -151,13 +146,11 @@ $offset: 3.5rem;
         z-index: 1;
       }
 
+      & + .list-item {
+        margin-top: 10rem;
+      }
+
       & + .list-item:not(.list-item--has-image) {
-        margin-top: 17rem;
-
-        @include media-breakpoint-up(sm) {
-          margin-top: 10rem;
-        }
-
         &::before {
           display: block;
           bottom: calc(100% + 5rem);
@@ -165,8 +158,23 @@ $offset: 3.5rem;
       }
 
       & + .list-item--has-image {
-        margin-top: 10rem;
+        &::after {
+          content: '';
+          height: 1px;
+          background-color: $gray-200;
+          max-width: 50rem;
+          margin-left: auto;
+          margin-right: auto;
+          position: absolute;
+          top: -4rem;
+          width: 100%;
+          left: 20%;
+        }
       }
+    }
+
+    & + .list-item--has-image {
+      margin-top: -2rem;
     }
 
     span + .has-arrow {

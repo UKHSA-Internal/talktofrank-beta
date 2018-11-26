@@ -115,7 +115,7 @@ export default class Masthead extends React.PureComponent {
             <Button className='btn--flat close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
         </section>}
-        {this.state.takeover && <div className='takeover-bg'/>}
+        {this.state.takeover && <div className='takeover-bg' onClick={this.handleSearchClick.bind(this)}/>}
       </header>
     )
   }

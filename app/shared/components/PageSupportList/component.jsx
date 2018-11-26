@@ -16,7 +16,6 @@ export default class PageSupportList extends React.PureComponent {
     super(props)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.main = React.createRef()
-    this.updateAddress = this.updateAddress.bind(this)
     this.focusMain = this.focusMain.bind(this)
   }
 
@@ -32,7 +31,7 @@ export default class PageSupportList extends React.PureComponent {
   }
 
   render () {
-    const { results, location, total, pageNumber } = this.props.pageData
+    const { results, location, total } = this.props.pageData
     return (
       <React.Fragment>
         <Masthead/>

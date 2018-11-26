@@ -15,13 +15,13 @@ const PageLiveChat = props => {
     <React.Fragment>
       <Masthead path={props.location}/>
       <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 spacing-left spacing--single' text="Live Chat" />
+        <Heading type='h1' className='h2 spacing-left spacing--single' text='Live Chat' />
       </Accent>
       <Divider className='hr--muted' />
       <Main>
         <Grid>
           <GridCol className='col-md-8 offset-md-2'>
-            <iframe title="FRANK - livechat" frameborder="0" width="100%" height="450" src="https://smokefree.serco.com/visitor/EntryPageClosed.htm">FRANK - livechat</iframe>
+            <iframe title='FRANK - livechat' frameborder='0' width='100%' height='500' src='https://smokefree.serco.com/visitor/EntryPageClosed.htm'>FRANK - livechat</iframe>
           </GridCol>
         </Grid>
       </Main>
