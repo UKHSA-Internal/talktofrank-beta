@@ -85,6 +85,7 @@ export default class SearchPage extends React.Component {
   render () {
     const { loading, location } = this.props
     const { total, hits } = this.props.pageData
+    console.log(this.props)
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
     let title = `Search results for '${searchValue}'`
     title = total && total > 0 ? `${total} ${title.toLowerCase()}` : title

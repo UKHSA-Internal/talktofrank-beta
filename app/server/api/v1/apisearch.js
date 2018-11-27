@@ -23,6 +23,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+    const searchTermDecoded = decodeURIComponent(req.params.term.trim())
     const query = buildMatchQuery(
       searchTerm,
       true,
@@ -41,7 +42,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
         .map(hit => {
           hit._source.description = removeMarkdown(hit._source.description)
         })
-      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      results.hits.searchTerm = searchTermDecoded
       return res.status(200).json(results.hits)
     })
   } catch (err) {
@@ -62,6 +63,7 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+    const searchTermDecoded = decodeURIComponent(req.params.term.trim())
     const multiWordSearch = searchTerm.split(' ').length > 1
     const query = multiWordSearch
       ? buildMatchQuery(searchTerm, false, req.query.page, req.query.pageSize)
@@ -74,7 +76,7 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
       index: indices,
       body: query
     }).then(results => {
-      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      results.hits.searchTerm = searchTermDecoded
       return res.status(200).json(results.hits)
     })
   } catch (err) {

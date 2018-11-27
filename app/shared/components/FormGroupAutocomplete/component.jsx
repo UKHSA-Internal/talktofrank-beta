@@ -71,10 +71,13 @@ class FormGroup extends PureComponent {
           v['pos'] = `react-autowhatever-${this.props.id}--item-${i}`
           return v
         })
-        console.log(resp.hits)
         this.setState({
           resultsTotal: resp.total,
           autoCompleteData: resp.hits,
+          loading: false
+        })
+      } else {
+        this.setState({
           loading: false
         })
       }
