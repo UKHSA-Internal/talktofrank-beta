@@ -170,37 +170,19 @@ export const footer = [
 
 export const footerUtility = [
   {
-    label: 'Site policy',
-    url: '#',
+    label: 'Privacy policy',
+    url: '/privacy-policy',
     tracking: {
-      label: 'Site policy',
+      label: 'Privacy policy',
       action: 'Click',
       category: 'Footer navigation'
     }
   },
   {
-    label: 'Accessibility',
-    url: '#',
+    label: 'Cookie policy',
+    url: '/cookie-policy',
     tracking: {
-      label: 'Accessibility',
-      action: 'Click',
-      category: 'Footer navigation'
-    }
-  },
-  {
-    label: 'Disclaimer',
-    url: '#',
-    tracking: {
-      label: 'Disclaimer',
-      action: 'Click',
-      category: 'Footer navigation'
-    }
-  },
-  {
-    label: 'Disclaimer',
-    url: '#',
-    tracking: {
-      label: 'Disclaimer',
+      label: 'Cookie policy',
       action: 'Click',
       category: 'Footer navigation'
     }

@@ -7,6 +7,7 @@
   font-family: $font-family-heavy;
   margin-right: 1.5em;
   color: inherit;
+  cursor: pointer;
 }
 
 
@@ -118,6 +119,10 @@
   &:active {
     position: relative;
     top: .1em;
+  }
+
+  &:hover {
+    background-color: $pinkAccess;
   }
 
   @include media-breakpoint-up(md) {
