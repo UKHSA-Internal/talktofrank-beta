@@ -6,7 +6,7 @@ const RelatedLinks = props => {
   return (
     <React.Fragment>
       <Heading text='Related links' className={props.className} type={props.type}/>
-      <ul className='list-unstyled link-list link-list--has-arrow'>
+      <ul className='list-unstyled link-list link-list--spaced link-list--has-arrow'>
       {props.links.map((v, i) => {
         let slug = v.sys.contentType.sys.id === 'generalPage' ? `/${v.fields.slug}` : `/${v.sys.contentType.sys.id}/${v.fields.slug}`
         return (
@@ -22,7 +22,7 @@ const RelatedLinks = props => {
 
 RelatedLinks.defaultProps = {
   type: 'h2',
-  className: 'h3 spacing-top--large'
+  className: 'h4 spacing-top--large'
 }
 
 export default RelatedLinks

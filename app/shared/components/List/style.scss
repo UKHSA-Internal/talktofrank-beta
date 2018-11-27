@@ -113,6 +113,13 @@ $offset: 3.5rem;
             display: inline-block;
             text-decoration: none;
           }
+
+          .link-text {
+            color: $pinkAccess;
+            text-decoration: none;
+            border-bottom-style: solid;
+            border-bottom-color: $pinkAccess;
+          }
         }
       }
     }

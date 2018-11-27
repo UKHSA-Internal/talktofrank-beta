@@ -507,10 +507,15 @@ p {
     }
   }
 
+  &--spaced {
+    .link-list__item {
+      margin-bottom: 1.5rem;
+    }
+  }
+
   &--has-arrow {
     .link-list__item {
       padding-left: 0;
-      margin-bottom: 1.5rem;
 
       &::before {
         display: none;
@@ -535,7 +540,6 @@ p {
         }
       }
     }
-
 
     &.link-list--reversed {
       .link-list__link {

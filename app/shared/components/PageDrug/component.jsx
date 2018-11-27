@@ -123,7 +123,7 @@ const Page = props => {
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:03001236600'>0300 1236600</a> for friendly, confidential advice.</p>
-            <ul className='list-unstyled link-list link-list--has-arrow'>
+            <ul className='list-unstyled link-list link-list--spaced link-list--has-arrow'>
               <li className='link-list__item'>
                 <a href='/get-help/worried-about-a-friend' className='link-list__link'>Worried about a friend?</a>
               </li>
