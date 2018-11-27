@@ -21,7 +21,7 @@ const PageLiveChat = props => {
       <Main>
         <Grid>
           <GridCol className='col-md-8 offset-md-2'>
-            <iframe title='FRANK - livechat' frameborder='0' width='100%' height='500' src='https://smokefree.serco.com/visitor/EntryPageClosed.htm'>FRANK - livechat</iframe>
+            <iframe title='FRANK - livechat' frameborder='0' width='100%' height='550' src='https://smokefree.serco.com/visitor/EntryPageClosed.htm'>FRANK - livechat</iframe>
           </GridCol>
         </Grid>
       </Main>
