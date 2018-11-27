@@ -1,11 +1,10 @@
-buildConfig: production
+buildConfig: preview
 api: https://ttf-preview.cxp.io:3000
 
 contentful:
   contentHost: 'preview.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
-  environment: 'develop'
 
 sentry:
  dsn: !!import/single '../config.sentry.yaml'
@@ -17,3 +16,15 @@ basicAuth:
 
 googleAPI:
   places: !!import/single '../config.google.yaml'
+
+email:
+  transport: mailgun
+
+etherealEmail:
+  auth:
+    pass: !!import/single '../config.ethereal.yaml'
+
+mailgun:
+  auth:
+    api_key: !!import/single '../config.mailgun.yaml'
+    domain: 'talktofrank.com'
