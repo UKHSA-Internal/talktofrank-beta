@@ -56,6 +56,7 @@
 
     .has-hover & {
       &:active,
+      &:focus,
       &:hover {
         border-bottom-color: transparent !important;
       }
