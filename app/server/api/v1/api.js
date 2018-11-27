@@ -9,7 +9,6 @@ import { imageMap, removeMarkdown, removeTags, haversineDistance } from '../../.
 import searchRoutes from './apisearch.js'
 import { contentFulFactory } from '../../../shared/contentful'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-
 const express = require('express')
 const yaml = require('js-yaml')
 const fs = require('fs')
@@ -91,6 +90,8 @@ router.get('/entries/:slug', (req, res, next) => {
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         response.title = response.fields.title
+
+        response = dateFormat(response)
 
         if (response.fields.featuredNewsItem) {
           dateFormat(response.fields.featuredNewsItem)
@@ -484,7 +485,8 @@ router.get('/treatment-centres', async (req, res, next) => {
   let response = {
     location: removeTags(req.query.location),
     serviceType: req.query.serviceType ? req.query.serviceType : '',
-    results: []
+    results: [],
+    total: 0
   }
 
   const geocodeLocation = await axios
@@ -499,7 +501,10 @@ router.get('/treatment-centres', async (req, res, next) => {
     return next(error)
   }
 
-  if (!geocodeLocation.data || geocodeLocation.data.results.length < 1) {
+  if (!geocodeLocation.data ||
+    geocodeLocation.data.results.length < 1 ||
+    geocodeLocation.data.results[0].address_components.length < 2
+  ) {
     return res.send(response)
   }
 
@@ -544,7 +549,7 @@ router.get('/treatment-centres', async (req, res, next) => {
         })
       res.send(response)
     })
-    .catch(error => next(error.response))
+    .catch(error => next(error))
 })
 
 router.get('/treatment-centres/:slug', (req, res, next) => {
@@ -582,7 +587,7 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
         })
       res.send(response)
     })
-    .catch(error => next(error.response))
+    .catch(error => next(error))
 })
 
 /**
