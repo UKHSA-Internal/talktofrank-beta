@@ -45,8 +45,9 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
       results.hits.searchTerm = searchTermDecoded
       return res.status(200).json(results.hits)
     })
-  } catch (err) {
-    return next(err.response)
+  } catch (error) {
+    error.status = 500
+    return next(error)
   }
 })
 
@@ -79,8 +80,9 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
       results.hits.searchTerm = searchTermDecoded
       return res.status(200).json(results.hits)
     })
-  } catch (err) {
-    return next(err.response)
+  } catch (error) {
+    error.status = 500
+    return next(error)
   }
 })
 
