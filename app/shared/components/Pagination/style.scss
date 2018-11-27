@@ -55,6 +55,7 @@
     cursor: default;
 
     .has-hover & {
+      &:active,
       &:hover {
         border-bottom-color: transparent !important;
       }
