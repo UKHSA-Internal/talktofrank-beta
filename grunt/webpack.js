@@ -9,8 +9,9 @@ const processEnv = {
 }
 
 module.exports = {
-  mode: 'production',
+
   client: {
+    mode: 'production',
     entry: {
       client: './app/client/index.jsx'
       // vendor: ['react', 'react-dom', 'react-router', 'react-redux', 'redux-thunk']
