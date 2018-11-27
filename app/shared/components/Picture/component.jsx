@@ -36,6 +36,8 @@ export default class Picture extends React.PureComponent {
     let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
     let classes = classNames('image', this.props.className)
 
+    smallestImageSrc += '?fm=jpg&q=70'
+
     return (
       <picture className={classes}>
         {sources}
