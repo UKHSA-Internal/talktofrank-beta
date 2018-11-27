@@ -50,10 +50,11 @@ $offset: 3.5rem;
         left: 0;
 
         span {
-          left: 0;
+          left: -1rem;
+          padding-left: 1rem;
 
           @include media-breakpoint-up(sm) {
-            left: -1rem;
+            padding-left: 0;
           }
         }
       }
