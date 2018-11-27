@@ -23,7 +23,7 @@ export default class Head extends React.Component {
 
     return (
       <head>
-        <title>{title + ` | Talk to Frank: honest information about drugs`}</title>
+        <title>{title + ` | FRANK`}</title>
         <meta charSet='utf-8' />
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />

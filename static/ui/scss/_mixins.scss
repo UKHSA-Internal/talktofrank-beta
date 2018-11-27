@@ -14,7 +14,7 @@
   transition: right .1s ease-in-out, left .1s ease-in-out;
 
   @include media-breakpoint-down(sm) {
-    background-size: 70%;
+    background-size: 80%;
   }
 }
 
@@ -23,16 +23,9 @@
   padding-right: 5rem !important;
 
   .has-hover & {
-    &:hover:after {
-      @include arrow;
-    }
-  }
-
-  .has-hover & {
-    &:active,
     &:hover {
-
       &:after {
+        @include arrow;
         right: 1rem;
       }
     }

@@ -7,8 +7,8 @@ import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Longform from '../Longform/component'
-import SplitText from '../SplitText/component'
 import Toggle from '../Toggle/component'
+import Heading from '../Heading/component'
 import Svg from '../Svg/component'
 import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
@@ -19,7 +19,7 @@ const PageGetHelpPage = props => {
       <Masthead path={props.location}/>
       <Main>
         <Accent className='accent--shallow'>
-          <SplitText text={props.title} wrapper='h1' className='h2 inverted spacing--single'/>
+          <Heading type='h1' className='page-title' text={props.title}/>
         </Accent>
         <Accent className='accent--shallow'>
           <Grid>
@@ -29,6 +29,7 @@ const PageGetHelpPage = props => {
                   <Longform text={props.fields.callout.fields.content}/>
                 </aside>}
               {props.fields.intro && <Longform className='lead' text={props.fields.intro} />}
+              {props.fields.intro && props.fields.body && <Divider className='hr--muted hr--large' />}
               {props.fields.body && <Longform className={props.fields.indentedText ? 'long-form--indented' : null} text={props.fields.body} />}
             </GridCol>
           </Grid>

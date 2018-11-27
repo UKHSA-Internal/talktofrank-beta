@@ -71,10 +71,10 @@ export default class SearchPage extends React.Component {
               <li>Words with a similar meanings</li>
             </ul>
             <Divider className='hr--muted hr--large' />
-            <Heading type='h3' className='h5' text='Get in touch'/>
+            <Heading type='h2' className='h5' text='Get in touch'/>
             <p><Anchor className='link-text' href='tel:03001236600' label='Call FRANK on 0300 123 6600'>Call: 0300 123 6600</Anchor></p>
             <p><Anchor className='link-text' href='sms:82111' label='Text FRANK on 82111'>Text: 82111</Anchor></p>
-            <p><Anchor className='link-text' href='mailto:03001236600' label='Send an email to FRANK at frank@talktofrank.com'>frank@talktofrank.com</Anchor></p>
+            <p><Anchor className='link-text' href='/contact' label='Send an email to FRANK'>Send an email</Anchor></p>
           </GridCol>
         </Grid>
 
@@ -101,7 +101,7 @@ export default class SearchPage extends React.Component {
               <GridCol className='col-12 col-sm-10 offset-sm-1'>
                 {!loading && total > 0 &&
                   <React.Fragment>
-                    <ul className='list-unstyled list-offset'>
+                    <ul className='list-unstyled list-offset spacing-top--flush'>
                       {hits
                         .map(result => {
                           const SearchResultComponent =
