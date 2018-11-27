@@ -49,6 +49,7 @@ export default class PageSupportList extends React.PureComponent {
                     return <ArticleSupport
                       text={item.fields.name}
                       distance={item.distance}
+                      className={i === 0 ? 'list-item--first' : null}
                       address={[
                         item.fields.address1,
                         item.fields.address2,

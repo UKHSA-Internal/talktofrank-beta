@@ -293,6 +293,14 @@ b {
 .list-item--underlined {
   border-bottom: 1px solid $gray-300;
 
+  &:first-of-type {
+    border-top: 1px solid $gray-300;
+  }
+
+  &.list-item--first {
+    padding-top: 3rem;
+  }
+
   .list-link {
     padding: 1em;
     transition: background-color .15s ease-in-out;
