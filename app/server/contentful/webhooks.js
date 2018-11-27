@@ -15,14 +15,19 @@ const Sentry = require('@sentry/node')
 const bodybuilder = require('bodybuilder')
 const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
-const contentfulClient = contentful.createClient({
-  // This is the space ID. A space is like a project folder in Contentful terms
+const contentfulClientConf = {
   space: config.contentful.contentSpace,
-  environment: config.contentful.environment,
-  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
   accessToken: config.contentful.contentAccessToken,
   host: config.contentful.contentHost
-})
+}
+
+if (config.contentful.environment && config.contentful.environment !== 'master') {
+  console.log(`Using contentful environment: ${config.contentful.environment}`)
+  contentfulClientConf.environment = config.contentful.environment
+} else {
+  console.log(`Using contentful environment: master`)
+}
+const contentfulClient = contentful.createClient(contentfulClientConf)
 
 /**
  * Add middleware to parse json

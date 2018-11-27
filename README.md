@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-- nodejs version `9.8.0`
+- nodejs version `10.13.0`
 
 ## Building
 
