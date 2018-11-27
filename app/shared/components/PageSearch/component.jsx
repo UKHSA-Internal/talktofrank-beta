@@ -101,7 +101,7 @@ export default class SearchPage extends React.Component {
               <GridCol className='col-12 col-sm-10 offset-sm-1'>
                 {!loading && total > 0 &&
                   <React.Fragment>
-                    <ul className='list-unstyled list-offset'>
+                    <ul className='list-unstyled list-offset spacing-top--flush'>
                       {hits
                         .map(result => {
                           const SearchResultComponent =

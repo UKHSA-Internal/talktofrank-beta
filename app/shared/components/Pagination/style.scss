@@ -43,7 +43,7 @@
 
   @include media-breakpoint-down(md) {
     .break,
-    .pagination__item:not(.pagination__item--current) {
+    .pagination__item {
       display: none;
     }
   }
