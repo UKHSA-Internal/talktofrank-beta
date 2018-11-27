@@ -58,7 +58,13 @@
     &.submit {
       position: absolute;
       left: 100%;
-      top: 35px;
+      top: 4rem;
+      margin-left: 1rem;
+
+      img {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
 
       @include media-breakpoint-up(md) {
         top: 50%;
