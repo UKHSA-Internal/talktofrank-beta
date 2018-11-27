@@ -35,6 +35,11 @@ export default class Head extends React.Component {
           pageDescription = 'Contact Frank'
           break
 
+        case '/offline' :
+          pageTitle = 'You\'re Offline'
+          pageDescription = ''
+          break
+
         default:
           pageTitle = (head && head.title) || title
           pageDescription = (head && head.description) || null
