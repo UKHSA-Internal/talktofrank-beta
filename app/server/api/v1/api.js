@@ -364,7 +364,7 @@ router.get('/news', (req, res, next) => {
         return next(error)
       }
       // merge contentful assets and includes
-      response.title = 'Latest news'
+      response.title = 'News'
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
