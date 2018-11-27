@@ -80,15 +80,6 @@
   }
 }
 
-.btn--link {
-  &:active,
-  &:hover,
-  &:focus {
-    color: $pinkAccess;
-    text-decoration: underline;
-  }
-}
-
 .btn--flat {
   border-bottom: 0;
   font-size: 1.5rem;

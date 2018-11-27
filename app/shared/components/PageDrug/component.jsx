@@ -34,7 +34,7 @@ const Page = props => {
             </GridCol>}
             <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
-              {props.fields.synonyms && props.fields.synonyms[0] !=='' && <React.Fragment><p className='lead bold'>Also called:</p>
+              {props.fields.synonyms && props.fields.synonyms[0] !== '' && <React.Fragment><p className='lead bold'>Also called:</p>
               <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul></React.Fragment>}
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
             </GridCol>
