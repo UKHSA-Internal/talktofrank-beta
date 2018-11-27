@@ -155,7 +155,7 @@ export default class PageContactForm extends React.PureComponent {
         <Masthead/>
         <Main className='main--muted'>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='h2 spacing-left spacing--single' text='Contact us via email'/>
+            <Heading type='h1' className='page-title' text='Contact us via email'/>
           </Accent>
           <Accent>
             <Grid>
