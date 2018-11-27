@@ -554,15 +554,15 @@ p {
     padding-left: 5rem !important;
 
     .has-hover & {
-      &:active,
-      &:hover {
 
+      &:hover {
         &:after {
           right: auto;
           left: 1rem;
           background-image: url('/ui/svg/arrow-left.svg');
         }
       }
+
     }
   }
 }

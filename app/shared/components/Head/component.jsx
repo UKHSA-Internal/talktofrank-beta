@@ -35,13 +35,7 @@ export default class Head extends React.Component {
         window.addEventListener('touchstart', function onFirstTouch() {
           document.documentElement.classList.remove('has-hover')
           window.removeEventListener('touchstart', onFirstTouch, false)
-        }, false)
-
-        document.getElementById('skip').addEventListener('click', function(e) {
-          e.preventDefault()
-          var target = document.getElementById('main')
-          target.focus()
-        })`
+        }, false)`
         }} />
       </head>
     )

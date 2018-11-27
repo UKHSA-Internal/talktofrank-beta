@@ -58,6 +58,10 @@
       &:hover {
         border-bottom-color: transparent !important;
       }
+
+      &::after {
+        display: none;
+      }
     }
   }
 }
