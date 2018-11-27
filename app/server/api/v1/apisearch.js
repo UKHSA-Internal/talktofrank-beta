@@ -23,6 +23,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+    const searchTermDecoded = decodeURIComponent(req.params.term.trim())
 
     if (searchTermsBlackList.indexOf(searchTerm) !== -1) {
       console.log('Blacklist search terms hit')
@@ -51,11 +52,12 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
         .map(hit => {
           hit._source.description = removeMarkdown(hit._source.description)
         })
-      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      results.hits.searchTerm = searchTermDecoded
       return res.status(200).json(results.hits)
     })
-  } catch (err) {
-    return next(err.response)
+  } catch (error) {
+    error.status = 500
+    return next(error)
   }
 })
 
@@ -72,6 +74,7 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+    const searchTermDecoded = decodeURIComponent(req.params.term.trim())
 
     if (searchTermsBlackList.indexOf(searchTerm) !== -1) {
       console.log('Blacklist search terms hit')
@@ -94,11 +97,12 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
       index: indices,
       body: query
     }).then(results => {
-      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      results.hits.searchTerm = searchTermDecoded
       return res.status(200).json(results.hits)
     })
-  } catch (err) {
-    return next(err.response)
+  } catch (error) {
+    error.status = 500
+    return next(error)
   }
 })
 
