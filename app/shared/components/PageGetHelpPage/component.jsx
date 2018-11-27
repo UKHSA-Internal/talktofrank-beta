@@ -19,7 +19,7 @@ const PageGetHelpPage = props => {
       <Masthead path={props.location}/>
       <Main>
         <Accent className='accent--shallow'>
-          <SplitText text={props.title} wrapper='h1' className='h2 inverted spacing--single'/>
+          <SplitText text={props.fields.title} wrapper='h1' className='h2 inverted spacing--single'/>
         </Accent>
         <Accent className='accent--shallow'>
           <Grid>

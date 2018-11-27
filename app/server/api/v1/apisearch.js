@@ -53,6 +53,9 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
           hit._source.description = removeMarkdown(hit._source.description)
         })
       results.hits.searchTerm = searchTermDecoded
+      results.hits.head = {
+        title: `${results.hits.total} search results for '${searchTermDecoded}`
+      }
       return res.status(200).json(results.hits)
     })
   } catch (error) {

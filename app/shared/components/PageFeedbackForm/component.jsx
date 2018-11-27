@@ -1,7 +1,6 @@
 import React from 'react'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
-import Divider from '../Divider/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
 import GA from '../GoogleAnalytics/component'
@@ -14,10 +13,7 @@ import FormGroup from '../FormGroup/component'
 import Textarea from '../Textarea/component'
 import Button from '../Button/component.jsx'
 import Longform from '../Longform/component'
-import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
-// import SuccessMessage from '../FormSuccess/component'
-// import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-// import { contentFulFactory } from '../../contentful'
+import { ErrorSummary, getErrors } from '../FormErrors/component'
 
 export default class PageFeedbackForm extends React.Component {
   static defaultProps = {
@@ -64,7 +60,7 @@ export default class PageFeedbackForm extends React.Component {
         <Masthead path={this.props.location}/>
         <Main className='main--muted'>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='page-title' text={this.props.pageData.title} />
+            <Heading type='h1' className='page-title' text={this.props.pageData.fields.title} />
           </Accent>
           <Accent>
             <Grid>

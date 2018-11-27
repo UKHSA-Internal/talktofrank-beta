@@ -214,3 +214,7 @@ export function fetchFeaturedBlock (blockId) {
       })
   }
 }
+
+export function setPageData (pageData) {
+  return dispatch(receivePage(pageData))
+}
