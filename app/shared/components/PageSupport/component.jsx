@@ -50,13 +50,13 @@ export default class PageSupport extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
-                <Heading className='h4' text='Information' />
+                <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
                 <Divider className='hr--muted hr--large'/>
-                <Heading className='h4' text='Referral' />
+                <Heading className='h4' text='Referral (how to access this service)' />
                 <Longform text={referralMethod}/>
                 <Divider className='hr--muted hr--large'/>
-                <Heading className='h4' text='Catchment' />
+                <Heading className='h4' text='Catchment (areas they serve)' />
                 <Heading type='p' text={catchmentArea} />
                 <Divider className='hr--muted hr--large'/>
                 <div className='hidden--xs' aria-hidden='true'>

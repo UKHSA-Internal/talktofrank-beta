@@ -6,6 +6,7 @@ import ButtonGroup from '../ButtonGroup/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import Form from '../Form/component.jsx'
 import Nav from '../Nav/component.jsx'
+import CookieBar from '../CookieBar/component.jsx'
 import Icon from '../Icon/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
@@ -68,10 +69,11 @@ export default class Masthead extends React.PureComponent {
     return (
       <header className='masthead'>
         <span className='visually-hidden'>Talk to Frank - Honest information about drugs</span>
+        <CookieBar />
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
             <ViewportMobile>
-              <Button aria-hidden='false' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+              <Button aria-hidden='false' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
                 {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
               </Button>
             </ViewportMobile>
@@ -113,7 +115,7 @@ export default class Masthead extends React.PureComponent {
             <Button className='btn--flat close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
         </section>}
-        {this.state.takeover && <div className='takeover-bg'/>}
+        {this.state.takeover && <div className='takeover-bg' onClick={this.handleSearchClick.bind(this)}/>}
       </header>
     )
   }

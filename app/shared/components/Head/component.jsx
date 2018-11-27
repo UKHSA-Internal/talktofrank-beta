@@ -56,7 +56,7 @@ export default class Head extends React.Component {
 
     return (
       <head>
-        <title>{pageTitle + ` | Talk to Frank: honest information about drugs`}</title>
+        <title>{title + ` | FRANK`}</title>
         <meta charSet='utf-8' />
         <meta name="description" content={pageDescription} />
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />

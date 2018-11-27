@@ -121,6 +121,7 @@
     "puppeteer": "^1.9.0",
     "react": "^16.5.2",
     "react-autosuggest": "^9.4.2",
+    "react-cookie": "^3.0.4",
     "react-dom": "^16.5.2",
     "react-ga": "^2.5.3",
     "react-redux": "^5.0.7",
