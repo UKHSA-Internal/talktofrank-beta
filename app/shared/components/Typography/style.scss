@@ -201,17 +201,13 @@ mark,
   }
 }
 
-.list-inline {
-  .list-inline-item {
-    display: inline-block;
+.list-inline-item {
+  display: inline-block;
 
-    &:not(:last-child) {
-      margin-right: .3em;
-    }
+  &:not(:last-child) {
+    margin-right: .3em;
   }
 }
-
-
 
 //
 // Misc
