@@ -1,19 +1,31 @@
-buildConfig: production
-api: http://preview.alpha-talktofrank.cxp.io:3000
+buildConfig: preview
+api: https://ttf-preview.cxp.io
 
 contentful:
   contentHost: 'preview.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
-  environment: 'develop'
 
 sentry:
  dsn: !!import/single '../config.sentry.yaml'
  logErrors: false
 
-basicAuth:
-  username: !!import/single '../config.auth.username.yaml'
-  password: !!import/single '../config.auth.password.yaml'
+# Basic auth is not compatible with service workers https://github.com/GoogleChrome/workbox/issues/1559
+# basicAuth:
+#  username: !!import/single '../config.auth.username.yaml'
+#  password: !!import/single '../config.auth.password.yaml'
 
 googleAPI:
   places: !!import/single '../config.google.yaml'
+
+email:
+  transport: mailgun
+
+etherealEmail:
+  auth:
+    pass: !!import/single '../config.ethereal.yaml'
+
+mailgun:
+  auth:
+    api_key: !!import/single '../config.mailgun.yaml'
+    domain: 'talktofrank.com'

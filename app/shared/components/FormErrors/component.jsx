@@ -41,7 +41,7 @@ export class ErrorSummary extends React.PureComponent {
           {errors.map((error, i) => {
             let focus = (i === 0) ? {'ref': this.item} : null
             return (
-              <li key={i}><a {...focus} className='alert-danger__link link-text' href={`#${error.field}`}>{error.message}</a></li>
+              <li key={i}><a {...focus} className='alert-danger__link link-text' href={`#${error.field}-label`}>{error.message}</a></li>
             )
           })
           }
