@@ -81,7 +81,7 @@ class FormGroup extends PureComponent {
           loading: false
         })
       }
-    }).catch(error => {
+    }).catch(() => {
       this.setState({
         loading: false
       })
