@@ -29,7 +29,7 @@ const Html = ({initialState, cacheBusterTS, children, initialPath}) => {
   }
   return (
     <html lang='en' className='has-hover'>
-      <Head state={initialState} path={initialPath} />
+      <Head state={initialState} path={initialPath} cacheBusterTS={cacheBusterTS} />
       <body>
         <Skiplinks/>
         <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaTags) }}/>
