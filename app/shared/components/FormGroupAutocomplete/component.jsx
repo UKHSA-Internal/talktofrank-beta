@@ -76,7 +76,15 @@ class FormGroup extends PureComponent {
           autoCompleteData: resp.hits,
           loading: false
         })
+      } else {
+        this.setState({
+          loading: false
+        })
       }
+    }).catch(() => {
+      this.setState({
+        loading: false
+      })
     })
   }
 
