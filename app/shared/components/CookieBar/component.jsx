@@ -3,12 +3,14 @@ import React from 'react'
 import Accent from '../Accent/component'
 import Svg from '../Svg/component'
 import Anchor from '../Anchor/component'
+import ClientOnly from '../ClientOnly/component'
+import { getCookie, setCookie } from '../../lib/cookie.js'
 
 export default class CookieBar extends React.Component {
   componentWillMount() {
-    // let showBar = (Cookies.get('notification_dismissed') == 1) ? false : true
+    let cookieValue = getCookie('notification_dismissed')
     this.state = {
-      visible: true
+      visible: !çcookieValue
     }
   }
 
@@ -16,14 +18,12 @@ export default class CookieBar extends React.Component {
     this.setState({
       visible: false
     })
-    // Cookies.set('notification_dismissed', 1, {
-    //   'path': '/'
-    // })
+    setCookie('notification_dismissed', 1)
   }
 
   render() {
     return (
-      <React.Fragment>
+      <ClientOnly>
        {this.state.visible &&
        <Accent className='accent--muted accent--shallow' modifier='wrapper--tight'>
         <p className='has-icon'>
@@ -37,7 +37,7 @@ export default class CookieBar extends React.Component {
         </p>
        </Accent>
        }
-      </React.Fragment>
+      </ClientOnly>
     )
   }
 }
