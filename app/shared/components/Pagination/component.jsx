@@ -248,7 +248,7 @@ export default class PaginationBoxView extends React.PureComponent {
 
     const previousClasses = previousClassName + (current === 0 ? ` ${disabledClassName}` : '')
     const nextClasses = nextClassName + (current === pageCount - 1 ? ` ${disabledClassName}` : '')
-    console.log(current, (pageCount - 1))
+
     return (
       <nav role='navigation' aria-label='Pagination Navigation' className='pagination navbar navbar-expand navbar-list'>
         <ul className='navbar-nav'>
