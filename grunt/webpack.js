@@ -9,8 +9,9 @@ const processEnv = {
 }
 
 module.exports = {
-  mode: 'production',
+
   client: {
+    mode: 'production',
     entry: {
       client: './app/client/index.jsx'
       // vendor: ['react', 'react-dom', 'react-router', 'react-redux', 'redux-thunk']
@@ -18,7 +19,7 @@ module.exports = {
     output: {
       path: path.resolve(__dirname, '../dist/static/ui/js/'),
       filename: '[name].bundle.js',
-      chunkFilename: '[name].bundle.js',
+      chunkFilename: '[name].[contenthash].bundle.js',
       devtoolLineToLine: true,
       sourceMapFilename: './bundle.js.map',
       pathinfo: true,
