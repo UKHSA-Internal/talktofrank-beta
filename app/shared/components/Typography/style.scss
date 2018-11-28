@@ -345,11 +345,13 @@ b {
 }
 
 .list-link__title {
+  font-family: $headings-font-family;
   @extend %h5;
   margin-right: 1.5rem;
   display: inline-block;
   @extend %break-word;
   margin-bottom: 0;
+
 }
 
 .fake-link {
@@ -539,7 +541,12 @@ p {
       padding: .75em 3.5em .75em 1em;
       color: $text-dark-blue;
       font-family: $font-family-heavy;
-      @include arrow-hover;
+      position: relative;
+      padding-right: 5rem !important;
+
+      &::after {
+        @include arrow;
+      }
 
       .has-hover & {
         &:active,
@@ -567,7 +574,7 @@ p {
     .has-hover & {
 
       &:hover {
-        &:after {
+        &::after {
           right: auto;
           left: 1rem;
           background-image: url('/ui/svg/arrow-left.svg');

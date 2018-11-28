@@ -388,7 +388,6 @@ router.get('/news', (req, res, next) => {
         if (v.sys.updatedAt) {
           v['createdAt'] = v.sys.createdAt
           v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
-
         } else {
           v['date'] = v.fields.originalPublishDate
           v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
