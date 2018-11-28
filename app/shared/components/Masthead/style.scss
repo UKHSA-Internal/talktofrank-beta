@@ -67,12 +67,10 @@
       }
 
       @include media-breakpoint-up(sm) {
-        top: 6.5rem;
+        top: 6.2rem;
       }
 
       @include media-breakpoint-up(md) {
-        top: 5rem;
-
         img {
           width: 3rem;
           height: 3rem;
