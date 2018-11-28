@@ -37,10 +37,10 @@ export const primary = [
     },
     subnavigation: [
       {
-        label: 'Emergency help',
+        label: 'What to do in an emergency',
         url: '/get-help/emergency-help',
         tracking: {
-          label: 'Emergency help',
+          label: 'What to do in an emergency',
           action: 'Click',
           category: 'Navigation'
         }
