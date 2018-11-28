@@ -1,6 +1,7 @@
 import { config } from 'config'
-import { removeMarkdown } from '../../../shared/utilities'
+import { removeTags } from '../../../shared/utilities'
 const express = require('express')
+const marked = require('marked')
 const router = express.Router()
 const bodyParser = require('body-parser')
 const bodybuilder = require('bodybuilder')
@@ -23,6 +24,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+    const searchTermDecoded = decodeURIComponent(req.params.term.trim())
 
     if (searchTermsBlackList.indexOf(searchTerm) !== -1) {
       console.log('Blacklist search terms hit')
@@ -49,13 +51,17 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
       results.hits.hits
         .filter(hit => hit._source.description)
         .map(hit => {
-          hit._source.description = removeMarkdown(hit._source.description)
+          hit._source.description = removeTags(marked(hit._source.description))
         })
-      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      results.hits.searchTerm = searchTermDecoded
+      results.hits.head = {
+        title: `${results.hits.total} search results for '${searchTermDecoded}`
+      }
       return res.status(200).json(results.hits)
     })
-  } catch (err) {
-    return next(err.response)
+  } catch (error) {
+    error.status = 500
+    return next(error)
   }
 })
 
@@ -72,6 +78,7 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
 
     const search = res.search
     const searchTerm = req.params.term.toLowerCase().trim()
+    const searchTermDecoded = decodeURIComponent(req.params.term.trim())
 
     if (searchTermsBlackList.indexOf(searchTerm) !== -1) {
       console.log('Blacklist search terms hit')
@@ -94,11 +101,12 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
       index: indices,
       body: query
     }).then(results => {
-      results.hits.searchTerm = decodeURIComponent(req.params.term.trim())
+      results.hits.searchTerm = searchTermDecoded
       return res.status(200).json(results.hits)
     })
-  } catch (err) {
-    return next(err.response)
+  } catch (error) {
+    error.status = 500
+    return next(error)
   }
 })
 

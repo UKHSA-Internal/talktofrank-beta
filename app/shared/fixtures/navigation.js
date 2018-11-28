@@ -46,7 +46,7 @@ export const primary = [
         }
       },
       {
-        label: 'Dealing with peer pressure',
+        label: '10 ways to deal with peer pressure',
         url: '/get-help/dealing-with-peer-pressure',
         tracking: {
           label: 'Dealing with peer pressure',
@@ -55,7 +55,7 @@ export const primary = [
         }
       },
       {
-        label: 'Worried about a friend',
+        label: 'Worried about a friend?',
         url: '/get-help/worried-about-a-friend',
         tracking: {
           label: 'Worried about a friend',
@@ -64,7 +64,7 @@ export const primary = [
         }
       },
       {
-        label: 'Worried about a child',
+        label: 'Worried about a child?',
         url: '/get-help/worried-about-a-child',
         tracking: {
           label: 'Worried about a child',
@@ -131,12 +131,12 @@ export const footerButton = [{
 
 export const footer = [
   {
-    label: 'frank@talktofrank.com',
-    url: 'mailto:frank@talktofrank.com',
+    label: 'Email FRANK',
+    url: '/contact',
     tracking: {
       label: 'Footer email contact',
       action: 'Click',
-      category: 'Email'
+      category: 'Navigation'
     }
   },
   {
@@ -170,37 +170,19 @@ export const footer = [
 
 export const footerUtility = [
   {
-    label: 'Site policy',
-    url: '#',
+    label: 'Privacy policy',
+    url: '/privacy-policy',
     tracking: {
-      label: 'Site policy',
+      label: 'Privacy policy',
       action: 'Click',
       category: 'Footer navigation'
     }
   },
   {
-    label: 'Accessibility',
-    url: '#',
+    label: 'Cookie policy',
+    url: '/cookie-policy',
     tracking: {
-      label: 'Accessibility',
-      action: 'Click',
-      category: 'Footer navigation'
-    }
-  },
-  {
-    label: 'Disclaimer',
-    url: '#',
-    tracking: {
-      label: 'Disclaimer',
-      action: 'Click',
-      category: 'Footer navigation'
-    }
-  },
-  {
-    label: 'Disclaimer',
-    url: '#',
-    tracking: {
-      label: 'Disclaimer',
+      label: 'Cookie policy',
       action: 'Click',
       category: 'Footer navigation'
     }

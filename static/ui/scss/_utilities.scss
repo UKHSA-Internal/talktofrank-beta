@@ -61,3 +61,39 @@
 .break-word {
   word-break: break-word;
 }
+
+//////// media
+
+.media,
+%media {
+  overflow: hidden;
+}
+
+.media__item,
+%media__item {
+  margin-bottom: 3rem;
+
+  @include media-breakpoint-up(sm) {
+    float: left;
+    margin-right: 3rem;
+    margin-bottom: 0;
+  }
+
+  .image {
+    display: block;
+  }
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.media__content,
+%media__content {
+  overflow: hidden;
+}
+
+
+
+
+

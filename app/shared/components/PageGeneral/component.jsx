@@ -1,7 +1,6 @@
 import React from 'react'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
-import Divider from '../Divider/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
 import GA from '../GoogleAnalytics/component'
@@ -16,7 +15,7 @@ const PageGeneral = props => {
       <Masthead path={props.location}/>
       <Main>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={props.title} />
+          <Heading type='h1' className='h2 spacing-left spacing--single' text={props.fields.title} />
         </Accent>
         <Accent className='accent--shallow' modifier='wrapper--constant'>
           <Grid>

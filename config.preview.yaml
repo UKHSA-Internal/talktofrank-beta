@@ -10,9 +10,10 @@ sentry:
  dsn: !!import/single '../config.sentry.yaml'
  logErrors: false
 
-basicAuth:
-  username: !!import/single '../config.auth.username.yaml'
-  password: !!import/single '../config.auth.password.yaml'
+# Basic auth is not compatible with service workers https://github.com/GoogleChrome/workbox/issues/1559
+# basicAuth:
+#  username: !!import/single '../config.auth.username.yaml'
+#  password: !!import/single '../config.auth.password.yaml'
 
 googleAPI:
   places: !!import/single '../config.google.yaml'

@@ -7,12 +7,7 @@
   font-family: $font-family-heavy;
   margin-right: 1.5em;
   color: inherit;
-
-  &.raised {
-    @include media-breakpoint-up(sm) {
-      width: auto;
-    }
-  }
+  cursor: pointer;
 }
 
 
@@ -40,11 +35,21 @@
 
 .btn--link {
   &:active,
-  &:hover,
   &:focus {
     color: $pinkAccess;
     text-decoration: underline;
   }
+
+  .has-hover & {
+    &:hover {
+      color: $pinkAccess;
+      text-decoration: underline;
+    }
+  }
+}
+
+.btn--static {
+  position: absolute;
 }
 
 .btn--large {
@@ -88,9 +93,11 @@
   color: $white;
   background-color: $pink;
   text-decoration: none;
+  cursor: pointer;
   text-align: center;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+  transition: background-color .1s ease-in-out;
 
   .btn__text {
     color: $white;
@@ -105,8 +112,18 @@
     top: .1em;
   }
 
+  &:hover {
+    background-color: $pinkAccess;
+  }
+
   @include media-breakpoint-up(md) {
     font-size: 2.4rem;
+  }
+
+  .has-hover & {
+    &:hover {
+      background-color: $pinkAccess;
+    }
   }
 }
 

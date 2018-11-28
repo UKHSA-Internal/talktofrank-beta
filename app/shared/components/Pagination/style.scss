@@ -43,7 +43,7 @@
 
   @include media-breakpoint-down(md) {
     .break,
-    .pagination__item:not(.pagination__item--current) {
+    .pagination__item {
       display: none;
     }
   }
@@ -55,8 +55,14 @@
     cursor: default;
 
     .has-hover & {
+      &:active,
+      &:focus,
       &:hover {
         border-bottom-color: transparent !important;
+      }
+
+      &::after {
+        display: none;
       }
     }
   }

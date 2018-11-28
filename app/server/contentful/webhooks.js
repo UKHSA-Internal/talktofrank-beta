@@ -1,5 +1,4 @@
 import { config } from 'config'
-import { removeMarkdown } from '../../shared/utilities'
 import {
   formatGeneralContentEntryForSearch,
   formatDrugEntryForSearch,
@@ -8,6 +7,7 @@ import {
   buildBulkDeleteAction,
   buildBulkUpdateAction
 } from '../../shared/elasticSearch'
+import { getApiHost } from '../../shared/utilities'
 const express = require('express')
 const bodyParser = require('body-parser')
 const router = express.Router()
@@ -20,12 +20,13 @@ const contentfulClientConf = {
   accessToken: config.contentful.contentAccessToken,
   host: config.contentful.contentHost
 }
+console.log(`Setting up webhook at ${getApiHost()}/contentful/webhook`)
 
 if (config.contentful.environment && config.contentful.environment !== 'master') {
-  console.log(`Using contentful environment: ${config.contentful.environment}`)
+  console.log(`Webhook using contentful environment: ${config.contentful.environment}`)
   contentfulClientConf.environment = config.contentful.environment
 } else {
-  console.log(`Using contentful environment: master`)
+  console.log(`Webhook using contentful environment: master`)
 }
 const contentfulClient = contentful.createClient(contentfulClientConf)
 
