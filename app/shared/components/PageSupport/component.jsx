@@ -35,7 +35,8 @@ export default class PageSupport extends React.PureComponent {
       serviceInfo,
       referralMethod,
       timesSessions,
-      catchmentArea
+      catchmentArea,
+      notes
     } = this.props.pageData.fields
     const phoneRaw = telephone1.replace(/\D/g, '')
     const address = [address1, address2, address3, town, county, postCode].filter(Boolean).join(', ')
@@ -52,6 +53,7 @@ export default class PageSupport extends React.PureComponent {
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
                 <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
+                {notes && <Longform text={notes}/>}
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Referral (how to access this service)' />
                 <Longform text={referralMethod}/>
