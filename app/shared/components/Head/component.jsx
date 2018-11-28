@@ -8,34 +8,38 @@ export default class Head extends React.Component {
     const { head, title, error } = state.app.pageData
 
     if (!error) {
-      switch (path) {
-        case '/drugs-a-z' :
+
+      // ensure consistent path lookup
+      const cleanPath = path.replace(/\//g, '')
+
+      switch (cleanPath) {
+        case 'drugs-a-z' :
           pageTitle = 'Drugs A-Z'
           pageDescription = 'Drugs A-Z'
           break
 
-        case '/news' :
-        case '/latest' :
+        case 'news' :
+        case 'latest' :
           pageTitle = 'Latest News'
           pageDescription = 'Latest News'
           break
 
-        case '/support-near-you' :
+        case 'support-near-you' :
           pageTitle = 'Find support near your'
           pageDescription = 'Find support near your'
           break
 
-        case '/livechat' :
+        case 'livechat' :
           pageTitle = 'Live Chat'
           pageDescription = 'Live Chat'
           break
 
-        case '/contact-frank' :
+        case 'contact-frank' :
           pageTitle = 'Contact Frank'
           pageDescription = 'Contact Frank'
           break
 
-        case '/offline' :
+        case 'offline' :
           pageTitle = 'You\'re Offline'
           pageDescription = ''
           break
