@@ -24,7 +24,7 @@ const RelatedLinks = props => {
 
 RelatedLinks.defaultProps = {
   type: 'h2',
-  className: 'h3 spacing-top--large'
+  className: 'h4 spacing-top--large'
 }
 
 export default RelatedLinks

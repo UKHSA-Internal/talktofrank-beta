@@ -68,7 +68,7 @@ export default class SearchPage extends React.Component {
             <ul>
               <li>Checking your spelling</li>
               <li>A more general word</li>
-              <li>Words with a similar meanings</li>
+              <li><Anchor className='link-text' href='/drugs-a-z'>Checking the Drug A-Z page</Anchor></li>
             </ul>
             <Divider className='hr--muted hr--large' />
             <Heading type='h2' className='h5' text='Get in touch'/>
@@ -127,7 +127,7 @@ export default class SearchPage extends React.Component {
                 }
                 {total > 10 &&
                 <Pagination
-                  pageCount={total / 10}
+                  pageCount={Math.ceil(total / 10)}
                   onPageChange={this.handlePageChange}
                   onPaginateFocus={this.focusMain}
                 />

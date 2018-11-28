@@ -385,16 +385,12 @@ router.get('/news', (req, res, next) => {
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
-        if (v.fields.originalPublishDate) {
+        if (v.sys.updatedAt) {
+          v['createdAt'] = v.sys.createdAt
+          v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
+        } else {
           v['date'] = v.fields.originalPublishDate
           v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
-        } else {
-          // @andy - this needs a bit more nuance - there is a created and an updated date for each
-          // so going to use the updated for now as that is the latest
-          v['date'] = v.sys.updatedAt
-          v['dateFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
-          // v['createdAt'] = v.sys.createdAt
-          // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
         if (!v.fields.summary) {
@@ -660,12 +656,12 @@ const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
 )
 
 const dateFormat = (response) => {
-  if (response.fields.originalPublishDate) {
-    response['date'] = response.fields.originalPublishDate
-    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
-  } else {
+  if (response.sys.updatedAt) {
     response['date'] = response.sys.updatedAt
     response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+  } else {
+    response['date'] = response.fields.originalPublishDate
+    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
   }
 
   return response
