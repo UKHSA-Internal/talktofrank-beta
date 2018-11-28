@@ -18,7 +18,7 @@ export default class CookieBar extends React.Component {
     this.setState({
       visible: false
     })
-    setCookie('notification_dismissed', 1)
+    setCookie('notification_dismissed', 1, 365)
   }
 
   render() {
