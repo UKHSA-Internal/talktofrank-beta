@@ -8,7 +8,6 @@ export default class Head extends React.Component {
     const { head, title, error } = state.app.pageData
 
     if (!error) {
-
       // ensure consistent path lookup
       const cleanPath = path.replace(/\//g, '')
 
