@@ -17,8 +17,6 @@ import GA from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
 import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { contentFulFactory } from '../../contentful'
 
 export default class PageContactForm extends React.PureComponent {
   static defaultProps = {
@@ -155,15 +153,15 @@ export default class PageContactForm extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text='Contact us via email'/>
-        </Accent>
-        <Main className='main--muted main--full-width'>
+        <Main className='main--muted'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='page-title' text='Contact us via email'/>
+          </Accent>
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {this.props.pageData.fields.body && <Longform className="spacing-bottom--single" text={this.props.pageData.fields.body}/>}
+                {this.props.pageData.fields.body && <Longform className='spacing-bottom--single' text={this.props.pageData.fields.body}/>}
 
                 {this.props.error &&
                   <ScrollTo>
@@ -173,11 +171,11 @@ export default class PageContactForm extends React.PureComponent {
 
                 {!this.props.submitted &&
                 <Form className='spacing-bottom--large' handleSubmit={this.handleSubmit}>
-                  <FormGroup type='email' error={errors.email} className='form-control--reversed form-control--large' label='Your email' id='email' value={this.state.email} onChange={this.handleChange} name='email'/>
-                  <FormGroup type='text' error={errors.nickname} className='form-control--reversed form-control--large' label='Your nickname' id='nickname' value={this.state.nickname} onChange={this.handleChange} name='nickname'/>
+                  <FormGroup type='email' error={errors.email} hintId={errors.email ? 'email_error' : null} className='form-control--reversed form-control--large' label='Your email' id='email' value={this.state.email} onChange={this.handleChange} name='email'/>
+                  <FormGroup type='text' error={errors.nickname} hintId={errors.nickname ? 'nickname_error' : null} className='form-control--reversed form-control--large' label='Your nickname' id='nickname' value={this.state.nickname} onChange={this.handleChange} name='nickname'/>
                   <Select {...age} error={errors.ageRange} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.ageRange}/>
                   <Select {...gender} error={errors.gender} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.gender}/>
-                  <Textarea {...message} error={errors.message} value={this.state.message} onChange={this.handleChange}/>
+                  <Textarea {...message} error={errors.message} hintId={errors.message ? 'message_error' : null} value={this.state.message} onChange={this.handleChange}/>
                   <Button className='btn--primary' disabled={this.props.loading}>
                     Send message
                   </Button>

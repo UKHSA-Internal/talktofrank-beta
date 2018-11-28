@@ -61,12 +61,13 @@
       padding-bottom: 0;
       border-bottom: 1px dotted $white;
 
-      &:hover {
-        border-bottom-style: solid;
-        text-decoration: none;
+      .has-hover & {
+        &:hover {
+          border-bottom-style: solid;
+          text-decoration: none;
+        }
       }
     }
-
   }
 }
 
@@ -158,6 +159,10 @@
     padding-left: 1.5rem;
   }
 
+  @include media-breakpoint-down(sm) {
+    font-size: 2rem;
+  }
+
   @include media-breakpoint-up(md) {
     background-color: $white;
     display: none;
@@ -185,6 +190,10 @@
     .nav-link {
       padding: .2em .3em 0;
       @include link;
+
+      .has-hover & {
+        text-decoration: none;
+      }
     }
   }
 }

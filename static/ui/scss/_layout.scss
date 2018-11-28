@@ -3,10 +3,6 @@
    ===========================================================================*/
 $grid-gutter: 30px;
 
-body {
-  background-color: $text-dark-blue;
-}
-
 %constrain {
   max-width: $max-width;
   margin-left: auto;
@@ -39,22 +35,40 @@ body {
 %wrapper,
 .wrapper {
   @extend %constrain-narrow;
-  padding: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  &--mid {
+    @include media-breakpoint-between(sm, md) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
   &--tight {
     padding-left: 0;
     padding-right: 0;
   }
+
+  &--constant {
+    @include media-breakpoint-up(md) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
 }
 
 .main {
-  @extend %wrapper;
+  @extend %constrain-narrow;
   padding-bottom: 5rem;
+  padding-top: 0;
   overflow: hidden;
-
-  @include media-breakpoint-up(sm) {
-    padding-top: 3rem;
-  }
+  min-height: calc(100vh - 368px);
 
   &--full-width {
     max-width: none;
@@ -67,10 +81,6 @@ body {
 
 main {
   outline: none;  // Prevent focus outline
-}
-
-.flex-wrapper {
-  background-color: $white; // @joel implementing Jon method footer fix
 }
 
 .section {

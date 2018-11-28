@@ -4,6 +4,7 @@ import GA from '../GoogleAnalytics/component'
 import Heading from '../Heading/component'
 import Longform from '../Longform/component'
 import Masthead from '../Masthead/component'
+import Accent from '../Accent/component'
 import Main from '../Main/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
@@ -17,12 +18,16 @@ const PageNotFound = () => {
     <React.Fragment>
       <Masthead path={'no-match'}/>
       <Main>
-        <Grid>
-          <GridCol className='col-12 col-sm-8'>
-            <Heading type='h1' className='h2' text='Page not found' />
-            <Longform text={text} />
-          </GridCol>
-        </Grid>
+        <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
+          <Heading type='h1' className='h2' text='Page not found' />
+        </Accent>
+        <Accent className='accent--shallow'>
+          <Grid>
+            <GridCol className='col-12 col-sm-8 offset-md-2'>
+              <Longform text={text} />
+            </GridCol>
+          </Grid>
+        </Accent>
       </Main>
       <Footer/>
       <GA/>

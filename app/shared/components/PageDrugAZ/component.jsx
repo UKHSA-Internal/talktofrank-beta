@@ -29,41 +29,43 @@ const DrugList = props => {
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 inverted spacing-left spacing--single' text='Drugs A to Z'/>
-        <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation' visible='true'/>
-      </Accent>
-      <Divider className='hr--muted' />
       <Main>
-        <Grid>
-          <GridCol className='col-12 col-sm-8 offset-sm-2'>
-            <ul className='list-unstyled' role='list'>
-              {props.list.map((val, i) => {
-                return (
-                  <li id={val.group} key={'outer' + i}>
-                    <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
-                    <ul className='list-unstyled'>
-                    {val.values.map((v, index) => {
-                      // @refactor - please tidy this up : )
-                      let synonyms
-                      let realName = v.parent ? <strong>{v.parent}</strong> : null
+        <Accent className='accent--shallow' modifier='wrapper--tight'>
+          <Heading type='h1' className='h2 inverted spacing-left spacing--single' text='Drugs A to Z'/>
+          <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation' visible='true' type='nav'/>
+        </Accent>
+        <Divider className='hr--muted' />
+        <Accent className='accent--shallow'>
+          <Grid>
+            <GridCol className='col-12 col-sm-8 offset-sm-2'>
+              <ul className='list-unstyled' role='list'>
+                {props.list.map((val, i) => {
+                  return (
+                    <li id={val.group} key={'outer' + i}>
+                      <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
+                      <ul className='list-unstyled'>
+                      {val.values.map((v, index) => {
+                        // @refactor - please tidy this up : )
+                        let synonyms
+                        let realName = v.parent ? <strong>{v.parent}</strong> : null
 
-                      if (v.synonyms) {
-                        synonyms = v.synonyms.length > limit ? `${v.synonyms.splice(0, limit).join(' / ')} +${v.synonyms.length} more` : v.synonyms.join(' / ')
-                      }
+                        if (v.synonyms) {
+                          synonyms = v.synonyms.length > limit ? `${v.synonyms.splice(0, limit).join(' / ')} +${v.synonyms.length} more` : v.synonyms.join(' / ')
+                        }
 
-                      return (
-                        <LinkDrugName key={index} {...v} synonyms={synonyms || null} realName={realName || null}/>
-                      )
-                    })}
-                    </ul>
-                    <small><a className='return-to-top' href='#app'>Return to top ^</a></small>
-                  </li>
-                )
-              })}
-            </ul>
-          </GridCol>
-        </Grid>
+                        return (
+                          <LinkDrugName key={index} {...v} synonyms={synonyms || null} realName={realName || null}/>
+                        )
+                      })}
+                      </ul>
+                      <small><a className='return-to-top' href='#main'>Return to top ^</a></small>
+                    </li>
+                  )
+                })}
+              </ul>
+            </GridCol>
+          </Grid>
+        </Accent>
       </Main>
       <Footer />
       <GA />

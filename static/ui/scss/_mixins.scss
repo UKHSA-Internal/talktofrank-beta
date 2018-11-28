@@ -14,7 +14,7 @@
   transition: right .1s ease-in-out, left .1s ease-in-out;
 
   @include media-breakpoint-down(sm) {
-    background-size: 70%;
+    background-size: 80%;
   }
 }
 
@@ -22,15 +22,10 @@
   position: relative;
   padding-right: 5rem !important;
 
-  &:hover:after {
-    @include arrow;
-  }
-
   .has-hover & {
-    &:active,
     &:hover {
-
       &:after {
+        @include arrow;
         right: 1rem;
       }
     }
@@ -52,6 +47,12 @@
       border-bottom-color: $pinkAccess;
     }
   }
+}
+
+@mixin break-word {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 @mixin vertical-align {

@@ -20,7 +20,7 @@ if (workbox) {
   // to pick up a react route when generating precache files
   workbox.precaching.precacheAndRoute([{
     'url': '/offline',
-    'revision': '20181115'
+    'revision': '20181121b'
   }])
 
   // Using network first for development, cache will then be used

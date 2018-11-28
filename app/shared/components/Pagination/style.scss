@@ -43,7 +43,7 @@
 
   @include media-breakpoint-down(md) {
     .break,
-    .pagination__item:not(.pagination__item--current) {
+    .pagination__item {
       display: none;
     }
   }
@@ -54,8 +54,19 @@
     color: $gray-400 !important;
     cursor: default;
 
-    &::hover {
-      border-bottom-color: transparent !important;
+    .has-hover & {
+      &:active,
+      &:focus,
+      &:hover {
+        border-bottom-color: transparent !important;
+      }
+
+      &::after {
+        display: none;
+      }
     }
   }
 }
+
+
+

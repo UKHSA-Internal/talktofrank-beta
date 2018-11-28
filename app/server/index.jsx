@@ -13,6 +13,8 @@ import { generateStore } from '../shared/store'
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
 import { getLoadableState } from 'loadable-components/server'
+// import cookie from 'react-cookie'
+// import cookieParser from 'cookie-parser'
 
 /*
  * Express routes
@@ -87,7 +89,7 @@ const addSearch = (req, res, next) => {
 // Add search middleware
 app.use('/api/v1/search', addSearch)
 app.use('/contentful/webhook', addSearch)
-
+// app.use(cookieParser())
 app.use('/api/v1', apiRoutes)
 app.use('/contentful/webhook', contentFulWebhookRoutes)
 
@@ -113,17 +115,19 @@ app.get('/robots.txt', function (req, res) {
  */
 app.get('*', (req, res) => {
   const store = generateStore()
+  //  cookie.plugToRequest(req, res)
   const loadData = () => {
     const branches = matchRoutes(routes, req.path)
-
-    let match = branches.find(({ route, match }) => {
-      return match.isExact && route.loadData
-    })
-
-    if (!match) {
-      return Promise.resolve(null)
-    }
-    return store.dispatch(match.route.loadData({ params: match.match.params, query: req.query }))
+    const promises = branches
+      .filter(({ route, match }) => { return match.isExact && route.loadData })
+      .map(({ route, match }) => {
+        return Promise.all(
+          route
+            .loadData({ params: match.params, query: req.query, getState: store.getState })
+            .map(item => store.dispatch(item))
+        )
+      })
+    return Promise.all(promises)
   }
 
   (async () => {
@@ -135,7 +139,7 @@ app.get('*', (req, res) => {
       await loadData()
     } catch (err) {
       const state = store.getState()
-      state.app.pageData.title = 'Page not found'
+      state.app.pageData.head = { title: 'Page not found' }
       state.app.pageData.error = 404
       const props = {
         routes: null,
@@ -143,7 +147,6 @@ app.get('*', (req, res) => {
         cacheBusterTS: cacheBusterTS
       }
       res.write('<!DOCTYPE html>')
-
       return ReactDOMServer
         .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
         .pipe(res)
@@ -158,7 +161,8 @@ app.get('*', (req, res) => {
           <StaticRouter location={req.path} context={staticContext}>
             {renderRoutes(routes, {
               initialState: state,
-              cacheBusterTS: cacheBusterTS
+              cacheBusterTS: cacheBusterTS,
+              initialPath: req.path
             })}
           </StaticRouter>
         </Provider>

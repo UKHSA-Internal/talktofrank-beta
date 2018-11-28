@@ -59,7 +59,6 @@
   }
 
   &--reversed {
-    border: 0;
     background-color: $white;
     border-radius: 0;
   }
@@ -89,6 +88,13 @@ input[type='text'] {
 ////////////
 .close {
   align-self: flex-start;
+  margin-top: -.4em;
+  margin-right: 0;
+  margin-left: 1.5rem;
+
+  @include media-breakpoint-up(sm) {
+    margin-top: .5rem;
+  }
 }
 
 select.form-control {
@@ -171,7 +177,6 @@ select.form-control {
 
 .react-autosuggest__container {
   flex-basis: 100%;
-  max-width: 70rem;
   position: relative;
 
   .form-control {

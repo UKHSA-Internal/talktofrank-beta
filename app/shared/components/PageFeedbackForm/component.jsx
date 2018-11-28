@@ -1,7 +1,6 @@
 import React from 'react'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
-import Divider from '../Divider/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
 import GA from '../GoogleAnalytics/component'
@@ -14,10 +13,7 @@ import FormGroup from '../FormGroup/component'
 import Textarea from '../Textarea/component'
 import Button from '../Button/component.jsx'
 import Longform from '../Longform/component'
-import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
-import SuccessMessage from '../FormSuccess/component'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { contentFulFactory } from '../../contentful'
+import { ErrorSummary, getErrors } from '../FormErrors/component'
 
 export default class PageFeedbackForm extends React.Component {
   static defaultProps = {
@@ -62,15 +58,15 @@ export default class PageFeedbackForm extends React.Component {
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={this.props.pageData.title} />
-        </Accent>
-        <Main className='main--muted main--full-width'>
+        <Main className='main--muted'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='page-title' text={this.props.pageData.fields.title} />
+          </Accent>
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {this.props.pageData.fields.body && <Longform className="spacing-bottom--single" text={this.props.pageData.fields.body}/>}
+                {this.props.pageData.fields.body && <Longform className='spacing-bottom--single' text={this.props.pageData.fields.body}/>}
 
                 {this.props.error &&
                   <ScrollTo>
@@ -80,8 +76,8 @@ export default class PageFeedbackForm extends React.Component {
 
                 {!this.props.submitted &&
                 <Form className='spacing-bottom--large' handleSubmit={this.handleSubmit}>
-                  <FormGroup className='form-control--reversed form-control--large' label="Subject" id="subject" name="subject" value={this.state.subject} onChange={this.handleChange} error={errors.subject} hint="Must be less than 100 characters" />
-                  <Textarea label="Feedback" id="feedback" name="feedback" value={this.state.feedback} onChange={this.handleChange} error={errors.feedback} hint="Must be less than 500 characters" />
+                  <FormGroup className='form-control--reversed form-control--large' maxLength={100} label='Subject' id='subject' name='subject' value={this.state.subject} onChange={this.handleChange} error={errors.subject} hint='Must be fewer than 100 characters' hintId='subject-hint-id'/>
+                  <Textarea label='Feedback' id='feedback' name='feedback' value={this.state.feedback} onChange={this.handleChange} error={errors.feedback} hint='Must be fewer than 500 characters' hintId='feedback-hint-id'/>
                   <Button className='btn--primary' disabled={this.props.loading}>
                     Send feedback
                   </Button>

@@ -16,7 +16,7 @@ const PageLiveChat = props => {
     <React.Fragment>
       <Masthead path={props.location}/>
       <Accent className='accent--shallow'>
-        <Heading type='h1' className='h2 spacing-left spacing--single' text="Live Chat" />
+        <Heading type='h1' className='h2 spacing-left spacing--single' text='Live Chat' />
       </Accent>
       <Divider className='hr--muted' />
       <Main>
