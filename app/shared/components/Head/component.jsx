@@ -68,6 +68,7 @@ export default class Head extends React.Component {
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
+        <meta name='theme-color' content='#FFFFFF' />
         <link rel='stylesheet' href='/ui/css/main.css' />
         <script dangerouslySetInnerHTML={{__html:
         `
