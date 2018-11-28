@@ -1,7 +1,13 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
-import { imageMap, removeMarkdown, removeTags, haversineDistance } from '../../../shared/utilities'
+import {
+  imageMap,
+  removeMarkdown,
+  removeTags,
+  haversineDistance,
+  nl2br
+} from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -20,6 +26,7 @@ const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
+
 const contentfulClientConf = {
   space: config.contentful.contentSpace,
   accessToken: config.contentful.contentAccessToken,
@@ -33,18 +40,6 @@ if (config.contentful.environment && config.contentful.environment !== 'master')
   console.log(`Using contentful environment: master`)
 }
 const contentfulClient = contentful.createClient(contentfulClientConf)
-
-const dateFormat = (response) => {
-  if (response.sys.createdAt) {
-    response['date'] = response.sys.createdAt
-    response['dateFormatted'] = format(Date.parse(response.sys.createdAt), 'Do MMM YYYY')
-  } else {
-    response['date'] = response.fields.originalPublishDate
-    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
-  }
-
-  return response
-}
 
 /**
  * Axios global config
@@ -73,6 +68,7 @@ router.get('/entries/:slug', (req, res, next) => {
   }
 
   const slug = decodeURIComponent(req.params.slug)
+
   // If the slug value exists in the config contentful 'entries' list use that
   // to fetch a single content item, fallback to slug value
   if (config.contentful.entries[slug]) {
@@ -89,12 +85,16 @@ router.get('/entries/:slug', (req, res, next) => {
         }
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
-        response.title = response.fields.title
-
-        response = dateFormat(response)
+        dateFormat(response)
 
         if (response.fields.featuredNewsItem) {
           dateFormat(response.fields.featuredNewsItem)
+        }
+
+        if (response.fields.featuredContentItems) {
+          response.fields.featuredContentItems.map(item => {
+            return dateFormat(item)
+          })
         }
 
         if (response.fields.featuredContentBlock && response.fields.featuredContentBlock.fields.featuredContentItems) {
@@ -124,6 +124,12 @@ router.get('/entries/:slug', (req, res, next) => {
           })
         }
 
+        // Set meta info
+        response.head = {
+          title: getPageTitle(response.fields, 'title'),
+          description: getMetaDescription(response.fields, 'body')
+        }
+
         res.send(response)
       })
       .catch(error => next(error.response))
@@ -144,8 +150,6 @@ router.get('/entries/:slug', (req, res, next) => {
 
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
-        response.title = response.fields.title
-
         dateFormat(response)
 
         if (response.fields.callout) {
@@ -168,6 +172,13 @@ router.get('/entries/:slug', (req, res, next) => {
             return fieldName
           })
         }
+
+        // Set meta info
+        response.head = {
+          title: getPageTitle(response.fields, 'title'),
+          description: getMetaDescription(response.fields, 'body')
+        }
+
         res.send(response)
       })
       .catch(error => next(error.response))
@@ -198,7 +209,7 @@ router.get('/drugs/:slug', (req, res, next) => {
       }
 
       let response = resolveResponse(contentfulResponse)[0]
-      response.title = response.fields.drugName
+
       // Add contentful field ids here to transform the contents
       // from markdown to HTML
       const markDownFields = {
@@ -255,6 +266,13 @@ router.get('/drugs/:slug', (req, res, next) => {
             response.fields[fieldName] = marked(response.fields[fieldName])
           }
         })
+
+      // Set meta info
+      response.head = {
+        title: getPageTitle(response.fields, 'drugName'),
+        description: getMetaDescription(response.fields, 'description')
+      }
+
       res.send(response)
     })
     .catch(error => next(error.response))
@@ -285,7 +303,6 @@ router.get('/drugs', (req, res, next) => {
         .filter(item => item.fields.synonyms && item.fields.drugName)
         .map((item) => {
           response.list.push({
-            // name: item.fields.name.toLowerCase(),
             name: item.fields.drugName,
             slug: item.fields.slug,
             synonyms: item.fields.synonyms,
@@ -365,16 +382,19 @@ router.get('/news', (req, res, next) => {
         return next(error)
       }
       // merge contentful assets and includes
-      response.title = 'News'
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
-        if (v.sys.createdAt) {
-          v['date'] = v.sys.createdAt
-          v['dateFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
-        } else {
+        if (v.fields.originalPublishDate) {
           v['date'] = v.fields.originalPublishDate
           v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+        } else {
+          // @andy - this needs a bit more nuance - there is a created and an updated date for each
+          // so going to use the updated for now as that is the latest
+          v['date'] = v.sys.updatedAt
+          v['dateFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
+          // v['createdAt'] = v.sys.createdAt
+          // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
         if (!v.fields.summary) {
@@ -397,6 +417,7 @@ router.get('/news', (req, res, next) => {
 
         return v
       })
+
       res.send(response)
     })
     .catch(error => next(error.response))
@@ -426,7 +447,6 @@ router.get('/news/:slug', (req, res, next) => {
       }
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
-      response.title = response.fields.title
 
       dateFormat(response)
 
@@ -451,6 +471,12 @@ router.get('/news/:slug', (req, res, next) => {
       }
 
       response.fields['type'] = 'h1'
+      // Set meta info
+      response.head = {
+        title: getPageTitle(response.fields, 'title'),
+        description: getMetaDescription(response.fields, 'summary')
+      }
+
       res.send(response)
     })
     .catch(error => next(error.response))
@@ -478,8 +504,10 @@ router.get('/treatment-centres', async (req, res, next) => {
     return next(error)
   }
 
+  const locationValue = removeTags(req.query.location)
+
   let response = {
-    location: removeTags(req.query.location),
+    location: locationValue,
     serviceType: req.query.serviceType ? req.query.serviceType : '',
     results: [],
     total: 0
@@ -543,6 +571,12 @@ router.get('/treatment-centres', async (req, res, next) => {
             })
           response.results.sort((a, b) => parseFloat(a.distance) > parseFloat(b.distance))
         })
+
+      // Set meta info
+      response.head = {
+        title: `Results ordered by nearest to "${locationValue}"`
+      }
+
       res.send(response)
     })
     .catch(error => next(error))
@@ -575,12 +609,18 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
 
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
-      response.title = response.fields.name
       Object.keys(response.fields)
         .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
         .map(fieldKey => {
-          response.fields[fieldKey] = marked(response.fields[fieldKey])
+          response.fields[fieldKey] = nl2br(marked(response.fields[fieldKey]))
         })
+
+      // Set meta info
+      response.head = {
+        title: getPageTitle(response.fields, 'name'),
+        description: getMetaDescription(response.fields, 'serviceInfo')
+      }
+
       res.send(response)
     })
     .catch(error => next(error))
@@ -618,5 +658,36 @@ const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
       responseFields[fieldChildName] = marked(responseFields[fieldChildName])
     })
 )
+
+const dateFormat = (response) => {
+  if (response.fields.originalPublishDate) {
+    response['date'] = response.fields.originalPublishDate
+    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+  } else {
+    response['date'] = response.sys.updatedAt
+    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+  }
+
+  return response
+}
+
+const getPageTitle = (item, fallback) => {
+  if (item.pageTitle) {
+    return item.pageTitle
+  } else if (item[fallback]) {
+    return item[fallback]
+  }
+}
+
+const getMetaDescription = (item, fallback) => {
+  if (item.metaDescription) {
+    return item.metaDescription
+  } else if (item[fallback]) {
+    return truncate(removeMarkdown(removeTags(item[fallback])), {
+      'length': 120
+    })
+  }
+  return false
+}
 
 export default router
