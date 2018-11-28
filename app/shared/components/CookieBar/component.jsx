@@ -10,7 +10,7 @@ export default class CookieBar extends React.Component {
   componentWillMount() {
     let cookieValue = getCookie('notification_dismissed')
     this.state = {
-      visible: !çcookieValue
+      visible: !cookieValue
     }
   }
 
