@@ -90,15 +90,15 @@ export function imageMap (obj) {
   let imageObj = {}
   let path = obj.fields
 
-  if (path.imageLarge) {
+  if (path.imageLarge && path.imageLarge.fields) {
     imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url || 800
   }
 
-  if (path.imageMedium) {
+  if (path.imageMedium && path.imageMedium.fields) {
     imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file.url || 600
   }
 
-  if (path.imageSmall) {
+  if (path.imageSmall && path.imageSmall.fields) {
     imageObj[path.smallBreakpoint] = path.imageSmall.fields.file.url || 400
   }
   return imageObj
