@@ -9,7 +9,6 @@ const processEnv = {
 }
 
 module.exports = {
-
   client: {
     mode: 'production',
     entry: {
