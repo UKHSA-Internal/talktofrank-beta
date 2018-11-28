@@ -139,7 +139,7 @@ app.get('*', (req, res) => {
       await loadData()
     } catch (err) {
       const state = store.getState()
-      state.app.pageData.title = 'Page not found'
+      state.app.pageData.head = { title: 'Page not found' }
       state.app.pageData.error = 404
       const props = {
         routes: null,
@@ -161,7 +161,8 @@ app.get('*', (req, res) => {
           <StaticRouter location={req.path} context={staticContext}>
             {renderRoutes(routes, {
               initialState: state,
-              cacheBusterTS: cacheBusterTS
+              cacheBusterTS: cacheBusterTS,
+              initialPath: req.path
             })}
           </StaticRouter>
         </Provider>

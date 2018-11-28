@@ -19,7 +19,7 @@ const PageGetHelpPage = props => {
       <Masthead path={props.location}/>
       <Main>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='page-title' text={props.title}/>
+          <Heading type='h1' className='page-title' text={props.fields.title}/>
         </Accent>
         <Accent className='accent--shallow'>
           <Grid>
