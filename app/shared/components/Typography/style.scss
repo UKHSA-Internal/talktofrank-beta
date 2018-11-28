@@ -201,17 +201,13 @@ mark,
   }
 }
 
-.list-inline {
-  .list-inline-item {
-    display: inline-block;
+.list-inline-item {
+  display: inline-block;
 
-    &:not(:last-child) {
-      margin-right: .3em;
-    }
+  &:not(:last-child) {
+    margin-right: .3em;
   }
 }
-
-
 
 //
 // Misc
@@ -297,6 +293,14 @@ b {
 .list-item--underlined {
   border-bottom: 1px solid $gray-300;
 
+  &:first-of-type {
+    border-top: 1px solid $gray-300;
+  }
+
+  &.list-item--first {
+    padding-top: 3rem;
+  }
+
   .list-link {
     padding: 1em;
     transition: background-color .15s ease-in-out;
@@ -341,11 +345,13 @@ b {
 }
 
 .list-link__title {
+  font-family: $headings-font-family;
   @extend %h5;
   margin-right: 1.5rem;
   display: inline-block;
   @extend %break-word;
   margin-bottom: 0;
+
 }
 
 .fake-link {
@@ -511,10 +517,15 @@ p {
     }
   }
 
+  &--spaced {
+    .link-list__item {
+      margin-bottom: 1.5rem;
+    }
+  }
+
   &--has-arrow {
     .link-list__item {
       padding-left: 0;
-      margin-bottom: 1.5rem;
 
       &::before {
         display: none;
@@ -523,14 +534,19 @@ p {
 
     .link-list__link {
       background-color: $gray-200;
-      line-height: 1;
+      line-height: 1.2;
       display: block;
       font-size: 2.2rem;
       transition: background-color .1s ease-in-out;
       padding: .75em 3.5em .75em 1em;
       color: $text-dark-blue;
       font-family: $font-family-heavy;
-      @include arrow-hover;
+      position: relative;
+      padding-right: 5rem !important;
+
+      &::after {
+        @include arrow;
+      }
 
       .has-hover & {
         &:active,
@@ -539,7 +555,6 @@ p {
         }
       }
     }
-
 
     &.link-list--reversed {
       .link-list__link {
@@ -559,7 +574,7 @@ p {
     .has-hover & {
 
       &:hover {
-        &:after {
+        &::after {
           right: auto;
           left: 1rem;
           background-image: url('/ui/svg/arrow-left.svg');

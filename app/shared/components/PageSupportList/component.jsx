@@ -49,6 +49,7 @@ export default class PageSupportList extends React.PureComponent {
                     return <ArticleSupport
                       text={item.fields.name}
                       distance={item.distance}
+                      className={i === 0 ? 'list-item--first' : null}
                       address={[
                         item.fields.address1,
                         item.fields.address2,
@@ -67,7 +68,7 @@ export default class PageSupportList extends React.PureComponent {
             </Grid>
             {total > 10 &&
               <Pagination
-                pageCount={total / 10}
+                pageCount={Math.ceil(total / 10)}
                 onPaginateFocus={this.focusMain}
                 onPageChange={this.handlePageChange}
               />

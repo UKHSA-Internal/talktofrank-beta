@@ -3,10 +3,11 @@ import Longform from '../Longform/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Svg from '../Svg/component.jsx'
+import FormHint from '../FormHint/component.jsx'
 
 const ArticleSupport = props => {
   return (
-    <li className='list-item list-item--underlined spacing--single media' >
+    <li className={`list-item list-item--underlined spacing--single media ${props.className}`} >
       <Svg className='media__item' url='/ui/svg/location.svg'/>
       <div className='media__content'>
         <Anchor className='list-item__link' href={`/treatment-centre/${props.slug}`}>
@@ -23,6 +24,10 @@ const ArticleSupport = props => {
       </div>
     </li>
   )
+}
+
+ArticleSupport.defaultProps = {
+  className: ''
 }
 
 export default ArticleSupport

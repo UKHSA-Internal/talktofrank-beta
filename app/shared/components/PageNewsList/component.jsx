@@ -65,7 +65,7 @@ export default class PageNewsList extends React.PureComponent {
             {total > 10 &&
             <Pagination
               initialPage={pageNumber}
-              pageCount={total / 10}
+              pageCount={Math.ceil(total / 10)}
               onPageChange={this.handlePageChange}
               onPaginateFocus={this.focusMain}
             />
