@@ -1,6 +1,7 @@
 import { config } from 'config'
-import { removeMarkdown } from '../../../shared/utilities'
+import { removeTags } from '../../../shared/utilities'
 const express = require('express')
+const marked = require('marked')
 const router = express.Router()
 const bodyParser = require('body-parser')
 const bodybuilder = require('bodybuilder')
@@ -50,7 +51,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
       results.hits.hits
         .filter(hit => hit._source.description)
         .map(hit => {
-          hit._source.description = removeMarkdown(hit._source.description)
+          hit._source.description = removeTags(marked(hit._source.description))
         })
       results.hits.searchTerm = searchTermDecoded
       results.hits.head = {
