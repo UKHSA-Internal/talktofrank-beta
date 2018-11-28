@@ -193,7 +193,7 @@ export default class PageSupportForm extends React.PureComponent {
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
                 <p className='lead spacing--single'>Find details of local and national services that provide counselling and treatment in England.</p>
                 <Form className='spacing--single'>
-                  <FormGroup onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter a full postcode or place name' id='support-centre-postcode' placeholder=''/>
+                  <FormGroup onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter a full postcode or town' id='support-centre-postcode' placeholder=''/>
                   <Select {...supportOptions} onChange={this.onServiceTypeChange} selected={serviceTypeValue} className='form-control--reversed form-control--large'/>
                   <Button className='btn--primary' clickHandler={this.submitAction}>
                     Search
