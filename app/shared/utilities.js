@@ -84,11 +84,19 @@ export function exists (obj, key) {
 }
 
 // not great - needs a bit more flexibilty
-// it mirrors the cms but woul dbe nice to
+// it mirrors the cms but would be nice to
 // have the freedom to add more breakoints
 export function imageMap (obj) {
   let imageObj = {}
   let path = obj.fields
+
+  if (path.imageHuge) {
+    imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
+  }
+
+  if (path.imageVeryLarge) {
+    imageObj[path.veryLargeBreakpoint] = path.imageVeryLarge.fields.file.url || 950
+  }
 
   if (path.imageLarge) {
     imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url || 800
