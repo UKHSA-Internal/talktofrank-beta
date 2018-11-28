@@ -16,7 +16,7 @@ const ArticleSupport = props => {
         <p><strong>{props.distance} mile{props.distance !== '1.0' ? 's' : ''} away</strong>
         <Heading type='p' text={props.address}/></p>
         <Longform text={props.summary} className='spacing--single'/>
-        <ul class='list-inline spacing--single'>
+        <ul class='list-inline spacing--single list-inline--spaced'>
           {props.phone && <li class='list-inline-item'><Anchor text={props.phone} label={`Telephone ${props.text}`} className='break-word link-text' href={`tel:${props.phoneRaw}`} /></li>}
           {props.email && <li class='list-inline-item'><Anchor text='Send email' label={`Send email to ${props.text}`} className='break-word link-text' href={`mailto:${props.email}`} /></li>}
           {props.website && <li class='list-inline-item'><Anchor text='Visit website' label={`Visit ${props.text} website`} className='break-word link-text' href={props.website} /></li>}

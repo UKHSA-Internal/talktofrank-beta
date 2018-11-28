@@ -206,6 +206,10 @@ mark,
 
   &:not(:last-child) {
     margin-right: .3em;
+
+    .list-inline--spaced & {
+      margin-right: .8em;
+    }
   }
 }
 
