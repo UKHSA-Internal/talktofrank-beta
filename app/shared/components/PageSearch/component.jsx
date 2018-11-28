@@ -127,7 +127,7 @@ export default class SearchPage extends React.Component {
                 }
                 {total > 10 &&
                 <Pagination
-                  pageCount={total / 10}
+                  pageCount={Math.ceil(total / 10)}
                   onPageChange={this.handlePageChange}
                   onPaginateFocus={this.focusMain}
                 />
