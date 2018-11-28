@@ -39,9 +39,9 @@ export const contentFulFactory = () => {
       [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
       [BLOCKS.HR]: () => renderToString(<Divider className='hr--muted hr--large'/>),
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        let image = `<img src='${node.data.target.fields.file.url}' alt='${node.data.target.fields.title ? node.data.target.fields.title : null}' />`
+        let image = `<img role='presentation' src='${node.data.target.fields.file.url}' alt='' />`
         if (node.data.target.fields.description) {
-          return `<figure>${image}<figcaption>${node.data.target.fields.description}</figcaption></figure>`
+          return `<figure>${image}<figcaption aria-hidden='true'>${node.data.target.fields.description}</figcaption></figure>`
         } else {
           return image
         }
