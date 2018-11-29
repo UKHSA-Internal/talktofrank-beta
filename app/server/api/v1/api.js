@@ -525,6 +525,11 @@ router.get('/treatment-centres', async (req, res, next) => {
     geocodeLocation.data.results.length < 1 ||
     geocodeLocation.data.results[0].address_components.length < 2
   ) {
+    // Set meta info
+    response.head = {
+      title: `No results found`
+    }
+
     return res.send(response)
   }
 

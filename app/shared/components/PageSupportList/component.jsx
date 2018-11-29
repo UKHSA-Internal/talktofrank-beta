@@ -10,6 +10,8 @@ import Pagination from '../Pagination/component.jsx'
 import ArticleSupport from '../ArticleSupport/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import Main from '../Main/component.jsx'
+import Divider from '../Divider/component'
+import Svg from '../Svg/component'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
@@ -32,27 +34,30 @@ export default class PageSupportList extends React.PureComponent {
 
   renderNoResults() {
     return (
-      <div className='search__no-results'>
-        <Grid>
-          <GridCol className='col-12 col-md-2 spacing-bottom--single'>
-            <Svg url='/ui/svg/location.svg' alt=''/>
-          </GridCol>
-          <GridCol className='col-12 col-md-8'>
-            <Heading className='h3' text='Sorry, no results were found'/>
-            <Heading type='p' className='lead' text='Perhaps try...'/>
-            <ul>
-              <li>Checking the postcode you entered</li>
-              <li>Searching using a nearby town or city name</li>
-            </ul>
-            <Divider className='hr--muted hr--large' />
-            <Heading type='h2' className='h5' text='Get in touch'/>
-            <p><Anchor className='link-text' href='tel:03001236600' label='Call FRANK on 0300 123 6600'>Call: 0300 123 6600</Anchor></p>
-            <p><Anchor className='link-text' href='sms:82111' label='Text FRANK on 82111'>Text: 82111</Anchor></p>
-            <p><Anchor className='link-text' href='/contact' label='Send an email to FRANK'>Send an email</Anchor></p>
-          </GridCol>
-        </Grid>
-
-      </div>
+      <Grid>
+        <GridCol className='col-12 col-sm-10 offset-sm-1'>
+          <div className='search__no-results'>
+            <Grid>
+              <GridCol className='col-12 col-md-2 spacing-bottom--single'>
+                <Svg url='/ui/svg/location-large.svg' alt=''/>
+              </GridCol>
+              <GridCol className='col-12 col-md-8'>
+                <Heading className='h3' text='Sorry, no results were found'/>
+                <Heading type='p' className='lead' text='Perhaps try...'/>
+                <ul>
+                  <li>Checking your spelling</li>
+                  <li>Searching for a nearby town or city name</li>
+                </ul>
+                <Divider className='hr--muted hr--large' />
+                <Heading type='h2' className='h5' text='Get in touch'/>
+                <p><Anchor className='link-text' href='tel:03001236600' label='Call FRANK on 0300 123 6600'>Call: 0300 123 6600</Anchor></p>
+                <p><Anchor className='link-text' href='sms:82111' label='Text FRANK on 82111'>Text: 82111</Anchor></p>
+                <p><Anchor className='link-text' href='/contact' label='Send an email to FRANK'>Send an email</Anchor></p>
+              </GridCol>
+            </Grid>
+          </div>
+        </GridCol>
+      </Grid>
     )
   }
 
@@ -65,7 +70,7 @@ export default class PageSupportList extends React.PureComponent {
          <Main>
          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
          <Accent className='accent--shallow'>
-            <Heading type='h1' className='page-title' text={`Results ordered by nearest to “${location}”`} />
+            <Heading type='h1' className='page-title' text={`Results ordered by nearest to “${location}”` } />
             <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
           </Accent>
           <Accent className='accent--shallow'>
