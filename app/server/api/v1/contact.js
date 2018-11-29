@@ -64,7 +64,7 @@ router.post('/sendSupportEnquiry', [jsonParser, celebrate(supportEnquirySchema, 
 const feedbackSchema = {
   body: Joi.object().keys({
     subject: Joi.string().required().max(100).error(() => 'Enter a subject'),
-    feedback: Joi.string().required().max(500).error(() => 'Enter feedback')
+    feedback: Joi.string().required().max(500).error(() => 'Enter feedback (max. 500 characters)')
   })
 }
 router.post('/sendFeedback', [jsonParser, celebrate(feedbackSchema, joiOptions)], async (req, res, next) => {
