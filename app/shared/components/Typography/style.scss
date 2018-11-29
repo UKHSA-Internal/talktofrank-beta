@@ -97,7 +97,7 @@ h3,
 
 .heading-inline {
   position: relative;
-  line-height: .9;
+  line-height: 1;
   background-color: $white;
   color: $text-dark-blue;
   display: inline;
@@ -125,6 +125,7 @@ h3,
   &.heading-inverted--inline {
     background-color: $text-dark-blue;
     color: $white;
+    line-height: .9;
 
     &::before {
       background-color: $text-dark-blue;

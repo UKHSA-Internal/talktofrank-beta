@@ -119,35 +119,6 @@ export default class PageContactForm extends React.PureComponent {
       ]
     }
 
-    const gender = {
-      label: 'Your gender ',
-      supporting: '(optional)',
-      name: 'gender',
-      id: 'gender',
-      options: [
-        {
-          label: 'Please select',
-          value: 'Undisclosed'
-        },
-        {
-          label: 'Female',
-          value: 'Female'
-        },
-        {
-          label: 'Male',
-          value: 'Male'
-        },
-        {
-          label: 'Other',
-          value: 'Other'
-        },
-        {
-          label: 'Prefer not to say',
-          value: 'Undisclosed'
-        }
-      ]
-    }
-
     let errors = this.props.error ? getErrors(this.props.errors) : []
 
     return (
@@ -174,7 +145,7 @@ export default class PageContactForm extends React.PureComponent {
                   <FormGroup type='email' error={errors.email} hintId={errors.email ? 'email_error' : null} className='form-control--reversed form-control--large' label='Your email' id='email' value={this.state.email} onChange={this.handleChange} name='email'/>
                   <FormGroup type='text' error={errors.nickname} hintId={errors.nickname ? 'nickname_error' : null} className='form-control--reversed form-control--large' label='Your nickname' id='nickname' value={this.state.nickname} onChange={this.handleChange} name='nickname'/>
                   <Select {...age} error={errors.ageRange} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.ageRange}/>
-                  <Select {...gender} error={errors.gender} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.gender}/>
+                  <input type='hidden' id='gender' name='gender' value='Undisclosed'/>
                   <Textarea {...message} error={errors.message} hintId={errors.message ? 'message_error' : null} value={this.state.message} onChange={this.handleChange}/>
                   <Button className='btn--primary' disabled={this.props.loading}>
                     Send message

@@ -108,7 +108,7 @@ $offset: 3.5rem;
 
       .has-hover & {
         &:hover {
-          text-decoration-color: $pinkAccess;
+          text-decoration-color: $pink;
 
           .has-arrow {
             &:after {
@@ -135,8 +135,8 @@ $offset: 3.5rem;
       position: relative;
       max-width: 42rem;
       margin-top: $offset;
-      padding-bottom: .15em;
-      padding-top: .15em;
+      padding-bottom: .1em;
+      padding-top: .1em;
 
       span {
         bottom: 0;
