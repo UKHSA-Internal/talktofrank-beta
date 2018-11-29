@@ -15,7 +15,6 @@ css:
 build:
   - css
   - copy
-  - cssmin
   - js
 
 js:
