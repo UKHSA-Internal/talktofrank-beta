@@ -159,6 +159,7 @@ app.get('*', (req, res) => {
       const state = store.getState()
       const staticContext = {}
       console.log('Pre build component ', req.path)
+
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>
