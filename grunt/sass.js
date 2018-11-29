@@ -6,6 +6,7 @@ module.exports = {
     debugInfo: true,
     lineNumbers: true,
     sourceMap: true,
+    outputStyle: 'compressed',
     includePaths: [
       'node_modules',
       'app/shared/components'

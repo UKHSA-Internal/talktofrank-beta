@@ -83,7 +83,6 @@
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^2.2.1",
     "grunt-contrib-uglify": "^2.2.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-cucumberjs": "git+https://github.com/openbook/grunt-cucumberjs.git#master",
