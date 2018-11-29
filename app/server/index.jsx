@@ -113,7 +113,6 @@ app.get('/robots.txt', function (req, res) {
  * Pass Express over to the App via the React Router
  */
 app.get('*', (req, res) => {
-  console.log('Initial ', req.path)
   const store = generateStore()
   //  cookie.plugToRequest(req, res)
   const loadData = () => {
@@ -135,14 +134,11 @@ app.get('*', (req, res) => {
     // fixes windows 7 chrome not rendering the site correctly
     res.type('text/html; charset=UTF-8')
 
-    console.log('Initial aysnc', req.path)
-
     try {
       await loadData()
     } catch (err) {
       const state = store.getState()
       state.app.pageData.head = { title: 'Page not found' }
-      console.log('Load data ', req.path)
       state.app.pageData.error = 404
       const props = {
         routes: null,
@@ -158,15 +154,13 @@ app.get('*', (req, res) => {
     try {
       const state = store.getState()
       const staticContext = {}
-      console.log('Pre build component ', req.path)
 
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>
             {renderRoutes(routes, {
               initialState: state,
-              cacheBusterTS: cacheBusterTS,
-              initialPath: req.path
+              cacheBusterTS: cacheBusterTS
             })}
           </StaticRouter>
         </Provider>

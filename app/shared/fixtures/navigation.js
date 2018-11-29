@@ -20,7 +20,7 @@ export const primary = [
   },
   {
     label: 'News',
-    url: '/latest',
+    url: '/news',
     tracking: {
       label: 'News listing',
       action: 'Click',

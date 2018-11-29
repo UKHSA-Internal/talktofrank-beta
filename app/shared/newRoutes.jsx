@@ -119,7 +119,7 @@ export default [{
       ]
     },
     {
-      path: '/latest',
+      path: '/news',
       exact: true,
       component: asyncPageNewsListContainer,
       loadData: () => [
@@ -127,7 +127,7 @@ export default [{
       ]
     },
     {
-      path: '/latest/:number',
+      path: '/news/:number(\\d+)',
       exact: true,
       component: asyncPageNewsListContainer,
       loadData: ({params}) => [
@@ -154,6 +154,14 @@ export default [{
       component: asyncPageSupportListContainer,
       loadData: ({params, query}) => [
         fetchSupportList(0, query)
+      ]
+    },
+    {
+      path: '/treatment-centre/:number(\\d+)',
+      exact: true,
+      component: asyncPageSupportListContainer,
+      loadData: ({params, query}) => [
+        fetchSupportList(params.number - 1, query)
       ]
     },
     {
