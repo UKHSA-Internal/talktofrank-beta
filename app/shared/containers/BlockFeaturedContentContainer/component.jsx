@@ -26,6 +26,7 @@ const mapStateToProps = (state, ownProps) => {
       teasers: []
     }
     featuredBlockData.fields.featuredContentItems
+      .filter(item => item.fields)
       .map((item, i) => {
         let featuredContentItem = {
           url: `/news/${item.fields.slug}`,

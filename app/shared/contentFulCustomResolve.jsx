@@ -7,7 +7,12 @@ const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol
  * Checks if the object has sys.type "Link"
  * @param object
  */
-const isLink = (object) => object && object.sys && object.sys.type === 'Link'
+const isLink = (object, parentSysId) => {
+  if (object && object.sys && object.sys.type === 'Link') {
+    console.log('Sys link ', object.sys.id)
+  }
+  return object && object.sys && object.sys.type === 'Link' && object.sys.id !== parentSysId
+}
 
 /**
  * findNormalizableLinkInArray
@@ -66,23 +71,11 @@ const cleanUpLinks = (input) => {
  * @return {*}
  */
 const walkMutate = (input, predicate, mutator, removeUnresolved, parentSysId) => {
-  if (input && typeof input === 'object') {
-    console.log('parentSysId', parentSysId)
-    if (input.sys) {
-      console.log('input.sys.id', input.sys)
-    }
-
-    if (parentSysId && input.sys && parentSysId === input.sys.id) {
-      console.log('returing')
-      return {}
-    }
-  }
-
-  if (predicate(input)) {
+  if (predicate(input, parentSysId)) {
     return mutator(input)
   }
 
-  if (input && typeof input === 'object') {
+  if (input && typeof input === 'object' && input && input.sys && input.sys.type === 'Link' && object.sys.id !== parentSysId) {
     for (const key in input) {
       if (input.hasOwnProperty(key)) {
         input[key] = walkMutate(input[key], predicate, mutator, removeUnresolved, parentSysId)
@@ -125,9 +118,9 @@ const makeEntryObject = (item, itemEntryPoints) => {
  * @param {Array<String>} options.itemEntryPoints - Resolve links only in those item properties
  * @return {Object}
  */
-export const resolveResponse = (response, options, parentSysId) => {
+export const resolveResponse = (response, options) => {
   options = options || {}
-  parentSysId = parentSysId || false
+  const parentSysId = options.parentSysId || false
   if (!response.items) {
     return []
   }
