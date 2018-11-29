@@ -98,59 +98,6 @@
     comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
     revision: "INHERIT"
     next_pipeline_id: 155377
-- pipeline: "Build & Deploy (preview)"
-  trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "develop"
-  ref_type: "BRANCH"
-  actions:
-  - action: "Install dependencies"
-    type: "BUILD"
-    docker_image_name: "library/node"
-    docker_image_tag: "10.13.0"
-    execute_commands:
-    - "npm install"
-    shell: "SH"
-  - action: "Validate"
-    type: "BUILD"
-    docker_image_name: "library/node"
-    docker_image_tag: "10.13.0"
-    execute_commands:
-    - "grunt validate"
-    setup_commands:
-    - "npm install -g grunt-cli"
-    shell: "SH"
-  - action: "Build"
-    type: "BUILD"
-    docker_image_name: "library/node"
-    docker_image_tag: "10.13.0"
-    execute_commands:
-    - "BUILD_CONFIG=preview grunt build"
-    setup_commands:
-    - "npm install -g grunt-cli"
-    shell: "SH"
-  - action: "Deploy"
-    type: "RSYNC"
-    local_path: "./dist/"
-    remote_path: "/home/deploy/app"
-    login: "deploy"
-    host: "35.178.178.153"
-    port: "22"
-    server_key: "${id_rsa}"
-    authentication_mode: "PRIVATE_KEY"
-    archive: true
-    compress: true
-    deployment_excludes:
-    - "/.git/"
-  - action: "Restart App"
-    type: "SSH_COMMAND"
-    working_directory: "/home/deploy/app/"
-    login: "deploy"
-    host: "35.178.178.153"
-    port: "22"
-    authentication_mode: "PUBLIC_KEY"
-    commands:
-    - "pm2 startOrRestart ecosystem.json --env preview"
-    shell: "SH"
 - pipeline: "Validate"
   trigger_mode: "MANUAL"
   ref_name: "develop"
@@ -232,7 +179,8 @@
     trigger_condition: "ALWAYS"
     integration_id: 38897
 - pipeline: "Elasticbeanstalk - Production deployment"
-  trigger_mode: "MANUAL"
+  trigger_mode: "SCHEDULED"
+  cron: "0 8,12,15 * * *"
   ref_name: "develop"
   ref_type: "BRANCH"
   target_site_url: "https://ttf-prod.cxp.io"
@@ -306,7 +254,8 @@
     trigger_condition: "ALWAYS"
     integration_id: 41810
 - pipeline: "Elasticbeanstalk - UAT deployment"
-  trigger_mode: "MANUAL"
+  trigger_mode: "SCHEDULED"
+  cron: "0 8,12,15 * * *"
   ref_name: "develop"
   ref_type: "BRANCH"
   always_from_scratch: true
@@ -379,7 +328,8 @@
     trigger_condition: "ALWAYS"
     integration_id: 41810
 - pipeline: "Elasticbeanstalk - Preview deployment"
-  trigger_mode: "MANUAL"
+  trigger_mode: "SCHEDULED"
+  cron: "0 8,12,15 * * *"
   ref_name: "develop"
   ref_type: "BRANCH"
   always_from_scratch: true

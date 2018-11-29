@@ -526,6 +526,11 @@ router.get('/treatment-centres', async (req, res, next) => {
     geocodeLocation.data.results.length < 1 ||
     geocodeLocation.data.results[0].address_components.length < 2
   ) {
+    // Set meta info
+    response.head = {
+      title: `No results found`
+    }
+
     return res.send(response)
   }
 
@@ -609,8 +614,10 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
       Object.keys(response.fields)
         .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
         .map(fieldKey => {
-          response.fields[fieldKey] = nl2br(marked(response.fields[fieldKey]))
+          response.fields[fieldKey] = marked(response.fields[fieldKey])
         })
+
+      response.fields.timesSessions = nl2br(response.fields.timesSessions)
 
       // Set meta info
       response.head = {
@@ -674,6 +681,7 @@ const getPageTitle = (item, fallback) => {
   } else if (item[fallback]) {
     return item[fallback]
   }
+  return false
 }
 
 const getMetaDescription = (item, fallback) => {

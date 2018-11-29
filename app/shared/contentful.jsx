@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
 import Divider from './components/Divider/component'
 import { config } from 'config'
+const marked = require('marked')
 
 export const contentFulFactory = () => {
   /*
@@ -44,6 +45,14 @@ export const contentFulFactory = () => {
           return `<figure>${image}<figcaption aria-hidden='true'>${node.data.target.fields.description}</figcaption></figure>`
         } else {
           return image
+        }
+      },
+      [BLOCKS.EMBEDDED_ENTRY]: (node, next) => {
+        // Allow embed of text block contents
+        if (node.data.target.sys) {
+          if (node.data.target.sys.contentType.sys.id === 'textBlocks') {
+            return marked(node.data.target.fields.text)
+          }
         }
       },
       [INLINES.HYPERLINK]: (node, next) => renderToString(
