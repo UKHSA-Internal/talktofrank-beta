@@ -92,15 +92,19 @@ router.get('/entries/:slug', (req, res, next) => {
         }
 
         if (response.fields.featuredContentItems) {
-          response.fields.featuredContentItems.map(item => {
-            return dateFormat(item)
-          })
+          response.fields.featuredContentItems
+            .filter(item => item.fields)
+            .map(item => {
+              return dateFormat(item)
+            })
         }
 
         if (response.fields.featuredContentBlock && response.fields.featuredContentBlock.fields.featuredContentItems) {
-          response.fields.featuredContentBlock.fields.featuredContentItems.map(item => {
-            return dateFormat(item)
-          })
+          response.fields.featuredContentBlock.fields.featuredContentItems
+            .filter(item => item.fields)
+            .map(item => {
+              return dateFormat(item)
+            })
         }
 
         if (response.fields.callout) {
@@ -118,10 +122,12 @@ router.get('/entries/:slug', (req, res, next) => {
         }
 
         if (response.fields.contentExtra) {
-          response.fields.contentExtra.map((fieldName, i) => {
-            fieldName.fields.content = marked(fieldName.fields.content)
-            return fieldName
-          })
+          response.fields.contentExtra
+            .filter(item => item.fields)
+            .map((fieldName, i) => {
+              fieldName.fields.content = marked(fieldName.fields.content)
+              return fieldName
+            })
         }
 
         // Set meta info
@@ -167,10 +173,12 @@ router.get('/entries/:slug', (req, res, next) => {
         }
 
         if (response.fields.contentExtra) {
-          response.fields.contentExtra.map((fieldName, i) => {
-            fieldName.fields.content = marked(fieldName.fields.content)
-            return fieldName
-          })
+          response.fields.contentExtra
+            .filter(item => item.fields)
+            .map((fieldName, i) => {
+              fieldName.fields.content = marked(fieldName.fields.content)
+              return fieldName
+            })
         }
 
         // Set meta info

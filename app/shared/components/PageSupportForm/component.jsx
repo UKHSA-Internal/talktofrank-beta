@@ -20,6 +20,7 @@ export default class PageSupportForm extends React.PureComponent {
     this.onServiceTypeChange = this.onServiceTypeChange.bind(this)
     this.submitAction = this.submitAction.bind(this)
     this.state = {
+      error: false,
       locationValue: '',
       serviceTypeValue: ''
     }
@@ -28,13 +29,18 @@ export default class PageSupportForm extends React.PureComponent {
   submitAction(e) {
     if (this.state.locationValue.trim() !== '') {
       window.location = `/treatment-centre?location=${encodeURIComponent(this.state.locationValue)}&serviceType=${encodeURIComponent(this.state.serviceTypeValue)}`
+    } else {
+      this.setState({
+        error: 'Please enter a postcode'
+      })
     }
   }
 
   onLocationChange (e) {
     const newValue = e.target.value
     this.setState({
-      locationValue: newValue
+      locationValue: newValue,
+      error: false
     })
   }
 
@@ -179,7 +185,7 @@ export default class PageSupportForm extends React.PureComponent {
       ]
     }
 
-    const { locationValue, serviceTypeValue } = this.state
+    const { locationValue, serviceTypeValue, error } = this.state
 
     return (
       <React.Fragment>
@@ -193,7 +199,7 @@ export default class PageSupportForm extends React.PureComponent {
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
                 <p className='lead spacing--single'>Find details of local and national services that provide counselling and treatment in England.</p>
                 <Form className='spacing--single'>
-                  <FormGroup onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter a full postcode or town' id='support-centre-postcode' placeholder=''/>
+                  <FormGroup error={error} onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter a full postcode or town' id='support-centre-postcode' placeholder=''/>
                   <Select {...supportOptions} onChange={this.onServiceTypeChange} selected={serviceTypeValue} className='form-control--reversed form-control--large'/>
                   <Button className='btn--primary' clickHandler={this.submitAction}>
                     Search
