@@ -363,7 +363,7 @@ router.get('/news', (req, res, next) => {
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
-    order: '-sys.createdAt,sys.id',
+    order: 'fields.-sys.createdAt,sys.id',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
   }
@@ -525,6 +525,11 @@ router.get('/treatment-centres', async (req, res, next) => {
     geocodeLocation.data.results.length < 1 ||
     geocodeLocation.data.results[0].address_components.length < 2
   ) {
+    // Set meta info
+    response.head = {
+      title: `No results found`
+    }
+
     return res.send(response)
   }
 
