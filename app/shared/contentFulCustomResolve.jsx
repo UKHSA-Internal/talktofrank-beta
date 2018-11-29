@@ -9,7 +9,7 @@ const UNRESOLVED_LINK = {} // unique object to avoid polyfill bloat using Symbol
  */
 const isLink = (object, parentSysId) => {
   if (object && object.sys && object.sys.type === 'Link') {
-    console.log('Sys link ', object.sys.id )
+    console.log('Sys link ', object.sys.id)
   }
   return object && object.sys && object.sys.type === 'Link' && object.sys.id !== parentSysId
 }
