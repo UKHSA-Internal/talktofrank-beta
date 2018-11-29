@@ -60,7 +60,7 @@ export function isEmpty (obj) {
 
 export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\|>|\[|\]|\(.*\)|`/g, '')
 export const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
-
+export const nl2br = (str) => str.replace(/(?:\r\n|\r|\n)/g, '<br />')
 /**
  * Usage: getIfExists(obj, 'prop1.prop2')
  * Returns undefined if it does not exist
@@ -84,21 +84,29 @@ export function exists (obj, key) {
 }
 
 // not great - needs a bit more flexibilty
-// it mirrors the cms but woul dbe nice to
+// it mirrors the cms but would be nice to
 // have the freedom to add more breakoints
 export function imageMap (obj) {
   let imageObj = {}
   let path = obj.fields
 
-  if (path.imageLarge) {
+  if (path.imageHuge && path.imageHuge.fields) {
+    imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
+  }
+
+  if (path.imageVeryLarge && path.imageVeryLarge.fields) {
+    imageObj[path.veryLargeBreakpoint] = path.imageVeryLarge.fields.file.url || 950
+  }
+
+  if (path.imageLarge && path.imageLarge.fields) {
     imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url || 800
   }
 
-  if (path.imageMedium) {
+  if (path.imageMedium && path.imageMedium.fields) {
     imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file.url || 600
   }
 
-  if (path.imageSmall) {
+  if (path.imageSmall && path.imageSmall.fields) {
     imageObj[path.smallBreakpoint] = path.imageSmall.fields.file.url || 400
   }
   return imageObj

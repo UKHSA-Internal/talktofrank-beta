@@ -196,7 +196,6 @@ export default [{
       ]
     },
     {
-
       path: '/offline',
       exact: true,
       component: asyncPageOffline

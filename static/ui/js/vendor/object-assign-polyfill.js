@@ -30,9 +30,17 @@ if (typeof Object.assign != 'function') {
  * Required for IE11
  */
 
-if (!Array.from) {
-    Array.from = function (object) {
-        'use strict';
-        return [].slice.call(object);
-    };
+
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
 }

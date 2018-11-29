@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
 import Divider from './components/Divider/component'
 import { config } from 'config'
+const marked = require('marked')
 
 export const contentFulFactory = () => {
   /*
@@ -39,11 +40,19 @@ export const contentFulFactory = () => {
       [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
       [BLOCKS.HR]: () => renderToString(<Divider className='hr--muted hr--large'/>),
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        let image = `<img src='${node.data.target.fields.file.url}' alt='${node.data.target.fields.title ? node.data.target.fields.title : null}' />`
+        let image = `<img role='presentation' src='${node.data.target.fields.file.url}' alt='' />`
         if (node.data.target.fields.description) {
-          return `<figure>${image}<figcaption>${node.data.target.fields.description}</figcaption></figure>`
+          return `<figure>${image}<figcaption aria-hidden='true'>${node.data.target.fields.description}</figcaption></figure>`
         } else {
           return image
+        }
+      },
+      [BLOCKS.EMBEDDED_ENTRY]: (node, next) => {
+        // Allow embed of text block contents
+        if (node.data.target.sys) {
+          if (node.data.target.sys.contentType.sys.id === 'textBlocks') {
+            return marked(node.data.target.fields.text)
+          }
         }
       },
       [INLINES.HYPERLINK]: (node, next) => renderToString(

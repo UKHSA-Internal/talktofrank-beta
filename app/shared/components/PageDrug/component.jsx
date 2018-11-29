@@ -15,12 +15,11 @@ import { imageMap } from '../../utilities'
 const Page = props => {
   const modifiers = {
     type: 'h3',
-    className: 'h5 spacing-top--single'
+    className: 'h5'
   }
 
   const name = props.fields.drugName
   const syn = props.location.search ? props.location.search.split('=')[1] : null
-
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
@@ -35,8 +34,8 @@ const Page = props => {
             </GridCol>}
             <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : null)}>
               <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
-              {props.fields.synonyms && <p className='lead bold'>Also called:</p>}
-              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul>
+              {props.fields.synonyms && props.fields.synonyms[0] !== '' && <React.Fragment><p className='lead bold'>Also called:</p>
+              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul></React.Fragment>}
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
             </GridCol>
           </Grid>
@@ -105,7 +104,7 @@ const Page = props => {
         {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
-              {props.fields.lawClass.fields.class && props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
+              {props.fields.lawClass.fields.class && props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h3 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
               <div className='long-form has-unordered'>
                 <ul>
                   <Heading type='li' text={props.fields.lawClass.fields.description}/>
@@ -124,22 +123,17 @@ const Page = props => {
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
             <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:03001236600'>0300 1236600</a> for friendly, confidential advice.</p>
-
-            {/* @refactor @joel - haul this out into component or something
-                @andy hiding this for now until we know how links will work in CMS */}
-            {false &&
-              <ul className='list-unstyled link-list link-list--has-arrow'>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-              </ul>
-            }
+            <ul className='list-unstyled link-list link-list--spaced link-list--has-arrow'>
+              <li className='link-list__item'>
+                <a href='/get-help/worried-about-a-friend' className='link-list__link'>Worried about a friend?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='/get-help/worried-about-a-child' className='link-list__link'>Worried about a child?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='/get-help/dealing-with-peer-pressure' className='link-list__link'>Feeling pressured to take drugs?</a>
+              </li>
+            </ul>
             {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequently asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>

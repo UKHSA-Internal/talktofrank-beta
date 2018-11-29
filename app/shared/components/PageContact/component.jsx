@@ -7,30 +7,11 @@ import GA from '../GoogleAnalytics/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
-import Longform from '../Longform/component.jsx'
 import Panel from '../Panel/component.jsx'
 import Icon from '../Icon/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Collapsible from '../Collapsible/component.jsx'
-
-const today = new Date()
-const hour = today.getHours()
-
-const LiveChatOn = props => {
-  if (typeof window !== 'undefined' && (hour >= 14 && hour < 18)) {
-    return props.children
-  }
-
-  return null
-}
-
-const LiveChatOff = props => {
-  if (typeof window !== 'undefined' && (hour < 14 || hour >= 18)) {
-    return props.children
-  }
-
-  return null
-}
+import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component.jsx'
 
 export default class PageContact extends React.PureComponent {
   render () {
@@ -72,7 +53,7 @@ export default class PageContact extends React.PureComponent {
         <Masthead/>
         <Main>
           <Accent className='accent--shallow'>
-            <Heading type='h1' className='page-title' text='Need some friendly advice?'/>
+            <Heading type='h1' className='page-title' text='Need some friendly, confidential advice?'/>
           </Accent>
           <Accent className='accent--shallow' modifier='wrapper--constant'>
             <Grid>
@@ -102,7 +83,7 @@ export default class PageContact extends React.PureComponent {
                     <h2 className='h6 spacing--single'><Icon {...icons[2]}/> <span aria-hidden='true'>Send an</span> <Anchor className='link-text' label='Send an email to FRANK' href='/contact' text='email'/></h2>
                     <p>Send an email and FRANK will message you back.</p>
                     <Collapsible text='Email service details' id='email-service-details'>
-                      <p>The reply will come from <Anchor className='link-text' label='Email FRANK at frank@talktofrank.com' href='mailto:frank@talktofrank.com' text='frank@talktofrank.com'/> and the subject line won't have your question in it.</p>
+                      <p>The reply will come from frank@talktofrank.com and the subject line won't have your question in it.</p>
                       <p>FRANK will only ever reply to you. You'll never receive an email you didn't ask for.</p>
                       <p>If you're worried about someone reading your messages, you can always set up a special email account with something like Gmail or Yahoo.</p>
                     </Collapsible>

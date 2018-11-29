@@ -66,7 +66,6 @@
     "contentful-cli": "^0.16.1",
     "contentful-resolve-response": "^1.1.4",
     "contentful-text-search": "git+https://github.com/cxpartners/contentful-text-search.git#develop",
-    "cookie-parser": "^1.4.3",
     "cucumber": "^5.0.1",
     "date-fns": "^1.29.0",
     "es6-promise": "^4.2.4",
