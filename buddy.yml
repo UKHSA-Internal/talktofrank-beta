@@ -232,7 +232,8 @@
     trigger_condition: "ALWAYS"
     integration_id: 38897
 - pipeline: "Elasticbeanstalk - Production deployment"
-  trigger_mode: "MANUAL"
+  trigger_mode: "SCHEDULED"
+  cron: "0 8,12,15 * * *"
   ref_name: "develop"
   ref_type: "BRANCH"
   target_site_url: "https://ttf-prod.cxp.io"
@@ -306,7 +307,8 @@
     trigger_condition: "ALWAYS"
     integration_id: 41810
 - pipeline: "Elasticbeanstalk - UAT deployment"
-  trigger_mode: "MANUAL"
+  trigger_mode: "SCHEDULED"
+  cron: "0 8,12,15 * * *"
   ref_name: "develop"
   ref_type: "BRANCH"
   always_from_scratch: true
@@ -379,7 +381,8 @@
     trigger_condition: "ALWAYS"
     integration_id: 41810
 - pipeline: "Elasticbeanstalk - Preview deployment"
-  trigger_mode: "MANUAL"
+  trigger_mode: "SCHEDULED"
+  cron: "0 8,12,15 * * *"
   ref_name: "develop"
   ref_type: "BRANCH"
   always_from_scratch: true
