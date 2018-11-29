@@ -5,7 +5,6 @@ import Scripts from '../Scripts/component.jsx'
 import Head from '../Head/component.jsx'
 
 const Html = ({location, initialState, cacheBusterTS, children}) => {
-  console.log('location.pathname', location.pathname)
   const schemaTags = {
     '@context': 'http://schema.org',
     '@type': 'GovernmentOrganization',
@@ -30,7 +29,7 @@ const Html = ({location, initialState, cacheBusterTS, children}) => {
   }
   return (
     <html lang='en' className='has-hover'>
-      <Head state={initialState} path={location.pathname} cacheBusterTS={cacheBusterTS} />
+      <Head state={initialState} location={location} cacheBusterTS={cacheBusterTS} />
       <body>
         <Skiplinks/>
         <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaTags) }}/>
