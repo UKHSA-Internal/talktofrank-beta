@@ -19,7 +19,7 @@ const PageGeneral = props => {
         </Accent>
         <Accent className='accent--shallow' modifier='wrapper--constant'>
           <Grid>
-            <GridCol className='col-12 col-md-8 md-offset-2'>
+            <GridCol className='col-12 col-md-8 offset-md-2'>
               {props.fields.body && <Longform text={props.fields.body}/>}
             </GridCol>
           </Grid>
