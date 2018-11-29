@@ -155,7 +155,7 @@ app.get('*', (req, res) => {
     try {
       const state = store.getState()
       const staticContext = {}
-
+      console.log('Server request', req)
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>
