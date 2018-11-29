@@ -165,8 +165,7 @@ app.get('*', (req, res) => {
           <StaticRouter location={req.path} context={staticContext}>
             {renderRoutes(routes, {
               initialState: state,
-              cacheBusterTS: cacheBusterTS,
-              initialPath: req.path
+              cacheBusterTS: cacheBusterTS
             })}
           </StaticRouter>
         </Provider>

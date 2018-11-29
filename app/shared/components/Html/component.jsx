@@ -4,7 +4,8 @@ import Skiplinks from '../Skiplinks/component.jsx'
 import Scripts from '../Scripts/component.jsx'
 import Head from '../Head/component.jsx'
 
-const Html = ({initialState, cacheBusterTS, children, initialPath}) => {
+const Html = ({location, initialState, cacheBusterTS, children}) => {
+  console.log('location.pathname', location.pathname)
   const schemaTags = {
     '@context': 'http://schema.org',
     '@type': 'GovernmentOrganization',
@@ -29,7 +30,7 @@ const Html = ({initialState, cacheBusterTS, children, initialPath}) => {
   }
   return (
     <html lang='en' className='has-hover'>
-      <Head state={initialState} path={initialPath} cacheBusterTS={cacheBusterTS} />
+      <Head state={initialState} path={location.pathname} cacheBusterTS={cacheBusterTS} />
       <body>
         <Skiplinks/>
         <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaTags) }}/>
