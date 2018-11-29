@@ -87,7 +87,7 @@ export default class SearchPage extends React.Component {
     const { total, hits } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
     let title = `Search results for '${searchValue}'`
-    title = total && total > 0 ? `${total} ${title.toLowerCase()}` : title
+    title = `${total} ${title.toLowerCase()}`
     return (
       <React.Fragment>
         <Masthead path={location}/>

@@ -26,7 +26,7 @@ export default class PageNewsList extends React.PureComponent {
 
   updateAddress (page) {
     if ('replaceState' in history) {
-      let path = page === 0 ? '/latest' : `/latest/${(page + 1)}`
+      let path = page === 0 ? '/news' : `/news/${(page + 1)}`
       window.history.replaceState({}, document.title, path)
     }
   }
