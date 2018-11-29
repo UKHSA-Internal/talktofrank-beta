@@ -413,6 +413,7 @@ router.get('/news', (req, res, next) => {
 
         return v
       })
+      response.title = 'News'
 
       res.send(response)
     })
