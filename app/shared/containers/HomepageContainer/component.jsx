@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   let hero = {
     heading: {
       wrapper: 'h1',
-      text: 'Honest<br /> information<br /> about drugs'
+      text: '<span class="block">Honest</span> <span class="block">information</span> <span class="block">about drugs</span>'
     },
     url: '/'
   }
