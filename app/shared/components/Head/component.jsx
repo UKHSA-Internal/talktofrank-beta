@@ -8,7 +8,9 @@ export default class Head extends React.Component {
     const { head, title, error } = state.app.pageData
 
     if (!error) {
+
       const path = location.pathname ? location.pathname : null
+      console.log('Header path ', path)
       switch (path) {
         case '/drugs-a-z' :
           pageTitle = 'Drugs A-Z'

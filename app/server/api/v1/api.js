@@ -25,6 +25,7 @@ const groupBy = require('lodash.groupby')
 const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
+// const customResolveResponse = require('../../../shared/contentFulCustomResolve.jsx')
 const contentful = require('contentful')
 
 const contentfulClientConf = {
@@ -144,52 +145,55 @@ router.get('/entries/:slug', (req, res, next) => {
       content_type: config.contentful.contentTypes.page,
       'fields.slug': slug.toLowerCase()
     }
-
-    contentfulClient.getEntries(contentfulRequest)
-      .then((contentfulResponse) => {
-        if (contentfulResponse.total === 0) {
-          let error = new Error()
-          error.message = `'${slug.toLowerCase()}': Page not found`
-          error.status = 404
-          return next(error)
-        }
-
-        // merge contentful assets and includes
-        let response = resolveResponse(contentfulResponse)[0]
-        dateFormat(response)
-
-        if (response.fields.callout) {
-          if (response.fields.callout.fields.content) {
-            response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+    try {
+      contentfulClient.getEntries(contentfulRequest)
+        .then((contentfulResponse) => {
+          if (contentfulResponse.total === 0) {
+            let error = new Error()
+            error.message = `'${slug.toLowerCase()}': Page not found`
+            error.status = 404
+            return next(error)
           }
-        }
 
-        if (response.fields.intro) {
-          response.fields.intro = marked(response.fields.intro)
-        }
+          // merge contentful assets and includes
+          let response = resolveResponse(contentfulResponse, {parentSysId: contentfulResponse.items[0].sys.id})[0]
+          dateFormat(response)
 
-        if (response.fields.body) {
-          response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
-        }
+          if (response.fields.callout) {
+            if (response.fields.callout.fields.content) {
+              response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+            }
+          }
 
-        if (response.fields.contentExtra) {
-          response.fields.contentExtra
-            .filter(item => item.fields)
-            .map((fieldName, i) => {
-              fieldName.fields.content = marked(fieldName.fields.content)
-              return fieldName
-            })
-        }
+          if (response.fields.intro) {
+            response.fields.intro = marked(response.fields.intro)
+          }
 
-        // Set meta info
-        response.head = {
-          title: getPageTitle(response.fields, 'title'),
-          description: getMetaDescription(response.fields, 'body')
-        }
+          if (response.fields.body) {
+            response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+          }
 
-        res.send(response)
-      })
-      .catch(error => next(error.response))
+          if (response.fields.contentExtra) {
+            response.fields.contentExtra
+              .filter(item => item.fields)
+              .map((fieldName, i) => {
+                fieldName.fields.content = marked(fieldName.fields.content)
+                return fieldName
+              })
+          }
+
+          // Set meta info
+          response.head = {
+            title: getPageTitle(response.fields, 'title'),
+            description: getMetaDescription(response.fields, 'body')
+          }
+
+          res.send(response)
+        })
+        .catch(error => next(error))
+    } catch (error) {
+      next(error)
+    }
   }
 })
 
