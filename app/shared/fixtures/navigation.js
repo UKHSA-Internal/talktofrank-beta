@@ -186,5 +186,14 @@ export const footerUtility = [
       action: 'Click',
       category: 'Footer navigation'
     }
+  },
+  {
+    label: 'Disclaimer',
+    url: '/text-disclaimer',
+    tracking: {
+      label: 'Disclaimer',
+      action: 'Click',
+      category: 'Footer navigation'
+    }
   }
 ]

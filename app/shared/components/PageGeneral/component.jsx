@@ -15,7 +15,7 @@ const PageGeneral = props => {
       <Masthead path={props.location}/>
       <Main>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text={props.fields.title} />
+          <Heading type='h1' className='page-title' text={props.fields.title} />
         </Accent>
         <Accent className='accent--shallow' modifier='wrapper--constant'>
           <Grid>

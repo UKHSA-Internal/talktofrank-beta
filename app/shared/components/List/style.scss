@@ -40,6 +40,10 @@ $offset: 3.5rem;
       &::before {
         display: none;
       }
+
+      .heading-inline {
+        background-color: transparent;
+      }
     }
 
     .list-item__inner {
