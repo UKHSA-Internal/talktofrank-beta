@@ -385,9 +385,9 @@ router.get('/news', (req, res, next) => {
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
-        if (v.sys.updatedAt) {
-          v['createdAt'] = v.sys.createdAt
-          v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
+        if (v.sys.createdAt) {
+          v['date'] = v.sys.createdAt
+          v['dateFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         } else {
           v['date'] = v.fields.originalPublishDate
           v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')

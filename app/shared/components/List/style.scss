@@ -47,14 +47,18 @@ $offset: 3.5rem;
       max-width: 50rem;
 
       .heading-inline {
-        left: 0;
+        left: 1rem;
+
+        @include media-breakpoint-up(sm) {
+          left: -1rem;
+        }
 
         span {
           left: -1rem;
-          padding-left: 1rem;
 
           @include media-breakpoint-up(sm) {
             padding-left: 0;
+            left: 0;
           }
         }
       }
@@ -104,6 +108,8 @@ $offset: 3.5rem;
 
       .has-hover & {
         &:hover {
+          text-decoration-color: $pinkAccess;
+
           .has-arrow {
             &:after {
               right: 1rem;
@@ -147,6 +153,20 @@ $offset: 3.5rem;
         @include media-breakpoint-up(sm) {
           margin-top: 0;
           @include vertical-align;
+        }
+
+        .heading-inline {
+          span {
+            @include media-breakpoint-up(sm) {
+              left: -1rem;
+            }
+          }
+        }
+
+        .time {
+          @include media-breakpoint-up(sm) {
+            margin-left: -2rem;
+          }
         }
       }
 
