@@ -363,7 +363,7 @@ router.get('/news', (req, res, next) => {
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
-    order: '-sys.createdAt,sys.id',
+    order: '-fields.originalPublishDate,-sys.createdAt,sys.id',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
   }
@@ -385,12 +385,12 @@ router.get('/news', (req, res, next) => {
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
-        if (v.sys.createdAt) {
-          v['date'] = v.sys.createdAt
-          v['dateFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
-        } else {
+        if (v.fields.originalPublishDate) {
           v['date'] = v.fields.originalPublishDate
           v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+        } else {
+          v['date'] = v.sys.createdAt
+          v['dateFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
         if (!v.fields.summary) {
@@ -657,7 +657,7 @@ const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
 )
 
 const dateFormat = (response) => {
-  if (response.sys.updatedAt) {
+  if (response.fields.originalPublishDate) {
     response['date'] = response.sys.updatedAt
     response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
   } else {
