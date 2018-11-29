@@ -48,6 +48,7 @@ export default class Head extends React.Component {
           break
       }
     } else {
+      console.log('Header error', error)
       switch (error) {
         case 404:
           pageTitle = 'Page not found (404)'
