@@ -10,7 +10,6 @@ export default class Head extends React.Component {
     if (!error) {
       // ensure consistent path lookup
       const cleanPath = path.replace(/\//g, '')
-      console.log('Clean path: ', cleanPath)
       switch (cleanPath) {
         case 'drugs-a-z' :
           pageTitle = 'Drugs A-Z'
