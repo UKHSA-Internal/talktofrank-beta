@@ -135,6 +135,8 @@ app.get('*', (req, res) => {
     // fixes windows 7 chrome not rendering the site correctly
     res.type('text/html; charset=UTF-8')
 
+    console.log('Initial ', req.path)
+
     try {
       await loadData()
     } catch (err) {

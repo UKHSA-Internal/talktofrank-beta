@@ -23,7 +23,7 @@ const PageOffline = () => {
         <Accent className='spacing-top--large' modifier='wrapper--constant'>
           <Grid>
             <GridCol className='col-12 col-md-2 spacing-bottom--single'>
-              <Svg url='/ui/svg/magnifying-large.svg' alt=''/>
+              <Svg url='/ui/svg/offline-large.svg' alt=''/>
             </GridCol>
             <GridCol className='col-12 col-md-8'>
               <Heading type='h1' className='h2' text={'You\'re offline'} />

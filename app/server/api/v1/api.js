@@ -363,7 +363,7 @@ router.get('/news', (req, res, next) => {
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
-    order: '-sys.createdAt,sys.id',
+    order: 'fields.-sys.createdAt,sys.id',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
   }

@@ -30,7 +30,34 @@ export default class PageSupportList extends React.PureComponent {
     }, 1500)
   }
 
+  renderNoResults() {
+    return (
+      <div className='search__no-results'>
+        <Grid>
+          <GridCol className='col-12 col-md-2 spacing-bottom--single'>
+            <Svg url='/ui/svg/location.svg' alt=''/>
+          </GridCol>
+          <GridCol className='col-12 col-md-8'>
+            <Heading className='h3' text='Sorry, no results were found'/>
+            <Heading type='p' className='lead' text='Perhaps try...'/>
+            <ul>
+              <li>Checking the postcode you entered</li>
+              <li>Searching using a nearby town or city name</li>
+            </ul>
+            <Divider className='hr--muted hr--large' />
+            <Heading type='h2' className='h5' text='Get in touch'/>
+            <p><Anchor className='link-text' href='tel:03001236600' label='Call FRANK on 0300 123 6600'>Call: 0300 123 6600</Anchor></p>
+            <p><Anchor className='link-text' href='sms:82111' label='Text FRANK on 82111'>Text: 82111</Anchor></p>
+            <p><Anchor className='link-text' href='/contact' label='Send an email to FRANK'>Send an email</Anchor></p>
+          </GridCol>
+        </Grid>
+
+      </div>
+    )
+  }
+
   render () {
+    const { loading } = this.props
     const { results, location, total } = this.props.pageData
     return (
       <React.Fragment>
@@ -72,6 +99,9 @@ export default class PageSupportList extends React.PureComponent {
                 onPaginateFocus={this.focusMain}
                 onPageChange={this.handlePageChange}
               />
+            }
+            {!loading && !total &&
+              this.renderNoResults()
             }
           </Accent>
         </Main>
