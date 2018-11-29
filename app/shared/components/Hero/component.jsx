@@ -4,7 +4,7 @@ import SplitText from '../SplitText/component.jsx'
 import Picture from '../Picture/component.jsx'
 
 const Hero = props => {
-  let classes = classNames('hero', props.className, props.modifiers)
+  let classes = classNames('hero', props.className)
 
   return (
     <section className={classes}>

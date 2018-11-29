@@ -189,7 +189,7 @@ export const footerUtility = [
   },
   {
     label: 'Disclaimer',
-    url: '/disclaimer',
+    url: '/text-disclaimer',
     tracking: {
       label: 'Disclaimer',
       action: 'Click',

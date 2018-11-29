@@ -6,7 +6,7 @@ const RelatedLinks = props => {
   return (
     <React.Fragment>
       <Heading text='Related links' className={props.className} type={props.type}/>
-      <ul className='list-unstyled link-list link-list--has-arrow'>
+      <ul className='list-unstyled link-list link-list--spaced link-list--has-arrow'>
       {props.links
         .filter(v => v.sys)
         .map((v, i) => {

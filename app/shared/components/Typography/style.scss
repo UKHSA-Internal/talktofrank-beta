@@ -97,7 +97,7 @@ h3,
 
 .heading-inline {
   position: relative;
-  line-height: .9;
+  line-height: 1;
   background-color: $white;
   color: $text-dark-blue;
   display: inline;
@@ -113,7 +113,7 @@ h3,
     bottom: 0;
   }
 
-  span {
+  > span {
     left: -1rem;
     color: $text-dark-blue;
     line-height: inherit;
@@ -123,11 +123,19 @@ h3,
   }
 
   &.heading-inverted--inline {
-    background-color: $text-dark-blue;
-    color: $white;
+    line-height: .9;
 
     &::before {
+      display: none;
+    }
+
+    .block {
+      margin-left: 2rem;
+      padding: .1em .2em;
+      margin-top: -.1em;
+      float: left;
       background-color: $text-dark-blue;
+      clear: left;
     }
 
     span {
