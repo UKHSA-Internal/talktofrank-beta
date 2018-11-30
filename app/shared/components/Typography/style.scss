@@ -394,6 +394,19 @@ b {
 
 // long-form content overrides
 
+
+.collapsible__content {
+  h3,
+  h5 {
+    margin-top: 1.5rem;
+  }
+
+  .long-form + h3,
+  .long-form + h5 {
+    margin-top: 3rem;
+  }
+}
+
 .long-form {
   p {
     margin-bottom: 1em;
@@ -410,7 +423,6 @@ b {
   }
 
   h3 {
-    margin-top: 1.5em;
     font-size: 2rem;
   }
 
@@ -423,6 +435,7 @@ b {
   h4 {
     line-height: 1.2;
   }
+
 
   ol,
   ul {
