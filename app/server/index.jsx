@@ -116,6 +116,7 @@ app.get('*', (req, res) => {
   const store = generateStore()
   //  cookie.plugToRequest(req, res)
   const loadData = () => {
+    console.log('Load data path', req.path)
     const branches = matchRoutes(routes, req.path)
     const promises = branches
       .filter(({ route, match }) => { return match.isExact && route.loadData })
@@ -126,6 +127,8 @@ app.get('*', (req, res) => {
             .map(item => store.dispatch(item))
         )
       })
+        console.log('Promises', promises)
+    console.log('Promises', Array.isArray(promises) && promises.length > 0 ? 'set' : 'null')
     return Array.isArray(promises) && promises.length > 0 ? Promise.all(promises) : null
   }
 
