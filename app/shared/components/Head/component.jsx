@@ -36,6 +36,7 @@ export default class Head extends React.Component {
           break
 
         case '/offline' :
+        case '/offline/' :
           pageTitle = 'You\'re Offline'
           pageDescription = ''
           break
