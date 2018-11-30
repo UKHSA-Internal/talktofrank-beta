@@ -239,6 +239,7 @@
     - "dist/config.ethereal.yaml"
     - "dist/config.google.yaml"
     - "dist/config.sentry.yaml"
+    - ".ebextensions\\*"
     deployment_includes:
     - "config.*.yaml"
     - "package.json"
@@ -313,6 +314,7 @@
     - "dist/config.ethereal.yaml"
     - "dist/config.google.yaml"
     - "dist/config.sentry.yaml"
+    - ".ebextensions\\*"
     deployment_includes:
     - "config.*.yaml"
     - "package.json"
@@ -387,6 +389,7 @@
     - "dist/config.ethereal.yaml"
     - "dist/config.google.yaml"
     - "dist/config.sentry.yaml"
+    - ".ebextensions\\*"
     deployment_includes:
     - "config.*.yaml"
     - "package.json"
