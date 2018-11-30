@@ -154,7 +154,11 @@ app.get('*', (req, res) => {
     try {
       const state = store.getState()
       const staticContext = {}
-
+      console.log(`${Date.now()} - ${req.path}`)
+      if (state.app.pageData.error) {
+        console.log(`${Date.now()}`)
+        console.log(state)
+      }
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>
