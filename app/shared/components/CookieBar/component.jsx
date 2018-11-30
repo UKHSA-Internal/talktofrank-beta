@@ -30,7 +30,7 @@ export default class CookieBar extends React.Component {
           This website uses cookies to make it simpler to use. <Anchor href='/cookie-policy' text='Find out more about cookies'/>
           <button type='button'
              className='btn btn--flat btn--static spacing-left'
-             aria-label='Close'
+             aria-label='Close cookie bar panel'
              onClick={this.closeMessage.bind(this)}>
              <Svg url='/ui/svg/cross-red.svg' alt='Close' />
           </button>
