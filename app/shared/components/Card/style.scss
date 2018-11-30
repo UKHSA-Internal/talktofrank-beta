@@ -23,8 +23,21 @@
   padding: $card-spacer-x 0 0;
 }
 
-.card__link:hover {
-  text-decoration: none;
+.card__link {
+  .has-hover & {
+    &:hover,
+    &:active {
+      .time {
+        text-decoration: none !important;
+      }
+
+      .card-title {
+        color: $text-dark-blue;
+        text-decoration: underline;
+        text-decoration-color: $pink;
+      }
+    }
+  }
 }
 
 .card-title {

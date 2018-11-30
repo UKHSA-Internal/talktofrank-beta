@@ -60,15 +60,12 @@ $dims: 2rem;
     color: $text-dark-blue;
     line-height: 1.2;
 
-    &:hover,
-    &:active {
-      text-decoration: none;
-    }
-
     .has-hover & {
       &:hover,
       &:active {
+        color: inherit;
         text-decoration: underline;
+        text-decoration-color: $pink;
       }
     }
   }
