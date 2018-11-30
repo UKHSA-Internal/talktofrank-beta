@@ -22,10 +22,10 @@ $max-width: 1200px;
 @import 'horizontal-spacing';
 @import 'layout';
 @import 'utilities';
-
+@import 'tables';
 
 @import 'bootstrap/scss/root';
-@import 'bootstrap/scss/reboot';
+@import 'reboot';
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/transitions';
 @import 'bootstrap/scss/alert';

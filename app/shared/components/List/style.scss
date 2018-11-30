@@ -125,12 +125,18 @@ $offset: 3.5rem;
             text-decoration: none;
           }
 
+          .list-item__title span {
+            text-decoration: underline;
+            text-decoration-color: $pink;
+          }
+
           .link-text {
             color: $pinkAccess;
             text-decoration: none;
             border-bottom-style: solid;
             border-bottom-color: $pinkAccess;
           }
+
         }
       }
     }

@@ -55,7 +55,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
         })
       results.hits.searchTerm = searchTermDecoded
       results.hits.head = {
-        title: `${results.hits.total} search results for '${searchTermDecoded}`
+        title: `${results.hits.total} search results for '${searchTermDecoded}'`
       }
       return res.status(200).json(results.hits)
     })
