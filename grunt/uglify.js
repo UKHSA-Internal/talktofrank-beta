@@ -1,6 +1,9 @@
 module.exports = {
   options: {
-    mangle: true
+    mangle: true,
+    output: {
+      comments: false
+    }
   },
   client: {
     files: [{
