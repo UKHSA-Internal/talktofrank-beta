@@ -18,16 +18,18 @@
     }
   }
 
-  &--dark {
+  &--loud {
     color: $white;
-    background-color: $text-dark-blue;
-
-    hr {
-      border-top-color: rgba($white, .3);
-    }
+    background-color: $pinkAccess;
   }
 
   &--muted {
     background-color: $gray-100;
+  }
+
+  &--fixed {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
 }
