@@ -471,6 +471,7 @@ b {
 
   &--indented {
     @include media-breakpoint-up(sm) {
+      h2,
       h3,
       h4,
       p:not(.lead) {
