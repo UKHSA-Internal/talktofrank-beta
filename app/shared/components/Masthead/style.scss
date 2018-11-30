@@ -77,5 +77,10 @@
         }
       }
     }
+
+    &.btn--flat-right {
+      left: auto;
+      right: 0;
+    }
   }
 }

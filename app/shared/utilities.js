@@ -83,7 +83,7 @@ export function exists (obj, key) {
   })
 }
 
-// not great - needs a bit more flexibilty
+// not great - needs a bit more flexibility
 // it mirrors the cms but would be nice to
 // have the freedom to add more breakoints
 export function imageMap (obj) {
