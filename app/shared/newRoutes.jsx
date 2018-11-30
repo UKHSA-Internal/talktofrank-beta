@@ -146,8 +146,7 @@ export default [{
     {
       path: '/support-near-you',
       exact: true,
-      component: asyncPageSupportFormContainer,
-      loadData: () => []
+      component: asyncPageSupportFormContainer
     },
     {
       path: '/treatment-centre',
