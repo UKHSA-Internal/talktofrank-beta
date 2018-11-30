@@ -127,7 +127,7 @@ app.get('*', (req, res) => {
             .map(item => store.dispatch(item))
         )
       })
-        console.log('Promises', promises)
+    console.log('Promises', promises)
     console.log('Promises', Array.isArray(promises) && promises.length > 0 ? 'set' : 'null')
     return Array.isArray(promises) && promises.length > 0 ? Promise.all(promises) : null
   }
