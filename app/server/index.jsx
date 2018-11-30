@@ -13,15 +13,12 @@ import { generateStore } from '../shared/store'
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
 import { getLoadableState } from 'loadable-components/server'
-// import cookie from 'react-cookie'
-// import cookieParser from 'cookie-parser'
 
 /*
  * Express routes
  */
 import apiRoutes from './api/v1/api.js'
 import apiContactRoutes from './api/v1/contact.js'
-
 import contentFulWebhookRoutes from './contentful/webhooks.js'
 
 /*
@@ -68,14 +65,6 @@ if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) 
 
 const search = new elasticsearch.Client(elasticSearchConf)
 
-/*
- * Authentication
-*/
-const basicAuthHandler = (username, password) => {
-  return username === config.basicAuth.username && password === config.basicAuth.password
-}
-const basicAuthMiddleware = basicAuth({ authorizer: basicAuthHandler, challenge: true })
-
 var store
 
 const app = express()
@@ -116,7 +105,6 @@ app.get('*', (req, res) => {
   const store = generateStore()
   //  cookie.plugToRequest(req, res)
   const loadData = () => {
-    console.log('Load data path', req.path)
     const branches = matchRoutes(routes, req.path)
     const promises = branches
       .filter(({ route, match }) => { return match.isExact && route.loadData })
@@ -127,8 +115,7 @@ app.get('*', (req, res) => {
             .map(item => store.dispatch(item))
         )
       })
-    console.log('Promises', promises)
-    console.log('Promises', Array.isArray(promises) && promises.length > 0 ? 'set' : 'null')
+
     return Array.isArray(promises) && promises.length > 0 ? Promise.all(promises) : null
   }
 
@@ -141,13 +128,14 @@ app.get('*', (req, res) => {
       await loadData()
     } catch (err) {
       const state = store.getState()
-      state.app.pageData.head = { title: 'Page not found' }
-      state.app.pageData.error = 404
-      console.log('Catch err', err)
       const props = {
         routes: null,
         initialState: state,
-        cacheBusterTS: cacheBusterTS
+        cacheBusterTS: cacheBusterTS,
+        pageLoadError: {
+          error: 404,
+          title: 'Page not found'
+        }
       }
       res.write('<!DOCTYPE html>')
       return ReactDOMServer
@@ -158,11 +146,6 @@ app.get('*', (req, res) => {
     try {
       const state = store.getState()
       const staticContext = {}
-      console.log(`${Date.now()} - ${req.path}`)
-      if (state.app.pageData.error) {
-        console.log(`${Date.now()}`)
-        console.log(state)
-      }
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>
