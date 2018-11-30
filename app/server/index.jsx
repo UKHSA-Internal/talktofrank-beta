@@ -126,7 +126,6 @@ app.get('*', (req, res) => {
             .map(item => store.dispatch(item))
         )
       })
-    
     return Array.isArray(promises) && promises.length > 0 ? Promise.all(promises) : null
   }
 
