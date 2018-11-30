@@ -80,10 +80,10 @@
   box-shadow: none;
   border-bottom: 2px dashed $pink;
 
-  &:hover,
-  &:focus {
-    background-color: transparent;
-    text-decoration: none;
+  .has-hover & {
+    &:hover {
+      color: $pinkAccess;
+    }
   }
 }
 
