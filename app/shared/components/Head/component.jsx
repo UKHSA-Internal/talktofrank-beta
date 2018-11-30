@@ -4,10 +4,12 @@ export default class Head extends React.Component {
   render () {
     let pageTitle, pageDescription
 
-    const { location, state } = this.props
-    const { head, title, error } = state.app.pageData
+    console.log(this.props)
 
-    if (!error) {
+    const { location, initialState, pageLoadError } = this.props
+    const { head, title, error } = initialState.app.pageData
+
+    if (!error && !pageLoadError) {
       const path = location.pathname ? location.pathname : null
       console.log('Header path ', path)
       switch (path) {
@@ -18,8 +20,8 @@ export default class Head extends React.Component {
 
         case '/news' :
         case '/latest' :
-          pageTitle = 'Latest News'
-          pageDescription = 'Latest News'
+          pageTitle = 'Frank News | The Latest Stories and Articles'
+          pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them. 82 Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
           break
 
         case '/support-near-you' :
@@ -43,12 +45,13 @@ export default class Head extends React.Component {
           break
 
         default:
-          pageTitle = (head && head.title) || title
+          pageTitle = (head && head.title) || pageTitle
           pageDescription = (head && head.description) || null
           break
       }
     } else {
-      switch (error) {
+      const errorCode = pageLoadError ? pageLoadError.error : error
+      switch (errorCode) {
         case 404:
           pageTitle = 'Page not found (404)'
           pageDescription = 'Page not found (404)'
