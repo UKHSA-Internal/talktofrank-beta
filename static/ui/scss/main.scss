@@ -25,7 +25,8 @@ $max-width: 1200px;
 
 
 @import 'bootstrap/scss/root';
-@import 'bootstrap/scss/reboot';
+//@import 'bootstrap/scss/reboot';
+@import 'reboot';
 @import 'bootstrap/scss/grid';
 @import 'bootstrap/scss/transitions';
 @import 'bootstrap/scss/alert';
