@@ -1,0 +1,14 @@
+table {
+
+  font-size: 1.25rem;
+  width: 100%;
+
+  th {
+    border-bottom: 1px solid $gray-300;
+  }
+  td, th {
+    padding: 2rem 3rem 0 0;
+    vertical-align: top;
+    text-align: left;
+  }
+}
