@@ -1,13 +1,17 @@
 import React from 'react'
+import { config } from 'config'
 
 export default class Head extends React.Component {
   render () {
-    let pageTitle, pageDescription
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
+    const path = location.pathname ? location.pathname : null
+
+    let pageTitle
+    let pageDescription
+    let canonical = `${config.canonicalHost}${path}`
 
     if (!error && !pageLoadError) {
-      const path = location.pathname ? location.pathname : null
       switch (path) {
         case '/drugs-a-z' :
           pageTitle = 'Drugs A-Z'
@@ -69,6 +73,7 @@ export default class Head extends React.Component {
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
+        <link rel='canonical' href={canonical} />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
         <link rel='stylesheet' type='text/css' href={`/ui/css/main.css?v=${this.props.cacheBusterTS}`} />
