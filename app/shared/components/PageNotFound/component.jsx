@@ -11,7 +11,7 @@ import GridCol from '../GridCol/component'
 
 const PageNotFound = () => {
   const text = '<p>If you entered a web address please check it was correct.</p>' +
-    '<p>You can also <a href="/search">search Talk to Frank</a> or ' +
+    '<p>You can also <a href="/contact-frank">contact Talk to Frank</a> or ' +
     '<a href="/">browse from the homepage</a> to find the information you need.</p>'
 
   return (

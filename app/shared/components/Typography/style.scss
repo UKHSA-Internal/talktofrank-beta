@@ -329,6 +329,7 @@ b {
         background-color: $gray-300;
         text-decoration: none;
 
+        div,
         p,
         span {
           text-decoration: none !important;
@@ -410,7 +411,6 @@ b {
   }
 
   h3 {
-    margin-top: 1.5em;
     font-size: 2rem;
   }
 
@@ -424,10 +424,10 @@ b {
     line-height: 1.2;
   }
 
+
   ol,
   ul {
     padding-left: 0;
-    margin-bottom: 2.5rem;
 
     > li {
       padding-left: 2.5rem;
@@ -471,6 +471,7 @@ b {
 
   &--indented {
     @include media-breakpoint-up(sm) {
+      h2,
       h3,
       h4,
       p:not(.lead) {
@@ -490,6 +491,12 @@ p {
   a {
     @include link;
   }
+}
+
+.long-form ol,
+.long-form ul,
+.has-unordered ul {
+  margin-bottom: 2.5rem;
 }
 
 .has-unordered ul {

@@ -29,7 +29,6 @@ const PageGetHelpPage = props => {
                   <Longform text={props.fields.callout.fields.content}/>
                 </aside>}
               {props.fields.intro && <Longform className='lead' text={props.fields.intro} />}
-              {props.fields.intro && props.fields.body !== '<p></p>' && <Divider className='hr--muted hr--large' />}
               {props.fields.body && <Longform className={props.fields.indentedText ? 'long-form--indented' : null} text={props.fields.body} />}
             </GridCol>
           </Grid>
