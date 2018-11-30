@@ -143,6 +143,7 @@ app.get('*', (req, res) => {
       const state = store.getState()
       state.app.pageData.head = { title: 'Page not found' }
       state.app.pageData.error = 404
+      state.app.pageData.error_obj = err
       const props = {
         routes: null,
         initialState: state,
