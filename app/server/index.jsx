@@ -103,7 +103,6 @@ app.get('/robots.txt', function (req, res) {
  */
 app.get('*', (req, res) => {
   const store = generateStore()
-  //  cookie.plugToRequest(req, res)
   const loadData = () => {
     const branches = matchRoutes(routes, req.path)
     const promises = branches
