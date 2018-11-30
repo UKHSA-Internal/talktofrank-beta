@@ -19,7 +19,8 @@ const Page = props => {
   }
 
   const name = props.fields.drugName
-  const syn = props.location.search ? props.location.search.split('=')[1] : null
+  const syn = props.location.search ? decodeURIComponent(props.location.search.split('=')[1]) : null
+
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
