@@ -31,6 +31,12 @@
         text-decoration: none !important;
       }
 
+      .link-text {
+        color: $pinkAccess;
+        border-bottom-style: solid;
+        border-bottom-color: $pink;
+      }
+
       .card-title {
         color: $text-dark-blue;
         text-decoration: underline;
