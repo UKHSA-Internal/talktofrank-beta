@@ -34,7 +34,7 @@ export default class CookieBar extends React.Component {
                  className='btn btn--flat'
                  aria-label='Close satisfaction survey panel'
                  onClick={this.closeMessage.bind(this)}>
-                 <Svg url='/ui/svg/cross-red.svg' alt='Close' />
+                 <Svg url='/ui/svg/cross-white.svg' alt='Close' />
                 </button>
               </GridCol>
               <GridCol className='col-10 col-sm-11 order-1'>
