@@ -440,7 +440,6 @@ b {
   ol,
   ul {
     padding-left: 0;
-    margin-bottom: 2.5rem;
 
     > li {
       padding-left: 2.5rem;
@@ -503,6 +502,12 @@ p {
   a {
     @include link;
   }
+}
+
+.long-form ol,
+.long-form ul,
+.has-unordered ul {
+  margin-bottom: 2.5rem;
 }
 
 .has-unordered ul {
