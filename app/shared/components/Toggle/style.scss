@@ -40,6 +40,17 @@ $dims: 2rem;
         padding-left: 0;
       }
     }
+
+    h3,
+    h5 {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .long-form + h3,
+    .long-form + h5 {
+      margin-top: 3rem;
+    }
   }
 
   .bordered {
@@ -60,15 +71,12 @@ $dims: 2rem;
     color: $text-dark-blue;
     line-height: 1.2;
 
-    &:hover,
-    &:active {
-      text-decoration: none;
-    }
-
     .has-hover & {
       &:hover,
       &:active {
+        color: inherit;
         text-decoration: underline;
+        text-decoration-color: $pink;
       }
     }
   }

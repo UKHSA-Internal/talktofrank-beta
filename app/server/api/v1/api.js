@@ -25,7 +25,7 @@ const groupBy = require('lodash.groupby')
 const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
-// const customResolveResponse = require('../../../shared/contentFulCustomResolve.jsx')
+const customResolveResponse = require('../../../shared/contentFulCustomResolve.jsx')
 const contentful = require('contentful')
 
 const contentfulClientConf = {
@@ -156,7 +156,7 @@ router.get('/entries/:slug', (req, res, next) => {
           }
 
           // merge contentful assets and includes
-          let response = resolveResponse(contentfulResponse, {parentSysId: contentfulResponse.items[0].sys.id})[0]
+          let response = customResolveResponse.resolveResponse(contentfulResponse, {parentSysId: contentfulResponse.items[0].sys.id})[0]
           dateFormat(response)
 
           if (response.fields.callout) {

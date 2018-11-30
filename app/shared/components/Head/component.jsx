@@ -3,15 +3,11 @@ import React from 'react'
 export default class Head extends React.Component {
   render () {
     let pageTitle, pageDescription
-
-    console.log(this.props)
-
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
 
     if (!error && !pageLoadError) {
       const path = location.pathname ? location.pathname : null
-      console.log('Header path ', path)
       switch (path) {
         case '/drugs-a-z' :
           pageTitle = 'Drugs A-Z'

@@ -132,8 +132,6 @@ export const resolveResponse = (response, options) => {
 
   // loop through all includes, delete any occurrence of the parent id.
 
-
-
   allEntries
     .forEach((item) => {
       const entryObject = makeEntryObject(item, options.itemEntryPoints)
