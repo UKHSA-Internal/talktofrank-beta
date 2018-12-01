@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../Nav/component.jsx'
 import Divider from '../Divider/component.jsx'
+import SatisfactionBar from '../SatisfactionBar/component.jsx'
 import { footer, footerUtility, footerButton } from '../../fixtures/navigation.js'
 
 const Footer = props => {
@@ -12,6 +13,7 @@ const Footer = props => {
         <Divider className='hr--inverse'/>
         <Nav role={null} className='navbar-expand navbar-muted' navigation={footerUtility} visible='true'/>
       </section>
+      <SatisfactionBar />
     </footer>
   )
 }
