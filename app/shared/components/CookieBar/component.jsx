@@ -8,7 +8,7 @@ import { getCookie, setCookie } from '../../lib/cookie.js'
 
 export default class CookieBar extends React.Component {
   componentWillMount() {
-    let cookieValue = getCookie('notification_dismissed')
+    let cookieValue = getCookie('ttf-cookies')
     this.state = {
       visible: !cookieValue
     }
@@ -18,7 +18,7 @@ export default class CookieBar extends React.Component {
     this.setState({
       visible: false
     })
-    setCookie('notification_dismissed', 1, 365)
+    setCookie('ttf-cookies', 1, 365)
   }
 
   render() {
