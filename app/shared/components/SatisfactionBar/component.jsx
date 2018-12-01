@@ -7,12 +7,22 @@ import Anchor from '../Anchor/component'
 import ClientOnly from '../ClientOnly/component'
 import { getCookie, setCookie } from '../../lib/cookie.js'
 
-export default class CookieBar extends React.Component {
-  componentWillMount() {
-    let cookieValue = getCookie('ttf-survey')
-
+export default class SatisfactionBar extends React.Component {
+  constructor(props) {
+    super(props)
     this.state = {
-      visible: !cookieValue
+      visible: false
+    }
+  }
+
+  componentDidMount() {
+    let cookieValue = getCookie('ttf-survey')
+    if (!cookieValue) {
+      setTimeout(() => {
+        this.setState({
+          visible: true
+        })
+      }, this.props.delay)
     }
   }
 
@@ -56,4 +66,8 @@ export default class CookieBar extends React.Component {
       </ClientOnly>
     )
   }
+}
+
+SatisfactionBar.defaultProps = {
+  delay: 0
 }
