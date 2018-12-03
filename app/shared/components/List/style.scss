@@ -50,6 +50,12 @@ $offset: 3.5rem;
       position: relative;
       max-width: 50rem;
 
+      &--indented {
+        @include media-breakpoint-up(sm) {
+          left: 2rem;
+        }
+      }
+
       .heading-inline {
         left: 1rem;
 
