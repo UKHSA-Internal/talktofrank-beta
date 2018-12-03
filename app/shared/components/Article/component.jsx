@@ -5,7 +5,7 @@ import Time from '../Time/component.jsx'
 import Heading from '../Heading/component.jsx'
 import PropTypes from 'prop-types'
 
-const Link = ({ href, children }) => (href !== undefined
+const Link = ({ href, children }) => (href !== null
   ? <a href={href} className='list-item__link'>
       {children}
     </a>
@@ -19,7 +19,7 @@ const Article = props => {
     <Tag className={`list-item ${props.fields.image ? ('list-item--has-image' + (props.fields.imagepos & 1 === 1 ? ' list-item--alternate' : '')) : ''} `} >
       <Link href={props.fields.slug ? `/news/${props.fields.slug}` : null}>
         {props.fields.image && <Picture {...props.fields.image}/>}
-        <div className='list-item__inner'>
+        <div className={`list-item__inner${props.fields.slug == null ? ' list-item__inner--indented' : ''}`}>
           <Heading type={props.fields.type} className='list-item__title h3 heading-inline' text={`<span>${props.fields.title}</span>`}/>
           {props.date && <Time time={props.dateFormatted} dateTime={props.date}/>}
           {props.fields.summary && !props.fields.image && <Longform text={props.fields.summary}/>}
