@@ -125,7 +125,7 @@ const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
 
   // Add a fuzzy search query on drug name fields
   const titleFields = [
-    'name^5',
+    'name^10',
     'tags^2',
     'synonyms^5',
     'relatedDrugs.drugName',

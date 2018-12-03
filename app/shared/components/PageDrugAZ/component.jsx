@@ -50,7 +50,7 @@ const DrugList = props => {
                         let realName = v.parent ? <strong>{v.parent}</strong> : null
 
                         if (v.synonyms) {
-                          synonyms = v.synonyms.length > limit ? `${v.synonyms.splice(0, limit).join(' / ')} +${v.synonyms.length} more` : v.synonyms.join(' / ')
+                          synonyms = v.synonyms.length > limit ? `${v.synonyms.slice(0, limit).join(' / ')} +${v.synonyms.length - v.synonyms.slice(0, limit).length} more` : v.synonyms.join(' / ')
                         }
 
                         return (
