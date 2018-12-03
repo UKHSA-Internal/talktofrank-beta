@@ -13,15 +13,12 @@ import { generateStore } from '../shared/store'
 import * as path from 'path'
 import { exists, shouldAuthenticate } from '../shared/utilities'
 import { getLoadableState } from 'loadable-components/server'
-// import cookie from 'react-cookie'
-// import cookieParser from 'cookie-parser'
 
 /*
  * Express routes
  */
 import apiRoutes from './api/v1/api.js'
 import apiContactRoutes from './api/v1/contact.js'
-
 import contentFulWebhookRoutes from './contentful/webhooks.js'
 
 /*
@@ -68,14 +65,6 @@ if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) 
 
 const search = new elasticsearch.Client(elasticSearchConf)
 
-/*
- * Authentication
-*/
-const basicAuthHandler = (username, password) => {
-  return username === config.basicAuth.username && password === config.basicAuth.password
-}
-const basicAuthMiddleware = basicAuth({ authorizer: basicAuthHandler, challenge: true })
-
 var store
 
 const app = express()
@@ -114,7 +103,6 @@ app.get('/robots.txt', function (req, res) {
  */
 app.get('*', (req, res) => {
   const store = generateStore()
-  //  cookie.plugToRequest(req, res)
   const loadData = () => {
     const branches = matchRoutes(routes, req.path)
     const promises = branches
@@ -126,7 +114,8 @@ app.get('*', (req, res) => {
             .map(item => store.dispatch(item))
         )
       })
-    return Promise.all(promises)
+
+    return Array.isArray(promises) && promises.length > 0 ? Promise.all(promises) : null
   }
 
   (async () => {
@@ -138,12 +127,14 @@ app.get('*', (req, res) => {
       await loadData()
     } catch (err) {
       const state = store.getState()
-      state.app.pageData.head = { title: 'Page not found' }
-      state.app.pageData.error = 404
       const props = {
         routes: null,
         initialState: state,
-        cacheBusterTS: cacheBusterTS
+        cacheBusterTS: cacheBusterTS,
+        pageLoadError: {
+          error: 404,
+          title: 'Page not found'
+        }
       }
       res.write('<!DOCTYPE html>')
       return ReactDOMServer
@@ -154,7 +145,6 @@ app.get('*', (req, res) => {
     try {
       const state = store.getState()
       const staticContext = {}
-
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>

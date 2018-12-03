@@ -13,7 +13,6 @@ module.exports = {
     mode: 'production',
     entry: {
       client: './app/client/index.jsx'
-      // vendor: ['react', 'react-dom', 'react-router', 'react-redux', 'redux-thunk']
     },
     output: {
       path: path.resolve(__dirname, '../dist/static/ui/js/'),

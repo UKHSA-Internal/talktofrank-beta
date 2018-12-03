@@ -11,6 +11,7 @@ import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import { imageMap } from '../../utilities'
+import SatisfactionBar from '../SatisfactionBar/component.jsx'
 
 const Page = props => {
   const modifiers = {
@@ -141,7 +142,9 @@ const Page = props => {
         </section>
 
       </Main>
-      <Footer />
+      <Footer>
+        <SatisfactionBar delay={120000} />
+      </Footer>
       <GA/>
     </React.Fragment>
   )

@@ -130,12 +130,15 @@ export const resolveResponse = (response, options) => {
 
   const allEntries = [...responseClone.items, ...allIncludes]
 
+  // loop through all includes, delete any occurrence of the parent id.
+
   allEntries
     .forEach((item) => {
       const entryObject = makeEntryObject(item, options.itemEntryPoints)
 
       console.log('Parent', parentSysId)
       console.log('Sys ', item.sys.id)
+      console.log('Sys ', entryObject)
       console.log('accepted')
 
       Object.assign(

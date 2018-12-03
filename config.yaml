@@ -1,4 +1,7 @@
 useFixtures: false
+
+canonicalHost: https://www.talktofrank.com
+
 elasticsearch:
   host: 'https://search-talktofrank-elastic-beta-tsq3jroogc3kwgtk4s77uab2he.eu-west-2.es.amazonaws.com/'
   amazonES:

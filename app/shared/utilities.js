@@ -60,7 +60,8 @@ export function isEmpty (obj) {
 
 export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\|>|\[|\]|\(.*\)|`/g, '')
 export const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
-export const nl2br = (str) => str.replace(/(?:\r\n|\r|\n)/g, '<br />')
+export const replaceNewLine = (str, replacement) => str.replace(/(?:\r\n|\r|\n)/g, replacement)
+
 /**
  * Usage: getIfExists(obj, 'prop1.prop2')
  * Returns undefined if it does not exist

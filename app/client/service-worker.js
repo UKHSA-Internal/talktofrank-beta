@@ -20,13 +20,16 @@ if (workbox) {
   // to pick up a react route when generating precache files
   workbox.precaching.precacheAndRoute([{
     'url': '/offline',
-    'revision': '20181121b'
+    'revision': '20181129'
+  }, {
+    'url': '/ui/svg/offline-large.svg',
+    'revision': '20181129'
   }])
 
   // Using network first for development, cache will then be used
   // for offline connections
   workbox.routing.registerRoute(
-    /\.(?:ico|woff|woff2|png|svg|css)$/,
+    /\.(?:ico|woff|woff2|png|svg|css|min\.css)(?:\?v=[1-9]+)|\.(?:ico|woff|woff2|png|svg|css|min\.css)$/,
     workbox.strategies.networkFirst()
   )
 

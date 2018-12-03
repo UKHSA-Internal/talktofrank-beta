@@ -1,53 +1,67 @@
 import React from 'react'
+import { config } from 'config'
 
 export default class Head extends React.Component {
   render () {
-    let pageTitle, pageDescription
+    const { location, initialState, pageLoadError } = this.props
+    const { head, title, error } = initialState.app.pageData
+    let pageTitle
+    let pageDescription
+    let canonical
+    let path
 
-    const { location, state } = this.props
-    const { head, title, error } = state.app.pageData
+    if (!error && !pageLoadError) {
+      path = location.pathname ? location.pathname : null
+      canonical = `${config.canonicalHost}${path}`
 
-    if (!error) {
-      const path = location.pathname ? location.pathname : null
-      switch (path) {
-        case '/drugs-a-z' :
-          pageTitle = 'Drugs A-Z'
-          pageDescription = 'Drugs A-Z'
-          break
+      if (head && head.description && head.title) {
+        pageTitle = head.title
+        pageDescription = head.description
+      } else {
+        path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
+        switch (path) {
+          case '/drugs-a-z' :
+            pageTitle = 'Drugs A-Z'
+            pageDescription = 'Drugs A-Z'
+            break
 
-        case '/news' :
-        case '/latest' :
-          pageTitle = 'Latest News'
-          pageDescription = 'Latest News'
-          break
+          case '/news' :
+          case '/latest' :
+            pageTitle = 'Frank News | The Latest Stories and Articles'
+            pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them.  Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
+            break
 
-        case '/support-near-you' :
-          pageTitle = 'Find support near your'
-          pageDescription = 'Find support near your'
-          break
+          case '/support-near-you' :
+            pageTitle = 'Find support near your'
+            pageDescription = 'Find support near your'
+            break
 
-        case '/livechat' :
-          pageTitle = 'Live Chat'
-          pageDescription = 'Live Chat'
-          break
+          case '/livechat' :
+            pageTitle = 'Live Chat'
+            pageDescription = 'Live Chat'
+            break
 
-        case '/contact-frank' :
-          pageTitle = 'Contact Frank'
-          pageDescription = 'Contact Frank'
-          break
+          case '/contact-frank' :
+            pageTitle = 'Contact Frank'
+            pageDescription = 'Contact Frank'
+            break
 
-        case '/offline' :
-          pageTitle = 'You\'re Offline'
-          pageDescription = ''
-          break
+          case '/offline' :
+          case '/offline/' :
+            pageTitle = 'You\'re Offline'
+            pageDescription = ''
+            break
 
-        default:
-          pageTitle = (head && head.title) || title
-          pageDescription = (head && head.description) || null
-          break
+          default:
+            pageTitle = (head && head.title) || pageTitle
+            pageDescription = (head && head.description) || null
+            break
+        }
       }
     } else {
-      switch (error) {
+      const errorCode = pageLoadError ? pageLoadError.error : error
+      canonical = `${config.canonicalHost}/page-not-found`
+      switch (errorCode) {
         case 404:
           pageTitle = 'Page not found (404)'
           pageDescription = 'Page not found (404)'
@@ -68,8 +82,10 @@ export default class Head extends React.Component {
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
+        <link rel='canonical' href={canonical} />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
+        <link rel="manifest" href="/ui/manifest.json" />
         <link rel='stylesheet' type='text/css' href={`/ui/css/main.css?v=${this.props.cacheBusterTS}`} />
         <script dangerouslySetInnerHTML={{__html:
         `

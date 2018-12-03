@@ -115,7 +115,15 @@ export default [{
       exact: true,
       component: asyncPageSearch,
       loadData: ({params}) => [
-        fetchSearchTerm(params.term)
+        fetchSearchTerm(params.term, 0)
+      ]
+    },
+    {
+      path: '/search/:term/:number(\\d+)',
+      exact: true,
+      component: asyncPageSearch,
+      loadData: ({params}) => [
+        fetchSearchTerm(params.term, params.number - 1)
       ]
     },
     {
