@@ -43,6 +43,13 @@ router.use('/', async (req, res, next) => {
   try {
     const search = res.search
     const webhookName = req.headers['x-contentful-topic']
+
+    const secretKey = req.headers['x-ttf-search-key']
+    if (!secretKey || secretKey !== config.elasticsearch.webhookSecretKey) {
+      res.status(401)
+      return res.send({status: 'UNAUTHORISED'})
+    }
+
     console.log(`\nWebhook called ${webhookName}`)
     switch (webhookName) {
       case 'ContentManagement.Entry.publish' :
@@ -79,12 +86,8 @@ router.use('/', async (req, res, next) => {
           })
           let itemsToDeleteFromSearch = []
           drugNameResults.hits.hits
-            .filter(drugItem => drugItem._source.realName !== drugItem._source.name)
             .map(drugItem => {
-              const existing = entry.fields.synonyms.findIndex(item => drugItem._source.name.toLowerCase() === item.toLowerCase())
-              if (existing === -1) {
-                itemsToDeleteFromSearch.push({id: drugItem._id, name: drugItem._source.name})
-              }
+              itemsToDeleteFromSearch.push({id: drugItem._id, name: drugItem._source.name})
             })
 
           if (itemsToDeleteFromSearch.length > 0) {

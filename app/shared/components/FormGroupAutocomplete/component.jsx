@@ -174,9 +174,8 @@ class FormGroup extends PureComponent {
   }
 
   render () {
-    const { searchTerm, autoCompleteData, currentSuggestion, activedescendant } = this.state
-    const { id, labelHidden, label, button } = this.props
-
+    const { searchTerm, autoCompleteData, activedescendant } = this.state
+    const { id, label } = this.props
     return (
       <div className='form-group form-group--flush'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
