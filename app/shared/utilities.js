@@ -60,7 +60,8 @@ export function isEmpty (obj) {
 
 export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\|>|\[|\]|\(.*\)|`/g, '')
 export const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
-export const nl2br = (str) => str.replace(/(?:\r\n|\r|\n)/g, '<br />')
+export const replaceNewLine = (str, replacement) => str.replace(/(?:\r\n|\r|\n)/g, replacement)
+
 /**
  * Usage: getIfExists(obj, 'prop1.prop2')
  * Returns undefined if it does not exist
@@ -83,7 +84,7 @@ export function exists (obj, key) {
   })
 }
 
-// not great - needs a bit more flexibilty
+// not great - needs a bit more flexibility
 // it mirrors the cms but would be nice to
 // have the freedom to add more breakoints
 export function imageMap (obj) {

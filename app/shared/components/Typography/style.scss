@@ -323,7 +323,6 @@ b {
     }
 
     .has-hover & {
-      &:active,
       &:hover {
         color: $body-text;
         background-color: $gray-300;
@@ -347,8 +346,10 @@ b {
   display: block;
   color: inherit;
 
-  &:hover p {
-    text-decoration: none;
+  .has-hover & {
+    &:hover p {
+      text-decoration: none;
+    }
   }
 }
 
@@ -364,7 +365,6 @@ b {
   display: inline-block;
   @extend %break-word;
   margin-bottom: 0;
-
 }
 
 .fake-link {

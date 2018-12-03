@@ -75,3 +75,11 @@ const cleanLink = (link) => {
   }
   return link
 }
+
+export const sortByDateWithFallback = (field, fallback) => {
+  return (val1, val2) => {
+    const a = val1.fields[field] ? val1.fields[field] : val1.sys[fallback]
+    const b = val2.fields[field] ? val2.fields[field] : val2.sys[fallback]
+    return Date.parse(a) < Date.parse(b)
+  }
+}
