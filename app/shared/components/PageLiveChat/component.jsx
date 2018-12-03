@@ -12,9 +12,6 @@ import Longform from '../Longform/component'
 import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component'
 
 const PageLiveChat = props => {
-
-  const
-
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
