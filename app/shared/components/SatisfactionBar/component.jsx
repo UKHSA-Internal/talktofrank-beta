@@ -29,7 +29,7 @@ export default class SatisfactionBar extends React.Component {
   handleClick(ev) {
     ev.preventDefault()
     setCookie('ttf-survey', 1, 365)
-    window.location.href='https://www.surveygizmo.com/s3/4604317/Satisfaction-Survey'
+    window.location.href = 'https://www.surveygizmo.com/s3/4604317/Satisfaction-Survey'
   }
 
   closeMessage() {
