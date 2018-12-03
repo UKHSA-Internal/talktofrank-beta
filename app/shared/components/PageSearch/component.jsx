@@ -63,7 +63,6 @@ export default class SearchPage extends React.Component {
     }
   }
 
-
   renderNoResults() {
     return (
       <div className='search__no-results'>

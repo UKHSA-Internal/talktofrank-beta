@@ -1,17 +1,24 @@
 import React from 'react'
+import { config } from 'config'
 
 export default class Head extends React.Component {
   render () {
-    let pageTitle, pageDescription
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
+    let pageTitle
+    let pageDescription
+    let canonical
+    let path
 
     if (!error && !pageLoadError) {
+      path = location.pathname ? location.pathname : null
+      canonical = `${config.canonicalHost}${path}`
+
       if (head && head.description && head.title) {
         pageTitle = head.title
         pageDescription = head.description
       } else {
-        const path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
+        path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
         switch (path) {
           case '/drugs-a-z' :
             pageTitle = 'Drugs A-Z'
@@ -53,6 +60,7 @@ export default class Head extends React.Component {
       }
     } else {
       const errorCode = pageLoadError ? pageLoadError.error : error
+      canonical = `${config.canonicalHost}/page-not-found`
       switch (errorCode) {
         case 404:
           pageTitle = 'Page not found (404)'
@@ -74,6 +82,7 @@ export default class Head extends React.Component {
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
+        <link rel='canonical' href={canonical} />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
         <link rel="manifest" href="/ui/manifest.json" />
