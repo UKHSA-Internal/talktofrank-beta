@@ -373,6 +373,12 @@
     mount_filesystem_path: "/buddy/talktofrank-beta-1"
     shell: "SH"
     trigger_condition: "ALWAYS"
+  - action: "Upload files to AWS S3/elasticbeanstalk-eu-west-2-656844859111"
+    type: "AMAZON_S3"
+    input_type: "BUILD_ARTIFACTS"
+    local_path: "desktop-redirects.tmp.txt"
+    bucket_name: "elasticbeanstalk-eu-west-2-656844859111"
+    integration_id: 41810
   - action: "Archive directory"
     type: "ZIP"
     local_path: "/"
