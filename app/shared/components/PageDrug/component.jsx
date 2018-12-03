@@ -19,7 +19,7 @@ const Page = props => {
     className: 'h5'
   }
 
-  const name = props.fields.drugName
+  const name = props.fields.drugActualName || props.fields.drugName
   const syn = props.location.search ? decodeURIComponent(props.location.search.split('=')[1]) : null
 
   return (
