@@ -43,11 +43,6 @@ if (config.contentful.environment && config.contentful.environment !== 'master')
 const contentfulClient = contentful.createClient(contentfulClientConf)
 
 /**
- * Axios global config
- */
-axios.defaults.headers.common['Authorization'] = `Bearer ${config.contentful.contentAccessToken}`
-
-/**
  * Get page data
  */
 router.use('/search', searchRoutes)

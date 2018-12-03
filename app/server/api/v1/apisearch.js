@@ -244,7 +244,6 @@ const buildPrefixQuery = (searchTerm, page, pageSize) => {
     .from(page * pageSize)
     .size(pageSize)
     .sort([
-      {'_score': 'desc'},
       { 'name.raw': {
         'missing': '_last',
         'unmapped_type': 'string',
