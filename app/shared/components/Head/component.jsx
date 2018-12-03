@@ -7,44 +7,49 @@ export default class Head extends React.Component {
     const { head, title, error } = initialState.app.pageData
 
     if (!error && !pageLoadError) {
-      const path = location.pathname ? location.pathname : null
-      switch (path) {
-        case '/drugs-a-z' :
-          pageTitle = 'Drugs A-Z'
-          pageDescription = 'Drugs A-Z'
-          break
+      if (head && head.description && head.title) {
+        pageTitle = head.title
+        pageDescription = head.description
+      } else {
+        const path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
+        switch (path) {
+          case '/drugs-a-z' :
+            pageTitle = 'Drugs A-Z'
+            pageDescription = 'Drugs A-Z'
+            break
 
-        case '/news' :
-        case '/latest' :
-          pageTitle = 'Frank News | The Latest Stories and Articles'
-          pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them. 82 Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
-          break
+          case '/news' :
+          case '/latest' :
+            pageTitle = 'Frank News | The Latest Stories and Articles'
+            pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them.  Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
+            break
 
-        case '/support-near-you' :
-          pageTitle = 'Find support near your'
-          pageDescription = 'Find support near your'
-          break
+          case '/support-near-you' :
+            pageTitle = 'Find support near your'
+            pageDescription = 'Find support near your'
+            break
 
-        case '/livechat' :
-          pageTitle = 'Live Chat'
-          pageDescription = 'Live Chat'
-          break
+          case '/livechat' :
+            pageTitle = 'Live Chat'
+            pageDescription = 'Live Chat'
+            break
 
-        case '/contact-frank' :
-          pageTitle = 'Contact Frank'
-          pageDescription = 'Contact Frank'
-          break
+          case '/contact-frank' :
+            pageTitle = 'Contact Frank'
+            pageDescription = 'Contact Frank'
+            break
 
-        case '/offline' :
-        case '/offline/' :
-          pageTitle = 'You\'re Offline'
-          pageDescription = ''
-          break
+          case '/offline' :
+          case '/offline/' :
+            pageTitle = 'You\'re Offline'
+            pageDescription = ''
+            break
 
-        default:
-          pageTitle = (head && head.title) || pageTitle
-          pageDescription = (head && head.description) || null
-          break
+          default:
+            pageTitle = (head && head.title) || pageTitle
+            pageDescription = (head && head.description) || null
+            break
+        }
       }
     } else {
       const errorCode = pageLoadError ? pageLoadError.error : error
@@ -71,6 +76,7 @@ export default class Head extends React.Component {
         <meta name='format-detection' content='telephone=no' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
+        <link rel="manifest" href="/ui/manifest.json" />
         <link rel='stylesheet' type='text/css' href={`/ui/css/main.css?v=${this.props.cacheBusterTS}`} />
         <script dangerouslySetInnerHTML={{__html:
         `

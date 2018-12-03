@@ -6,7 +6,7 @@ import {
   removeMarkdown,
   removeTags,
   haversineDistance,
-  nl2br
+  replaceNewLine
 } from '../../../shared/utilities'
 
 /**
@@ -411,7 +411,7 @@ router.get('/news', (req, res, next) => {
               'length': 120
             })
           } else if (v.fields.bodyLegacy) {
-            v.fields.summary = truncate(removeMarkdown(v.fields.bodyLegacy), {
+            v.fields.summary = truncate(removeMarkdown(replaceNewLine(v.fields.bodyLegacy, '&nbsp;')), {
               'length': 120
             })
           }
@@ -629,7 +629,7 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
           response.fields[fieldKey] = marked(response.fields[fieldKey])
         })
 
-      response.fields.timesSessions = nl2br(response.fields.timesSessions)
+      response.fields.timesSessions = replaceNewLine(response.fields.timesSessions, '<br />')
 
       // Set meta info
       response.head = {
