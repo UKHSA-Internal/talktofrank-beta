@@ -125,7 +125,7 @@ class FormGroup extends PureComponent {
   }
 
   onSuggestionSelected (event, suggestionItem) {
-    event.preventDefault()
+    //event.preventDefault()
     const item = suggestionItem.suggestion._source
     let url = ''
     if (suggestionItem.suggestion._index.includes('talktofrank-content')) {
