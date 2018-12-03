@@ -112,10 +112,11 @@ export default class PaginationBoxView extends React.PureComponent {
     this.setState({current: current})
     this.callCallback(current)
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
+
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: 'smooth'
+    // })
 
     // if there is a paginate focus function, call it
     if (typeof (this.props.onPaginateFocus) !== 'undefined' && typeof (this.props.onPaginateFocus) === 'function') {

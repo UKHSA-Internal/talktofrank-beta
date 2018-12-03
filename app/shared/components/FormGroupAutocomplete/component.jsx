@@ -125,7 +125,7 @@ class FormGroup extends PureComponent {
   }
 
   onSuggestionSelected (event, suggestionItem) {
-    //event.preventDefault()
+    event.preventDefault()
     const item = suggestionItem.suggestion._source
     let url = ''
     if (suggestionItem.suggestion._index.includes('talktofrank-content')) {
@@ -197,6 +197,7 @@ class FormGroup extends PureComponent {
             id: id,
             value: searchTerm,
             onKeyDown: this.handleKeyPress,
+            onTouchEnd: this.handleKeyPress,
             onChange: this.onChange,
             placeholder: this.props.placeholder,
             type: 'text',
