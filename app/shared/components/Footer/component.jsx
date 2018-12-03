@@ -12,7 +12,9 @@ const Footer = props => {
         <Divider className='hr--inverse'/>
         <Nav role={null} className='navbar-expand navbar-muted' navigation={footerUtility} visible='true'/>
       </section>
+      {props.children}
     </footer>
   )
 }
+
 export default Footer

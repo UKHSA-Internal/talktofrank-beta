@@ -60,6 +60,7 @@ export default class Head extends React.Component {
       }
     } else {
       const errorCode = pageLoadError ? pageLoadError.error : error
+      canonical = `${config.canonicalHost}/page-not-found`
       switch (errorCode) {
         case 404:
           pageTitle = 'Page not found (404)'

@@ -12,6 +12,7 @@ import Heading from '../Heading/component'
 import Svg from '../Svg/component'
 import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
+import SatisfactionBar from '../SatisfactionBar/component.jsx'
 
 const PageGetHelpPage = props => {
   return (
@@ -51,7 +52,9 @@ const PageGetHelpPage = props => {
           </Grid>
         </Accent>}
       </Main>
-      <Footer />
+      <Footer>
+        <SatisfactionBar delay={120000} />
+      </Footer>
       <GA/>
     </React.Fragment>
   )

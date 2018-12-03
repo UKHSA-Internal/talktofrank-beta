@@ -118,7 +118,7 @@ class FormGroup extends PureComponent {
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
-          View {res} more results
+          view more results
         </a>}
       </div>
     )
@@ -174,9 +174,8 @@ class FormGroup extends PureComponent {
   }
 
   render () {
-    const { searchTerm, autoCompleteData, currentSuggestion, activedescendant } = this.state
-    const { id, labelHidden, label, button } = this.props
-
+    const { searchTerm, autoCompleteData, activedescendant } = this.state
+    const { id, label } = this.props
     return (
       <div className='form-group form-group--flush'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
