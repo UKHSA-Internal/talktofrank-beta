@@ -15,22 +15,24 @@ import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component.jsx'
 
 export default class PageContact extends React.PureComponent {
   render () {
+    const head = 'h6 spacing--single media media--constant'
+
     const icons = [
       {
         label: 'Phone',
-        className: 'icon icon--phone-inverted',
+        className: 'icon icon--phone-inverted media__item',
         url: '/ui/svg/telephone-pink.svg',
         alt: ''
       },
       {
         label: 'Chat',
-        className: 'icon icon--chat',
+        className: 'icon icon--chat media__item',
         url: '/ui/svg/chat.svg',
         alt: ''
       },
       {
         label: 'Email',
-        className: 'icon icon--email',
+        className: 'icon icon--email media__item',
         url: '/ui/svg/email.svg',
         alt: ''
       },
@@ -60,7 +62,7 @@ export default class PageContact extends React.PureComponent {
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-1'>
                 <ul className='list-unstyled'>
                   <li className='list-item list-item--underlined spacing--single' >
-                    <h2 className='h6 spacing--single'><Icon {...icons[0]}/> Call <Anchor className='link-text' label='Phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></h2>
+                    <h2 className={head}><Icon {...icons[0]}/> <span className='media__content'>Call <Anchor className='link-text' label='Phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></span></h2>
                     <p>Call FRANK 24 hours a day, 7 days a week.</p>
                     <Collapsible text='Call service details' id='call-service-details'>
                       <p>For people with hearing impairments, you can <Anchor className='link-text' label='Textphone FRANK on 0300 123 1099' href='tel:03001231099' text='Textphone FRANK on 0300 123 1099'/>.</p>
@@ -71,7 +73,7 @@ export default class PageContact extends React.PureComponent {
                     </Collapsible>
                   </li>
                   <li className='list-item list-item--underlined spacing--single' >
-                    <h2 className='h6 spacing--single'><Icon {...icons[1]}/> Text <Anchor className='link-text' label='Text FRANK on 82111' href='sms:82111' text='82111'/></h2>
+                    <h2 className={head}><Icon {...icons[1]}/> <span className='media__content'>Text <Anchor className='link-text' label='Text FRANK on 82111' href='sms:82111' text='82111'/></span></h2>
                     <p>Text a question and FRANK will text you back.</p>
                     <Collapsible text='Text service details' id='text-service-details'>
                       <p>The cost of sending a text to FRANK is the same as a standard text message - which will depend on your network tariff. There is no charge for receiving text messages from FRANK. Please don't send picture messages as FRANK can't view them.</p>
@@ -80,7 +82,7 @@ export default class PageContact extends React.PureComponent {
                     </Collapsible>
                   </li>
                   <li className='list-item list-item--underlined spacing--single' >
-                    <h2 className='h6 spacing--single'><Icon {...icons[2]}/> <span aria-hidden='true'>Send an</span> <Anchor className='link-text' label='Send an email to FRANK' href='/contact' text='email'/></h2>
+                    <h2 className={head}><Icon {...icons[2]}/> <span className='media__content'><span aria-hidden='true'>Send an</span> <Anchor className='link-text' label='Send an email to FRANK' href='/contact' text='email'/></span></h2>
                     <p>Send an email and FRANK will message you back.</p>
                     <Collapsible text='Email service details' id='email-service-details'>
                       <p>The reply will come from frank@talktofrank.com and the subject line won't have your question in it.</p>
