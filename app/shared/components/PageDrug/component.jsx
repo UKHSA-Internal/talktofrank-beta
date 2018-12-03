@@ -143,7 +143,7 @@ const Page = props => {
 
       </Main>
       <Footer>
-        <SatisfactionBar delay={120000} />
+        <SatisfactionBar />
       </Footer>
       <GA/>
     </React.Fragment>
