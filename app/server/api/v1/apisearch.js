@@ -31,7 +31,10 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
       return res.status(200).json({
         hits: [],
         searchTerm: decodeURIComponent(req.params.term.trim()),
-        total: 0
+        total: 0,
+        head: {
+          title: `No search results`
+        }
       })
     }
 
