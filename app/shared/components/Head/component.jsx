@@ -5,50 +5,58 @@ export default class Head extends React.Component {
   render () {
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
-    const path = location.pathname ? location.pathname : null
-
     let pageTitle
     let pageDescription
-    let canonical = `${config.canonicalHost}${path}`
+    let canonical = false
+    let path
 
     if (!error && !pageLoadError) {
-      switch (path) {
-        case '/drugs-a-z' :
-          pageTitle = 'Drugs A-Z'
-          pageDescription = 'Drugs A-Z'
-          break
+      path = location.pathname ? location.pathname : null
+      canonical = `${config.canonicalHost}${path}`
 
-        case '/news' :
-        case '/latest' :
-          pageTitle = 'Frank News | The Latest Stories and Articles'
-          pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them. 82 Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
-          break
+      if (head && head.description && head.title) {
+        pageTitle = head.title
+        pageDescription = head.description
+      } else {
+        path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
+        switch (path) {
+          case '/drugs-a-z' :
+            pageTitle = 'Drugs A-Z'
+            pageDescription = 'Drugs A-Z'
+            break
 
-        case '/support-near-you' :
-          pageTitle = 'Find support near your'
-          pageDescription = 'Find support near your'
-          break
+          case '/news' :
+          case '/latest' :
+            pageTitle = 'Frank News | The Latest Stories and Articles'
+            pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them.  Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
+            break
 
-        case '/livechat' :
-          pageTitle = 'Live Chat'
-          pageDescription = 'Live Chat'
-          break
+          case '/support-near-you' :
+            pageTitle = 'Find support near your'
+            pageDescription = 'Find support near your'
+            break
 
-        case '/contact-frank' :
-          pageTitle = 'Contact Frank'
-          pageDescription = 'Contact Frank'
-          break
+          case '/livechat' :
+            pageTitle = 'Live Chat'
+            pageDescription = 'Live Chat'
+            break
 
-        case '/offline' :
-        case '/offline/' :
-          pageTitle = 'You\'re Offline'
-          pageDescription = ''
-          break
+          case '/contact-frank' :
+            pageTitle = 'Contact Frank'
+            pageDescription = 'Contact Frank'
+            break
 
-        default:
-          pageTitle = (head && head.title) || pageTitle
-          pageDescription = (head && head.description) || null
-          break
+          case '/offline' :
+          case '/offline/' :
+            pageTitle = 'You\'re Offline'
+            pageDescription = ''
+            break
+
+          default:
+            pageTitle = (head && head.title) || pageTitle
+            pageDescription = (head && head.description) || null
+            break
+        }
       }
     } else {
       const errorCode = pageLoadError ? pageLoadError.error : error
@@ -73,9 +81,10 @@ export default class Head extends React.Component {
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
-        <link rel='canonical' href={canonical} />
+        {canonical && <link rel='canonical' href={canonical} />}
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
+        <link rel="manifest" href="/ui/manifest.json" />
         <link rel='stylesheet' type='text/css' href={`/ui/css/main.css?v=${this.props.cacheBusterTS}`} />
         <script dangerouslySetInnerHTML={{__html:
         `
