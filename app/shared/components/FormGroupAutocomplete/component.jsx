@@ -118,7 +118,7 @@ class FormGroup extends PureComponent {
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
-          View {res} more results
+          view more results
         </a>}
       </div>
     )
