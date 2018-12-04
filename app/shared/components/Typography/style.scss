@@ -626,3 +626,9 @@ p.has-icon {
     top: -.4em;
   }
 }
+
+.has-image {
+  @include media-breakpoint-down(sm) {
+    margin-top: 3rem;
+  }
+}
