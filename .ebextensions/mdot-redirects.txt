@@ -596,7 +596,7 @@
 /story/hell-heroin /drug/heroin;
 /story/help /drug/cannabis;
 /story/help-1 /drug/cannabis;
-/story/help-12	0	/drug/cannabis;
+/story/help-12 /drug/cannabis;
 /story/her-name-was-heroin /drug/heroin;
 /story/heroin-0 /drug/heroin;
 /story/heroin-4 /drug/heroin;
@@ -2459,8 +2459,8 @@
 /azofdrugs/E/Ecstasy.aspx /drug/ecstasy;
 /cannabis.aspx /drug/cannabis;
 /dopedash/index.html /drug/cannabis;
-/uploadedImages/Drugs/LARGE PHOTOS_ALCOHOL.jpg /drug/alcohol;
-/uploadedImages/Drugs/LARGE PHOTOS_poppers.jpg /drugs-a-z;
+/uploadedImages/Drugs/LARGE /drug/alcohol;
+/uploadedImages/Drugs/LARGE /drugs-a-z;
 /facts_cannabis /drug/cannabis;
 /azofdrugs/P/Poppers.aspx /drugs-a-z;
 /azofdrugs/frankreports/report.aspx /drugs-a-z;
