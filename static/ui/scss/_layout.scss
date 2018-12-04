@@ -67,7 +67,8 @@ $grid-gutter: 30px;
   @extend %constrain-narrow;
   padding-bottom: 5rem;
   padding-top: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  position: relative;
   min-height: calc(100vh - 368px);
 
   &--full-width {
