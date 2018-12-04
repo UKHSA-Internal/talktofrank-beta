@@ -191,6 +191,7 @@ class FormGroup extends PureComponent {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           onSuggestionHighlighted={this.onSuggestionHighlighted}
+          focusInputOnSuggestionClick={false}
           inputProps={{
             className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,
