@@ -197,6 +197,7 @@ select.form-control {
 
 .react-autosuggest__suggestion--highlighted {
   background-color: $gray-200;
+
   .has-hover & {
     a:after {
       @include arrow;
