@@ -36,9 +36,7 @@ export default class PageSupportList extends React.PureComponent {
   }
 
   focusMain() {
-    setTimeout(() => {
-      this.main.current.focus()
-    }, 1500)
+    scrollIntoView(this.main.current, 0, 500, this.main.current.focus())
   }
 
   renderNoResults() {
@@ -77,7 +75,7 @@ export default class PageSupportList extends React.PureComponent {
       <React.Fragment>
         <Masthead/>
          <Main>
-         <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
+         <span className='jump' tabIndex='-1' ref={this.main}/>
          <Accent className='accent--shallow'>
             <Heading type='h1' className='page-title' text={`Results ordered by nearest to “${location}”` } />
             <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>

@@ -122,7 +122,7 @@ class FormGroup extends PureComponent {
       <div {...containerProps} id={this.props.id + '_container'}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
-        {res && children && <a className='link-text index' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
+        {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
           View more results
         </a>}
       </div>
@@ -205,6 +205,7 @@ class FormGroup extends PureComponent {
             onKeyDown: this.handleKeyPress,
             onChange: this.onChange,
             placeholder: this.props.placeholder,
+            onTouchStart: this.handleKeyPress,
             type: 'text',
             role: 'textbox',
             'aria-describedby': `${this.props.id}_hint`,
