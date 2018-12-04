@@ -1,7 +1,7 @@
 import React from 'react'
 import Masthead from '../Masthead/component.jsx'
 import Footer from '../Footer/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import Hero from '../Hero/component.jsx'
 
 const PageServerError = () => {
