@@ -20,7 +20,7 @@ class FormGroup extends PureComponent {
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.onSuggestionHighlighted = this.onSuggestionHighlighted.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+
     this.state = {
       id: '',
       searchTerm: '',
@@ -97,13 +97,6 @@ class FormGroup extends PureComponent {
     }
   }
 
-  handleClick (e) {
-    this.searchInput.blur()
-    console.log('loggin')
-    e.preventDefault()
-    window.location = `/search/${this.state.searchTermClean}`
-  }
-
   handleKeyPress (e) {
     // Theres a race condition with the keyup/onchange events
     // this.state.currentSuggestion is set when up/down keys are used
@@ -126,7 +119,7 @@ class FormGroup extends PureComponent {
       <div {...containerProps} id={this.props.id + '_container'}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
-        {res && children && <a className='link-text' onClick={this.handleClick} data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
+        {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
           View more results
         </a>}
       </div>
