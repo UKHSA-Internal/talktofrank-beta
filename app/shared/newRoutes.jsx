@@ -14,6 +14,7 @@ import {
  * These will be bundled in the main JS file (including client)
  */
 import HTMLWrapper from './components/HTMLWrapper/component.jsx'
+import AmpHTMLWrapper from './components/AmpHTMLWrapper/component.jsx'
 
 /**
  * These will be lazy-loaded on the client
@@ -28,6 +29,7 @@ const asyncPageSearch = loadable(() => import(/*webpackChunkName: 'search'*/'./c
 const asyncPageDrugsAZContainer = loadable(() => import(/*webpackChunkName: 'drugs-az'*/'./containers/PageDrugsAZContainer/component.jsx'))
 const asyncPageNewsListContainer = loadable(() => import(/*webpackChunkName: 'news-list'*/'./containers/PageNewsListContainer/component.jsx'))
 const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/PageNewsContainer/component.jsx'))
+const ampPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/AmpPageNewsContainer/component.jsx'))
 const asyncPageContactForm = loadable(() => import(/*webpackChunkName: 'contact-form'*/'./containers/PageContactFormContainer/component.jsx'))
 const asyncPageFeedbackForm = loadable(() => import(/*webpackChunkName: 'feedback-form'*/'./containers/PageFeedbackFormContainer/component.jsx'))
 const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./components/PageContact/component.jsx'))
@@ -42,6 +44,20 @@ const asyncPageLiveChat = loadable(() => import(/*webpackChunkName: 'live-chat'*
 /* eslint-enable */
 
 export default [{
+  component: AmpHTMLWrapper,
+  routes: [
+    {
+      path: '/amp/news/:slug',
+      exact: true,
+      component: ampPageNewsContainer,
+      loadData: ({params}) => [
+        fetchPage(params.slug, 'news'),
+        fetchFeaturedBlock('featuredNewsBlock')
+      ]
+    }
+  ]
+},
+{
   component: HTMLWrapper,
   routes: [
     {
