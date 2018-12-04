@@ -38,11 +38,6 @@ class FormGroup extends PureComponent {
   }
 
   onChange (event, { newValue }) {
-    if (event.type === 'click') {
-      event.preventDefault()
-      event.stopPropagation()
-    }
-
     if (event.type === 'change') {
       this.setState({
         searchTerm: newValue,
@@ -201,7 +196,6 @@ class FormGroup extends PureComponent {
             className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,
             value: searchTerm,
-            onKeyDown: this.handleKeyPress,
             onChange: this.onChange,
             placeholder: this.props.placeholder,
             onTouchStart: this.handleKeyPress,
