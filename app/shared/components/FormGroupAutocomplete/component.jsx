@@ -38,6 +38,11 @@ class FormGroup extends PureComponent {
   }
 
   onChange (event, { newValue }) {
+    if (event.type === 'click') {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
     if (event.type === 'change') {
       this.setState({
         searchTerm: newValue,
@@ -118,7 +123,7 @@ class FormGroup extends PureComponent {
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
-          view more results
+          View more results
         </a>}
       </div>
     )
@@ -191,6 +196,7 @@ class FormGroup extends PureComponent {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           onSuggestionHighlighted={this.onSuggestionHighlighted}
+          focusInputOnSuggestionClick={false}
           inputProps={{
             className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,

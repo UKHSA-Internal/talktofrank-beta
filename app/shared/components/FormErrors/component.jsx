@@ -40,7 +40,7 @@ export class ErrorSummary extends React.PureComponent {
         <ul className='list-unstyled list-unstyled--single spacing-top--single'>
           {errors.map((error, i) => {
             return (
-              <li key={i}><a id={`${error.field}_error`} className='link-text' href={`#${error.field}-label`}>{error.message}</a></li>
+              <li key={i}><a id={`${error.field}_error`} className='link-text link-text--inline' href={`#${error.field}-label`}>{error.message}</a></li>
             )
           })
           }
