@@ -9,7 +9,7 @@ import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
 import Main from '../Main/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
-import { scrollIntoView } from '../../../shared/utilities'
+import { scrollIntoView } from '../../utilities'
 
 export default class PageNewsList extends React.PureComponent {
   constructor (props) {
@@ -33,7 +33,7 @@ export default class PageNewsList extends React.PureComponent {
   }
 
   focusMain() {
-    scrollIntoView(this.main.current, 0, 300, this.main.current.focus())
+    scrollIntoView(this.main.current, 0, 500, this.main.current.focus())
   }
 
   render () {
@@ -44,7 +44,7 @@ export default class PageNewsList extends React.PureComponent {
       <React.Fragment>
         <Masthead path={location}/>
         <Main>
-          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
+          <span className='jump' tabIndex='-1' ref={this.main}/>
           <Accent className='accent--shallow'>
             <Heading type='h1' className='page-title' text={title}/>
           </Accent>
