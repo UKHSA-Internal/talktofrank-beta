@@ -2,6 +2,7 @@ import React from 'react'
 import { renderRoutes } from 'react-router-config'
 import Skiplinks from '../Skiplinks/component.jsx'
 import AmpHead from '../AmpHead/component.jsx'
+import * as Amp from 'react-amphtml'
 
 const AmpHtml = (props) => {
   const schemaTags = {
@@ -27,7 +28,7 @@ const AmpHtml = (props) => {
     ]
   }
   return (
-    <html lang='en' className='has-hover'>
+    <Amp.Html specName="html ⚡ for top-level html" lang="en" amp="amp">
       <AmpHead {...props} />
       <body>
         <Skiplinks/>
@@ -36,7 +37,7 @@ const AmpHtml = (props) => {
           {props.children}
         </div>
       </body>
-    </html>
+    </Amp.Html>
   )
 }
 

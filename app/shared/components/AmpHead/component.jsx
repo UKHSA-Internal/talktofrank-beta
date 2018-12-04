@@ -1,6 +1,6 @@
 import React from 'react'
 import { config } from 'config'
-import AmpBoilerplate from '../AmpBoilerplate/component.jsx'
+import { headerBoilerplate } from 'react-amphtml/setup'
 
 export default class AmpHead extends React.Component {
   render () {
@@ -11,6 +11,31 @@ export default class AmpHead extends React.Component {
     let pageTitle
     let pageDescription
     let canonical = `${config.canonicalHost}${path}`
+
+    // /* eslint-disable react/no-danger */
+    // const ampStyleTag = (
+    //   <style
+    //     amp-custom=""
+    //     dangerouslySetInnerHTML={{
+    //       __html: sheet.getStyleElement().reduce(
+    //         (
+    //           css,
+    //           {
+    //             props: {
+    //               dangerouslySetInnerHTML: {
+    //                 __html = ''
+    //               } = {}
+    //             } = {}
+    //           } = {}
+    //         ) => (
+    //           `${css}${__html}`
+    //         ),
+    //         ''
+    //       )
+    //     }}
+    //   />
+    // )
+    // /* eslint-enable */
 
     if (!error && !pageLoadError) {
       switch (path) {
@@ -70,14 +95,11 @@ export default class AmpHead extends React.Component {
       <head>
         <title>{pageTitle + ` | FRANK`}</title>
         <script async src="https://cdn.ampproject.org/v0.js"></script>
-        <meta charSet='utf-8' />
         <meta name="description" content={pageDescription} />
-        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
         <meta name='format-detection' content='telephone=no' />
-        <link rel='canonical' href={canonical} />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
-        <AmpBoilerplate />
+        {headerBoilerplate(canonical)}
       </head>
     )
   }
