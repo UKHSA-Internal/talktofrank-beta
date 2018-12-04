@@ -20,6 +20,7 @@ class FormGroup extends PureComponent {
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.onSuggestionHighlighted = this.onSuggestionHighlighted.bind(this)
+
     this.state = {
       id: '',
       searchTerm: '',
@@ -113,6 +114,7 @@ class FormGroup extends PureComponent {
 
   renderSuggestionsContainer({ containerProps, children }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
+
     return (
       <div {...containerProps} id={this.props.id + '_container'}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
