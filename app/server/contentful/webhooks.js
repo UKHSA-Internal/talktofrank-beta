@@ -43,9 +43,9 @@ router.use('/', async (req, res, next) => {
   try {
     const search = res.search
     const webhookName = req.headers['x-contentful-topic']
-
     const secretKey = req.headers['x-ttf-search-key']
     if (!secretKey || secretKey !== config.elasticsearch.webhookSecretKey) {
+      console.log('Webhook called without security request headers', req.headers)
       res.status(401)
       return res.send({status: 'UNAUTHORISED'})
     }
@@ -154,9 +154,11 @@ router.use('/', async (req, res, next) => {
 
           let formattedContent = []
           const entry = resolveResponse(contentfulResponse)[0]
-
-          if (entry.fields.includeInSearch && entry.fields.includeInSearch === false) {
+          if (entry.fields.hasOwnProperty('includeInSearch') && entry.fields.includeInSearch === false) {
             console.log(`Skipping update of content sys id ${req.body.sys.id}, includeInSearch is false`)
+            res.status(200)
+            res.send({status: 'NO CHANGE'})
+            return
           }
 
           const item = req.body.sys.contentType.sys.id === config.contentful.contentTypes.news
