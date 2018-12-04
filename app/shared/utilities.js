@@ -173,95 +173,10 @@ export function scrollIntoView (element, to = 0, duration = 500, callback) {
     } else if (callback && typeof (callback) === 'function') {
       // the animation is done so lets callback
       callback()
-
     }
   }
   animateScroll()
 }
-
-
-export const scrollToEl = function(to, duration, callback) {
-    const element = document.body || document.documentElement
-    const start = element.scrollTop
-    const change = to - start
-    const startDate = +new Date()
-    // t = current time
-    // b = start value
-    // c = change in value
-    // d = duration
-    const easeInOutQuad = function(t, b, c, d) {
-        t /= d/2
-        if (t < 1) return c/2*t*t + b
-        t--
-        return -c/2 * (t*(t-2) - 1) + b
-    }
-
-    // requestAnimationFrame for Smart Animating http://goo.gl/sx5sts
-    const requestAnimFrame = (function () {
-      return window.requestAnimationFrame
-        || window.webkitRequestAnimationFrame
-        || window.mozRequestAnimationFrame
-        || function (callback) {
-          window.setTimeout(callback, 1000 / 60)
-        }
-    })()
-
-    const animateScroll = function() {
-      const currentDate = +new Date()
-      const currentTime = currentDate - startDate
-      let val = parseInt(easeInOutQuad(currentTime, start, change, duration))
-      element.scrollTop = val
-      console.log(val, element.scrollTop)
-      if (currentTime < duration) {
-        requestAnimFrame(animateScroll)
-      }
-      else {
-        element.scrollTop = to
-        if (callback && typeof (callback) === 'function') {
-          callback()
-        }
-      }
-    }
-    animateScroll()
-}
-
-
-// export function scrollIntoView (node, duration = 300, offset = 80, callback) {
-//   //  document.documentElement.scrollTop = 0
-//   const start = document.documentElement.scrollTop
-//   const change = (node.getBoundingClientRect().top - offset) - start
-//   const increment = 20
-//   let currentTime = 0
-//   let timerid
-
-//   const animateScroll = () => {
-//     currentTime += increment
-//     const val = Math.easeInOutQuad(currentTime, start, change, duration)
-//     document.documentElement.scrollTop = val
-
-//     if (currentTime < duration) {
-//       setTimeout(animateScroll, increment)
-//     } else if (callback && typeof (callback) === 'function') {
-//       callback()
-//     }
-//   }
-
-//   const easeInOutQuad = (t, b, c, d) => {
-//     t /= d / 2
-//     if (t < 1) return c / 2 * t * t + b
-//     t--
-//     return -c / 2 * (t * (t - 2) - 1) + b
-//   }
-
-//   if (timerid) {
-//     clearTimeout(timerid)
-//   }
-
-//   timerid = setTimeout(() => {
-//     animateScroll()
-//   }, duration)
-// }
-
 
 const toRad = (x) => x * Math.PI / 180
 
