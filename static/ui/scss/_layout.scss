@@ -89,3 +89,8 @@ main {
   position: relative;
   overflow: hidden;
 }
+
+.index {
+  position: relative;
+  z-index: 1000000;
+}
