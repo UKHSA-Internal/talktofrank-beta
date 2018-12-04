@@ -1,5 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
 
 export default class Picture extends React.PureComponent {
   componentDidMount () {
@@ -34,7 +33,7 @@ export default class Picture extends React.PureComponent {
 
   render () {
     let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
-    let classes = classNames('image', this.props.className)
+    let classes = `image ${this.props.className || ''}`
 
     smallestImageSrc += '?fm=jpg&q=70'
 

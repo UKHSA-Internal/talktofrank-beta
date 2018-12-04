@@ -53,7 +53,7 @@ const PageGetHelpPage = props => {
         </Accent>}
       </Main>
       <Footer>
-        <SatisfactionBar delay={120000} />
+        <SatisfactionBar />
       </Footer>
       <GA/>
     </React.Fragment>
