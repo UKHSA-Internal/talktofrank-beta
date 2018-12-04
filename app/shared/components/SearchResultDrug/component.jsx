@@ -14,7 +14,10 @@ const ResultDrug = props => {
     link += `?a=${props.item.name}`
   }
 
-  if (props.highlight && props.highlight.synonyms) {
+  if (props.highlight && props.highlight.drugName) {
+    name = props.highlight.drugName
+    synonyms = props.item.name
+  } else if (props.highlight && props.highlight.synonyms) {
     name = props.highlight.synonyms[0]
     synonyms = props.item.name
     link += `?a=${name}`
@@ -38,9 +41,10 @@ const ResultDrug = props => {
       </Tag>
       {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}
       {props.summary &&
-        <p className='break-word'>{ truncate(props.item.description, {
-          'length': 100
-        })}</p>
+        <p className='break-word' dangerouslySetInnerHTML={{
+          __html: truncate(props.item.description, {'length': 100})
+        }}
+        />
       }
     </a>
   )
