@@ -7,7 +7,7 @@ export default class Head extends React.Component {
     const { head, title, error } = initialState.app.pageData
     let pageTitle
     let pageDescription
-    let canonical
+    let canonical = false
     let path
 
     if (!error && !pageLoadError) {
@@ -82,7 +82,7 @@ export default class Head extends React.Component {
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
-        <link rel='canonical' href={canonical} />
+        {canonical && <link rel='canonical' href={canonical} />}
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
         <link rel="manifest" href="/ui/manifest.json" />

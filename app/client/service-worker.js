@@ -35,7 +35,7 @@ if (workbox) {
 
   workbox.routing.registerRoute(
     ({event}) => event.request.mode === 'navigate',
-    ({url}) => fetch(url.href)
+    ({url}) => fetch(url.href, {credentials: 'same-origin', redirect: 'follow'})
       .catch(() => {
         return caches.match('/offline')
       })
