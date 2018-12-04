@@ -1,6 +1,6 @@
 import React from 'react'
 import Footer from '../Footer/component'
-import GA from '../GoogleAnalytics/component'
+import { GA } from '../GoogleAnalytics/component'
 import Heading from '../Heading/component'
 import Longform from '../Longform/component'
 import Masthead from '../Masthead/component'

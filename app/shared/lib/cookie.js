@@ -4,7 +4,7 @@ export const setCookie = (key, value, daysToExpire) => {
   }
   const date = new Date()
   date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000))
-  document.cookie = key + '=' + value + '; expires=' + date.toGMTString()
+  document.cookie = key + '=' + value + '; expires=' + date.toGMTString() + '; path=/'
 }
 
 export const getCookie = (key) => {

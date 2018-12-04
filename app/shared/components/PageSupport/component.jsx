@@ -10,7 +10,7 @@ import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Icon from '../Icon/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import Divider from '../Divider/component.jsx'
 
 export default class PageSupport extends React.PureComponent {

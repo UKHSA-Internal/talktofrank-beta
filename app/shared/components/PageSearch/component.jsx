@@ -12,6 +12,8 @@ import SearchResultContent from '../SearchResultContent/component'
 import Anchor from '../Anchor/component'
 import Svg from '../Svg/component'
 import Main from '../Main/component.jsx'
+import ReactGA from 'react-ga'
+import { GA, GAEvent } from '../GoogleAnalytics/component'
 import { scrollIntoView } from '../../utilities'
 
 export default class SearchPage extends React.Component {
@@ -148,6 +150,9 @@ export default class SearchPage extends React.Component {
           </Accent>
         </Main>
         <Footer />
+        <GA>
+          {!loading && !total && <GAEvent category={'Search'} action={'no results'} label={this.state.searchValue} nonInteraction={true} />}
+        </GA>
       </React.Fragment>
     )
   }
