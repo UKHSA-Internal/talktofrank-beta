@@ -10,7 +10,7 @@ export const GA = props => {
     }
     ReactGA.pageview(window.location.pathname + window.location.search)
 
-    if ( props.children ) {
+    if (props.children) {
       return props.children
     }
   }
