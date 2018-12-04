@@ -49,7 +49,7 @@ export default class PageNews extends React.PureComponent {
           <BlockFeaturedContent />
         </Main>
         <Footer>
-          <SatisfactionBar delay={120000} />
+          <SatisfactionBar />
         </Footer>
         <GA />
       </React.Fragment>
