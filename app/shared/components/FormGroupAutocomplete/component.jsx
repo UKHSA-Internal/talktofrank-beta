@@ -20,6 +20,7 @@ class FormGroup extends PureComponent {
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.onSuggestionHighlighted = this.onSuggestionHighlighted.bind(this)
+
     this.state = {
       id: '',
       searchTerm: '',
@@ -38,11 +39,6 @@ class FormGroup extends PureComponent {
   }
 
   onChange (event, { newValue }) {
-    if (event.type === 'click') {
-      event.preventDefault()
-      event.stopPropagation()
-    }
-
     if (event.type === 'change') {
       this.setState({
         searchTerm: newValue,
@@ -118,11 +114,12 @@ class FormGroup extends PureComponent {
 
   renderSuggestionsContainer({ containerProps, children }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
+
     return (
       <div {...containerProps} id={this.props.id + '_container'}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
-        {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
+        {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
           View more results
         </a>}
       </div>
@@ -201,9 +198,9 @@ class FormGroup extends PureComponent {
             className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,
             value: searchTerm,
-            onKeyDown: this.handleKeyPress,
             onChange: this.onChange,
             placeholder: this.props.placeholder,
+            onTouchStart: this.handleKeyPress,
             type: 'text',
             role: 'textbox',
             'aria-describedby': `${this.props.id}_hint`,
