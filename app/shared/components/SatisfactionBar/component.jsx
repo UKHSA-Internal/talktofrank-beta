@@ -75,5 +75,5 @@ export default class SatisfactionBar extends React.Component {
 }
 
 SatisfactionBar.defaultProps = {
-  delay: 0
+  delay: 30000
 }
