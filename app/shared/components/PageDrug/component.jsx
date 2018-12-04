@@ -12,6 +12,7 @@ import Picture from '../Picture/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
 import { imageMap } from '../../utilities'
 import SatisfactionBar from '../SatisfactionBar/component.jsx'
+import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
 
 const Page = props => {
   const modifiers = {
@@ -140,10 +141,10 @@ const Page = props => {
             }
           </Toggle>
         </section>
-
+        <BlockFeaturedContent />
       </Main>
       <Footer>
-        <SatisfactionBar delay={120000} />
+        <SatisfactionBar />
       </Footer>
       <GA/>
     </React.Fragment>

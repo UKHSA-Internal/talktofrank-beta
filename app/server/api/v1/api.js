@@ -43,11 +43,6 @@ if (config.contentful.environment && config.contentful.environment !== 'master')
 const contentfulClient = contentful.createClient(contentfulClientConf)
 
 /**
- * Axios global config
- */
-axios.defaults.headers.common['Authorization'] = `Bearer ${config.contentful.contentAccessToken}`
-
-/**
  * Get page data
  */
 router.use('/search', searchRoutes)
@@ -677,11 +672,11 @@ const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
 
 const dateFormat = (response) => {
   if (response.fields.originalPublishDate) {
-    response['date'] = response.sys.updatedAt
-    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
-  } else {
     response['date'] = response.fields.originalPublishDate
     response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+  } else {
+    response['date'] = response.sys.updatedAt
+    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
   }
 
   return response

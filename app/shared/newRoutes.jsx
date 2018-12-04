@@ -65,7 +65,8 @@ export default [{
       exact: true,
       component: asyncPageDrug,
       loadData: ({params}) => [
-        fetchPage(params.drugName, 'drugs')
+        fetchPage(params.drugName, 'drugs'),
+        fetchFeaturedBlock('featuredNewsBlock')
       ]
     },
     {
