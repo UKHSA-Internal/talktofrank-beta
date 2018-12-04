@@ -9,7 +9,7 @@ import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
 import Main from '../Main/component.jsx'
 import GA from '../GoogleAnalytics/component.jsx'
-import { scrollToEl } from '../../../shared/utilities'
+import { scrollIntoView } from '../../../shared/utilities'
 
 export default class PageNewsList extends React.PureComponent {
   constructor (props) {
@@ -33,8 +33,7 @@ export default class PageNewsList extends React.PureComponent {
   }
 
   focusMain() {
-    // let el = document.querySelector('#main')
-    scrollToEl(900, 300, this.main.current.focus())
+    scrollIntoView(this.main.current, 0, 300, this.main.current.focus())
   }
 
   render () {

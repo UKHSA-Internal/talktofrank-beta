@@ -155,10 +155,8 @@ export function scrollIntoView (element, to = 0, duration = 500, callback) {
   let currentTime = 0
   const increment = 20
   const _duration = duration
-  console.log(change, ele.scrollTop)
 
   const animateScroll = () => {
-    console.log(ele)
     if (!ele) {
       return
     }
@@ -169,7 +167,6 @@ export function scrollIntoView (element, to = 0, duration = 500, callback) {
     const val = easeInOutQuad(currentTime, start, change, _duration)
     // move the element scroll
     ele.scrollTop = val
-    console.log(val)
     // do the animation unless its over
     if (currentTime < _duration) {
       requestAnimFrame(animateScroll)
@@ -214,7 +211,7 @@ export const scrollToEl = function(to, duration, callback) {
       const currentTime = currentDate - startDate
       let val = parseInt(easeInOutQuad(currentTime, start, change, duration))
       element.scrollTop = val
-      console.log(val)
+      console.log(val, element.scrollTop)
       if (currentTime < duration) {
         requestAnimFrame(animateScroll)
       }
@@ -227,6 +224,43 @@ export const scrollToEl = function(to, duration, callback) {
     }
     animateScroll()
 }
+
+
+// export function scrollIntoView (node, duration = 300, offset = 80, callback) {
+//   //  document.documentElement.scrollTop = 0
+//   const start = document.documentElement.scrollTop
+//   const change = (node.getBoundingClientRect().top - offset) - start
+//   const increment = 20
+//   let currentTime = 0
+//   let timerid
+
+//   const animateScroll = () => {
+//     currentTime += increment
+//     const val = Math.easeInOutQuad(currentTime, start, change, duration)
+//     document.documentElement.scrollTop = val
+
+//     if (currentTime < duration) {
+//       setTimeout(animateScroll, increment)
+//     } else if (callback && typeof (callback) === 'function') {
+//       callback()
+//     }
+//   }
+
+//   const easeInOutQuad = (t, b, c, d) => {
+//     t /= d / 2
+//     if (t < 1) return c / 2 * t * t + b
+//     t--
+//     return -c / 2 * (t * (t - 2) - 1) + b
+//   }
+
+//   if (timerid) {
+//     clearTimeout(timerid)
+//   }
+
+//   timerid = setTimeout(() => {
+//     animateScroll()
+//   }, duration)
+// }
 
 
 const toRad = (x) => x * Math.PI / 180
