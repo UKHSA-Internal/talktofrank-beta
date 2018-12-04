@@ -32,7 +32,6 @@ if (workbox) {
     /\.(?:ico|woff|woff2|png|svg|css|min\.css)(?:\?v=[1-9]+)|\.(?:ico|woff|woff2|png|svg|css|min\.css)$/,
     workbox.strategies.networkFirst()
   )
-  
   const networkOnly = workbox.strategies.networkOnly()
   const route = new workbox.routing.NavigationRoute(({event}) => {
     return networkOnly.handle({event}).catch(() => caches.match('/offline'))
