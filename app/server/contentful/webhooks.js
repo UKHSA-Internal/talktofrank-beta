@@ -43,9 +43,9 @@ router.use('/', async (req, res, next) => {
   try {
     const search = res.search
     const webhookName = req.headers['x-contentful-topic']
-
     const secretKey = req.headers['x-ttf-search-key']
-    if (!secretKey || secretKey !== config.elasticsearch.webhookSecretKey) {
+    if (!secretKey || secretKey !== config.contentful.webhookSecretKey) {
+      console.log('Webhook called without security request headers', req.headers)
       res.status(401)
       return res.send({status: 'UNAUTHORISED'})
     }
