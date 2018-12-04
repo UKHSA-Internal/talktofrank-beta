@@ -12,6 +12,7 @@ import SearchResultContent from '../SearchResultContent/component'
 import Anchor from '../Anchor/component'
 import Svg from '../Svg/component'
 import Main from '../Main/component.jsx'
+import { scrollIntoView } from '../../utilities'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -46,9 +47,7 @@ export default class SearchPage extends React.Component {
   }
 
   focusMain() {
-    setTimeout(() => {
-      this.main.current.focus()
-    }, 1500)
+    scrollIntoView(this.main.current, 0, 500, this.main.current.focus())
   }
 
   handlePageChange (pageNumber) {
@@ -100,7 +99,7 @@ export default class SearchPage extends React.Component {
       <React.Fragment>
         <Masthead path={location}/>
         <Main>
-          <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
+          <span className='jump' tabIndex='-1' ref={this.main}/>
           <Accent className='accent--shallow'>
             <Heading type='h1' className='page-title' text={title} />
           </Accent>

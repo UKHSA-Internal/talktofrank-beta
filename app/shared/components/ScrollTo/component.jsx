@@ -16,7 +16,7 @@ export default class ScrollTo extends React.Component {
   }
 
   componentDidMount() {
-    scrollIntoView(this.panel.current, 500)
+    scrollIntoView(this.panel.current)
   }
 
   render() {

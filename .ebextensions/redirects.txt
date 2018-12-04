@@ -3251,6 +3251,5 @@
 /news/why-are-drugs-cut-and-what-are-they-cut-with /;
 /news/why-do-people-take-drugs /drugs-a-z;
 /news/what-is-drug-classification-system /drugs-a-z;
-/news/how-cocaine-wrecks-communities /drug/cocaine;
 /news/buying-medicines-online /news;
 /content/talk-about-drugs /drugs-a-z;

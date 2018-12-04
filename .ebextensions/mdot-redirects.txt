@@ -5217,5 +5217,3 @@
 /news/why-are-drugs-cut-and-what-are-they-cut-with /;
 /news/why-do-people-take-drugs /drugs-a-z;
 /news/what-is-drug-classification-system /drugs-a-z;
-/news /news;
-/news/how-cocaine-wrecks-communities /drug/cocaine;
