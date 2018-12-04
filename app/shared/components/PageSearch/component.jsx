@@ -12,6 +12,7 @@ import SearchResultContent from '../SearchResultContent/component'
 import Anchor from '../Anchor/component'
 import Svg from '../Svg/component'
 import Main from '../Main/component.jsx'
+import { scrollIntoView } from '../../utilities'
 
 export default class SearchPage extends React.Component {
   constructor (props) {

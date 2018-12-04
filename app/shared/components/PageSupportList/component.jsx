@@ -12,6 +12,7 @@ import GA from '../GoogleAnalytics/component.jsx'
 import Main from '../Main/component.jsx'
 import Divider from '../Divider/component'
 import Svg from '../Svg/component'
+import { scrollIntoView } from '../../utilities'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
