@@ -376,13 +376,13 @@
   - action: "Upload redirect file to S3"
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
-    local_path: "redirects.txt"
+    local_path: ".ebextensions/redirects.txt"
     bucket_name: "elasticbeanstalk-eu-west-2-656844859111"
     integration_id: 41810
   - action: "Upload m.talktofrank.com redirect file to S3"
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
-    local_path: "mdot-redirects.txt"
+    local_path: ".ebextensions/mdot-redirects.txt"
     bucket_name: "elasticbeanstalk-eu-west-2-656844859111"
     integration_id: 41810
   - action: "Archive directory"
