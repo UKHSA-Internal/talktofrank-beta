@@ -1,5 +1,6 @@
 import React from 'react'
 import Picture from '../Picture/component.jsx'
+import AmpPicture from '../AmpPicture/component.jsx'
 import Longform from '../Longform/component.jsx'
 import Time from '../Time/component.jsx'
 import Heading from '../Heading/component.jsx'
@@ -18,7 +19,7 @@ const Article = props => {
     // eslint-disable-next-line no-self-compare
     <Tag className={`list-item ${props.fields.image ? ('list-item--has-image' + (props.fields.imagepos & 1 === 1 ? ' list-item--alternate' : '')) : ''} `} >
       <Link href={props.fields.slug ? `/news/${props.fields.slug}` : null}>
-        {props.fields.image && <Picture {...props.fields.image}/>}
+        {props.isAmp ? props.fields.image && <AmpPicture {...props.fields.image}/> : props.fields.image && <Picture {...props.fields.image}/>}
         <div className='list-item__inner'>
           <Heading type={props.fields.type} className='list-item__title h3 heading-inline' text={`<span>${props.fields.title}</span>`}/>
           {props.date && <Time time={props.dateFormatted} dateTime={props.date}/>}

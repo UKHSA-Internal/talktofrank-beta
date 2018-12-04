@@ -1,15 +1,12 @@
 import React from 'react'
-import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
 import Accent from '../Accent/component'
-// import Masthead from '../Masthead/component'
-import Logo from '../Logo/component.jsx'
 import Heading from '../Heading/component'
-import GA from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
+import AmpLogo from '../AmpLogo/component'
 import Main from '../Main/component'
 import Longform from '../Longform/component'
-import AmpArticle from '../AmpArticle/component'
+import Article from '../Article/component'
 import Time from '../Time/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
 // @todo refactor all contentful "factory" stuffs to api
@@ -20,12 +17,12 @@ export default class AmpPageNews extends React.PureComponent {
   render () {
     return (
       <React.Fragment>
-        <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
+        <AmpLogo url='/ui/svg/logo-frank--alt.svg' alt=''/>
         <Main>
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
               {this.props.fields.image && <GridCol className='col-12 list-offset'>
-                <Article {...this.props}/>
+                <Article isAmp {...this.props}/>
               </GridCol>}
               {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--single'>
                 {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
@@ -45,9 +42,7 @@ export default class AmpPageNews extends React.PureComponent {
               </GridCol>
             </Grid>
           </Accent>
-          <BlockFeaturedContent />
         </Main>
-        <GA />
       </React.Fragment>
     )
   }
