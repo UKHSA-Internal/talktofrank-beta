@@ -4,7 +4,7 @@ import Svg from '../Svg/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Anchor from '../Anchor/component'
-import ClientOnly from '../ClientOnly/component'
+import { ClientOnly } from '../ClientOnly/component'
 import { getCookie, setCookie } from '../../lib/cookie.js'
 
 export default class SatisfactionBar extends React.Component {

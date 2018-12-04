@@ -8,7 +8,7 @@ import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
 import Main from '../Main/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.PureComponent {
   constructor (props) {

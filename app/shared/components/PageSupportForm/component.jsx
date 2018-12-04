@@ -10,7 +10,7 @@ import FormGroup from '../FormGroup/component.jsx'
 import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Icon from '../Icon/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 
 export default class PageSupportForm extends React.PureComponent {
