@@ -149,13 +149,16 @@ export function scrollIntoView (element, to = 0, duration = 500, callback) {
   }
 
   const ele = element || body() || {}
+
   const start = ele.scrollTop || 0
   const change = to - start
   let currentTime = 0
   const increment = 20
   const _duration = duration
+  console.log(change, ele.scrollTop)
 
   const animateScroll = () => {
+    console.log(ele)
     if (!ele) {
       return
     }
@@ -166,7 +169,7 @@ export function scrollIntoView (element, to = 0, duration = 500, callback) {
     const val = easeInOutQuad(currentTime, start, change, _duration)
     // move the element scroll
     ele.scrollTop = val
-    console.log(currentTime, start, change, _duration, val)
+    console.log(val)
     // do the animation unless its over
     if (currentTime < _duration) {
       requestAnimFrame(animateScroll)
@@ -178,6 +181,53 @@ export function scrollIntoView (element, to = 0, duration = 500, callback) {
   }
   animateScroll()
 }
+
+
+export const scrollToEl = function(to, duration, callback) {
+    const element = document.body || document.documentElement
+    const start = element.scrollTop
+    const change = to - start
+    const startDate = +new Date()
+    // t = current time
+    // b = start value
+    // c = change in value
+    // d = duration
+    const easeInOutQuad = function(t, b, c, d) {
+        t /= d/2
+        if (t < 1) return c/2*t*t + b
+        t--
+        return -c/2 * (t*(t-2) - 1) + b
+    }
+
+    // requestAnimationFrame for Smart Animating http://goo.gl/sx5sts
+    const requestAnimFrame = (function () {
+      return window.requestAnimationFrame
+        || window.webkitRequestAnimationFrame
+        || window.mozRequestAnimationFrame
+        || function (callback) {
+          window.setTimeout(callback, 1000 / 60)
+        }
+    })()
+
+    const animateScroll = function() {
+      const currentDate = +new Date()
+      const currentTime = currentDate - startDate
+      let val = parseInt(easeInOutQuad(currentTime, start, change, duration))
+      element.scrollTop = val
+      console.log(val)
+      if (currentTime < duration) {
+        requestAnimFrame(animateScroll)
+      }
+      else {
+        element.scrollTop = to
+        if (callback && typeof (callback) === 'function') {
+          callback()
+        }
+      }
+    }
+    animateScroll()
+}
+
 
 const toRad = (x) => x * Math.PI / 180
 
