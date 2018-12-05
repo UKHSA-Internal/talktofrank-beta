@@ -16,7 +16,7 @@ export default class Head extends React.Component {
       canonical = `${config.canonicalHost}${path}`
 
       if (head && head.description && head.pageTitle) {
-        ogPageTitle = head.title && head.title || head.pageTitle
+        ogPageTitle = head.title ? head.title : head.pageTitle
         pageTitle = head.pageTitle
         pageDescription = head.description
       } else {
