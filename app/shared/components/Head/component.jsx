@@ -6,6 +6,7 @@ export default class Head extends React.Component {
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
     let pageTitle
+    let ogPageTitle
     let pageDescription
     let canonical = false
     let path
@@ -14,47 +15,48 @@ export default class Head extends React.Component {
       path = location.pathname ? location.pathname : null
       canonical = `${config.canonicalHost}${path}`
 
-      if (head && head.description && head.title) {
-        pageTitle = head.title
+      if (head && head.description && head.pageTitle) {
+        ogPageTitle = head.title ? head.title : head.pageTitle
+        pageTitle = head.pageTitle
         pageDescription = head.description
       } else {
         path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
         switch (path) {
           case '/drugs-a-z' :
-            pageTitle = 'Drugs A-Z'
+            ogPageTitle = pageTitle = 'Drugs A-Z'
             pageDescription = 'Drugs A-Z'
             break
 
           case '/news' :
           case '/latest' :
-            pageTitle = 'Frank News | The Latest Stories and Articles'
+            ogPageTitle = pageTitle = 'Frank News | The Latest Stories and Articles'
             pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them.  Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
             break
 
           case '/support-near-you' :
-            pageTitle = 'Find support near your'
+            ogPageTitle = pageTitle = 'Find support near your'
             pageDescription = 'Find support near your'
             break
 
           case '/livechat' :
-            pageTitle = 'Live Chat'
+            ogPageTitle = pageTitle = 'Live Chat'
             pageDescription = 'Live Chat'
             break
 
           case '/contact-frank' :
-            pageTitle = 'Contact Frank'
+            ogPageTitle = pageTitle = 'Contact Frank'
             pageDescription = 'Contact Frank'
             break
 
           case '/offline' :
           case '/offline/' :
-            pageTitle = 'You\'re Offline'
+            ogPageTitle = pageTitle = 'You\'re Offline'
             pageDescription = ''
             break
 
           default:
-            pageTitle = (head && head.title) || pageTitle
-            pageDescription = (head && head.description) || null
+            ogPageTitle = pageTitle = (head && head.title) || pageTitle
+            pageDescription = (head && head.description) || pageTitle
             break
         }
       }
@@ -63,12 +65,12 @@ export default class Head extends React.Component {
       canonical = `${config.canonicalHost}/page-not-found`
       switch (errorCode) {
         case 404:
-          pageTitle = 'Page not found (404)'
+          ogPageTitle = pageTitle = 'Page not found (404)'
           pageDescription = 'Page not found (404)'
           break
 
         case 500:
-          pageTitle = 'Server error'
+          ogPageTitle = pageTitle = 'Server error'
           pageDescription = 'Server error'
           break
       }
@@ -83,6 +85,14 @@ export default class Head extends React.Component {
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
         {canonical && <link rel='canonical' href={canonical} />}
+        {head && head.noindex && <meta name="robots" content="noindex" />}
+        <meta property="twitter:title" content={ogPageTitle + ` | FRANK`} />
+        <meta property="twitter:description" content={pageDescription + ` | FRANK`} />
+        {head && head.image && <meta property="twitter:image" content={head.image} />}
+        <meta property="og:title" content={ogPageTitle + ` | FRANK`} />
+        {head && head.image && <meta property="og:image" content={head.image} />}
+        <meta property="og:description" content={pageDescription + ` | FRANK`} />
+        {canonical && <meta property="og:url" content={canonical} />}
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
         <link rel="manifest" href="/ui/manifest.json" />
