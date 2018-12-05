@@ -13,12 +13,10 @@ import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Longform from '../Longform/component'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
 import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { contentFulFactory } from '../../contentful'
 
 export default class PageContactForm extends React.PureComponent {
   static defaultProps = {
@@ -121,49 +119,20 @@ export default class PageContactForm extends React.PureComponent {
       ]
     }
 
-    const gender = {
-      label: 'Your gender ',
-      supporting: '(optional)',
-      name: 'gender',
-      id: 'gender',
-      options: [
-        {
-          label: 'Please select',
-          value: 'Undisclosed'
-        },
-        {
-          label: 'Female',
-          value: 'Female'
-        },
-        {
-          label: 'Male',
-          value: 'Male'
-        },
-        {
-          label: 'Other',
-          value: 'Other'
-        },
-        {
-          label: 'Prefer not to say',
-          value: 'Undisclosed'
-        }
-      ]
-    }
-
     let errors = this.props.error ? getErrors(this.props.errors) : []
 
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text='Contact us via email'/>
-        </Accent>
-        <Main className='main--muted main--full-width'>
+        <Main className='main--muted'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='page-title' text='Contact us via email'/>
+          </Accent>
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 
-                {this.props.pageData.fields.body && <Longform className="spacing-bottom--single" text={this.props.pageData.fields.body}/>}
+                {this.props.pageData.fields.body && <Longform className='spacing-bottom--single' text={this.props.pageData.fields.body}/>}
 
                 {this.props.error &&
                   <ScrollTo>
@@ -173,11 +142,11 @@ export default class PageContactForm extends React.PureComponent {
 
                 {!this.props.submitted &&
                 <Form className='spacing-bottom--large' handleSubmit={this.handleSubmit}>
-                  <FormGroup type='email' error={errors.email} className='form-control--reversed form-control--large' label='Your email' id='email' value={this.state.email} onChange={this.handleChange} name='email'/>
-                  <FormGroup type='text' error={errors.nickname} className='form-control--reversed form-control--large' label='Your nickname' id='nickname' value={this.state.nickname} onChange={this.handleChange} name='nickname'/>
+                  <FormGroup type='email' error={errors.email} hintId={errors.email ? 'email_error' : null} className='form-control--reversed form-control--large' label='Your email' id='email' value={this.state.email} onChange={this.handleChange} name='email'/>
+                  <FormGroup type='text' error={errors.nickname} hintId={errors.nickname ? 'nickname_error' : null} className='form-control--reversed form-control--large' label='Your nickname' id='nickname' value={this.state.nickname} onChange={this.handleChange} name='nickname'/>
                   <Select {...age} error={errors.ageRange} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.ageRange}/>
-                  <Select {...gender} error={errors.gender} onChange={this.handleChange} className='form-control--reversed form-control--large' value={this.state.gender}/>
-                  <Textarea {...message} error={errors.message} value={this.state.message} onChange={this.handleChange}/>
+                  <input type='hidden' id='gender' name='gender' value='Undisclosed'/>
+                  <Textarea {...message} error={errors.message} hintId={errors.message ? 'message_error' : null} value={this.state.message} onChange={this.handleChange}/>
                   <Button className='btn--primary' disabled={this.props.loading}>
                     Send message
                   </Button>
@@ -186,10 +155,10 @@ export default class PageContactForm extends React.PureComponent {
               </GridCol>
               <GridCol className='col-12 col-sm-5 col-md-4'>
                 <Heading className='h4' text='What happens next?'/>
-                <p>You’ll receive a reply from <Anchor label='Send an email to frank@talktofrank.com' href='mailto:frank@talktofrank.com' text='frank@talktofrank.com'/> and the subject line won't have your question in it.</p>
+                <p>You’ll receive a reply from <Anchor label='Send an email to FRANK' href='mailto:frank@talktofrank.com' text='frank@talktofrank.com'/> and the subject line won't have your question in it.</p>
                 <p>FRANK will only reply to you - you'll never receive emails you didn't ask for.</p>
                 <p>If you're worried someone’s reading your messages, you can always call us or set up an alternative email account.</p>
-                <p>Learn more about our <a href='/privacy_policy'>privacy policy</a></p>
+                <p>Learn more about our <a href='/privacy-policy'>privacy policy</a></p>
               </GridCol>
             </Grid>
           </Accent>

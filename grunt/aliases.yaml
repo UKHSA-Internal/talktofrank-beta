@@ -15,11 +15,11 @@ css:
 build:
   - css
   - copy
-  - cssmin
   - js
 
 js:
   - concurrent:js
+  - uglify
 
 validate:
   - eslint

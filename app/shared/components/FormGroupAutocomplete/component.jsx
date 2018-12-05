@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
-import classNames from 'classnames'
 import Button from '../Button/component.jsx'
 import Svg from '../Svg/component.jsx'
 import Autosuggest from 'react-autosuggest'
 import axios from 'axios'
 import SearchResultDrug from '../SearchResultDrug/component'
 import SearchResultContent from '../SearchResultContent/component'
+import FormHint from '../FormHint/component'
 
 class FormGroup extends PureComponent {
   constructor (props) {
@@ -19,11 +19,14 @@ class FormGroup extends PureComponent {
     this.renderSuggestion = this.renderSuggestion.bind(this)
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
+    this.onSuggestionHighlighted = this.onSuggestionHighlighted.bind(this)
+
     this.state = {
       id: '',
       searchTerm: '',
       currentSuggestion: '',
       autoCompleteData: [],
+      activedescendant: false,
       resultsTotal: 0,
       loading: false
     }
@@ -37,11 +40,11 @@ class FormGroup extends PureComponent {
 
   onChange (event, { newValue }) {
     if (event.type === 'change') {
-      console.log(newValue, event.type)
       this.setState({
         searchTerm: newValue,
         searchTermClean: encodeURIComponent(newValue),
         currentSuggestion: '',
+        activedescendant: false,
         resultsTotal: 0
       })
     } else {
@@ -65,13 +68,33 @@ class FormGroup extends PureComponent {
     })
     this.getSuggestions(value).then(resp => {
       if (resp.hits) {
+        resp.hits = resp.hits.map((v, i) => {
+          v['pos'] = `react-autowhatever-${this.props.id}--item-${i}`
+          return v
+        })
         this.setState({
           resultsTotal: resp.total,
           autoCompleteData: resp.hits,
           loading: false
         })
+      } else {
+        this.setState({
+          loading: false
+        })
       }
+    }).catch(() => {
+      this.setState({
+        loading: false
+      })
     })
+  }
+
+  onSuggestionHighlighted({suggestion}) {
+    if (suggestion && suggestion.pos) {
+      this.setState({
+        activedescendant: suggestion.pos
+      })
+    }
   }
 
   handleKeyPress (e) {
@@ -86,17 +109,18 @@ class FormGroup extends PureComponent {
 
   // this prevents the thing from firing until at least two characters are added
   shouldRenderSuggestions(value) {
-    return value.trim().length > 1
+    return value.trim().length > 0
   }
 
-  renderSuggestionsContainer({ containerProps, children, query }) {
+  renderSuggestionsContainer({ containerProps, children }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
+
     return (
-      <div {...containerProps}>
+      <div {...containerProps} id={this.props.id + '_container'} className={this.props.className || ''}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
-        {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
-          View {res} more results
+        {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
+          View more results
         </a>}
       </div>
     )
@@ -109,7 +133,7 @@ class FormGroup extends PureComponent {
     if (suggestionItem.suggestion._index.includes('talktofrank-content')) {
       url = item.type === 'news'
         ? `/news/${item.slug}`
-        : item.slug
+        : item.slug.charAt(0) === '/' ? item.slug : `/${item.slug}`
     } else {
       url = `/drug/${item.slug}`
       if (item.realName && item.realName !== item.name) {
@@ -152,31 +176,36 @@ class FormGroup extends PureComponent {
   }
 
   render () {
-    const { searchTerm, autoCompleteData } = this.state
-    const { id, labelHidden, label, button } = this.props
-    let classes = classNames('form-group form-group--flush', this.props.className)
-
+    const { searchTerm, autoCompleteData, activedescendant } = this.state
+    const { id, label } = this.props
     return (
-      <div className={classes}>
+      <div className='form-group form-group--flush'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
+        <FormHint id={`${this.props.id}_hint`} className='visually-hidden'>When autocomplete results are available use up and down arrows to review and enter to select. </FormHint>
         <Autosuggest
           suggestions={autoCompleteData}
           shouldRenderSuggestions={this.shouldRenderSuggestions}
-          renderSuggestionsContainer={this.renderSuggestionsContainer}
+          id={id}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          renderSuggestionsContainer={this.renderSuggestionsContainer}
           onSuggestionSelected={this.onSuggestionSelected}
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
+          onSuggestionHighlighted={this.onSuggestionHighlighted}
+          focusInputOnSuggestionClick={false}
           inputProps={{
             className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,
             value: searchTerm,
-            onKeyDown: this.handleKeyPress,
             onChange: this.onChange,
             placeholder: this.props.placeholder,
-            type: 'search',
-            role: 'combobox'
+            onTouchStart: this.handleKeyPress,
+            type: 'text',
+            role: 'textbox',
+            'aria-describedby': `${this.props.id}_hint`,
+            'aria-owns': `${this.props.id}_container`,
+            'aria-activedescendant': activedescendant
           }}
           ref={input => { this.searchInput = input }}
           required

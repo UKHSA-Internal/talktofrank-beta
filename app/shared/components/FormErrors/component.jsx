@@ -9,7 +9,18 @@ export const getErrors = (formErrors) => {
   return errors
 }
 
-export class ErrorSummary extends React.Component {
+export class ErrorSummary extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.item = React.createRef()
+  }
+
+  componentDidMount() {
+    if (typeof (this.item.current) !== 'undefined') {
+      this.item.current.focus()
+    }
+  }
+
   render() {
     let { errors } = this.props
 
@@ -24,12 +35,15 @@ export class ErrorSummary extends React.Component {
     })
 
     return (
-      <div className="alert alert-danger spacing-bottom--single">
-        <strong className="h4">There is a problem</strong>
-        <ul className="alert-danger__list">
-          {errors.map(error => (
-            <li><a className="alert-danger__link" href={`#${error.field}`}>{error.message}</a></li>
-          ))}
+      <div className='alert alert-danger spacing-bottom--single' aria-live='assertive' tabIndex='-1' ref={this.item}>
+        <h2 className='h4'>There is a problem</h2>
+        <ul className='list-unstyled list-unstyled--single spacing-top--single'>
+          {errors.map((error, i) => {
+            return (
+              <li key={i}><a id={`${error.field}_error`} className='link-text link-text--inline' href={`#${error.field}-label`}>{error.message}</a></li>
+            )
+          })
+          }
         </ul>
       </div>
     )
@@ -41,5 +55,5 @@ ErrorSummary.defaultProps = {
 }
 
 export const ErrorMessage = ({message}) => (
-  <div className="invalid-feedback"><Icon alt="warning" className="spacing-right" url="/ui/svg/warning.svg" label="warning" />{message}</div>
+  <div className='invalid-feedback'><Icon alt='' className='spacing-right' url='/ui/svg/warning.svg' label='warning' />{message}</div>
 )

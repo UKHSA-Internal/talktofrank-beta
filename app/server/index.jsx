@@ -19,7 +19,6 @@ import { getLoadableState } from 'loadable-components/server'
  */
 import apiRoutes from './api/v1/api.js'
 import apiContactRoutes from './api/v1/contact.js'
-
 import contentFulWebhookRoutes from './contentful/webhooks.js'
 
 /*
@@ -29,6 +28,10 @@ import { config } from 'config'
 import packageInfo from '../../package.json'
 import Html from '../shared/components/Html/component'
 import PageNotFound from '../shared/components/PageNotFound/component'
+
+import { buildSitemaps } from 'express-sitemap-xml'
+import { format, parse } from 'date-fns'
+import contentfulClient from './contentful/lib'
 
 const Sentry = require('@sentry/node')
 if (config.sentry.logErrors) {
@@ -66,14 +69,6 @@ if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) 
 
 const search = new elasticsearch.Client(elasticSearchConf)
 
-/*
- * Authentication
-*/
-const basicAuthHandler = (username, password) => {
-  return username === config.basicAuth.username && password === config.basicAuth.password
-}
-const basicAuthMiddleware = basicAuth({ authorizer: basicAuthHandler, challenge: true })
-
 var store
 
 const app = express()
@@ -87,7 +82,7 @@ const addSearch = (req, res, next) => {
 // Add search middleware
 app.use('/api/v1/search', addSearch)
 app.use('/contentful/webhook', addSearch)
-
+// app.use(cookieParser())
 app.use('/api/v1', apiRoutes)
 app.use('/contentful/webhook', contentFulWebhookRoutes)
 
@@ -101,13 +96,76 @@ const options = {
 
 app.use(express.static('../static', options))
 app.use(favicon('../static/ui/favicon.ico'))
-app.use((req, res, next) => shouldAuthenticate(req) ? basicAuthMiddleware(req, res, next) : next())
 
-app.get('/robots.txt', function (req, res) {
-  res.type('text/plain')
-  res.send('User-agent: *\nDisallow: /')
+app.get('/robots.txt', (req, res) => {
+  if (config.robotsDisallow) {
+    res.type('text/plain')
+    res.send('User-agent: *\nDisallow: /')
+  } else {
+    res.type('text/plain')
+    res.send(`User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`)
+  }
 })
 
+app.get('/sitemap.xml', async (req, res, next) => {
+  let entries = []
+
+  try {
+    entries = await contentfulClient.getEntries({
+      'sys.contentType.sys.id[in]': 'drug,generalPage,homepage,news,treatmentCentre',
+      limit: 1000
+    })
+  } catch (err) {
+    return next(err)
+  }
+
+  let blacklist = [
+    'contact/success',
+    'feedback/success'
+  ]
+
+  let urls = entries.items.filter(item => {
+    if (item.fields.hasOwnProperty('addressStatus') &&
+      item.fields.addressStatus === false) {
+      return false
+    }
+
+    if (blacklist.includes(item.fields.slug)) {
+      return false
+    }
+
+    if (!item.fields.slug) {
+      console.log('No slug for ' + item.fields.slug)
+    }
+    return item.fields.slug
+  }).map(item => {
+    let url
+    switch (item.sys.contentType.sys.id) {
+      case 'news':
+        url = 'news/' + item.fields.slug
+        break
+      case 'drug':
+        url = 'drugs/' + item.fields.slug
+        break
+      case 'treatmentCentre':
+        url = 'treatment-centre/' + item.fields.slug
+        break
+      default:
+        url = item.fields.slug
+    }
+    return {
+      url: url,
+      lastMod: format(parse(item.sys.updatedAt), 'YYYY-MM-DD')
+    }
+  })
+
+  try {
+    let sitemaps = await buildSitemaps(urls, config.canonicalHost)
+    res.set('application/xml').send(sitemaps['/sitemap.xml'])
+  } catch (err) {
+    return next(err)
+  }
+})
 /*
  * Pass Express over to the App via the React Router
  */
@@ -115,35 +173,38 @@ app.get('*', (req, res) => {
   const store = generateStore()
   const loadData = () => {
     const branches = matchRoutes(routes, req.path)
+    const promises = branches
+      .filter(({ route, match }) => { return match.isExact && route.loadData })
+      .map(({ route, match }) => {
+        return Promise.all(
+          route
+            .loadData({ params: match.params, query: req.query, getState: store.getState })
+            .map(item => store.dispatch(item))
+        )
+      })
 
-    let match = branches.find(({ route, match }) => {
-      return match.isExact && route.loadData
-    })
-
-    if (!match) {
-      return Promise.resolve(null)
-    }
-    return store.dispatch(match.route.loadData({ params: match.match.params, query: req.query }))
+    return Array.isArray(promises) && promises.length > 0 ? Promise.all(promises) : null
   }
 
   (async () => {
     // @todo: refactor this - enforcing header here to verify whether this
     // fixes windows 7 chrome not rendering the site correctly
-    res.type('text/html;charset=UTF-8')
+    res.type('text/html; charset=UTF-8')
 
     try {
       await loadData()
     } catch (err) {
       const state = store.getState()
-      state.app.pageData.title = 'Page not found'
-      state.app.pageData.error = 404
       const props = {
         routes: null,
         initialState: state,
-        cacheBusterTS: cacheBusterTS
+        cacheBusterTS: cacheBusterTS,
+        pageLoadError: {
+          error: 404,
+          title: 'Page not found'
+        }
       }
       res.write('<!DOCTYPE html>')
-
       return ReactDOMServer
         .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
         .pipe(res)
@@ -152,7 +213,6 @@ app.get('*', (req, res) => {
     try {
       const state = store.getState()
       const staticContext = {}
-
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>

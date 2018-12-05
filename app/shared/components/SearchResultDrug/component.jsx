@@ -7,14 +7,20 @@ const ResultDrug = props => {
   let synonyms
   let name = props.item.name
   let invertedMuted = false
+  let link = props.item.slug
 
   if (props.item.realName && props.item.realName !== props.item.name) {
     synonyms = props.item.realName
+    link += `?a=${props.item.name}`
   }
 
-  if (props.highlight && props.highlight.synonyms) {
+  if (props.highlight && props.highlight.drugName) {
+    name = props.highlight.drugName
+    synonyms = props.item.name
+  } else if (props.highlight && props.highlight.synonyms) {
     name = props.highlight.synonyms[0]
     synonyms = props.item.name
+    link += `?a=${name}`
   }
 
   if (props.prefix &&
@@ -29,15 +35,16 @@ const ResultDrug = props => {
   const Tag = `${props.tag || 'h2'}`
 
   return (
-    <a href={`/drug/${props.item.slug}`} className='list-link has-arrow'>
-      <Tag className='h5 d-inline-block spacing-bottom--flush spacing-right'>
+    <a href={`/drug/${link}`} className='list-link has-arrow'>
+      <Tag className='list-link__title'>
         <span className={`inverted ${invertedMuted ? 'inverted--muted' : null}`} dangerouslySetInnerHTML={{ __html: name }} />
       </Tag>
       {synonyms && <p className='grey d-inline-block'>({synonyms})</p>}
       {props.summary &&
-        <p>{ truncate(props.item.description, {
-          'length': 100
-        })}</p>
+        <p className='break-word' dangerouslySetInnerHTML={{
+          __html: truncate(props.item.description, {'length': 100})
+        }}
+        />
       }
     </a>
   )

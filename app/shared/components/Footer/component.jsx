@@ -5,14 +5,16 @@ import { footer, footerUtility, footerButton } from '../../fixtures/navigation.j
 
 const Footer = props => {
   return (
-    <footer className='footer' role='contentinfo'>
+    <footer className='footer'>
       <section className='footer__inner'>
-        <Nav className='displaced-top' navigation={footerButton}/>
-        <Nav role={null} className='navbar-expand navbar-raised' navigation={footer}/>
+        <Nav role={null} className='displaced-top' navigation={footerButton} visible='true'/>
+        <Nav role={null} className='navbar-expand navbar-raised' navigation={footer} visible='true'/>
         <Divider className='hr--inverse'/>
-        <Nav role={null} className='navbar-expand navbar-muted' navigation={footerUtility}/>
+        <Nav role={null} className='navbar-expand navbar-muted' navigation={footerUtility} visible='true'/>
       </section>
+      {props.children}
     </footer>
   )
 }
+
 export default Footer

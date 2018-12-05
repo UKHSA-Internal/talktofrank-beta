@@ -7,19 +7,14 @@
   font-family: $font-family-heavy;
   margin-right: 1.5em;
   color: inherit;
-
-  &.raised {
-    @include media-breakpoint-up(sm) {
-      width: auto;
-    }
-  }
+  cursor: pointer;
 }
 
 
 .has-icon {
   .link__text,
   .btn__text {
-    border-bottom: 2px dashed;
+    border-bottom: 1px dashed;
     border-bottom-color: $white;
     display: inline-block;
     margin-left: 1rem;
@@ -32,19 +27,35 @@
       border-bottom-color: $pink;
     }
 
+    .has-hover & {
+      &:hover {
+        border-bottom-style: solid;
+      }
+    }
+
     .icon {
       margin-left: -4px;
     }
   }
 }
 
-.btn--alink {
+.btn--link {
   &:active,
-  &:hover,
   &:focus {
     color: $pinkAccess;
     text-decoration: underline;
   }
+
+  .has-hover & {
+    &:hover {
+      color: $pinkAccess;
+      text-decoration: underline;
+    }
+  }
+}
+
+.btn--static {
+  position: absolute;
 }
 
 .btn--large {
@@ -68,10 +79,10 @@
   box-shadow: none;
   border-bottom: 2px dashed $pink;
 
-  &:hover,
-  &:focus {
-    background-color: transparent;
-    text-decoration: none;
+  .has-hover & {
+    &:hover {
+      color: $pinkAccess;
+    }
   }
 }
 
@@ -84,13 +95,17 @@
   }
 }
 
+.btn--secondary,
 .btn--primary {
   color: $white;
   background-color: $pink;
   text-decoration: none;
+  cursor: pointer;
   text-align: center;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+  transition: background-color .1s ease-in-out;
+  border: 0;
 
   .btn__text {
     color: $white;
@@ -106,7 +121,26 @@
   }
 
   @include media-breakpoint-up(md) {
-    font-size: 2.3rem;
+    font-size: 2.4rem;
+  }
+
+  .has-hover & {
+    &:hover {
+      background-color: $pinkAccess;
+    }
+  }
+}
+
+.btn--secondary {
+  color: $pinkAccess;
+  background-color: $white;
+  display: inline-block;
+
+  .has-hover & {
+    &:hover {
+      color: $white;
+      background-color: $black;
+    }
   }
 }
 

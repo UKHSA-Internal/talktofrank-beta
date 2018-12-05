@@ -5,8 +5,24 @@ import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
 import Divider from './components/Divider/component'
 import { config } from 'config'
+const marked = require('marked')
 
 export const contentFulFactory = () => {
+  /*
+    Remaining options
+    [BLOCKS.DOCUMENT]
+    [BLOCKS.UL_LIST]
+    [BLOCKS.OL_LIST]
+    [BLOCKS.LIST_ITEM]
+    [BLOCKS.QUOTE]
+    [INLINES.EMBEDDED_ENTRY]
+    [INLINES.ENTRY_HYPERLINK]
+    [INLINES.ASSET_HYPERLINK]
+    [MARKS.ITALIC]
+    [MARKS.UNDERLINE]
+    [MARKS.CODE]
+    [BLOCKS.EMBEDDED_ENTRY]
+   */
   return {
     renderNode: {
       [BLOCKS.HEADING_1]: (node, next) => renderToString(<Heading
@@ -22,34 +38,29 @@ export const contentFulFactory = () => {
       [BLOCKS.HEADING_6]: (node, next) => renderToString(<Heading
         text={next(node.content)} type='h6'/>),
       [BLOCKS.PARAGRAPH]: (node, next) => `<p>${next(node.content)}</p>`,
-//     [BLOCKS.DOCUMENT]: (node, next) => `${next(node.content)}`,
-
-//     [BLOCKS.UL_LIST]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.OL_LIST]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.LIST_ITEM]: (node, next) => `${next(node.content)}`,
-//     [BLOCKS.QUOTE]: (node, next) => `${next(node.content)}`,
-      [BLOCKS.HR]: (node, next) => renderToString(<Divider className='hr--muted hr--large'/>),
-//     [BLOCKS.EMBEDDED_ENTRY]: (node, next) => `${next(node.content)}`,
-      [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
-        let image = `<img src='${node.data.target.fields.file.url}' alt='${node.data.target.fields.title ? node.data.target.fields.title : null}' />`
+      [BLOCKS.HR]: () => renderToString(<Divider className='hr--muted hr--large'/>),
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        let image = `<img role='presentation' src='${node.data.target.fields.file.url}' alt='' />`
         if (node.data.target.fields.description) {
-          return `<figure>${image}<figcaption>${node.data.target.fields.description}</figcaption></figure>`
+          return `<figure>${image}<figcaption aria-hidden='true'>${node.data.target.fields.description}</figcaption></figure>`
         } else {
           return image
         }
       },
-//     [INLINES.EMBEDDED_ENTRY]: (node,next) => `${next(node.content)}`,
+      [BLOCKS.EMBEDDED_ENTRY]: (node, next) => {
+        // Allow embed of text block contents
+        if (node.data.target.sys) {
+          if (node.data.target.sys.contentType.sys.id === 'textBlocks') {
+            return marked(node.data.target.fields.text)
+          }
+        }
+      },
       [INLINES.HYPERLINK]: (node, next) => renderToString(
         <a href={cleanLink(node.data.uri)}>{next(node.content)}</a>)
-//     [INLINES.ENTRY_HYPERLINK]: (node,next) => `${next(node.content)}`,
-//     [INLINES.ASSET_HYPERLINK]: (node,next) => `${next(node.content)}`
-
     },
     renderMark: {
       [MARKS.BOLD]: text => `<strong>${text}</strong>`
-//     [MARKS.ITALIC]: text => `${text}`,
-//     [MARKS.UNDERLINE]: text => `${text}`,
-//     [MARKS.CODE]: text => `${text}`
+
     }
   }
 }
@@ -63,4 +74,12 @@ const cleanLink = (link) => {
     link = link.slice(0, -1)
   }
   return link
+}
+
+export const sortByDateWithFallback = (field, fallback) => {
+  return (val1, val2) => {
+    const a = val1.fields[field] ? val1.fields[field] : val1.sys[fallback]
+    const b = val2.fields[field] ? val2.fields[field] : val2.sys[fallback]
+    return Date.parse(a) < Date.parse(b)
+  }
 }

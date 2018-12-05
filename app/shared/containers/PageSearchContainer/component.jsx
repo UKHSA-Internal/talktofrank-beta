@@ -4,6 +4,7 @@ import { fetchSearchTerm } from '../../actions'
 import SearchPage from '../../components/PageSearch/component.jsx'
 
 const mapStateToProps = (state, ownProps) => {
+  state.app.pageData['pageNumber'] = ownProps.match.params.number ? parseInt((ownProps.match.params.number - 1), 10) : 0
   return state.app
 }
 

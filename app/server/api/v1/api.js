@@ -1,7 +1,13 @@
 import { config } from 'config'
 import axios from 'axios'
 import { format } from 'date-fns'
-import { imageMap, removeMarkdown, removeTags, haversineDistance } from '../../../shared/utilities'
+import {
+  imageMap,
+  removeMarkdown,
+  removeTags,
+  haversineDistance,
+  replaceNewLine
+} from '../../../shared/utilities'
 
 /**
  * Express routes
@@ -9,6 +15,7 @@ import { imageMap, removeMarkdown, removeTags, haversineDistance } from '../../.
 import searchRoutes from './apisearch.js'
 import { contentFulFactory } from '../../../shared/contentful'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import contentfulClient from '../../contentful/lib'
 
 const express = require('express')
 const yaml = require('js-yaml')
@@ -21,41 +28,13 @@ const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
-const contentfulClientConf = {
-  space: config.contentful.contentSpace,
-  accessToken: config.contentful.contentAccessToken,
-  host: config.contentful.contentHost
-}
-
-if (config.contentful.environment && config.contentful.environment !== 'master') {
-  console.log(`Using contentful environment: ${config.contentful.environment}`)
-  contentfulClientConf.environment = config.contentful.environment
-}
-const contentfulClient = contentful.createClient(contentfulClientConf)
-
-const dateFormat = (response) => {
-  if (response.fields.originalPublishDate) {
-    response['date'] = response.fields.originalPublishDate
-    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
-  } else {
-    response['date'] = response.sys.updatedAt
-    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
-  }
-
-  return response
-}
-
-/**
- * Axios global config
- */
-axios.defaults.headers.common['Authorization'] = `Bearer ${config.contentful.contentAccessToken}`
 
 /**
  * Get page data
  */
 router.use('/search', searchRoutes)
 
-router.get('/pages/:slug', (req, res, next) => {
+router.get('/entries/:slug', (req, res, next) => {
   if (!req.params.slug) {
     let error = new Error()
     error.message = 'Page id not set'
@@ -71,32 +50,50 @@ router.get('/pages/:slug', (req, res, next) => {
     }
   }
 
+  const slug = decodeURIComponent(req.params.slug)
+
   // If the slug value exists in the config contentful 'entries' list use that
   // to fetch a single content item, fallback to slug value
-  if (config.contentful.entries[req.params.slug]) {
+  if (config.contentful.entries[slug]) {
     contentfulClient.getEntries({
-      'sys.id': config.contentful.entries[req.params.slug],
+      'sys.id': config.contentful.entries[slug],
       include: 10
     })
       .then((contentfulResponse) => {
         if (contentfulResponse.total === 0) {
           let error = new Error()
-          error.message = `Page not found`
+          error.message = `'${slug}': Page not found`
           error.status = 404
           return next(error)
         }
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
-        response.title = response.fields.title
+        dateFormat(response)
 
         if (response.fields.featuredNewsItem) {
           dateFormat(response.fields.featuredNewsItem)
         }
 
+        if (response.fields.featuredContentItems) {
+          response.fields.featuredContentItems
+            .filter(item => item.fields)
+            .map(item => {
+              return dateFormat(item)
+            })
+        }
+
         if (response.fields.featuredContentBlock && response.fields.featuredContentBlock.fields.featuredContentItems) {
-          response.fields.featuredContentBlock.fields.featuredContentItems.map(item => {
-            return dateFormat(item)
-          })
+          response.fields.featuredContentBlock.fields.featuredContentItems
+            .filter(item => item.fields)
+            .map(item => {
+              return dateFormat(item)
+            })
+        }
+
+        if (response.fields.callout) {
+          if (response.fields.callout.fields.content) {
+            response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+          }
         }
 
         if (response.fields.intro) {
@@ -108,10 +105,20 @@ router.get('/pages/:slug', (req, res, next) => {
         }
 
         if (response.fields.contentExtra) {
-          response.fields.contentExtra.map((fieldName, i) => {
-            fieldName.fields.content = marked(fieldName.fields.content)
-            return fieldName
-          })
+          response.fields.contentExtra
+            .filter(item => item.fields)
+            .map((fieldName, i) => {
+              fieldName.fields.content = marked(fieldName.fields.content)
+              return fieldName
+            })
+        }
+
+        // Set meta info
+        response.head = {
+          pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
+          title: getPageTitle(response.fields, 'title'),
+          description: getMetaDescription(response.fields, 'body'),
+          image: getMetaImage(response.fields, true)
         }
 
         res.send(response)
@@ -120,41 +127,59 @@ router.get('/pages/:slug', (req, res, next) => {
   } else {
     const contentfulRequest = {
       content_type: config.contentful.contentTypes.page,
-      'fields.slug': decodeURIComponent(req.params.slug)
+      'fields.slug': slug.toLowerCase()
     }
+    try {
+      contentfulClient.getEntries(contentfulRequest)
+        .then((contentfulResponse) => {
+          if (contentfulResponse.total === 0) {
+            let error = new Error()
+            error.message = `'${slug.toLowerCase()}': Page not found`
+            error.status = 404
+            return next(error)
+          }
 
-    contentfulClient.getEntries(contentfulRequest)
-      .then((contentfulResponse) => {
-        if (contentfulResponse.total === 0) {
-          let error = new Error()
-          error.message = `Page not found`
-          error.status = 404
-          return next(error)
-        }
+          // merge contentful assets and includes
+          let response = resolveResponse(contentfulResponse, {parentSysId: contentfulResponse.items[0].sys.id})[0]
+          dateFormat(response)
 
-        // merge contentful assets and includes
-        let response = resolveResponse(contentfulResponse)[0]
-        response.title = response.fields.title
+          if (response.fields.callout) {
+            if (response.fields.callout.fields.content) {
+              response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+            }
+          }
 
-        dateFormat(response)
+          if (response.fields.intro) {
+            response.fields.intro = marked(response.fields.intro)
+          }
 
-        if (response.fields.intro) {
-          response.fields.intro = marked(response.fields.intro)
-        }
+          if (response.fields.body) {
+            response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+          }
 
-        if (response.fields.body) {
-          response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
-        }
+          if (response.fields.contentExtra) {
+            response.fields.contentExtra
+              .filter(item => item.fields)
+              .map((fieldName, i) => {
+                fieldName.fields.content = marked(fieldName.fields.content)
+                return fieldName
+              })
+          }
 
-        if (response.fields.contentExtra) {
-          response.fields.contentExtra.map((fieldName, i) => {
-            fieldName.fields.content = marked(fieldName.fields.content)
-            return fieldName
-          })
-        }
-        res.send(response)
-      })
-      .catch(error => next(error.response))
+          // Set meta info
+          response.head = {
+            pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
+            title: getPageTitle(response.fields, 'title'),
+            description: getMetaDescription(response.fields, 'body'),
+            image: getMetaImage(response.fields, true)
+          }
+
+          res.send(response)
+        })
+        .catch(error => next(error))
+    } catch (error) {
+      next(error)
+    }
   }
 })
 
@@ -166,22 +191,23 @@ router.get('/drugs/:slug', (req, res, next) => {
     return next(error)
   }
 
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.drug,
-    'fields.slug': decodeURIComponent(req.params.slug)
+    'fields.slug': slug
   }
 
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found`
+        error.message = `'${slug}': Page not found`
         error.status = 404
         return next(error)
       }
 
       let response = resolveResponse(contentfulResponse)[0]
-      response.title = response.fields.drugName
+
       // Add contentful field ids here to transform the contents
       // from markdown to HTML
       const markDownFields = {
@@ -238,6 +264,15 @@ router.get('/drugs/:slug', (req, res, next) => {
             response.fields[fieldName] = marked(response.fields[fieldName])
           }
         })
+
+      // Set meta info
+      response.head = {
+        pageTitle: getPageTitle(response.fields, 'pageTitle', 'drugName'),
+        title: getPageTitle(response.fields, 'drugName'),
+        description: getMetaDescription(response.fields, 'description'),
+        image: getMetaImage(response.fields, true)
+      }
+
       res.send(response)
     })
     .catch(error => next(error.response))
@@ -259,7 +294,7 @@ router.get('/drugs', (req, res, next) => {
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found ${pageUrl}`
+        error.message = `'drugs-a-z': Page not found`
         error.status = 404
         return next(error)
       }
@@ -268,11 +303,10 @@ router.get('/drugs', (req, res, next) => {
         .filter(item => item.fields.synonyms && item.fields.drugName)
         .map((item) => {
           response.list.push({
-            // name: item.fields.name.toLowerCase(),
             name: item.fields.drugName,
             slug: item.fields.slug,
             synonyms: item.fields.synonyms,
-            description: item.fields.description
+            description: marked(item.fields.description)
           })
 
           item.fields.synonyms
@@ -329,7 +363,7 @@ router.get('/news', (req, res, next) => {
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
-    order: '-sys.createdAt,sys.id',
+    order: '-fields.originalPublishDate,-sys.createdAt',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
   }
@@ -343,12 +377,11 @@ router.get('/news', (req, res, next) => {
       let imageCount = 1
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found ${pageUrl}`
+        error.message = `'news': Page not found`
         error.status = 404
         return next(error)
       }
       // merge contentful assets and includes
-      response.title = 'Latest news'
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
       response.list = response.list.map(v => {
@@ -356,22 +389,18 @@ router.get('/news', (req, res, next) => {
           v['date'] = v.fields.originalPublishDate
           v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
         } else {
-          // @andy - this needs a bit more nuance - there is a created and an updated date for each
-          // so going to use the updated for now as that is the latest
-          v['date'] = v.sys.updatedAt
-          v['dateFormatted'] = format(Date.parse(v.sys.updatedAt), 'Do MMM YYYY')
-          // v['createdAt'] = v.sys.createdAt
-          // v['createdAtFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
+          v['date'] = v.sys.createdAt
+          v['dateFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
         }
 
         if (!v.fields.summary) {
           if (v.fields.body) {
             v.fields.summary = truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
-              'length': 240
+              'length': 120
             })
           } else if (v.fields.bodyLegacy) {
-            v.fields.summary = truncate(removeMarkdown(v.fields.bodyLegacy), {
-              'length': 240
+            v.fields.summary = truncate(removeMarkdown(replaceNewLine(v.fields.bodyLegacy, '&nbsp;')), {
+              'length': 120
             })
           }
         }
@@ -384,6 +413,8 @@ router.get('/news', (req, res, next) => {
 
         return v
       })
+      response.title = 'News'
+
       res.send(response)
     })
     .catch(error => next(error.response))
@@ -397,7 +428,7 @@ router.get('/news/:slug', (req, res, next) => {
     return next(error)
   }
 
-  const slug = decodeURIComponent(req.params.slug)
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
     'fields.slug': slug
@@ -407,13 +438,12 @@ router.get('/news/:slug', (req, res, next) => {
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found`
+        error.message = `'${slug}': Page not found`
         error.status = 404
         return next(error)
       }
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
-      response.title = response.fields.title
 
       dateFormat(response)
 
@@ -438,6 +468,14 @@ router.get('/news/:slug', (req, res, next) => {
       }
 
       response.fields['type'] = 'h1'
+      // Set meta info
+      response.head = {
+        pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
+        title: getPageTitle(response.fields, 'title'),
+        description: getMetaDescription(response.fields, 'summary'),
+        image: getMetaImage(response.fields)
+      }
+
       res.send(response)
     })
     .catch(error => next(error.response))
@@ -465,10 +503,13 @@ router.get('/treatment-centres', async (req, res, next) => {
     return next(error)
   }
 
+  const locationValue = removeTags(req.query.location)
+
   let response = {
-    location: removeTags(req.query.location),
+    location: locationValue,
     serviceType: req.query.serviceType ? req.query.serviceType : '',
-    results: []
+    results: [],
+    total: 0
   }
 
   const geocodeLocation = await axios
@@ -483,7 +524,15 @@ router.get('/treatment-centres', async (req, res, next) => {
     return next(error)
   }
 
-  if (!geocodeLocation.data || geocodeLocation.data.results.length < 1) {
+  if (!geocodeLocation.data ||
+    geocodeLocation.data.results.length < 1 ||
+    geocodeLocation.data.results[0].address_components.length < 2
+  ) {
+    // Set meta info
+    response.head = {
+      title: `No results found`
+    }
+
     return res.send(response)
   }
 
@@ -526,9 +575,15 @@ router.get('/treatment-centres', async (req, res, next) => {
             })
           response.results.sort((a, b) => parseFloat(a.distance) > parseFloat(b.distance))
         })
+
+      // Set meta info
+      response.head = {
+        title: `Results ordered by nearest to "${locationValue}"`
+      }
+
       res.send(response)
     })
-    .catch(error => next(error.response))
+    .catch(error => next(error))
 })
 
 router.get('/treatment-centres/:slug', (req, res, next) => {
@@ -539,7 +594,7 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
     return next(error)
   }
 
-  const slug = decodeURIComponent(req.params.slug)
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.treatmentCentre,
@@ -551,22 +606,31 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
     .then((contentfulResponse) => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
-        error.message = `Page not found`
+        error.message = `'${slug}': Page not found`
         error.status = 404
         return next(error)
       }
 
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
-      response.title = response.fields.name
       Object.keys(response.fields)
         .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
         .map(fieldKey => {
           response.fields[fieldKey] = marked(response.fields[fieldKey])
         })
+
+      response.fields.timesSessions = replaceNewLine(response.fields.timesSessions, '<br />')
+
+      // Set meta info
+      response.head = {
+        pageTitle: getPageTitle(response.fields, 'name'),
+        title: getPageTitle(response.fields, 'name'),
+        description: getMetaDescription(response.fields, 'serviceInfo')
+      }
+
       res.send(response)
     })
-    .catch(error => next(error.response))
+    .catch(error => next(error))
 })
 
 /**
@@ -601,5 +665,49 @@ const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
       responseFields[fieldChildName] = marked(responseFields[fieldChildName])
     })
 )
+
+const dateFormat = (response) => {
+  if (response.fields.originalPublishDate) {
+    response['date'] = response.fields.originalPublishDate
+    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+  } else {
+    response['date'] = response.sys.updatedAt
+    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+  }
+
+  return response
+}
+
+const getPageTitle = (item, key, fallback = 'title') => {
+  if (item[key]) {
+    return item[key]
+  } else if (item[fallback]) {
+    return item[fallback]
+  }
+  return false
+}
+
+const getMetaDescription = (item, fallback) => {
+  if (item.metaDescription) {
+    return item.metaDescription
+  } else if (item[fallback]) {
+    return truncate(removeMarkdown(removeTags(item[fallback])), {
+      'length': 120
+    })
+  }
+  return false
+}
+
+const getMetaImage = (item, loadMap = false) => {
+  if (item.image) {
+    const images = loadMap ? imageMap(item.image) : item.image
+    const imageSizes = Object.keys(images)
+      .map(s => parseInt(s, 10))
+      .sort((a, b) => b - a)
+    let smallestSize = imageSizes.pop()
+    return images[smallestSize]
+  }
+  return false
+}
 
 export default router

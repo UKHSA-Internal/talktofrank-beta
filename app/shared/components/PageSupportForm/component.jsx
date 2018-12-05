@@ -10,7 +10,7 @@ import FormGroup from '../FormGroup/component.jsx'
 import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Icon from '../Icon/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 
 export default class PageSupportForm extends React.PureComponent {
@@ -20,6 +20,7 @@ export default class PageSupportForm extends React.PureComponent {
     this.onServiceTypeChange = this.onServiceTypeChange.bind(this)
     this.submitAction = this.submitAction.bind(this)
     this.state = {
+      error: false,
       locationValue: '',
       serviceTypeValue: ''
     }
@@ -28,13 +29,18 @@ export default class PageSupportForm extends React.PureComponent {
   submitAction(e) {
     if (this.state.locationValue.trim() !== '') {
       window.location = `/treatment-centre?location=${encodeURIComponent(this.state.locationValue)}&serviceType=${encodeURIComponent(this.state.serviceTypeValue)}`
+    } else {
+      this.setState({
+        error: 'Please enter a postcode'
+      })
     }
   }
 
   onLocationChange (e) {
     const newValue = e.target.value
     this.setState({
-      locationValue: newValue
+      locationValue: newValue,
+      error: false
     })
   }
 
@@ -179,21 +185,21 @@ export default class PageSupportForm extends React.PureComponent {
       ]
     }
 
-    const { locationValue, serviceTypeValue } = this.state
+    const { locationValue, serviceTypeValue, error } = this.state
 
     return (
       <React.Fragment>
         <Masthead/>
-        <Accent className='accent--shallow'>
-          <Heading type='h1' className='h2 spacing-left spacing--single' text='Find support near you'/>
-        </Accent>
-        <Main className='main--muted main--full-width'>
+        <Main className='main--muted'>
+          <Accent className='accent--shallow'>
+            <Heading type='h1' className='page-title' text='Find support near you'/>
+          </Accent>
           <Accent>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
-                <p className='lead'>Find details of local and national services that provide counselling and treatment in England.</p>
-                <Form className='spacing--large'>
-                  <FormGroup onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter your full postcode' id='support-centre-postcode' placeholder=''/>
+                <p className='lead spacing--single'>Find details of local and national services that provide counselling and treatment in England.</p>
+                <Form className='spacing--single'>
+                  <FormGroup error={error} onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter a full postcode or town' id='support-centre-postcode' placeholder=''/>
                   <Select {...supportOptions} onChange={this.onServiceTypeChange} selected={serviceTypeValue} className='form-control--reversed form-control--large'/>
                   <Button className='btn--primary' clickHandler={this.submitAction}>
                     Search
@@ -205,13 +211,13 @@ export default class PageSupportForm extends React.PureComponent {
                 <Heading className='h4' text={`If you don't live in England`}/>
                 <ul className='list-unstyled link-list link-list--reversed link-list--has-arrow'>
                   <li className='link-list__item'>
-                  <a href='#' className='link-list__link'>Scotland</a>
+                  <a href='http://www.scottishdrugservices.com/' className='link-list__link'>Scotland</a>
                   </li>
                   <li className='link-list__item'>
-                  <a href='#' className='link-list__link'>Wales</a>
+                  <a href='http://www.dan247.org.uk/Services_Drugs_Alcohol.asp' className='link-list__link'>Wales</a>
                   </li>
                   <li className='link-list__item'>
-                  <a href='#' className='link-list__link'>Northern Ireland</a>
+                  <a href='http://www.publichealth.hscni.net/publications/drug-and-alcohol-directories-services' className='link-list__link'>Northern Ireland</a>
                   </li>
                 </ul>
               </GridCol>

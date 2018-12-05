@@ -7,10 +7,15 @@ $diameter: 20px;
     position: absolute;
     right: 2rem;
     top: 3rem;
+
+    // ugh not the most elegant thing
+    .react-autosuggest__suggestions-container--homepage & {
+      right: 8rem;
+    }
   }
 
   &:after {
-    transition: 2.5s opacity linear;
+    transition: .5s opacity linear;
     opacity: 0;
     position: absolute;
     content: '';
@@ -24,10 +29,29 @@ $diameter: 20px;
     margin-left: -($diameter + 6px) / 2;
     border-width: 4px;
     border-style: solid;
-    border-color: $pink $pink $white $white;
+    border-color: $pink $pink transparent transparent;
     border-radius: 50%;
     overflow: hidden;
     animation: spinner .6s infinite linear;
+  }
+
+
+  &--fixed {
+    $diameter: 60px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -($diameter - 10px) / 2;
+    margin-left: -($diameter - 10px) / 2;
+
+    &:after {
+      width: $diameter;
+      height: $diameter;
+    }
+
+    .spinner__inner {
+      display: none;
+    }
   }
 }
 

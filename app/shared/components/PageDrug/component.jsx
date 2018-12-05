@@ -9,22 +9,24 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import { imageMap } from '../../utilities'
+import SatisfactionBar from '../SatisfactionBar/component.jsx'
+import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
 
 const Page = props => {
   const modifiers = {
     type: 'h3',
-    className: 'h5 spacing-top--single'
+    className: 'h5'
   }
 
-  const name = props.fields.drugName && props.fields.drugName.toLowerCase()
-  const syn = props.location.search ? props.location.search.split('=')[1] : null
+  const name = props.fields.drugActualName || props.fields.drugName
+  const syn = props.location.search ? decodeURIComponent(props.location.search.split('=')[1]) : null
 
   return (
     <React.Fragment>
       <Masthead path={props.location}/>
-      <Main className='main--full-width'>
+      <Main>
         {props.fields.schemaDefinitions &&
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
         }
@@ -33,10 +35,10 @@ const Page = props => {
             {props.fields.image && <GridCol className='col-12 col-md-3'>
               <Picture {...imageMap(props.fields.image)} />
             </GridCol>}
-            <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : null)}>
-              <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
-              {props.fields.synonyms && <p className='lead bold'>Also called:</p>}
-              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul>
+            <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : '')}>
+              <Heading type='h1' text={props.fields.drugName} className={`h2 inverted spacing-bottom--single ${props.fields.image ? 'has-image' : ''}`}/>
+              {props.fields.synonyms && props.fields.synonyms[0] !== '' && <React.Fragment><p className='lead bold'>Also called:</p>
+              <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul></React.Fragment>}
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
             </GridCol>
           </Grid>
@@ -69,18 +71,6 @@ const Page = props => {
           <Toggle text='Duration' className='collapsible--chevron' history={props.location}>
             {props.fields.durationDefault && <Longform text={props.fields.durationDefault.fields.text} />}
             {props.fields.durationDetail && <Longform text={props.fields.durationDetail} />}
-            {props.fields.durationMethodOfTaking && props.fields.durationMethodOfTaking.map((v, i) => {
-              return (
-                <aside className='panel panel--padding-small panel--has-heading' key={i}>
-                  <Heading type='h3' text={v.fields.methodName} className='h4 inverted displaced-top'/>
-                  <dl className='definition-list'>
-                    <dt>Start to feel effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsStart}} />
-                    <dt>The effects last for:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodEffectsDuration}} />
-                    {v.fields.methodAfterEffects && <React.Fragment><dt>After effects:</dt><dd dangerouslySetInnerHTML={{__html: v.fields.methodAfterEffects}}/></React.Fragment>}
-                  </dl>
-                </aside>
-              )
-            })}
             {props.fields.durationDetectable &&
               <React.Fragment>
                 <Heading {...modifiers} text='How long will it be detectable?'/>
@@ -117,8 +107,8 @@ const Page = props => {
         {props.fields.lawClass && <section className='section section--has-toggle'>
           <Toggle text='The law' className='collapsible--chevron' history={props.location}>
             <React.Fragment>
-              {props.fields.lawClass.fields.class && props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h2 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
-              <div className='has-unordered'>
+              {props.fields.lawClass.fields.class && props.fields.lawClass.fields.class.toLowerCase() !== 'none' && <Heading type='p' className='h3 inverted spacing-bottom--single' text={props.fields.lawClass.fields.class} />}
+              <div className='long-form has-unordered'>
                 <ul>
                   <Heading type='li' text={props.fields.lawClass.fields.description}/>
                   <Heading type='li' text={props.fields.lawClass.fields.possesion}/>
@@ -135,30 +125,27 @@ const Page = props => {
         <section className='section section--has-toggle'>
           <Toggle text={`Worried about ${name} use?`} className='collapsible--chevron' history={props.location}>
 
-            <p className='muted'>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:0800776600'>0800 77 66 00</a> for friendly, confidential advice.</p>
-
-            {/* @refactor @joel - haul this out into component or something
-                @andy hiding this for now until we know how links will work in CMS */}
-            {false &&
-              <ul className='list-unstyled link-list link-list--has-arrow'>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-                <li className='link-list__item'>
-                <a href='#' className='link-list__link'>Worried about a friend’s use?</a>
-                </li>
-              </ul>
-            }
-            {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequency asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
+            <p>If you are worried about your {props.fields.name} use, you can call FRANK on <a href='tel:03001236600'>0300 1236600</a> for friendly, confidential advice.</p>
+            <ul className='list-unstyled link-list link-list--spaced link-list--has-arrow'>
+              <li className='link-list__item'>
+                <a href='/get-help/worried-about-a-friend' className='link-list__link'>Worried about a friend?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='/get-help/worried-about-a-child' className='link-list__link'>Worried about a child?</a>
+              </li>
+              <li className='link-list__item'>
+                <a href='/get-help/dealing-with-peer-pressure' className='link-list__link'>Feeling pressured to take drugs?</a>
+              </li>
+            </ul>
+            {props.fields.additional && <React.Fragment><Heading {...modifiers} text={`Frequently asked questions about ${name}`}/><Longform text={props.fields.additional} /></React.Fragment>
             }
           </Toggle>
         </section>
-
+        <BlockFeaturedContent />
       </Main>
-      <Footer />
+      <Footer>
+        <SatisfactionBar />
+      </Footer>
       <GA/>
     </React.Fragment>
   )

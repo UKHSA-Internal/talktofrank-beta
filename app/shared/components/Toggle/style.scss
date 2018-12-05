@@ -40,6 +40,17 @@ $dims: 2rem;
         padding-left: 0;
       }
     }
+
+    h3,
+    h5 {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .long-form + h3,
+    .long-form + h5 {
+      margin-top: 3rem;
+    }
   }
 
   .bordered {
@@ -58,6 +69,16 @@ $dims: 2rem;
     padding-bottom: 2.5rem;
     font-family: $headings-font-family;
     color: $text-dark-blue;
+    line-height: 1.2;
+
+    .has-hover & {
+      &:hover,
+      &:active {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: $pink;
+      }
+    }
   }
 
   &.collapsible--chevron {
@@ -88,7 +109,7 @@ $dims: 2rem;
 
   strong {
     color: $text-dark-blue;
-    display: block;
+    display: inline-block;
   }
 
   // slightly smelly - this is in place to negate the need for a really complex
@@ -97,6 +118,8 @@ $dims: 2rem;
 
   p,
   .panel,
+  h3,
+  h4,
   ul,
   ol {
     margin-left: 0;
@@ -104,6 +127,11 @@ $dims: 2rem;
     @include media-breakpoint-up(md) {
       margin-left: 2.5rem;
     }
+  }
+
+  ul,
+  ol {
+    margin-top: 2.5rem;
   }
 
   .inverted {
