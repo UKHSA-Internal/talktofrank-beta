@@ -26,7 +26,8 @@ export default class SearchPage extends React.Component {
     this.main = React.createRef()
     this.focusMain = this.focusMain.bind(this)
     this.state = {
-      searchValue: this.props.pageData.searchTerm
+      searchValue: this.props.pageData.searchTerm,
+      index: 0
     }
   }
 
@@ -50,6 +51,7 @@ export default class SearchPage extends React.Component {
   }
 
   focusMain() {
+    this.setState({index: this.state.index + 1})
     scrollTo((document.body || document.documentElement), 0, 500, this.main.current.focus())
   }
 
@@ -133,7 +135,7 @@ export default class SearchPage extends React.Component {
                     })
                   }</ul>
                 }
-                {loading && !error && <Spinner className='spinner--fixed'/>}
+                {loading && !error && (this.state.index > 0) && <Spinner className='spinner--fixed'/>}
                 {!loading && !total &&
                   this.renderNoResults()
                 }

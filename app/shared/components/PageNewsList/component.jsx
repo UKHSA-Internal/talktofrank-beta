@@ -19,6 +19,9 @@ export default class PageNewsList extends React.PureComponent {
     this.updateAddress = this.updateAddress.bind(this)
     this.main = React.createRef()
     this.focusMain = this.focusMain.bind(this)
+    this.state = {
+      index: 0
+    }
   }
 
   handlePageChange (pageNumber) {
@@ -34,6 +37,7 @@ export default class PageNewsList extends React.PureComponent {
   }
 
   focusMain() {
+    this.setState({index: this.state.index + 1})
     scrollTo((document.body || document.documentElement), 0, 500, this.main.current.focus())
   }
 
@@ -60,7 +64,7 @@ export default class PageNewsList extends React.PureComponent {
                       return <Article {...item} key={item.sys.id}/>
                     })}
                 </ul>
-                {loading && !error && <Spinner className='spinner--fixed'/>}
+                {loading && !error && (this.state.index > 0) && <Spinner className='spinner--fixed'/>}
               </GridCol>
             </Grid>
             {total > 10 &&
