@@ -33,7 +33,8 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
         searchTerm: decodeURIComponent(req.params.term.trim()),
         total: 0,
         head: {
-          title: `No search results`
+          title: `No search results`,
+          noindex: true
         }
       })
     }
@@ -58,7 +59,8 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
         })
       results.hits.searchTerm = searchTermDecoded
       results.hits.head = {
-        title: `${results.hits.total} search results for '${searchTermDecoded}'`
+        title: `${results.hits.total} search results for '${searchTermDecoded}'`,
+        noindex: true
       }
       return res.status(200).json(results.hits)
     })

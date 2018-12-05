@@ -25,7 +25,6 @@ const groupBy = require('lodash.groupby')
 const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
-// const customResolveResponse = require('../../../shared/contentFulCustomResolve.jsx')
 const contentful = require('contentful')
 
 const contentfulClientConf = {
@@ -128,8 +127,10 @@ router.get('/entries/:slug', (req, res, next) => {
 
         // Set meta info
         response.head = {
+          pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
           title: getPageTitle(response.fields, 'title'),
-          description: getMetaDescription(response.fields, 'body')
+          description: getMetaDescription(response.fields, 'body'),
+          image: getMetaImage(response.fields, true)
         }
 
         res.send(response)
@@ -179,8 +180,10 @@ router.get('/entries/:slug', (req, res, next) => {
 
           // Set meta info
           response.head = {
+            pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
             title: getPageTitle(response.fields, 'title'),
-            description: getMetaDescription(response.fields, 'body')
+            description: getMetaDescription(response.fields, 'body'),
+            image: getMetaImage(response.fields, true)
           }
 
           res.send(response)
@@ -276,8 +279,10 @@ router.get('/drugs/:slug', (req, res, next) => {
 
       // Set meta info
       response.head = {
+        pageTitle: getPageTitle(response.fields, 'pageTitle', 'drugName'),
         title: getPageTitle(response.fields, 'drugName'),
-        description: getMetaDescription(response.fields, 'description')
+        description: getMetaDescription(response.fields, 'description'),
+        image: getMetaImage(response.fields, true)
       }
 
       res.send(response)
@@ -477,8 +482,10 @@ router.get('/news/:slug', (req, res, next) => {
       response.fields['type'] = 'h1'
       // Set meta info
       response.head = {
+        pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
         title: getPageTitle(response.fields, 'title'),
-        description: getMetaDescription(response.fields, 'summary')
+        description: getMetaDescription(response.fields, 'summary'),
+        image: getMetaImage(response.fields),
       }
 
       res.send(response)
@@ -628,6 +635,7 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
 
       // Set meta info
       response.head = {
+        pageTitle: getPageTitle(response.fields, 'name'),
         title: getPageTitle(response.fields, 'name'),
         description: getMetaDescription(response.fields, 'serviceInfo')
       }
@@ -682,9 +690,9 @@ const dateFormat = (response) => {
   return response
 }
 
-const getPageTitle = (item, fallback) => {
-  if (item.pageTitle) {
-    return item.pageTitle
+const getPageTitle = (item, key, fallback = 'title') => {
+  if (item[key]) {
+    return item[key]
   } else if (item[fallback]) {
     return item[fallback]
   }
@@ -701,5 +709,18 @@ const getMetaDescription = (item, fallback) => {
   }
   return false
 }
+
+const getMetaImage = (item, loadMap = false) => {
+  if (item.image) {
+    const images = loadMap ? imageMap(item.image) : item.image
+    const imageSizes = Object.keys(images)
+      .map(s => parseInt(s, 10))
+      .sort((a, b) => b - a)
+    let smallestSize = imageSizes.pop()
+    return images[smallestSize]
+  }
+  return false
+}
+
 
 export default router
