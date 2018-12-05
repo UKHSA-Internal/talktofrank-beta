@@ -93,7 +93,6 @@ export function imageMap (obj) {
 
   if (path.imageHuge && path.imageHuge.fields) {
     imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
-
   }
 
   if (path.imageVeryLarge && path.imageVeryLarge.fields) {
@@ -161,7 +160,6 @@ export function scrollIntoView (node, duration = 300, offset = 80, callback) {
   }, duration)
 }
 
-
 /**
  * Animate scroll of a specified HTML Element (ease-in-out)
  * @param {HTMLElement} element HTML element's scroll to animate
@@ -223,7 +221,6 @@ export function scrollTo(element, to, duration, callback) {
   }
   animateScroll()
 }
-
 
 const toRad = (x) => x * Math.PI / 180
 
