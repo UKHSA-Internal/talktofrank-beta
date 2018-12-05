@@ -8,8 +8,9 @@ import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
 import Main from '../Main/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import Spinner from '../Spinner/component.jsx'
 import { scrollTo } from '../../utilities'
+import { GA } from '../GoogleAnalytics/component.jsx'
 
 export default class PageNewsList extends React.PureComponent {
   constructor (props) {
@@ -37,7 +38,7 @@ export default class PageNewsList extends React.PureComponent {
   }
 
   render () {
-    const { loading, location } = this.props
+    const { loading, location, error } = this.props
     const { title, list, total, pageNumber } = this.props.pageData
 
     return (
@@ -59,6 +60,7 @@ export default class PageNewsList extends React.PureComponent {
                       return <Article {...item} key={item.sys.id}/>
                     })}
                 </ul>
+                {loading && <Spinner className='spinner--fixed'/>}
               </GridCol>
             </Grid>
             {total > 10 &&

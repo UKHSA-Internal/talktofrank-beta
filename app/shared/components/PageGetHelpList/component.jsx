@@ -7,7 +7,7 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Longform from '../Longform/component.jsx'
 import Accent from '../Accent/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
 
 export default class PageGetHelpList extends React.PureComponent {

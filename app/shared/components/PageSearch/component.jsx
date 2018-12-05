@@ -12,7 +12,10 @@ import SearchResultContent from '../SearchResultContent/component'
 import Anchor from '../Anchor/component'
 import Svg from '../Svg/component'
 import Main from '../Main/component.jsx'
+import Spinner from '../Spinner/component.jsx'
 import { scrollTo } from '../../utilities'
+import ReactGA from 'react-ga'
+import { GA, GAEvent } from '../GoogleAnalytics/component'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -90,7 +93,7 @@ export default class SearchPage extends React.Component {
   }
 
   render () {
-    const { loading, location } = this.props
+    const { loading, location, error } = this.props
     const { total, hits, pageNumber } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
     let title = `Search results for '${searchValue}'`
@@ -107,47 +110,49 @@ export default class SearchPage extends React.Component {
             <Grid>
               <GridCol className='col-12 col-sm-10 offset-sm-1'>
                 {!loading && total > 0 &&
-                  <React.Fragment>
-                    <ul className='list-unstyled list-offset spacing-top--flush'>
-                      {hits
-                        .map(result => {
-                          const SearchResultComponent =
-                            result._index.includes('talktofrank-content')
-                              ? SearchResultContent
-                              : SearchResultDrug
+                  <ul className='list-unstyled list-offset spacing-top--flush'>
+                  {hits
+                    .map(result => {
+                      const SearchResultComponent =
+                        result._index.includes('talktofrank-content')
+                          ? SearchResultContent
+                          : SearchResultDrug
 
-                          return (
-                            <li className={`list-item--underlined`}>
-                              <SearchResultComponent
-                                item={result._source}
-                                highlight={result.highlight
-                                  ? result.highlight
-                                  : null
-                                }
-                                summary={true}
-                              />
-                            </li>
-                          )
-                        })
-                      }</ul>
-                  </React.Fragment>
+                      return (
+                        <li className={`list-item--underlined`}>
+                          <SearchResultComponent
+                            item={result._source}
+                            highlight={result.highlight
+                              ? result.highlight
+                              : null
+                            }
+                            summary={true}
+                          />
+                        </li>
+                      )
+                    })
+                  }</ul>
                 }
-                {total > 10 &&
-                <Pagination
-                  initialPage={pageNumber}
-                  pageCount={Math.ceil(total / 10)}
-                  onPageChange={this.handlePageChange}
-                  onPaginateFocus={this.focusMain}
-                />
-                }
+                {loading && !error && <Spinner className='spinner--fixed'/>}
                 {!loading && !total &&
                   this.renderNoResults()
                 }
               </GridCol>
             </Grid>
+            {total > 10 &&
+              <Pagination
+                initialPage={pageNumber}
+                pageCount={Math.ceil(total / 10)}
+                onPageChange={this.handlePageChange}
+                onPaginateFocus={this.focusMain}
+              />
+            }
           </Accent>
         </Main>
         <Footer />
+        <GA>
+          {!loading && !total && <GAEvent category={'Search'} action={'no results'} label={this.state.searchValue} nonInteraction={true} />}
+        </GA>
       </React.Fragment>
     )
   }

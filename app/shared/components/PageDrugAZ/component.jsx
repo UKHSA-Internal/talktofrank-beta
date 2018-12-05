@@ -9,7 +9,7 @@ import Nav from '../Nav/component.jsx'
 import Divider from '../Divider/component.jsx'
 import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 
 const DrugList = props => {
   const limit = 4

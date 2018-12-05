@@ -8,11 +8,12 @@ import Anchor from '../Anchor/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import ArticleSupport from '../ArticleSupport/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import Main from '../Main/component.jsx'
 import Divider from '../Divider/component'
 import Svg from '../Svg/component'
 import { scrollTo } from '../../utilities'
+import Spinner from '../Spinner/component.jsx'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
@@ -104,6 +105,7 @@ export default class PageSupportList extends React.PureComponent {
                     />
                   })}
                 </ul>
+                {loading && !error && <Spinner className='spinner--fixed'/>}
               </GridCol>
             </Grid>
             {total > 10 &&
