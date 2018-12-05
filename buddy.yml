@@ -243,7 +243,7 @@
     deployment_includes:
     - "config.*.yaml"
     - "package.json"
-    - ".ebextensions/prod.*.config"
+    - ".ebextensions/*.prod.config"
     trigger_condition: "ALWAYS"
   - action: "Upload files to Elastic Beanstalk/Talk to Frank"
     type: "ELASTIC_BEANSTALK"
