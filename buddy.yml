@@ -131,6 +131,18 @@
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
     integration_id: 41810
+  - action: "Send notification to Sentry"
+    type: "SENTRY"
+    environment: "$BUDDY_PIPELINE_NAME"
+    organization_slug: "public-health-england-talk-to-"
+    organization_name: "Public Health England - Talk To Frank"
+    version: "$BUDDY_EXECUTION_REVISION"
+    release_url: "$BUDDY_EXECUTION_URL"
+    deploy_url: "$BUDDY_EXECUTION_URL"
+    projects:
+    - "talk-to-frank"
+    trigger_condition: "ALWAYS"
+    integration_id: 38897
 - pipeline: "UAT deployment"
   trigger_mode: "SCHEDULED"
   cron: "0 8,12,15 * * *"
@@ -307,15 +319,3 @@
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
     integration_id: 41810
-  - action: "Send notification to Sentry"
-    type: "SENTRY"
-    environment: "$BUDDY_PIPELINE_NAME"
-    organization_slug: "public-health-england-talk-to-"
-    organization_name: "Public Health England - Talk To Frank"
-    version: "$BUDDY_EXECUTION_REVISION"
-    release_url: "$BUDDY_EXECUTION_URL"
-    deploy_url: "$BUDDY_EXECUTION_URL"
-    projects:
-    - "talk-to-frank"
-    trigger_condition: "ALWAYS"
-    integration_id: 38897
