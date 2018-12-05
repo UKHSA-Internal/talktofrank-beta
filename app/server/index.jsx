@@ -125,7 +125,6 @@ app.get('/sitemap.xml', async (req, res, next) => {
   ]
 
   let urls = entries.items.filter(item => {
-
     if (item.fields.hasOwnProperty('addressStatus') &&
       item.fields.addressStatus === false) {
       return false
@@ -141,15 +140,15 @@ app.get('/sitemap.xml', async (req, res, next) => {
     return item.fields.slug
   }).map(item => {
     let url
-    switch(item.sys.contentType.sys.id) {
+    switch (item.sys.contentType.sys.id) {
       case 'news':
-        url = "news/" + item.fields.slug
+        url = 'news/' + item.fields.slug
         break
       case 'drug':
-        url = "drugs/" + item.fields.slug
+        url = 'drugs/' + item.fields.slug
         break
       case 'treatmentCentre':
-        url = "treatment-centre/" + item.fields.slug
+        url = 'treatment-centre/' + item.fields.slug
         break
       default:
         url = item.fields.slug
