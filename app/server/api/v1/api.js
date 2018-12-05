@@ -28,19 +28,7 @@ const resolveResponse = require('contentful-resolve-response')
 // const customResolveResponse = require('../../../shared/contentFulCustomResolve.jsx')
 const contentful = require('contentful')
 
-const contentfulClientConf = {
-  space: config.contentful.contentSpace,
-  accessToken: config.contentful.contentAccessToken,
-  host: config.contentful.contentHost
-}
-
-if (config.contentful.environment && config.contentful.environment !== 'master') {
-  console.log(`Using contentful environment: ${config.contentful.environment}`)
-  contentfulClientConf.environment = config.contentful.environment
-} else {
-  console.log(`Using contentful environment: master`)
-}
-const contentfulClient = contentful.createClient(contentfulClientConf)
+import contentfulClient from '../../contentful/lib'
 
 /**
  * Get page data
