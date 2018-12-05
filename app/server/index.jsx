@@ -29,6 +29,10 @@ import packageInfo from '../../package.json'
 import Html from '../shared/components/Html/component'
 import PageNotFound from '../shared/components/PageNotFound/component'
 
+import { buildSitemaps } from 'express-sitemap-xml'
+import { format, parse } from 'date-fns'
+import contentfulClient from './contentful/lib'
+
 const Sentry = require('@sentry/node')
 if (config.sentry.logErrors) {
   console.log(`Error logging enabled: Sentry DSN ${config.sentry.dsn}`)
@@ -93,11 +97,56 @@ const options = {
 app.use(express.static('../static', options))
 app.use(favicon('../static/ui/favicon.ico'))
 
-app.get('/robots.txt', function (req, res) {
-  res.type('text/plain')
-  res.send('User-agent: *\nDisallow: /')
+app.get('/robots.txt', (req, res) => {
+  if (config.robotsDisallow) {
+    res.type('text/plain')
+    res.send('User-agent: *\nDisallow: /')
+  } else {
+    res.type('text/plain')
+    res.send(`User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`)
+  }
 })
 
+app.get('/sitemap.xml', async (req, res, next) => {
+  let entries = []
+
+  try {
+    entries = await contentfulClient.getEntries({
+      'sys.contentType.sys.id[in]': 'drug,generalPage,homepage,news,treatmentCentre',
+      limit: 1000
+    })
+  } catch (err) {
+    return next(err)
+  }
+
+  let blacklist = [
+    'contact/success',
+    'feedback/success'
+  ]
+
+  let urls = entries.items.filter(item => {
+    if (blacklist.includes(item.fields.slug)) {
+      return false
+    }
+
+    if (!item.fields.slug) {
+      console.log('No slug for ' + item.fields.slug)
+    }
+    return item.fields.slug
+  }).map(item => {
+    return {
+      url: item.fields.slug,
+      lastMod: format(parse(item.sys.updatedAt), 'YYYY-MM-DD')
+    }
+  })
+
+  try {
+    let sitemaps = await buildSitemaps(urls, config.canonicalHost)
+    res.set('application/xml').send(sitemaps['/sitemap.xml'])
+  } catch (err) {
+    return next(err)
+  }
+})
 /*
  * Pass Express over to the App via the React Router
  */

@@ -15,6 +15,8 @@ import {
 import searchRoutes from './apisearch.js'
 import { contentFulFactory } from '../../../shared/contentful'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import contentfulClient from '../../contentful/lib'
+
 const express = require('express')
 const yaml = require('js-yaml')
 const fs = require('fs')
@@ -26,20 +28,6 @@ const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
 const contentful = require('contentful')
-
-const contentfulClientConf = {
-  space: config.contentful.contentSpace,
-  accessToken: config.contentful.contentAccessToken,
-  host: config.contentful.contentHost
-}
-
-if (config.contentful.environment && config.contentful.environment !== 'master') {
-  console.log(`Using contentful environment: ${config.contentful.environment}`)
-  contentfulClientConf.environment = config.contentful.environment
-} else {
-  console.log(`Using contentful environment: master`)
-}
-const contentfulClient = contentful.createClient(contentfulClientConf)
 
 /**
  * Get page data
