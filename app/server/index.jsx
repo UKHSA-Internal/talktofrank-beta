@@ -98,13 +98,15 @@ app.use(express.static('../static', options))
 app.use(favicon('../static/ui/favicon.ico'))
 
 app.get('/robots.txt', (req, res) => {
-  res.type('text/plain')
-  res.send('User-agent: *\nDisallow: /')
-})
+  if ( config.robotsDisallow ) {
+    res.type('text/plain')
+    res.send('User-agent: *\nDisallow: /')
+  }
+  else {
+    res.type('text/plain')
+    res.send(`User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`)
+  }
 
-app.get('/-robots.txt', (req, res) => {
-  res.type('text/plain')
-  res.send(`User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`)
 })
 
 app.get('/sitemap.xml', async (req, res, next) => {
