@@ -15,6 +15,8 @@ import {
 import searchRoutes from './apisearch.js'
 import { contentFulFactory } from '../../../shared/contentful'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import contentfulClient from '../../contentful/lib'
+
 const express = require('express')
 const yaml = require('js-yaml')
 const fs = require('fs')
@@ -27,8 +29,6 @@ const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
 // const customResolveResponse = require('../../../shared/contentFulCustomResolve.jsx')
 const contentful = require('contentful')
-
-import contentfulClient from '../../contentful/lib'
 
 /**
  * Get page data

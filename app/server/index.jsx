@@ -98,19 +98,16 @@ app.use(express.static('../static', options))
 app.use(favicon('../static/ui/favicon.ico'))
 
 app.get('/robots.txt', (req, res) => {
-  if ( config.robotsDisallow ) {
+  if (config.robotsDisallow) {
     res.type('text/plain')
     res.send('User-agent: *\nDisallow: /')
-  }
-  else {
+  } else {
     res.type('text/plain')
     res.send(`User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`)
   }
-
 })
 
 app.get('/sitemap.xml', async (req, res, next) => {
-
   let entries = []
 
   try {
@@ -118,7 +115,7 @@ app.get('/sitemap.xml', async (req, res, next) => {
       'sys.contentType.sys.id[in]': 'drug,generalPage,homepage,news,treatmentCentre',
       limit: 1000
     })
-  } catch ( err ) {
+  } catch (err) {
     return next(err)
   }
 
@@ -128,8 +125,12 @@ app.get('/sitemap.xml', async (req, res, next) => {
   ]
 
   let urls = entries.items.filter(item => {
-    if ( !item.fields.slug ) {
-      console.log("No slug for " + item.fields.slug)
+    if (blacklist.includes(item.fields.slug)) {
+      return false
+    }
+
+    if (!item.fields.slug) {
+      console.log('No slug for ' + item.fields.slug)
     }
     return item.fields.slug
   }).map(item => {
@@ -142,10 +143,9 @@ app.get('/sitemap.xml', async (req, res, next) => {
   try {
     let sitemaps = await buildSitemaps(urls, config.canonicalHost)
     res.set('application/xml').send(sitemaps['/sitemap.xml'])
-  } catch ( err ) {
+  } catch (err) {
     return next(err)
   }
-
 })
 /*
  * Pass Express over to the App via the React Router
