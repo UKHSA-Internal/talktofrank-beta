@@ -15,7 +15,7 @@ import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component.jsx'
 
 export default class PageContact extends React.PureComponent {
   render () {
-    const head = 'h6 spacing--single media media--constant'
+    const head = 'h6 spacing-bottom--tight media media--constant'
 
     const icons = [
       {
@@ -62,7 +62,7 @@ export default class PageContact extends React.PureComponent {
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-1'>
                 <ul className='list-unstyled'>
                   <li className='list-item list-item--underlined spacing--single' >
-                    <h2 className={head}><Icon {...icons[0]}/> <span className='media__content'>Call <Anchor className='link-text' label='Phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></span></h2>
+                    <h2 className='h6 spacing-top--single spacing-bottom--tight media media--constant'><Icon {...icons[0]}/> <span className='media__content'>Call <Anchor className='link-text' label='Phone FRANK on 0300 123 6600' href='tel:03001236600' text='0300 123 6600'/></span></h2>
                     <p>Call FRANK 24 hours a day, 7 days a week.</p>
                     <Collapsible text='Call service details' id='call-service-details'>
                       <p>For people with hearing impairments, you can <Anchor className='link-text' label='Textphone FRANK on 0300 123 1099' href='tel:03001231099' text='Textphone FRANK on 0300 123 1099'/>.</p>

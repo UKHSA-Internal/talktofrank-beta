@@ -118,7 +118,7 @@
     "prop-types": "^15.6.2",
     "puppeteer": "^1.9.0",
     "react": "^16.5.2",
-    "react-autosuggest": "git+https://github.com/tomkelsey/react-autosuggest.git",
+    "react-autosuggest": "git+https://github.com/cxpartners/react-autosuggest",
     "react-dom": "^16.5.2",
     "react-ga": "^2.5.3",
     "react-redux": "^5.0.7",

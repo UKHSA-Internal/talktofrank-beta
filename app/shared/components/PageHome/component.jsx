@@ -40,6 +40,7 @@ export default class PageHome extends React.PureComponent {
             <FormGroupAutocomplete
              button='true'
              id='homepage-large-search'
+             className='react-autosuggest__suggestions-container--homepage'
              label='Search for any drug…'
              placeholder='Enter a drug (e.g. Mandy)'
              ref={input => { this.formAutocomplete = input }}

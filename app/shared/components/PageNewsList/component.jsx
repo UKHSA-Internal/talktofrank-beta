@@ -8,8 +8,9 @@ import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import Article from '../Article/component.jsx'
 import Main from '../Main/component.jsx'
+import Spinner from '../Spinner/component.jsx'
+import { scrollTo } from '../../utilities'
 import { GA } from '../GoogleAnalytics/component.jsx'
-import { scrollIntoView } from '../../utilities'
 
 export default class PageNewsList extends React.PureComponent {
   constructor (props) {
@@ -18,6 +19,9 @@ export default class PageNewsList extends React.PureComponent {
     this.updateAddress = this.updateAddress.bind(this)
     this.main = React.createRef()
     this.focusMain = this.focusMain.bind(this)
+    this.state = {
+      index: 0
+    }
   }
 
   handlePageChange (pageNumber) {
@@ -33,11 +37,12 @@ export default class PageNewsList extends React.PureComponent {
   }
 
   focusMain() {
-    scrollIntoView(this.main.current, 0, 500, this.main.current.focus())
+    this.setState({index: this.state.index + 1})
+    scrollTo((document.body || document.documentElement), 0, 500, this.main.current.focus())
   }
 
   render () {
-    const { loading, location } = this.props
+    const { loading, location, error } = this.props
     const { title, list, total, pageNumber } = this.props.pageData
 
     return (
@@ -59,6 +64,7 @@ export default class PageNewsList extends React.PureComponent {
                       return <Article {...item} key={item.sys.id}/>
                     })}
                 </ul>
+                {loading && !error && (this.state.index > 0) && <Spinner className='spinner--fixed'/>}
               </GridCol>
             </Grid>
             {total > 10 &&

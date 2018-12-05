@@ -116,7 +116,7 @@ class FormGroup extends PureComponent {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
 
     return (
-      <div {...containerProps} id={this.props.id + '_container'}>
+      <div {...containerProps} id={this.props.id + '_container'} className={this.props.className || ''}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
