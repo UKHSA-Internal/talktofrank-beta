@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import Heading from '../Heading/component.jsx'
-import { scrollTo } from '../../utilities'
+import { scrollIntoView } from '../../utilities'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 
@@ -28,7 +28,7 @@ export default class Toggle extends React.PureComponent {
   componentDidMount () {
     if (this.props.history.hash === '#' + this.returnId()) {
       this.setState({ visible: true })
-      scrollTo(this.node)
+      scrollIntoView(this.node)
     }
   }
 
