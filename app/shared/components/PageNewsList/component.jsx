@@ -60,7 +60,7 @@ export default class PageNewsList extends React.PureComponent {
                       return <Article {...item} key={item.sys.id}/>
                     })}
                 </ul>
-                {loading && <Spinner className='spinner--fixed'/>}
+                {loading && !error && <Spinner className='spinner--fixed'/>}
               </GridCol>
             </Grid>
             {total > 10 &&
