@@ -27,6 +27,11 @@ export default class Head extends React.Component {
             pageDescription = 'Drugs A-Z'
             break
 
+          case '/get-help':
+            ogPageTitle = pageTitle = 'Help & advice'
+            pageDescription = 'Are you worried about a friend/child or unsure of what to do in a drug related emergency? Contact FRANK for help & advice.'
+            break
+
           case '/news' :
           case '/latest' :
             ogPageTitle = pageTitle = 'Frank News | The Latest Stories and Articles'
