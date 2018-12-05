@@ -7,6 +7,11 @@ $diameter: 20px;
     position: absolute;
     right: 2rem;
     top: 3rem;
+
+    // ugh not the most elegant thing
+    .react-autosuggest__suggestions-container--homepage & {
+      right: 8rem;
+    }
   }
 
   &:after {

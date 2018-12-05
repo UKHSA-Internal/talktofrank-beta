@@ -12,7 +12,7 @@ import SearchResultContent from '../SearchResultContent/component'
 import Anchor from '../Anchor/component'
 import Svg from '../Svg/component'
 import Main from '../Main/component.jsx'
-import { scrollIntoView } from '../../utilities'
+import { scrollTo } from '../../utilities'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -47,7 +47,7 @@ export default class SearchPage extends React.Component {
   }
 
   focusMain() {
-    scrollIntoView(this.main.current, 0, 500, this.main.current.focus())
+    scrollTo((document.body || document.documentElement), 0, 500, this.main.current.focus())
   }
 
   handlePageChange (pageNumber) {

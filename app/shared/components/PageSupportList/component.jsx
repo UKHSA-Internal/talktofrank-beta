@@ -12,7 +12,7 @@ import GA from '../GoogleAnalytics/component.jsx'
 import Main from '../Main/component.jsx'
 import Divider from '../Divider/component'
 import Svg from '../Svg/component'
-import { scrollIntoView } from '../../utilities'
+import { scrollTo } from '../../utilities'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
@@ -37,7 +37,7 @@ export default class PageSupportList extends React.PureComponent {
   }
 
   focusMain() {
-    scrollIntoView(this.main.current, 0, 500, this.main.current.focus())
+    scrollTo((document.body || document.documentElement), 0, 500, this.main.current.focus())
   }
 
   renderNoResults() {
