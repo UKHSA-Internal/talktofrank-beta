@@ -485,7 +485,7 @@ router.get('/news/:slug', (req, res, next) => {
         pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
         title: getPageTitle(response.fields, 'title'),
         description: getMetaDescription(response.fields, 'summary'),
-        image: getMetaImage(response.fields),
+        image: getMetaImage(response.fields)
       }
 
       res.send(response)
@@ -721,6 +721,5 @@ const getMetaImage = (item, loadMap = false) => {
   }
   return false
 }
-
 
 export default router
