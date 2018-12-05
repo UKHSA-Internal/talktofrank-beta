@@ -92,23 +92,23 @@ export function imageMap (obj) {
   let path = obj.fields
 
   if (path.imageHuge && path.imageHuge.fields) {
-    imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
+    imageObj[path.hugeBreakpoint || 1200] = path.imageHuge.fields.file.url
   }
 
   if (path.imageVeryLarge && path.imageVeryLarge.fields) {
-    imageObj[path.veryLargeBreakpoint] = path.imageVeryLarge.fields.file.url || 950
+    imageObj[path.veryLargeBreakpoint || 950] = path.imageVeryLarge.fields.file.url
   }
 
   if (path.imageLarge && path.imageLarge.fields) {
-    imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url || 800
+    imageObj[path.largeBreakpoint || 800] = path.imageLarge.fields.file.url
   }
 
   if (path.imageMedium && path.imageMedium.fields) {
-    imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file.url || 600
+    imageObj[path.mediumBreakpoint || 600] = path.imageMedium.fields.file.url
   }
 
   if (path.imageSmall && path.imageSmall.fields) {
-    imageObj[path.smallBreakpoint] = path.imageSmall.fields.file.url || 400
+    imageObj[path.smallBreakpoint || 400] = path.imageSmall.fields.file.url
   }
   return imageObj
 }
