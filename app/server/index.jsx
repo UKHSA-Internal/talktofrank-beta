@@ -119,6 +119,17 @@ app.get('/sitemap.xml', async (req, res, next) => {
     return next(err)
   }
 
+  // manual entries
+  let additions = [
+    'https://www.talktofrank.com/',
+    'https://www.talktofrank.com/news',
+    'https://www.talktofrank.com/contact-frank',
+    'https://www.talktofrank.com/get-help',
+    'https://www.talktofrank.com/drugs-a-z',
+    'http://www.talktofrank.com/drug/tranquillisers',
+    'https://www.talktofrank.com/livechat'
+  ]
+
   let blacklist = [
     'contact/success',
     'feedback/success'
@@ -158,6 +169,8 @@ app.get('/sitemap.xml', async (req, res, next) => {
       lastMod: format(parse(item.sys.updatedAt), 'YYYY-MM-DD')
     }
   })
+
+  urls = urls.concat(additions)
 
   try {
     let sitemaps = await buildSitemaps(urls, config.canonicalHost)

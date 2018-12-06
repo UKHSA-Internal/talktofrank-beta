@@ -2569,7 +2569,6 @@
 /drug/speed /drug/speed;
 /cookie_policy /cookie_policy;
 /latest /latest;
-/privacy_policy /privacy_policy;
 /drug/synthetic-opioids /drug/synthetic-opioids;
 /news/legal-highs-law-change /news/legal-highs-law-change;
 /drug/n-bomb /drug/n-bomb;
@@ -5207,3 +5206,4 @@
 /worried-about-a-friend /get-help/worried-about-a-friend;
 /worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
 /worried-about-a-child /get-help/worried-about-a-child;
+/privacy_policy /privacy-policy;
