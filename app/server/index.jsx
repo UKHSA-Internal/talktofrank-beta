@@ -126,7 +126,7 @@ app.get('/sitemap.xml', async (req, res, next) => {
     'https://www.talktofrank.com/contact-frank',
     'https://www.talktofrank.com/get-help',
     'https://www.talktofrank.com/drugs-a-z',
-    'http://www.talktofrank.com/drug/tranquillisers',
+    'https://www.talktofrank.com/drug/tranquillisers',
     'https://www.talktofrank.com/livechat'
   ]
 
