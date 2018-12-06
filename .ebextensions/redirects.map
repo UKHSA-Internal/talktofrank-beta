@@ -3114,7 +3114,6 @@
 /tags/worried-about-someone?page=4 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=5 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=6 /get-help/worried-about-a-friend;
-/worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
 /story/friend%E2%80%99s-bad-trip /;
 /tags/gbl /drug/ghb;
 /tags/pyrovaleron /drug/cathinones;
@@ -3248,3 +3247,6 @@
 /news/why-do-people-take-drugs /drugs-a-z;
 /news/what-is-drug-classification-system /drugs-a-z;
 /content/talk-about-drugs /drugs-a-z;
+/worried-about-a-child /get-help/worried-about-a-child;
+/worried-about-a-friend /get-help/worried-about-a-friend;
+/worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
