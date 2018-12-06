@@ -39,6 +39,7 @@ export default class Head extends React.Component {
             break
 
           case '/support-near-you' :
+          case '/get-help/find-support-near-you' :
             ogPageTitle = pageTitle = 'Find support near your'
             pageDescription = 'Find support near your'
             break
