@@ -24,7 +24,7 @@ export default class Head extends React.Component {
         switch (path) {
           case '/drugs-a-z' :
             ogPageTitle = pageTitle = 'Drugs A-Z'
-            pageDescription = 'Drugs A-Z'
+            pageDescription = 'Know what’s what, with FRANK’s A–Z of drugs. It includes all the slang names and all the facts.'
             break
 
           case '/get-help':
@@ -50,8 +50,8 @@ export default class Head extends React.Component {
             break
 
           case '/contact-frank' :
-            ogPageTitle = pageTitle = 'Contact Frank'
-            pageDescription = 'Contact Frank'
+            ogPageTitle = pageTitle = 'Contact Frank Directly | Confidential Advice'
+            pageDescription = 'For friendly, confidential drugs advice, talk to FRANK. Call, text or email for answers to your questions or if you just want a chat.'
             break
 
           case '/offline' :
