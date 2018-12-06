@@ -132,7 +132,20 @@ app.get('/sitemap.xml', async (req, res, next) => {
 
   let blacklist = [
     'contact/success',
-    'feedback/success'
+    'feedback/success',
+    'young-people’s-health-agency-wandsworth',
+    'north-yorkshire-horizons-harrogate',
+    'needle-syringe-programme-rowland’s-pharmacy',
+    'wolverhampton-360',
+    'north-yorkshire-women’s-criminal-justice-service',
+    'tranquillisers',
+    'swanswell-young-persons-substance-misuse-service-and-young-person’s-families-1',
+    'text-disclaimer',
+    'pavilions-families-carer’s-service',
+    'norcas-young-people’s-affected-others-service',
+    'islington-young-people’s-drug-and-alcohol-service',
+    'young-people’s-drug-and-alcohol-team',
+    'barnardo’s-streetlevel'
   ]
 
   let urls = entries.items.filter(item => {
