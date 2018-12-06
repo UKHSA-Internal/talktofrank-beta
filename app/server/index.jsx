@@ -127,7 +127,7 @@ app.get('/sitemap.xml', async (req, res, next) => {
     'https://www.talktofrank.com/get-help',
     'https://www.talktofrank.com/drugs-a-z',
     'http://www.talktofrank.com/drug/tranquillisers',
-    'https://www.talktofrank.com/livechat',
+    'https://www.talktofrank.com/livechat'
   ]
 
   let blacklist = [
@@ -145,7 +145,7 @@ app.get('/sitemap.xml', async (req, res, next) => {
     'norcas-young-people’s-affected-others-service',
     'islington-young-people’s-drug-and-alcohol-service',
     'young-people’s-drug-and-alcohol-team',
-    'barnardo’s-streetlevel'    
+    'barnardo’s-streetlevel'
   ]
 
   let urls = entries.items.filter(item => {
