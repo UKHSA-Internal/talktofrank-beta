@@ -2564,11 +2564,9 @@
 /support-near-you /support-near-you;
 /contact-frank /contact-frank;
 /drug/anabolic-steroids /drug/anabolic-steroids;
-/worried-about-a-friend /get-help/worried-about-a-friend;
 /emergency-help /get-help/what-to-do-in-an-emergency;
 /drugs-a-z /drugs-a-z;
 /drug/speed /drug/speed;
-/worried-about-a-child /get-help/worried-about-a-child;
 /cookie_policy /cookie_policy;
 /latest /latest;
 /privacy_policy /privacy_policy;
@@ -5129,7 +5127,6 @@
 /tags/worried-about-someone?page=4 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=5 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=6 /get-help/worried-about-a-friend;
-/worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
 /story/friend%E2%80%99s-bad-trip /;
 /tags/gbl /drug/ghb;
 /tags/pyrovaleron /drug/cathinones;
@@ -5209,3 +5206,4 @@
 /news/what-is-drug-classification-system /drugs-a-z;
 /worried-about-a-friend /get-help/worried-about-a-friend;
 /worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
+/worried-about-a-child /get-help/worried-about-a-child;
