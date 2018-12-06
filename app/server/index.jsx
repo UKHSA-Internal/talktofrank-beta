@@ -123,7 +123,6 @@ app.get('/sitemap.xml', async (req, res, next) => {
   let additions = [
     'https://www.talktofrank.com/',
     'https://www.talktofrank.com/news',
-    'https://www.talktofrank.com/support-near-you',
     'https://www.talktofrank.com/contact-frank',
     'https://www.talktofrank.com/get-help',
     'https://www.talktofrank.com/drugs-a-z',
