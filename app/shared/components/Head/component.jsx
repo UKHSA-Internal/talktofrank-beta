@@ -38,7 +38,6 @@ export default class Head extends React.Component {
             pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them.  Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
             break
 
-          case '/support-near-you' :
           case '/get-help/find-support-near-you' :
             ogPageTitle = pageTitle = 'Find support near your'
             pageDescription = 'Find support near your'
