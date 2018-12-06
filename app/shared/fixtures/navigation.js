@@ -83,7 +83,7 @@ export const primary = [
       },
       {
         label: 'Find a support centre',
-        url: '/support-near-you',
+        url: '/get-help/find-support-near-you',
         tracking: {
           label: 'Find a support centre - primary nav',
           action: 'Click',
@@ -150,7 +150,7 @@ export const footer = [
   },
   {
     label: 'Find a support centre',
-    url: '/support-near-you',
+    url: '/get-help/find-support-near-you',
     tracking: {
       label: 'Find a support centre - footer',
       action: 'Click',
