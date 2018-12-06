@@ -145,7 +145,7 @@ app.get('/sitemap.xml', async (req, res, next) => {
         url = 'news/' + item.fields.slug
         break
       case 'drug':
-        url = 'drugs/' + item.fields.slug
+        url = 'drug/' + item.fields.slug
         break
       case 'treatmentCentre':
         url = 'treatment-centre/' + item.fields.slug
