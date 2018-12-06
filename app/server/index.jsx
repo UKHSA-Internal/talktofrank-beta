@@ -230,6 +230,7 @@ app.get('*', (req, res) => {
           title: 'Page not found'
         }
       }
+      res.status(404)
       res.write('<!DOCTYPE html>')
       return ReactDOMServer
         .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
