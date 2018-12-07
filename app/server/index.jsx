@@ -199,8 +199,23 @@ app.get('*', (req, res) => {
   const store = generateStore()
   const loadData = () => {
     const branches = matchRoutes(routes, req.path)
-    const promises = branches
-      .filter(({ route, match }) => { return match.isExact && route.loadData })
+
+    const matchedBranches = branches.filter(({ route, match }) => match.isExact)
+
+    if (matchedBranches.length === 0) {
+      /*
+        no matching route found e.g. 404
+
+        note `matchRoutes` will not match the asyncPageNotFound route
+
+        store.dispatch(receivePageError(404)) < NOPE - throw error so
+        all 404s are caught in the catch block below throw new Error(404)
+        */
+      throw new Error(404)
+    }
+
+    const promises = matchedBranches
+      .filter(({ route, match }) => { return route.loadData })
       .map(({ route, match }) => {
         return Promise.all(
           route
@@ -230,6 +245,7 @@ app.get('*', (req, res) => {
           title: 'Page not found'
         }
       }
+      res.status(404)
       res.write('<!DOCTYPE html>')
       return ReactDOMServer
         .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
