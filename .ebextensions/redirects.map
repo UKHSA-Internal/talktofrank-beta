@@ -3253,3 +3253,7 @@
 /privacy_policy /privacy-policy;
 /support-near-you /get-help/find-support-near-you;
 /drug/methadrone /drug/mephedrone;
+/tags/what-drug-classification-system /drugs-a-z;
+/drug/speedAmphetamines /drug/speed;
+/tags/drugs-a-z	/drugs-a-z;
+/sites/all/libraries/ckeditor/ /;
