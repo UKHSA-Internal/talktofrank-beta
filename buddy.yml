@@ -220,15 +220,15 @@
     - "package.json"
     - ".ebextensions/*.prod.config"
     trigger_condition: "ALWAYS"
-  - action: "Upload files to Elastic Beanstalk/Talk to Frank"
+  - action: "Upload files to Elastic Beanstalk/TalkToFrank-UAT"
     type: "ELASTIC_BEANSTALK"
     local_path: "ttf-app.zip"
-    application_name: "Talk to Frank"
+    application_name: "TalkToFrank-UAT"
     environment: "e-w753enfajj"
     environment_name: "TalktofrankUat-env"
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
-    integration_id: 41810
+    integration_id: 42928
 - pipeline: "Preview deployment"
   trigger_mode: "SCHEDULED"
   cron: "0 8,12,15 * * *"
