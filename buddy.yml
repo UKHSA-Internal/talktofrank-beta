@@ -143,9 +143,9 @@
 #    - "talk-to-frank"
 #    trigger_condition: "ALWAYS"
 #    integration_id: 38897
-- pipeline: "UAT deployment"
+- pipeline: "Production deployment"
   trigger_mode: "MANUAL"
-  ref_name: "develop"
+  ref_name: "phe-digital-ttf-prod"
   ref_type: "BRANCH"
   always_from_scratch: true
   actions:
@@ -187,14 +187,14 @@
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/redirects.map"
-    bucket_name: "elasticbeanstalk-eu-west-2-636728427214"
-    integration_id: 43036
+    bucket_name: "elasticbeanstalk-eu-west-2-116851924324"
+    integration_id: 43059
   - action: "Upload m.talktofrank.com redirect file to S3"
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/mdot-redirects.map"
-    bucket_name: "elasticbeanstalk-eu-west-2-636728427214"
-    integration_id: 43036
+    bucket_name: "elasticbeanstalk-eu-west-2-116851924324"
+    integration_id: 43059
   - action: "Archive directory"
     type: "ZIP"
     local_path: "/"
@@ -220,15 +220,15 @@
     - "package.json"
     - ".ebextensions/*.prod.config"
     trigger_condition: "ALWAYS"
-  - action: "Upload files to Elastic Beanstalk/TalkToFrank-UAT"
+  - action: "Upload files to Elastic Beanstalk/ttf-prod-app"
     type: "ELASTIC_BEANSTALK"
     local_path: "ttf-app.zip"
-    application_name: "TalkToFrank-UAT"
-    environment: "e-w753enfajj"
-    environment_name: "TalktofrankUat-env"
+    application_name: "ttf-prod-app"
+    environment: "e-irmhrbnfie"
+    environment_name: "ttfprodapp-env"
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
-    integration_id: 43036
+    integration_id: 43059
 #- pipeline: "Preview deployment"
 #  trigger_mode: "MANUAL"
 #  ref_name: "develop"
