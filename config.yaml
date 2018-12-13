@@ -6,8 +6,6 @@ robotsDisallow: true
 
 elasticsearch:
   host: 'https://vpc-talktofrank-uat-uralixhskpcrn5ht4p74epe4z4.eu-west-2.es.amazonaws.com/'
-  amazonES:
-    region: 'eu-west-2'
   indices:
     drugNames: 'talktofrank-drug-name'
     drug: 'talktofrank-drug-text'

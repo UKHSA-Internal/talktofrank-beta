@@ -126,22 +126,28 @@ const buildConfig = (grunt) => {
 }
 
 const contentfulConnection = (config) => {
-  const contentfulClient = contentful.createClient({
+  let conf = {
     // This is the space ID. A space is like a project folder in Contentful terms
     space: config.contentful.contentSpace,
-    environment: config.contentful.environment,
     // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
     accessToken: config.contentful.contentAccessToken,
     host: config.contentful.contentHost
-  })
+  }
 
-  return contentfulClient
+  if (config.contentful.environment) {
+    conf.environment = config.contentful.environment
+  }
+
+  return contentful.createClient(conf)
 }
 
 const elasticConnection = (config) => {
   let elasticSearchConf = {
     host: config.elasticsearch.host || `http://localhost:9200`,
-    log: `info`
+    log: `info`,
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 
   if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
@@ -309,23 +315,30 @@ const buildBulkUpdateAction = async (index, type, data, esClient, nameField) => 
       bulk.push(action, {doc: item, doc_as_upsert: true, _source: [nameField]})
     })
 
-  const response = await esClient.bulk({
-    maxRetries: 5,
-    index: index,
-    body: bulk
-  })
 
-  console.log('Indexed', response.items.length)
-
-  response.items
-    .filter(item => !item.update.error)
-    .map(item => {
-      console.log(`Adding item ${item.update.get._source[nameField]} (id: ${item.update._id}) - result: ${item.update.result}`)
+  try {
+    const response = await esClient.bulk({
+      maxRetries: 5,
+      index: index,
+      body: bulk
     })
 
-  response.items
-    .filter(item => item.update.error)
-    .map(item => {
-      console.log('Error: ', item)
-    })
+    console.log('Indexed', response.items.length)
+
+    response.items
+      .filter(item => !item.update.error)
+      .map(item => {
+        console.log(`Adding item ${item.update.get._source[nameField]} (id: ${item.update._id}) - result: ${item.update.result}`)
+      })
+
+    response.items
+      .filter(item => item.update.error)
+      .map(item => {
+        console.log('Error: ', item)
+      })
+
+
+  } catch (error) {
+    console.log(error)
+  }
 }
