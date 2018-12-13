@@ -5,7 +5,7 @@ canonicalHost: https://www.talktofrank.com
 robotsDisallow: true
 
 elasticsearch:
-  host: 'https://vpc-talktofrank-uat-uralixhskpcrn5ht4p74epe4z4.eu-west-2.es.amazonaws.com/'
+  host: 'https://vpc-ttf-prod-sbocvb3kw7ykfpq6jcaj2r4kzi.eu-west-2.es.amazonaws.com'
   indices:
     drugNames: 'talktofrank-drug-name'
     drug: 'talktofrank-drug-text'
