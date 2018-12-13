@@ -230,8 +230,7 @@
     trigger_condition: "ALWAYS"
     integration_id: 42928
 - pipeline: "Preview deployment"
-  trigger_mode: "SCHEDULED"
-  cron: "0 8,12,15 * * *"
+  trigger_mode: "MANUAL"
   ref_name: "develop"
   ref_type: "BRANCH"
   always_from_scratch: true
