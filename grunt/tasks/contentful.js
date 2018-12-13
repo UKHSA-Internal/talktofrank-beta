@@ -315,7 +315,6 @@ const buildBulkUpdateAction = async (index, type, data, esClient, nameField) => 
       bulk.push(action, {doc: item, doc_as_upsert: true, _source: [nameField]})
     })
 
-
   try {
     const response = await esClient.bulk({
       maxRetries: 5,
@@ -336,8 +335,6 @@ const buildBulkUpdateAction = async (index, type, data, esClient, nameField) => 
       .map(item => {
         console.log('Error: ', item)
       })
-
-
   } catch (error) {
     console.log(error)
   }
