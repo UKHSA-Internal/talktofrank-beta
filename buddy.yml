@@ -177,7 +177,7 @@
     docker_image_name: "library/node"
     docker_image_tag: "10.13.0"
     execute_commands:
-    - "BUILD_CONFIG=uat grunt build"
+    - "BUILD_CONFIG=production grunt build"
     setup_commands:
     - "npm install -g grunt-cli"
     mount_filesystem_path: "/buddy/talktofrank-beta-1"
