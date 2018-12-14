@@ -143,7 +143,7 @@
 #    - "talk-to-frank"
 #    trigger_condition: "ALWAYS"
 #    integration_id: 38897
-- pipeline: "Production deployment"
+- pipeline: "Production deployment [PHE]"
   trigger_mode: "MANUAL"
   ref_name: "phe-digital-ttf-prod"
   ref_type: "BRANCH"
