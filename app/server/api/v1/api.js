@@ -405,7 +405,7 @@ router.get('/news', (req, res, next) => {
           }
         }
 
-        if (v.fields.image) {
+        if (v.fields.image.fields) {
           v.fields.image = imageMap(v.fields.image)
           imageCount++
           v.fields['imagepos'] = imageCount
