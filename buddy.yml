@@ -232,6 +232,7 @@
     trigger_condition: "ALWAYS"
     integration_id: 41810
 - pipeline: "Preview deployment"
+  trigger_mode: "MANUAL"
   ref_name: "master"
   ref_type: "BRANCH"
   target_site_url: "https://ttf-preview.cxp.io"
