@@ -1,6 +1,9 @@
 buildConfig: preview
 api: https://ttf-preview.cxp.io
 
+elasticsearch:
+  host: ''
+
 contentful:
   contentHost: 'preview.contentful.com'
   contentSpace: 'ip74mqmfgvqf'

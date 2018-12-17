@@ -3,8 +3,8 @@ api: https://ttf-uat.cxp.io
 ga: UA-129232-18 # @joel - update this as this is the test account
 
 elasticsearch:
-  host: 'https://vpc-talktofrank-uat-uralixhskpcrn5ht4p74epe4z4.eu-west-2.es.amazonaws.com/'
 #  host: 'https://search-talktofrank-elastic-beta-tsq3jroogc3kwgtk4s77uab2he.eu-west-2.es.amazonaws.com/'
+  host: 'https://vpc-talktofrank-uat-uralixhskpcrn5ht4p74epe4z4.eu-west-2.es.amazonaws.com/'
 
 contentful:
   contentHost: 'cdn.contentful.com'
