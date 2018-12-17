@@ -153,7 +153,7 @@ export default [{
       ]
     },
     {
-      path: '/support-near-you',
+      path: '/get-help/find-support-near-you',
       exact: true,
       component: asyncPageSupportFormContainer
     },

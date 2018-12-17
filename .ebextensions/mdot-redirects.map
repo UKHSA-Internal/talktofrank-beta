@@ -2564,14 +2564,11 @@
 /support-near-you /support-near-you;
 /contact-frank /contact-frank;
 /drug/anabolic-steroids /drug/anabolic-steroids;
-/worried-about-a-friend /get-help/worried-about-a-friend;
 /emergency-help /get-help/what-to-do-in-an-emergency;
 /drugs-a-z /drugs-a-z;
 /drug/speed /drug/speed;
-/worried-about-a-child /get-help/worried-about-a-child;
 /cookie_policy /cookie_policy;
 /latest /latest;
-/privacy_policy /privacy_policy;
 /drug/synthetic-opioids /drug/synthetic-opioids;
 /news/legal-highs-law-change /news/legal-highs-law-change;
 /drug/n-bomb /drug/n-bomb;
@@ -5129,7 +5126,6 @@
 /tags/worried-about-someone?page=4 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=5 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=6 /get-help/worried-about-a-friend;
-/worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
 /story/friend%E2%80%99s-bad-trip /;
 /tags/gbl /drug/ghb;
 /tags/pyrovaleron /drug/cathinones;
@@ -5207,3 +5203,13 @@
 /news/why-are-drugs-cut-and-what-are-they-cut-with /;
 /news/why-do-people-take-drugs /drugs-a-z;
 /news/what-is-drug-classification-system /drugs-a-z;
+/worried-about-a-friend /get-help/worried-about-a-friend;
+/worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
+/worried-about-a-child /get-help/worried-about-a-child;
+/privacy_policy /privacy-policy;
+/support-near-you /get-help/find-support-near-you;
+/drug/methadrone /drug/mephedrone;
+/tags/what-drug-classification-system /drugs-a-z;
+/drug/speedAmphetamines /drug/speed;
+/tags/drugs-a-z	/drugs-a-z;
+/sites/all/libraries/ckeditor/ /;

@@ -3114,7 +3114,6 @@
 /tags/worried-about-someone?page=4 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=5 /get-help/worried-about-a-friend;
 /tags/worried-about-someone?page=6 /get-help/worried-about-a-friend;
-/worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
 /story/friend%E2%80%99s-bad-trip /;
 /tags/gbl /drug/ghb;
 /tags/pyrovaleron /drug/cathinones;
@@ -3227,7 +3226,7 @@
 /news/taking-trip-summer /drugs-a-z;
 /news/talk-frank-beach /;
 /news/things-you-might-not-know-about-cannabis /drug/cannabis;
-/news/think-new-drug-drive-law /news/drug-driving-you’re-now-more-likely-be-caught-and-convicted;
+/news/think-new-drug-drive-law /news/drug-driving-you-are-now-more-likely-be-caught-and-convicted;
 /news/time-chat /livechat;
 /news/trouble-dales /drug/opiateopioid-painkillers;
 /news/what-‘annihilation’ /drug/synthetic-cannabinoids;
@@ -3248,3 +3247,13 @@
 /news/why-do-people-take-drugs /drugs-a-z;
 /news/what-is-drug-classification-system /drugs-a-z;
 /content/talk-about-drugs /drugs-a-z;
+/worried-about-a-child /get-help/worried-about-a-child;
+/worried-about-a-friend /get-help/worried-about-a-friend;
+/worried-about-a-friend#skip-footer /get-help/worried-about-a-friend;
+/privacy_policy /privacy-policy;
+/support-near-you /get-help/find-support-near-you;
+/drug/methadrone /drug/mephedrone;
+/tags/what-drug-classification-system /drugs-a-z;
+/drug/speedAmphetamines /drug/speed;
+/tags/drugs-a-z	/drugs-a-z;
+/sites/all/libraries/ckeditor/ /;

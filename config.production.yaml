@@ -1,5 +1,5 @@
 buildConfig: production
-api: https://ttf-prod.cxp.io
+api: https://www.talktofrank.com
 ga: UA-129232-18 # @joel - update this as this is the test account
 contentful:
   contentHost: 'cdn.contentful.com'

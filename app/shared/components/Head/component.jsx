@@ -24,7 +24,12 @@ export default class Head extends React.Component {
         switch (path) {
           case '/drugs-a-z' :
             ogPageTitle = pageTitle = 'Drugs A-Z'
-            pageDescription = 'Drugs A-Z'
+            pageDescription = 'Know what’s what, with FRANK’s A–Z of drugs. It includes all the slang names and all the facts.'
+            break
+
+          case '/get-help':
+            ogPageTitle = pageTitle = 'Help & advice'
+            pageDescription = 'Are you worried about a friend/child or unsure of what to do in a drug related emergency? Contact FRANK for help & advice.'
             break
 
           case '/news' :
@@ -33,9 +38,9 @@ export default class Head extends React.Component {
             pageDescription = 'Stay up to date with the latest news about drugs and what the law says about them.  Stay up to date with the FRANK\'s latest news about drugs, recent discoveries and what the law says about them.'
             break
 
-          case '/support-near-you' :
-            ogPageTitle = pageTitle = 'Find support near your'
-            pageDescription = 'Find support near your'
+          case '/get-help/find-support-near-you' :
+            ogPageTitle = pageTitle = 'Find support near you'
+            pageDescription = 'Find support near you'
             break
 
           case '/livechat' :
@@ -44,8 +49,8 @@ export default class Head extends React.Component {
             break
 
           case '/contact-frank' :
-            ogPageTitle = pageTitle = 'Contact Frank'
-            pageDescription = 'Contact Frank'
+            ogPageTitle = pageTitle = 'Contact Frank Directly | Confidential Advice'
+            pageDescription = 'For friendly, confidential drugs advice, talk to FRANK. Call, text or email for answers to your questions or if you just want a chat.'
             break
 
           case '/offline' :
