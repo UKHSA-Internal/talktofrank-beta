@@ -234,7 +234,7 @@
 - pipeline: "Preview deployment"
   ref_name: "master"
   ref_type: "BRANCH"
-  target_site_url: "https://ttf-uat.cxp.io"
+  target_site_url: "https://ttf-preview.cxp.io"
   always_from_scratch: true
   trigger_condition: "ALWAYS"
   actions:
