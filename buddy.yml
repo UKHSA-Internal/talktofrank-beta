@@ -405,7 +405,7 @@
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
     integration_id: 43059
-- pipeline: "UAT deployment [PHE] - to be updated with correct buckets / integrations IDs"
+- pipeline: "UAT deployment [PHE]"
   trigger_mode: "MANUAL"
   ref_name: "phe-digital-ttf-prod"
   ref_type: "BRANCH"
