@@ -6,6 +6,8 @@ robotsDisallow: true
 
 elasticsearch:
   host: 'https://search-talktofrank-elastic-beta-tsq3jroogc3kwgtk4s77uab2he.eu-west-2.es.amazonaws.com/'
+  amazonES:
+    region: 'eu-west-2'
   indices:
     drugNames: 'talktofrank-drug-name'
     drug: 'talktofrank-drug-text'
