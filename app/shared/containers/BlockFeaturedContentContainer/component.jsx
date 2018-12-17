@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { imageMap } from '../../utilities'
+import { fieldIncludesImages, imageMap } from '../../utilities'
 
 import BlockFeaturedContent from '../../components/BlockFeaturedContent/component.jsx'
 
@@ -42,7 +42,7 @@ const mapStateToProps = (state, ownProps) => {
           linkLabel: 'Read more'
         }
 
-        if (item.fields.image) {
+        if (item.fields.image && fieldIncludesImages(item.fields.image)) {
           featuredContentItem.images = imageMap(item.fields.image)
           featuredContentItem.imageClass = 'card-img'
         }

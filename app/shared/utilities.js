@@ -84,6 +84,18 @@ export function exists (obj, key) {
   })
 }
 
+export function fieldIncludesImages(imageObj) {
+
+  if (!imageObj.fields) {
+    return false
+  }
+
+  let objKeys = Object.keys(imageObj.fields)
+  objKeys = objKeys.filter(item => item !== 'title')
+  console.log('Object eksy ', objKeys)
+  return objKeys.length > 0
+}
+
 // not great - needs a bit more flexibility
 // it mirrors the cms but would be nice to
 // have the freedom to add more breakoints

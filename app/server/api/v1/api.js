@@ -6,7 +6,8 @@ import {
   removeMarkdown,
   removeTags,
   haversineDistance,
-  replaceNewLine
+  replaceNewLine,
+  fieldIncludesImages
 } from '../../../shared/utilities'
 
 /**
@@ -406,10 +407,12 @@ router.get('/news', (req, res, next) => {
           }
         }
 
-        if (v.fields.image && v.fields.image.fields) {
+        if (v.fields.image && fieldIncludesImages(v.fields.image)) {
           v.fields.image = imageMap(v.fields.image)
           imageCount++
           v.fields['imagepos'] = imageCount
+        } else {
+          v.fields.image = false
         }
 
         return v
@@ -463,7 +466,7 @@ router.get('/news/:slug', (req, res, next) => {
         }
       }
 
-      if (response.fields.image) {
+      if (response.fields.image && fieldIncludesImages(response.fields.image)) {
         response.fields.image = imageMap(response.fields.image)
       }
 
