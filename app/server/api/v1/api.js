@@ -381,6 +381,7 @@ router.get('/news', (req, res, next) => {
         error.status = 404
         return next(error)
       }
+
       // merge contentful assets and includes
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
@@ -405,7 +406,7 @@ router.get('/news', (req, res, next) => {
           }
         }
 
-        if (v.fields.image.fields) {
+        if (v.fields.image && v.fields.image.fields) {
           v.fields.image = imageMap(v.fields.image)
           imageCount++
           v.fields['imagepos'] = imageCount
@@ -417,7 +418,10 @@ router.get('/news', (req, res, next) => {
 
       res.send(response)
     })
-    .catch(error => next(error.response))
+    .catch(error => {
+      console.log(error)
+      next(error)
+    })
 })
 
 router.get('/news/:slug', (req, res, next) => {
