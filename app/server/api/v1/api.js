@@ -407,12 +407,10 @@ router.get('/news', (req, res, next) => {
           }
         }
 
-        if (v.fields.image && fieldIncludesImages(v.fields.image)) {
-          v.fields.image = imageMap(v.fields.image)
+        v.fields.image = imageMap(v.fields)
+        if (v.fields.image) {
           imageCount++
           v.fields['imagepos'] = imageCount
-        } else {
-          v.fields.image = false
         }
 
         return v
@@ -466,9 +464,7 @@ router.get('/news/:slug', (req, res, next) => {
         }
       }
 
-      if (response.fields.image && fieldIncludesImages(response.fields.image)) {
-        response.fields.image = imageMap(response.fields.image)
-      }
+      response.fields.image = imageMap(response.fields)
 
       if (response.fields.slug) {
         delete response.fields.slug
@@ -707,7 +703,7 @@ const getMetaDescription = (item, fallback) => {
 
 const getMetaImage = (item, loadMap = false) => {
   if (item.image) {
-    const images = loadMap ? imageMap(item.image) : item.image
+    const images = loadMap ? imageMap(item) : item.image
     const imageSizes = Object.keys(images)
       .map(s => parseInt(s, 10))
       .sort((a, b) => b - a)

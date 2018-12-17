@@ -42,8 +42,8 @@ const mapStateToProps = (state, ownProps) => {
           linkLabel: 'Read more'
         }
 
-        if (item.fields.image && fieldIncludesImages(item.fields.image)) {
-          featuredContentItem.images = imageMap(item.fields.image)
+        featuredContentItem.images = imageMap(item.fields)
+        if (featuredContentItem.images) {
           featuredContentItem.imageClass = 'card-img'
         }
 
