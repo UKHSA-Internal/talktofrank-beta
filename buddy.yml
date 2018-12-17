@@ -400,7 +400,7 @@
     type: "ELASTIC_BEANSTALK"
     local_path: "ttf-app.zip"
     application_name: "talktofrank-uat"
-    environment: "e-w753enfajj"
+    environment: "e-2xnjr22fck"
     environment_name: "talktofrankuat-preview"
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
