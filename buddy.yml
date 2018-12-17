@@ -45,9 +45,9 @@
     trigger_condition: "ALWAYS"
 - pipeline: "Production deployment"
   trigger_mode: "MANUAL"
-  ref_name: "develop"
+  ref_name: "master"
   ref_type: "BRANCH"
-  target_site_url: "https://ttf-prod.cxp.io"
+  target_site_url: "https://www.talktofrank.com"
   always_from_scratch: true
   trigger_condition: "ALWAYS"
   actions:
@@ -144,10 +144,10 @@
     trigger_condition: "ALWAYS"
     integration_id: 38897
 - pipeline: "UAT deployment"
-  trigger_mode: "SCHEDULED"
-  cron: "0 8,12,15 * * *"
-  ref_name: "develop"
+  trigger_mode: "MANUAL"
+  ref_name: "master"
   ref_type: "BRANCH"
+  target_site_url: "https://ttf-uat.cxp.io"
   always_from_scratch: true
   trigger_condition: "ALWAYS"
   actions:
@@ -232,10 +232,9 @@
     trigger_condition: "ALWAYS"
     integration_id: 41810
 - pipeline: "Preview deployment"
-  trigger_mode: "SCHEDULED"
-  cron: "0 8,12,15 * * *"
-  ref_name: "develop"
+  ref_name: "master"
   ref_type: "BRANCH"
+  target_site_url: "https://ttf-uat.cxp.io"
   always_from_scratch: true
   trigger_condition: "ALWAYS"
   actions:
