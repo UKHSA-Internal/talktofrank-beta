@@ -1,5 +1,5 @@
 buildConfig: preview
-api: https://ttf-preview.cxp.io
+api: https://preview.talktofrank.com
 robotsDisallow: true
 
 elasticsearch:

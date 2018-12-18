@@ -305,6 +305,7 @@
 #     trigger_condition: "ALWAYS"
 #     integration_id: 41810
 - pipeline: "Preview deployment [PHE]"
+  target_site_url: "https://preview.talktofrank.com"
   trigger_mode: "MANUAL"
   ref_name: "master"
   ref_type: "BRANCH"
@@ -391,6 +392,7 @@
     trigger_condition: "ALWAYS"
     integration_id: 43036
 - pipeline: "UAT deployment [PHE]"
+  target_site_url: "https://staging.talktofrank.com"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
   ref_type: "BRANCH"
