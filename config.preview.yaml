@@ -1,5 +1,6 @@
 buildConfig: preview
 api: https://ttf-preview.cxp.io
+robotsDisallow: true
 
 elasticsearch:
   host: ''
