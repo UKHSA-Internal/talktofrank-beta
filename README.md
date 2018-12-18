@@ -18,7 +18,19 @@ Setting `BUILD_CONFIG` sets `NODE_ENV` automatically accordingly in webpack.js.
 
 ### Live configuration
 
-No passwords / keys etc. are kept in the repo. Any live environments needs a `config.creds.yaml` file in the root of the project to store keys etc.
+No passwords / keys etc. are kept in the repo. Conmfiguration files (`config.<ENV>.yaml`)
+need additional configuration that is read in at runtime.
+
+As such, a number of `config.*.yaml` files are required in the root of the project to store keys etc.
+
+The following files are required:
+
+- `config.creds.yaml`
+- `config.ethereal.yaml`
+- `config.google.yaml`
+- `config.mailgun.yaml`
+- `config.sentry.yaml`
+- `config.webhooksecretkey.yaml`
 
 ## Development
 
