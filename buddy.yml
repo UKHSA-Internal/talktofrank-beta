@@ -129,12 +129,12 @@
     trigger_condition: "ALWAYS"
     integration_id: 38897
 - pipeline: "UAT deployment"
-  trigger_mode: "MANUAL"
-  ref_name: "master"
+  trigger_mode: "ON_EVERY_PUSH"
+  ref_name: "develop"
   ref_type: "BRANCH"
-  target_site_url: "https://ttf-uat.cxp.io"
-  always_from_scratch: true
   trigger_condition: "ALWAYS"
+  target_site_url: "https://d34txkw2514z1s.cloudfront.net"
+  always_from_scratch: true
   actions:
   - action: "Install dependencies"
     type: "BUILD"
