@@ -1,6 +1,8 @@
 buildConfig: production
 api: https://beta-talktofrank.cxp.io
 ga: UA-129232-18 # @joel - update this as this is the test account
+robotsDisallow: true
+
 contentful:
   contentHost: 'cdn.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
