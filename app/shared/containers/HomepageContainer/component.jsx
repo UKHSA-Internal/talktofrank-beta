@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PageHome from '../../components/PageHome/component.jsx'
-import { imageMap } from '../../utilities'
+import { imageMap, fieldIncludesImages } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
@@ -16,9 +16,8 @@ const mapStateToProps = (state, ownProps) => {
     },
     url: '/'
   }
-  if (fields.heroImages) {
-    hero.images = imageMap(fields.heroImages)
-  }
+
+  hero.images = imageMap(fields, 'heroImages')
 
   if (featuredNewsItem) {
     featuredItemBlock = {
@@ -29,9 +28,8 @@ const mapStateToProps = (state, ownProps) => {
       date: featuredNewsItem.date,
       dateFormatted: featuredNewsItem.dateFormatted
     }
-    if (featuredNewsItem.fields.image) {
-      featuredItemBlock.fields.image = imageMap(featuredNewsItem.fields.image)
-    }
+
+    featuredItemBlock.fields.image = imageMap(featuredNewsItem.fields)
   }
 
   if (featuredContentBlock &&
@@ -69,8 +67,8 @@ const mapStateToProps = (state, ownProps) => {
           linkLabel: 'Read more'
         }
 
-        if (item.fields.image) {
-          featuredItem.images = imageMap(item.fields.image)
+        featuredItem.images = imageMap(item.fields)
+        if (featuredItem.images) {
           featuredItem.imageClass = 'card-img'
         }
 
@@ -115,8 +113,8 @@ const mapStateToProps = (state, ownProps) => {
           linkLabel: 'Read more'
         }
 
-        if (item.fields.image) {
-          featuredItem.images = imageMap(item.fields.image)
+        featuredItem.images = imageMap(item.fields)
+        if (featuredItem.images) {
           featuredItem.imageClass = 'card-img'
         }
 
