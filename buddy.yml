@@ -28,15 +28,6 @@
     setup_commands:
     - "npm install -g grunt-cli"
     shell: "SH"
-  - action: "Upload files to Elastic Beanstalk/Talk to Frank"
-    type: "ELASTIC_BEANSTALK"
-    local_path: "ttf-app.zip"
-    application_name: "Talk to Frank"
-    environment: "e-mrhxdeemuh"
-    environment_name: "TalkToFrank-prod"
-    region: "eu-west-2"
-    trigger_condition: "ALWAYS"
-    integration_id: 41810
 - pipeline: "Preview deployment [PHE]"
   target_site_url: "https://preview.talktofrank.com"
   trigger_mode: "MANUAL"
