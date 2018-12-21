@@ -88,9 +88,16 @@ export function fieldIncludesImages(imageObj) {
   if (!imageObj.fields) {
     return false
   }
-  let objKeys = Object.keys(imageObj.fields)
-  objKeys = objKeys.filter(item => item !== 'title')
-  return objKeys.length > 0
+
+  let imagesFileExists = false
+  Object.keys(imageObj.fields)
+    .filter(key => imageObj.fields[key].fields)
+    .filter(key => imageObj.fields[key].fields.file)
+    .map(key => {
+      imagesFileExists = true
+    })
+
+  return imagesFileExists
 }
 
 // not great - needs a bit more flexibility
