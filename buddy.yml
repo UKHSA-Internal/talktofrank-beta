@@ -28,27 +28,6 @@
     setup_commands:
     - "npm install -g grunt-cli"
     shell: "SH"
-  - action: "Upload files to Elastic Beanstalk/Talk to Frank"
-    type: "ELASTIC_BEANSTALK"
-    local_path: "ttf-app.zip"
-    application_name: "Talk to Frank"
-    environment: "e-mrhxdeemuh"
-    environment_name: "TalkToFrank-prod"
-    region: "eu-west-2"
-    trigger_condition: "ALWAYS"
-    integration_id: 41810
-  - action: "Send notification to Sentry"
-    type: "SENTRY"
-    environment: "$BUDDY_PIPELINE_NAME"
-    organization_slug: "public-health-england-talk-to-"
-    organization_name: "Public Health England - Talk To Frank"
-    version: "$BUDDY_EXECUTION_REVISION"
-    release_url: "$BUDDY_EXECUTION_URL"
-    deploy_url: "$BUDDY_EXECUTION_URL"
-    projects:
-    - "talk-to-frank"
-    trigger_condition: "ALWAYS"
-    integration_id: 38897
 - pipeline: "Preview deployment [PHE]"
   target_site_url: "https://preview.talktofrank.com"
   trigger_mode: "MANUAL"
@@ -315,4 +294,4 @@
     comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
     revision: "INHERIT"
     trigger_condition: "ALWAYS"
-    next_pipeline_id: 164861
+    next_pipeline_id: 164862
