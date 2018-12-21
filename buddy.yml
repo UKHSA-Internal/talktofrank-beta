@@ -28,84 +28,6 @@
     setup_commands:
     - "npm install -g grunt-cli"
     shell: "SH"
-- pipeline: "Production deployment"
-  trigger_mode: "MANUAL"
-  ref_name: "master"
-  ref_type: "BRANCH"
-  always_from_scratch: true
-  trigger_condition: "ALWAYS"
-  actions:
-  - action: "Install dependencies"
-    type: "BUILD"
-    working_directory: "/buddy/talktofrank-beta-1"
-    docker_image_name: "library/node"
-    docker_image_tag: "10.13.0"
-    execute_commands:
-    - "npm install"
-    mount_filesystem_path: "/buddy/talktofrank-beta-1"
-    shell: "SH"
-    trigger_condition: "ALWAYS"
-  - action: "Validate"
-    type: "BUILD"
-    working_directory: "/buddy/talktofrank-beta-1"
-    docker_image_name: "library/node"
-    docker_image_tag: "10.13.0"
-    execute_commands:
-    - "grunt validate"
-    setup_commands:
-    - "npm install -g grunt-cli"
-    mount_filesystem_path: "/buddy/talktofrank-beta-1"
-    shell: "SH"
-    trigger_condition: "ALWAYS"
-  - action: "Build"
-    type: "BUILD"
-    working_directory: "/buddy/talktofrank-beta-1"
-    docker_image_name: "library/node"
-    docker_image_tag: "10.13.0"
-    execute_commands:
-    - "BUILD_CONFIG=production grunt build"
-    setup_commands:
-    - "npm install -g grunt-cli"
-    mount_filesystem_path: "/buddy/talktofrank-beta-1"
-    shell: "SH"
-    trigger_condition: "ALWAYS"
-  - action: "Upload redirect file to S3"
-    type: "AMAZON_S3"
-    input_type: "BUILD_ARTIFACTS"
-    local_path: ".ebextensions/redirects.map"
-    bucket_name: "elasticbeanstalk-eu-west-2-656844859111"
-    integration_id: 41810
-  - action: "Upload m.talktofrank.com redirect file to S3"
-    type: "AMAZON_S3"
-    input_type: "BUILD_ARTIFACTS"
-    local_path: ".ebextensions/mdot-redirects.map"
-    bucket_name: "elasticbeanstalk-eu-west-2-656844859111"
-    integration_id: 41810
-  - action: "Archive directory"
-    type: "ZIP"
-    local_path: "/"
-    destination: "ttf-app.zip"
-    deployment_excludes:
-    - "app\\*"
-    - "contentful\\*"
-    - ".git\\*"
-    - "*.*"
-    - ".*"
-    - "node_modules\\*"
-    - "grunt\\*"
-    - "features\\*"
-    - "dist/config.creds.yaml"
-    - "dist/config.webhooksecretkey.yaml"
-    - "dist/config.mailgun.yaml"
-    - "dist/config.ethereal.yaml"
-    - "dist/config.google.yaml"
-    - "dist/config.sentry.yaml"
-    - ".ebextensions\\*"
-    deployment_includes:
-    - "config.*.yaml"
-    - "package.json"
-    - ".ebextensions/*.prod.config"
-    trigger_condition: "ALWAYS"
   - action: "Upload files to Elastic Beanstalk/Talk to Frank"
     type: "ELASTIC_BEANSTALK"
     local_path: "ttf-app.zip"
@@ -115,18 +37,6 @@
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
     integration_id: 41810
-  - action: "Send notification to Sentry"
-    type: "SENTRY"
-    environment: "$BUDDY_PIPELINE_NAME"
-    organization_slug: "public-health-england-talk-to-"
-    organization_name: "Public Health England - Talk To Frank"
-    version: "$BUDDY_EXECUTION_REVISION"
-    release_url: "$BUDDY_EXECUTION_URL"
-    deploy_url: "$BUDDY_EXECUTION_URL"
-    projects:
-    - "talk-to-frank"
-    trigger_condition: "ALWAYS"
-    integration_id: 38897
 - pipeline: "Preview deployment [PHE]"
   target_site_url: "https://preview.talktofrank.com"
   trigger_mode: "MANUAL"
@@ -305,7 +215,6 @@
   trigger_mode: "MANUAL"
   ref_name: "master"
   ref_type: "BRANCH"
-  target_site_url: "https://www.talktofrank.com"
   always_from_scratch: true
   actions:
   - action: "Install dependencies"
@@ -388,10 +297,10 @@
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
     integration_id: 43059
-  - action: "Run preview deployment"
-    type: "RUN_NEXT_PIPELINE"
-    wait: true
-    comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-    revision: "INHERIT"
-    trigger_condition: "ALWAYS"
-    next_pipeline_id: 164861
+#  - action: "Run preview deployment"
+#    type: "RUN_NEXT_PIPELINE"
+#    wait: true
+#    comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
+#    revision: "INHERIT"
+#    trigger_condition: "ALWAYS"
+#    next_pipeline_id: 164861
