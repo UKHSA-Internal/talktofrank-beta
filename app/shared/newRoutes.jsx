@@ -43,21 +43,7 @@ const asyncPageContactSuccessContainer = loadable(() => import(/*webpackChunkNam
 const asyncPageLiveChat = loadable(() => import(/*webpackChunkName: 'live-chat'*/'./components/PageLiveChat/component.jsx'))
 /* eslint-enable */
 
-export default [{
-  component: AmpHTMLWrapper,
-  routes: [
-    {
-      path: '/amp/news/:slug',
-      exact: true,
-      component: ampPageNewsContainer,
-      loadData: ({params}) => [
-        fetchPage(params.slug, 'news'),
-        fetchFeaturedBlock('featuredNewsBlock')
-      ]
-    }
-  ]
-},
-{
+const routes = [{
   component: HTMLWrapper,
   routes: [
     {
@@ -253,3 +239,20 @@ export default [{
     }
   ]
 }]
+
+const ampRoutes = [{
+  component: AmpHTMLWrapper,
+  routes: [
+    {
+      path: '/amp/news/:slug',
+      exact: true,
+      component: ampPageNewsContainer,
+      loadData: ({params}) => [
+        fetchPage(params.slug, 'news'),
+        fetchFeaturedBlock('featuredNewsBlock')
+      ]
+    }
+  ]
+}]
+
+export { routes, ampRoutes }

@@ -7,7 +7,7 @@ import { StaticRouter } from 'react-router-dom'
 import React from 'react'
 import { Provider } from 'react-redux'
 import ReactDOMServer from 'react-dom/server'
-import routes from '../shared/newRoutes'
+import { routes, ampRoutes } from '../shared/newRoutes'
 import { matchRoutes, renderRoutes } from 'react-router-config'
 import { generateStore } from '../shared/store'
 import * as path from 'path'
@@ -103,8 +103,9 @@ app.get('/robots.txt', function (req, res) {
  */
 app.get('*', (req, res) => {
   const store = generateStore()
+  const newRoutes = req.path.match(/\/amp\//) ? ampRoutes : routes
   const loadData = () => {
-    const branches = matchRoutes(routes, req.path)
+    const branches = matchRoutes(newRoutes, req.path)
     const promises = branches
       .filter(({ route, match }) => { return match.isExact && route.loadData })
       .map(({ route, match }) => {
@@ -148,7 +149,7 @@ app.get('*', (req, res) => {
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>
-            {renderRoutes(routes, {
+            {renderRoutes(newRoutes, {
               initialState: state,
               cacheBusterTS: cacheBusterTS
             })}
