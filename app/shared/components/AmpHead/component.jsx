@@ -99,6 +99,7 @@ export default class AmpHead extends React.Component {
         <meta name='format-detection' content='telephone=no' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
+        <link rel='stylesheet' type='text/css' href={`/ui/css/main.css`} />
         {headerBoilerplate(canonical)}
       </head>
     )

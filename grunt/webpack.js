@@ -1,6 +1,9 @@
 var path = require('path')
 var webpack = require('webpack')
 const { InjectManifest } = require('workbox-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default
 
 const processEnv = {
   NODE_ENV: JSON.stringify('production'), // !process.env.BUILD_CONFIG ? JSON.stringify('development') : process.env.BUILD_CONFIG === 'development' ? JSON.stringify('development') : JSON.stringify('production'),
@@ -43,6 +46,13 @@ module.exports = {
         use: [{
           loader: 'babel-loader'
         }]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       }]
     },
     plugins: [
@@ -53,6 +63,16 @@ module.exports = {
         swSrc: path.resolve(__dirname, '../app/client/service-worker.js'),
         swDest: path.resolve(__dirname, '../dist/static/ui/js/service-worker.js'),
         exclude: [/\.js$/]
+      }),
+      new MiniCssExtractPlugin({
+        filename: '../dist/static/ui/css/main.css'
+      }),
+      new HtmlWebpackPlugin(),
+      new HTMLInlineCSSWebpackPlugin({
+        replace: {
+          removeTarget: true,
+          target: '`<!-- inline_css_plugin -->`'
+        }
       })
     ],
     stats: {
@@ -95,6 +115,13 @@ module.exports = {
         use: [{
           loader: 'babel-loader'
         }]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       }]
     },
     plugins: [
@@ -103,6 +130,16 @@ module.exports = {
       }),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1 // only want 1 chunk for server, i.e. ignore code splitting
+      }),
+      new MiniCssExtractPlugin({
+        filename: '../dist/static/ui/css/main.css'
+      }),
+      new HtmlWebpackPlugin(),
+      new HTMLInlineCSSWebpackPlugin({
+        replace: {
+          removeTarget: true,
+          target: '`<!-- inline_css_plugin -->`'
+        }
       })
     ],
     stats: {
