@@ -44,6 +44,10 @@ module.exports = {
         use: [{
           loader: 'babel-loader'
         }]
+      },
+      {
+        test: /\.scss$/,
+        loader: 'ignore-loader'
       }]
     },
     plugins: [
