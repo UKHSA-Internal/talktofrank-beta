@@ -101,7 +101,7 @@ app.get('/robots.txt', function (req, res) {
 /*
  * Pass Express over to the App via the React Router
  */
-app.get('*', (req, res) => {
+app.get(/^([^.]+)$/, (req, res) => {
   const store = generateStore()
   const newRoutes = req.path.match(/\/amp\//) ? ampRoutes : routes
   const loadData = () => {
