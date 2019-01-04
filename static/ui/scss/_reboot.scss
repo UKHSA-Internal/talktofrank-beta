@@ -34,9 +34,13 @@ html {
 }
 
 // IE10+ doesn't honor `<meta name="viewport">` in some cases.
-@at-root {
-  @-ms-viewport {
-    width: device-width;
+@if ($isAmp) {
+  // AMP Doesn't support @-ms-viewport
+} @else {
+  @at-root {
+    @-ms-viewport {
+      width: device-width;
+    }
   }
 }
 
