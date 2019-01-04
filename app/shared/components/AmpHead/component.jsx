@@ -7,7 +7,7 @@ import style from '../../../../static/ui/scss/amp-main.scss'
 export default class AmpHead extends React.Component {
   render () {
     const { location, initialState, pageLoadError } = this.props
-    const { head, title, error } = initialState.app.pageData
+    const { head, title, error, date } = initialState.app.pageData
     const ampInlineCss = style.toString()
 
     let path = location.pathname ? location.pathname : null
@@ -35,6 +35,39 @@ export default class AmpHead extends React.Component {
       }
     }
 
+    let images = initialState.app.pageData.fields.image
+    /* find largest image */
+    let largest = 0
+    for (var index in images) {
+      largest = index > largest ? index : largest
+    }
+
+    let mainImage = images[largest]
+
+    let schemaTags = {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": "http://cdn.ampproject.org/article-metadata.html",
+      "headline": this.props.initialState.app.pageData.fields.title,
+      "datePublished": date,
+      "description": pageDescription,
+      "author": {
+        "@type": "Organization",
+        "name": "FRANK"
+      },
+      "image": "https:" + mainImage,
+      "publisher": {
+        "@type": "Organization",
+        "name": "FRANK",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.talktofrank.com/ui/img/frank-logo.png",
+          "width": 311,
+          "height": 60
+        }
+      }
+    }
+
     return (
       <head>
         <title>{pageTitle + ` | FRANK`}</title>
@@ -45,6 +78,7 @@ export default class AmpHead extends React.Component {
         <meta name='theme-color' content='#FFFFFF' />
         {headerBoilerplate(canonical)}
         <style amp-custom="" dangerouslySetInnerHTML={{__html: ampInlineCss}} />
+        <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaTags) }}/>
       </head>
     )
   }
