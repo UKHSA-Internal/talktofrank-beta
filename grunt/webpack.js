@@ -1,9 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 const { InjectManifest } = require('workbox-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default
+const sass = require('node-sass')
 
 const processEnv = {
   NODE_ENV: JSON.stringify('production'), // !process.env.BUILD_CONFIG ? JSON.stringify('development') : process.env.BUILD_CONFIG === 'development' ? JSON.stringify('development') : JSON.stringify('production'),
@@ -46,13 +44,6 @@ module.exports = {
         use: [{
           loader: 'babel-loader'
         }]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader'
-        ]
       }]
     },
     plugins: [
@@ -63,16 +54,6 @@ module.exports = {
         swSrc: path.resolve(__dirname, '../app/client/service-worker.js'),
         swDest: path.resolve(__dirname, '../dist/static/ui/js/service-worker.js'),
         exclude: [/\.js$/]
-      }),
-      new MiniCssExtractPlugin({
-        filename: '../dist/static/ui/css/main.css'
-      }),
-      new HtmlWebpackPlugin(),
-      new HTMLInlineCSSWebpackPlugin({
-        replace: {
-          removeTarget: true,
-          target: '`<!-- inline_css_plugin -->`'
-        }
       })
     ],
     stats: {
@@ -117,11 +98,42 @@ module.exports = {
         }]
       },
       {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader'
-        ]
+        test: /\.scss$/,
+        use: [{
+          /*
+           * Need to replace the url for the fonts
+           */
+          loader: 'string-replace-loader',
+          options: {
+            multiple: [{
+              search: '../font/',
+              replace: '/ui/font/',
+              flags: 'gi'
+            },
+            {
+              search: '!important',
+              replace: '',
+              flags: 'g'
+            }]
+          }
+        },
+        {
+          /*
+           * css-loader breaks with url imports for fonts so use raw-loader
+           */
+          loader: 'raw-loader'
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            implementation: sass,
+            outputStyle: 'compressed',
+            includePaths: [
+              'node_modules',
+              'static/ui/scss'
+            ]
+          }
+        }]
       }]
     },
     plugins: [
@@ -130,17 +142,8 @@ module.exports = {
       }),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1 // only want 1 chunk for server, i.e. ignore code splitting
-      }),
-      new MiniCssExtractPlugin({
-        filename: '../dist/static/ui/css/main.css'
-      }),
-      new HtmlWebpackPlugin(),
-      new HTMLInlineCSSWebpackPlugin({
-        replace: {
-          removeTarget: true,
-          target: '`<!-- inline_css_plugin -->`'
-        }
       })
+
     ],
     stats: {
       colors: true,
