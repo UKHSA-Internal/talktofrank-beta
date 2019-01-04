@@ -6,10 +6,12 @@ export default class Head extends React.Component {
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
     const path = location.pathname ? location.pathname : null
+    const contentType = initialState.app.pageData?.sys?.contentType?.sys.id
 
     let pageTitle
     let pageDescription
     let canonical = `${config.canonicalHost}${path}`
+    let ampLink = contentType == 'news' ? `${config.canonicalHost}/amp${path}` : null
 
     if (!error && !pageLoadError) {
       switch (path) {
@@ -74,6 +76,7 @@ export default class Head extends React.Component {
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
         <link rel='canonical' href={canonical} />
+        {contentType == 'news' && <link rel="amphtml" href={ampLink} /> }
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
         <link rel='stylesheet' type='text/css' href={`/ui/css/main.css?v=${this.props.cacheBusterTS}`} />
