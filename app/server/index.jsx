@@ -198,10 +198,11 @@ app.get('/sitemap.xml', async (req, res, next) => {
 app.get(/^([^.]+)$/, (req, res) => {
   const store = generateStore()
   const newRoutes = req.path.match(/\/amp\//) ? ampRoutes : routes
-  const loadData = () => {
-    const branches = matchRoutes(routes, req.path)
 
-    const matchedBranches = branches.filter(({ route, match }) => match.isExact)
+  const loadData = () => {
+    const branches = matchRoutes(newRoutes, req.path)
+
+    const matchedBranches = branches.filter(({ newRoutes, match }) => match.isExact)
 
     if (matchedBranches.length === 0) {
       /*
