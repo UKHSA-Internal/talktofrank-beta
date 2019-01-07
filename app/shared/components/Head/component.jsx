@@ -5,15 +5,20 @@ export default class Head extends React.Component {
   render () {
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
+    // eslint-disable-next-line
+    const contentType = initialState.app.pageData?.sys?.contentType?.sys.id
+
     let pageTitle
     let ogPageTitle
     let pageDescription
     let canonical = false
     let path
+    let ampLink = false
 
     if (!error && !pageLoadError) {
       path = location.pathname ? location.pathname : null
       canonical = `${config.canonicalHost}${path}`
+      ampLink = contentType === 'news' ? `${config.canonicalHost}/amp${path}` : false
 
       if (head && head.description && head.pageTitle) {
         ogPageTitle = head.title ? head.title : head.pageTitle
@@ -89,6 +94,7 @@ export default class Head extends React.Component {
         <meta content='width=device-width,initial-scale=1.0' name='viewport' />
         <meta content='on' httpEquiv='cleartype' />
         <meta name='format-detection' content='telephone=no' />
+        {ampLink && <link rel="amphtml" href={ampLink} /> }
         {canonical && <link rel='canonical' href={canonical} />}
         {head && head.noindex && <meta name="robots" content="noindex" />}
         <meta property="twitter:title" content={ogPageTitle + ` | FRANK`} />

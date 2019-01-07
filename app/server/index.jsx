@@ -7,7 +7,7 @@ import { StaticRouter } from 'react-router-dom'
 import React from 'react'
 import { Provider } from 'react-redux'
 import ReactDOMServer from 'react-dom/server'
-import routes from '../shared/newRoutes'
+import { routes, ampRoutes } from '../shared/newRoutes'
 import { matchRoutes, renderRoutes } from 'react-router-config'
 import { generateStore } from '../shared/store'
 import * as path from 'path'
@@ -195,12 +195,14 @@ app.get('/sitemap.xml', async (req, res, next) => {
 /*
  * Pass Express over to the App via the React Router
  */
-app.get('*', (req, res) => {
+app.get(/^([^.]+)$/, (req, res) => {
   const store = generateStore()
-  const loadData = () => {
-    const branches = matchRoutes(routes, req.path)
+  const newRoutes = req.path.match(/\/amp\//) ? ampRoutes : routes
 
-    const matchedBranches = branches.filter(({ route, match }) => match.isExact)
+  const loadData = () => {
+    const branches = matchRoutes(newRoutes, req.path)
+
+    const matchedBranches = branches.filter(({ newRoutes, match }) => match.isExact)
 
     if (matchedBranches.length === 0) {
       /*
@@ -258,7 +260,7 @@ app.get('*', (req, res) => {
       const AppComponent = (
         <Provider store={store}>
           <StaticRouter location={req.path} context={staticContext}>
-            {renderRoutes(routes, {
+            {renderRoutes(newRoutes, {
               initialState: state,
               cacheBusterTS: cacheBusterTS
             })}
