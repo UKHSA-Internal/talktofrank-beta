@@ -5,7 +5,6 @@ export default class Head extends React.Component {
   render () {
     const { location, initialState, pageLoadError } = this.props
     const { head, title, error } = initialState.app.pageData
-    const path = location.pathname ? location.pathname : null
     const contentType = initialState.app.pageData?.sys?.contentType?.sys.id
 
     let pageTitle
