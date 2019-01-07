@@ -3,7 +3,7 @@ import React from 'react'
 const Main = props => {
   let classes = `main main--full-width ${props.className || ''}`
   return (
-    <main className={classes} id='main' name='main' tabIndex='-1'>
+    <main className={classes} id='main' tabIndex='-1'>
       {props.children}
     </main>
   )
