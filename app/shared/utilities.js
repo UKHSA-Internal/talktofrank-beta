@@ -60,7 +60,8 @@ export function isEmpty (obj) {
 
 export const removeMarkdown = (string) => string.replace(/#|\*|_|-|\|>|\[|\]|\(.*\)|`/g, '')
 export const removeTags = (string) => string.replace(/<\/?[^>]+(>|$)/g, '')
-export const nl2br = (str) => str.replace(/(?:\r\n|\r|\n)/g, '<br />')
+export const replaceNewLine = (str, replacement) => str.replace(/(?:\r\n|\r|\n)/g, replacement)
+
 /**
  * Usage: getIfExists(obj, 'prop1.prop2')
  * Returns undefined if it does not exist
@@ -83,12 +84,32 @@ export function exists (obj, key) {
   })
 }
 
-// not great - needs a bit more flexibilty
+export function fieldIncludesImages(imageObj) {
+  if (!imageObj.fields) {
+    return false
+  }
+
+  let imagesFileExists = false
+  Object.keys(imageObj.fields)
+    .filter(key => imageObj.fields[key].fields)
+    .filter(key => imageObj.fields[key].fields.file)
+    .map(key => {
+      imagesFileExists = true
+    })
+
+  return imagesFileExists
+}
+
+// not great - needs a bit more flexibility
 // it mirrors the cms but would be nice to
 // have the freedom to add more breakoints
-export function imageMap (obj) {
+export function imageMap (obj, field = 'image') {
+  if (!obj[field] || !fieldIncludesImages(obj[field])) {
+    return false
+  }
+
   let imageObj = {}
-  let path = obj.fields
+  let path = obj[field].fields
 
   if (path.imageHuge && path.imageHuge.fields) {
     imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
@@ -112,9 +133,20 @@ export function imageMap (obj) {
   return imageObj
 }
 
-export function scrollIntoView (node, duration = 300, offset = 80) {
+/**
+ * https://gist.github.com/larsonjj/2bf44f1925237d67d5b65f74bc9e88f0
+ * Animate scroll of a specified HTML Element (ease-in-out)
+ * @param {HTMLElement} element HTML element's scroll to animate
+ * @param {Number} to Scroll-Y position to scroll to
+ * @param {Number} duration How long (ms) the animation should last
+ * @param {Function} callback Function called after animation is complete
+ * @returns {void}
+ */
+
+export function scrollIntoView (node, duration = 300, offset = 80, callback) {
   document.documentElement.scrollTop = 0
-  const start = document.documentElement.scrollTop
+  const el = document.body || document.documentElement
+  const start = el.scrollTop
   const change = (node.getBoundingClientRect().top - offset) - start
   const increment = 20
   let currentTime = 0
@@ -127,6 +159,8 @@ export function scrollIntoView (node, duration = 300, offset = 80) {
 
     if (currentTime < duration) {
       setTimeout(animateScroll, increment)
+    } else if (callback && typeof (callback) === 'function') {
+      callback()
     }
   }
 
@@ -144,6 +178,68 @@ export function scrollIntoView (node, duration = 300, offset = 80) {
   timerid = setTimeout(() => {
     animateScroll()
   }, duration)
+}
+
+/**
+ * Animate scroll of a specified HTML Element (ease-in-out)
+ * @param {HTMLElement} element HTML element's scroll to animate
+ * @param {Number} to Scroll-Y position to scroll to
+ * @param {Number} duration How long (ms) the animation should last
+ * @param {Function} callback Function called after animation is complete
+ * @returns {void}
+ */
+export function scrollTo(element, to, duration, callback) {
+  // easing functions http://goo.gl/5HLl8
+  const easeInOutQuad = (t, b, c, d) => {
+    let _t = t || 0
+    const _b = b || 0
+    const _c = c || 0
+    const _d = d || 0
+
+    _t /= _d / 2
+    if (_t < 1) {
+      return _c / 2 * _t * _t + _b
+    }
+    _t--
+    return -_c / 2 * (_t * (_t - 2) - 1) + _b
+  }
+
+  // requestAnimationFrame for Smart Animating http://goo.gl/sx5sts
+  const requestAnimFrame = (function () {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60) }
+  })()
+
+  const body = () => {
+    return document.body || document.documentElement
+  }
+
+  const ele = element || body() || {}
+  const start = ele.scrollTop || 0
+  const change = to - start
+  let currentTime = 0
+  const increment = 20
+  const _duration = (typeof (duration) === 'undefined') ? 400 : duration
+
+  const animateScroll = () => {
+    if (!ele) {
+      return
+    }
+
+    // increment the time
+    currentTime += increment
+    // find the value with the quadratic in-out easing function
+    const val = easeInOutQuad(currentTime, start, change, _duration)
+    // move the element scroll
+    ele.scrollTop = val
+    // do the animation unless its over
+    if (currentTime < _duration) {
+      requestAnimFrame(animateScroll)
+    } else if (callback && typeof (callback) === 'function') {
+      // the animation is done so lets callback
+      callback()
+    }
+  }
+  animateScroll()
 }
 
 const toRad = (x) => x * Math.PI / 180

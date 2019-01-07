@@ -2,10 +2,14 @@ useFixtures: false
 
 canonicalHost: https://www.talktofrank.com
 
+robotsDisallow: true
+
 elasticsearch:
-  host: 'https://search-talktofrank-elastic-beta-tsq3jroogc3kwgtk4s77uab2he.eu-west-2.es.amazonaws.com/'
+  host: 'https://vpc-ttf-prod-sbocvb3kw7ykfpq6jcaj2r4kzi.eu-west-2.es.amazonaws.com/'
+#  host: 'https://search-talktofrank-elastic-beta-tsq3jroogc3kwgtk4s77uab2he.eu-west-2.es.amazonaws.com/'
   amazonES:
     region: 'eu-west-2'
+
   indices:
     drugNames: 'talktofrank-drug-name'
     drug: 'talktofrank-drug-text'

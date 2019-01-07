@@ -1,4 +1,5 @@
 import React from 'react'
+import { scrollIntoView } from '../../../shared/utilities'
 
 const offset = (el) => {
   let rect = el.getBoundingClientRect()
@@ -15,10 +16,7 @@ export default class ScrollTo extends React.Component {
   }
 
   componentDidMount() {
-    window.scrollTo({
-      top: offset(this.panel.current).top - 10,
-      behavior: 'smooth'
-    })
+    scrollIntoView(this.panel.current)
   }
 
   render() {

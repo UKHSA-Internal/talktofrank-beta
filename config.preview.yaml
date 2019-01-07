@@ -1,10 +1,15 @@
 buildConfig: preview
-api: https://ttf-preview.cxp.io
+api: https://preview.talktofrank.com
+robotsDisallow: true
+
+elasticsearch:
+  host: ''
 
 contentful:
   contentHost: 'preview.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
+  webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
 
 sentry:
  dsn: !!import/single '../config.sentry.yaml'

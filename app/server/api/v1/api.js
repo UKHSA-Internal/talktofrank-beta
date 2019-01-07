@@ -6,7 +6,8 @@ import {
   removeMarkdown,
   removeTags,
   haversineDistance,
-  nl2br
+  replaceNewLine,
+  fieldIncludesImages
 } from '../../../shared/utilities'
 
 /**
@@ -15,6 +16,8 @@ import {
 import searchRoutes from './apisearch.js'
 import { contentFulFactory } from '../../../shared/contentful'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import contentfulClient from '../../contentful/lib'
+
 const express = require('express')
 const yaml = require('js-yaml')
 const fs = require('fs')
@@ -25,27 +28,7 @@ const groupBy = require('lodash.groupby')
 const truncate = require('lodash.truncate')
 const Sentry = require('@sentry/node')
 const resolveResponse = require('contentful-resolve-response')
-// const customResolveResponse = require('../../../shared/contentFulCustomResolve.jsx')
 const contentful = require('contentful')
-
-const contentfulClientConf = {
-  space: config.contentful.contentSpace,
-  accessToken: config.contentful.contentAccessToken,
-  host: config.contentful.contentHost
-}
-
-if (config.contentful.environment && config.contentful.environment !== 'master') {
-  console.log(`Using contentful environment: ${config.contentful.environment}`)
-  contentfulClientConf.environment = config.contentful.environment
-} else {
-  console.log(`Using contentful environment: master`)
-}
-const contentfulClient = contentful.createClient(contentfulClientConf)
-
-/**
- * Axios global config
- */
-axios.defaults.headers.common['Authorization'] = `Bearer ${config.contentful.contentAccessToken}`
 
 /**
  * Get page data
@@ -133,8 +116,10 @@ router.get('/entries/:slug', (req, res, next) => {
 
         // Set meta info
         response.head = {
+          pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
           title: getPageTitle(response.fields, 'title'),
-          description: getMetaDescription(response.fields, 'body')
+          description: getMetaDescription(response.fields, 'body'),
+          image: getMetaImage(response.fields, true)
         }
 
         res.send(response)
@@ -184,8 +169,10 @@ router.get('/entries/:slug', (req, res, next) => {
 
           // Set meta info
           response.head = {
+            pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
             title: getPageTitle(response.fields, 'title'),
-            description: getMetaDescription(response.fields, 'body')
+            description: getMetaDescription(response.fields, 'body'),
+            image: getMetaImage(response.fields, true)
           }
 
           res.send(response)
@@ -281,8 +268,10 @@ router.get('/drugs/:slug', (req, res, next) => {
 
       // Set meta info
       response.head = {
+        pageTitle: getPageTitle(response.fields, 'pageTitle', 'drugName'),
         title: getPageTitle(response.fields, 'drugName'),
-        description: getMetaDescription(response.fields, 'description')
+        description: getMetaDescription(response.fields, 'description'),
+        image: getMetaImage(response.fields, true)
       }
 
       res.send(response)
@@ -393,6 +382,7 @@ router.get('/news', (req, res, next) => {
         error.status = 404
         return next(error)
       }
+
       // merge contentful assets and includes
       response.total = contentfulResponse.total
       response.list = resolveResponse(contentfulResponse)
@@ -411,14 +401,14 @@ router.get('/news', (req, res, next) => {
               'length': 120
             })
           } else if (v.fields.bodyLegacy) {
-            v.fields.summary = truncate(removeMarkdown(v.fields.bodyLegacy), {
+            v.fields.summary = truncate(removeMarkdown(replaceNewLine(v.fields.bodyLegacy, '&nbsp;')), {
               'length': 120
             })
           }
         }
 
+        v.fields.image = imageMap(v.fields)
         if (v.fields.image) {
-          v.fields.image = imageMap(v.fields.image)
           imageCount++
           v.fields['imagepos'] = imageCount
         }
@@ -429,7 +419,10 @@ router.get('/news', (req, res, next) => {
 
       res.send(response)
     })
-    .catch(error => next(error.response))
+    .catch(error => {
+      console.log(error)
+      next(error)
+    })
 })
 
 router.get('/news/:slug', (req, res, next) => {
@@ -471,9 +464,7 @@ router.get('/news/:slug', (req, res, next) => {
         }
       }
 
-      if (response.fields.image) {
-        response.fields.image = imageMap(response.fields.image)
-      }
+      response.fields.image = imageMap(response.fields)
 
       if (response.fields.slug) {
         delete response.fields.slug
@@ -482,8 +473,10 @@ router.get('/news/:slug', (req, res, next) => {
       response.fields['type'] = 'h1'
       // Set meta info
       response.head = {
+        pageTitle: getPageTitle(response.fields, 'pageTitle', 'title'),
         title: getPageTitle(response.fields, 'title'),
-        description: getMetaDescription(response.fields, 'summary')
+        description: getMetaDescription(response.fields, 'summary'),
+        image: getMetaImage(response.fields)
       }
 
       res.send(response)
@@ -629,10 +622,11 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
           response.fields[fieldKey] = marked(response.fields[fieldKey])
         })
 
-      response.fields.timesSessions = nl2br(response.fields.timesSessions)
+      response.fields.timesSessions = replaceNewLine(response.fields.timesSessions, '<br />')
 
       // Set meta info
       response.head = {
+        pageTitle: getPageTitle(response.fields, 'name'),
         title: getPageTitle(response.fields, 'name'),
         description: getMetaDescription(response.fields, 'serviceInfo')
       }
@@ -677,19 +671,19 @@ const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
 
 const dateFormat = (response) => {
   if (response.fields.originalPublishDate) {
-    response['date'] = response.sys.updatedAt
-    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
-  } else {
     response['date'] = response.fields.originalPublishDate
     response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+  } else {
+    response['date'] = response.sys.updatedAt
+    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
   }
 
   return response
 }
 
-const getPageTitle = (item, fallback) => {
-  if (item.pageTitle) {
-    return item.pageTitle
+const getPageTitle = (item, key, fallback = 'title') => {
+  if (item[key]) {
+    return item[key]
   } else if (item[fallback]) {
     return item[fallback]
   }
@@ -703,6 +697,18 @@ const getMetaDescription = (item, fallback) => {
     return truncate(removeMarkdown(removeTags(item[fallback])), {
       'length': 120
     })
+  }
+  return false
+}
+
+const getMetaImage = (item, loadMap = false) => {
+  if (item.image) {
+    const images = loadMap ? imageMap(item) : item.image
+    const imageSizes = Object.keys(images)
+      .map(s => parseInt(s, 10))
+      .sort((a, b) => b - a)
+    let smallestSize = imageSizes.pop()
+    return images[smallestSize]
   }
   return false
 }

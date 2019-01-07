@@ -20,6 +20,7 @@ class FormGroup extends PureComponent {
     this.getSuggestionValue = this.getSuggestionValue.bind(this)
     this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
     this.onSuggestionHighlighted = this.onSuggestionHighlighted.bind(this)
+
     this.state = {
       id: '',
       searchTerm: '',
@@ -113,12 +114,13 @@ class FormGroup extends PureComponent {
 
   renderSuggestionsContainer({ containerProps, children }) {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
+
     return (
-      <div {...containerProps} id={this.props.id + '_container'}>
+      <div {...containerProps} id={this.props.id + '_container'} className={this.props.className || ''}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
-        {res && children && <a className='link-text' href={`/search/${this.state.searchTermClean}`}>
-          View {res} more results
+        {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
+          View more results
         </a>}
       </div>
     )
@@ -174,9 +176,8 @@ class FormGroup extends PureComponent {
   }
 
   render () {
-    const { searchTerm, autoCompleteData, currentSuggestion, activedescendant } = this.state
-    const { id, labelHidden, label, button } = this.props
-
+    const { searchTerm, autoCompleteData, activedescendant } = this.state
+    const { id, label } = this.props
     return (
       <div className='form-group form-group--flush'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
@@ -192,13 +193,14 @@ class FormGroup extends PureComponent {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           onSuggestionHighlighted={this.onSuggestionHighlighted}
+          focusInputOnSuggestionClick={false}
           inputProps={{
             className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
             id: id,
             value: searchTerm,
-            onKeyDown: this.handleKeyPress,
             onChange: this.onChange,
             placeholder: this.props.placeholder,
+            onTouchStart: this.handleKeyPress,
             type: 'text',
             role: 'textbox',
             'aria-describedby': `${this.props.id}_hint`,

@@ -31,7 +31,11 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
       return res.status(200).json({
         hits: [],
         searchTerm: decodeURIComponent(req.params.term.trim()),
-        total: 0
+        total: 0,
+        head: {
+          title: `No search results`,
+          noindex: true
+        }
       })
     }
 
@@ -55,7 +59,8 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
         })
       results.hits.searchTerm = searchTermDecoded
       results.hits.head = {
-        title: `${results.hits.total} search results for '${searchTermDecoded}'`
+        title: `${results.hits.total} search results for '${searchTermDecoded}'`,
+        noindex: true
       }
       return res.status(200).json(results.hits)
     })
@@ -125,7 +130,7 @@ const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
 
   // Add a fuzzy search query on drug name fields
   const titleFields = [
-    'name^5',
+    'name^10',
     'tags^2',
     'synonyms^5',
     'relatedDrugs.drugName',
@@ -244,7 +249,6 @@ const buildPrefixQuery = (searchTerm, page, pageSize) => {
     .from(page * pageSize)
     .size(pageSize)
     .sort([
-      {'_score': 'desc'},
       { 'name.raw': {
         'missing': '_last',
         'unmapped_type': 'string',

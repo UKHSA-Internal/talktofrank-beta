@@ -71,7 +71,7 @@
 
 .media__item,
 %media__item {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 
   @include media-breakpoint-up(sm) {
     float: left;
@@ -85,6 +85,12 @@
 
   img {
     margin: 0 auto;
+  }
+
+  .media--constant & {
+    float: left;
+    display: block;
+    margin-right: 1rem;
   }
 }
 

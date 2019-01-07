@@ -4,7 +4,7 @@ import Svg from '../Svg/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Anchor from '../Anchor/component'
-import ClientOnly from '../ClientOnly/component'
+import { ClientOnly } from '../ClientOnly/component'
 import { getCookie, setCookie } from '../../lib/cookie.js'
 
 export default class SatisfactionBar extends React.Component {
@@ -24,6 +24,12 @@ export default class SatisfactionBar extends React.Component {
         })
       }, this.props.delay)
     }
+  }
+
+  handleClick(ev) {
+    ev.preventDefault()
+    setCookie('ttf-survey', 1, 365)
+    window.location.href = 'https://www.surveygizmo.com/s3/4604317/Satisfaction-Survey'
   }
 
   closeMessage() {
@@ -56,7 +62,7 @@ export default class SatisfactionBar extends React.Component {
                     <small>Help us improve your FRANK website experience</small>
                   </GridCol>
                   <GridCol className='col-12 col-sm-4'>
-                    <Anchor className='btn btn--secondary spacing-top--single sm-spacing-top--flush has-arrow' target='_blank' href='#' text='Take survey' label='Take our satisfaction survey (will open in new window)'/>
+                    <Anchor className='btn btn--secondary spacing-top--single sm-spacing-top--flush has-arrow' target='_blank' onClick={this.handleClick} href='#' text='Take survey' label='Take our satisfaction survey (will open in new window)'/>
                   </GridCol>
                 </Grid>
               </GridCol>
@@ -69,5 +75,5 @@ export default class SatisfactionBar extends React.Component {
 }
 
 SatisfactionBar.defaultProps = {
-  delay: 0
+  delay: 30000
 }

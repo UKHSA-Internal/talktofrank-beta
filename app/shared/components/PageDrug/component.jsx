@@ -9,9 +9,10 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
-import { imageMap } from '../../utilities'
+import { GA } from '../GoogleAnalytics/component.jsx'
+import { imageMap, fieldIncludesImages } from '../../utilities'
 import SatisfactionBar from '../SatisfactionBar/component.jsx'
+import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
 
 const Page = props => {
   const modifiers = {
@@ -19,8 +20,9 @@ const Page = props => {
     className: 'h5'
   }
 
-  const name = props.fields.drugName
+  const name = props.fields.drugActualName || props.fields.drugName
   const syn = props.location.search ? decodeURIComponent(props.location.search.split('=')[1]) : null
+  let hasImage = props.fields.image && fieldIncludesImages(props.fields.image)
 
   return (
     <React.Fragment>
@@ -31,11 +33,11 @@ const Page = props => {
         }
         <Accent>
           <Grid>
-            {props.fields.image && <GridCol className='col-12 col-md-3'>
-              <Picture {...imageMap(props.fields.image)} />
+            {hasImage && <GridCol className='col-12 col-md-3'>
+              <Picture {...imageMap(props.fields)} />
             </GridCol>}
-            <GridCol className={'col-12 col-md-7 ' + (!props.fields.image ? 'offset-md-3' : null)}>
-              <Heading type='h1' text={props.fields.drugName} className='h2 inverted spacing-bottom--single'/>
+            <GridCol className={'col-12 col-md-7 ' + (!hasImage ? 'offset-md-3' : '')}>
+              <Heading type='h1' text={props.fields.drugName} className={`h2 inverted spacing-bottom--single ${hasImage ? 'has-image' : ''}`}/>
               {props.fields.synonyms && props.fields.synonyms[0] !== '' && <React.Fragment><p className='lead bold'>Also called:</p>
               <ul className='list-unstyled spacing-bottom--tight'>{props.fields.synonyms && props.fields.synonyms.map((item, i) => <li className={'list-inline-item inverted bold' + (syn !== item ? ' inverted--quiet' : '')} key={i}>{item}</li>)}</ul></React.Fragment>}
               <Longform text={props.fields.description} className='spacing-bottom--single'/>
@@ -140,10 +142,10 @@ const Page = props => {
             }
           </Toggle>
         </section>
-
+        <BlockFeaturedContent />
       </Main>
       <Footer>
-        <SatisfactionBar delay={120000} />
+        <SatisfactionBar />
       </Footer>
       <GA/>
     </React.Fragment>

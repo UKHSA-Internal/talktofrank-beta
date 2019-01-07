@@ -3,7 +3,7 @@ import React from 'react'
 import Accent from '../Accent/component'
 import Svg from '../Svg/component'
 import Anchor from '../Anchor/component'
-import ClientOnly from '../ClientOnly/component'
+import { ClientOnly } from '../ClientOnly/component'
 import { getCookie, setCookie } from '../../lib/cookie.js'
 
 export default class CookieBar extends React.Component {

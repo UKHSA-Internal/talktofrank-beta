@@ -3,7 +3,7 @@ import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Divider from '../Divider/component'
 import Footer from '../Footer/component'
-import GA from '../GoogleAnalytics/component'
+import { GA } from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Longform from '../Longform/component'
@@ -53,7 +53,7 @@ const PageGetHelpPage = props => {
         </Accent>}
       </Main>
       <Footer>
-        <SatisfactionBar delay={120000} />
+        <SatisfactionBar />
       </Footer>
       <GA/>
     </React.Fragment>

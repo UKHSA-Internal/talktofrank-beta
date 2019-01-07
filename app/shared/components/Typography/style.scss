@@ -323,7 +323,6 @@ b {
     }
 
     .has-hover & {
-      &:active,
       &:hover {
         color: $body-text;
         background-color: $gray-300;
@@ -347,8 +346,10 @@ b {
   display: block;
   color: inherit;
 
-  &:hover p {
-    text-decoration: none;
+  .has-hover & {
+    &:hover p {
+      text-decoration: none;
+    }
   }
 }
 
@@ -364,7 +365,6 @@ b {
   display: inline-block;
   @extend %break-word;
   margin-bottom: 0;
-
 }
 
 .fake-link {
@@ -405,7 +405,7 @@ b {
   }
 
   h2 {
-    @extend %h3;
+    font-size: 2.2rem;
     margin-top: 3rem;
     margin-bottom: 2rem;
   }
@@ -624,5 +624,11 @@ p.has-icon {
   .btn--static {
     right: -1em;
     top: -.4em;
+  }
+}
+
+.has-image {
+  @include media-breakpoint-down(sm) {
+    margin-top: 3rem;
   }
 }

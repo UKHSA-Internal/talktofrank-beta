@@ -18,7 +18,19 @@ Setting `BUILD_CONFIG` sets `NODE_ENV` automatically accordingly in webpack.js.
 
 ### Live configuration
 
-No passwords / keys etc. are kept in the repo. Any live environments needs a `config.creds.yaml` file in the root of the project to store keys etc.
+No passwords / keys etc. are kept in the repo. Conmfiguration files (`config.<ENV>.yaml`)
+need additional configuration that is read in at runtime.
+
+As such, a number of `config.*.yaml` files are required in the root of the project to store keys etc.
+
+The following files are required:
+
+- `config.creds.yaml`
+- `config.ethereal.yaml`
+- `config.google.yaml`
+- `config.mailgun.yaml`
+- `config.sentry.yaml`
+- `config.webhooksecretkey.yaml`
 
 ## Development
 
@@ -36,10 +48,8 @@ A feature branch branching strategy is in use, specifically:
 | `grunt`  (default)                    | Clean existing & build new bundled files. Run your app on the development server at `localhost:3000`.  |
 | `grunt build `                        | Create new bundled files                                                      |
 | `grunt ngrok`                         | Setup an grok tunnel to your local web server                                 |
-| `grunt contentful:deleteAllIndices`   | Delete all elasticsearch indexes                                              |
-| `grunt contentful:fullReindex`        | Delete existing index, create a new ES index and pull entries from contentful |
-| `grunt contentful:reindexContent`     | Pull entries from contentful into Elasticsearch & reindex                     |
-| `grunt localtunnel`                   | Run local server (monitor for changes) with ngrok tunnel                      |
+| `grunt contentful`                    | Pull all entries from contentful & reindex in Elasticsearch                   |
+| `grunt localtunnel or grunt ngrok`    | Run local server (monitor for changes) with ngrok tunnel                      |
 
 
 ### Contenftul CLI

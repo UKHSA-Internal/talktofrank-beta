@@ -67,7 +67,8 @@ const routes = [{
       exact: true,
       component: asyncPageDrug,
       loadData: ({params}) => [
-        fetchPage(params.drugName, 'drugs')
+        fetchPage(params.drugName, 'drugs'),
+        fetchFeaturedBlock('featuredNewsBlock')
       ]
     },
     {
@@ -117,7 +118,15 @@ const routes = [{
       exact: true,
       component: asyncPageSearch,
       loadData: ({params}) => [
-        fetchSearchTerm(params.term)
+        fetchSearchTerm(params.term, 0)
+      ]
+    },
+    {
+      path: '/search/:term/:number(\\d+)',
+      exact: true,
+      component: asyncPageSearch,
+      loadData: ({params}) => [
+        fetchSearchTerm(params.term, params.number - 1)
       ]
     },
     {
@@ -146,7 +155,7 @@ const routes = [{
       ]
     },
     {
-      path: '/support-near-you',
+      path: '/get-help/find-support-near-you',
       exact: true,
       component: asyncPageSupportFormContainer
     },

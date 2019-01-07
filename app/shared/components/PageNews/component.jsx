@@ -4,10 +4,9 @@ import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
-import GA from '../GoogleAnalytics/component'
+import { GA } from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
-import Picture from '../Picture/component'
 import Main from '../Main/component'
 import Longform from '../Longform/component'
 import Article from '../Article/component'
@@ -29,9 +28,9 @@ export default class PageNews extends React.PureComponent {
               {this.props.fields.image && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
               </GridCol>}
-              {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2 spacing-top--single'>
+              {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2'>
                 {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
-                <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--large'/>
+                <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--single'/>
               </GridCol>}
               <GridCol className='col-12 col-sm-8 col-md-6 offset-md-2'>
                 {this.props.fields.body && <Longform text={documentToHtmlString(this.props.fields.body, contentFulFactory())}/>}
@@ -50,7 +49,7 @@ export default class PageNews extends React.PureComponent {
           <BlockFeaturedContent />
         </Main>
         <Footer>
-          <SatisfactionBar delay={120000} />
+          <SatisfactionBar />
         </Footer>
         <GA />
       </React.Fragment>

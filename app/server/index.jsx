@@ -29,6 +29,10 @@ import packageInfo from '../../package.json'
 import Html from '../shared/components/Html/component'
 import PageNotFound from '../shared/components/PageNotFound/component'
 
+import { buildSitemaps } from 'express-sitemap-xml'
+import { format, parse } from 'date-fns'
+import contentfulClient from './contentful/lib'
+
 const Sentry = require('@sentry/node')
 if (config.sentry.logErrors) {
   console.log(`Error logging enabled: Sentry DSN ${config.sentry.dsn}`)
@@ -93,11 +97,101 @@ const options = {
 app.use(express.static('../static', options))
 app.use(favicon('../static/ui/favicon.ico'))
 
-app.get('/robots.txt', function (req, res) {
-  res.type('text/plain')
-  res.send('User-agent: *\nDisallow: /')
+app.get('/robots.txt', (req, res) => {
+  if (config.robotsDisallow) {
+    res.type('text/plain')
+    res.send('User-agent: *\nDisallow: /')
+  } else {
+    res.type('text/plain')
+    res.send(`User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`)
+  }
 })
 
+app.get('/sitemap.xml', async (req, res, next) => {
+  let entries = []
+
+  try {
+    entries = await contentfulClient.getEntries({
+      'sys.contentType.sys.id[in]': 'drug,generalPage,homepage,news,treatmentCentre',
+      limit: 1000
+    })
+  } catch (err) {
+    return next(err)
+  }
+
+  // manual entries
+  let additions = [
+    'https://www.talktofrank.com/',
+    'https://www.talktofrank.com/news',
+    'https://www.talktofrank.com/contact-frank',
+    'https://www.talktofrank.com/get-help',
+    'https://www.talktofrank.com/drugs-a-z',
+    'https://www.talktofrank.com/drug/tranquillisers',
+    'https://www.talktofrank.com/livechat'
+  ]
+
+  let blacklist = [
+    'contact/success',
+    'feedback/success',
+    'young-people’s-health-agency-wandsworth',
+    'north-yorkshire-horizons-harrogate',
+    'needle-syringe-programme-rowland’s-pharmacy',
+    'wolverhampton-360',
+    'north-yorkshire-women’s-criminal-justice-service',
+    'tranquillisers',
+    'swanswell-young-persons-substance-misuse-service-and-young-person’s-families-1',
+    'text-disclaimer',
+    'pavilions-families-carer’s-service',
+    'norcas-young-people’s-affected-others-service',
+    'islington-young-people’s-drug-and-alcohol-service',
+    'young-people’s-drug-and-alcohol-team',
+    'barnardo’s-streetlevel'
+  ]
+
+  let urls = entries.items.filter(item => {
+    if (item.fields.hasOwnProperty('addressStatus') &&
+      item.fields.addressStatus === false) {
+      return false
+    }
+
+    if (blacklist.includes(item.fields.slug)) {
+      return false
+    }
+
+    if (!item.fields.slug) {
+      console.log('No slug for ' + item.fields.slug)
+    }
+    return item.fields.slug
+  }).map(item => {
+    let url
+    switch (item.sys.contentType.sys.id) {
+      case 'news':
+        url = 'news/' + item.fields.slug
+        break
+      case 'drug':
+        url = 'drug/' + item.fields.slug
+        break
+      case 'treatmentCentre':
+        url = 'treatment-centre/' + item.fields.slug
+        break
+      default:
+        url = item.fields.slug
+    }
+    return {
+      url: url,
+      lastMod: format(parse(item.sys.updatedAt), 'YYYY-MM-DD')
+    }
+  })
+
+  urls = urls.concat(additions)
+
+  try {
+    let sitemaps = await buildSitemaps(urls, config.canonicalHost)
+    res.set('application/xml').send(sitemaps['/sitemap.xml'])
+  } catch (err) {
+    return next(err)
+  }
+})
 /*
  * Pass Express over to the App via the React Router
  */
@@ -105,9 +199,24 @@ app.get(/^([^.]+)$/, (req, res) => {
   const store = generateStore()
   const newRoutes = req.path.match(/\/amp\//) ? ampRoutes : routes
   const loadData = () => {
-    const branches = matchRoutes(newRoutes, req.path)
-    const promises = branches
-      .filter(({ route, match }) => { return match.isExact && route.loadData })
+    const branches = matchRoutes(routes, req.path)
+
+    const matchedBranches = branches.filter(({ route, match }) => match.isExact)
+
+    if (matchedBranches.length === 0) {
+      /*
+        no matching route found e.g. 404
+
+        note `matchRoutes` will not match the asyncPageNotFound route
+
+        store.dispatch(receivePageError(404)) < NOPE - throw error so
+        all 404s are caught in the catch block below throw new Error(404)
+        */
+      throw new Error(404)
+    }
+
+    const promises = matchedBranches
+      .filter(({ route, match }) => { return route.loadData })
       .map(({ route, match }) => {
         return Promise.all(
           route
@@ -137,6 +246,7 @@ app.get(/^([^.]+)$/, (req, res) => {
           title: 'Page not found'
         }
       }
+      res.status(404)
       res.write('<!DOCTYPE html>')
       return ReactDOMServer
         .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)

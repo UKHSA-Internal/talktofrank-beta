@@ -1,10 +1,7 @@
 import React from 'react'
-import classNames from 'classnames'
 
 const Spinner = props => {
-  let classes = classNames('spinner', {
-    'spinner--active': props.loading
-  })
+  let classes = `spinner spinner--active ${props.className || ''}`
 
   return (
     <div className={classes}>

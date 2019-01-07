@@ -26,18 +26,17 @@ if (workbox) {
     'revision': '20181129'
   }])
 
-  // Using network first for development, cache will then be used
-  // for offline connections
   workbox.routing.registerRoute(
     /\.(?:ico|woff|woff2|png|svg|css|min\.css)(?:\?v=[1-9]+)|\.(?:ico|woff|woff2|png|svg|css|min\.css)$/,
     workbox.strategies.networkFirst()
   )
 
-  workbox.routing.registerRoute(
-    ({event}) => event.request.mode === 'navigate',
-    ({url}) => fetch(url.href)
-      .catch(() => {
-        return caches.match('/offline')
-      })
-  )
+  // Use a networkonly policy to respond to all navigation routes
+  // fall back to 'offline' page when there is a network error
+  // this method allows for non 'OK' http status codes (i.e. 301 redirects)
+  const networkOnly = workbox.strategies.networkOnly()
+  const route = new workbox.routing.NavigationRoute(({event}) => {
+    return networkOnly.handle({event}).catch(() => caches.match('/offline'))
+  })
+  workbox.routing.registerRoute(route)
 }

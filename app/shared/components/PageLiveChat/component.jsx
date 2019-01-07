@@ -4,7 +4,7 @@ import Masthead from '../Masthead/component'
 import Divider from '../Divider/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
-import GA from '../GoogleAnalytics/component'
+import { GA } from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
@@ -23,10 +23,10 @@ const PageLiveChat = props => {
         <Grid>
           <GridCol className='col-md-8 offset-md-2'>
             <LiveChatOn>
-              <iframe title="FRANK - livechat" frameborder="0" width="100%" height="550" src="https://smokefree.serco.com/visitor/EntryPage.htm">FRANK - livechat</iframe>
+              <iframe title="FRANK - livechat" frameborder="0" width="100%" height="550" src="https://talktofrank.serco.com/visitor/entrypage.htm">FRANK - livechat</iframe>
             </LiveChatOn>
             <LiveChatOff>
-              <iframe title="FRANK - livechat" frameborder="0" width="100%" height="550" src="https://smokefree.serco.com/visitor/EntryPageClosed.htm">FRANK - livechat</iframe>
+              <iframe title="FRANK - livechat" frameborder="0" width="100%" height="550" src="https://talktofrank.serco.com/visitor/entrypageclosed.htm">FRANK - livechat</iframe>
             </LiveChatOff>
           </GridCol>
         </Grid>

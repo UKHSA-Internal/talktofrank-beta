@@ -8,10 +8,12 @@ import Anchor from '../Anchor/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Pagination from '../Pagination/component.jsx'
 import ArticleSupport from '../ArticleSupport/component.jsx'
-import GA from '../GoogleAnalytics/component.jsx'
+import { GA } from '../GoogleAnalytics/component.jsx'
 import Main from '../Main/component.jsx'
 import Divider from '../Divider/component'
 import Svg from '../Svg/component'
+import { scrollTo } from '../../utilities'
+import Spinner from '../Spinner/component.jsx'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
@@ -19,6 +21,9 @@ export default class PageSupportList extends React.PureComponent {
     this.handlePageChange = this.handlePageChange.bind(this)
     this.main = React.createRef()
     this.focusMain = this.focusMain.bind(this)
+    this.state = {
+      index: 0
+    }
   }
 
   handlePageChange (pageNumber) {
@@ -36,9 +41,8 @@ export default class PageSupportList extends React.PureComponent {
   }
 
   focusMain() {
-    setTimeout(() => {
-      this.main.current.focus()
-    }, 1500)
+    this.setState({index: this.state.index + 1})
+    scrollTo((document.body || document.documentElement), 0, 500, this.main.current.focus())
   }
 
   renderNoResults() {
@@ -71,16 +75,16 @@ export default class PageSupportList extends React.PureComponent {
   }
 
   render () {
-    const { loading } = this.props
+    const { loading, error } = this.props
     const { results, location, total, pageNumber } = this.props.pageData
     return (
       <React.Fragment>
         <Masthead/>
          <Main>
-         <span className='jump visually-hidden' tabIndex='-1' ref={this.main}/>
+         <span className='jump' tabIndex='-1' ref={this.main}/>
          <Accent className='accent--shallow'>
             <Heading type='h1' className='page-title' text={`Results ordered by nearest to “${location}”` } />
-            <Anchor className='md-spacing-left link-text' href='/support-near-you' text='Search again'/>
+            <Anchor className='md-spacing-left link-text' href='/get-help/find-support-near-you' text='Search again'/>
           </Accent>
           <Accent className='accent--shallow'>
             <Grid>
@@ -105,6 +109,7 @@ export default class PageSupportList extends React.PureComponent {
                     />
                   })}
                 </ul>
+                {loading && !error && (this.state.index > 0) && <Spinner className='spinner--fixed'/>}
               </GridCol>
             </Grid>
             {total > 10 &&

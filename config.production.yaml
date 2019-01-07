@@ -1,10 +1,13 @@
 buildConfig: production
-api: https://ttf-prod.cxp.io
+api: https://www.talktofrank.com
 ga: UA-129232-18 # @joel - update this as this is the test account
 contentful:
   contentHost: 'cdn.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
+  webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
+
+robotsDisallow: false
 
 sentry:
   dsn: !!import/single '../config.sentry.yaml'

@@ -1,9 +1,9 @@
-const ClientOnly = props => {
-  if (typeof window !== 'undefined') {
+export const isClient = () => typeof window !== 'undefined'
+
+export const ClientOnly = props => {
+  if (isClient) {
     return props.children
   }
 
   return null
 }
-
-export default ClientOnly
