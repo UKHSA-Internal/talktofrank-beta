@@ -8,6 +8,8 @@ export default class Picture extends React.PureComponent {
   }
 
   getSources (sizes, images) {
+    console.log(sizes)
+    console.log(images)
     return sizes.map(s => <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcSet={images[s]}/>)
   }
 
