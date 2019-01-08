@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 const { InjectManifest } = require('workbox-webpack-plugin')
+const sass = require('node-sass')
 
 const processEnv = {
   NODE_ENV: JSON.stringify('production'), // !process.env.BUILD_CONFIG ? JSON.stringify('development') : process.env.BUILD_CONFIG === 'development' ? JSON.stringify('development') : JSON.stringify('production'),
@@ -43,6 +44,10 @@ module.exports = {
         use: [{
           loader: 'babel-loader'
         }]
+      },
+      {
+        test: /\.scss$/,
+        loader: 'ignore-loader'
       }]
     },
     plugins: [
@@ -95,6 +100,44 @@ module.exports = {
         use: [{
           loader: 'babel-loader'
         }]
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          /*
+           * Need to replace the url for the fonts
+           */
+          loader: 'string-replace-loader',
+          options: {
+            multiple: [{
+              search: '../font/',
+              replace: '/ui/font/',
+              flags: 'gi'
+            },
+            {
+              search: '!important',
+              replace: '',
+              flags: 'g'
+            }]
+          }
+        },
+        {
+          /*
+           * css-loader breaks with url imports for fonts so use raw-loader
+           */
+          loader: 'raw-loader'
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            implementation: sass,
+            outputStyle: 'compressed',
+            includePaths: [
+              'node_modules',
+              'static/ui/scss'
+            ]
+          }
+        }]
       }]
     },
     plugins: [
@@ -104,6 +147,7 @@ module.exports = {
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1 // only want 1 chunk for server, i.e. ignore code splitting
       })
+
     ],
     stats: {
       colors: true,
