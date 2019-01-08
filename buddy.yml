@@ -248,13 +248,13 @@
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-116851924324"
-    integration_id: 43059
+    integration_id: 43570
   - action: "Upload m.talktofrank.com redirect file to S3"
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/mdot-redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-116851924324"
-    integration_id: 43059
+    integration_id: 43570
   - action: "Archive directory"
     type: "ZIP"
     local_path: "/"
@@ -288,7 +288,7 @@
     environment_name: "ttfprodapp-env"
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
-    integration_id: 43059
+    integration_id: 43570
   - action: "Run preview deployment"
     type: "RUN_NEXT_PIPELINE"
     wait: true
