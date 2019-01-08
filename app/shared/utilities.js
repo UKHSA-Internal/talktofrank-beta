@@ -104,6 +104,7 @@ export function fieldIncludesImages(imageObj) {
 // it mirrors the cms but would be nice to
 // have the freedom to add more breakoints
 export function imageMap (obj, field = 'image') {
+
   if (!obj[field] || !fieldIncludesImages(obj[field])) {
     return false
   }
@@ -112,23 +113,23 @@ export function imageMap (obj, field = 'image') {
   let path = obj[field].fields
 
   if (path.imageHuge && path.imageHuge.fields) {
-    imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
+    imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file || 1200
   }
 
   if (path.imageVeryLarge && path.imageVeryLarge.fields) {
-    imageObj[path.veryLargeBreakpoint] = path.imageVeryLarge.fields.file.url || 950
+    imageObj[path.veryLargeBreakpoint] = path.imageVeryLarge.fields.file || 950
   }
 
   if (path.imageLarge && path.imageLarge.fields) {
-    imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url || 800
+    imageObj[path.largeBreakpoint] = path.imageLarge.fields.file || 800
   }
 
   if (path.imageMedium && path.imageMedium.fields) {
-    imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file.url || 600
+    imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file || 600
   }
 
   if (path.imageSmall && path.imageSmall.fields) {
-    imageObj[path.smallBreakpoint] = path.imageSmall.fields.file.url || 400
+    imageObj[path.smallBreakpoint] = path.imageSmall.fields.file || 400
   }
   return imageObj
 }
@@ -257,4 +258,28 @@ export const haversineDistance = (lon1, lat1, lon2, lat2, isMiles) => {
   let d = R * c
   if (isMiles) d /= 1.60934
   return d.toFixed(1)
+}
+
+export function getSizes (images) {
+  // @joel @refactor @todo - remove this object.keys and make the images pre-sorted
+  return Object.keys(images).map(s => parseInt(s, 10)).sort((a, b) => b - a)
+}
+
+function getSmallestImage (sizes, images) {
+  let smallestSize = sizes.pop()
+  return images[smallestSize]
+}
+
+export function getPictureSettings (images) {
+  let sizes = getSizes(images)
+  let smallestImageSrc = getSmallestImage(sizes, images)
+
+  return smallestImageSrc
+}
+
+export function getWidthHeightRatio (width, height) {
+  return {
+    width: (width/height),
+    height: 1
+  }
 }

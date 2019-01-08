@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import * as Amp from 'react-amphtml'
+import { getPictureSettings, getWidthHeightRatio } from '../../utilities'
 
 export default class AmpPicture extends React.PureComponent {
   componentDidMount () {
@@ -8,36 +9,13 @@ export default class AmpPicture extends React.PureComponent {
     picturefill()
   }
 
-  getSizes (images) {
-    // @joel @refactor @todo - remove this object.keys and make the images pre-sorted
-    return Object.keys(images).map(s => parseInt(s, 10)).sort((a, b) => b - a)
-  }
-
-  getSources (sizes, images) {
-    return sizes.map(s => <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcSet={images[s]}/>)
-  }
-
-  getSmallestImage (sizes, images) {
-    let smallestSize = sizes.pop()
-    return images[smallestSize]
-  }
-
-  getPictureSettings (images) {
-    let sizes = this.getSizes(images)
-    let smallestImageSrc = this.getSmallestImage(sizes, images)
-    let sources = this.getSources(sizes, images)
-
-    return {
-      smallestImageSrc: smallestImageSrc,
-      sources: sources
-    }
-  }
-
   render () {
-    let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
+    let smallestImage = getPictureSettings(this.props)
+
     let classes = classNames('image', this.props.className)
 
-    smallestImageSrc += '?fm=jpg&q=70'
+    let smallestImageSrc = smallestImage.url + '?fm=jpg&q=70'
+    let {width, height} = getWidthHeightRatio(smallestImage.details.image.width, smallestImage.details.image.height)
 
     return (
       <div className={classes}>
@@ -46,8 +24,8 @@ export default class AmpPicture extends React.PureComponent {
           src={smallestImageSrc}
           srcSet={smallestImageSrc}
           alt={this.props.alt || ''}
-          width='700'
-          height='450'
+          width={width}
+          height={height}
           layout='responsive'>
         </Amp.AmpImg>
       </div>

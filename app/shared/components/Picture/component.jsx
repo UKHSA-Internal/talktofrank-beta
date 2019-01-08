@@ -1,4 +1,5 @@
 import React from 'react'
+import { getSizes, getPictureSettings, getWidthHeightRatio } from '../../utilities'
 
 export default class Picture extends React.PureComponent {
   componentDidMount () {
@@ -6,36 +7,16 @@ export default class Picture extends React.PureComponent {
     picturefill()
   }
 
-  getSizes (images) {
-    // @joel @refactor @todo - remove this object.keys and make the images pre-sorted
-    return Object.keys(images).map(s => parseInt(s, 10)).sort((a, b) => b - a)
-  }
-
   getSources (sizes, images) {
     return sizes.map(s => <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcSet={images[s]}/>)
   }
 
-  getSmallestImage (sizes, images) {
-    let smallestSize = sizes.pop()
-    return images[smallestSize]
-  }
-
-  getPictureSettings (images) {
-    let sizes = this.getSizes(images)
-    let smallestImageSrc = this.getSmallestImage(sizes, images)
-    let sources = this.getSources(sizes, images)
-
-    return {
-      smallestImageSrc: smallestImageSrc,
-      sources: sources
-    }
-  }
-
   render () {
-    let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
+    let smallestImage = getPictureSettings(this.props)
     let classes = `image ${this.props.className || ''}`
+    let sources = this.getSources(getSizes(this.props), this.props)
 
-    smallestImageSrc += '?fm=jpg&q=70'
+    let smallestImageSrc = smallestImage.url + '?fm=jpg&q=70'
 
     return (
       <picture className={classes}>
