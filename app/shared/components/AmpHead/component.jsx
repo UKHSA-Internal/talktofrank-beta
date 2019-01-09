@@ -15,34 +15,36 @@ export default class AmpHead extends React.Component {
 
     let pageTitle
     let pageDescription
+    let ogPageTitle
     let canonical = `${config.canonicalHost}${path}`
 
     if (!error && !pageLoadError) {
-      pageTitle = (head && head.title) || pageTitle
-      pageDescription = (head && head.description) || null
+      path = location.pathname ? location.pathname : null
+
+      if (head && head.description && head.pageTitle) {
+        ogPageTitle = head.title ? head.title : head.pageTitle
+        pageTitle = head.pageTitle
+        pageDescription = head.description
+      } else {
+        path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
+        ogPageTitle = pageTitle = (head && head.title) || pageTitle
+        pageDescription = (head && head.description) || pageTitle
+      }
     } else {
       const errorCode = pageLoadError ? pageLoadError.error : error
+      canonical = `${config.canonicalHost}/page-not-found`
       switch (errorCode) {
         case 404:
-          pageTitle = 'Page not found (404)'
+          ogPageTitle = pageTitle = 'Page not found (404)'
           pageDescription = 'Page not found (404)'
           break
 
         case 500:
-          pageTitle = 'Server error'
+          ogPageTitle = pageTitle = 'Server error'
           pageDescription = 'Server error'
           break
       }
     }
-
-    let images = initialState.app.pageData.fields.image
-    /* find largest image */
-    let largest = 0
-    for (var index in images) {
-      largest = index > largest ? index : largest
-    }
-
-    let mainImage = images[largest]
 
     let schemaTags = {
       '@context': 'http://schema.org',
@@ -55,7 +57,7 @@ export default class AmpHead extends React.Component {
         '@type': 'Organization',
         'name': 'FRANK'
       },
-      'image': 'https:' + mainImage,
+      'image': 'https:' + head.image.url,
       'publisher': {
         '@type': 'Organization',
         'name': 'FRANK',
@@ -68,6 +70,8 @@ export default class AmpHead extends React.Component {
       }
     }
 
+console.log(head.image)
+
     return (
       <head>
         <title>{pageTitle + ` | FRANK`}</title>
@@ -76,6 +80,19 @@ export default class AmpHead extends React.Component {
         <meta name='format-detection' content='telephone=no' />
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
+        <meta property="twitter:title" content={ogPageTitle + ` | FRANK`} />
+        <meta property="twitter:description" content={pageDescription + ` | FRANK`} />
+        {head && head.image && <meta property="twitter:image" content={head.image.url} />}
+        <meta property="og:title" content={ogPageTitle + ` | FRANK`} />
+        {head && head.image &&
+          <meta property="og:image:width" content={head.image.details.image.width} />
+          <meta property="og:image:height" content={head.image.details.image.height} />
+          <meta property="og:image:secure_url" content={`https:${head.image.url}`} />
+          <meta property="og:image:url" content={`http:${head.image.url}`} />
+          <meta property="og:image:type" content={`http:${head.image.contentType}`} />
+        }
+        <meta property="og:description" content={pageDescription + ` | FRANK`} />
+        {canonical && <meta property="og:url" content={canonical} />}
         {headerBoilerplate(canonical)}
         <style amp-custom='' dangerouslySetInnerHTML={{__html: ampInlineCss}} />
         <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaTags) }}/>
