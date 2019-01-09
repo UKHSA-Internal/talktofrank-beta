@@ -290,7 +290,6 @@
     integration_id: 43059
   - action: "Run preview deployment"
     type: "RUN_NEXT_PIPELINE"
-    wait: true
     comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
     revision: "INHERIT"
     trigger_condition: "ALWAYS"
