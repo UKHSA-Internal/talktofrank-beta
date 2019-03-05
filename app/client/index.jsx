@@ -11,7 +11,7 @@ import thunkMiddleware from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter } from 'react-router-redux'
 import { renderRoutes } from 'react-router-config'
-import routes from '../shared/newRoutes.jsx'
+import { routes } from '../shared/newRoutes.jsx'
 
 import { Switch, Route } from 'react-router'
 
