@@ -35,6 +35,7 @@ export default class PageHome extends React.PureComponent {
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Hero {...this.props.hero}/>
+
         <Accent className='accent--muted' modifier='wrapper--constant constrain'>
           <Form role='search' className='form--search'>
             <FormGroupAutocomplete
