@@ -54,10 +54,12 @@ export const contentFulFactory = () => {
             return marked(node.data.target.fields.text)
           } else if (node.data.target.sys.contentType.sys.id === 'video') {
             return renderToString(
+              // to be replaced with video component
               <p>Embedded video component goes here<br />
                 <strong>title</strong>: {node.data.target.fields.title}<br />
                 <strong>url</strong>: {node.data.target.fields.embedUrl}
               </p>
+              // end to be replace
             )
           }
         }
