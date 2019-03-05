@@ -12,10 +12,6 @@ export function factory (pageData) {
 
   let reactComponents = []
 
-  if (!contentItems) {
-    return null
-  }
-
   for (let i = 0; i < contentItems.length; i++) {
     let item = contentItems[i].fields
     let reactComponent
