@@ -84,12 +84,32 @@ export function exists (obj, key) {
   })
 }
 
+export function fieldIncludesImages(imageObj) {
+  if (!imageObj.fields) {
+    return false
+  }
+
+  let imagesFileExists = false
+  Object.keys(imageObj.fields)
+    .filter(key => imageObj.fields[key].fields)
+    .filter(key => imageObj.fields[key].fields.file)
+    .map(key => {
+      imagesFileExists = true
+    })
+
+  return imagesFileExists
+}
+
 // not great - needs a bit more flexibility
 // it mirrors the cms but would be nice to
 // have the freedom to add more breakoints
-export function imageMap (obj) {
+export function imageMap (obj, field = 'image') {
+  if (!obj[field] || !fieldIncludesImages(obj[field])) {
+    return false
+  }
+
   let imageObj = {}
-  let path = obj.fields
+  let path = obj[field].fields
 
   if (path.imageHuge && path.imageHuge.fields) {
     imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
