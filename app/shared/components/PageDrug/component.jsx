@@ -11,7 +11,6 @@ import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import { imageMap, fieldIncludesImages } from '../../utilities'
-import SatisfactionBar from '../SatisfactionBar/component.jsx'
 import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
 
 const Page = props => {
@@ -144,9 +143,7 @@ const Page = props => {
         </section>
         <BlockFeaturedContent />
       </Main>
-      <Footer>
-        <SatisfactionBar />
-      </Footer>
+      <Footer />
       <GA/>
     </React.Fragment>
   )

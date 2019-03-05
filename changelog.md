@@ -10,3 +10,7 @@
 ### Added
 - Nginx redirects
 - AMP news pages
+
+## [0.1.3]
+### Removed
+- Survey bar
