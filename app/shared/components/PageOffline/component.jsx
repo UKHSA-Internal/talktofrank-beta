@@ -16,7 +16,6 @@ const PageOffline = () => {
   if (isInBrowser()) {
     setTimeout(() => window.location.reload(true), 30000)
   }
-
   return (
     <React.Fragment>
       <Masthead path={'no-match'}/>
