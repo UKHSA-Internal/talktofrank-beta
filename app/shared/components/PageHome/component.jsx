@@ -49,6 +49,20 @@ export default class PageHome extends React.PureComponent {
           </Form>
         </Accent>
         <Main>
+          { this.props.warningMessageBlock &&
+          <section className='wrapper spacing-top--large'>
+            <Grid>
+              <GridCol className='col-12 col-sm-10'>
+                <p>Replace me: { this.props.warningMessageBlock.url !== false ? (
+                  <a href={this.props.warningMessageBlock.url}>{this.props.warningMessageBlock.message}</a>
+                ) : (
+                  this.props.warningMessageBlock.message
+                )}
+                </p>
+              </GridCol>
+            </Grid>
+          </section>
+          }
           {this.props.featuredItemBlock &&
             <section className='wrapper spacing-top--large'>
               <Grid>
