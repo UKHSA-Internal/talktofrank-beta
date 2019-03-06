@@ -15,4 +15,4 @@ module.exports = function(migration) {
 
   homepage.moveField('warningMessage').beforeField('featuredNewsItem');
   homepage.moveField('warningMessageLink').beforeField('featuredNewsItem');
-};
+}
