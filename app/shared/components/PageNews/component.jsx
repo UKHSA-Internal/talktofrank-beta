@@ -19,7 +19,7 @@ import { contentFulFactory } from '../../contentful'
 
 export default class PageNews extends React.PureComponent {
   render () {
-    console.log(this.props.fields)
+    console.log(this.props.headerVideo)
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
@@ -27,13 +27,12 @@ export default class PageNews extends React.PureComponent {
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
               {this.props.fields.headerVideo && <GridCol className='col-12'>
-                <Video {...this.props.headerVideo.fields}/>
-                <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--single'/>
+                <Video {...this.props.headerVideo}/>
               </GridCol>}
               {(this.props.fields.image && !this.props.fields.headerVideo) && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
               </GridCol>}
-              {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2'>
+              {(!this.props.fields.image || this.props.fields.headerVideo) && <GridCol className='col-12 col-sm-8 offset-md-2'>
                 {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
                 <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--single'/>
               </GridCol>}

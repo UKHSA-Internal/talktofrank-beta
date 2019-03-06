@@ -13,4 +13,19 @@ figure,
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
+
+  &.has-video {
+    img {
+      &::after {
+        content: '';
+        width: 7rem;
+        height: 7rem;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-image: url('/ui/svg/play.svg ');
+        z-index: 1;
+      }
+    }
+  }
 }

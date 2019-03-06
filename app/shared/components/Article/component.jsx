@@ -4,6 +4,7 @@ import AmpPicture from '../AmpPicture/component.jsx'
 import Longform from '../Longform/component.jsx'
 import Time from '../Time/component.jsx'
 import Heading from '../Heading/component.jsx'
+import Svg from '../Svg/component.jsx'
 import PropTypes from 'prop-types'
 
 const Link = ({ href, children }) => (href !== null
@@ -15,12 +16,12 @@ const Link = ({ href, children }) => (href !== null
 
 const Article = props => {
   const Tag = props.type
-
+  const playIcon = '/ui/svg/play.svg'
   return (
     // eslint-disable-next-line no-self-compare
     <Tag className={`list-item ${props.fields.image ? ('list-item--has-image' + (props.fields.imagepos & 1 === 1 ? ' list-item--alternate' : '')) : ''} `} >
       <Link href={props.fields.slug ? `/news/${props.fields.slug}` : null}>
-        {props.isAmp ? props.fields.image && <AmpPicture {...props.fields.image}/> : props.fields.image && <Picture {...props.fields.image}/>}
+        {props.isAmp ? props.fields.image && <AmpPicture {...props.fields.image}/> : props.fields.image && <Picture className={props.fields.headerVideo ? 'has-video' : ''} {...props.fields.image}/>}
         <div className={`list-item__inner${props.fields.slug == null ? ' list-item__inner--indented' : ''}`}>
           <Heading type={props.fields.type} className='list-item__title h3 heading-inline' text={`<span>${props.fields.title}</span>`}/>
           {props.date && <Time time={props.dateFormatted} dateTime={props.date}/>}
