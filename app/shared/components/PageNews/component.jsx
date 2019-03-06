@@ -12,19 +12,25 @@ import Longform from '../Longform/component'
 import Article from '../Article/component'
 import Time from '../Time/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
+import Video from '../Video/component.jsx'
 // @todo refactor all contentful "factory" stuffs to api
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 
 export default class PageNews extends React.PureComponent {
   render () {
+    console.log(this.props.fields)
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
         <Main>
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
-              {this.props.fields.image && <GridCol className='col-12 list-offset'>
+              {this.props.fields.headerVideo && <GridCol className='col-12'>
+                <Video {...this.props.headerVideo.fields}/>
+                <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--single'/>
+              </GridCol>}
+              {(this.props.fields.image && !this.props.fields.headerVideo) && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
               </GridCol>}
               {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2'>

@@ -7,15 +7,11 @@
   width: 100%;
   border: 0;
 
-  & + figcaption {
-    margin-top: -3rem;
-  }
-
-  &--with-caption {
-    margin-bottom: 7.8rem !important;
+  &--embedded {
+    margin-top: 2em;
+    margin-bottom: 2em;
   }
 }
-
 
 .video iframe,
 .video object,
