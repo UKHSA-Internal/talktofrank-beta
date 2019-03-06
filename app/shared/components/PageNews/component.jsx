@@ -19,7 +19,6 @@ import { contentFulFactory } from '../../contentful'
 
 export default class PageNews extends React.PureComponent {
   render () {
-    console.log(this.props.headerVideo)
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
@@ -27,7 +26,7 @@ export default class PageNews extends React.PureComponent {
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
               {this.props.fields.headerVideo && <GridCol className='col-12'>
-                <Video {...this.props.headerVideo}/>
+                <Video className='video--header' {...this.props.fields.headerVideo.fields}/>
               </GridCol>}
               {(this.props.fields.image && !this.props.fields.headerVideo) && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
