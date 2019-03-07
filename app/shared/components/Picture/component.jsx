@@ -1,4 +1,5 @@
 import React from 'react'
+import Play from '../Play/component.jsx'
 
 export default class Picture extends React.PureComponent {
   componentDidMount () {
@@ -39,8 +40,8 @@ export default class Picture extends React.PureComponent {
     return (
       <picture className={classes}>
         {sources}
-        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''}/>
-        {this.props.video && <span className='icon-play icon-play--fixed icon-play--large' role='presentation'></span>}
+        <div><img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''}/>
+        {this.props.video && <Play />}</div>
       </picture>
     )
   }

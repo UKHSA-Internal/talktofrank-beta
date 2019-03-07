@@ -5,6 +5,7 @@ import Longform from '../Longform/component.jsx'
 import Time from '../Time/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Svg from '../Svg/component.jsx'
+import Play from '../Play/component.jsx'
 import PropTypes from 'prop-types'
 
 const Link = ({ href, children }) => (href !== null

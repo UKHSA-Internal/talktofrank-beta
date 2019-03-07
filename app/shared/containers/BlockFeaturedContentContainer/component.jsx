@@ -47,6 +47,10 @@ const mapStateToProps = (state, ownProps) => {
           featuredContentItem.imageClass = 'card-img'
         }
 
+        if (item.fields.headerVideo) {
+          featuredContentItem.headerVideo = item.fields.headerVideo.fields
+        }
+
         // crudely setting 2nd item STICKY
         if (i === 1) {
           featuredContentItem.sticky = true

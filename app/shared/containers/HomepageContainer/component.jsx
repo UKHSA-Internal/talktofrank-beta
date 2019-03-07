@@ -23,7 +23,8 @@ const mapStateToProps = (state, ownProps) => {
     featuredItemBlock = {
       fields: {
         title: featuredNewsItem.fields.title,
-        slug: featuredNewsItem.fields.slug
+        slug: featuredNewsItem.fields.slug,
+        headerVideo: featuredNewsItem.fields.headerVideo || null
       },
       date: featuredNewsItem.date,
       dateFormatted: featuredNewsItem.dateFormatted
@@ -70,6 +71,10 @@ const mapStateToProps = (state, ownProps) => {
         featuredItem.images = imageMap(item.fields)
         if (featuredItem.images) {
           featuredItem.imageClass = 'card-img'
+        }
+
+        if (item.fields.headerVideo) {
+          featuredItem.headerVideo = item.fields.headerVideo.fields
         }
 
         // crudely setting 2nd item STICKY

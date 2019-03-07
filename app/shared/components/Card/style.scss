@@ -14,6 +14,13 @@
     border: 0;
     background-color: transparent;
   }
+
+  .icon-play {
+    @include media-breakpoint-up(sm) {
+      height: 4rem;
+      width: 4rem;
+    }
+  }
 }
 
 .card-body {
