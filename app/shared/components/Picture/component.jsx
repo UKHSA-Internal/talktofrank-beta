@@ -40,6 +40,7 @@ export default class Picture extends React.PureComponent {
       <picture className={classes}>
         {sources}
         <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''}/>
+        {this.props.video && <span className='icon-play icon-play--fixed icon-play--large' role='presentation'></span>}
       </picture>
     )
   }
