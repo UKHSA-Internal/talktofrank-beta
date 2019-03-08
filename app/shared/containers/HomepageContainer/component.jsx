@@ -84,7 +84,7 @@ const mapStateToProps = (state, ownProps) => {
             text: item.fields.title,
             className: 'h4 card-title'
           },
-          linkLabel: 'Read more'
+          linkLabel: item.fields.headerVideo ? 'Watch now' : 'Read more'
         }
 
         featuredItem.images = imageMap(item.fields)
