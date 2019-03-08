@@ -16,14 +16,19 @@ The CMS needs to be updated to support the addition of site wide 'settings'.
 
 ## Decision
 
-A new 'site settings' content model will be created.  The following content items will be created:
+A new 'site settings' content model will be created.  A 'Sitewide' item will then be created to contain all sitewide settings.
 
+This would then allow for the following (future) setup, 
+
+Content items of type 'site settings'
 - Sitewide
-- (Any page override) Homepage - any settings that should override the sitewide values on the homepage.  
+- Homepage - any settings that should override the sitewide values on the homepage.  
+- Drugs A-Z - any settings that should override the sitewide values on the Drugs A-Z page.  
 
 References:
 - https://www.contentful.com/r/knowledgebase/dynamic-microcopy/
 - https://www.contentfulcommunity.com/t/is-it-common-to-have-a-settings-content-model/924/2
+
 
 ## Consequences
 
