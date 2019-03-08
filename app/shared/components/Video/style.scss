@@ -1,5 +1,5 @@
+// scss-lint:disable no-duplicate-properties
 .video {
-  // sass-lint: disable-block no-duplicate-properties
   min-width: 1px;
   height: 1px;
   position: relative;
@@ -7,7 +7,8 @@
   padding-top: 56.2%;
   width: 100%;
   border: 0;
-  background: $gray-200 repeating-linear-gradient(
+  background: $gray-200;
+  background: repeating-linear-gradient(
     135deg,
     transparent,
     transparent 5px,
@@ -28,6 +29,7 @@
     }
   }
 }
+// scss-lint:enable no-duplicate-properties
 
 .video iframe,
 .video object,
