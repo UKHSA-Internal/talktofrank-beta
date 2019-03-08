@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Play = () => {
+const Play = props => {
   return (
-    <span className='icon-play' role='presentation'></span>
+    <span className={`icon-play ${props.className || ''}`} role='presentation'></span>
   )
 }
 
