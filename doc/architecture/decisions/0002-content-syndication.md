@@ -1,4 +1,4 @@
-# 1. Syndicate API
+# 2. Content Syndication
 
 Date: 2019-03-08
 
