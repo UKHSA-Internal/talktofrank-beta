@@ -40,8 +40,8 @@ export default class Picture extends React.PureComponent {
     return (
       <picture className={classes}>
         {sources}
-        <div><img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''}/>
-        {this.props.video && <Play />}</div>
+        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''}/>
+        {this.props.video && <Play />}
       </picture>
     )
   }

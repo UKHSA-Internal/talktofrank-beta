@@ -26,6 +26,7 @@ const Article = props => {
         {props.isAmp ? props.fields.image && <AmpPicture video={video} {...props.fields.image}/> : props.fields.image && <Picture video={video} className={props.fields.headerVideo ? 'has-video' : ''} {...props.fields.image}/>}
         <div className={`list-item__inner${props.fields.slug == null ? ' list-item__inner--indented' : ''}`}>
           <Heading type={props.fields.type} className='list-item__title h3 heading-inline' text={`<span>${props.fields.title}</span>`}/>
+          <Play />
           {props.date && <Time time={props.dateFormatted} dateTime={props.date}/>}
           {props.fields.summary && !props.fields.image && <Longform text={props.fields.summary}/>}
           {(props.fields.slug && !props.fields.image) && <p className='link-text' aria-hidden='true'>Read more</p>}
