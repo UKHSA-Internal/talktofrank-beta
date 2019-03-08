@@ -1,4 +1,5 @@
 .video {
+  // sass-lint: disable-block no-duplicate-properties
   min-width: 1px;
   height: 1px;
   position: relative;
@@ -6,15 +7,13 @@
   padding-top: 56.2%;
   width: 100%;
   border: 0;
-  background: $gray-200;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      transparent,
-      transparent 5px,
-      $gray-200 5px,
-      $gray-200 10px
-    );
+  background: $gray-200 repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 5px,
+    $gray-200 5px,
+    $gray-200 10px
+  );
 
   &--embedded {
     margin-top: 2em;
