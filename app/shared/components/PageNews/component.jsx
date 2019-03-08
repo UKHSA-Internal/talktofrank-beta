@@ -12,6 +12,7 @@ import Longform from '../Longform/component'
 import Article from '../Article/component'
 import Time from '../Time/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
+import Video from '../Video/component.jsx'
 // @todo refactor all contentful "factory" stuffs to api
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
@@ -24,10 +25,13 @@ export default class PageNews extends React.PureComponent {
         <Main>
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
-              {this.props.fields.image && <GridCol className='col-12 list-offset'>
+              {this.props.fields.headerVideo && <GridCol className='col-12'>
+                <Video className='video--header' {...this.props.fields.headerVideo.fields}/>
+              </GridCol>}
+              {(this.props.fields.image && !this.props.fields.headerVideo) && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
               </GridCol>}
-              {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2'>
+              {(!this.props.fields.image || this.props.fields.headerVideo) && <GridCol className='col-12 col-sm-8 offset-md-2'>
                 {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
                 <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--single'/>
               </GridCol>}

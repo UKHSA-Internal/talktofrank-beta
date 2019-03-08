@@ -4,10 +4,17 @@ import { imageMap, fieldIncludesImages } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
-  const { featuredContentBlock, featuredNewsItem, featuredDrugsBlock } = fields
+  const {
+    featuredContentBlock,
+    featuredNewsItem,
+    featuredDrugsBlock,
+    warningMessage,
+    warningMessageLink
+  } = fields
   let featuredNewsBlock = false
   let featuredItemBlock = false
   let commonDrugsBlock = false
+  let warningMessageBlock = false
 
   let hero = {
     heading: {
@@ -19,11 +26,24 @@ const mapStateToProps = (state, ownProps) => {
 
   hero.images = imageMap(fields, 'heroImages')
 
+  if (warningMessage) {
+    warningMessageBlock = {
+      message: warningMessage,
+      url: false
+    }
+
+    if (warningMessageLink) {
+      const linkType = warningMessageLink.sys.contentType.sys.id.toLowerCase()
+      warningMessageBlock.url = `/${linkType}/${warningMessageLink.fields.slug}`
+    }
+  }
+
   if (featuredNewsItem) {
     featuredItemBlock = {
       fields: {
         title: featuredNewsItem.fields.title,
-        slug: featuredNewsItem.fields.slug
+        slug: featuredNewsItem.fields.slug,
+        headerVideo: featuredNewsItem.fields.headerVideo || null
       },
       date: featuredNewsItem.date,
       dateFormatted: featuredNewsItem.dateFormatted
@@ -70,6 +90,10 @@ const mapStateToProps = (state, ownProps) => {
         featuredItem.images = imageMap(item.fields)
         if (featuredItem.images) {
           featuredItem.imageClass = 'card-img'
+        }
+
+        if (item.fields.headerVideo) {
+          featuredItem.headerVideo = item.fields.headerVideo.fields
         }
 
         // crudely setting 2nd item STICKY
@@ -127,7 +151,7 @@ const mapStateToProps = (state, ownProps) => {
       })
   }
 
-  return { hero, featuredNewsBlock, featuredItemBlock, commonDrugsBlock }
+  return { hero, warningMessageBlock, featuredNewsBlock, featuredItemBlock, commonDrugsBlock }
 }
 
 export default connect(mapStateToProps)(PageHome)

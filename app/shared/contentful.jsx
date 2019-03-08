@@ -4,6 +4,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
 import Divider from './components/Divider/component'
+import Video from './components/Video/component'
 import { config } from 'config'
 const marked = require('marked')
 
@@ -54,12 +55,7 @@ export const contentFulFactory = () => {
             return marked(node.data.target.fields.text)
           } else if (node.data.target.sys.contentType.sys.id === 'video') {
             return renderToString(
-              // to be replaced with video component
-              <p>Embedded video component goes here<br />
-                <strong>title</strong>: {node.data.target.fields.title}<br />
-                <strong>url</strong>: {node.data.target.fields.embedUrl}
-              </p>
-              // end to be replace
+              <Video className='video--embedded' {...node.data.target.fields} />
             )
           }
         }
