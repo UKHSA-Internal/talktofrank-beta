@@ -1,4 +1,4 @@
-# 2. Site wide CMS configuration 
+# 3. Site wide CMS configuration 
 
 Date: 2019-03-08
 
