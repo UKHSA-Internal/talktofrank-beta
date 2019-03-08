@@ -20,6 +20,10 @@
       height: 4rem;
       width: 4rem;
     }
+
+    &.hidden--xs {
+      display: block !important;
+    }
   }
 }
 

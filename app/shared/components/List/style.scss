@@ -240,6 +240,10 @@ $offset: 3.5rem;
           right: 0;
         }
 
+        .hidden--xs {
+          left: 0 !important;
+        }
+
         .link-text,
         .time,
         .list-item__title {
