@@ -1,4 +1,4 @@
-# 1. Record architecture decisions
+# 1. Syndicate API
 
 Date: 2019-03-08
 
