@@ -35,25 +35,8 @@
     z-index: 20;
   }
 
-  .accent__content {
-    color: $white;
-    background-color: $gray-900;
-    padding: 1.5rem;
-    position: relative;
-    z-index: 1;
-    margin-bottom: -4rem;
-    transform: translateY(-6rem);
-
-    .accent__link {
-      color: $white;
-      border-bottom-color: $white;
-    }
-
-    & + .form {
-      @include media-breakpoint-up(sm) {
-        transform: translateY(-2rem);
-      }
-    }
+  &--bottom {
+    padding-bottom: 0;
   }
 }
 
@@ -62,6 +45,32 @@
 
   @include media-breakpoint-up(sm) {
     overflow: hidden;
+  }
+}
+
+.accent__content {
+  color: $white;
+  background-color: $gray-900;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -4rem;
+  transform: translateY(-6rem);
+
+  .accent__link {
+    color: $white;
+    border-bottom-color: $white;
+  }
+
+  & + .form {
+    @include media-breakpoint-up(sm) {
+      transform: translateY(-2rem);
+    }
+  }
+
+  .accent--fixed & {
+    margin-bottom: 0;
+    transform: none;
   }
 }
 

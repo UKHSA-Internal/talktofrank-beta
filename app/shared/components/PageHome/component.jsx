@@ -12,6 +12,7 @@ import GridCol from '../GridCol/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Form from '../Form/component.jsx'
 import Icon from '../Icon/component.jsx'
+import WarningBar from '../WarningBar/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 
 export default class PageHome extends React.PureComponent {
@@ -70,6 +71,14 @@ export default class PageHome extends React.PureComponent {
         </Main>
         <Footer />
         <GA/>
+          {this.props.warningMessageBlock &&
+          <WarningBar>
+            <p className='accent__content'><span className='accent__warning'>Drug warning </span><span className='accent__text'>{ this.props.warningMessageBlock.url !== false ? (
+              <a className='accent__link' href={this.props.warningMessageBlock.url}>{this.props.warningMessageBlock.message}</a>
+            ) : (
+              this.props.warningMessageBlock.message
+            )}</span>
+          </p></WarningBar>}
       </React.Fragment>
     )
   }

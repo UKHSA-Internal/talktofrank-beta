@@ -34,6 +34,7 @@ $grid-gutter: 30px;
 
 %wrapper,
 .wrapper {
+  position: relative;
   @extend %constrain-narrow;
   padding-left: 2rem;
   padding-right: 2rem;
