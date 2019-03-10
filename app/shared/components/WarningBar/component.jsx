@@ -45,7 +45,7 @@ export default class WarningBar extends React.PureComponent {
              className='btn btn--flat btn--fixed'
              aria-label='Dismiss drug warning panel'
              onClick={this.closeMessage.bind(this)}>
-             <Svg url='/ui/svg/cross-white.svg' alt='Close' />
+             <Svg url='/ui/svg/cross-red.svg' alt='Close' />
             </button>
           </Accent>
         }
