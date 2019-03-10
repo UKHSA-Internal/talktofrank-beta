@@ -36,8 +36,15 @@ export default class PageHome extends React.PureComponent {
         <Masthead path={this.props.location}/>
         <Hero {...this.props.hero}/>
 
-        <Accent className='accent--muted' modifier='wrapper--constant constrain'>
-          <Form role='search' className='form--search'>
+        <Accent className='accent--muted' modifier='wrapper--constant'>
+        {this.props.warningMessageBlock &&
+            <p className='accent__content'><span className='accent__warning'>Drug warning </span><span className='accent__text'>{ this.props.warningMessageBlock.url !== false ? (
+              <a className='accent__link' href={this.props.warningMessageBlock.url}>{this.props.warningMessageBlock.message}</a>
+            ) : (
+              this.props.warningMessageBlock.message
+            )}</span>
+            </p>}
+          <Form role='search' className='form--search constrain'>
             <FormGroupAutocomplete
              button='true'
              id='homepage-large-search'
@@ -50,20 +57,6 @@ export default class PageHome extends React.PureComponent {
           </Form>
         </Accent>
         <Main>
-          { this.props.warningMessageBlock &&
-          <section className='wrapper spacing-top--large'>
-            <Grid>
-              <GridCol className='col-12 col-sm-10'>
-                <p>Replace me: { this.props.warningMessageBlock.url !== false ? (
-                  <a href={this.props.warningMessageBlock.url}>{this.props.warningMessageBlock.message}</a>
-                ) : (
-                  this.props.warningMessageBlock.message
-                )}
-                </p>
-              </GridCol>
-            </Grid>
-          </section>
-          }
           {this.props.featuredItemBlock &&
             <section className='wrapper spacing-top--large'>
               <Grid>
