@@ -60,6 +60,13 @@
   .accent__link {
     color: $white;
     border-bottom-color: $white;
+
+    .has-hover & {
+      &:hover {
+        color: $white;
+        border-bottom-color: $white;
+      }
+    }
   }
 
   & + .form {
