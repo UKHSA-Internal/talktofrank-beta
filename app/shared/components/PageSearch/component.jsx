@@ -16,6 +16,7 @@ import Spinner from '../Spinner/component.jsx'
 import { scrollTo } from '../../utilities'
 import ReactGA from 'react-ga'
 import { GA, GAEvent } from '../GoogleAnalytics/component'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -155,6 +156,9 @@ export default class SearchPage extends React.Component {
         <GA>
           {!loading && !total && <GAEvent category={'Search'} action={'no results'} label={this.state.searchValue} nonInteraction={true} />}
         </GA>
+        <SiteMessageContainer
+          path={location}
+        />
       </React.Fragment>
     )
   }

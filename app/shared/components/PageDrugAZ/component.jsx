@@ -10,11 +10,12 @@ import Divider from '../Divider/component.jsx'
 import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
-const DrugList = ({pageData, siteSetting} = props)  => {
+const DrugList = props => {
   const limit = 4
   // @refactor @joel - drag this out into the container to map it nicely
-  const initialLetter = pageData.list.map(val => {
+  const initialLetter = props.list.map(val => {
     return {
       label: val.group,
       url: '#' + val.group,
@@ -28,7 +29,7 @@ const DrugList = ({pageData, siteSetting} = props)  => {
 
   return (
     <React.Fragment>
-      <Masthead path={pageData.location}/>
+      <Masthead path={props.location}/>
       <Main>
         <Accent className='accent--shallow' modifier='wrapper--tight'>
           <Heading type='h1' className='h2 inverted spacing-left spacing--single' text='Drugs A to Z'/>
@@ -39,7 +40,7 @@ const DrugList = ({pageData, siteSetting} = props)  => {
           <Grid>
             <GridCol className='col-12 col-sm-8 offset-sm-2'>
               <ul className='list-unstyled' role='list'>
-                {pageData.list.map((val, i) => {
+                {props.list.map((val, i) => {
                   return (
                     <li id={val.group} key={'outer' + i}>
                       <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
@@ -69,6 +70,9 @@ const DrugList = ({pageData, siteSetting} = props)  => {
       </Main>
       <Footer />
       <GA />
+      <SiteMessageContainer
+        path={props.location}
+      />
     </React.Fragment>
   )
 }

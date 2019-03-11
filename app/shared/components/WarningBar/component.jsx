@@ -13,7 +13,7 @@ export default class WarningBar extends React.PureComponent {
   }
 
   componentDidMount() {
-    let cookieValue = getCookie('ttf-drug-warning')
+    let cookieValue = getCookie(`ttf-message-bar-${this.props.alertId}`)
     if (!cookieValue) {
       setTimeout(() => {
         this.setState({
@@ -25,14 +25,14 @@ export default class WarningBar extends React.PureComponent {
 
   handleClick(ev) {
     ev.preventDefault()
-    setCookie('ttf-drug-warning', 1, 365)
+    setCookie(`ttf-message-bar-${this.props.alertId}`, 1, 365)
   }
 
   closeMessage() {
     this.setState({
       visible: false
     })
-    setCookie('ttf-drug-warning', 1, 365)
+    setCookie(`ttf-message-bar-${this.props.alertId}`, 1, 365)
   }
 
   render() {

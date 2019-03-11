@@ -647,10 +647,9 @@ router.get('/settings/:slug', (req, res, next) => {
   const slug = decodeURIComponent(req.params.slug.toLowerCase())
   const contentfulRequest = {
     content_type: 'siteSettings',
-    'fields.slug': slug === 'global' ? '<global>' : slug
+    'fields.slug': slug === 'global' ? '<global>' : slug,
+    include: 10
   }
-  
-  console.log(contentfulRequest)
 
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
@@ -662,7 +661,6 @@ router.get('/settings/:slug', (req, res, next) => {
       }
 
       let response = resolveResponse(contentfulResponse)[0]
-      console.log(response)
       res.send(response)
     })
     .catch(error => next(error.response))

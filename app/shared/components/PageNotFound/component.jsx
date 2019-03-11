@@ -8,8 +8,9 @@ import Accent from '../Accent/component'
 import Main from '../Main/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
-const PageNotFound = () => {
+const PageNotFound = (props) => {
   const text = '<p>If you entered a web address please check it was correct.</p>' +
     '<p>You can also <a href="/contact-frank">contact Talk to Frank</a> or ' +
     '<a href="/">browse from the homepage</a> to find the information you need.</p>'
@@ -31,6 +32,9 @@ const PageNotFound = () => {
       </Main>
       <Footer/>
       <GA/>
+      <SiteMessageContainer
+        path={'no-match'}
+      />
     </React.Fragment>
   )
 }

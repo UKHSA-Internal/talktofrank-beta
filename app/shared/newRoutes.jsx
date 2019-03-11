@@ -43,7 +43,6 @@ const asyncPageNotFound = loadable(() => import(/*webpackChunkName: 'pagenotfoun
 const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./containers/PageContactContainer/component.jsx'))
 const asyncPageOffline = loadable(() => import(/*webpackChunkName: 'pageoffline'*/'./components/PageOffline/component.jsx'))
 
-
 /* eslint-enable */
 
 const routes = [{
