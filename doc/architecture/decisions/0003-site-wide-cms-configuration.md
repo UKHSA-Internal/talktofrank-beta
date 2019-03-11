@@ -35,4 +35,6 @@ References:
 - Additional API calls would need to be made by the frontend framework to 
     1. fetch the sitewide settings
     2. check if there are any overrides for the current page
+- Future page specific settings could be handled by adding a new 'Page url' field to the 
+content model 
 

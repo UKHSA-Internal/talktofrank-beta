@@ -4,6 +4,7 @@ import { imageMap, fieldIncludesImages } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
+
   const {
     featuredContentBlock,
     featuredNewsItem,

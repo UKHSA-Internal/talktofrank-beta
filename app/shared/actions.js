@@ -15,6 +15,12 @@ export const FORM_REQUEST_ERROR = 'FORM_REQUEST_ERROR'
 export const REQUEST_FEATURED_BLOCK = 'REQUEST_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK = 'RECEIVE_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK_ERROR = 'RECEIVE_FEATURED_BLOCK_ERROR'
+
+
+export const REQUEST_SITE_SETTING = 'REQUEST_SITE_SETTING'
+export const RECEIVE_SITE_SETTING = 'RECEIVE_SITE_SETTING'
+export const RECEIVE_SITE_SETTING_ERROR = 'RECEIVE_SITE_SETTING_ERROR'
+
 const BAD_REQUEST = 400
 
 const PAGE_SIZE = 10
@@ -78,6 +84,26 @@ function receiveFeaturedBlock (featuredBlockData) {
   return {
     type: RECEIVE_FEATURED_BLOCK,
     featuredBlockData
+  }
+}
+
+function requestSiteSetting () {
+  return {
+    type: REQUEST_SITE_SETTING
+  }
+}
+
+export function receiveSiteSettingError (status) {
+  return {
+    type: REQUEST_SITE_SETTING_ERROR,
+    error: status
+  }
+}
+
+function receiveSiteSetting (siteSettingData) {
+  return {
+    type: RECEIVE_SITE_SETTING,
+    siteSettingData
   }
 }
 
@@ -210,6 +236,23 @@ export function fetchFeaturedBlock (blockId) {
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
         dispatch(receiveFeaturedBlockError(status))
+        return Promise.reject(err)
+      })
+  }
+}
+
+
+export function fetchSiteSettings (settingSlug = 'global') {
+  return dispatch => {
+    dispatch(requestSiteSetting())
+    let lookupUrl = apiHost + '/api/v1/settings/' + encodeURIComponent(settingSlug)
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receiveSiteSetting(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receiveSiteSettingError(status))
         return Promise.reject(err)
       })
   }

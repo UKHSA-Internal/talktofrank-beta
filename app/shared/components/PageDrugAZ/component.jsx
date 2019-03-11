@@ -11,10 +11,10 @@ import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 
-const DrugList = props => {
+const DrugList = ({pageData, siteSetting} = props)  => {
   const limit = 4
   // @refactor @joel - drag this out into the container to map it nicely
-  const initialLetter = props.list.map(val => {
+  const initialLetter = pageData.list.map(val => {
     return {
       label: val.group,
       url: '#' + val.group,
@@ -28,7 +28,7 @@ const DrugList = props => {
 
   return (
     <React.Fragment>
-      <Masthead path={props.location}/>
+      <Masthead path={pageData.location}/>
       <Main>
         <Accent className='accent--shallow' modifier='wrapper--tight'>
           <Heading type='h1' className='h2 inverted spacing-left spacing--single' text='Drugs A to Z'/>
@@ -39,7 +39,7 @@ const DrugList = props => {
           <Grid>
             <GridCol className='col-12 col-sm-8 offset-sm-2'>
               <ul className='list-unstyled' role='list'>
-                {props.list.map((val, i) => {
+                {pageData.list.map((val, i) => {
                   return (
                     <li id={val.group} key={'outer' + i}>
                       <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
