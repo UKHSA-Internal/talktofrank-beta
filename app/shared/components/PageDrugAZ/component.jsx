@@ -11,7 +11,7 @@ import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 
-const DrugList = ({pageData, siteSetting} = props)  => {
+const DrugList = ({pageData, siteSettings} = props)  => {
   const limit = 4
   // @refactor @joel - drag this out into the container to map it nicely
   const initialLetter = pageData.list.map(val => {

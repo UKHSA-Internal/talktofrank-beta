@@ -75,7 +75,7 @@ export default class PageSupportList extends React.PureComponent {
   }
 
   render () {
-    const { loading, error } = this.props
+    const { loading, error, siteSettings } = this.props
     const { results, location, total, pageNumber } = this.props.pageData
     return (
       <React.Fragment>

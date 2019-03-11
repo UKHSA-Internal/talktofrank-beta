@@ -649,8 +649,6 @@ router.get('/settings/:slug', (req, res, next) => {
     content_type: 'siteSettings',
     'fields.slug': slug === 'global' ? '<global>' : slug
   }
-  
-  console.log(contentfulRequest)
 
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
@@ -662,7 +660,6 @@ router.get('/settings/:slug', (req, res, next) => {
       }
 
       let response = resolveResponse(contentfulResponse)[0]
-      console.log(response)
       res.send(response)
     })
     .catch(error => next(error.response))

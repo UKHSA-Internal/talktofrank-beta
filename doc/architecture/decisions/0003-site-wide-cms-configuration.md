@@ -25,6 +25,9 @@ Content items of type 'site settings'
 - Homepage - any settings that should override the sitewide values on the homepage.  
 - Drugs A-Z - any settings that should override the sitewide values on the Drugs A-Z page.  
 
+The footer could also be converted to a use container which would allow for minimum impact to the codebase, 
+however the site settings would then be restricted to the footer.   
+
 References:
 - https://www.contentful.com/r/knowledgebase/dynamic-microcopy/
 - https://www.contentfulcommunity.com/t/is-it-common-to-have-a-settings-content-model/924/2

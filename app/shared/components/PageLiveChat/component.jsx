@@ -11,10 +11,10 @@ import Main from '../Main/component'
 import Longform from '../Longform/component'
 import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component'
 
-const PageLiveChat = props => {
+const PageLiveChat = ({location, siteSettings}) => {
   return (
     <React.Fragment>
-      <Masthead path={props.location}/>
+      <Masthead path={location}/>
       <Accent className='accent--shallow'>
         <Heading type='h1' className='h2 spacing-left spacing--single' text='Live Chat' />
       </Accent>

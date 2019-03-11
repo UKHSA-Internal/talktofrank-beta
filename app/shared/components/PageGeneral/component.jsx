@@ -13,41 +13,41 @@ import Svg from '../Svg/component'
 import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
 
-const PageGeneral = props => {
+const PageGeneral = ({pageData, siteSettings}) => {
   return (
     <React.Fragment>
-      <Masthead path={props.location}/>
+      <Masthead path={pageData.location}/>
       <Main>
         <Accent className='accent--shallow'>
-          <Heading type='h1' className='page-title' text={props.fields.title} />
+          <Heading type='h1' className='page-title' text={pageData.fields.title} />
         </Accent>
         <Accent className='accent--shallow'>
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
-              {props.fields.callout && <aside className='panel panel--padding-small panel--has-heading spacing-bottom--large'>
-                  <h2 className='h4 inverted displaced-top inverted--primary'><Svg url={props.fields.callout.fields.icon} alt=''/> {props.fields.callout.fields.title}</h2>
-                  <Longform text={props.fields.callout.fields.content}/>
+              {pageData.fields.callout && <aside className='panel panel--padding-small panel--has-heading spacing-bottom--large'>
+                  <h2 className='h4 inverted displaced-top inverted--primary'><Svg url={pageData.fields.callout.fields.icon} alt=''/> {pageData.fields.callout.fields.title}</h2>
+                  <Longform text={pageData.fields.callout.fields.content}/>
                 </aside>}
-              {props.fields.intro && <Longform className='lead' text={props.fields.intro} />}
-              {props.fields.intro && props.fields.body && <Divider className='hr--muted hr--large' />}
-              {props.fields.body && <Longform className={props.fields.indentedText ? 'long-form--indented' : null} text={props.fields.body} />}
+              {pageData.fields.intro && <Longform className='lead' text={pageData.fields.intro} />}
+              {pageData.fields.intro && pageData.fields.body && <Divider className='hr--muted hr--large' />}
+              {pageData.fields.body && <Longform className={pageData.fields.indentedText ? 'long-form--indented' : null} text={pageData.fields.body} />}
             </GridCol>
           </Grid>
         </Accent>
-        {props.fields.contentExtra && props.fields.contentExtra.map((v, i) => {
+        {pageData.fields.contentExtra && pageData.fields.contentExtra.map((v, i) => {
           return (
             <section className='section section--has-toggle' key={i}>
-              <Toggle text={v.fields.title} toggleFancyList={v.fields.toggleFancyList} className='collapsible--chevron collapsible--first' history={props.location}>
+              <Toggle text={v.fields.title} toggleFancyList={v.fields.toggleFancyList} className='collapsible--chevron collapsible--first' history={pageData.location}>
                 <Longform text={v.fields.content} />
               </Toggle>
             </section>
           )
         })
         }
-        {props.fields.relatedLinks && <Accent className='accent--shallow'>
+        {pageData.fields.relatedLinks && <Accent className='accent--shallow'>
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
-              <RelatedLinks links={props.fields.relatedLinks} />
+              <RelatedLinks links={pageData.fields.relatedLinks} />
             </GridCol>
           </Grid>
         </Accent>}

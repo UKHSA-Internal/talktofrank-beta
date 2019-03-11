@@ -95,7 +95,7 @@ export default class SearchPage extends React.Component {
   }
 
   render () {
-    const { loading, location, error } = this.props
+    const { loading, location, error, siteSettings } = this.props
     const { total, hits, pageNumber } = this.props.pageData
     const searchValue = this.state.searchValue ? this.state.searchValue : ''
     let title = `Search results for '${searchValue}'`
