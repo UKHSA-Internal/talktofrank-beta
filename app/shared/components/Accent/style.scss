@@ -78,6 +78,7 @@
   .accent--fixed & {
     margin-bottom: 0;
     transform: none;
+    background-color: $footer-warning;
 
     @include media-breakpoint-up(sm) {
       padding-right: 4rem;
