@@ -128,6 +128,24 @@
     }
   }
 
+  &--responsive {
+    .card {
+      min-width: 100%;
+
+      @include media-breakpoint-up(sm) {
+        min-width: 50%;
+        padding: 0 1rem;
+        margin: 0;
+      }
+
+      @include media-breakpoint-up(md) {
+        min-width: 25%;
+      }
+
+    }
+
+  }
+
   &.card-deck--compact {
     padding: 0;
 
