@@ -4,17 +4,16 @@ import { imageMap, fieldIncludesImages } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
+
   const {
     featuredContentBlock,
     featuredNewsItem,
-    featuredDrugsBlock,
-    warningMessage,
-    warningMessageLink
+    featuredDrugsBlock
   } = fields
+
   let featuredNewsBlock = false
   let featuredItemBlock = false
   let commonDrugsBlock = false
-  let warningMessageBlock = false
 
   let hero = {
     heading: {
@@ -25,18 +24,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   hero.images = imageMap(fields, 'heroImages')
-
-  if (warningMessage) {
-    warningMessageBlock = {
-      message: warningMessage,
-      url: false
-    }
-
-    if (warningMessageLink) {
-      const linkType = warningMessageLink.sys.contentType.sys.id.toLowerCase()
-      warningMessageBlock.url = `/${linkType}/${warningMessageLink.fields.slug}`
-    }
-  }
 
   if (featuredNewsItem) {
     featuredItemBlock = {
@@ -152,7 +139,12 @@ const mapStateToProps = (state, ownProps) => {
       })
   }
 
-  return { hero, warningMessageBlock, featuredNewsBlock, featuredItemBlock, commonDrugsBlock }
+  return {
+    hero,
+    featuredNewsBlock,
+    featuredItemBlock,
+    commonDrugsBlock
+  }
 }
 
 export default connect(mapStateToProps)(PageHome)

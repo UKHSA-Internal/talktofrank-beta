@@ -636,6 +636,36 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
     .catch(error => next(error))
 })
 
+router.get('/settings/:slug', (req, res, next) => {
+  if (!req.params.slug) {
+    let error = new Error()
+    error.message = 'Page id not set'
+    error.status = 404
+    return next(error)
+  }
+
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
+  const contentfulRequest = {
+    content_type: 'siteSettings',
+    'fields.slug': slug === 'global' ? '<global>' : slug,
+    include: 10
+  }
+
+  contentfulClient.getEntries(contentfulRequest)
+    .then((contentfulResponse) => {
+      if (contentfulResponse.total === 0) {
+        let error = new Error()
+        error.message = `'${slug}': Settings page not found`
+        error.status = 404
+        return next(error)
+      }
+
+      let response = resolveResponse(contentfulResponse)[0]
+      res.send(response)
+    })
+    .catch(error => next(error.response))
+})
+
 /**
  * Error handler
  */
