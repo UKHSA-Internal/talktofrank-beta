@@ -50,8 +50,8 @@ export default class PageHome extends React.PureComponent {
           </Form>
         </Accent>
         <Main>
-          { this.props.warningMessageBlock &&
-          <section className='wrapper spacing-top--large'>
+          {this.props.warningMessageBlock &&
+          <section className='wrapper spacing--large'>
             <Grid>
               <GridCol className='col-12 col-sm-10'>
                 <p>Replace me: { this.props.warningMessageBlock.url !== false ? (
@@ -62,18 +62,20 @@ export default class PageHome extends React.PureComponent {
                 </p>
               </GridCol>
             </Grid>
-          </section>
-          }
+          </section>}
           {this.props.featuredItemBlock &&
-            <section className='wrapper spacing-top--large'>
+            <section className='wrapper spacing--large'>
               <Grid>
                 <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
                   <Article {...this.props.featuredItemBlock}/>
                 </GridCol>
               </Grid>
-            </section>
-          }
-          {this.props.featuredNewsBlock && <section className='wrapper wrapper--mid'><CardDeck {...this.props.featuredNewsBlock} className='spacing-top--tight'/></section>}
+            </section>}
+          {this.props.featuredNewsBlock && <section className='wrapper spacing--large'><CardDeck {...this.props.featuredNewsBlock} className='spacing-top--tight'/></section>}
+          {this.props.commonDrugsBlock &&
+            <Accent className='accent--muted'>
+              <CardDeck {...this.props.commonDrugsBlock} className='spacing-top--tight card-deck--responsive'/>
+            </Accent>}
         </Main>
         <Footer />
         <GA/>
