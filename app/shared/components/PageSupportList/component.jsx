@@ -129,7 +129,7 @@ export default class PageSupportList extends React.PureComponent {
         <Footer/>
         <GA/>
         <SiteMessageContainer
-          path={props.location}
+          path={location}
         />
       </React.Fragment>
     )
