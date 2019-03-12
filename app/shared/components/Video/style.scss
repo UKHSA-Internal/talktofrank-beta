@@ -56,3 +56,22 @@
     bottom: 100%;
   }
 }
+
+.has-video {
+  max-height: 45rem;
+  max-width: 100%;
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  border-style: none;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 15%;
+  }
+
+  img {
+    display: inline;
+  }
+}
