@@ -56,7 +56,7 @@ export default class PageSupport extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
-              <GMap zoom='16' name={name} location={location} />
+                {(location && location.lat) && <GMap zoom='16' name={name} location={location} />}
                 <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
                 {notes && <Longform text={notes}/>}
