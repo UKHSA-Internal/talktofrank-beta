@@ -10,6 +10,7 @@ import GridCol from '../GridCol/component'
 import Main from '../Main/component'
 import Longform from '../Longform/component'
 import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 const PageLiveChat = props => {
   return (
@@ -33,6 +34,9 @@ const PageLiveChat = props => {
       </Main>
       <Footer />
       <GA/>
+      <SiteMessageContainer
+        path={props.location}
+      />
     </React.Fragment>
   )
 }

@@ -12,6 +12,7 @@ import Accent from '../Accent/component.jsx'
 import Icon from '../Icon/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageSupportForm extends React.PureComponent {
   constructor (props) {
@@ -226,6 +227,9 @@ export default class PageSupportForm extends React.PureComponent {
         </Main>
         <Footer/>
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }

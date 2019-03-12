@@ -16,9 +16,15 @@ export const REQUEST_FEATURED_BLOCK = 'REQUEST_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK = 'RECEIVE_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK_ERROR = 'RECEIVE_FEATURED_BLOCK_ERROR'
 
+<<<<<<< HEAD
 export const REQUEST_RELATED_CONTENT = 'REQUEST_RELATED_CONTENT'
 export const RECEIVE_RELATED_CONTENT = 'RECEIVE_RELATED_CONTENT'
 export const RECEIVE_RELATED_CONTENT_ERROR = 'RECEIVE_RELATED_CONTENT_ERROR'
+=======
+export const REQUEST_SITE_SETTING = 'REQUEST_SITE_SETTING'
+export const RECEIVE_SITE_SETTING = 'RECEIVE_SITE_SETTING'
+export const RECEIVE_SITE_SETTING_ERROR = 'RECEIVE_SITE_SETTING_ERROR'
+>>>>>>> origin
 
 const BAD_REQUEST = 400
 
@@ -86,6 +92,7 @@ function receiveFeaturedBlock (featuredBlockData) {
   }
 }
 
+<<<<<<< HEAD
 function requestRelatedContent () {
   return {
     type: REQUEST_RELATED_CONTENT
@@ -95,14 +102,32 @@ function requestRelatedContent () {
 export function receiveRelatedContentError (status) {
   return {
     type: RECEIVE_RELATED_CONTENT_ERROR,
+=======
+function requestSiteSetting () {
+  return {
+    type: REQUEST_SITE_SETTING
+  }
+}
+
+export function receiveSiteSettingError (status) {
+  return {
+    type: REQUEST_SITE_SETTING_ERROR,
+>>>>>>> origin
     error: status
   }
 }
 
+<<<<<<< HEAD
 function receiveRelatedContent (featuredBlockData) {
   return {
     type: RECEIVE_RELATED_CONTENT,
     relatedContent
+=======
+function receiveSiteSetting (siteSettingData) {
+  return {
+    type: RECEIVE_SITE_SETTING,
+    siteSettingData
+>>>>>>> origin
   }
 }
 
@@ -240,6 +265,7 @@ export function fetchFeaturedBlock (blockId) {
   }
 }
 
+
 export function fetchRelatedContent (tags, type = 'news') {
   return dispatch => {
     dispatch(requestRelatedContent())
@@ -251,6 +277,22 @@ export function fetchRelatedContent (tags, type = 'news') {
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
         dispatch(receiveRelatedContentError(status))
+      })
+  }
+}
+
+export function fetchSiteSettings (settingSlug = 'global') {
+  return dispatch => {
+    dispatch(requestSiteSetting())
+    let lookupUrl = apiHost + '/api/v1/settings/' + encodeURIComponent(settingSlug)
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receiveSiteSetting(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receiveSiteSettingError(status))
+
         return Promise.reject(err)
       })
   }

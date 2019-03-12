@@ -14,6 +14,7 @@ import Textarea from '../Textarea/component'
 import Button from '../Button/component.jsx'
 import Longform from '../Longform/component'
 import { ErrorSummary, getErrors } from '../FormErrors/component'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageFeedbackForm extends React.Component {
   static defaultProps = {
@@ -89,6 +90,9 @@ export default class PageFeedbackForm extends React.Component {
         </Main>
         <Footer />
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }
