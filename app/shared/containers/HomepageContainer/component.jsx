@@ -105,7 +105,7 @@ const mapStateToProps = (state, ownProps) => {
         url: '/drugs-a-z',
         className: 'h3'
       },
-      allDrugs: {
+      allnews: {
         type: 'h3',
         text: 'See full drugs A - Z',
         url: '/drugs-a-z',
@@ -119,9 +119,10 @@ const mapStateToProps = (state, ownProps) => {
           url: `/drug/${item.fields.slug}`,
           heading: {
             type: 'h3',
-            text: item.fields.drugName
+            text: item.fields.drugName,
+            className: 'h4 card-title'
           },
-          linkLabel: 'Read more'
+          linkLabel: null
         }
 
         featuredItem.images = imageMap(item.fields)
