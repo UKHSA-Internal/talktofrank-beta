@@ -3,7 +3,6 @@ import AlertWarningBar from '../AlertWarningBar/component'
 import AlertSiteMessage from '../AlertSiteMessage/component'
 
 const MessageBar = (props) => {
-
   if (props.disabled) {
     return null
   }

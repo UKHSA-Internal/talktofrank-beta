@@ -142,7 +142,7 @@ const mapStateToProps = (state, ownProps) => {
     hero,
     featuredNewsBlock,
     featuredItemBlock,
-    commonDrugsBlock,
+    commonDrugsBlock
   }
 }
 

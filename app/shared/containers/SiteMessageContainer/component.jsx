@@ -3,16 +3,13 @@ import { connect } from 'react-redux'
 import MessageBar from '../../components/MessageBar/component.jsx'
 
 const mapStateToProps = (state, ownProps) => {
-
   if (!state.app.siteSettings) {
     return null
   }
 
   let messageBlock = { disabled: true }
 
-
   if (state.app.siteSettings.fields.alert) {
-
     const messageType = state.app.siteSettings.fields.alert.sys.contentType.sys.id
     let alwaysShowOnHomepage = messageType === 'alertDrugWarning'
     let bodyMessage = ownProps.body && alwaysShowOnHomepage
@@ -54,7 +51,6 @@ const mapStateToProps = (state, ownProps) => {
     }
 
   }
-
   return messageBlock
 }
 

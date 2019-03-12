@@ -240,7 +240,6 @@ export function fetchFeaturedBlock (blockId) {
   }
 }
 
-
 export function fetchSiteSettings (settingSlug = 'global') {
   return dispatch => {
     dispatch(requestSiteSetting())
