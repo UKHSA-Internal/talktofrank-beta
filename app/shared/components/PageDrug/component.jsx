@@ -30,7 +30,7 @@ const Page = props => {
         {props.fields.schemaDefinitions &&
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
         }
-        <Accent>
+        <Accent modifier='wrapper--constant'>
           <Grid>
             {hasImage && <GridCol className='col-12 col-md-3'>
               <Picture {...imageMap(props.fields)} />
