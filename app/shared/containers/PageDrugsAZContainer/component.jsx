@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 
-import DrugList from '../../components/PageDrugAZ/component.jsx'
+import PageDrugAZ from '../../components/PageDrugAZ/component.jsx'
 
 const mapStateToProps = (state, ownProps) => {
   return state.app.pageData
 }
 
-export default connect(mapStateToProps)(DrugList)
+export default connect(mapStateToProps)(PageDrugAZ)
