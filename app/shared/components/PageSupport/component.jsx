@@ -12,6 +12,7 @@ import Anchor from '../Anchor/component.jsx'
 import Icon from '../Icon/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import Divider from '../Divider/component.jsx'
+import GMap from '../Map/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageSupport extends React.PureComponent {
@@ -31,14 +32,17 @@ export default class PageSupport extends React.PureComponent {
       address2,
       address3,
       town,
+      key,
       county,
       postCode,
+      location,
       serviceInfo,
       referralMethod,
       timesSessions,
       catchmentArea,
       notes
     } = this.props.pageData.fields
+    const src = `https://maps.googleapis.com/maps/api/js?key=${key}`
     const phoneRaw = telephone1.replace(/\D/g, '')
     const address = [address1, address2, address3, town, county, postCode].filter(Boolean).join(', ')
 
@@ -52,6 +56,7 @@ export default class PageSupport extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
+              <GMap zoom='16' name={name} location={location} />
                 <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
                 {notes && <Longform text={notes}/>}
@@ -61,31 +66,21 @@ export default class PageSupport extends React.PureComponent {
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Catchment (areas they serve)' />
                 <Heading type='p' text={catchmentArea} />
-                <Divider className='hr--muted hr--large'/>
-                <div className='hidden--xs' aria-hidden='true'>
-                  <Heading className='h4' text='Get in touch' />
-                  {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
-                </div>
               </GridCol>
               <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
+                <Heading className='h4' text='Address' />
+                <Longform text={address} className='spacing-bottom--single'/>
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
+                <Divider className='hr--muted hr--large'/>
+                <Heading className='h4' text='Opening times' />
+                <Heading type='p' text={timesSessions} />
+                <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Get in touch' />
                 <ul class='list-unstyled list-unstyled--single'>
                   {telephone1 && <li class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='break-word link-text' href={`tel:${phoneRaw}`} /></li>}
                   {email && <li class='list-item'><Anchor text='Send email' label={`Send email to ${name}`} className='break-word link-text' href={`mailto:${email}`} /></li>}
                   {website && <li class='list-item'><Anchor text='Visit website' label={`Visit ${name} website`} className='break-word link-text' href={website} /></li>}
                 </ul>
-                <Divider className='hr--muted hr--large'/>
-                <Heading className='h4' text='Opening times' />
-                <Heading type='p' text={timesSessions} />
-                <Divider className='hr--muted hr--large'/>
-                <Heading className='h4' text='Address' />
-                <Longform text={address}/>
-                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
-                <div className='hidden--sm-up' aria-hidden='true'>
-                  <Divider className='hr--muted hr--large'/>
-                  <Heading className='h4' text='Get in touch' />
-                  {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
-                </div>
               </GridCol>
             </Grid>
           </Accent>
@@ -95,6 +90,7 @@ export default class PageSupport extends React.PureComponent {
         <SiteMessageContainer
           path={this.props.location}
         />
+        <script src={src} async defer></script>
       </React.Fragment>
     )
   }

@@ -559,6 +559,7 @@ router.get('/treatment-centres', async (req, res, next) => {
     .then((contentfulResponse) => {
       response.results = resolveResponse(contentfulResponse)
       response.total = contentfulResponse.total
+
       response.results
         .map(responseItem => {
           responseItem.distance = haversineDistance(
@@ -616,12 +617,13 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
 
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
+
       Object.keys(response.fields)
         .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
         .map(fieldKey => {
           response.fields[fieldKey] = marked(response.fields[fieldKey])
         })
-
+      response.fields.key = config.googleAPI.places
       response.fields.timesSessions = replaceNewLine(response.fields.timesSessions, '<br />')
 
       // Set meta info
