@@ -1,10 +1,6 @@
 import React from 'react'
 
 export default class GMap extends React.PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     const latLong = {lat: this.props.location.lat, lng: this.props.location.lon}
     let map = new google.maps.Map(document.getElementById('map'), {
