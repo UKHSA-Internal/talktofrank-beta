@@ -65,11 +65,6 @@ export default class PageSupport extends React.PureComponent {
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Catchment (areas they serve)' />
                 <Heading type='p' text={catchmentArea} />
-                <Divider className='hr--muted hr--large'/>
-                <div className='hidden--xs' aria-hidden='true'>
-                  <Heading className='h4' text='Get in touch' />
-                  {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
-                </div>
               </GridCol>
               <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
                 <Heading className='h4' text='Address' />
@@ -78,11 +73,6 @@ export default class PageSupport extends React.PureComponent {
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Opening times' />
                 <Heading type='p' text={timesSessions} />
-                <div className='hidden--sm-up' aria-hidden='true'>
-                  <Divider className='hr--muted hr--large'/>
-                  <Heading className='h4' text='Get in touch' />
-                  {telephone1 && <p class='list-item'><Anchor text={telephone1} label={`Telephone ${name} on ${telephone1}`} className='link-text' href={`tel:${phoneRaw}`} /></p>}
-                </div>
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Get in touch' />
                 <ul class='list-unstyled list-unstyled--single'>
