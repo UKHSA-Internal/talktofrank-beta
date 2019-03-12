@@ -4,16 +4,17 @@ import Svg from '../Svg/component'
 import { ClientOnly } from '../ClientOnly/component'
 import { getCookie, setCookie } from '../../lib/cookie.js'
 
-export default class WarningBar extends React.PureComponent {
+export default class AlertWarningBar extends React.PureComponent {
   constructor(props) {
     super(props)
+    this.closeMessage = this.closeMessage.bind(this)
     this.state = {
       visible: false
     }
   }
 
   componentDidMount() {
-    let cookieValue = getCookie(`ttf-message-bar-${this.props.alertId}`)
+    let cookieValue = getCookie(`ttf-warning-bar-${this.props.alertId}`)
     if (!cookieValue) {
       setTimeout(() => {
         this.setState({
@@ -23,16 +24,11 @@ export default class WarningBar extends React.PureComponent {
     }
   }
 
-  handleClick(ev) {
-    ev.preventDefault()
-    setCookie(`ttf-message-bar-${this.props.alertId}`, 1, 365)
-  }
-
   closeMessage() {
     this.setState({
       visible: false
     })
-    setCookie(`ttf-message-bar-${this.props.alertId}`, 1, 365)
+    setCookie(`ttf-warning-bar-${this.props.alertId}`, 1, 365)
   }
 
   render() {
@@ -54,6 +50,6 @@ export default class WarningBar extends React.PureComponent {
   }
 }
 
-WarningBar.defaultProps = {
+AlertWarningBar.defaultProps = {
   delay: 0
 }

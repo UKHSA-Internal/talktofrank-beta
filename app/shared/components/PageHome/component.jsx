@@ -12,7 +12,7 @@ import GridCol from '../GridCol/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Form from '../Form/component.jsx'
 import Icon from '../Icon/component.jsx'
-import WarningBar from '../WarningBar/component.jsx'
+import WarningBar from '../AlertWarningBar/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component.jsx'
 
