@@ -66,6 +66,7 @@ export default class PageSupport extends React.PureComponent {
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Catchment (areas they serve)' />
                 <Heading type='p' text={catchmentArea} />
+                <Divider className='hr--muted hr--large hidden--sm-up'/>
               </GridCol>
               <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
                 <Heading className='h4' text='Address' />
