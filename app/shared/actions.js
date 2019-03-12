@@ -15,6 +15,11 @@ export const FORM_REQUEST_ERROR = 'FORM_REQUEST_ERROR'
 export const REQUEST_FEATURED_BLOCK = 'REQUEST_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK = 'RECEIVE_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK_ERROR = 'RECEIVE_FEATURED_BLOCK_ERROR'
+
+export const REQUEST_RELATED_CONTENT = 'REQUEST_RELATED_CONTENT'
+export const RECEIVE_RELATED_CONTENT = 'RECEIVE_RELATED_CONTENT'
+export const RECEIVE_RELATED_CONTENT_ERROR = 'RECEIVE_RELATED_CONTENT_ERROR'
+
 const BAD_REQUEST = 400
 
 const PAGE_SIZE = 10
@@ -78,6 +83,26 @@ function receiveFeaturedBlock (featuredBlockData) {
   return {
     type: RECEIVE_FEATURED_BLOCK,
     featuredBlockData
+  }
+}
+
+function requestRelatedContent () {
+  return {
+    type: REQUEST_RELATED_CONTENT
+  }
+}
+
+export function receiveRelatedContentError (status) {
+  return {
+    type: RECEIVE_RELATED_CONTENT_ERROR,
+    error: status
+  }
+}
+
+function receiveRelatedContent (featuredBlockData) {
+  return {
+    type: RECEIVE_RELATED_CONTENT,
+    relatedContent
   }
 }
 
@@ -210,6 +235,22 @@ export function fetchFeaturedBlock (blockId) {
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
         dispatch(receiveFeaturedBlockError(status))
+        return Promise.reject(err)
+      })
+  }
+}
+
+export function fetchRelatedContent (tags, type = 'news') {
+  return dispatch => {
+    dispatch(requestRelatedContent())
+    let lookupUrl = apiHost + `/api/v1/${type}?tags=${tags.join(',')}`
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receiveRelatedContent(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receiveRelatedContentError(status))
         return Promise.reject(err)
       })
   }

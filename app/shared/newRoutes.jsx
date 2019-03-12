@@ -7,7 +7,8 @@ import {
   fetchNewsList,
   fetchSearchTerm,
   fetchSupportList,
-  fetchFeaturedBlock
+  fetchFeaturedBlock,
+  fetchRelatedContent
 } from './actions'
 
 /**
