@@ -12,7 +12,9 @@ import GridCol from '../GridCol/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Form from '../Form/component.jsx'
 import Icon from '../Icon/component.jsx'
+import WarningBar from '../AlertWarningBar/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component.jsx'
 
 export default class PageHome extends React.PureComponent {
   handleSearchSubmit () {
@@ -36,8 +38,12 @@ export default class PageHome extends React.PureComponent {
         <Masthead path={this.props.location}/>
         <Hero {...this.props.hero}/>
 
-        <Accent className='accent--muted' modifier='wrapper--constant constrain'>
-          <Form role='search' className='form--search'>
+        <Accent className='accent--muted' modifier='wrapper--constant'>
+          <SiteMessageContainer
+            path={this.props.location}
+            body={true}
+          />
+          <Form role='search' className='form--search constrain'>
             <FormGroupAutocomplete
              button='true'
              id='homepage-large-search'
@@ -50,19 +56,6 @@ export default class PageHome extends React.PureComponent {
           </Form>
         </Accent>
         <Main>
-          {this.props.warningMessageBlock &&
-          <section className='wrapper spacing--large'>
-            <Grid>
-              <GridCol className='col-12 col-sm-10'>
-                <p>Replace me: { this.props.warningMessageBlock.url !== false ? (
-                  <a href={this.props.warningMessageBlock.url}>{this.props.warningMessageBlock.message}</a>
-                ) : (
-                  this.props.warningMessageBlock.message
-                )}
-                </p>
-              </GridCol>
-            </Grid>
-          </section>}
           {this.props.featuredItemBlock &&
             <section className='wrapper spacing--large'>
               <Grid>
@@ -79,6 +72,9 @@ export default class PageHome extends React.PureComponent {
         </Main>
         <Footer />
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }

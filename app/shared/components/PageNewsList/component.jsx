@@ -11,6 +11,7 @@ import Main from '../Main/component.jsx'
 import Spinner from '../Spinner/component.jsx'
 import { scrollTo } from '../../utilities'
 import { GA } from '../GoogleAnalytics/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageNewsList extends React.PureComponent {
   constructor (props) {
@@ -79,6 +80,9 @@ export default class PageNewsList extends React.PureComponent {
         </Main>
         <Footer/>
         <GA/>
+        <SiteMessageContainer
+          path={location}
+        />
       </React.Fragment>
     )
   }

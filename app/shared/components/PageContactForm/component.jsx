@@ -17,6 +17,7 @@ import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
 import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageContactForm extends React.PureComponent {
   static defaultProps = {
@@ -165,6 +166,9 @@ export default class PageContactForm extends React.PureComponent {
         </Main>
         <Footer/>
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }
