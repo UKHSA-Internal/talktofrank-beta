@@ -10,13 +10,15 @@ import { getCookie, setCookie } from '../../lib/cookie.js'
 export default class SatisfactionBar extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClick = this.handleClick.bind(this)
+    this.closeMessage = this.closeMessage.bind(this)
     this.state = {
       visible: false
     }
   }
 
   componentDidMount() {
-    let cookieValue = getCookie('ttf-survey')
+    let cookieValue = getCookie(`ttf-message-bar-${this.props.alertId}`)
     if (!cookieValue) {
       setTimeout(() => {
         this.setState({
@@ -28,15 +30,15 @@ export default class SatisfactionBar extends React.Component {
 
   handleClick(ev) {
     ev.preventDefault()
-    setCookie('ttf-survey', 1, 365)
-    window.location.href = 'https://www.surveygizmo.com/s3/4604317/Satisfaction-Survey'
+    setCookie(`ttf-message-bar-${this.props.alertId}`, 1, 365)
+    window.location.href = this.props.url
   }
 
   closeMessage() {
     this.setState({
       visible: false
     })
-    setCookie('ttf-survey', 1, 365)
+    setCookie(`ttf-message-bar-${this.props.alertId}`, 1, 365)
   }
 
   render() {
@@ -48,7 +50,7 @@ export default class SatisfactionBar extends React.Component {
               <GridCol className='col-2 col-sm-1 order-2'>
                 <button type='button'
                  className='btn btn--flat'
-                 aria-label='Close satisfaction survey panel'
+                 aria-label='Close pop up message'
                  onClick={this.closeMessage.bind(this)}>
                  <Svg url='/ui/svg/cross-white.svg' alt='Close' />
                 </button>
@@ -56,14 +58,17 @@ export default class SatisfactionBar extends React.Component {
               <GridCol className='col-10 col-sm-11 order-1'>
                 <Grid>
                   <GridCol className='col-12 col-sm-8'>
-                    <p>
-                      We want to know what you think of our site.
-                    </p>
-                    <small>Help us improve your FRANK website experience</small>
+                    { this.props.message }
                   </GridCol>
+                  {this.props.alertButtonLabel && this.props.alertButtonText &&
                   <GridCol className='col-12 col-sm-4'>
-                    <Anchor className='btn btn--secondary spacing-top--single sm-spacing-top--flush has-arrow' target='_blank' onClick={this.handleClick} href='#' text='Take survey' label='Take our satisfaction survey (will open in new window)'/>
+                    <Anchor
+                      className='btn btn--secondary spacing-top--single sm-spacing-top--flush has-arrow'
+                      target='_blank' onClick={this.handleClick} href='#'
+                      text={this.props.alertButtonText}
+                      label={this.props.alertButtonLabel} />
                   </GridCol>
+                  }
                 </Grid>
               </GridCol>
             </Grid>

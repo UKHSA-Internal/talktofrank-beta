@@ -13,6 +13,7 @@ import Icon from '../Icon/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import Divider from '../Divider/component.jsx'
 import GMap from '../Map/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageSupport extends React.PureComponent {
   render () {
@@ -86,6 +87,9 @@ export default class PageSupport extends React.PureComponent {
         </Main>
         <Footer/>
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
         <script src={src} async defer></script>
       </React.Fragment>
     )

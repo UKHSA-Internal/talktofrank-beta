@@ -10,6 +10,7 @@ import Divider from '../Divider/component.jsx'
 import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 const DrugList = props => {
   const limit = 4
@@ -69,6 +70,9 @@ const DrugList = props => {
       </Main>
       <Footer />
       <GA />
+      <SiteMessageContainer
+        path={props.location}
+      />
     </React.Fragment>
   )
 }

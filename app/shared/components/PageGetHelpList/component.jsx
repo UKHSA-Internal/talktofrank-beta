@@ -9,6 +9,7 @@ import Longform from '../Longform/component.jsx'
 import Accent from '../Accent/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageGetHelpList extends React.PureComponent {
   render () {
@@ -41,6 +42,9 @@ export default class PageGetHelpList extends React.PureComponent {
         </Main>
         <Footer/>
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }

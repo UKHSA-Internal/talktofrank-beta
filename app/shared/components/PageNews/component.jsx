@@ -16,6 +16,7 @@ import Video from '../Video/component.jsx'
 // @todo refactor all contentful "factory" stuffs to api
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageNews extends React.PureComponent {
   render () {
@@ -53,6 +54,9 @@ export default class PageNews extends React.PureComponent {
         </Main>
         <Footer />
         <GA />
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }
