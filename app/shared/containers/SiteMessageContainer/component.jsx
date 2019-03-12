@@ -49,7 +49,6 @@ const mapStateToProps = (state, ownProps) => {
         messageBlock.alertButtonText = state.app.siteSettings.fields.alert.fields.alertButtonText
       }
     }
-
   }
   return messageBlock
 }
