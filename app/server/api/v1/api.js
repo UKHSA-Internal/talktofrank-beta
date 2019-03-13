@@ -362,16 +362,26 @@ router.get('/news', (req, res, next) => {
     return next(error)
   }
 
-  const contentfulRequest = {
+  let contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
     order: '-fields.originalPublishDate,-sys.createdAt',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
   }
 
+  if (req.query.tags) {
+    contentfulRequest['fields.tags.sys.id[in]'] = req.query.tags
+  }
+
+  if (req.query.ignore) {
+    contentfulRequest['sys.id[nin]'] = req.query.ignore
+  }
+
   let response = {
     list: []
   }
+
+  console.log(contentfulRequest)
 
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
@@ -416,7 +426,7 @@ router.get('/news', (req, res, next) => {
         return v
       })
       response.title = 'News'
-
+      console.log(response.list.length)
       res.send(response)
     })
     .catch(error => {

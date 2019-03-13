@@ -1,32 +1,50 @@
+import React from 'react'
 import { connect } from 'react-redux'
-
 import BlockRelatedContent from '../../components/BlockRelatedContent/component.jsx'
-import { fetchRelatedContent } from '../../actions'
+import { fetchRelatedContent, receiveRelatedContent } from '../../actions'
 
 class BlockRelatedContentContainer extends React.PureComponent {
-
   componentDidMount() {
-    console.log(this.props)
-//     this.props.fetchRelatedContent()
+    if (this.props.tags.length) {
+      this.props.fetchRelatedContent(this.props.tags, this.props.id)
+    } else {
+      this.props.setRelatedContentLoaded()
+    }
   }
 
   render() {
     return (
-      <BlockRelatedContent />
+      <BlockRelatedContent {...this.props} />
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state)
-  return { tags: ['test'] }
+
+  let list = []
+  let tags = []
+
+  if (state.app.relatedContent && state.app.relatedContent.list) {
+    list = state.app.relatedContent.list
+  }
+
+  if (state.app.pageData && state.app.pageData.fields.tags) {
+    state.app.pageData.fields.tags.map(tag => {
+      tags.push(tag.sys.id)
+    })
+  }
+
+  return { id: state.app.pageData.sys.id, tags, list }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    fetchRelatedContent: (tags) => {
-      dispatch(fetchRelatedContent(tags))
-    }
+    fetchRelatedContent: (tags, currentId) => {
+      dispatch(fetchRelatedContent(tags, currentId))
+    },
+    setRelatedContentLoaded: () => {
+      dispatch(receiveRelatedContent({list: []}))
+    },
   })
 }
 

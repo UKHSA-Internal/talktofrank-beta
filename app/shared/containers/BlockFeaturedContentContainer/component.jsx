@@ -4,6 +4,11 @@ import { fieldIncludesImages, imageMap } from '../../utilities'
 import BlockFeaturedContent from '../../components/BlockFeaturedContent/component.jsx'
 
 const mapStateToProps = (state, ownProps) => {
+
+  if (Object.keys(state.app.relatedContent).length > 0) {
+    return null
+  }
+
   let featuredContent = []
   const { featuredBlockData } = state.app
 
@@ -39,7 +44,7 @@ const mapStateToProps = (state, ownProps) => {
             text: item.fields.title,
             className: 'h4 card-title'
           },
-          linkLabel: 'Read more'
+          linkLabel: item.fields.headerVideo ? 'Watch now' : 'Read more'
         }
 
         featuredContentItem.images = imageMap(item.fields)

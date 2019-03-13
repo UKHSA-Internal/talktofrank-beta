@@ -16,15 +16,15 @@ export const REQUEST_FEATURED_BLOCK = 'REQUEST_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK = 'RECEIVE_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK_ERROR = 'RECEIVE_FEATURED_BLOCK_ERROR'
 
-<<<<<<< HEAD
 export const REQUEST_RELATED_CONTENT = 'REQUEST_RELATED_CONTENT'
+export const REQUEST_RELATED_CONTENT_STATUS_INVALID = 'REQUEST_RELATED_CONTENT_STATUS_INVALID'
+export const REQUEST_RELATED_CONTENT_STATUS_VALID = 'REQUEST_RELATED_CONTENT_STATUS_VALID'
 export const RECEIVE_RELATED_CONTENT = 'RECEIVE_RELATED_CONTENT'
 export const RECEIVE_RELATED_CONTENT_ERROR = 'RECEIVE_RELATED_CONTENT_ERROR'
-=======
+
 export const REQUEST_SITE_SETTING = 'REQUEST_SITE_SETTING'
 export const RECEIVE_SITE_SETTING = 'RECEIVE_SITE_SETTING'
 export const RECEIVE_SITE_SETTING_ERROR = 'RECEIVE_SITE_SETTING_ERROR'
->>>>>>> origin
 
 const BAD_REQUEST = 400
 
@@ -92,7 +92,6 @@ function receiveFeaturedBlock (featuredBlockData) {
   }
 }
 
-<<<<<<< HEAD
 function requestRelatedContent () {
   return {
     type: REQUEST_RELATED_CONTENT
@@ -102,7 +101,17 @@ function requestRelatedContent () {
 export function receiveRelatedContentError (status) {
   return {
     type: RECEIVE_RELATED_CONTENT_ERROR,
-=======
+    error: status
+  }
+}
+
+function receiveRelatedContent (relatedContent) {
+  return {
+    type: RECEIVE_RELATED_CONTENT,
+    relatedContent
+  }
+}
+
 function requestSiteSetting () {
   return {
     type: REQUEST_SITE_SETTING
@@ -112,22 +121,14 @@ function requestSiteSetting () {
 export function receiveSiteSettingError (status) {
   return {
     type: REQUEST_SITE_SETTING_ERROR,
->>>>>>> origin
     error: status
   }
 }
 
-<<<<<<< HEAD
-function receiveRelatedContent (featuredBlockData) {
-  return {
-    type: RECEIVE_RELATED_CONTENT,
-    relatedContent
-=======
 function receiveSiteSetting (siteSettingData) {
   return {
     type: RECEIVE_SITE_SETTING,
     siteSettingData
->>>>>>> origin
   }
 }
 
@@ -265,11 +266,11 @@ export function fetchFeaturedBlock (blockId) {
   }
 }
 
-
-export function fetchRelatedContent (tags, type = 'news') {
+export function fetchRelatedContent (tags, id, type = 'news') {
+  let queryString = '&page=0&pageSize=' + PAGE_SIZE
   return dispatch => {
     dispatch(requestRelatedContent())
-    let lookupUrl = apiHost + `/api/v1/${type}?tags=${tags.join(',')}`
+    let lookupUrl = apiHost + `/api/v1/${type}?tags=${tags.join(',')}&ignore=${id}` + queryString
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receiveRelatedContent(res.data))
