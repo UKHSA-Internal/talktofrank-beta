@@ -302,3 +302,9 @@ export function fetchSiteSettings (settingSlug = 'global') {
 export function setPageData (pageData) {
   return dispatch(receivePage(pageData))
 }
+
+export function setRelatedContent (data) {
+  return dispatch => {
+    return dispatch(receiveRelatedContent(data))
+  }
+}

@@ -4,7 +4,6 @@ import BlockFeaturedContentContainer from '../../containers/BlockFeaturedContent
 import * as actions from '../../actions'
 
 const BlockAdditionalNewsContent = props => {
-  console.log(props)
   return (
     <React.Fragment>
       <BlockRelatedContentContainer />

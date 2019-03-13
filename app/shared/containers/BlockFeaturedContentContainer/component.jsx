@@ -5,10 +5,6 @@ import BlockFeaturedContent from '../../components/BlockFeaturedContent/componen
 
 const mapStateToProps = (state, ownProps) => {
 
-  if (Object.keys(state.app.relatedContent).length > 0) {
-    return null
-  }
-
   let featuredContent = []
   const { featuredBlockData } = state.app
 

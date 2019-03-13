@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import BlockRelatedContent from '../../components/BlockRelatedContent/component.jsx'
-import { fetchRelatedContent, receiveRelatedContent } from '../../actions'
+import { fetchRelatedContent, setRelatedContent } from '../../actions'
 
 class BlockRelatedContentContainer extends React.PureComponent {
   componentDidMount() {
@@ -20,7 +20,6 @@ class BlockRelatedContentContainer extends React.PureComponent {
 }
 
 const mapStateToProps = (state, ownProps) => {
-
   let list = []
   let tags = []
 
@@ -38,14 +37,14 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return ({
+  return {
     fetchRelatedContent: (tags, currentId) => {
       dispatch(fetchRelatedContent(tags, currentId))
     },
     setRelatedContentLoaded: () => {
-      dispatch(receiveRelatedContent({list: []}))
+      dispatch(setRelatedContent({list: []}))
     },
-  })
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlockRelatedContentContainer)

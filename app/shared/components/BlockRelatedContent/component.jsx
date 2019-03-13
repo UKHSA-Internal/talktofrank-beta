@@ -6,7 +6,6 @@ import Header from '../Header/component.jsx'
 import Heading from '../Heading/component.jsx'
 
 const BlockRelatedContent = props => {
-  console.log(props)
   if (!props.list.length) {
     return null
   }

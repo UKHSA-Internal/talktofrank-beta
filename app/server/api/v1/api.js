@@ -381,17 +381,9 @@ router.get('/news', (req, res, next) => {
     list: []
   }
 
-  console.log(contentfulRequest)
-
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       let imageCount = 1
-      if (contentfulResponse.total === 0) {
-        let error = new Error()
-        error.message = `'news': Page not found`
-        error.status = 404
-        return next(error)
-      }
 
       // merge contentful assets and includes
       response.total = contentfulResponse.total
@@ -425,8 +417,8 @@ router.get('/news', (req, res, next) => {
 
         return v
       })
+
       response.title = 'News'
-      console.log(response.list.length)
       res.send(response)
     })
     .catch(error => {
