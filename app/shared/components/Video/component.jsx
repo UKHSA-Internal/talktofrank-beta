@@ -6,6 +6,7 @@ const Video = props => {
   return (
     <figure className={`video ${props.className}`}>
       {url && <iframe src={url} width='500' height='281' frameBorder='0' allowFullScreen='allowfullscreen'></iframe>}
+      {props.figCaption && <figcaption className={'sr-only'}>{props.figCaption}</figcaption>}
     </figure>
   )
 }
