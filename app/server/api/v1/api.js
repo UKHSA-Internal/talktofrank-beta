@@ -362,11 +362,19 @@ router.get('/news', (req, res, next) => {
     return next(error)
   }
 
-  const contentfulRequest = {
+  let contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
     order: '-fields.originalPublishDate,-sys.createdAt',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
+  }
+
+  if (req.query.tags) {
+    contentfulRequest['fields.tags.sys.id[in]'] = req.query.tags
+  }
+
+  if (req.query.ignore) {
+    contentfulRequest['sys.id[nin]'] = req.query.ignore
   }
 
   let response = {
@@ -376,12 +384,6 @@ router.get('/news', (req, res, next) => {
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       let imageCount = 1
-      if (contentfulResponse.total === 0) {
-        let error = new Error()
-        error.message = `'news': Page not found`
-        error.status = 404
-        return next(error)
-      }
 
       // merge contentful assets and includes
       response.total = contentfulResponse.total
@@ -415,8 +417,8 @@ router.get('/news', (req, res, next) => {
 
         return v
       })
-      response.title = 'News'
 
+      response.title = 'News'
       res.send(response)
     })
     .catch(error => {
