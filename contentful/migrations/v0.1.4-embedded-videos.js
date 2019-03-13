@@ -18,7 +18,17 @@ module.exports = function(migration) {
     .type('Symbol')
     .required(true)
 
+  video
+    .createField('figCaption')
+    .name('Alt text')
+    .type('Symbol')
+    .required(true)
+
   video.changeEditorInterface("embedUrl", "urlEditor");
+
+  video.changeEditorInterface("figCaption", "singleLine", {
+    helpText: 'A caption which describe the contents of the video'
+  });
 
   const news = migration.editContentType('news')
   news.createField('headerVideo')
