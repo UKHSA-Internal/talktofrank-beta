@@ -4,7 +4,6 @@ import { fieldIncludesImages, imageMap } from '../../utilities'
 import BlockFeaturedContent from '../../components/BlockFeaturedContent/component.jsx'
 
 const mapStateToProps = (state, ownProps) => {
-
   let featuredContent = []
   const { featuredBlockData } = state.app
 

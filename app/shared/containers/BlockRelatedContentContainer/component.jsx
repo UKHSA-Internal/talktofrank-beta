@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     setRelatedContentLoaded: () => {
       dispatch(setRelatedContent({list: []}))
-    },
+    }
   }
 }
 
