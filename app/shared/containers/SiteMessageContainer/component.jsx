@@ -9,7 +9,6 @@ const mapStateToProps = (state, ownProps) => {
 
   let messageBlock = { disabled: true }
 
-
   if (state.app.siteSettings.fields.alert && state.app.siteSettings.fields.alert.fields) {
     const messageType = state.app.siteSettings.fields.alert.sys.contentType.sys.id
     let alwaysShowOnHomepage = messageType === 'alertDrugWarning'
