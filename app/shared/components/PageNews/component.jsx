@@ -1,5 +1,5 @@
 import React from 'react'
-import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
+import BlockAdditionalNewsContentContainer from '../../containers/BlockAdditionalNewsContentContainer/component'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Heading from '../Heading/component'
@@ -50,7 +50,7 @@ export default class PageNews extends React.PureComponent {
               </GridCol>
             </Grid>
           </Accent>
-          <BlockFeaturedContent />
+          <BlockAdditionalNewsContentContainer />
         </Main>
         <Footer />
         <GA />
