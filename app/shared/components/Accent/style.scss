@@ -59,14 +59,16 @@
   padding: 1.5rem 2rem;
   position: relative;
   z-index: 1;
-  margin-bottom: -4rem;
-  transform: translateY(-6rem);
+  margin-bottom: 4rem;
+  margin-top: -6rem;
 
   .accent__link {
     color: $white;
     border-bottom-color: $white;
 
     .has-hover & {
+      &:focus,
+      &:active,
       &:hover {
         color: $white;
         border-bottom-color: $white;
@@ -76,7 +78,7 @@
 
   & + .form {
     @include media-breakpoint-up(sm) {
-      transform: translateY(-2rem);
+      margin-top: -3rem;
     }
   }
 
