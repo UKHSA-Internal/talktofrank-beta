@@ -54,7 +54,7 @@
   color: $white;
   font-family: $font-family-heavy;
   background-color: $gray-900;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   position: relative;
   z-index: 1;
   margin-bottom: -4rem;
@@ -85,6 +85,26 @@
 
     @include media-breakpoint-up(sm) {
       padding-right: 4rem;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-left: 0;
+    margin-right: 0;
+
+    .wrapper--constant & {
+      margin-left: -2rem;
+      margin-right: -2rem;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-left: 2rem;
+    margin-right: 2rem;
+
+    .wrapper--constant & {
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 }
