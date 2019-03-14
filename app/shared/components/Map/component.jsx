@@ -13,13 +13,13 @@ export default class GMap extends React.PureComponent {
         let geocoder = new google.maps.Geocoder()
         geocoder.geocode({'address': this.props.address}, function(results, status) {
           if (status === 'OK') {
-            map.setCenter(results[0].geometry.location);
+            map.setCenter(results[0].geometry.location)
             const marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location
-            });
+            })
           } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+            alert('Geocode was not successful for the following reason: ' + status)
           }
         })
       }

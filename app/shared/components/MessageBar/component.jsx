@@ -17,7 +17,6 @@ const MessageContent = props => {
   )
 }
 
-
 const MessageBar = (props) => {
   if (props.disabled) {
     return null

@@ -88,7 +88,7 @@
 
   .accent--fixed & {
     margin-bottom: 0;
-    transform: none;
+    margin-top: auto;
     background-color: $footer-warning;
 
     @include media-breakpoint-up(sm) {
