@@ -59,8 +59,12 @@
   padding: 1.5rem 2rem;
   position: relative;
   z-index: 1;
-  margin-bottom: 4rem;
-  margin-top: -6rem;
+  margin-top: -2rem;
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 4rem;
+    margin-top: -6rem;
+  }
 
   .accent__link {
     color: $white;
