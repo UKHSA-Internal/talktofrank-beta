@@ -71,7 +71,7 @@ export default class PageSupport extends React.PureComponent {
               <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
                 <Heading className='h4' text='Address' />
                 <Longform text={address} className='spacing-bottom--single'/>
-                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
+                <a target='_blank' href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Opening times' />
                 <Heading type='p' text={timesSessions} />
