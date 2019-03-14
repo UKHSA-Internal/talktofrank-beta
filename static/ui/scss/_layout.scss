@@ -32,7 +32,6 @@ $grid-gutter: 30px;
   max-width: 80rem;
 }
 
-%wrapper,
 .wrapper {
   position: relative;
   @extend %constrain-narrow;
