@@ -45,6 +45,7 @@ export default class PageSupport extends React.PureComponent {
     const src = `https://maps.googleapis.com/maps/api/js?key=${key}`
     const phoneRaw = telephone1.replace(/\D/g, '')
     const address = [address1, address2, address3, town, county, postCode].filter(Boolean).join(', ')
+    const plot = [name, postCode].filter(Boolean).join(', ')
 
     return (
       <React.Fragment>
@@ -56,7 +57,7 @@ export default class PageSupport extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
-                {(location && location.lat) && <GMap zoom='16' name={name} location={location} />}
+                <GMap name={name} location={location} address={plot}/>
                 <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
                 {notes && <Longform text={notes}/>}

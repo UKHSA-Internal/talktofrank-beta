@@ -5,13 +5,20 @@ export default class GMap extends React.PureComponent {
     const latLong = {lat: this.props.location.lat, lng: this.props.location.lon}
     let map = new google.maps.Map(document.getElementById('map'), {
       center: latLong,
-      zoom: 16,
+      zoom: 14,
       mapTypeControl: false
     })
-    let marker = new google.maps.Marker({
-      position: latLong,
-      map: map,
-      title: this.props.name
+    let geocoder = new google.maps.Geocoder()
+    geocoder.geocode({'address': this.props.address}, function(results, status) {
+      if (status === 'OK') {
+        map.setCenter(results[0].geometry.location);
+        const marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
     })
   }
 
