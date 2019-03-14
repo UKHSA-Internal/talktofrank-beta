@@ -43,10 +43,12 @@
 .accent__text {
   display: block;
   font-size: 1.6rem;
+  margin-top: 1rem;
 
   @include media-breakpoint-up(sm) {
     overflow: hidden;
     font-size: 1.8rem;
+    margin-top: 0;
   }
 }
 
