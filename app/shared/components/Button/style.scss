@@ -223,6 +223,12 @@
   z-index: 1;
   right: .5em;
   top: .5em;
+
+  .has-hover & {
+    &:hover {
+      opacity: .7;
+    }
+  }
 }
 
 .button-group {
