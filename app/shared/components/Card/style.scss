@@ -17,8 +17,8 @@
 
   .icon-play {
     @include media-breakpoint-up(sm) {
-      height: 4rem;
-      width: 4rem;
+      height: 5rem;
+      width: 5rem;
     }
 
     &.hidden--xs {
