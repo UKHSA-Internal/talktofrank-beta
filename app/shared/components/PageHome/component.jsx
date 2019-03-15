@@ -36,26 +36,25 @@ export default class PageHome extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
-        <Hero {...this.props.hero}/>
-
-        <Accent className='accent--muted' modifier='wrapper--constant'>
-          <SiteMessageContainer
-            path={this.props.location}
-            body={true}
-          />
-          <Form role='search' className='form--search constrain'>
-            <FormGroupAutocomplete
-             button='true'
-             id='homepage-large-search'
-             className='react-autosuggest__suggestions-container--homepage'
-             label='Search for any drug…'
-             placeholder='Enter a drug (e.g. Mandy)'
-             ref={input => { this.formAutocomplete = input }}
-             />
-             <Button className='btn--flat btn--flat-right submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
-          </Form>
-        </Accent>
         <Main>
+          <Hero {...this.props.hero}/>
+          <Accent className='accent--muted' modifier='wrapper--constant'>
+            <SiteMessageContainer
+              path={this.props.location}
+              body={true}
+            />
+            <Form role='search' className='form--search constrain'>
+              <FormGroupAutocomplete
+               button='true'
+               id='homepage-large-search'
+               className='react-autosuggest__suggestions-container--homepage'
+               label='Search for any drug…'
+               placeholder='Enter a drug (e.g. Mandy)'
+               ref={input => { this.formAutocomplete = input }}
+               />
+               <Button className='btn--flat btn--flat-right submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
+            </Form>
+          </Accent>
           {this.props.featuredItemBlock &&
             <section className='wrapper spacing--large'>
               <Grid>

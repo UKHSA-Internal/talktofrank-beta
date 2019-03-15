@@ -42,26 +42,37 @@
 
 .accent__text {
   display: block;
+  font-size: 1.6rem;
+  margin-top: 1rem;
 
   @include media-breakpoint-up(sm) {
     overflow: hidden;
+    font-size: 1.8rem;
+    margin-top: 0;
   }
 }
 
 .accent__content {
   color: $white;
+  font-family: $font-family-heavy;
   background-color: $gray-900;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   position: relative;
   z-index: 1;
-  margin-bottom: -4rem;
-  transform: translateY(-6rem);
+  margin-top: -2rem;
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 4rem;
+    margin-top: -6rem;
+  }
 
   .accent__link {
     color: $white;
     border-bottom-color: $white;
 
     .has-hover & {
+      &:focus,
+      &:active,
       &:hover {
         color: $white;
         border-bottom-color: $white;
@@ -71,17 +82,37 @@
 
   & + .form {
     @include media-breakpoint-up(sm) {
-      transform: translateY(-2rem);
+      margin-top: -3rem;
     }
   }
 
   .accent--fixed & {
     margin-bottom: 0;
-    transform: none;
+    margin-top: auto;
     background-color: $footer-warning;
 
     @include media-breakpoint-up(sm) {
-      padding-right: 4rem;
+      padding-right: 6rem;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-left: 0;
+    margin-right: 0;
+
+    .wrapper--constant & {
+      margin-left: -2rem;
+      margin-right: -2rem;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    margin-left: 2rem;
+    margin-right: 2rem;
+
+    .wrapper--constant & {
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 }

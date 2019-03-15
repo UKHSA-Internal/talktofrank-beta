@@ -2,6 +2,21 @@ import React from 'react'
 import AlertWarningBar from '../AlertWarningBar/component'
 import AlertSiteMessage from '../AlertSiteMessage/component'
 
+const MessageContent = props => {
+  return (
+    <p className='accent__content'>
+      <span className='accent__warning'>Drug warning </span>
+      <span className='accent__text'>
+        { props.url !== false ? (
+          <a className='accent__link' href={props.url}>{props.message}</a>
+        ) : (
+          props.message
+        )}
+      </span>
+    </p>
+  )
+}
+
 const MessageBar = (props) => {
   if (props.disabled) {
     return null
@@ -9,31 +24,11 @@ const MessageBar = (props) => {
 
   return (
     <React.Fragment>
-      {props.bodyMessage ? (
-        <p className='accent__content'>
-          <span className='accent__warning'>Drug warning </span>
-          <span className='accent__text'>
-            { props.url !== false ? (
-              <a className='accent__link' href={props.url}>{props.message}</a>
-            ) : (
-              props.message
-            )}
-          </span>
-        </p>
-        ) : props.showPopup ? (
+      {props.bodyMessage ? <MessageContent {...props}/> : props.showPopup ? (
         <React.Fragment>
           { props.messageType === 'alertDrugWarning' ? (
             <AlertWarningBar alertId={props.id}>
-              <p className='accent__content'>
-                <span className='accent__warning'>Drug warning </span>
-                <span className='accent__text'>
-                  { props.url !== false ? (
-                    <a className='accent__link' href={props.url}>{props.message}</a>
-                  ) : (
-                  props.message
-                  )}
-                </span>
-              </p>
+              <MessageContent {...props}/>
             </AlertWarningBar>
           ) : props.messageType === 'alertSiteMessage' ? (
             <AlertSiteMessage

@@ -45,6 +45,7 @@ export default class PageSupport extends React.PureComponent {
     const src = `https://maps.googleapis.com/maps/api/js?key=${key}`
     const phoneRaw = telephone1.replace(/\D/g, '')
     const address = [address1, address2, address3, town, county, postCode].filter(Boolean).join(', ')
+    const plot = [name, postCode].filter(Boolean).join(', ')
 
     return (
       <React.Fragment>
@@ -56,7 +57,7 @@ export default class PageSupport extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
-                {(location && location.lat) && <GMap zoom='16' name={name} location={location} />}
+                <GMap name={name} location={location} address={plot}/>
                 <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
                 {notes && <Longform text={notes}/>}
@@ -66,11 +67,12 @@ export default class PageSupport extends React.PureComponent {
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Catchment (areas they serve)' />
                 <Heading type='p' text={catchmentArea} />
+                <Divider className='hr--muted hr--large hidden--sm-up'/>
               </GridCol>
               <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
                 <Heading className='h4' text='Address' />
                 <Longform text={address} className='spacing-bottom--single'/>
-                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on map</span> <Icon {...icon}/></a>
+                <a target='_blank' href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on Google Maps</span> <Icon {...icon}/></a>
                 <Divider className='hr--muted hr--large'/>
                 <Heading className='h4' text='Opening times' />
                 <Heading type='p' text={timesSessions} />
