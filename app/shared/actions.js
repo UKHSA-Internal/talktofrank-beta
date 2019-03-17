@@ -39,7 +39,7 @@ export function receivePageError (status) {
   }
 }
 
-function receivePage (pageData) {
+function receivePage (pageData, params) {
   return {
     type: RECEIVE_PAGE,
     pageData
@@ -208,12 +208,15 @@ export function fetchSupportList (page = 0, {location, serviceType}) {
   }
 }
 
-export function fetchPage (slug, type = 'entries') {
+export function fetchPage (slug, type = 'entries', params) {
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/' + type + '/' + encodeURIComponent(slug)
     return axios.get(lookupUrl)
       .then(res => {
+        if (params && res.data.fields) {
+          res.data.fields.params = params
+        }
         dispatch(receivePage(res.data))
       })
       .catch(err => {

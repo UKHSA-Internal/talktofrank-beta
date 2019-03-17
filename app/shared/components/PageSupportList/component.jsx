@@ -94,7 +94,8 @@ export default class PageSupportList extends React.PureComponent {
                   {results && results.map((item, i) => {
                     return <ArticleSupport
                       text={item.fields.name}
-                      distance={item.distance}
+                      params={location}
+                      distance={encodeURIComponent(item.distance)}
                       className={i === 0 ? 'list-item--first' : null}
                       address={[
                         item.fields.address1,

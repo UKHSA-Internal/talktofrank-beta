@@ -202,8 +202,8 @@ const routes = [{
       path: '/treatment-centre/:slug',
       exact: true,
       component: asyncPageSupportContainer,
-      loadData: ({params}) => [
-        fetchPage(params.slug, 'treatment-centres'),
+      loadData: ({params, query}) => [
+        fetchPage(params.slug, 'treatment-centres', query),
         fetchSiteSettings()
       ]
     },
