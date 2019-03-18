@@ -35,7 +35,7 @@ export default class AlertWarningBar extends React.PureComponent {
     return (
       <ClientOnly>
         {this.state.visible &&
-          <Accent className='accent--fixed accent--bottom' modifier='wrapper--constant'>
+          <Accent className='accent--fixed accent--bottom' modifier='wrapper--inverted'>
             {this.props.children}
             <button type='button'
              className='btn btn--flat btn--fixed'

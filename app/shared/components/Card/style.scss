@@ -134,16 +134,16 @@
 
       @include media-breakpoint-up(sm) {
         min-width: 50%;
+        max-width: 50%;
         padding: 0 1rem;
         margin: 0;
       }
 
       @include media-breakpoint-up(md) {
         min-width: 25%;
+        max-width: 25%;
       }
-
     }
-
   }
 
   &.card-deck--compact {

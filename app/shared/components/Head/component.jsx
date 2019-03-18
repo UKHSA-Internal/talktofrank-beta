@@ -107,7 +107,7 @@ export default class Head extends React.Component {
         <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
         <meta name='theme-color' content='#FFFFFF' />
         <link rel="manifest" href="/ui/manifest.json" />
-        <link rel='stylesheet' type='text/css' href={`/ui/css/main.css?v=${this.props.cacheBusterTS}`} />
+        <link rel='stylesheet' type='text/css' href={`/ui/css/main.css${!location || location.pathname === '/offline' ? '' : `?v=${this.props.cacheBusterTS}`}`} />
         <script dangerouslySetInnerHTML={{__html:
         `
         window.addEventListener('touchstart', function onFirstTouch() {

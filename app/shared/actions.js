@@ -16,6 +16,12 @@ export const REQUEST_FEATURED_BLOCK = 'REQUEST_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK = 'RECEIVE_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK_ERROR = 'RECEIVE_FEATURED_BLOCK_ERROR'
 
+export const REQUEST_RELATED_CONTENT = 'REQUEST_RELATED_CONTENT'
+export const REQUEST_RELATED_CONTENT_STATUS_INVALID = 'REQUEST_RELATED_CONTENT_STATUS_INVALID'
+export const REQUEST_RELATED_CONTENT_STATUS_VALID = 'REQUEST_RELATED_CONTENT_STATUS_VALID'
+export const RECEIVE_RELATED_CONTENT = 'RECEIVE_RELATED_CONTENT'
+export const RECEIVE_RELATED_CONTENT_ERROR = 'RECEIVE_RELATED_CONTENT_ERROR'
+
 export const REQUEST_SITE_SETTING = 'REQUEST_SITE_SETTING'
 export const RECEIVE_SITE_SETTING = 'RECEIVE_SITE_SETTING'
 export const RECEIVE_SITE_SETTING_ERROR = 'RECEIVE_SITE_SETTING_ERROR'
@@ -83,6 +89,26 @@ function receiveFeaturedBlock (featuredBlockData) {
   return {
     type: RECEIVE_FEATURED_BLOCK,
     featuredBlockData
+  }
+}
+
+function requestRelatedContent () {
+  return {
+    type: REQUEST_RELATED_CONTENT
+  }
+}
+
+export function receiveRelatedContentError (status) {
+  return {
+    type: RECEIVE_RELATED_CONTENT_ERROR,
+    error: status
+  }
+}
+
+function receiveRelatedContent (relatedContent) {
+  return {
+    type: RECEIVE_RELATED_CONTENT,
+    relatedContent
   }
 }
 
@@ -243,6 +269,22 @@ export function fetchFeaturedBlock (blockId) {
   }
 }
 
+export function fetchRelatedContent (tags, id, type = 'news') {
+  let queryString = '&page=0&pageSize=' + PAGE_SIZE
+  return dispatch => {
+    dispatch(requestRelatedContent())
+    let lookupUrl = apiHost + `/api/v1/${type}?tags=${tags.join(',')}&ignore=${id}` + queryString
+    return axios.get(lookupUrl)
+      .then(res => {
+        dispatch(receiveRelatedContent(res.data))
+      })
+      .catch(err => {
+        let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
+        dispatch(receiveRelatedContentError(status))
+      })
+  }
+}
+
 export function fetchSiteSettings (settingSlug = 'global') {
   return dispatch => {
     dispatch(requestSiteSetting())
@@ -254,6 +296,7 @@ export function fetchSiteSettings (settingSlug = 'global') {
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
         dispatch(receiveSiteSettingError(status))
+
         return Promise.reject(err)
       })
   }
@@ -261,4 +304,10 @@ export function fetchSiteSettings (settingSlug = 'global') {
 
 export function setPageData (pageData) {
   return dispatch(receivePage(pageData))
+}
+
+export function setRelatedContent (data) {
+  return dispatch => {
+    return dispatch(receiveRelatedContent(data))
+  }
 }

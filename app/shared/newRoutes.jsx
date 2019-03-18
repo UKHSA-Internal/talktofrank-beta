@@ -8,6 +8,7 @@ import {
   fetchSearchTerm,
   fetchSupportList,
   fetchFeaturedBlock,
+  fetchRelatedContent,
   fetchSiteSettings
 } from './actions'
 

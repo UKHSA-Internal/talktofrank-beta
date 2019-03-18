@@ -50,6 +50,7 @@ export default class AmpPicture extends React.PureComponent {
           height='450'
           layout='responsive'>
         </Amp.AmpImg>
+        {this.props.video && <Play className='hidden--xs'/>}
       </div>
     )
   }

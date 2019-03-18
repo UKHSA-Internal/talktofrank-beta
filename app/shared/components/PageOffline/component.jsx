@@ -18,7 +18,7 @@ const PageOffline = () => {
   }
   return (
     <React.Fragment>
-      <Masthead path={'no-match'}/>
+      <Masthead path={'offline'}/>
       <Main>
         <Accent className='spacing-top--large' modifier='wrapper--constant'>
           <Grid>
