@@ -267,7 +267,7 @@ export function fetchFeaturedBlock (blockId) {
 }
 
 export function fetchRelatedContent (tags, id, type = 'news') {
-  let queryString = '&page=0&pageSize=' + PAGE_SIZE
+  let queryString = '&page=0&pageSize=3'
   return dispatch => {
     dispatch(requestRelatedContent())
     let lookupUrl = apiHost + `/api/v1/${type}?tags=${tags.join(',')}&ignore=${id}` + queryString
