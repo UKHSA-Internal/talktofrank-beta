@@ -25,6 +25,10 @@ $offset: 3.5rem;
     margin-bottom: 6rem;
   }
 
+  &--single {
+    margin-bottom: 0;
+  }
+
   .list-item {
     max-width: 50rem;
     margin: 15rem auto;
@@ -92,13 +96,6 @@ $offset: 3.5rem;
       @include media-breakpoint-up(sm) {
         margin-left: -1rem;
       }
-    }
-
-    .time {
-      bottom: 100%;
-      color: $body-text;
-      padding: .4em .4em .4em 0;
-      white-space: nowrap;
     }
 
     .link-text {
@@ -264,4 +261,12 @@ $offset: 3.5rem;
       }
     }
   }
+}
+
+.time {
+  display: inline-block;
+  bottom: 100%;
+  color: $body-text;
+  padding: .4em .4em .4em 0;
+  white-space: nowrap;
 }

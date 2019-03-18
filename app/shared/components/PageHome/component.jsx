@@ -56,9 +56,9 @@ export default class PageHome extends React.PureComponent {
             </Form>
           </Accent>
           {this.props.featuredItemBlock &&
-            <section className='wrapper spacing--large'>
+            <section className='wrapper spacing-top--large'>
               <Grid>
-                <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
+                <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset list-offset--single'>
                   <Article {...this.props.featuredItemBlock}/>
                 </GridCol>
               </Grid>
