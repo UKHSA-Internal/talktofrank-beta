@@ -17,8 +17,8 @@
 
   .icon-play {
     @include media-breakpoint-up(sm) {
-      height: 4rem;
-      width: 4rem;
+      height: 5rem;
+      width: 5rem;
     }
 
     &.hidden--xs {
@@ -35,6 +35,8 @@
 }
 
 .card__link {
+  min-height: 1px;
+
   .has-hover & {
     &:hover,
     &:active {
@@ -104,6 +106,7 @@
     margin-top: 0;
     padding-bottom: 2rem;
     padding-top: 2rem;
+    min-height: 1px;
 
     &:first-of-type {
       padding-top: 0;
