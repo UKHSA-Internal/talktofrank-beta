@@ -47,7 +47,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   if (state.app.relatedContent && state.app.relatedContent.list) {
-
     state.app.relatedContent.list
       .filter(item => item.fields)
       .map((item, i) => {
