@@ -1,5 +1,6 @@
 import React from 'react'
 import Play from '../Play/component.jsx'
+import { fieldIncludesVideo } from '../../utilities'
 
 export default class Picture extends React.PureComponent {
   componentDidMount () {
@@ -36,12 +37,11 @@ export default class Picture extends React.PureComponent {
     let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
     let classes = `image ${this.props.className || ''}`
     smallestImageSrc += '?fm=jpg&q=70'
-
     return (
       <picture className={classes}>
         {sources}
         <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''} role='presentation'/>
-        {this.props.video && <Play className='hidden--xs'/>}
+        {fieldIncludesVideo(this.props.video) && <Play className='hidden--xs'/>}
       </picture>
     )
   }

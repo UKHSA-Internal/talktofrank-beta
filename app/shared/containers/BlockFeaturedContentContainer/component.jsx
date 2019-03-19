@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fieldIncludesImages, imageMap } from '../../utilities'
+import { fieldIncludesVideo, imageMap } from '../../utilities'
 
 import BlockFeaturedContent from '../../components/BlockFeaturedContent/component.jsx'
 
@@ -39,7 +39,7 @@ const mapStateToProps = (state, ownProps) => {
             text: item.fields.title,
             className: 'h4 card-title'
           },
-          linkLabel: item.fields.headerVideo ? 'Watch now' : 'Read more'
+          linkLabel: fieldIncludesVideo(item.fields.headerVideo) ? 'Watch now' : 'Read more'
         }
 
         featuredContentItem.images = imageMap(item.fields)
@@ -47,7 +47,7 @@ const mapStateToProps = (state, ownProps) => {
           featuredContentItem.imageClass = 'card-img'
         }
 
-        if (item.fields.headerVideo) {
+        if (fieldIncludesVideo(item.fields.headerVideo)) {
           featuredContentItem.headerVideo = item.fields.headerVideo.fields
         }
 

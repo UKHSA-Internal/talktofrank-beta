@@ -17,6 +17,7 @@ import Video from '../Video/component.jsx'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import { fieldIncludesVideo } from '../../utilities'
 
 export default class PageNews extends React.PureComponent {
   render () {
@@ -26,13 +27,13 @@ export default class PageNews extends React.PureComponent {
         <Main>
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
-              {this.props.fields.headerVideo && <GridCol className='col-12'>
+              {fieldIncludesVideo(this.props.fields.headerVideo) && <GridCol className='col-12'>
                 <Video className='video--header' {...this.props.fields.headerVideo.fields}/>
               </GridCol>}
-              {(this.props.fields.image && !this.props.fields.headerVideo) && <GridCol className='col-12 list-offset'>
+              {(this.props.fields.image && !fieldIncludesVideo(this.props.fields.headerVideo)) && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
               </GridCol>}
-              {(!this.props.fields.image || this.props.fields.headerVideo) && <GridCol className='col-12 col-sm-8 offset-md-2'>
+              {(!this.props.fields.image || fieldIncludesVideo(this.props.fields.headerVideo)) && <GridCol className='col-12 col-sm-8 offset-md-2'>
                 {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
                 <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--single'/>
               </GridCol>}

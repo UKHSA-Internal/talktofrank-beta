@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import * as Amp from 'react-amphtml'
+import { fieldIncludesVideo } from '../../utilities'
 
 export default class AmpPicture extends React.PureComponent {
   componentDidMount () {
@@ -50,7 +51,7 @@ export default class AmpPicture extends React.PureComponent {
           height='450'
           layout='responsive'>
         </Amp.AmpImg>
-        {this.props.video && <Play className='hidden--xs'/>}
+        {fieldIncludesVideo(this.props.video) && <Play className='hidden--xs'/>}
       </div>
     )
   }

@@ -6,6 +6,7 @@ import Heading from './components/Heading/component'
 import Divider from './components/Divider/component'
 import Video from './components/Video/component'
 import { config } from 'config'
+import { fieldIncludesVideo } from './utilities'
 const marked = require('marked')
 
 export const contentFulFactory = () => {
@@ -50,7 +51,7 @@ export const contentFulFactory = () => {
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node, next) => {
         // Allow embed of text block contents
-        if (node.data.target.sys) {
+        if (node.data.target.sys && node.data.target.sys.contentType) {
           if (node.data.target.sys.contentType.sys.id === 'textBlocks') {
             return marked(node.data.target.fields.text)
           } else if (node.data.target.sys.contentType.sys.id === 'video') {
