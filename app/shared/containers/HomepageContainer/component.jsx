@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PageHome from '../../components/PageHome/component.jsx'
-import { imageMap, fieldIncludesImages } from '../../utilities'
+import { imageMap, fieldIncludesVideo } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
@@ -24,13 +24,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   hero.images = imageMap(fields, 'heroImages')
-
   if (featuredNewsItem) {
     featuredItemBlock = {
       fields: {
         title: featuredNewsItem.fields.title,
         slug: featuredNewsItem.fields.slug,
-        headerVideo: featuredNewsItem.fields.headerVideo || null
+        headerVideo: fieldIncludesVideo(featuredNewsItem.fields.headerVideo) || null
       },
       date: featuredNewsItem.date,
       dateFormatted: featuredNewsItem.dateFormatted
@@ -71,7 +70,7 @@ const mapStateToProps = (state, ownProps) => {
             text: item.fields.title,
             className: 'h4 card-title'
           },
-          linkLabel: item.fields.headerVideo ? 'Watch now' : 'Read more'
+          linkLabel: fieldIncludesVideo(item.fields.headerVideo) ? 'Watch now' : 'Read more'
         }
 
         featuredItem.images = imageMap(item.fields)
@@ -79,7 +78,7 @@ const mapStateToProps = (state, ownProps) => {
           featuredItem.imageClass = 'card-img'
         }
 
-        if (item.fields.headerVideo) {
+        if (fieldIncludesVideo(item.fields.headerVideo)) {
           featuredItem.headerVideo = item.fields.headerVideo.fields
         }
 
