@@ -15,7 +15,7 @@ class BlockRelatedContentContainer extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        {this.props.content.teasers.length && <BlockFeaturedContent {...this.props.content} />}
+        {(this.props.content.teasers.length > 0) && <BlockFeaturedContent {...this.props.content} />}
       </React.Fragment>
     )
   }

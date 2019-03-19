@@ -11,11 +11,14 @@ const ArticleSupport = props => {
       <Svg className='media__item' url='/ui/svg/location.svg'/>
       <div className='media__content'>
         <Anchor className='list-item__link' href={`/treatment-centre/${props.slug}`}>
-          <Heading className='h3' text={props.text}/>
+          <Heading className='h3 list-item__text' text={props.text}/>
         </Anchor>
         <p><strong>{props.distance} mile{props.distance !== '1.0' ? 's' : ''} away</strong>
         <Heading type='p' text={props.address}/></p>
         <Longform text={props.summary} className='spacing--single'/>
+        <Anchor className='list-item__link hidden--sm-up' href={`/treatment-centre/${props.slug}`}>
+          <Heading type='p' label={`Read more about ${props.text}`} className='link-text' text='Read more'/>
+        </Anchor>
         <ul class='list-inline spacing--single list-inline--spaced'>
           {props.phone && <li class='list-inline-item'><Anchor text={props.phone} label={`Telephone ${props.text}`} className='break-word link-text' href={`tel:${props.phoneRaw}`} /></li>}
           {props.email && <li class='list-inline-item'><Anchor text='Send email' label={`Send email to ${props.text}`} className='break-word link-text' href={`mailto:${props.email}`} /></li>}
