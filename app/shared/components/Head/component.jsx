@@ -28,8 +28,8 @@ export default class Head extends React.Component {
         path = location.pathname ? location.pathname.replace(/\/\d/, '') : null
         switch (path) {
           case '/drugs-a-z' :
-            ogPageTitle = pageTitle = 'Drugs A-Z'
-            pageDescription = 'Know what’s what, with FRANK’s A–Z of drugs. It includes all the slang names and all the facts.'
+            ogPageTitle = pageTitle = 'Drugs A to Z'
+            pageDescription = 'Know what’s what, with FRANK’s A to Z of drugs. It includes all the slang names and all the facts.'
             break
 
           case '/get-help':

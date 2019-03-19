@@ -9,7 +9,7 @@ class BlockAdditionalNewsContentContainer extends React.PureComponent {
     return (
       <React.Fragment>
         <BlockRelatedContentContainer />
-        {this.props.relatedContent.relatedContentReadyStatus === actions.REQUEST_RELATED_CONTENT_STATUS_VALID && this.props.relatedContent.list.length === 0 &&
+        {(this.props.relatedContent.relatedContentReadyStatus === actions.REQUEST_RELATED_CONTENT_STATUS_VALID && this.props.relatedContent.list.length === 0) &&
         <BlockFeaturedContentContainer />
         }
       </React.Fragment>

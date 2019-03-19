@@ -16,7 +16,7 @@ const FormGroup = props => {
       <label htmlFor={id} className='form-label' id={`${props.id}-label`}>{props.label}</label>
       {props.hint && <FormHint id={props.hintId || null}>{props.hint}</FormHint>}
       {props.error && <ErrorMessage message={props.error} />}
-      <input className={inputClassNames} maxLength={props.maxLength} id={id} name={props.name} value={props.value} type='text' {...error} onChange={props.onChange} aria-describedby={props.hintId || null}/>
+      <input className={inputClassNames} maxLength={props.maxLength} id={id} name={props.name} value={props.value} type={props.type} {...error} onChange={props.onChange} aria-describedby={props.hintId || null}/>
     </div>
   )
 }
@@ -26,7 +26,8 @@ FormGroup.propTypes = {
 }
 
 FormGroup.defaultProps = {
-  maxLength: 300
+  maxLength: 300,
+  type: 'text'
 }
 
 export default FormGroup
