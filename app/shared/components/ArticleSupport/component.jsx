@@ -11,7 +11,7 @@ const ArticleSupport = props => {
       <Svg className='media__item' url='/ui/svg/location.svg'/>
       <div className='media__content'>
         <Anchor className='list-item__link' href={`/treatment-centre/${props.slug}`}>
-          <Heading className='h3' text={props.text}/>
+          <Heading className='h3 list-item__text' text={props.text}/>
         </Anchor>
         <p><strong>{props.distance} mile{props.distance !== '1.0' ? 's' : ''} away</strong>
         <Heading type='p' text={props.address}/></p>
