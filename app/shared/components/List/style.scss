@@ -87,6 +87,7 @@ $offset: 3.5rem;
 
       .long-form {
         margin: 2rem 0 0;
+        width: 100%;
         color: $body-text;
 
         @include media-breakpoint-up(sm) {
