@@ -24,7 +24,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   hero.images = imageMap(fields, 'heroImages')
-  
   if (featuredNewsItem) {
     featuredItemBlock = {
       fields: {
@@ -60,9 +59,6 @@ const mapStateToProps = (state, ownProps) => {
     featuredContentBlock.fields.featuredContentItems
       .filter(item => item.fields)
       .map((item, i) => {
-
-        console.log('Video field ', fieldIncludesVideo(item.fields.headerVideo))
-
         let featuredItem = {
           url: `/news/${item.fields.slug}`,
           className: 'card--quiet',
