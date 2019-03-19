@@ -8,7 +8,7 @@ const Card = props => {
   const video = props.headerVideo
 
   return (
-    <div className={`card ${props.className || ''}`}>
+    <div className={`card ${props.className}`}>
       <a href={props.url} className='card__link'>
         {props.images && <Picture video={video} {...props.images}/>}
         <div className='card-body'>
@@ -23,7 +23,8 @@ const Card = props => {
 }
 
 Card.defaultProps = {
-  headerVideo: null
+  headerVideo: null,
+  className: ''
 }
 
 export default Card
