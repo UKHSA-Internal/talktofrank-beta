@@ -32,6 +32,7 @@ const MessageBar = (props) => {
             </AlertWarningBar>
           ) : props.messageType === 'alertSiteMessage' ? (
             <AlertSiteMessage
+              alertId={props.id}
                {...props}
             />
           ) : (

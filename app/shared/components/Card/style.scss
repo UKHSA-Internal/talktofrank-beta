@@ -128,18 +128,30 @@
       margin-bottom: 0; // Override the default
       margin-left: $card-deck-margin;
       padding: 0;
+      max-width: 30.6%;
     }
   }
 
   &--responsive {
+    @media (min-width: 450px)  {
+      flex-flow: row wrap;
+    }
+
     .card {
       min-width: 100%;
 
-      @include media-breakpoint-up(sm) {
+      @media (min-width: 450px)  {
+        display: flex;
+        flex: 1 0 0%;
+        flex-direction: column;
         min-width: 50%;
         max-width: 50%;
         padding: 0 1rem;
         margin: 0;
+      }
+
+      @include media-breakpoint-up(sm) {
+
       }
 
       @include media-breakpoint-up(md) {
