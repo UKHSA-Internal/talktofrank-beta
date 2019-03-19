@@ -79,6 +79,8 @@ export default class AmpHead extends React.Component {
         {headerBoilerplate(canonical)}
         <style amp-custom='' dangerouslySetInnerHTML={{__html: ampInlineCss}} />
         <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaTags) }}/>
+        <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"/>
+        <script async custom-element="amp-vimeo" src="https://cdn.ampproject.org/v0/amp-vimeo-0.1.js"/>
       </head>
     )
   }
