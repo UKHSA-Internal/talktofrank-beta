@@ -5,11 +5,12 @@ import { renderToString } from 'react-dom/server'
 import Heading from './components/Heading/component'
 import Divider from './components/Divider/component'
 import Video from './components/Video/component'
+import AmpVideo from './components/AmpVideo/component'
 import { config } from 'config'
 import { fieldIncludesVideo } from './utilities'
 const marked = require('marked')
 
-export const contentFulFactory = () => {
+export const contentFulFactory = (ampPage = false) => {
   /*
     Remaining options
     [BLOCKS.DOCUMENT]
@@ -55,8 +56,9 @@ export const contentFulFactory = () => {
           if (node.data.target.sys.contentType.sys.id === 'textBlocks') {
             return marked(node.data.target.fields.text)
           } else if (node.data.target.sys.contentType.sys.id === 'video') {
-            return renderToString(
-              <Video className='video--embedded' {...node.data.target.fields} />
+            return renderToString(ampPage
+              ? <AmpVideo className='video--embedded' {...node.data.target.fields} />
+              : <Video className='video--embedded' {...node.data.target.fields} />
             )
           }
         }
@@ -66,7 +68,6 @@ export const contentFulFactory = () => {
     },
     renderMark: {
       [MARKS.BOLD]: text => `<strong>${text}</strong>`
-
     }
   }
 }

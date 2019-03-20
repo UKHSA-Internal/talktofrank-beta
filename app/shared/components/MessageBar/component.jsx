@@ -21,25 +21,26 @@ const MessageBar = (props) => {
   if (props.disabled) {
     return null
   }
-
   return (
     <React.Fragment>
-      {props.bodyMessage ? <MessageContent {...props}/> : props.showPopup ? (
-        <React.Fragment>
-          { props.messageType === 'alertDrugWarning' ? (
-            <AlertWarningBar alertId={props.id}>
-              <MessageContent {...props}/>
-            </AlertWarningBar>
-          ) : props.messageType === 'alertSiteMessage' ? (
-            <AlertSiteMessage
-              alertId={props.id}
-               {...props}
-            />
-          ) : (
-            null
-          )}
-          </React.Fragment>
-        ) : (null)
+      {props.position === 'body'
+        ? <MessageContent {...props}/>
+        : (
+          <React.Fragment>
+            { props.messageType === 'alertDrugWarning' ? (
+              <AlertWarningBar alertId={props.id}>
+                <MessageContent {...props}/>
+              </AlertWarningBar>
+            ) : props.messageType === 'alertSiteMessage' ? (
+              <AlertSiteMessage
+                alertId={props.id}
+                 {...props}
+              />
+            ) : (
+              null
+            )}
+            </React.Fragment>
+        )
       }
     </React.Fragment>
   )

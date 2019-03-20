@@ -6,7 +6,7 @@ import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Longform from '../Longform/component.jsx'
-import Button from '../Button/component.jsx'
+import { ClientOnly } from '../ClientOnly/component'
 import Accent from '../Accent/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Icon from '../Icon/component.jsx'
@@ -57,7 +57,9 @@ export default class PageSupport extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
-                <GMap name={name} location={location} address={plot}/>
+                <ClientOnly>
+                  <GMap name={name} location={location} address={plot} />
+                </ClientOnly>
                 <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
                 {notes && <Longform text={notes}/>}
