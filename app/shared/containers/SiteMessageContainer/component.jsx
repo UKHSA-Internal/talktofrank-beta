@@ -10,18 +10,22 @@ const mapStateToProps = (state, ownProps) => {
   let messageBlock = { disabled: true }
 
   if (state.app.siteSettings.fields.alert && state.app.siteSettings.fields.alert.fields) {
+    let disabled = false
+    const position = typeof ownProps.body !== 'undefined' ? 'body' : 'footer'
     const messageType = state.app.siteSettings.fields.alert.sys.contentType.sys.id
-    let alwaysShowOnHomepage = messageType === 'alertDrugWarning'
-    let bodyMessage = ownProps.body && alwaysShowOnHomepage
-    let showPopup = (ownProps.path.pathname === '/' && !alwaysShowOnHomepage) || ownProps.path.pathname !== '/'
+    if (messageType === 'alertDrugWarning') {
+      disabled = ownProps.path.pathname === '/' && position === 'footer'
+    } else {
+      disabled = position === 'body'
+    }
 
     if (state.app.siteSettings.fields.alert.fields) {
       messageBlock = {
         id: state.app.siteSettings.fields.alert.sys.id,
         messageType: messageType,
         message: state.app.siteSettings.fields.alert.fields.alertMessage,
-        bodyMessage: bodyMessage,
-        showPopup: showPopup,
+        position: typeof ownProps.body !== 'undefined' ? 'body' : 'footer',
+        disabled: disabled,
         alertButtonLabel: false,
         alertButtonText: false,
         url: false,
