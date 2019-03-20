@@ -39,6 +39,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   if (featuredContentBlock &&
+    featuredContentBlock.fields &&
     featuredContentBlock.fields.featuredContentItems &&
     featuredContentBlock.fields.featuredContentItems.length > 0) {
     featuredNewsBlock = {
@@ -95,6 +96,7 @@ const mapStateToProps = (state, ownProps) => {
   // leaving this out of the markup until it can be styled
   // inspect 'commonDrugsBlock' var for the contents
   if (featuredDrugsBlock &&
+    featuredDrugsBlock.fields &&
     featuredDrugsBlock.fields.featuredContentItems &&
     featuredDrugsBlock.fields.featuredContentItems.length > 0) {
     commonDrugsBlock = {
