@@ -7,7 +7,7 @@ import Anchor from '../Anchor/component'
 import { ClientOnly } from '../ClientOnly/component'
 import { getCookie, setCookie } from '../../lib/cookie.js'
 
-export default class SatisfactionBar extends React.Component {
+export default class AlertSiteMessage extends React.Component {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
@@ -79,6 +79,6 @@ export default class SatisfactionBar extends React.Component {
   }
 }
 
-SatisfactionBar.defaultProps = {
+AlertSiteMessage.defaultProps = {
   delay: 30000
 }
