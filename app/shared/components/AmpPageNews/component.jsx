@@ -23,7 +23,7 @@ export default class AmpPageNews extends React.PureComponent {
         <Main>
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
-              {fieldIncludesVideo(this.props.fields.headerVideo) && <GridCol className='col-12'>
+              {fieldIncludesVideo(this.props.fields.headerVideo) && <GridCol className='col-12 list-offset'>
                 <AMPVideo className='video--header' {...this.props.fields.headerVideo.fields}/>
               </GridCol>}
               {(this.props.fields.image && !fieldIncludesVideo(this.props.fields.headerVideo)) && <GridCol className='col-12 list-offset'>
