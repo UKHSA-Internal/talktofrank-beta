@@ -14,3 +14,13 @@
 ## [0.1.3]
 ### Removed
 - Survey bar
+
+## [0.1.4]
+### Added
+- Related news articles
+- Site video support
+- Drug and site message warnings
+- Common drug block
+- Treatment centre maps
+
+

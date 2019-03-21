@@ -118,7 +118,7 @@
 - pipeline: "UAT deployment [PHE]"
   target_site_url: "https://staging.talktofrank.com"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "develop"
+  ref_name: "release/v0.1.4"
   ref_type: "BRANCH"
   always_from_scratch: true
   actions:

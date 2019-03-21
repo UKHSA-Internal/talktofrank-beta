@@ -108,7 +108,8 @@ const routes = [{
       exact: true,
       component: asyncPageContactSuccessContainer,
       loadData: () => [
-        fetchPage('feedback/success')
+        fetchPage('feedback/success'),
+        fetchSiteSettings()
       ]
     },
     {
@@ -116,7 +117,8 @@ const routes = [{
       exact: true,
       component: asyncPageContactSuccessContainer,
       loadData: () => [
-        fetchPage('contact/success')
+        fetchPage('contact/success'),
+        fetchSiteSettings()
       ]
     },
     {
