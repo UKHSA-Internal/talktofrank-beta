@@ -12,6 +12,7 @@ import Picture from '../Picture/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import { imageMap, fieldIncludesImages } from '../../utilities'
 import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 const Page = props => {
   const modifiers = {
@@ -30,7 +31,7 @@ const Page = props => {
         {props.fields.schemaDefinitions &&
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(props.fields.schemaDefinitions) }}/>
         }
-        <Accent>
+        <Accent modifier='wrapper--constant'>
           <Grid>
             {hasImage && <GridCol className='col-12 col-md-3'>
               <Picture {...imageMap(props.fields)} />
@@ -145,6 +146,9 @@ const Page = props => {
       </Main>
       <Footer />
       <GA/>
+      <SiteMessageContainer
+        path={props.location}
+      />
     </React.Fragment>
   )
 }

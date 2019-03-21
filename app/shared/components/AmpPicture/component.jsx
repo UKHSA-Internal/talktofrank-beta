@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import * as Amp from 'react-amphtml'
+import { fieldIncludesVideo } from '../../utilities'
 
 export default class AmpPicture extends React.PureComponent {
   componentDidMount () {
@@ -10,7 +11,7 @@ export default class AmpPicture extends React.PureComponent {
 
   getSizes (images) {
     // @joel @refactor @todo - remove this object.keys and make the images pre-sorted
-    return Object.keys(images).map(s => parseInt(s, 10)).sort((a, b) => b - a)
+    return Object.keys(images).map(s => parseInt(s, 10)).filter(s => !isNaN(s)).sort((a, b) => b - a)
   }
 
   getSources (sizes, images) {
@@ -50,6 +51,7 @@ export default class AmpPicture extends React.PureComponent {
           height='450'
           layout='responsive'>
         </Amp.AmpImg>
+        {fieldIncludesVideo(this.props.video) && <Play className='hidden--xs'/>}
       </div>
     )
   }

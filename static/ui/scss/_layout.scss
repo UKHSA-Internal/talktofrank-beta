@@ -32,8 +32,8 @@ $grid-gutter: 30px;
   max-width: 80rem;
 }
 
-%wrapper,
 .wrapper {
+  position: relative;
   @extend %constrain-narrow;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -50,6 +50,7 @@ $grid-gutter: 30px;
     padding-right: 0;
   }
 
+  &--inverted,
   &--tight {
     padding-left: 0;
     padding-right: 0;
@@ -88,4 +89,9 @@ main {
   margin-right: -1.5rem;
   position: relative;
   overflow: hidden;
+}
+
+// Temporary fix for TTF-1353
+.amp-video {
+  margin-bottom: 2rem;
 }

@@ -12,6 +12,7 @@ import Icon from '../Icon/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Collapsible from '../Collapsible/component.jsx'
 import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageContact extends React.PureComponent {
   render () {
@@ -114,6 +115,9 @@ export default class PageContact extends React.PureComponent {
         </Main>
         <Footer/>
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }

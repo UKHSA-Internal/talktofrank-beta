@@ -1,0 +1,78 @@
+// sass-lint:disable no-duplicate-properties
+.video {
+  min-width: 1px;
+  height: 1px;
+  position: relative;
+  max-width: 100%;
+  padding-top: 56.22%;
+  width: 100%;
+  border: 0;
+  background: $gray-200;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 5px,
+    $gray-200 5px,
+    $gray-200 10px
+  );
+
+  &--embedded {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  &--header {
+    margin-bottom: 1.5em;
+
+    @include media-breakpoint-up(md) {
+      margin-bottom: 3em;
+    }
+  }
+}
+// sass-lint:enable no-duplicate-properties
+
+.video iframe,
+.video object,
+.video embed {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // clip-path: inset(1px 1px);
+}
+
+.icon-play {
+  content: '';
+  height: 7rem;
+  width: 7rem;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  background: url('/ui/svg/play.svg');
+  background-size: cover;
+
+  &.icon--offset {
+    bottom: 100%;
+  }
+}
+
+.has-video {
+  max-height: 45rem;
+  max-width: 100%;
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  border-style: none;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 15%;
+  }
+
+  img {
+    display: inline;
+  }
+}

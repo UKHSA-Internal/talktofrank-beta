@@ -20,10 +20,10 @@ if (workbox) {
   // to pick up a react route when generating precache files
   workbox.precaching.precacheAndRoute([{
     'url': '/offline',
-    'revision': '20181129'
+    'revision': '201903131722'
   }, {
     'url': '/ui/svg/offline-large.svg',
-    'revision': '20181129'
+    'revision': '201903131722'
   }])
 
   workbox.routing.registerRoute(

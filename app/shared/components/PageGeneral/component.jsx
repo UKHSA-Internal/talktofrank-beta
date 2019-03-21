@@ -12,6 +12,7 @@ import Heading from '../Heading/component'
 import Svg from '../Svg/component'
 import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 const PageGeneral = props => {
   return (
@@ -54,6 +55,9 @@ const PageGeneral = props => {
       </Main>
       <Footer />
       <GA/>
+      <SiteMessageContainer
+        path={props.location}
+      />
     </React.Fragment>
   )
 }

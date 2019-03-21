@@ -218,6 +218,19 @@
   }
 }
 
+.btn--fixed {
+  position: absolute;
+  z-index: 1;
+  right: .5em;
+  top: .5em;
+
+  .has-hover & {
+    &:hover {
+      opacity: .5;
+    }
+  }
+}
+
 .button-group {
   &--static {
     position: absolute;

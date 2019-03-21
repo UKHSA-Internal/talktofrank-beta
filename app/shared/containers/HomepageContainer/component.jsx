@@ -1,10 +1,16 @@
 import { connect } from 'react-redux'
 import PageHome from '../../components/PageHome/component.jsx'
-import { imageMap, fieldIncludesImages } from '../../utilities'
+import { imageMap, fieldIncludesVideo } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
-  const { featuredContentBlock, featuredNewsItem, featuredDrugsBlock } = fields
+
+  const {
+    featuredContentBlock,
+    featuredNewsItem,
+    featuredDrugsBlock
+  } = fields
+
   let featuredNewsBlock = false
   let featuredItemBlock = false
   let commonDrugsBlock = false
@@ -18,12 +24,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   hero.images = imageMap(fields, 'heroImages')
-
   if (featuredNewsItem) {
     featuredItemBlock = {
       fields: {
         title: featuredNewsItem.fields.title,
-        slug: featuredNewsItem.fields.slug
+        slug: featuredNewsItem.fields.slug,
+        headerVideo: fieldIncludesVideo(featuredNewsItem.fields.headerVideo) || null
       },
       date: featuredNewsItem.date,
       dateFormatted: featuredNewsItem.dateFormatted
@@ -33,6 +39,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   if (featuredContentBlock &&
+    featuredContentBlock.fields &&
     featuredContentBlock.fields.featuredContentItems &&
     featuredContentBlock.fields.featuredContentItems.length > 0) {
     featuredNewsBlock = {
@@ -64,12 +71,16 @@ const mapStateToProps = (state, ownProps) => {
             text: item.fields.title,
             className: 'h4 card-title'
           },
-          linkLabel: 'Read more'
+          linkLabel: fieldIncludesVideo(item.fields.headerVideo) ? 'Watch now' : 'Read more'
         }
 
         featuredItem.images = imageMap(item.fields)
         if (featuredItem.images) {
           featuredItem.imageClass = 'card-img'
+        }
+
+        if (fieldIncludesVideo(item.fields.headerVideo)) {
+          featuredItem.headerVideo = item.fields.headerVideo.fields
         }
 
         // crudely setting 2nd item STICKY
@@ -85,6 +96,7 @@ const mapStateToProps = (state, ownProps) => {
   // leaving this out of the markup until it can be styled
   // inspect 'commonDrugsBlock' var for the contents
   if (featuredDrugsBlock &&
+    featuredDrugsBlock.fields &&
     featuredDrugsBlock.fields.featuredContentItems &&
     featuredDrugsBlock.fields.featuredContentItems.length > 0) {
     commonDrugsBlock = {
@@ -94,7 +106,7 @@ const mapStateToProps = (state, ownProps) => {
         url: '/drugs-a-z',
         className: 'h3'
       },
-      allDrugs: {
+      allnews: {
         type: 'h3',
         text: 'See full drugs A - Z',
         url: '/drugs-a-z',
@@ -108,9 +120,10 @@ const mapStateToProps = (state, ownProps) => {
           url: `/drug/${item.fields.slug}`,
           heading: {
             type: 'h3',
-            text: item.fields.drugName
+            text: item.fields.drugName,
+            className: 'h4 card-title'
           },
-          linkLabel: 'Read more'
+          linkLabel: null
         }
 
         featuredItem.images = imageMap(item.fields)
@@ -127,7 +140,12 @@ const mapStateToProps = (state, ownProps) => {
       })
   }
 
-  return { hero, featuredNewsBlock, featuredItemBlock, commonDrugsBlock }
+  return {
+    hero,
+    featuredNewsBlock,
+    featuredItemBlock,
+    commonDrugsBlock
+  }
 }
 
 export default connect(mapStateToProps)(PageHome)

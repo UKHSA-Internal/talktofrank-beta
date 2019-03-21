@@ -362,11 +362,19 @@ router.get('/news', (req, res, next) => {
     return next(error)
   }
 
-  const contentfulRequest = {
+  let contentfulRequest = {
     content_type: config.contentful.contentTypes.news,
     order: '-fields.originalPublishDate,-sys.createdAt',
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page
+  }
+
+  if (req.query.tags) {
+    contentfulRequest['fields.tags.sys.id[in]'] = req.query.tags
+  }
+
+  if (req.query.ignore) {
+    contentfulRequest['sys.id[nin]'] = req.query.ignore
   }
 
   let response = {
@@ -376,12 +384,6 @@ router.get('/news', (req, res, next) => {
   contentfulClient.getEntries(contentfulRequest)
     .then((contentfulResponse) => {
       let imageCount = 1
-      if (contentfulResponse.total === 0) {
-        let error = new Error()
-        error.message = `'news': Page not found`
-        error.status = 404
-        return next(error)
-      }
 
       // merge contentful assets and includes
       response.total = contentfulResponse.total
@@ -415,8 +417,8 @@ router.get('/news', (req, res, next) => {
 
         return v
       })
-      response.title = 'News'
 
+      response.title = 'News'
       res.send(response)
     })
     .catch(error => {
@@ -559,6 +561,7 @@ router.get('/treatment-centres', async (req, res, next) => {
     .then((contentfulResponse) => {
       response.results = resolveResponse(contentfulResponse)
       response.total = contentfulResponse.total
+
       response.results
         .map(responseItem => {
           responseItem.distance = haversineDistance(
@@ -616,12 +619,13 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
 
       // merge contentful assets and includes
       let response = resolveResponse(contentfulResponse)[0]
+
       Object.keys(response.fields)
         .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
         .map(fieldKey => {
           response.fields[fieldKey] = marked(response.fields[fieldKey])
         })
-
+      response.fields.key = config.googleAPI.places
       response.fields.timesSessions = replaceNewLine(response.fields.timesSessions, '<br />')
 
       // Set meta info
@@ -634,6 +638,36 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
       res.send(response)
     })
     .catch(error => next(error))
+})
+
+router.get('/settings/:slug', (req, res, next) => {
+  if (!req.params.slug) {
+    let error = new Error()
+    error.message = 'Page id not set'
+    error.status = 404
+    return next(error)
+  }
+
+  const slug = decodeURIComponent(req.params.slug.toLowerCase())
+  const contentfulRequest = {
+    content_type: 'siteSettings',
+    'fields.slug': slug === 'global' ? '<global>' : slug,
+    include: 10
+  }
+
+  contentfulClient.getEntries(contentfulRequest)
+    .then((contentfulResponse) => {
+      if (contentfulResponse.total === 0) {
+        let error = new Error()
+        error.message = `'${slug}': Settings page not found`
+        error.status = 404
+        return next(error)
+      }
+
+      let response = resolveResponse(contentfulResponse)[0]
+      res.send(response)
+    })
+    .catch(error => next(error.response))
 })
 
 /**

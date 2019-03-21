@@ -18,7 +18,7 @@ const PageOffline = () => {
   }
   return (
     <React.Fragment>
-      <Masthead path={'no-match'}/>
+      <Masthead path={'offline'}/>
       <Main>
         <Accent className='spacing-top--large' modifier='wrapper--constant'>
           <Grid>
@@ -40,7 +40,6 @@ const PageOffline = () => {
               <Heading type='h3' className='h5' text='Other ways to get in touch...'/>
               <p><Anchor className='link-text' href='tel:03001236600' label='Call FRANK on 0300 123 6600'>Call: 0300 123 6600</Anchor></p>
               <p><Anchor className='link-text' href='sms:82111' label='Text FRANK on 82111'>Text: 82111</Anchor></p>
-              <p><Anchor className='link-text' href='/contact' label='Send an email to FRANK'>Send an email</Anchor></p>
             </GridCol>
           </Grid>
         </Accent>

@@ -118,7 +118,7 @@
 - pipeline: "UAT deployment [PHE]"
   target_site_url: "https://staging.talktofrank.com"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "develop"
+  ref_name: "release/v0.1.4"
   ref_type: "BRANCH"
   always_from_scratch: true
   actions:
@@ -291,7 +291,7 @@
     integration_id: 43570
   - action: "Run preview deployment"
     type: "RUN_NEXT_PIPELINE"
-    wait: true
+    wait: false
     comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
     revision: "INHERIT"
     trigger_condition: "ALWAYS"

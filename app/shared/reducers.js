@@ -3,6 +3,11 @@ import * as actions from './actions'
 const initialState = {
   pageData: {},
   featuredBlockData: {},
+  relatedContent: {
+    list: [],
+    relatedContentReadyStatus: actions.REQUEST_RELATED_CONTENT_STATUS_INVALID
+  },
+  siteSettings: {},
   loading: false,
   error: false
 }
@@ -50,6 +55,37 @@ export function app (state = initialState, action) {
         loading: true
       })
     case actions.RECEIVE_FEATURED_BLOCK_ERROR:
+      return Object.assign({}, state, {
+        error: action.error,
+        loading: false
+      })
+    case actions.RECEIVE_SITE_SETTING:
+      return Object.assign({}, state, {
+        siteSettings: action.siteSettingData,
+        loading: false
+      })
+    case actions.REQUEST_SITE_SETTING:
+      return Object.assign({}, state, {
+        loading: true
+      })
+    case actions.RECEIVE_SITE_SETTING_ERROR:
+      return Object.assign({}, state, {
+        error: action.error,
+        loading: false
+      })
+    case actions.RECEIVE_RELATED_CONTENT:
+      return Object.assign({}, state, {
+        relatedContent: {
+          list: action.relatedContent.list,
+          relatedContentReadyStatus: actions.REQUEST_RELATED_CONTENT_STATUS_VALID
+        },
+        loading: false
+      })
+    case actions.REQUEST_RELATED_CONTENT:
+      return Object.assign({}, state, {
+        loading: true
+      })
+    case actions.RECEIVE_RELATED_CONTENT_ERROR:
       return Object.assign({}, state, {
         error: action.error,
         loading: false

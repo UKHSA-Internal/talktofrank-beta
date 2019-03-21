@@ -12,7 +12,9 @@ import GridCol from '../GridCol/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Form from '../Form/component.jsx'
 import Icon from '../Icon/component.jsx'
+import WarningBar from '../AlertWarningBar/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component.jsx'
 
 export default class PageHome extends React.PureComponent {
   handleSearchSubmit () {
@@ -34,34 +36,44 @@ export default class PageHome extends React.PureComponent {
     return (
       <React.Fragment>
         <Masthead path={this.props.location}/>
-        <Hero {...this.props.hero}/>
-        <Accent className='accent--muted' modifier='wrapper--constant constrain'>
-          <Form role='search' className='form--search'>
-            <FormGroupAutocomplete
-             button='true'
-             id='homepage-large-search'
-             className='react-autosuggest__suggestions-container--homepage'
-             label='Search for any drug…'
-             placeholder='Enter a drug (e.g. Mandy)'
-             ref={input => { this.formAutocomplete = input }}
-             />
-             <Button className='btn--flat btn--flat-right submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
-          </Form>
-        </Accent>
         <Main>
+          <Hero {...this.props.hero}/>
+          <Accent className='accent--muted' modifier='wrapper--constant'>
+            <SiteMessageContainer
+              path={this.props.location}
+              body={true}
+            />
+            <Form role='search' className='form--search constrain'>
+              <FormGroupAutocomplete
+               button='true'
+               id='homepage-large-search'
+               className='react-autosuggest__suggestions-container--homepage'
+               label='Search for any drug…'
+               placeholder='Enter a drug (e.g. Mandy)'
+               ref={input => { this.formAutocomplete = input }}
+               />
+               <Button className='btn--flat btn--flat-right submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
+            </Form>
+          </Accent>
           {this.props.featuredItemBlock &&
             <section className='wrapper spacing-top--large'>
               <Grid>
-                <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset'>
+                <GridCol className='col-12 col-sm-10 offset-sm-1 list-offset list-offset--single'>
                   <Article {...this.props.featuredItemBlock}/>
                 </GridCol>
               </Grid>
-            </section>
-          }
-          {this.props.featuredNewsBlock && <section className='wrapper wrapper--mid'><CardDeck {...this.props.featuredNewsBlock} className='spacing-top--tight'/></section>}
+            </section>}
+          {this.props.featuredNewsBlock && <section className='wrapper spacing--large'><CardDeck {...this.props.featuredNewsBlock} className='spacing-top--tight'/></section>}
+          {this.props.commonDrugsBlock &&
+            <Accent className='accent--muted'>
+              <CardDeck {...this.props.commonDrugsBlock} className='spacing-top--tight card-deck--responsive'/>
+            </Accent>}
         </Main>
         <Footer />
         <GA/>
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }

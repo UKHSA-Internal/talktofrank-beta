@@ -1,5 +1,5 @@
 import React from 'react'
-import BlockFeaturedContent from '../../containers/BlockFeaturedContentContainer/component'
+import BlockAdditionalNewsContentContainer from '../../containers/BlockAdditionalNewsContentContainer/component'
 import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Heading from '../Heading/component'
@@ -12,9 +12,12 @@ import Longform from '../Longform/component'
 import Article from '../Article/component'
 import Time from '../Time/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
+import Video from '../Video/component.jsx'
 // @todo refactor all contentful "factory" stuffs to api
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import { fieldIncludesVideo } from '../../utilities'
 
 export default class PageNews extends React.PureComponent {
   render () {
@@ -24,10 +27,13 @@ export default class PageNews extends React.PureComponent {
         <Main>
           <Accent className='accent--shallow spacing-top--single' modifier='wrapper--constant'>
             <Grid>
-              {this.props.fields.image && <GridCol className='col-12 list-offset'>
+              {fieldIncludesVideo(this.props.fields.headerVideo) && <GridCol className='col-12'>
+                <Video className='video--header' {...this.props.fields.headerVideo.fields}/>
+              </GridCol>}
+              {(this.props.fields.image && !fieldIncludesVideo(this.props.fields.headerVideo)) && <GridCol className='col-12 list-offset'>
                 <Article {...this.props}/>
               </GridCol>}
-              {!this.props.fields.image && <GridCol className='col-12 col-sm-8 offset-md-2'>
+              {(!this.props.fields.image || fieldIncludesVideo(this.props.fields.headerVideo)) && <GridCol className='col-12 col-sm-8 offset-md-2'>
                 {this.props.date && <Time time={this.props.dateFormatted} dateTime={this.props.date}/>}
                 <Heading type='h1' text={this.props.fields.title} className='h3 spacing-bottom--single'/>
               </GridCol>}
@@ -45,10 +51,13 @@ export default class PageNews extends React.PureComponent {
               </GridCol>
             </Grid>
           </Accent>
-          <BlockFeaturedContent />
+          <BlockAdditionalNewsContentContainer />
         </Main>
         <Footer />
         <GA />
+        <SiteMessageContainer
+          path={this.props.location}
+        />
       </React.Fragment>
     )
   }

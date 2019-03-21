@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fieldIncludesImages, imageMap } from '../../utilities'
+import { fieldIncludesVideo, imageMap } from '../../utilities'
 
 import BlockFeaturedContent from '../../components/BlockFeaturedContent/component.jsx'
 
@@ -39,12 +39,16 @@ const mapStateToProps = (state, ownProps) => {
             text: item.fields.title,
             className: 'h4 card-title'
           },
-          linkLabel: 'Read more'
+          linkLabel: fieldIncludesVideo(item.fields.headerVideo) ? 'Watch now' : 'Read more'
         }
 
         featuredContentItem.images = imageMap(item.fields)
         if (featuredContentItem.images) {
           featuredContentItem.imageClass = 'card-img'
+        }
+
+        if (fieldIncludesVideo(item.fields.headerVideo)) {
+          featuredContentItem.headerVideo = item.fields.headerVideo.fields
         }
 
         // crudely setting 2nd item STICKY

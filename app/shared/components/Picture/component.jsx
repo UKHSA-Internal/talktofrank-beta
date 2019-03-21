@@ -1,4 +1,6 @@
 import React from 'react'
+import Play from '../Play/component.jsx'
+import { fieldIncludesVideo } from '../../utilities'
 
 export default class Picture extends React.PureComponent {
   componentDidMount () {
@@ -8,7 +10,7 @@ export default class Picture extends React.PureComponent {
 
   getSizes (images) {
     // @joel @refactor @todo - remove this object.keys and make the images pre-sorted
-    return Object.keys(images).map(s => parseInt(s, 10)).sort((a, b) => b - a)
+    return Object.keys(images).map(s => parseInt(s, 10)).filter(s => !isNaN(s)).sort((a, b) => b - a)
   }
 
   getSources (sizes, images) {
@@ -34,13 +36,12 @@ export default class Picture extends React.PureComponent {
   render () {
     let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
     let classes = `image ${this.props.className || ''}`
-
     smallestImageSrc += '?fm=jpg&q=70'
-
     return (
       <picture className={classes}>
         {sources}
-        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''}/>
+        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''} role='presentation'/>
+        {fieldIncludesVideo(this.props.video) && <Play className='hidden--xs'/>}
       </picture>
     )
   }

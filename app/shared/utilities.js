@@ -84,6 +84,15 @@ export function exists (obj, key) {
   })
 }
 
+export const fieldIncludesVideo = (videoObj) => {
+  if (videoObj && videoObj.hasOwnProperty('embedUrl')) {
+    return true
+  } else if (videoObj && videoObj.hasOwnProperty('fields') && videoObj.fields.embedUrl) {
+    return true
+  }
+  return false
+}
+
 export function fieldIncludesImages(imageObj) {
   if (!imageObj.fields) {
     return false

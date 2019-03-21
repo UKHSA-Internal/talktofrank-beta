@@ -14,6 +14,7 @@ import Divider from '../Divider/component'
 import Svg from '../Svg/component'
 import { scrollTo } from '../../utilities'
 import Spinner from '../Spinner/component.jsx'
+import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
@@ -127,6 +128,9 @@ export default class PageSupportList extends React.PureComponent {
         </Main>
         <Footer/>
         <GA/>
+        <SiteMessageContainer
+          path={location}
+        />
       </React.Fragment>
     )
   }

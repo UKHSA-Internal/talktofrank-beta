@@ -14,6 +14,17 @@
     border: 0;
     background-color: transparent;
   }
+
+  .icon-play {
+    @include media-breakpoint-up(sm) {
+      height: 5rem;
+      width: 5rem;
+    }
+
+    &.hidden--xs {
+      display: block !important;
+    }
+  }
 }
 
 .card-body {
@@ -24,6 +35,8 @@
 }
 
 .card__link {
+  min-height: 1px;
+
   .has-hover & {
     &:hover,
     &:active {
@@ -93,6 +106,7 @@
     margin-top: 0;
     padding-bottom: 2rem;
     padding-top: 2rem;
+    min-height: 1px;
 
     &:first-of-type {
       padding-top: 0;
@@ -114,6 +128,36 @@
       margin-bottom: 0; // Override the default
       margin-left: $card-deck-margin;
       padding: 0;
+      max-width: 30.6%;
+    }
+  }
+
+  &--responsive {
+    @media (min-width: 450px)  {
+      flex-flow: row wrap;
+    }
+
+    .card {
+      min-width: 100%;
+
+      @media (min-width: 450px)  {
+        display: flex;
+        flex: 1 0 0%;
+        flex-direction: column;
+        min-width: 50%;
+        max-width: 50%;
+        padding: 0 1rem;
+        margin: 0;
+      }
+
+      @include media-breakpoint-up(sm) {
+
+      }
+
+      @include media-breakpoint-up(md) {
+        min-width: 25%;
+        max-width: 25%;
+      }
     }
   }
 

@@ -7,7 +7,9 @@ import {
   fetchNewsList,
   fetchSearchTerm,
   fetchSupportList,
-  fetchFeaturedBlock
+  fetchFeaturedBlock,
+  fetchRelatedContent,
+  fetchSiteSettings
 } from './actions'
 
 /**
@@ -20,8 +22,6 @@ import AmpHTMLWrapper from './components/AmpHTMLWrapper/component.jsx'
  * These will be lazy-loaded on the client
  */
 /* eslint-disable */
-const asyncPageNotFound = loadable(() => import(/*webpackChunkName: 'pagenotfound'*/'./components/PageNotFound/component.jsx'))
-const asyncPageOffline = loadable(() => import(/*webpackChunkName: 'pageoffline'*/'./components/PageOffline/component.jsx'))
 const asyncHome = loadable(() => import(/*webpackChunkName: 'homepage'*/'./containers/HomepageContainer/component.jsx'))
 const asyncPageDrug = loadable(() => import(/*webpackChunkName: 'drug'*/'./containers/PageDrugContainer/component.jsx'))
 const asyncPageGeneral = loadable(() => import(/*webpackChunkName: 'page'*/'./containers/PageGeneralContainer/component.jsx'))
@@ -32,15 +32,18 @@ const asyncPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*
 const ampPageNewsContainer = loadable(() => import(/*webpackChunkName: 'news'*/'./containers/AmpPageNewsContainer/component.jsx'))
 const asyncPageContactForm = loadable(() => import(/*webpackChunkName: 'contact-form'*/'./containers/PageContactFormContainer/component.jsx'))
 const asyncPageFeedbackForm = loadable(() => import(/*webpackChunkName: 'feedback-form'*/'./containers/PageFeedbackFormContainer/component.jsx'))
-const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./components/PageContact/component.jsx'))
-const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./components/PageSupportForm/component.jsx')) // need to swap this out with an actual container
-const asyncContactFormPage = loadable(() => import(/*webpackChunkName: 'contact-form-page'*/'./components/PageContactForm/component.jsx'))
 const asyncGetHelpListContainer = loadable(() => import(/*webpackChunkName: 'get-help-list'*/'./containers/PageGetHelpListContainer/component.jsx'))
 const asyncGetHelpPageContainer = loadable(() => import(/*webpackChunkName: 'get-help-page'*/'./containers/PageGetHelpPageContainer/component.jsx'))
 const asyncPageSupportListContainer = loadable(() => import(/*webpackChunkName: 'support-centre-list'*/'./containers/PageSupportListContainer/component.jsx'))
 const asyncPageSupportContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageSupportContainer/component.jsx'))
 const asyncPageContactSuccessContainer = loadable(() => import(/*webpackChunkName: 'support-centre'*/'./containers/PageContactSuccessContainer/component.jsx'))
-const asyncPageLiveChat = loadable(() => import(/*webpackChunkName: 'live-chat'*/'./components/PageLiveChat/component.jsx'))
+const asyncPageLiveChat = loadable(() => import(/*webpackChunkName: 'live-chat'*/'./containers/PageLiveChatContainer/component.jsx'))
+const asyncContactFormPage = loadable(() => import(/*webpackChunkName: 'contact-form-page'*/'./containers/PageContactFormPageContainer/component.jsx'))
+const asyncPageSupportFormContainer = loadable(() => import(/*webpackChunkName: 'support-centre-form-page'*/'./containers/PageSupportFormContainer/component.jsx'))
+const asyncPageNotFound = loadable(() => import(/*webpackChunkName: 'pagenotfound'*/'./containers/PageNotFoundContainer/component.jsx'))
+const asyncContactPage = loadable(() => import(/*webpackChunkName: 'contact-page'*/'./containers/PageContactContainer/component.jsx'))
+const asyncPageOffline = loadable(() => import(/*webpackChunkName: 'pageoffline'*/'./components/PageOffline/component.jsx'))
+
 /* eslint-enable */
 
 const routes = [{
@@ -51,7 +54,8 @@ const routes = [{
       exact: true,
       component: asyncHome,
       loadData: () => [
-        fetchPage('homepage')
+        fetchPage('homepage'),
+        fetchSiteSettings()
       ]
     },
     {
@@ -59,7 +63,8 @@ const routes = [{
       exact: true,
       component: asyncPageDrugsAZContainer,
       loadData: () => [
-        fetchDrugList()
+        fetchDrugList(),
+        fetchSiteSettings()
       ]
     },
     {
@@ -68,20 +73,25 @@ const routes = [{
       component: asyncPageDrug,
       loadData: ({params}) => [
         fetchPage(params.drugName, 'drugs'),
-        fetchFeaturedBlock('featuredNewsBlock')
+        fetchFeaturedBlock('featuredNewsBlock'),
+        fetchSiteSettings()
       ]
     },
     {
       path: '/livechat',
       exact: true,
-      component: asyncPageLiveChat
+      component: asyncPageLiveChat,
+      loadData: () => [
+        fetchSiteSettings()
+      ]
     },
     {
       path: '/contact',
       exact: true,
       component: asyncPageContactForm,
       loadData: () => [
-        fetchPage('contact')
+        fetchPage('contact'),
+        fetchSiteSettings()
       ]
     },
     {
@@ -89,7 +99,8 @@ const routes = [{
       exact: true,
       component: asyncPageFeedbackForm,
       loadData: () => [
-        fetchPage('feedback')
+        fetchPage('feedback'),
+        fetchSiteSettings()
       ]
     },
     {
@@ -97,7 +108,8 @@ const routes = [{
       exact: true,
       component: asyncPageContactSuccessContainer,
       loadData: () => [
-        fetchPage('feedback/success')
+        fetchPage('feedback/success'),
+        fetchSiteSettings()
       ]
     },
     {
@@ -105,20 +117,25 @@ const routes = [{
       exact: true,
       component: asyncPageContactSuccessContainer,
       loadData: () => [
-        fetchPage('contact/success')
+        fetchPage('contact/success'),
+        fetchSiteSettings()
       ]
     },
     {
       path: '/search',
       exact: true,
-      component: asyncPageSearch
+      component: asyncPageSearch,
+      loadData: () => [
+        fetchSiteSettings()
+      ]
     },
     {
       path: '/search/:term',
       exact: true,
       component: asyncPageSearch,
       loadData: ({params}) => [
-        fetchSearchTerm(params.term, 0)
+        fetchSearchTerm(params.term, 0),
+        fetchSiteSettings()
       ]
     },
     {
@@ -126,7 +143,8 @@ const routes = [{
       exact: true,
       component: asyncPageSearch,
       loadData: ({params}) => [
-        fetchSearchTerm(params.term, params.number - 1)
+        fetchSearchTerm(params.term, params.number - 1),
+        fetchSiteSettings()
       ]
     },
     {
@@ -134,7 +152,8 @@ const routes = [{
       exact: true,
       component: asyncPageNewsListContainer,
       loadData: () => [
-        fetchNewsList()
+        fetchNewsList(),
+        fetchSiteSettings()
       ]
     },
     {
@@ -142,7 +161,8 @@ const routes = [{
       exact: true,
       component: asyncPageNewsListContainer,
       loadData: ({params}) => [
-        fetchNewsList(params.number - 1)
+        fetchNewsList(params.number - 1),
+        fetchSiteSettings()
       ]
     },
     {
@@ -151,20 +171,25 @@ const routes = [{
       component: asyncPageNewsContainer,
       loadData: ({params}) => [
         fetchPage(params.slug, 'news'),
-        fetchFeaturedBlock('featuredNewsBlock')
+        fetchFeaturedBlock('featuredNewsBlock'),
+        fetchSiteSettings()
       ]
     },
     {
       path: '/get-help/find-support-near-you',
       exact: true,
-      component: asyncPageSupportFormContainer
+      component: asyncPageSupportFormContainer,
+      loadData: () => [
+        fetchSiteSettings()
+      ]
     },
     {
       path: '/treatment-centre',
       exact: true,
       component: asyncPageSupportListContainer,
       loadData: ({params, query}) => [
-        fetchSupportList(0, query)
+        fetchSupportList(0, query),
+        fetchSiteSettings()
       ]
     },
     {
@@ -172,7 +197,8 @@ const routes = [{
       exact: true,
       component: asyncPageSupportListContainer,
       loadData: ({params, query}) => [
-        fetchSupportList(params.number - 1, query)
+        fetchSupportList(params.number - 1, query),
+        fetchSiteSettings()
       ]
     },
     {
@@ -180,7 +206,8 @@ const routes = [{
       exact: true,
       component: asyncPageSupportContainer,
       loadData: ({params}) => [
-        fetchPage(params.slug, 'treatment-centres')
+        fetchPage(params.slug, 'treatment-centres'),
+        fetchSiteSettings()
       ]
     },
     {
@@ -188,30 +215,41 @@ const routes = [{
       exact: true,
       component: asyncPageNewsContainer,
       loadData: ({params}) => [
-        fetchPage(params.slug, 'news')
+        fetchPage(params.slug, 'news'),
+        fetchSiteSettings()
       ]
     },
     {
       path: '/contact-frank',
       exact: true,
-      component: asyncContactPage
+      component: asyncContactPage,
+      loadData: () => [
+        fetchSiteSettings()
+      ]
     },
     {
       path: '/contact',
       exact: true,
-      component: asyncContactFormPage
+      component: asyncContactFormPage,
+      loadData: () => [
+        fetchSiteSettings()
+      ]
     },
     {
       path: '/get-help',
       exact: true,
-      component: asyncGetHelpListContainer
+      component: asyncGetHelpListContainer,
+      loadData: () => [
+        fetchSiteSettings()
+      ]
     },
     {
       path: '/get-help/:slug',
       exact: true,
       component: asyncGetHelpPageContainer,
       loadData: ({params}) => [
-        fetchPage(['get-help', params.slug].join('/'))
+        fetchPage(['get-help', params.slug].join('/')),
+        fetchSiteSettings()
       ]
     },
     {
@@ -224,7 +262,8 @@ const routes = [{
       exact: true,
       component: asyncPageGeneral,
       loadData: ({params}) => [
-        fetchPage(params.slug)
+        fetchPage(params.slug),
+        fetchSiteSettings()
       ]
     },
     {
@@ -232,7 +271,8 @@ const routes = [{
       exact: true,
       component: asyncPageGeneral,
       loadData: ({params}) => [
-        fetchPage([params.slug, params.slug1].join('/'))
+        fetchPage([params.slug, params.slug1].join('/')),
+        fetchSiteSettings()
       ]
     },
     {
@@ -240,11 +280,15 @@ const routes = [{
       exact: true,
       component: asyncPageGeneral,
       loadData: ({params}) => [
-        fetchPage([params.slug, params.slug1, params.slug2].join('/'))
+        fetchPage([params.slug, params.slug1, params.slug2].join('/')),
+        fetchSiteSettings()
       ]
     },
     {
-      component: asyncPageNotFound
+      component: asyncPageNotFound,
+      loadData: () => [
+        fetchSiteSettings()
+      ]
     }
   ]
 }]
@@ -258,7 +302,8 @@ const ampRoutes = [{
       component: ampPageNewsContainer,
       loadData: ({params}) => [
         fetchPage(params.slug, 'news'),
-        fetchFeaturedBlock('featuredNewsBlock')
+        fetchFeaturedBlock('featuredNewsBlock'),
+        fetchSiteSettings()
       ]
     }
   ]
