@@ -90,3 +90,8 @@ main {
   position: relative;
   overflow: hidden;
 }
+
+// Temporary fix for TTF-1353
+.amp-video {
+  margin-bottom: 2rem;
+}
