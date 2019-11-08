@@ -1,6 +1,6 @@
 buildConfig: production
 api: https://www.talktofrank.com
-ga: UA-129232-18 # @joel - update this as this is the test account
+ga: UA-129232-18
 contentful:
   contentHost: 'cdn.contentful.com'
   contentSpace: 'ip74mqmfgvqf'
