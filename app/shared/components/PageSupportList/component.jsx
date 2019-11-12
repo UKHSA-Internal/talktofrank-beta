@@ -95,13 +95,13 @@ export default class PageSupportList extends React.PureComponent {
                     let phone = item.fields.telephone1 ? item.fields.telephone1 : null
                     let phoneRaw = phone !== null ? phone.replace(/\D/g, '') : null
                     let address = item.fields.addressStatus !== false ? [
-                        item.fields.address1,
-                        item.fields.address2,
-                        item.fields.address3,
-                        item.fields.town,
-                        item.fields.county,
-                        item.fields.postCode
-                      ].filter(Boolean).join(', ') : null
+                      item.fields.address1,
+                      item.fields.address2,
+                      item.fields.address3,
+                      item.fields.town,
+                      item.fields.county,
+                      item.fields.postCode
+                    ].filter(Boolean).join(', ') : null
 
                     return <ArticleSupport
                       text={item.fields.name}
