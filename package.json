@@ -49,7 +49,7 @@
     "@types/node": "^10.12.0",
     "async-series": "0.0.1",
     "autoprefixer": "^6.7.6",
-    "axios": "^0.15.3",
+    "axios": ">=0.18.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.3",
     "babel-plugin-add-module-exports": "^1.0.0",
