@@ -111,33 +111,38 @@ export function fieldIncludesImages(imageObj) {
 
 // not great - needs a bit more flexibility
 // it mirrors the cms but would be nice to
-// have the freedom to add more breakoints
+// have the freedom to add more breakpoints
 export function imageMap (obj, field = 'image') {
   if (!obj[field] || !fieldIncludesImages(obj[field])) {
     return false
   }
 
-  let imageObj = {}
+  let imageObj = {
+    title: '',
+    images: {}
+  }
+
   let path = obj[field].fields
+  imageObj['title'] = path.title
 
   if (path.imageHuge && path.imageHuge.fields) {
-    imageObj[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
+    imageObj.images[path.hugeBreakpoint] = path.imageHuge.fields.file.url || 1200
   }
 
   if (path.imageVeryLarge && path.imageVeryLarge.fields) {
-    imageObj[path.veryLargeBreakpoint] = path.imageVeryLarge.fields.file.url || 950
+    imageObj.images[path.veryLargeBreakpoint] = path.imageVeryLarge.fields.file.url || 950
   }
 
   if (path.imageLarge && path.imageLarge.fields) {
-    imageObj[path.largeBreakpoint] = path.imageLarge.fields.file.url || 800
+    imageObj.images[path.largeBreakpoint] = path.imageLarge.fields.file.url || 800
   }
 
   if (path.imageMedium && path.imageMedium.fields) {
-    imageObj[path.mediumBreakpoint] = path.imageMedium.fields.file.url || 600
+    imageObj.images[path.mediumBreakpoint] = path.imageMedium.fields.file.url || 600
   }
 
   if (path.imageSmall && path.imageSmall.fields) {
-    imageObj[path.smallBreakpoint] = path.imageSmall.fields.file.url || 400
+    imageObj.images[path.smallBreakpoint] = path.imageSmall.fields.file.url || 400
   }
   return imageObj
 }

@@ -23,24 +23,28 @@ export default class Picture extends React.PureComponent {
   }
 
   getPictureSettings (images) {
+    let alt = images.title
+    images = images.images
     let sizes = this.getSizes(images)
     let smallestImageSrc = this.getSmallestImage(sizes, images)
     let sources = this.getSources(sizes, images)
 
     return {
       smallestImageSrc: smallestImageSrc,
-      sources: sources
+      sources: sources,
+      alt: alt
     }
   }
 
   render () {
-    let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
+    let { sources, smallestImageSrc, alt } = this.getPictureSettings(this.props)
     let classes = `image ${this.props.className || ''}`
+
     smallestImageSrc += '?fm=jpg&q=70'
     return (
       <picture className={classes}>
         {sources}
-        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={this.props.alt || ''} role='presentation'/>
+        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={alt}/>
         {fieldIncludesVideo(this.props.video) && <Play className='hidden--xs'/>}
       </picture>
     )
