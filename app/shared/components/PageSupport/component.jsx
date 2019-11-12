@@ -40,6 +40,7 @@ export default class PageSupport extends React.PureComponent {
       referralMethod,
       timesSessions,
       catchmentArea,
+      addressStatus,
       notes
     } = this.props.pageData.fields
     const src = `https://maps.googleapis.com/maps/api/js?key=${key}`
@@ -57,9 +58,9 @@ export default class PageSupport extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 offset-md-1 col-sm-7 col-md-6'>
-                <ClientOnly>
+                {addressStatus !== false && <ClientOnly>
                   <GMap name={name} location={location} address={plot} />
-                </ClientOnly>
+                </ClientOnly>}
                 <Heading className='h4' text='About this service' />
                 <Longform text={serviceInfo}/>
                 {notes && <Longform text={notes}/>}
@@ -72,10 +73,13 @@ export default class PageSupport extends React.PureComponent {
                 <Divider className='hr--muted hr--large hidden--sm-up'/>
               </GridCol>
               <GridCol className='col-12 col-sm-4 col-md-3 spacing-bottom--single sm-spacing-bottom--large offset-md-1'>
-                <Heading className='h4' text='Address' />
-                <Longform text={address} className='spacing-bottom--single'/>
-                <a target='_blank' href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on Google Maps</span> <Icon {...icon}/></a>
-                <Divider className='hr--muted hr--large'/>
+                {addressStatus !== false && <>
+                  <Heading className='h4' text='Address' />
+                  <Longform text={address} className='spacing-bottom--single'/>
+                  <a target='_blank' href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`} aria-label={`View ${name} on Google maps`} className='link has-icon spacing-bottom--single sm-spacing-bottom--large'><span className='link__text link__text--right'>View on Google Maps</span> <Icon {...icon}/></a>
+                  <Divider className='hr--muted hr--large'/>
+                  </>
+                }
                 <Heading className='h4' text='Opening times' />
                 <Heading type='p' text={timesSessions} />
                 <Divider className='hr--muted hr--large'/>
