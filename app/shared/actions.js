@@ -220,7 +220,7 @@ export function fetchSupportList (page = 0, {location, serviceType}) {
 
   return dispatch => {
     dispatch(requestPage())
-    let lookupUrl = apiHost + '/api/v1/treatment-centres' + queryString
+    let lookupUrl = apiHost + '/api/v1/treatment-centres-lookup' + queryString
     return axios.get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))

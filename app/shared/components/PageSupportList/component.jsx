@@ -77,7 +77,8 @@ export default class PageSupportList extends React.PureComponent {
 
   render () {
     const { loading, error } = this.props
-    const { results, location, total, pageNumber } = this.props.pageData
+    const { results, location, total, pageNumber, localAuthorities } = this.props.pageData
+    console.log(this.props.pageData)
     return (
       <React.Fragment>
         <Masthead/>
@@ -90,6 +91,16 @@ export default class PageSupportList extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 col-sm-8 offset-sm-2'>
+                 { localAuthorities.length &&
+                    <div>
+                      <Heading type='h5' text={`Showing results for local authorities` } />
+                      <ul className='list-unstyled'>
+                        {localAuthorities.map(item => (
+                          <li>{item.local_authority_name}</li>
+                        ))}
+                      </ul>
+                    </div>
+                 }
                  <ul className='list-unstyled'>
                   {results && results.map((item, i) => {
                     let phone = item.fields.telephone1 ? item.fields.telephone1 : null

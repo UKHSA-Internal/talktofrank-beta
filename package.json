@@ -64,7 +64,7 @@
     "chrome-launcher": "^0.10.5",
     "classnames": "^2.2.6",
     "contentful": "^7.0.4",
-    "contentful-cli": "^0.20.0",
+    "contentful-cli": "^=0.26.5",
     "contentful-resolve-response": "^1.1.4",
     "contentful-text-search": "git+https://github.com/cxpartners/contentful-text-search.git#develop",
     "cucumber": "^5.1.0",
@@ -142,7 +142,8 @@
     "webpack": "^4.20.2",
     "workbox-cli": "^3.6.2",
     "workbox-webpack-plugin": "^3.6.3",
-    "yaml-import": "^0.2.3"
+    "yaml-import": "^0.2.3",
+    "x-ray": "^2.3.4"
   },
   "dependencies": {}
 }

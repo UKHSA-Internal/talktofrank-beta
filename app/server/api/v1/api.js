@@ -486,6 +486,106 @@ router.get('/news/:slug', (req, res, next) => {
     .catch(error => next(error.response))
 })
 
+
+router.get('/treatment-centres-lookup', async (req, res, next) => {
+
+  if (!req.query.page ||
+    !req.query.pageSize ||
+    !req.query.location) {
+    let error = new Error()
+    error.message = 'No pagination options or location provided'
+    error.status = 500
+    return next(error)
+  }
+
+  let results = []
+  let localAuthorities = []
+  let exactMatches = []
+  let locationValue = removeTags(req.query.location)
+  locationValue = locationValue.toLowerCase()
+    .split(' ')
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ')
+  const postcodeValue = locationValue.replace(' ', '')
+  let queryUrl = 'https://opendata.camden.gov.uk/resource/tr8t-gqz7.json?$limit=1000&&$group=local_authority_name,county_name,region_name,ward_name&$select=local_authority_name,county_name,region_name,ward_name&$where='
+
+  try {
+    if (postcodeValue.match(/^(.*)(\d)/g)) {
+      let postcode = postcodeValue.replace(/^(.*)(\d)/, "$1 $2").toUpperCase()
+      queryUrl += `postcode_3='${postcode}' OR postcode_2='${postcode}' OR postcode_1='${postcode}'`
+    } else {
+      queryUrl += `ward_name LIKE '%25${locationValue}%25' OR local_authority_name LIKE '%25${locationValue}%25' OR region_name LIKE '%25${locationValue}%25'`
+    }
+
+    const response = await axios.get(queryUrl, {headers: {"X-App-Token":'UrBb79PaYZdry71aLXMtHy1YX'}})
+    results = response.data
+
+    //
+    results
+      .filter(item => item.local_authority_name.toLowerCase() === locationValue.toLowerCase() || item.ward_name.toLowerCase() === locationValue.toLowerCase() || item.region_name.toLowerCase() === locationValue.toLowerCase())
+      .map(item => exactMatches.push(item))
+
+    const array = exactMatches.length ? exactMatches : results
+    localAuthorities = array
+      .filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj['local_authority_name']).indexOf(obj['local_authority_name']) === pos
+      })
+      .filter(item => item.region_name.indexOf('Scotland') === -1)
+
+
+    let contentfulFilter = [...new Set(localAuthorities.map(item => item.local_authority_name))];
+
+    const contentfulRequest = {
+      content_type: config.contentful.contentTypes.treatmentCentre,
+      limit: req.query.pageSize,
+      skip: req.query.pageSize * req.query.page,
+      'fields.localAuthority[in]': contentfulFilter.join(',')
+    }
+
+    let apiResponse = {
+      location: locationValue,
+      results: [],
+      total: 0
+    }
+
+    contentfulClient.getEntries(contentfulRequest)
+      .then((contentfulResponse) => {
+        apiResponse.results = resolveResponse(contentfulResponse)
+        apiResponse.total = contentfulResponse.total
+
+        apiResponse.results
+          .map(responseItem => {
+            responseItem.distance = 10
+            responseItem.fields.summary = truncate(removeMarkdown(responseItem.fields.serviceInfo), {
+              'length': 100
+            })
+            Object.keys(responseItem.fields)
+              .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
+              .map(fieldKey => {
+                responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
+              })
+            apiResponse.results.sort((a, b) => parseFloat(a.distance) > parseFloat(b.distance))
+          })
+
+        // Set meta info
+        apiResponse.head = {
+          title: `Results ordered by nearest to "${locationValue}"`
+        }
+
+        apiResponse.localAuthorities = localAuthorities
+
+        res.send(apiResponse)
+      })
+      .catch(error => next(error))
+
+  } catch (e) {
+    console.log(e)
+  }
+
+//   return res.send({results: localAuthorities})
+
+})
+
 /**
  * treatment centres
  */
