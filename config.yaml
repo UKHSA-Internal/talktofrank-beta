@@ -34,6 +34,9 @@ pagination:
 googleAPI:
   places: 'AIzaSyCD_SzOCkmx8DEfCwUsqSdO3gOHPvsDQQ8'
 
+opendataCamden:
+  token: ''
+
 email:
   transport: etherealEmail
 

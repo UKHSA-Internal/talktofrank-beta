@@ -16,6 +16,9 @@ sentry:
 googleAPI:
   places: !!import/single '../config.google.yaml'
 
+opendataCamden:
+  token: !!import/single '../config.opendatacamden.yaml'
+
 email:
   transport: mailgun
 

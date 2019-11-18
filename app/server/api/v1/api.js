@@ -486,9 +486,7 @@ router.get('/news/:slug', (req, res, next) => {
     .catch(error => next(error.response))
 })
 
-
 router.get('/treatment-centres-lookup', async (req, res, next) => {
-
   if (!req.query.page ||
     !req.query.pageSize ||
     !req.query.location) {
@@ -498,6 +496,7 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
     return next(error)
   }
 
+  // Lookup based on https://opendata.camden.gov.uk/Maps/National-Statistics-Postcode-Lookup-UK/tr8t-gqz7
   let results = []
   let localAuthorities = []
   let exactMatches = []
@@ -511,16 +510,15 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
 
   try {
     if (postcodeValue.match(/^(.*)(\d)/g)) {
-      let postcode = postcodeValue.replace(/^(.*)(\d)/, "$1 $2").toUpperCase()
+      let postcode = postcodeValue.replace(/^(.*)(\d)/, '$1 $2').toUpperCase()
       queryUrl += `postcode_3='${postcode}' OR postcode_2='${postcode}' OR postcode_1='${postcode}'`
     } else {
       queryUrl += `ward_name LIKE '%25${locationValue}%25' OR local_authority_name LIKE '%25${locationValue}%25' OR region_name LIKE '%25${locationValue}%25'`
     }
 
-    const response = await axios.get(queryUrl, {headers: {"X-App-Token":'UrBb79PaYZdry71aLXMtHy1YX'}})
+    const response = await axios.get(queryUrl, {headers: { 'X-App-Token': config.opendataCamden.token }})
     results = response.data
 
-    //
     results
       .filter(item => item.local_authority_name.toLowerCase() === locationValue.toLowerCase() || item.ward_name.toLowerCase() === locationValue.toLowerCase() || item.region_name.toLowerCase() === locationValue.toLowerCase())
       .map(item => exactMatches.push(item))
@@ -532,8 +530,7 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
       })
       .filter(item => item.region_name.indexOf('Scotland') === -1)
 
-
-    let contentfulFilter = [...new Set(localAuthorities.map(item => item.local_authority_name))];
+    let contentfulFilter = [...new Set(localAuthorities.map(item => item.local_authority_name))]
 
     const contentfulRequest = {
       content_type: config.contentful.contentTypes.treatmentCentre,
@@ -577,13 +574,9 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
         res.send(apiResponse)
       })
       .catch(error => next(error))
-
   } catch (e) {
     console.log(e)
   }
-
-//   return res.send({results: localAuthorities})
-
 })
 
 /**
