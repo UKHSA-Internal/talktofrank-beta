@@ -84,10 +84,10 @@ export default class Masthead extends React.PureComponent {
             </ViewportDefault>
             <Logo url='/ui/svg/logo-frank--alt.svg' alt=''/>
             <ViewportMobile>
-              <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' role='menubar' type='nav'/>
+              <Nav className={navClasses} menu-open={this.state.mobileMenuOpen} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' type='nav'/>
             </ViewportMobile>
             <ViewportDefault>
-              <Nav className={navClasses} hasPopup={true} menu-open={true} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' role='menubar' type='nav'/>
+              <Nav className={navClasses} hasPopup={true} menu-open={true} id='navigation-primary' navigation={primary} current={current} aria-label='Main Menu' type='nav'/>
             </ViewportDefault>
           </section>
           <ButtonGroup className='button-group--static'>

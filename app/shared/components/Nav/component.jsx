@@ -43,7 +43,7 @@ class LinkItem extends React.PureComponent {
     let liClasses = classNames(this.props.className, classes)
 
     return (
-      <li className={liClasses} >
+      <li className={liClasses}>
         <a className={linkClasses} aria-expanded={this.props.hasPopup ? this.state.menuOpen : undefined} aria-haspopup={this.props.hasPopup} href={this.props.url} onClick={this.clickHandler.bind(this)}>{this.props.icon && <Icon {...this.props.icon}/>}{label}</a>
         {this.props.subnav}
       </li>
