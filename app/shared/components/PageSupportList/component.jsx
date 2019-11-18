@@ -92,20 +92,24 @@ export default class PageSupportList extends React.PureComponent {
               <GridCol className='col-12 col-sm-8 offset-sm-2'>
                  <ul className='list-unstyled'>
                   {results && results.map((item, i) => {
+                    let phone = item.fields.telephone1 ? item.fields.telephone1 : null
+                    let phoneRaw = phone !== null ? phone.replace(/\D/g, '') : null
+                    let address = item.fields.addressStatus !== false ? [
+                      item.fields.address1,
+                      item.fields.address2,
+                      item.fields.address3,
+                      item.fields.town,
+                      item.fields.county,
+                      item.fields.postCode
+                    ].filter(Boolean).join(', ') : null
+
                     return <ArticleSupport
                       text={item.fields.name}
                       distance={item.distance}
                       className={i === 0 ? 'list-item--first' : null}
-                      address={[
-                        item.fields.address1,
-                        item.fields.address2,
-                        item.fields.address3,
-                        item.fields.town,
-                        item.fields.county,
-                        item.fields.postCode
-                      ].filter(Boolean).join(', ')}
-                      phone={item.fields.telephone1}
-                      phoneRaw={item.fields.telephone1.replace(/\D/g, '')}
+                      address={address}
+                      phone={phone}
+                      phoneRaw={phoneRaw}
                       {...item.fields} key={i}
                     />
                   })}
