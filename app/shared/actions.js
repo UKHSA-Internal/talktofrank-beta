@@ -207,17 +207,21 @@ export function fetchNewsList (page = 0) {
   }
 }
 
-export function fetchSupportList (page = 0, {location, serviceType}) {
+export function fetchSupportList (page = 0, {location, localAuthority, serviceType}) {
   let queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
 
   if (location) {
     queryString += `&location=${encodeURIComponent(location)}`
   }
 
+  if (localAuthority) {
+    queryString += `&localAuthority=${encodeURIComponent(localAuthority)}`
+  }
+
   if (serviceType) {
     queryString += `&serviceType=${encodeURIComponent(serviceType)}`
   }
-
+  console.log('queryString', queryString)
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/treatment-centres-lookup' + queryString

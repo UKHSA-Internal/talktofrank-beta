@@ -489,94 +489,138 @@ router.get('/news/:slug', (req, res, next) => {
 router.get('/treatment-centres-lookup', async (req, res, next) => {
   if (!req.query.page ||
     !req.query.pageSize ||
-    !req.query.location) {
+    (!req.query.location && !req.query.localAuthority)) {
     let error = new Error()
     error.message = 'No pagination options or location provided'
     error.status = 500
     return next(error)
   }
 
-  // Lookup based on https://opendata.camden.gov.uk/Maps/National-Statistics-Postcode-Lookup-UK/tr8t-gqz7
+  let contentfulFilter = []
   let results = []
-  let localAuthorities = []
-  let exactMatches = []
-  let locationValue = removeTags(req.query.location)
-  locationValue = locationValue.toLowerCase()
-    .split(' ')
-    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-    .join(' ')
-  const postcodeValue = locationValue.replace(' ', '')
-  let queryUrl = 'https://opendata.camden.gov.uk/resource/tr8t-gqz7.json?$limit=1000&&$group=local_authority_name,county_name,region_name,ward_name&$select=local_authority_name,county_name,region_name,ward_name&$where='
+  let locationValue = ''
 
-  try {
-    if (postcodeValue.match(/^(.*)(\d)/g)) {
-      let postcode = postcodeValue.replace(/^(.*)(\d)/, '$1 $2').toUpperCase()
-      queryUrl += `postcode_3='${postcode}' OR postcode_2='${postcode}' OR postcode_1='${postcode}'`
-    } else {
-      queryUrl += `ward_name LIKE '%25${locationValue}%25' OR local_authority_name LIKE '%25${locationValue}%25' OR region_name LIKE '%25${locationValue}%25'`
-    }
+  if (req.query.location) {
+    // Lookup based on https://opendata.camden.gov.uk/Maps/National-Statistics-Postcode-Lookup-UK/tr8t-gqz7
+    locationValue = removeTags(req.query.location)
+    locationValue = locationValue.toLowerCase()
+      .split(' ')
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(' ')
 
-    const response = await axios.get(queryUrl, {headers: { 'X-App-Token': config.opendataCamden.token }})
-    results = response.data
+    const postcodeValue = locationValue.replace(' ', '')
+    let queryUrl = 'https://opendata.camden.gov.uk/resource/tr8t-gqz7.json?$limit=1000&&$group=local_authority_name,county_name,region_name,ward_name&$select=local_authority_name,county_name,region_name,ward_name&$where='
 
-    results
-      .filter(item => item.local_authority_name.toLowerCase() === locationValue.toLowerCase() || item.ward_name.toLowerCase() === locationValue.toLowerCase() || item.region_name.toLowerCase() === locationValue.toLowerCase())
-      .map(item => exactMatches.push(item))
+    try {
+      if (postcodeValue.match(/^(.*)(\d)/g)) {
+        let postcode = postcodeValue.replace(/^(.*)(\d)/, '$1 $2').toUpperCase()
+        queryUrl += `postcode_3='${postcode}' OR postcode_2='${postcode}' OR postcode_1='${postcode}'`
+      }
+      else {
+        queryUrl += `ward_name LIKE '%25${locationValue}%25' OR local_authority_name LIKE '%25${locationValue}%25' OR region_name LIKE '%25${locationValue}%25'`
+      }
 
-    const array = exactMatches.length ? exactMatches : results
-    localAuthorities = array
-      .filter((obj, pos, arr) => {
-        return arr.map(mapObj => mapObj['local_authority_name']).indexOf(obj['local_authority_name']) === pos
-      })
-      .filter(item => item.region_name.indexOf('Scotland') === -1)
+      const response = await axios.get(queryUrl, {headers: {'X-App-Token': config.opendataCamden.token}})
+      results = response.data
 
-    let contentfulFilter = [...new Set(localAuthorities.map(item => item.local_authority_name))]
+      contentfulFilter = getContentfulLocalAuthorityValue(results, locationValue)
 
-    const contentfulRequest = {
-      content_type: config.contentful.contentTypes.treatmentCentre,
-      limit: req.query.pageSize,
-      skip: req.query.pageSize * req.query.page,
-      'fields.localAuthority[in]': contentfulFilter.join(',')
-    }
+      if (!contentfulFilter.length) {
+        // if no LAs returned from postcode or placename check, revert to Google geocode
+        const googleResponse = await getGoogleGeocodeValue(locationValue)
 
-    let apiResponse = {
-      location: locationValue,
-      results: [],
-      total: 0
-    }
-
-    contentfulClient.getEntries(contentfulRequest)
-      .then((contentfulResponse) => {
-        apiResponse.results = resolveResponse(contentfulResponse)
-        apiResponse.total = contentfulResponse.total
-
-        apiResponse.results
-          .map(responseItem => {
-            responseItem.distance = 10
-            responseItem.fields.summary = truncate(removeMarkdown(responseItem.fields.serviceInfo), {
-              'length': 100
-            })
-            Object.keys(responseItem.fields)
-              .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
-              .map(fieldKey => {
-                responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
-              })
-            apiResponse.results.sort((a, b) => parseFloat(a.distance) > parseFloat(b.distance))
-          })
-
-        // Set meta info
-        apiResponse.head = {
-          title: `Results ordered by nearest to "${locationValue}"`
+        if (googleResponse instanceof Error) {
+          return next(googleResponse)
         }
 
-        apiResponse.localAuthorities = localAuthorities
+        if (!googleResponse.lat) {
+          // Set meta info
+          response.head = {
+            title: `No results found`,
+            localAuthorities: []
+          }
 
-        res.send(apiResponse)
+          return res.send(response)
+        }
+        else {
+          queryUrl = `https://opendata.camden.gov.uk/resource/tr8t-gqz7.json?$where=within_circle(location, ${googleResponse.lat}, ${googleResponse.lng}, 5000)&$limit=10000`
+          const locationResponse = await axios.get(queryUrl, {headers: {'X-App-Token': config.opendataCamden.token}})
+          results = locationResponse.data
+          contentfulFilter = getContentfulLocalAuthorityValue(results, locationValue)
+        }
+      }
+
+    } catch (error) {
+      next(error)
+    }
+  } else if (req.query.localAuthority) {
+    locationValue = removeTags(req.query.localAuthority)
+    contentfulFilter.push(locationValue)
+  }
+
+  const contentfulRequest = {
+    content_type: config.contentful.contentTypes.treatmentCentre,
+    limit: req.query.pageSize,
+    skip: req.query.pageSize * req.query.page,
+    'fields.localAuthority[in]': contentfulFilter.join(',')
+  }
+
+  let apiResponse = {
+    location: locationValue,
+    results: [],
+    total: 0
+  }
+
+  const contentfulResponse = await contentfulClient.getEntries(contentfulRequest)
+  apiResponse.results = resolveResponse(contentfulResponse)
+  apiResponse.total = contentfulResponse.total
+
+  apiResponse.results
+    .map(responseItem => {
+      responseItem.distance = 10
+      responseItem.fields.summary = truncate(removeMarkdown(responseItem.fields.serviceInfo), {
+        'length': 100
       })
-      .catch(error => next(error))
-  } catch (e) {
+      Object.keys(responseItem.fields)
+        .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
+        .map(fieldKey => {
+          responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
+        })
+      apiResponse.results.sort((a, b) => parseFloat(a.distance) > parseFloat(b.distance))
+    })
+
+  // Set meta info
+  apiResponse.head = {
+    title: `Results ordered by nearest to "${locationValue}"`
+  }
+
+  try {
+    let localAuthorityCount = apiResponse.results;
+    // if the total count is over page limit, query all
+    if (contentfulResponse.total > req.query.pageSize) {
+      const contentfulTotalRequest = {
+        content_type: config.contentful.contentTypes.treatmentCentre,
+        limit: contentfulResponse.total,
+        skip: 0,
+        'fields.localAuthority[in]': contentfulFilter.join(',')
+      }
+      const localAuthorityCountResponse = await contentfulClient.getEntries(contentfulTotalRequest)
+      localAuthorityCount = resolveResponse(localAuthorityCountResponse)
+    }
+    let authorityCounts = []
+    for (let i = 0; i < contentfulFilter.length; i++) {
+      authorityCounts.push({
+        name: contentfulFilter[i],
+        count: localAuthorityCount.filter(result => result.fields.localAuthority && result.fields.localAuthority.toLowerCase() === contentfulFilter[i].toLowerCase()).length
+      })
+    }
+
+    apiResponse.localAuthorities = authorityCounts.sort()
+  } catch(e) {
     console.log(e)
   }
+  res.send(apiResponse)
+
 })
 
 /**
@@ -610,22 +654,13 @@ router.get('/treatment-centres', async (req, res, next) => {
     total: 0
   }
 
-  const geocodeLocation = await axios
-    .get(`https://maps.googleapis.com/maps/api/geocode/json?address=` +
-    `${encodeURIComponent(response.location)},united%20kingdom&key=${config.googleAPI.places}`)
+  const googleResponse = getGoogleGeocodeValue(locationValue)
 
-  if ((geocodeLocation.data !== 'OK' || geocodeLocation.data !== 'ZERO_RESULTS') &&
-    geocodeLocation.data.error_message) {
-    let error = new Error()
-    error.message = geocodeLocation.data.error_message
-    error.status = 500
-    return next(error)
+  if (googleResponse instanceof Error) {
+    return next(googleResponse)
   }
 
-  if (!geocodeLocation.data ||
-    geocodeLocation.data.results.length < 1 ||
-    geocodeLocation.data.results[0].address_components.length < 2
-  ) {
+  if (!googleResponse.lat) {
     // Set meta info
     response.head = {
       title: `No results found`
@@ -634,13 +669,11 @@ router.get('/treatment-centres', async (req, res, next) => {
     return res.send(response)
   }
 
-  const location = geocodeLocation.data.results[0].geometry.location
-
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.treatmentCentre,
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page,
-    'fields.location[near]': `${location.lat},${location.lng}`
+    'fields.location[near]': `${googleResponse.lat},${googleResponse.lng}`
   }
 
   if (req.query.serviceType &&
@@ -657,8 +690,8 @@ router.get('/treatment-centres', async (req, res, next) => {
       response.results
         .map(responseItem => {
           responseItem.distance = haversineDistance(
-            location.lng,
-            location.lat,
+            googleResponse.lng,
+            googleResponse.lat,
             responseItem.fields.location.lon,
             responseItem.fields.location.lat,
             true
@@ -836,6 +869,45 @@ const getMetaImage = (item, loadMap = false) => {
     return images[smallestSize]
   }
   return false
+}
+
+const getContentfulLocalAuthorityValue = (lookupResults, locationValue) => {
+  let exactMatches = []
+  lookupResults
+    .filter(item => item.local_authority_name.toLowerCase() === locationValue.toLowerCase() || item.ward_name.toLowerCase() === locationValue.toLowerCase() || item.region_name.toLowerCase() === locationValue.toLowerCase())
+    .map(item => exactMatches.push(item))
+
+  const array = exactMatches.length ? exactMatches : lookupResults
+  let localAuthorities = array
+    .filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj['local_authority_name']).indexOf(obj['local_authority_name']) === pos
+    })
+    .filter(item => item.region_name.indexOf('Scotland') === -1)
+
+  return [...new Set(localAuthorities.map(item => item.local_authority_name))]
+}
+
+const getGoogleGeocodeValue = async (locationValue) => {
+  const geocodeLocation = await axios
+    .get(`https://maps.googleapis.com/maps/api/geocode/json?address=` +
+      `${encodeURIComponent(locationValue)},united%20kingdom&key=${config.googleAPI.places}`)
+
+  if ((geocodeLocation.data !== 'OK' || geocodeLocation.data !== 'ZERO_RESULTS') &&
+    geocodeLocation.data.error_message) {
+    let error = new Error()
+    error.message =
+    error.status = 500
+    return error
+  }
+
+  if (!geocodeLocation.data ||
+    geocodeLocation.data.results.length < 1 ||
+    geocodeLocation.data.results[0].address_components.length < 2
+  ) {
+    return {}
+  } else {
+    return geocodeLocation.data.results[0].geometry.location
+  }
 }
 
 export default router

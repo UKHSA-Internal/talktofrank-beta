@@ -29,7 +29,7 @@ export default class PageSupportList extends React.PureComponent {
 
   handlePageChange (pageNumber) {
     const { location, serviceType } = this.props.pageData
-    this.props.fetchSupportList(pageNumber.current, location, serviceType)
+    this.props.fetchSupportList(pageNumber.current, location, null, serviceType)
     this.updateAddress(pageNumber.current, location, serviceType)
   }
 
@@ -78,7 +78,7 @@ export default class PageSupportList extends React.PureComponent {
   render () {
     const { loading, error } = this.props
     const { results, location, total, pageNumber, localAuthorities } = this.props.pageData
-    console.log(this.props.pageData)
+//     console.log(this.props)
     return (
       <React.Fragment>
         <Masthead/>
@@ -91,12 +91,12 @@ export default class PageSupportList extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Grid>
               <GridCol className='col-12 col-sm-8 offset-sm-2'>
-                 { localAuthorities.length &&
+                 { (localAuthorities.length > 1) &&
                     <div>
                       <Heading type='h5' text={`Showing results for local authorities` } />
                       <ul className='list-unstyled'>
                         {localAuthorities.map(item => (
-                          <li>{item.local_authority_name}</li>
+                          <li><a href={`/treatment-centre?localAuthority=${item.name}&serviceType=undefined`}>{item.name} ({item.count})</a></li>
                         ))}
                       </ul>
                     </div>
