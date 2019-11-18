@@ -26,7 +26,7 @@ class FormGroup extends PureComponent {
       searchTerm: '',
       currentSuggestion: '',
       autoCompleteData: [],
-      activedescendant: false,
+      activedescendant: null,
       resultsTotal: 0,
       loading: false
     }
@@ -44,7 +44,7 @@ class FormGroup extends PureComponent {
         searchTerm: newValue,
         searchTermClean: encodeURIComponent(newValue),
         currentSuggestion: '',
-        activedescendant: false,
+        activedescendant: null,
         resultsTotal: 0
       })
     } else {
@@ -204,8 +204,8 @@ class FormGroup extends PureComponent {
             type: 'text',
             role: 'textbox',
             'aria-describedby': `${this.props.id}_hint`,
-            'aria-owns': `${this.props.id}_container`,
-            'aria-activedescendant': activedescendant
+            'aria-activedescendant': activedescendant,
+            'aria-autocomplete': 'both'
           }}
           ref={input => { this.searchInput = input }}
           required
