@@ -59,7 +59,7 @@ const DrugList = props => {
                         )
                       })}
                       </ul>
-                      <small><a className='return-to-top' href='#main'>Return to top ^</a></small>
+                      <small><a className='return-to-top' href='#main'>Return to top <span aria-hidden='true'>^</span></a></small>
                     </li>
                   )
                 })}
