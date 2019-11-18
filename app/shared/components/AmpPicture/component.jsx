@@ -23,7 +23,6 @@ export default class AmpPicture extends React.PureComponent {
     return images[smallestSize]
   }
 
-
   getPictureSettings (images) {
     let alt = images.title
     images = images.images
