@@ -84,3 +84,11 @@
     }
   }
 }
+
+.form--search-home {
+  .btn--flat {
+    &.submit {
+      margin-left: -5rem;
+    }
+  }
+}

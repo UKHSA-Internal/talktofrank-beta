@@ -24,18 +24,21 @@ export default class AmpPicture extends React.PureComponent {
   }
 
   getPictureSettings (images) {
+    let alt = images.title
+    images = images.images
     let sizes = this.getSizes(images)
     let smallestImageSrc = this.getSmallestImage(sizes, images)
     let sources = this.getSources(sizes, images)
 
     return {
       smallestImageSrc: smallestImageSrc,
-      sources: sources
+      sources: sources,
+      alt: alt
     }
   }
 
   render () {
-    let { sources, smallestImageSrc } = this.getPictureSettings(this.props)
+    let { sources, smallestImageSrc, alt } = this.getPictureSettings(this.props)
     let classes = classNames('image', this.props.className)
 
     smallestImageSrc += '?fm=jpg&q=70'
@@ -46,7 +49,7 @@ export default class AmpPicture extends React.PureComponent {
           specName="default"
           src={smallestImageSrc}
           srcSet={smallestImageSrc}
-          alt={this.props.alt || ''}
+          alt={alt}
           width='700'
           height='450'
           layout='responsive'>
