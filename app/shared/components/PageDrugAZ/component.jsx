@@ -42,7 +42,7 @@ const DrugList = props => {
               <ul className='list-unstyled' role='list'>
                 {props.list.map((val, i) => {
                   return (
-                    <li id={val.group} key={'outer' + i}>
+                    <li id={val.group} key={'outer' + i} tabIndex='-1'>
                       <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
                       <ul className='list-unstyled'>
                       {val.values.map((v, index) => {
@@ -59,7 +59,7 @@ const DrugList = props => {
                         )
                       })}
                       </ul>
-                      <small><a className='return-to-top' href='#main'>Return to top ^</a></small>
+                      <small><a className='return-to-top' href='#main'>Return to top <span aria-hidden='true'>^</span></a></small>
                     </li>
                   )
                 })}

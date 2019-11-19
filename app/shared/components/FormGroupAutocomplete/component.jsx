@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Button from '../Button/component.jsx'
-import Svg from '../Svg/component.jsx'
+import Icon from '../Icon/component.jsx'
+
 import Autosuggest from 'react-autosuggest'
 import axios from 'axios'
 import SearchResultDrug from '../SearchResultDrug/component'
@@ -29,6 +30,17 @@ class FormGroup extends PureComponent {
       activedescendant: null,
       resultsTotal: 0,
       loading: false
+    }
+  }
+
+  handleSearchSubmit () {
+    const searchTerm = encodeURIComponent(
+      this.searchInput.input.value
+        .toLowerCase()
+        .trim()
+    )
+    if (searchTerm !== '') {
+      window.location = `/search/${searchTerm}`
     }
   }
 
@@ -116,7 +128,7 @@ class FormGroup extends PureComponent {
     let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
 
     return (
-      <div {...containerProps} id={this.props.id + '_container'} className={this.props.className || ''}>
+      <div {...containerProps} id={this.props.id + '_list'} className={this.props.className || ''}>
         {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
         {children}
         {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
@@ -178,6 +190,10 @@ class FormGroup extends PureComponent {
   render () {
     const { searchTerm, autoCompleteData, activedescendant } = this.state
     const { id, label } = this.props
+    let iconSubmit = {
+      label: 'Submit search',
+      url: '/ui/svg/magnifying-pink.svg'
+    }
     return (
       <div className='form-group form-group--flush'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
@@ -203,13 +219,16 @@ class FormGroup extends PureComponent {
             onTouchStart: this.handleKeyPress,
             type: 'text',
             role: 'textbox',
-            'aria-describedby': `${this.props.id}_hint`,
+            'aria-describedby': this.props.id + '_hint',
             'aria-activedescendant': activedescendant,
+            'aria-controls': this.props.id + '_list',
             'aria-autocomplete': 'both'
           }}
           ref={input => { this.searchInput = input }}
           required
         />
+        <Button className='btn--flat submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
+        <div aria-live='assertive' class='visually-hidden'>{this.state.resultsTotal > 0 ? this.state.resultsTotal + ' results shown' : 'no results'}</div>
       </div>
     )
   }

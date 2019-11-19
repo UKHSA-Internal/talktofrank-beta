@@ -32,7 +32,7 @@ export default class CookieBar extends React.Component {
              className='btn btn--flat btn--static spacing-left'
              aria-label='Close cookie bar panel'
              onClick={this.closeMessage.bind(this)}>
-             <Svg url='/ui/svg/cross-red.svg' alt='Close' />
+             <Svg url='/ui/svg/cross-red.svg' alt='' />
           </button>
         </p>
        </Accent>
