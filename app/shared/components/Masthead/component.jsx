@@ -21,17 +21,6 @@ export default class Masthead extends React.PureComponent {
     }
   }
 
-  handleSearchSubmit () {
-    const searchTerm = encodeURIComponent(
-      this.formAutocomplete.searchInput.input.value
-        .toLowerCase()
-        .trim()
-    )
-    if (searchTerm !== '') {
-      window.location = `/search/${searchTerm}`
-    }
-  }
-
   handleSearchClick () {
     const el = document.documentElement.classList
     this.setState({
@@ -108,9 +97,8 @@ export default class Masthead extends React.PureComponent {
                 focus='true'
                 showContent={false}
                 placeholder='Enter drug name (e.g. Mandy)'
-                ref={input => { this.formAutocomplete = input }}
               />
-              <Button className='btn--flat submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
+
             </Form>
             <Button className='btn--flat close' clickHandler={this.handleSearchClick.bind(this)}><Icon {...iconClose}/></Button>
           </div>
