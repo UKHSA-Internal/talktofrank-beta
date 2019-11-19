@@ -515,8 +515,7 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
       if (postcodeValue.match(/^(.*)(\d)/g)) {
         let postcode = postcodeValue.replace(/^(.*)(\d)/, '$1 $2').toUpperCase()
         queryUrl += `postcode_3='${postcode}' OR postcode_2='${postcode}' OR postcode_1='${postcode}'`
-      }
-      else {
+      } else {
         queryUrl += `ward_name LIKE '%25${locationValue}%25' OR local_authority_name LIKE '%25${locationValue}%25' OR region_name LIKE '%25${locationValue}%25'`
       }
 
@@ -541,15 +540,13 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
           }
 
           return res.send(response)
-        }
-        else {
+        } else {
           queryUrl = `https://opendata.camden.gov.uk/resource/tr8t-gqz7.json?$where=within_circle(location, ${googleResponse.lat}, ${googleResponse.lng}, 5000)&$limit=10000`
           const locationResponse = await axios.get(queryUrl, {headers: {'X-App-Token': config.opendataCamden.token}})
           results = locationResponse.data
           contentfulFilter = getContentfulLocalAuthorityValue(results, locationValue)
         }
       }
-
     } catch (error) {
       next(error)
     }
@@ -595,7 +592,7 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
   }
 
   try {
-    let localAuthorityCount = apiResponse.results;
+    let localAuthorityCount = apiResponse.results
     // if the total count is over page limit, query all
     if (contentfulResponse.total > req.query.pageSize) {
       const contentfulTotalRequest = {
@@ -615,12 +612,11 @@ router.get('/treatment-centres-lookup', async (req, res, next) => {
       })
     }
 
-    apiResponse.localAuthorities = authorityCounts.sort()
-  } catch(e) {
+    apiResponse.localAuthorities = authorityCounts.sort((a, b) => a.name.localeCompare(b.name))
+  } catch (e) {
     console.log(e)
   }
   res.send(apiResponse)
-
 })
 
 /**

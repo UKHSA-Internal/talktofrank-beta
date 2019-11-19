@@ -78,7 +78,6 @@ export default class PageSupportList extends React.PureComponent {
   render () {
     const { loading, error } = this.props
     const { results, location, total, pageNumber, localAuthorities } = this.props.pageData
-//     console.log(this.props)
     return (
       <React.Fragment>
         <Masthead/>

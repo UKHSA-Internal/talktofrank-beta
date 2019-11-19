@@ -221,7 +221,7 @@ export function fetchSupportList (page = 0, {location, localAuthority, serviceTy
   if (serviceType) {
     queryString += `&serviceType=${encodeURIComponent(serviceType)}`
   }
-  console.log('queryString', queryString)
+
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/treatment-centres-lookup' + queryString
