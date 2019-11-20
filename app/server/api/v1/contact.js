@@ -97,7 +97,7 @@ router.use(function (err, req, res, next) {
 
   let msg = err.message || err.stack || err.name || 'General error'
 
-  if (config.sentry.logErrors) {
+  if (config.sentry.logErrors && status !== 404) {
     Sentry.captureException(err)
   }
 
