@@ -36,7 +36,19 @@ import contentfulClient from './contentful/lib'
 const Sentry = require('@sentry/node')
 if (config.sentry.logErrors) {
   console.log(`Error logging enabled: Sentry DSN ${config.sentry.dsn}`)
-  Sentry.init({ dsn: config.sentry.dsn })
+  Sentry.init({
+    dsn: config.sentry.dsn,
+    beforeSend(event) {
+      if (event.extra &&
+        event.extra.Error &&
+        event.extra.Error.status &&
+        event.extra.Error.status === 404) {
+        // Dont send 404 errors
+        return null
+      }
+      return event
+    }
+  })
 }
 
 /*
