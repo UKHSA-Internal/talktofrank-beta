@@ -5,7 +5,8 @@ module.exports = function(migration) {
 
   treatmentCentre.createField('localAuthority')
     .name('Local authority')
-    .type('Symbol');
+    .type('Symbol')
+    .required(true);
 
   treatmentCentre.changeEditorInterface("localAuthority", "singleLine", {
     helpText: 'Enter one or more local authority values separated using a comma.'
