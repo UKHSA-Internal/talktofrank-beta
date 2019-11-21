@@ -9,8 +9,8 @@ const Heading = props => {
 }
 
 Heading.defaultProps = {
-	id: null,
-	type: 'h2'
+  id: null,
+  type: 'h2'
 }
 
 export default Heading
