@@ -13,7 +13,8 @@ const ArticleSupport = props => {
         <Anchor className='list-item__link' href={`/treatment-centre/${props.slug}`}>
           <Heading className='h3 list-item__text' text={props.text}/>
         </Anchor>
-        <Heading type='p' text={props.address}/>
+        <div>{address && <strong>{props.distance} mile{props.distance !== '1.0' ? 's' : ''} away</strong>}
+        <Heading type='p' text={props.address}/></div>
         <Longform text={props.summary} className='spacing--single'/>
         <Anchor className='list-item__link hidden--sm-up' href={`/treatment-centre/${props.slug}`}>
           <Heading type='p' label={`Read more about ${props.text}`} className='link-text' text='Read more'/>
