@@ -1,6 +1,6 @@
 {
   "name": "phe-talk-to-frank-alpha",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Talk to Frank Alpha",
   "main": "index.js",
   "scripts": {
