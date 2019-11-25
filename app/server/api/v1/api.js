@@ -547,8 +547,7 @@ router.get('/treatment-centres', async (req, res, next) => {
     content_type: config.contentful.contentTypes.treatmentCentre,
     limit: req.query.pageSize,
     skip: req.query.pageSize * req.query.page,
-    'fields.location[near]': `${location.lat},${location.lng}`,
-    'fields.addressStatus': true
+    'fields.location[near]': `${location.lat},${location.lng}`
   }
 
   if (req.query.serviceType &&
@@ -604,8 +603,7 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
 
   const contentfulRequest = {
     content_type: config.contentful.contentTypes.treatmentCentre,
-    'fields.slug': slug,
-    'fields.addressStatus': true
+    'fields.slug': slug
   }
 
   contentfulClient.getEntries(contentfulRequest)
@@ -682,7 +680,7 @@ router.use(function (err, req, res, next) {
 
   let msg = err.message || err.stack || err.name || 'General error'
 
-  if (config.sentry.logErrors) {
+  if (config.sentry.logErrors && status !== 404) {
     Sentry.captureException(err)
   }
 

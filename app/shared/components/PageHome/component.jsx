@@ -17,17 +17,6 @@ import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component.jsx'
 
 export default class PageHome extends React.PureComponent {
-  handleSearchSubmit () {
-    const searchTerm = encodeURIComponent(
-      this.formAutocomplete.searchInput.input.value
-        .toLowerCase()
-        .trim()
-    )
-    if (searchTerm !== '') {
-      window.location = `/search/${searchTerm}`
-    }
-  }
-
   render () {
     let iconSubmit = {
       label: 'Submit search',
@@ -43,16 +32,14 @@ export default class PageHome extends React.PureComponent {
               path={this.props.location}
               body={true}
             />
-            <Form role='search' className='form--search constrain'>
+            <Form role='search' className='form--search constrain form--search-home'>
               <FormGroupAutocomplete
                button='true'
                id='homepage-large-search'
                className='react-autosuggest__suggestions-container--homepage'
                label='Search for any drug…'
                placeholder='Enter a drug (e.g. Mandy)'
-               ref={input => { this.formAutocomplete = input }}
                />
-               <Button className='btn--flat btn--flat-right submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
             </Form>
           </Accent>
           {this.props.featuredItemBlock &&

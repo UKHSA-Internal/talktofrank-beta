@@ -31,7 +31,7 @@ const PageOffline = () => {
                 It looks like you're offline.  You can still talk to Frank by calling us on
                 {' '}<a href='tel:03001236600'>0300 123 6600</a>
               </p>
-              <Heading type='h3' className='h5' text='Perhaps try...'/>
+              <Heading type='p' className='h5' text='Perhaps try...'/>
               <ul>
                 <li>Checking your Wi-Fi</li>
                 <li>Checking your mobile data</li>

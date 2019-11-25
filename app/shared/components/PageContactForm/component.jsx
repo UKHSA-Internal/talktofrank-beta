@@ -129,7 +129,7 @@ export default class PageContactForm extends React.PureComponent {
           <Accent className='accent--shallow'>
             <Heading type='h1' className='page-title' text='Contact us via email'/>
           </Accent>
-          <Accent>
+          <Accent modifier='wrapper--constant'>
             <Grid>
               <GridCol className='col-12 col-sm-7 col-md-6 offset-md-2'>
 

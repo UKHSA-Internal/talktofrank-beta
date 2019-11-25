@@ -8,7 +8,7 @@ const Svg = props => {
 }
 
 Svg.defaultProps = {
-  className: null,
+  className: '',
   alt: ''
 }
 

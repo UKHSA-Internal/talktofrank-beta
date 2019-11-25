@@ -1,6 +1,6 @@
 {
   "name": "phe-talk-to-frank-alpha",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Talk to Frank Alpha",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,12 @@
   },
   "author": {
     "name": "Joel Mitchell",
-    "email": "joel.mitchell@cxparnters.co.uk"
+    "email": "joel.mitchell@cxpartners.co.uk"
   },
   "contributors": [
     {
       "name": "Jonathan Brace",
-      "email": "jon.brace@cxparnters.co.uk"
+      "email": "jon.brace@cxpartners.co.uk"
     }
   ],
   "repository": {
@@ -33,6 +33,10 @@
   "bugs": {
     "url": "https://github.com/PublicHealthEngland/talktofrank-beta/issues"
   },
+  "browserslist": [
+    "defaults",
+    "IE 11"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.1.0",
@@ -49,7 +53,7 @@
     "@types/node": "^10.12.0",
     "async-series": "0.0.1",
     "autoprefixer": "^6.7.6",
-    "axios": "^0.15.3",
+    "axios": "^=0.18.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.3",
     "babel-plugin-add-module-exports": "^1.0.0",
@@ -67,7 +71,6 @@
     "contentful-cli": "^0.20.0",
     "contentful-resolve-response": "^1.1.4",
     "contentful-text-search": "git+https://github.com/cxpartners/contentful-text-search.git#develop",
-    "cucumber": "^5.0.1",
     "date-fns": "^1.29.0",
     "es6-promise": "^4.2.4",
     "eslint-config-standard": "^10.2.1",
@@ -79,14 +82,13 @@
     "express": "^4.16.4",
     "express-basic-auth": "^1.1.5",
     "express-sitemap-xml": "^1.0.2",
-    "grunt": "^1.0.3",
+    "grunt": "^1.0.4",
     "grunt-cli": "^1.3.2",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify-es": "git://github.com/gruntjs/grunt-contrib-uglify.git#harmony",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-cucumberjs": "git+https://github.com/openbook/grunt-cucumberjs.git#master",
     "grunt-eslint": "^19.0.0",
     "grunt-nodemon": "^0.4.2",
     "grunt-postcss": "^0.8.0",
@@ -109,7 +111,7 @@
     "lodash.startswith": "^4.0.1",
     "lodash.truncate": "^4.4.2",
     "mailgun-js": "^0.18.0",
-    "marked": "^0.3.19",
+    "marked": "^0.7.0",
     "merge": "^1.2.1",
     "ngrok": "^3.1.0",
     "node-sass": "^4.9.4",
@@ -142,6 +144,7 @@
     "webpack": "^4.20.2",
     "workbox-cli": "^3.6.2",
     "workbox-webpack-plugin": "^3.6.3",
+    "x-ray": "^2.3.4",
     "yaml-import": "^0.2.3"
   },
   "dependencies": {}
