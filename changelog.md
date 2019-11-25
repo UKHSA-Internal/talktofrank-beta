@@ -23,4 +23,9 @@
 - Common drug block
 - Treatment centre maps
 
+## [0.1.5]
+### Added
+- Dependency updates
+- Removed addresss for Treatment centres
+
 
