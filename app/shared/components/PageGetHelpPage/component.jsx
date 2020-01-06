@@ -25,10 +25,10 @@ const PageGetHelpPage = props => {
         <Accent className='accent--shallow'>
           <Grid>
             <GridCol className='col-12 col-md-8 offset-md-3'>
-              {props.fields.callout && <aside className='panel panel--padding-small panel--has-heading spacing-bottom--large'>
+              {props.fields.callout && <div className='panel panel--padding-small panel--has-heading spacing-bottom--large'>
                   <h2 className='h4 inverted displaced-top inverted--primary'><Svg url={props.fields.callout.fields.icon} alt=''/> {props.fields.callout.fields.title}</h2>
                   <Longform text={props.fields.callout.fields.content}/>
-                </aside>}
+                </div>}
               {props.fields.intro && <Longform className='lead' text={props.fields.intro} />}
               {props.fields.body && <Longform className={props.fields.indentedText ? 'long-form--indented' : null} text={props.fields.body} />}
             </GridCol>
