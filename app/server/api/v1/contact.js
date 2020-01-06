@@ -29,8 +29,8 @@ const mailTransportFactory = () => {
 
 const supportEnquirySchema = {
   body: Joi.object().keys({
-    nickname: Joi.string().required().error(() => 'Enter a nickname'),
     email: Joi.string().email().required().error(() => 'Enter a valid email address'),
+    nickname: Joi.string().required().error(() => 'Enter a nickname'),
     ageRange: Joi.string().allow('').default('Undisclosed'),
     gender: Joi.string().valid(['Male', 'Female', 'Undisclosed', 'Other']),
     message: Joi.string().required().max(500).error(() => 'Enter your message')
