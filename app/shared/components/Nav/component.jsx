@@ -40,7 +40,6 @@ class LinkItem extends React.PureComponent {
     }
 
     let linkClasses = classNames('nav-link', classes)
-      </li>
     let liClasses = classNames(this.props.className, classes)
 
     return (
