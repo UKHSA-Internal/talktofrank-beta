@@ -620,3 +620,22 @@ p.has-icon {
     margin-top: 3rem;
   }
 }
+
+a[href^="https://"]:not([href*="talktofrank.com"]),
+a[href^="//"]:not([href*="talktofrank.com"]) {
+  position: relative;
+  padding-right: 2rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -.4em;
+    background-image: url('/ui/svg/external.svg');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    width: .8em;
+    height: .8em;
+  }
+}

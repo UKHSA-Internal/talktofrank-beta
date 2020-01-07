@@ -39,6 +39,7 @@ export default class Picture extends React.PureComponent {
   render () {
     let { sources, smallestImageSrc, alt } = this.getPictureSettings(this.props)
     let classes = `image ${this.props.className || ''}`
+    alt = this.props.noAlt ? '' : alt
 
     smallestImageSrc += '?fm=jpg&q=70'
     return (

@@ -10,7 +10,7 @@ const Card = props => {
   return (
     <div className={`card ${props.className}`}>
       <a href={props.url} className='card__link'>
-        {props.images && <Picture video={video} {...props.images}/>}
+        {props.images && <Picture noAlt='true' video={video} {...props.images}/>}
         <div className='card-body'>
           {props.time && <Time time={props.time} datetime={props.datetime}/>}
           <Heading {...props.heading}/>

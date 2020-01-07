@@ -47,7 +47,7 @@ export default class Masthead extends React.PureComponent {
       url: '/ui/svg/magnifying-pink.svg'
     }
     let iconClose = {
-      label: 'close',
+      label: 'Close search layer',
       url: '/ui/svg/cross.svg'
     }
     let navClasses = classNames('navbar-primary navbar-expand-md', {
@@ -80,7 +80,7 @@ export default class Masthead extends React.PureComponent {
             </ViewportDefault>
           </section>
           <ButtonGroup className='button-group--static'>
-            <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md'>Search </span><Icon {...icon}/></Button>
+            <Button className='btn--flat btn--small' clickHandler={this.handleSearchClick.bind(this)}><span className='hidden--md' aria-label='Open search feature'><span aria-hidden='true'>Search</span> </span><Icon {...icon}/></Button>
             <Anchor className='btn btn--link btn--small hidden--rg link-text' label='Call Frank on 0300 1236600' href='tel:03001236600'><span className='nav-link'>0300 1236600</span></Anchor>
           </ButtonGroup>
         </div>
