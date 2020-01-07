@@ -252,6 +252,7 @@ export default class PaginationBoxView extends React.PureComponent {
                className={`${previousLinkClassName} nav-link has-arrow has-arrow--left`}
                href={this.hrefBuilder(current - 1)}
                tabIndex={current === 0 ? -1 : 0}
+               aria-disabled={current === 0 ? 'true' : 'false'}
                aria-label='Go to previous page'
                role='button'
                onKeyPress={this.handlePreviousPage}>
@@ -266,6 +267,7 @@ export default class PaginationBoxView extends React.PureComponent {
                className={`${nextLinkClassName} nav-link has-arrow`}
                href={this.hrefBuilder(current + 1)}
                tabIndex={current === pageCount - 1 ? -1 : 0}
+               aria-disabled={current === pageCount - 1 ? 'true' : 'false'}
                aria-label='Go to next page'
                role='button'
                onKeyPress={this.handleNextPage}>
