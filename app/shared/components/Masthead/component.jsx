@@ -43,7 +43,7 @@ export default class Masthead extends React.PureComponent {
       url: '/ui/svg/magnifying.svg'
     }
     let iconSubmit = {
-      label: 'Submit search',
+      label: null,
       url: '/ui/svg/magnifying-pink.svg'
     }
     let iconClose = {
@@ -62,12 +62,12 @@ export default class Masthead extends React.PureComponent {
         <div className='masthead__inner'>
           <section className='navigation-wrapper'>
             <ViewportMobile>
-              <Button aria-hidden='false' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation-primary' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+              <Button aria-hidden='false' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation-primary' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Close menu' : 'Show menu'} clickHandler={this.handleMenuClick.bind(this)}>
                 {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
               </Button>
             </ViewportMobile>
             <ViewportDefault>
-              <Button aria-hidden='true' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation-primary' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Hide navigation' : 'Show navigation'} clickHandler={this.handleMenuClick.bind(this)}>
+              <Button aria-hidden='true' className={this.state.mobileMenuOpen ? 'navbar-toggler active' : 'navbar-toggler'} aria-controls='navigation-primary' aria-haspopup={!this.state.mobileMenuOpen} aria-expanded={this.state.mobileMenuOpen} aria-label={this.state.mobileMenuOpen ? 'Close menu' : 'Show menu'} clickHandler={this.handleMenuClick.bind(this)}>
                 {this.state.mobileMenuOpen ? 'Close' : 'Menu'}
               </Button>
             </ViewportDefault>

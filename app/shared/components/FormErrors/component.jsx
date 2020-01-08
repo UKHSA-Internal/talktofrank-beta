@@ -55,5 +55,5 @@ ErrorSummary.defaultProps = {
 }
 
 export const ErrorMessage = ({message}) => (
-  <div className='invalid-feedback'><Icon alt='' className='spacing-right' url='/ui/svg/warning.svg' label='warning' />{message}</div>
+  <div className='invalid-feedback'><Icon alt='' className='spacing-right' url='/ui/svg/warning.svg' label='Error' />{message}</div>
 )
