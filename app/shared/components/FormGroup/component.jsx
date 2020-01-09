@@ -16,7 +16,7 @@ const FormGroup = props => {
       <label htmlFor={id} className='form-label' id={`${props.id}-label`}>{props.label}</label>
       {props.hint && <FormHint id={props.hintId}>{props.hint}</FormHint>}
       {props.error && <ErrorMessage message={props.error} />}
-      <input className={inputClassNames} maxLength={props.maxLength} id={id} name={props.name} value={props.value} type={props.type} {...error} autoComplete onChange={props.onChange} aria-describedby={props.hintId}/>
+      <input className={inputClassNames} maxLength={props.maxLength} id={id} name={props.name} value={props.value} type={props.type} {...error} autoComplete='true' onChange={props.onChange} aria-describedby={props.hintId}/>
     </div>
   )
 }

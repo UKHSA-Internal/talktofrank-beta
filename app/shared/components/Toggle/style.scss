@@ -71,6 +71,13 @@ $dims: 2rem;
     color: $text-dark-blue;
     line-height: 1.2;
 
+    // the changes below are to remove the button stying if applied to a button
+    border: 0;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+
     .has-hover & {
       &:hover,
       &:active {

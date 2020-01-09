@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import Heading from '../Heading/component.jsx'
-import { scrollIntoView } from '../../utilities'
+import { scrollIntoView, isInBrowser } from '../../utilities'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 
@@ -13,13 +13,13 @@ export default class Toggle extends React.PureComponent {
     }
   }
 
-  toggle (event) {
-    event.preventDefault()
+  toggle (itemid) {
+    const id = `#${itemid}`
     this.setState({ visible: !this.state.visible })
 
     if (this.props.history) {
-      if ('replaceState' in history) {
-        let path = (window.location.hash === event.target.getAttribute('data-target')) ? this.props.history.pathname : event.target.href
+      if (isInBrowser()) {
+        let path = (window.location.hash === id) ? this.props.history.pathname : id
         window.history.replaceState({}, document.title, path)
       }
     }
@@ -56,9 +56,9 @@ export default class Toggle extends React.PureComponent {
           <Grid>
             <GridCol className='col-12 col-md-7 offset-md-3 bordered'>
               <h2 className='h4'>
-                <a role='button' href={`#${id}`} data-target={`#${id}`} className={toggleClass} onClick={this.toggle.bind(this)} aria-expanded={this.state.visible} aria-controls={`section-${id}`}>
+                <button className={toggleClass} onClick={this.toggle.bind(this, id)} aria-expanded={this.state.visible} aria-controls={`section-${id}`}>
                 {text}
-                </a>
+                </button>
               </h2>
               <div className={contentClasses} aria-hidden={!this.state.visible} id={`section-${id}`}>
                 {this.props.children}
