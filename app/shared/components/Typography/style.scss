@@ -621,8 +621,8 @@ p.has-icon {
   }
 }
 
-a[href^="https://"]:not([href*="talktofrank.com"]),
-a[href^="//"]:not([href*="talktofrank.com"]) {
+a[href^='https://']:not([href*='talktofrank.com']),
+a[href^='//']:not([href*='talktofrank.com']) {
   position: relative;
   padding-right: 2rem;
 
