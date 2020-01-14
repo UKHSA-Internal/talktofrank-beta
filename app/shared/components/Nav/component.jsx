@@ -85,7 +85,7 @@ export default class Nav extends React.PureComponent {
     this.handleItemClick(e)
   }
 
-  escFunction(event){
+  escFunction(event) {
     if (event.keyCode === 27) {
       if (this.state.dropDown) {
         this.setState({
