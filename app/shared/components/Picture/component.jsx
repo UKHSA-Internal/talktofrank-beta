@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import Play from '../Play/component.jsx'
 import { fieldIncludesVideo } from '../../utilities'
 
@@ -39,7 +39,9 @@ export default class Picture extends React.PureComponent {
   render () {
     let { sources, smallestImageSrc, alt } = this.getPictureSettings(this.props)
     let classes = `image ${this.props.className || ''}`
-    alt = this.props.noAlt ? '' : alt
+    // alt = this.props.noAlt ? '' : alt
+    // removing this for now as requested in the DAC audit
+    alt = ''
 
     smallestImageSrc += '?fm=jpg&q=70'
     return (
