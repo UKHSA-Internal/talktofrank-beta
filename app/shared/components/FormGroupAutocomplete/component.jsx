@@ -1,11 +1,6 @@
 import React, { PureComponent } from 'react'
 import Button from '../Button/component.jsx'
 import Icon from '../Icon/component.jsx'
-
-import Autosuggest from 'react-autosuggest'
-import axios from 'axios'
-import SearchResultDrug from '../SearchResultDrug/component'
-import SearchResultContent from '../SearchResultContent/component'
 import FormHint from '../FormHint/component'
 
 class FormGroup extends PureComponent {
@@ -13,29 +8,16 @@ class FormGroup extends PureComponent {
     super(props)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.getSuggestions = this.getSuggestions.bind(this)
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this)
-    this.onSuggestionSelected = this.onSuggestionSelected.bind(this)
-    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this)
-    this.renderSuggestion = this.renderSuggestion.bind(this)
-    this.getSuggestionValue = this.getSuggestionValue.bind(this)
-    this.renderSuggestionsContainer = this.renderSuggestionsContainer.bind(this)
-    this.onSuggestionHighlighted = this.onSuggestionHighlighted.bind(this)
 
     this.state = {
       id: '',
-      searchTerm: '',
-      currentSuggestion: '',
-      autoCompleteData: [],
-      activedescendant: null,
-      resultsTotal: 0,
-      loading: false
+      searchTerm: ''
     }
   }
 
   handleSearchSubmit () {
     const searchTerm = encodeURIComponent(
-      this.searchInput.input.value
+      this.state.searchTerm
         .toLowerCase()
         .trim()
     )
@@ -46,67 +28,15 @@ class FormGroup extends PureComponent {
 
   componentDidMount() {
     if (this.props.focus) {
-      this.searchInput.input.focus()
+      this.searchInput.focus()
     }
   }
 
-  onChange (event, { newValue }) {
-    if (event.type === 'change') {
-      this.setState({
-        searchTerm: newValue,
-        searchTermClean: encodeURIComponent(newValue),
-        currentSuggestion: '',
-        activedescendant: null,
-        resultsTotal: 0
-      })
-    } else {
-      this.setState({
-        currentSuggestion: newValue
-      })
-    }
-  }
-
-  // @todo: refactor to container
-  async getSuggestions (value) {
-    const searchTerm = encodeURIComponent(value.toLowerCase().trim())
-    const response = await axios
-      .get(`/api/v1/search/autocomplete/${searchTerm}?page=0&pageSize=5`)
-    return response.data
-  }
-
-  onSuggestionsFetchRequested ({ value }) {
+  onChange (event) {
     this.setState({
-      loading: true
+      searchTerm: event.target.value,
+      searchTermClean: encodeURIComponent(event.target.value)
     })
-    this.getSuggestions(value).then(resp => {
-      if (resp.hits) {
-        resp.hits = resp.hits.map((v, i) => {
-          v['pos'] = `react-autowhatever-${this.props.id}--item-${i}`
-          return v
-        })
-        this.setState({
-          resultsTotal: resp.total,
-          autoCompleteData: resp.hits,
-          loading: false
-        })
-      } else {
-        this.setState({
-          loading: false
-        })
-      }
-    }).catch(() => {
-      this.setState({
-        loading: false
-      })
-    })
-  }
-
-  onSuggestionHighlighted({suggestion}) {
-    if (suggestion && suggestion.pos) {
-      this.setState({
-        activedescendant: suggestion.pos
-      })
-    }
   }
 
   handleKeyPress (e) {
@@ -119,116 +49,18 @@ class FormGroup extends PureComponent {
     }
   }
 
-  // this prevents the thing from firing until at least two characters are added
-  shouldRenderSuggestions(value) {
-    return value.trim().length > 0
-  }
-
-  renderSuggestionsContainer({ containerProps, children }) {
-    let res = this.state.resultsTotal > 5 ? (this.state.resultsTotal - 5) : null
-
-    return (
-      <div {...containerProps} id={this.props.id + '_list'} className={this.props.className || ''}>
-        {this.state.loading && <span className='spinner spinner--active spinner--static'/>}
-        {children}
-        {res && children && <a className='link-text' data-suggestion-ignore='true' href={`/search/${this.state.searchTermClean}`}>
-          View more results
-        </a>}
-      </div>
-    )
-  }
-
-  onSuggestionSelected (event, suggestionItem) {
-    event.preventDefault()
-    const item = suggestionItem.suggestion._source
-    let url = ''
-    if (suggestionItem.suggestion._index.includes('talktofrank-content')) {
-      url = item.type === 'news'
-        ? `/news/${item.slug}`
-        : item.slug.charAt(0) === '/' ? item.slug : `/${item.slug}`
-    } else {
-      url = `/drug/${item.slug}`
-      if (item.realName && item.realName !== item.name) {
-        url += `?a=${item.name.trim()}`
-      }
-    }
-
-    window.location = url
-  }
-
-  onSuggestionsClearRequested () {
-    this.setState({
-      autoCompleteData: []
-    })
-  }
-
-  getSuggestionValue (suggestion) {
-    // @todo: refactor to use config
-    return suggestion._index.includes('talktofrank-content')
-      ? suggestion._source.title
-      : suggestion._source.name
-  }
-
-  renderSuggestion (result) {
-    const SearchResultComponent =
-      result._index.includes('talktofrank-content')
-        ? SearchResultContent
-        : SearchResultDrug
-
-    return <SearchResultComponent
-      item={result._source}
-      prefix={true}
-      tag={'p'}
-      searchTerm={this.state.searchTerm}
-      highlight={result.highlight
-        ? result.highlight
-        : null
-      }
-    />
-  }
-
   render () {
-    const { searchTerm, autoCompleteData, activedescendant } = this.state
+    const { searchTerm } = this.state
     const { id, label } = this.props
     let iconSubmit = {
       label: 'Submit search',
       url: '/ui/svg/magnifying-pink.svg'
     }
     return (
-      <div className='form-group form-group--flush'>
+      <div className='form-group form-group--flush form-group--full-width'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
-        <FormHint id={`${this.props.id}_hint`} className='visually-hidden'>When autocomplete results are available use up and down arrows to review and enter to select. </FormHint>
-        <Autosuggest
-          suggestions={autoCompleteData}
-          shouldRenderSuggestions={this.shouldRenderSuggestions}
-          id={id}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          renderSuggestionsContainer={this.renderSuggestionsContainer}
-          onSuggestionSelected={this.onSuggestionSelected}
-          getSuggestionValue={this.getSuggestionValue}
-          renderSuggestion={this.renderSuggestion}
-          onSuggestionHighlighted={this.onSuggestionHighlighted}
-          focusInputOnSuggestionClick={false}
-          inputProps={{
-            className: `form-control form-control--large ${!autoCompleteData.length && searchTerm.trim().length > 2 ? 'form-control--underline' : ''}`,
-            id: id,
-            value: searchTerm,
-            onChange: this.onChange,
-            placeholder: this.props.placeholder,
-            onTouchStart: this.handleKeyPress,
-            type: 'text',
-            role: 'textbox',
-            'aria-describedby': this.props.id + '_hint',
-            'aria-activedescendant': activedescendant,
-            'aria-controls': this.props.id + '_list',
-            'aria-autocomplete': 'both'
-          }}
-          ref={input => { this.searchInput = input }}
-          required
-        />
+        <input className='form-control form-control--large' id={id} name={id} value={searchTerm} type='text' onChange={this.onChange} ref={input => { this.searchInput = input }} />
         <Button className='btn--flat submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
-        <div aria-live='assertive' class='visually-hidden'>{this.state.resultsTotal > 0 ? this.state.resultsTotal + ' results shown' : 'no results'}</div>
       </div>
     )
   }
