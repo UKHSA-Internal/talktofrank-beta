@@ -6,7 +6,6 @@ import FormHint from '../FormHint/component'
 class FormGroup extends PureComponent {
   constructor (props) {
     super(props)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
     this.onChange = this.onChange.bind(this)
 
     this.state = {
@@ -34,20 +33,19 @@ class FormGroup extends PureComponent {
 
   onChange (event) {
     this.setState({
-      searchTerm: event.target.value,
-      searchTermClean: encodeURIComponent(event.target.value)
+      searchTerm: event.target.value
     })
   }
 
-  handleKeyPress (e) {
-    // Theres a race condition with the keyup/onchange events
-    // this.state.currentSuggestion is set when up/down keys are used
-    // if its empty enter has been pressed whilst the input is focussed
-    if (e.key === 'Enter' && this.state.currentSuggestion === '') {
-      e.preventDefault()
-      window.location = `/search/${this.state.searchTermClean}`
-    }
-  }
+  // handleKeyPress (e) {
+  //   // Theres a race condition with the keyup/onchange events
+  //   // this.state.currentSuggestion is set when up/down keys are used
+  //   // if its empty enter has been pressed whilst the input is focussed
+  //   if (e.key === 'Enter' && this.state.currentSuggestion === '') {
+  //     e.preventDefault()
+  //     window.location = `/search/${this.state.searchTermClean}`
+  //   }
+  // }
 
   render () {
     const { searchTerm } = this.state
