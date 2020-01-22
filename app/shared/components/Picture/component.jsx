@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import Play from '../Play/component.jsx'
 import { fieldIncludesVideo } from '../../utilities'
 
