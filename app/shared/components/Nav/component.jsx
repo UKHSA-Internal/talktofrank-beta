@@ -62,7 +62,7 @@ export default class Nav extends React.PureComponent {
     this.setWrapperRef = this.setWrapperRef.bind(this)
     this.handleItemClick = this.handleItemClick.bind(this)
     this.handleOutsideClick = this.handleOutsideClick.bind(this)
-
+    this.escFunction = this.escFunction.bind(this)
     this.state = {
       dropDown: false
     }
@@ -83,6 +83,24 @@ export default class Nav extends React.PureComponent {
       })
     }
     this.handleItemClick(e)
+  }
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      if (this.state.dropDown) {
+        this.setState({
+          dropDown: false
+        })
+      }
+    }
+  }
+
+  componentDidMount () {
+    document.addEventListener('keydown', this.escFunction, false)
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('keydown', this.escFunction, false)
   }
 
   setWrapperRef (node) {
@@ -132,10 +150,10 @@ export default class Nav extends React.PureComponent {
             if (!item.subnavigation) {
               return <LinkItem key={i} url={item.url} icon={icon} className={linkClass} label={item.label} clickHandler={this.handleItemClick} tracking={item.tracking}/>
             } else {
-              let subnav = <ul className='navbar-dropdown list-unstyled' role='menu' aria-hidden={this.props.mobileMenuOpen}>{item.subnavigation.map((v, j) => {
+              let subnav = <ul className='navbar-dropdown list-unstyled' aria-hidden={this.props.mobileMenuOpen}>{item.subnavigation.map((v, j) => {
                 return <LinkItem key={j} url={v.url} className='nav-item' label={v.label} clickHandler={this.handleItemClick} tracking={v.tracking}/>
               })}</ul>
-              return <LinkItem key={i} url={item.url} hasPopup={this.props.hasPopup} ref={this.setWrapperRef} hasDropdown={true} menuOpen={this.state.dropDown} className={'nav-item'} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
+              return <LinkItem key={i} url={item.url} hasPopup={this.props.hasPopup} hasDropdown={true} menuOpen={this.state.dropDown} className={'nav-item'} label={item.label} clickHandler={this.dropDown} tracking={item.tracking} subnav={subnav}/>
             }
           })}
         </ul>

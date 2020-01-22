@@ -40,7 +40,7 @@ export class ErrorSummary extends React.PureComponent {
         <ul className='list-unstyled list-unstyled--single spacing-top--single'>
           {errors.map((error, i) => {
             return (
-              <li key={i}><a id={`${error.field}_error`} className='link-text link-text--inline' href={`#${error.field}-label`}>{error.message}</a></li>
+              <li key={i}><a id={`${error.field}_error`} className='link-text link-text--inline' href={`#${error.field}`}>{error.message}</a></li>
             )
           })
           }
@@ -55,5 +55,5 @@ ErrorSummary.defaultProps = {
 }
 
 export const ErrorMessage = ({message}) => (
-  <div className='invalid-feedback'><Icon alt='' className='spacing-right' url='/ui/svg/warning.svg' label='warning' />{message}</div>
+  <div className='invalid-feedback'><Icon alt='' className='spacing-right' url='/ui/svg/warning.svg' label='Error' />{message}</div>
 )

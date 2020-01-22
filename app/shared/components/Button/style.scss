@@ -98,7 +98,7 @@
 .btn--secondary,
 .btn--primary {
   color: $white;
-  background-color: $pink;
+  background-color: $pinkAccess;
   text-decoration: none;
   cursor: pointer;
   text-align: center;
@@ -126,7 +126,7 @@
 
   .has-hover & {
     &:hover {
-      background-color: $pinkAccess;
+      background-color: $pink;
     }
   }
 }
