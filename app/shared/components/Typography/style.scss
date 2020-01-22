@@ -628,7 +628,7 @@ a[href^='//']:not([href*='talktofrank.com']) {
   &::after {
     content: '';
     display: inline-block;
-    margin: 0 0 0 0.5rem;
+    margin: 0 0 0 .5rem;
     background-image: url('/ui/svg/external.svg');
     background-repeat: no-repeat;
     background-size: 80%;
