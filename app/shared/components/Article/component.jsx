@@ -23,7 +23,7 @@ const Article = props => {
     // eslint-disable-next-line no-self-compare
     <Tag className={`list-item ${props.fields.image ? ('list-item--has-image' + (props.fields.imagepos & 1 === 1 ? ' list-item--alternate' : '')) : ''} `} >
       <Link href={props.fields.slug ? `/news/${props.fields.slug}` : null}>
-        {props.isAmp ? props.fields.image && <AmpPicture video={video} {...props.fields.image}/> : props.fields.image && <Picture video={video} className={fieldIncludesVideo(props.fields.headerVideo) ? 'has-video' : ''} {...props.fields.image}/>}
+        {props.isAmp ? props.fields.image && <AmpPicture video={video} {...props.fields.image}/> : props.fields.image && <Picture noAlt={props.fields.slug ? true : null} video={video} className={fieldIncludesVideo(props.fields.headerVideo) ? 'has-video' : ''} {...props.fields.image}/>}
         <div className={`list-item__inner${props.fields.slug == null ? ' list-item__inner--indented' : ''}`}>
           <Heading type={props.fields.type} className='list-item__title h3 heading-inline' text={`<span>${props.fields.title}</span>`}/>
           {props.date && <Time time={props.dateFormatted} dateTime={props.date}>{(fieldIncludesVideo(video) && props.fields.image) && <Play className='hidden--sm-up icon--offset'/>}</Time>}

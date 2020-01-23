@@ -433,13 +433,6 @@ b {
       padding-left: 2.5rem;
       position: relative;
       margin-bottom: .5rem;
-      list-style: none;
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-      }
 
       p {
         margin-left: 0;
@@ -449,7 +442,12 @@ b {
 
   ul {
     > li {
+      list-style: none;
+
       &::before {
+        content: '';
+        position: absolute;
+        left: 0;
         background-color: $body-text;
         border-radius: 100%;
         height: 6px;
@@ -458,16 +456,6 @@ b {
       }
     }
   }
-
-  ol {
-    counter-reset: counter;
-
-    > li::before {
-      content: counter(counter);
-      counter-increment: counter;
-    }
-  }
-
 
   &--indented {
     @include media-breakpoint-up(sm) {
@@ -630,5 +618,21 @@ p.has-icon {
 .has-image {
   @include media-breakpoint-down(sm) {
     margin-top: 3rem;
+  }
+}
+
+a[href^='https://']:not([href*='talktofrank.com']),
+a[href^='//']:not([href*='talktofrank.com']) {
+  position: relative;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    margin: 0 0 0 .5rem;
+    background-image: url('/ui/svg/external.svg');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    width: .8em;
+    height: .8em;
   }
 }

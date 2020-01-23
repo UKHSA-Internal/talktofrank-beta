@@ -15,8 +15,8 @@ const ArticleSupport = props => {
         </Anchor>
         {props.address && <div className='media__heading'><strong>{props.distance} mile{props.distance !== '1.0' ? 's' : ''} away</strong><Heading type='p' text={props.address}/></div>}
         <Longform text={props.summary} className='spacing--single'/>
-        <Anchor className='list-item__link hidden--sm-up' href={`/treatment-centre/${props.slug}`}>
-          <Heading type='p' label={`Read more about ${props.text}`} className='link-text' text='Read more'/>
+        <Anchor className='list-item__link' href={`/treatment-centre/${props.slug}`}>
+          <Heading type='p' className='link-text' text={`Read more about ${props.text}`}/>
         </Anchor>
         <ul class='list-inline spacing--single list-inline--spaced'>
           {props.phone && <li class='list-inline-item'><Anchor text={props.phone} label={`Telephone ${props.text}`} className='break-word link-text' href={`tel:${props.phoneRaw}`} /></li>}
