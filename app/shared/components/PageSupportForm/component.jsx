@@ -54,7 +54,7 @@ export default class PageSupportForm extends React.PureComponent {
 
   render () {
     let icon = {
-      label: 'search',
+      label: null,
       url: '/ui/svg/magnifying-reversed.svg'
     }
 
@@ -202,7 +202,7 @@ export default class PageSupportForm extends React.PureComponent {
                 <Form className='spacing--single'>
                   <FormGroup error={error} onChange={this.onLocationChange} value={locationValue} className='form-control--reversed form-control--large' name='support-centre-postcode' label='Please enter a full postcode or town' id='support-centre-postcode' placeholder=''/>
                   <Select {...supportOptions} onChange={this.onServiceTypeChange} selected={serviceTypeValue} className='form-control--reversed form-control--large'/>
-                  <Button className='btn--primary' clickHandler={this.submitAction}>
+                  <Button aria-label='Search for support near you' className='btn--primary' clickHandler={this.submitAction}>
                     Search
                     <Icon className='spacing-left' {...icon}/>
                   </Button>
