@@ -73,7 +73,6 @@
 .link-text {
   @include link;
   display: inline-block;
-  font-size: inherit;
 
   .card__link & {
     display: inline-block;
