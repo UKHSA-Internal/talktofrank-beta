@@ -37,16 +37,6 @@ class FormGroup extends PureComponent {
     })
   }
 
-  // handleKeyPress (e) {
-  //   // Theres a race condition with the keyup/onchange events
-  //   // this.state.currentSuggestion is set when up/down keys are used
-  //   // if its empty enter has been pressed whilst the input is focussed
-  //   if (e.key === 'Enter' && this.state.currentSuggestion === '') {
-  //     e.preventDefault()
-  //     window.location = `/search/${this.state.searchTermClean}`
-  //   }
-  // }
-
   render () {
     const { searchTerm } = this.state
     const { id, label } = this.props
@@ -57,7 +47,7 @@ class FormGroup extends PureComponent {
     return (
       <div className='form-group form-group--flush form-group--full-width'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
-        <input className='form-control form-control--large' id={id} name={id} value={searchTerm} type='text' onChange={this.onChange} ref={input => { this.searchInput = input }} />
+        <input className='form-control form-control--large' id={id} name={id} value={searchTerm} type='text' onChange={this.onChange} ref={input => { this.searchInput = input }} autoComplete='true' />
         <Button className='btn--flat submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
       </div>
     )
