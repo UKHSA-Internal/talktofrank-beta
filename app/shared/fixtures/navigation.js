@@ -195,5 +195,14 @@ export const footerUtility = [
       action: 'Click',
       category: 'Footer navigation'
     }
+  },
+  {
+    label: 'Accessibility statement',
+    url: '/accessibility-statement',
+    tracking: {
+      label: 'Accessibility statement',
+      action: 'Click',
+      category: 'Footer navigation'
+    }
   }
 ]
