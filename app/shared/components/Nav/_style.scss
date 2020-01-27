@@ -73,6 +73,7 @@
 
 .navbar-primary {
   margin-top: .5rem;
+  font-size: 1.7rem;
 
   @include media-breakpoint-down(sm) {
     font-size: 2.2rem;
@@ -98,7 +99,7 @@
     }
 
     @include media-breakpoint-up(lg) {
-      margin-right: 1.5em;
+      margin-right: .8em;
     }
 
     &.nav-item--active {
