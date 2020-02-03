@@ -7,6 +7,7 @@ export const GA = props => {
   if (typeof window !== 'undefined') {
     if (!window.ga) {
       ReactGA.initialize(id) // @todo - this would be better coming from the config.yaml
+      ReactGA.set({ anonymizeIp: true })
     }
     ReactGA.pageview(window.location.pathname + window.location.search)
 
@@ -21,6 +22,7 @@ export const GAEvent = (props) => {
   if (typeof window !== 'undefined') {
     if (!window.ga) {
       ReactGA.initialize(id) // @todo - this would be better coming from the config.yaml
+      ReactGA.set({ anonymizeIp: true })
     }
     ReactGA.event(props)
   }
