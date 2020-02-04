@@ -21,6 +21,7 @@ const withTracker = (WrappedComponent, options = {}) => {
       if (typeof window !== 'undefined') {
         if (!window.ga) {
           ReactGA.initialize(config.ga)
+          ReactGA.set({ anonymizeIp: true })
         }
       }
       trackPage(page)
