@@ -188,6 +188,15 @@ export const footerUtility = [
     }
   },
   {
+    label: 'Terms and conditions',
+    url: '/terms-conditions',
+    tracking: {
+      label: 'Terms and conditions',
+      action: 'Click',
+      category: 'Footer navigation'
+    }
+  },
+  {
     label: 'Disclaimer',
     url: '/disclaimer',
     tracking: {
