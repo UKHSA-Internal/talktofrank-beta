@@ -1,4 +1,6 @@
 .time {
+  visibility: hidden;
+
   .card__link & {
     color: $body-text;
   }

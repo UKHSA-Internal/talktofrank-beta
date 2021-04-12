@@ -47,7 +47,7 @@ class FormGroup extends PureComponent {
     return (
       <div className='form-group form-group--flush form-group--full-width'>
         <label htmlFor={id} className='form-label form-label--large'>{label}</label>
-        <input className='form-control form-control--large' id={id} name={id} value={searchTerm} type='text' onChange={this.onChange} ref={input => { this.searchInput = input }} autoComplete='true' />
+        <input className='form-control form-control--large' id={id} name={id} value={searchTerm} type='text' onChange={this.onChange} ref={input => { this.searchInput = input }} autoComplete='true' placeholder={this.props.placeholder}/>
         <Button className='btn--flat submit' clickHandler={this.handleSearchSubmit.bind(this)}><Icon {...iconSubmit}/></Button>
       </div>
     )
