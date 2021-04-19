@@ -74,13 +74,13 @@
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-636728427214"
-    integration_id: 43036
+    integration_hash: 5dde343e422f5a6e5bb6feb8
   - action: "Upload m.talktofrank.com redirect file to S3"
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/mdot-redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-636728427214"
-    integration_id: 43036
+    integration_hash: 5dde343e422f5a6e5bb6feb8
   - action: "Archive directory"
     type: "ZIP"
     local_path: "/"
@@ -114,7 +114,7 @@
     environment_name: "talktofrankuat-preview"
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
-    integration_id: 43036
+    integration_hash: 5dde343e422f5a6e5bb6feb8
 - pipeline: "UAT deployment [PHE]"
   target_site_url: "https://staging.talktofrank.com"
   trigger_mode: "ON_EVERY_PUSH"
@@ -161,13 +161,13 @@
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-636728427214"
-    integration_id: 43036
+    integration_hash: 5dde343e422f5a6e5bb6fcb7
   - action: "Upload m.talktofrank.com redirect file to S3"
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/mdot-redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-636728427214"
-    integration_id: 43036
+    integration_hash: 5dde343e422f5a6e5bb6fcb7
   - action: "Archive directory"
     type: "ZIP"
     local_path: "/"
@@ -202,7 +202,7 @@
     environment_name: "talktofrankuat-env"
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
-    integration_id: 43036
+    integration_hash: 5dde343e422f5a6e5bb6fcb7
 - pipeline: "Production deployment [PHE]"
   trigger_mode: "MANUAL"
   ref_name: "master"
@@ -248,13 +248,13 @@
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-116851924324"
-    integration_id: 43570
+    integration_hash: 5dde343e422f5a6e5bb6feb8
   - action: "Upload m.talktofrank.com redirect file to S3"
     type: "AMAZON_S3"
     input_type: "BUILD_ARTIFACTS"
     local_path: ".ebextensions/mdot-redirects.map"
     bucket_name: "elasticbeanstalk-eu-west-2-116851924324"
-    integration_id: 43570
+    integration_hash: 5dde343e422f5a6e5bb6feb8
   - action: "Archive directory"
     type: "ZIP"
     local_path: "/"
@@ -288,7 +288,7 @@
     environment_name: "ttfprodapp-env"
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
-    integration_id: 43570
+    integration_hash: 5dde343e422f5a6e5bb6feb8
   - action: "Run preview deployment"
     type: "RUN_NEXT_PIPELINE"
     wait: false
