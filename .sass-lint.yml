@@ -13,6 +13,5 @@ rules:
   no-color-literals: 1
   hex-notation: 2
   no-trailing-zero: 2
-  leading-zero: 2
   space-after-colon: 2
   final-newline: 2
