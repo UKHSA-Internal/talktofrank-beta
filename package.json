@@ -114,7 +114,7 @@
     "marked": "^0.7.0",
     "merge": "^1.2.1",
     "ngrok": "^3.1.0",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.14.1",
     "nodemailer": "^4.6.8",
     "nodemon": "^1.18.3",
     "npm": "^6.13.4",
@@ -147,5 +147,8 @@
     "x-ray": "^2.3.4",
     "yaml-import": "^0.2.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.12.0",
+    "accessible-autocomplete": "^2.0.3"
+  }
 }
