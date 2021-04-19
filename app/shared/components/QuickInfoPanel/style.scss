@@ -13,6 +13,7 @@
     background: $gray-900;
     display: inline;
   }
+
   &__title {
     margin: 0;
     font-family: $font-family-heavy;
@@ -22,9 +23,11 @@
     color: white;
     display: inline;
   }
+
   &__wrapper {
     margin-bottom: 25px;
   }
+
   &__link {
     color: $pink;
     margin-bottom: 10px;
@@ -34,6 +37,7 @@
     font-weight: 600;
     font-family: $font-family-heavy;
   }
+
   &__description {
     color: var(--off-black);
     margin: 0;
