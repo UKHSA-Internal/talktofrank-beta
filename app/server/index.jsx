@@ -23,7 +23,7 @@ import contentFulWebhookRoutes from './contentful/webhooks.js'
 
 /*
  * Project configuration
-*/
+ */
 import { config } from 'config'
 import packageInfo from '../../package.json'
 import Html from '../shared/components/Html/component'
@@ -39,10 +39,12 @@ if (config.sentry.logErrors) {
   Sentry.init({
     dsn: config.sentry.dsn,
     beforeSend(event) {
-      if (event.extra &&
+      if (
+        event.extra &&
         event.extra.Error &&
         event.extra.Error.status &&
-        event.extra.Error.status === 404) {
+        event.extra.Error.status === 404
+      ) {
         // Dont send 404 errors
         return null
       }
@@ -53,23 +55,28 @@ if (config.sentry.logErrors) {
 
 /*
  * Elasticsearch config
-*/
+ */
 const AWS = require('aws-sdk')
 const connectionClass = require('http-aws-es')
-const elasticsearch = require('elasticsearch')
+const { Client } = require('@elastic/elasticsearch')
 const elasticSearchConf = {
-  host: config.elasticsearch.host || `http://localhost:9200`,
-  log: `info`
+  node: config.elasticsearch.host || `https://localhost:9200`,
+  ssl: {
+    rejectUnauthorized: false
+  }
 }
 
 if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.region) {
-  elasticSearchConf.connectionClass = connectionClass
+  elasticSearchConf.connection = connectionClass
   AWS.config.update({
     region: config.elasticsearch.amazonES.region
   })
 }
 
-if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) {
+if (
+  config.elasticsearch.amazonES &&
+  config.elasticsearch.amazonES.credentials
+) {
   AWS.config.update({
     credentials: new AWS.Credentials(
       config.elasticsearch.amazonES.credentials.accessKeyId,
@@ -79,7 +86,7 @@ if (config.elasticsearch.amazonES && config.elasticsearch.amazonES.credentials) 
   })
 }
 
-const search = new elasticsearch.Client(elasticSearchConf)
+const search = new Client(elasticSearchConf)
 
 var store
 
@@ -101,7 +108,7 @@ app.use('/contentful/webhook', contentFulWebhookRoutes)
 app.use('/api/v1/contact', apiContactRoutes)
 
 const options = {
-  setHeaders: function (res, path, stat) {
+  setHeaders: function(res, path, stat) {
     res.set('Service-Worker-Allowed', '/')
   }
 }
@@ -115,7 +122,9 @@ app.get('/robots.txt', (req, res) => {
     res.send('User-agent: *\nDisallow: /')
   } else {
     res.type('text/plain')
-    res.send(`User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`)
+    res.send(
+      `User-agent: *\nAllow: /\nSitemap: ${config.canonicalHost}/sitemap.xml`
+    )
   }
 })
 
@@ -124,7 +133,8 @@ app.get('/sitemap.xml', async (req, res, next) => {
 
   try {
     entries = await contentfulClient.getEntries({
-      'sys.contentType.sys.id[in]': 'drug,generalPage,homepage,news,treatmentCentre',
+      'sys.contentType.sys.id[in]':
+        'drug,generalPage,homepage,news,treatmentCentre',
       limit: 1000
     })
   } catch (err) {
@@ -160,40 +170,44 @@ app.get('/sitemap.xml', async (req, res, next) => {
     'barnardo’s-streetlevel'
   ]
 
-  let urls = entries.items.filter(item => {
-    if (item.fields.hasOwnProperty('addressStatus') &&
-      item.fields.addressStatus === false) {
-      return false
-    }
+  let urls = entries.items
+    .filter(item => {
+      if (
+        item.fields.hasOwnProperty('addressStatus') &&
+        item.fields.addressStatus === false
+      ) {
+        return false
+      }
 
-    if (blacklist.includes(item.fields.slug)) {
-      return false
-    }
+      if (blacklist.includes(item.fields.slug)) {
+        return false
+      }
 
-    if (!item.fields.slug) {
-      console.log('No slug for ' + item.fields.slug)
-    }
-    return item.fields.slug
-  }).map(item => {
-    let url
-    switch (item.sys.contentType.sys.id) {
-      case 'news':
-        url = 'news/' + item.fields.slug
-        break
-      case 'drug':
-        url = 'drug/' + item.fields.slug
-        break
-      case 'treatmentCentre':
-        url = 'treatment-centre/' + item.fields.slug
-        break
-      default:
-        url = item.fields.slug
-    }
-    return {
-      url: url,
-      lastMod: format(parse(item.sys.updatedAt), 'YYYY-MM-DD')
-    }
-  })
+      if (!item.fields.slug) {
+        console.log('No slug for ' + item.fields.slug)
+      }
+      return item.fields.slug
+    })
+    .map(item => {
+      let url
+      switch (item.sys.contentType.sys.id) {
+        case 'news':
+          url = 'news/' + item.fields.slug
+          break
+        case 'drug':
+          url = 'drug/' + item.fields.slug
+          break
+        case 'treatmentCentre':
+          url = 'treatment-centre/' + item.fields.slug
+          break
+        default:
+          url = item.fields.slug
+      }
+      return {
+        url: url,
+        lastMod: format(parse(item.sys.updatedAt), 'YYYY-MM-DD')
+      }
+    })
 
   urls = urls.concat(additions)
 
@@ -214,7 +228,9 @@ app.get(/^([^.]+)$/, (req, res) => {
   const loadData = () => {
     const branches = matchRoutes(newRoutes, req.path)
 
-    const matchedBranches = branches.filter(({ newRoutes, match }) => match.isExact)
+    const matchedBranches = branches.filter(
+      ({ newRoutes, match }) => match.isExact
+    )
 
     if (matchedBranches.length === 0) {
       /*
@@ -229,19 +245,27 @@ app.get(/^([^.]+)$/, (req, res) => {
     }
 
     const promises = matchedBranches
-      .filter(({ route, match }) => { return route.loadData })
+      .filter(({ route, match }) => {
+        return route.loadData
+      })
       .map(({ route, match }) => {
         return Promise.all(
           route
-            .loadData({ params: match.params, query: req.query, getState: store.getState })
+            .loadData({
+              params: match.params,
+              query: req.query,
+              getState: store.getState
+            })
             .map(item => store.dispatch(item))
         )
       })
 
-    return Array.isArray(promises) && promises.length > 0 ? Promise.all(promises) : null
+    return Array.isArray(promises) && promises.length > 0
+      ? Promise.all(promises)
+      : null
   }
 
-  (async () => {
+  ;(async () => {
     // @todo: refactor this - enforcing header here to verify whether this
     // fixes windows 7 chrome not rendering the site correctly
     res.type('text/html; charset=UTF-8')
@@ -261,9 +285,11 @@ app.get(/^([^.]+)$/, (req, res) => {
       }
       res.status(404)
       res.write('<!DOCTYPE html>')
-      return ReactDOMServer
-        .renderToNodeStream(<Html {...props}><PageNotFound/></Html>)
-        .pipe(res)
+      return ReactDOMServer.renderToNodeStream(
+        <Html {...props}>
+          <PageNotFound />
+        </Html>
+      ).pipe(res)
     }
 
     try {
@@ -283,18 +309,19 @@ app.get(/^([^.]+)$/, (req, res) => {
       res.write('<!DOCTYPE html>')
 
       getLoadableState(AppComponent).then(loadableState => {
-        ReactDOMServer
-          .renderToNodeStream(AppComponent)
-          .pipe(res)
+        ReactDOMServer.renderToNodeStream(AppComponent).pipe(res)
       })
     } catch (err) {
       console.log(err)
       // need to render the NoMatch component here
-      res.status(500).send('' +
-        '<html>' +
-        '<body><h2>Internal server error :(</h2></body>' +
-        '</html>'
-      )
+      res
+        .status(500)
+        .send(
+          '' +
+            '<html>' +
+            '<body><h2>Internal server error :(</h2></body>' +
+            '</html>'
+        )
     }
   })()
 })
