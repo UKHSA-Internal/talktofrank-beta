@@ -31,48 +31,86 @@ const DrugList = props => {
 
   return (
     <React.Fragment>
-      <Masthead path={props.location}/>
+      <Masthead path={props.location} />
       <Main>
-        <Accent className='accent--muted accent--az' modifier='wrapper--constant'>
-          <Form role='search' className='form--search constrain form--search-az'>
+        <Accent
+          className="accent--muted accent--az"
+          modifier="wrapper--constant"
+        >
+          <Form
+            role="search"
+            className="form--search constrain form--search-az"
+          >
             <FormGroupAutocomplete
-              button='true'
-              id='homepage-large-search'
-              className='react-autosuggest__suggestions-container--homepage'
-              label='Search for any drug…'
+              button="true"
+              id="homepage-large-search"
+              className="react-autosuggest__suggestions-container--homepage"
+              label="Search for any drug…"
               placeholder="Look up a drug (don't worry about typos)"
-              />
+            />
           </Form>
         </Accent>
-        <Accent className='accent--shallow' modifier='wrapper--tight'>
-          <Heading type='h1' className='h2 inverted spacing-left spacing--single' text='Drugs A to Z'/>
-          <Nav navigation={initialLetter} className='navbar-expand navbar-list' labelledBy='drugs-a-z-navigation' id='drugs-a-z-navigation' visible='true' type='nav'/>
+        <Accent className="accent--shallow" modifier="wrapper--tight">
+          <Heading
+            type="h1"
+            className="h2 inverted spacing-left spacing--single"
+            text="Drugs A to Z"
+          />
+          <Nav
+            navigation={initialLetter}
+            className="navbar-expand navbar-list"
+            labelledBy="drugs-a-z-navigation"
+            id="drugs-a-z-navigation"
+            visible="true"
+            type="nav"
+          />
         </Accent>
-        <Divider className='hr--muted' />
-        <Accent className='accent--shallow'>
+        <Divider className="hr--muted" />
+        <Accent className="accent--shallow">
           <Grid>
-            <GridCol className='col-12 col-sm-8 offset-sm-2'>
-              <ul className='list-unstyled' role='list'>
+            <GridCol className="col-12 col-sm-8 offset-sm-2">
+              <ul className="list-unstyled" role="list">
                 {props.list.map((val, i) => {
                   return (
                     <li id={val.group} key={'outer' + i}>
-                      <Heading text={val.group} className={'display-4 heading--primary' + (i === 0 ? '' : ' spacing-top--large')}/>
-                      <ul className='list-unstyled'>
-                      {val.values.map((v, index) => {
-                        // @refactor - please tidy this up : )
-                        let synonyms
-                        let realName = v.parent ? <strong>{v.parent}</strong> : null
-
-                        if (v.synonyms) {
-                          synonyms = v.synonyms.length > limit ? `${v.synonyms.slice(0, limit).join(' / ')} +${v.synonyms.length - v.synonyms.slice(0, limit).length} more` : v.synonyms.join(' / ')
+                      <Heading
+                        text={val.group}
+                        className={
+                          'display-4 heading--primary' +
+                          (i === 0 ? '' : ' spacing-top--large')
                         }
+                      />
+                      <ul className="list-unstyled">
+                        {val.values.map((v, index) => {
+                          // @refactor - please tidy this up : )
+                          let synonyms
+                          let realName = v.parent ? v.parent : null
 
-                        return (
-                          <LinkDrugName key={index} {...v} synonyms={synonyms || null} realName={realName || null}/>
-                        )
-                      })}
+                          if (v.synonyms) {
+                            synonyms =
+                              v.synonyms.length > limit
+                                ? `${v.synonyms
+                                    .slice(0, limit)
+                                    .join(' / ')} +${v.synonyms.length -
+                                    v.synonyms.slice(0, limit).length} more`
+                                : v.synonyms.join(' / ')
+                          }
+
+                          return (
+                            <LinkDrugName
+                              key={index}
+                              {...v}
+                              synonyms={synonyms || null}
+                              realName={realName || null}
+                            />
+                          )
+                        })}
                       </ul>
-                      <small><a className='return-to-top' href='#main'>Return to top <span aria-hidden='true'>^</span></a></small>
+                      <small>
+                        <a className="return-to-top" href="#main">
+                          Return to top <span aria-hidden="true">^</span>
+                        </a>
+                      </small>
                     </li>
                   )
                 })}
@@ -83,9 +121,7 @@ const DrugList = props => {
       </Main>
       <Footer />
       <GA />
-      <SiteMessageContainer
-        path={props.location}
-      />
+      <SiteMessageContainer path={props.location} />
     </React.Fragment>
   )
 }
