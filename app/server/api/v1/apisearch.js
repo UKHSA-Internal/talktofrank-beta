@@ -13,9 +13,7 @@ const jsonParser = bodyParser.json()
 
 router.get('/page/:term', jsonParser, (req, res, next) => {
   try {
-    if (!req.params.term ||
-      !req.query.page ||
-      !req.query.pageSize) {
+    if (!req.params.term || !req.query.page || !req.query.pageSize) {
       let error = new Error()
       error.message = 'No search term'
       error.status = 500
@@ -45,25 +43,31 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
       req.query.page,
       req.query.pageSize
     )
-    const indices = `${config.elasticsearch.indices.drug},` +
-    `${config.elasticsearch.indices.content}`
+    const indices =
+      `${config.elasticsearch.indices.drug},` +
+      `${config.elasticsearch.indices.content}`
 
-    search.search({
-      index: indices,
-      body: query
-    }).then(results => {
-      results.hits.hits
-        .filter(hit => hit._source.description)
-        .map(hit => {
-          hit._source.description = removeTags(marked(hit._source.description))
-        })
-      results.hits.searchTerm = searchTermDecoded
-      results.hits.head = {
-        title: `${results.hits.total} search results for '${searchTermDecoded}'`,
-        noindex: true
-      }
-      return res.status(200).json(results.hits)
-    })
+    search
+      .search({
+        index: indices,
+        body: query
+      })
+      .then(results => {
+        results.body.hits.hits
+          .filter(hit => hit._source.description)
+          .map(hit => {
+            hit._source.description = removeTags(
+              marked(hit._source.description)
+            )
+          })
+        results.body.hits.searchTerm = searchTermDecoded
+        results.body.hits.head = {
+          title: `${results.body.hits.total} search results for '${searchTermDecoded}'`,
+          noindex: true
+        }
+
+        return res.status(200).json(results.body.hits)
+      })
   } catch (error) {
     error.status = 500
     return next(error)
@@ -72,9 +76,7 @@ router.get('/page/:term', jsonParser, (req, res, next) => {
 
 router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
   try {
-    if (!req.params.term ||
-      !req.query.page ||
-      !req.query.pageSize) {
+    if (!req.params.term || !req.query.page || !req.query.pageSize) {
       let error = new Error()
       error.message = 'No search term'
       error.status = 500
@@ -102,13 +104,15 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
       ? `${config.elasticsearch.indices.drug},${config.elasticsearch.indices.content}`
       : `${config.elasticsearch.indices.drugNames},${config.elasticsearch.indices.content}`
 
-    search.search({
-      index: indices,
-      body: query
-    }).then(results => {
-      results.hits.searchTerm = searchTermDecoded
-      return res.status(200).json(results.hits)
-    })
+    search
+      .search({
+        index: indices,
+        body: query
+      })
+      .then(results => {
+        results.body.hits.searchTerm = searchTermDecoded
+        return res.status(200).json(results.body.hits)
+      })
   } catch (error) {
     error.status = 500
     return next(error)
@@ -117,10 +121,7 @@ router.get('/autocomplete/:term', jsonParser, (req, res, next) => {
 
 const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
   // Add a prefix query
-  let nameFields = [
-    'drugName^10',
-    'synonyms^5'
-  ]
+  let nameFields = ['drugName^10', 'synonyms^5']
 
   let nameConf = {
     fields: nameFields,
@@ -184,59 +185,56 @@ const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
     .orQuery('multi_match', nameConf)
     .orQuery('multi_match', titleConf)
     .orQuery('multi_match', textConf)
-    .sort([
-      {'_score': 'desc'}
-    ])
+    .sort([{ _score: 'desc' }])
     .rawOption('highlight', {
-      'order': 'score',
-      'number_of_fragments': 2,
-      'pre_tags': [''],
-      'post_tags': [''],
-      'fragment_size': 150,
-      'fields': {
-        'title': {},
-        'name': {},
-        'drugName': {},
-        'tags': {},
+      order: 'score',
+      number_of_fragments: 2,
+      pre_tags: [''],
+      post_tags: [''],
+      fragment_size: 150,
+      fields: {
+        title: {},
+        name: {},
+        drugName: {},
+        tags: {},
         'relatedDrugs.drugName': {},
         'relatedDrugs.synonyms': {},
-        'body': {},
-        'addiction': {},
-        'additional': {},
-        'description': {},
-        'durationDetail': {},
-        'durationDetectable': {},
-        'effectsBehaviour': {},
-        'effectsFeeling': {},
-        'mixingDangers': {},
-        'qualitiesAdministered': {},
-        'qualitiesAppearance': {},
-        'qualitiesTaste': {},
-        'risksCutWith': {},
-        'risksHealthMental': {},
-        'risksPhysicalHealth': {},
+        body: {},
+        addiction: {},
+        additional: {},
+        description: {},
+        durationDetail: {},
+        durationDetectable: {},
+        effectsBehaviour: {},
+        effectsFeeling: {},
+        mixingDangers: {},
+        qualitiesAdministered: {},
+        qualitiesAppearance: {},
+        qualitiesTaste: {},
+        risksCutWith: {},
+        risksHealthMental: {},
+        risksPhysicalHealth: {},
         'durationMethodOfTaking.methodAfterEffects': {},
         'durationMethodOfTaking.methodEffectsDuration': {},
         'durationMethodOfTaking.methodEffectsStart': {},
         'durationMethodOfTaking.methodName': {},
-        'realName': {},
-        'synonyms': {}
+        realName: {},
+        synonyms: {}
       }
     })
   return query.build()
 }
 
 const buildPrefixQuery = (searchTerm, page, pageSize) => {
-  let fields = [
-    'name.completion^10'
-  ]
+  let fields = ['name.completion^10']
 
   if (searchTerm.length > 2) {
     fields.push(
       'title.completion',
       'relatedDrugs.drugName.completion',
       'relatedDrugs.synonyms.completion',
-      'tags')
+      'tags'
+    )
   }
 
   let conf = {
@@ -249,22 +247,24 @@ const buildPrefixQuery = (searchTerm, page, pageSize) => {
     .from(page * pageSize)
     .size(pageSize)
     .sort([
-      { 'name.raw': {
-        'missing': '_last',
-        'unmapped_type': 'string',
-        'order': 'asc'
-      }}
+      {
+        'name.raw': {
+          missing: '_last',
+          unmapped_type: 'string',
+          order: 'asc'
+        }
+      }
     ])
     .query('multi_match', conf)
     .rawOption('highlight', {
-      'order': 'score',
-      'number_of_fragments': 2,
-      'pre_tags': [''],
-      'post_tags': [''],
-      'fragment_size': 150,
-      'fields': {
+      order: 'score',
+      number_of_fragments: 2,
+      pre_tags: [''],
+      post_tags: [''],
+      fragment_size: 150,
+      fields: {
         'title.completion': {},
-        'tags': {},
+        tags: {},
         'name.completion^10': {},
         'relatedDrugs.drugName.completion': {},
         'relatedDrugs.synonyms.completion': {}
