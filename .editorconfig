@@ -16,3 +16,6 @@ trim_trailing_whitespace = true
 [*.{scss,less,hbs,js,css,html}]
 indent_style = space
 indent_size = 2
+
+# Use single quotes
+quote_type = single
