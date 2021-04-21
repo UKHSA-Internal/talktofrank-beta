@@ -2,8 +2,16 @@ import React from 'react'
 import Autocomplete from 'accessible-autocomplete/react'
 import Button from '../Button/component'
 import Icon from '../Icon/component'
-export default () => {
-  function suggest(query, populateResults) {
+import Form from '../Form/component.jsx'
+
+export default class AccessibleSearch extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchTerm: ''
+    }
+  }
+  suggest(query, populateResults) {
     fetch(`/api/v1/search/autocomplete/${query}?page=0&pageSize=10`)
       .then(res => res.json())
       .then(data => {
@@ -21,24 +29,64 @@ export default () => {
       })
       .catch(e => console.error(e))
   }
-  let iconSubmit = {
-    label: 'Submit search',
-    url: '/ui/svg/magnifying-white.svg'
+  handleSearchSubmit() {
+    const searchTerm = encodeURIComponent(
+      this.state.searchTerm.toLowerCase().trim()
+    )
+    if (searchTerm !== '') {
+      window.location = `/search/${searchTerm}`
+    }
   }
-  return (
-    <div className="accessiblesearch__wrapper">
-      <Autocomplete
-        id="autocomplete"
-        source={suggest}
-        placeholder="Enter a drug (e.g. Mandy)"
-        templates={{
-          inputValue: str => (str ? str.replace(/<\/?span[^>]*>/g, '') : str)
-        }}
-        displayMenu="overlay"
-      />
-      <Button className="btn btn--search submit">
-        <Icon {...iconSubmit} /> Search
-      </Button>
-    </div>
-  )
+
+  onChange(event) {
+    this.setState({
+      searchTerm: event.target.value
+    })
+  }
+  render() {
+    const iconSubmit = {
+      label: 'Submit search',
+      url: '/ui/svg/magnifying-white.svg'
+    }
+    return (
+      <Form
+        onSubmit={this.handleSearchSubmit.bind(this)}
+        role="search"
+        className="form--search constrain form--search-home"
+      >
+        <div className="accessiblesearch__wrapper">
+          <label
+            htmlFor="autocomplete"
+            className="form-label form-label--large"
+          >
+            Search for any drug...
+          </label>
+          <div className="accessiblesearch__container">
+            <Autocomplete
+              id="autocomplete"
+              name="search"
+              source={this.suggest}
+              placeholder="Enter a drug (e.g. Mandy)"
+              onConfirm={text => {
+                this.setState({
+                  searchTerm: text.replace(/<\/?span[^>]*>/g, '')
+                })
+              }}
+              templates={{
+                inputValue: str =>
+                  str ? str.replace(/<\/?span[^>]*>/g, '') : str
+              }}
+              displayMenu="overlay"
+            />
+            <Button
+              className="btn btn--search submit"
+              clickHandler={this.handleSearchSubmit.bind(this)}
+            >
+              <Icon {...iconSubmit} /> Search
+            </Button>
+          </div>
+        </div>
+      </Form>
+    )
+  }
 }
