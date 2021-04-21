@@ -5,11 +5,7 @@ import { imageMap, fieldIncludesVideo } from '../../utilities'
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
 
-  const {
-    featuredContentBlock,
-    featuredNewsItem,
-    featuredDrugsBlock
-  } = fields
+  const { featuredContentBlock, featuredNewsItem, featuredDrugsBlock } = fields
 
   let featuredNewsBlock = false
   let featuredItemBlock = false
@@ -18,7 +14,8 @@ const mapStateToProps = (state, ownProps) => {
   let hero = {
     heading: {
       wrapper: 'h1',
-      text: '<span class="block">Honest</span> <span class="block">information</span> <span class="block">about drugs</span>'
+      text:
+        '<span class="block">Honest information</span><span class="block">about drugs</span>'
     },
     url: '/'
   }
@@ -29,7 +26,8 @@ const mapStateToProps = (state, ownProps) => {
       fields: {
         title: featuredNewsItem.fields.title,
         slug: featuredNewsItem.fields.slug,
-        headerVideo: fieldIncludesVideo(featuredNewsItem.fields.headerVideo) || null
+        headerVideo:
+          fieldIncludesVideo(featuredNewsItem.fields.headerVideo) || null
       },
       date: featuredNewsItem.date,
       dateFormatted: featuredNewsItem.dateFormatted
@@ -38,10 +36,12 @@ const mapStateToProps = (state, ownProps) => {
     featuredItemBlock.fields.image = imageMap(featuredNewsItem.fields)
   }
 
-  if (featuredContentBlock &&
+  if (
+    featuredContentBlock &&
     featuredContentBlock.fields &&
     featuredContentBlock.fields.featuredContentItems &&
-    featuredContentBlock.fields.featuredContentItems.length > 0) {
+    featuredContentBlock.fields.featuredContentItems.length > 0
+  ) {
     featuredNewsBlock = {
       heading: {
         type: 'h2',
@@ -71,7 +71,9 @@ const mapStateToProps = (state, ownProps) => {
             text: item.fields.title,
             className: 'h4 card-title'
           },
-          linkLabel: fieldIncludesVideo(item.fields.headerVideo) ? 'Watch now' : 'Read more'
+          linkLabel: fieldIncludesVideo(item.fields.headerVideo)
+            ? 'Watch now'
+            : 'Read more'
         }
 
         featuredItem.images = imageMap(item.fields)
@@ -95,10 +97,12 @@ const mapStateToProps = (state, ownProps) => {
   // @joel - common drugs data matches featured news block
   // leaving this out of the markup until it can be styled
   // inspect 'commonDrugsBlock' var for the contents
-  if (featuredDrugsBlock &&
+  if (
+    featuredDrugsBlock &&
     featuredDrugsBlock.fields &&
     featuredDrugsBlock.fields.featuredContentItems &&
-    featuredDrugsBlock.fields.featuredContentItems.length > 0) {
+    featuredDrugsBlock.fields.featuredContentItems.length > 0
+  ) {
     commonDrugsBlock = {
       heading: {
         type: 'h2',
@@ -114,30 +118,29 @@ const mapStateToProps = (state, ownProps) => {
       },
       teasers: []
     }
-    featuredDrugsBlock.fields.featuredContentItems
-      .map((item, i) => {
-        let featuredItem = {
-          url: `/drug/${item.fields.slug}`,
-          heading: {
-            type: 'h3',
-            text: item.fields.drugName,
-            className: 'h4 card-title'
-          },
-          linkLabel: null
-        }
+    featuredDrugsBlock.fields.featuredContentItems.map((item, i) => {
+      let featuredItem = {
+        url: `/drug/${item.fields.slug}`,
+        heading: {
+          type: 'h3',
+          text: item.fields.drugName,
+          className: 'h4 card-title'
+        },
+        linkLabel: null
+      }
 
-        featuredItem.images = imageMap(item.fields)
-        if (featuredItem.images) {
-          featuredItem.imageClass = 'card-img'
-        }
+      featuredItem.images = imageMap(item.fields)
+      if (featuredItem.images) {
+        featuredItem.imageClass = 'card-img'
+      }
 
-        // crudely setting 2nd item STICKY
-        if (i === 1) {
-          featuredItem.sticky = true
-        }
+      // crudely setting 2nd item STICKY
+      if (i === 1) {
+        featuredItem.sticky = true
+      }
 
-        commonDrugsBlock.teasers.push(featuredItem)
-      })
+      commonDrugsBlock.teasers.push(featuredItem)
+    })
   }
 
   return {
