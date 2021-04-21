@@ -10,7 +10,7 @@ import Grid from '../Grid/component.jsx'
 import Button from '../Button/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 import Accent from '../Accent/component.jsx'
-import Form from '../Form/component.jsx'
+
 import Icon from '../Icon/component.jsx'
 import WarningBar from '../AlertWarningBar/component.jsx'
 import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
@@ -30,19 +30,7 @@ export default class PageHome extends React.PureComponent {
           <Hero {...this.props.hero} />
           <Accent className="accent--muted" modifier="wrapper--constant">
             <SiteMessageContainer path={this.props.location} body={true} />
-            <Form
-              role="search"
-              className="form--search constrain form--search-home"
-            >
-              <FormGroupAutocomplete
-                button="true"
-                id="homepage-large-search"
-                className="react-autosuggest__suggestions-container--homepage"
-                label="Search for any drug…"
-                placeholder="Enter a drug (e.g. Mandy)"
-              />
-              <AccessibleSearch />
-            </Form>
+            <AccessibleSearch />
           </Accent>
           {this.props.featuredItemBlock && (
             <section className="wrapper spacing-top--large">
