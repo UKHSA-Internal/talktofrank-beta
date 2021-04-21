@@ -1,11 +1,13 @@
 .accessiblesearch__wrapper {
   display: flex;
+  flex-direction: column;
+}
+.accessiblesearch__container {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   height: 57px;
-  margin: 180px 0;
 }
-
 .autocomplete__wrapper {
   position: relative;
   background: rgba(0, 0, 0, 0);
