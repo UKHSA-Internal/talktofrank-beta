@@ -221,8 +221,13 @@
   border: none;
   background: $pink;
   color: white;
-  padding: 0.75rem 1.5rem;
-  height: 57px;
+  font-size: 16px;
+  line-height: 1.25;
+  height: 3em;
+  @media (min-width: 641px) {
+    font-size: 19px;
+    line-height: 1.31579;
+  }
 }
 
 .btn--fixed {
