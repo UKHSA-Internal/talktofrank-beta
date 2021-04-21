@@ -3,7 +3,6 @@ import React from 'react'
 class QuickInfoPanel extends React.PureComponent {
   constructor(props) {
     super(props)
-    console.log(props)
   }
   render() {
     return (
@@ -14,7 +13,7 @@ class QuickInfoPanel extends React.PureComponent {
           </div>
           {this.props.quickInfoPanelFeelings && (
             <div className="quick-info-panel__wrapper col-12">
-              <a className="quick-info-panel__link" href="./#">
+              <a className="quick-info-panel__link" href="#how-it-feels">
                 Feelings
               </a>
               <p className="quick-info-panel__description">
@@ -24,7 +23,7 @@ class QuickInfoPanel extends React.PureComponent {
           )}
           {this.props.quickInfoPanelEffects && (
             <div className="quick-info-panel__wrapper col-12">
-              <a className="quick-info-panel__link" href="./#">
+              <a className="quick-info-panel__link" href="#how-it-feels">
                 Effects
               </a>
               <p className="quick-info-panel__description">
@@ -34,7 +33,7 @@ class QuickInfoPanel extends React.PureComponent {
           )}
           {this.props.quickInfoPanelTimeToKickIn && (
             <div className="quick-info-panel__wrapper col-6">
-              <a className="quick-info-panel__link" href="./#">
+              <a className="quick-info-panel__link" href="#how-it-feels">
                 Time to kick in
               </a>
               <p className="quick-info-panel__description">
@@ -44,7 +43,7 @@ class QuickInfoPanel extends React.PureComponent {
           )}
           {this.props.quickInfoPanelDuration && (
             <div className="quick-info-panel__wrapper col-6">
-              <a className="quick-info-panel__link" href="./#">
+              <a className="quick-info-panel__link" href="#duration">
                 Effects can last
               </a>
               <p className="quick-info-panel__description">
@@ -54,7 +53,7 @@ class QuickInfoPanel extends React.PureComponent {
           )}
           {this.props.quickInfoPanelAddictiveness && (
             <div className="quick-info-panel__wrapper  col-6">
-              <a className="quick-info-panel__link" href="./#">
+              <a className="quick-info-panel__link" href="#addiction">
                 Addictiveness
               </a>
               <p className="quick-info-panel__description">
@@ -65,7 +64,7 @@ class QuickInfoPanel extends React.PureComponent {
           {this.props.lawClass.fields.class &&
             this.props.lawClass.fields.class.toLowerCase() !== 'none' && (
               <div className="quick-info-panel__wrapper  col-6">
-                <a className="quick-info-panel__link" href="./#">
+                <a className="quick-info-panel__link" href="#the-law">
                   Class
                 </a>
                 <p className="quick-info-panel__description">
