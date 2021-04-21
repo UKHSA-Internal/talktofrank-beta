@@ -8,7 +8,7 @@ import Main from '../Main/component.jsx'
 import Nav from '../Nav/component.jsx'
 import Divider from '../Divider/component.jsx'
 import Form from '../Form/component.jsx'
-import FormGroupAutocomplete from '../FormGroupAutocomplete/component.jsx'
+import AccessibleSearch from '../AccessibleSearch/component.jsx'
 import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
@@ -37,18 +37,7 @@ const DrugList = props => {
           className="accent--muted accent--az"
           modifier="wrapper--constant"
         >
-          <Form
-            role="search"
-            className="form--search constrain form--search-az"
-          >
-            <FormGroupAutocomplete
-              button="true"
-              id="homepage-large-search"
-              className="react-autosuggest__suggestions-container--homepage"
-              label="Search for any drug…"
-              placeholder="Look up a drug (don't worry about typos)"
-            />
-          </Form>
+          <AccessibleSearch />
         </Accent>
         <Accent className="accent--shallow" modifier="wrapper--tight">
           <Heading
