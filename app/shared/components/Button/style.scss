@@ -219,15 +219,13 @@
 .btn--search {
   margin: 0;
   border: none;
-  background: $pink;
+  background: linear-gradient(223.65deg, #d45fff -7.55%, #ff3185 94.92%);
   color: white;
-  font-size: 16px;
-  line-height: 1.25;
-  height: 3em;
-  @media (min-width: 641px) {
-    font-size: 19px;
-    line-height: 1.31579;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  width: 7rem;
 }
 
 .btn--fixed {
