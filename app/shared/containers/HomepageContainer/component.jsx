@@ -5,12 +5,19 @@ import { imageMap, fieldIncludesVideo } from '../../utilities'
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData
 
-  const { featuredContentBlock, featuredNewsItem, featuredDrugsBlock } = fields
+  const {
+    featuredContentBlock,
+    featuredNewsItem,
+    featuredDrugsBlock,
+    drugGrid,
+    someFrankAdvice
+  } = fields
 
   let featuredNewsBlock = false
   let featuredItemBlock = false
   let commonDrugsBlock = false
-
+  let frankAdviceBlock = false
+  let drugsGrid = false
   let hero = {
     heading: {
       wrapper: 'h1',
@@ -35,7 +42,30 @@ const mapStateToProps = (state, ownProps) => {
 
     featuredItemBlock.fields.image = imageMap(featuredNewsItem.fields)
   }
-
+  if (
+    someFrankAdvice &&
+    someFrankAdvice.fields &&
+    someFrankAdvice.fields.articles
+  ) {
+    frankAdviceBlock = {}
+    frankAdviceBlock.title = someFrankAdvice.fields.title
+    frankAdviceBlock.link = someFrankAdvice.fields.viewMoreUrl
+    frankAdviceBlock.articles = someFrankAdvice.fields.articles.map(
+      article => ({
+        fields: {
+          heading: {
+            type: 'h3',
+            text: article.fields.title,
+            className: 'h4 card-title'
+          },
+          url: `/news/${article.fields.slug}`
+        },
+        date: article.date,
+        dateFormatted: article.dateFormatted,
+        images: imageMap(article.fields)
+      })
+    )
+  }
   if (
     featuredContentBlock &&
     featuredContentBlock.fields &&
@@ -142,12 +172,21 @@ const mapStateToProps = (state, ownProps) => {
       commonDrugsBlock.teasers.push(featuredItem)
     })
   }
-
+  if (
+    drugGrid &&
+    drugGrid.fields &&
+    drugGrid.fields.drug &&
+    drugGrid.fields.drug.length > 0
+  ) {
+    drugsGrid = drugGrid.fields.drug.map(d => d.fields)
+  }
   return {
     hero,
+    drugsGrid,
     featuredNewsBlock,
     featuredItemBlock,
-    commonDrugsBlock
+    commonDrugsBlock,
+    frankAdviceBlock
   }
 }
 
