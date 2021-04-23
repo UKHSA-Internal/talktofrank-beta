@@ -66,7 +66,7 @@ export default class AccessibleSearch extends React.Component {
               id="autocomplete"
               name="search"
               source={this.suggest}
-              placeholder="Enter a drug (e.g. Mandy)"
+              placeholder="Look up a drug (don't worry about typos)"
               onConfirm={text => {
                 this.setState({
                   searchTerm: text.replace(/<\/?span[^>]*>/g, '')
@@ -82,7 +82,7 @@ export default class AccessibleSearch extends React.Component {
               className="btn btn--search submit"
               clickHandler={this.handleSearchSubmit.bind(this)}
             >
-              <Icon {...iconSubmit} /> Search
+              <Icon {...iconSubmit} />
             </Button>
           </div>
         </div>
