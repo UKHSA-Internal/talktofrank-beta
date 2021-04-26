@@ -1,13 +1,34 @@
 .hero {
   overflow: hidden;
   position: relative;
+  max-height: 360px;
 
   .hero__inner {
-    @include vertical-align;
+    bottom: 40px;
+    position: absolute;
+
+    @include media-breakpoint-down(sm) {
+      bottom: 100px;
+    }
+
+    h1 {
+      font-size: 6.4rem;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 4.1rem;
+      }
+    }
   }
 
-  .image,
-  img {
-    width: 100%;
+  .image img {
+    margin-left: auto;
+    margin-right: 0;
+    display: block;
+    width: auto;
+
+    @include media-breakpoint-down(sm) {
+      margin-right: auto;
+      width: 100%;
+    }
   }
 }

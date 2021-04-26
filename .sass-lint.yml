@@ -6,7 +6,7 @@ rules:
   quotes: 2
   empty-line-between-blocks: 2
   mixins-before-declarations: 1
-  indentation: 2
+  # indentation: 2
   no-duplicate-properties: 2
   space-after-comma: 2
   no-mergeable-selectors: 2

@@ -1,13 +1,20 @@
 .accessiblesearch__wrapper {
   display: flex;
   flex-direction: column;
+
+  .form-label {
+    color: #002b36;
+    margin-bottom: 20px;
+  }
 }
+
 .accessiblesearch__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 57px;
 }
+
 .autocomplete__wrapper {
   position: relative;
   background: rgba(0, 0, 0, 0);
@@ -29,23 +36,22 @@
 .autocomplete__input {
   background-color: $white;
   position: relative;
-  height: 3em;
-  font-size: 1.8rem;
+  height: 7rem;
   border: 1px solid #d8dde0;
-  padding: 0.375em 0.75em;
+  padding: 1.7rem 2.5rem;
+  @include media-breakpoint-down(sm) {
+    height: 5rem;
+    padding: 12px 15px;
+  }
+}
+
+.autocomplete__input::placeholder {
+  color: #828282;
 }
 
 .autocomplete__hint {
   color: #b1b4b6;
   position: absolute;
-}
-
-.autocomplete__input--default {
-}
-
-.autocomplete__input--focused {
-  // outline: 1px solid;
-  // outline-offset: 0;
 }
 
 .autocomplete__input--show-all-values {
@@ -147,7 +153,7 @@
   .autocomplete__hint,
   .autocomplete__input,
   .autocomplete__option {
-    font-size: 19px;
-    line-height: 1.31579;
+    font-size: 24px;
+    line-height: 1.5;
   }
 }
