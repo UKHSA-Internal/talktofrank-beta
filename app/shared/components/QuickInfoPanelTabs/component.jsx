@@ -1,5 +1,4 @@
 import React from 'react'
-import ArrowLink from '../ArrowLink/component'
 
 class QuickInfoPanelTabs extends React.Component {
   constructor(props) {
@@ -11,21 +10,51 @@ class QuickInfoPanelTabs extends React.Component {
   onClickHandler = type => {
     this.setState({ selected: type })
   }
+  hasQuickInfo = () => {
+    if (
+      !this.props.quickInfoPanelFeelings &&
+      !this.props.quickInfoPanelEffects &&
+      !this.props.quickInfoPanelTimeToKickIn &&
+      !this.props.quickInfoPanelDuration &&
+      !this.props.quickInfoPanelMixing
+    ) {
+      return false
+    }
+
+    return true
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.drugName !== this.props.drugName) {
+      if (this.hasQuickInfo()) {
+        this.setState({ selected: 'quick-info' })
+      } else {
+        this.setState({ selected: 'other-names' })
+      }
+    }
+  }
+  componentDidMount() {
+    if (!this.hasQuickInfo()) {
+      this.setState({ selected: 'other-names' })
+    }
+  }
+
   render() {
     return (
       <div className="quick-info-panel-tabs">
         <div className="quick-info-panel-tabs__heading">
-          <button
-            onClick={() => this.onClickHandler('quick-info')}
-            className={
-              'quick-info-panel-tabs__tab' +
-              (this.state.selected === 'quick-info'
-                ? ' quick-info-panel-tabs__tab--selected'
-                : '')
-            }
-          >
-            Quick info
-          </button>
+          {this.hasQuickInfo() && (
+            <button
+              onClick={() => this.onClickHandler('quick-info')}
+              className={
+                'quick-info-panel-tabs__tab' +
+                (this.state.selected === 'quick-info'
+                  ? ' quick-info-panel-tabs__tab--selected'
+                  : '')
+              }
+            >
+              Quick info
+            </button>
+          )}
           <button
             onClick={() => this.onClickHandler('other-names')}
             className={
@@ -45,7 +74,7 @@ class QuickInfoPanelTabs extends React.Component {
         >
           {this.props.quickInfoPanelFeelings && (
             <div className="quick-info-panel-tabs__wrapper col-12">
-              <p className="quick-info-panel-tabs__title">Feelings</p>
+              <p className="quick-info-panel-tabs__title">How you might feel</p>
               <p className="quick-info-panel-tabs__description">
                 {this.props.quickInfoPanelFeelings}
               </p>
@@ -53,7 +82,9 @@ class QuickInfoPanelTabs extends React.Component {
           )}
           {this.props.quickInfoPanelEffects && (
             <div className="quick-info-panel-tabs__wrapper col-12">
-              <p className="quick-info-panel-tabs__title">Effects</p>
+              <p className="quick-info-panel-tabs__title">
+                Effects on your body
+              </p>
               <p className="quick-info-panel-tabs__description">
                 {this.props.quickInfoPanelEffects}
               </p>
@@ -69,29 +100,22 @@ class QuickInfoPanelTabs extends React.Component {
           )}
           {this.props.quickInfoPanelDuration && (
             <div className="quick-info-panel-tabs__wrapper col-6">
-              <p className="quick-info-panel-tabs__title">Effects can last</p>
+              <p className="quick-info-panel-tabs__title">How long it lasts</p>
               <p className="quick-info-panel-tabs__description">
                 {this.props.quickInfoPanelDuration}
               </p>
             </div>
           )}
-          {this.props.quickInfoPanelAddictiveness && (
+          {this.props.quickInfoPanelMixing && (
             <div className="quick-info-panel-tabs__wrapper  col-6">
-              <p className="quick-info-panel-tabs__title">Addictiveness</p>
+              <p className="quick-info-panel-tabs__title">
+                Mixing with other drugs
+              </p>
               <p className="quick-info-panel-tabs__description">
-                {this.props.quickInfoPanelAddictiveness}
+                {this.props.quickInfoPanelMixing}
               </p>
             </div>
           )}
-          {this.props.lawClass.fields.class &&
-            this.props.lawClass.fields.class.toLowerCase() !== 'none' && (
-              <div className="quick-info-panel-tabs__wrapper  col-6">
-                <p className="quick-info-panel-tabs__title">Class</p>
-                <p className="quick-info-panel-tabs__description">
-                  {this.props.lawClass.fields.class}
-                </p>
-              </div>
-            )}
         </div>
 
         <div
@@ -125,11 +149,6 @@ class QuickInfoPanelTabs extends React.Component {
             </div>
           )}
         </div>
-        <ArrowLink
-          href="#"
-          text="Learn more about XXX"
-          className="arrowlink--align-right"
-        />
       </div>
     )
   }

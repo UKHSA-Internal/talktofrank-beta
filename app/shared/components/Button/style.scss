@@ -226,6 +226,10 @@
   justify-content: center;
   height: 7rem;
   width: 7rem;
+  @include media-breakpoint-down(sm) {
+    height: 5rem;
+    width: 5rem;
+  }
 }
 
 .btn--fixed {

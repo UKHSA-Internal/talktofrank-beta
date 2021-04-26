@@ -66,7 +66,7 @@ export default class AccessibleSearch extends React.Component {
               id="autocomplete"
               name="search"
               source={this.suggest}
-              placeholder="Look up a drug (don't worry about typos)"
+              placeholder="Look up a drug..."
               onConfirm={text => {
                 this.setState({
                   searchTerm: text.replace(/<\/?span[^>]*>/g, '')

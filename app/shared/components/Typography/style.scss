@@ -75,6 +75,7 @@ h3,
   background: $frank-gradient;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
   &.drug-title {
     line-height: 51px;
     margin-bottom: 30px;
@@ -111,7 +112,7 @@ h3,
   background-color: $white;
   color: $text-dark-blue;
   display: inline;
-  left: 4rem;
+  left: 0;
 
   &::before {
     content: '';

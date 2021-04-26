@@ -5,21 +5,26 @@
       background: white;
     }
     width: 100%;
+
     h3 {
       color: white;
       text-align: center;
       line-height: 1;
       padding: 3px 0;
+
       @include media-breakpoint-down(sm) {
         color: $text-dark-blue;
       }
     }
   }
+
   .arrowlink span:first-child {
     font-size: 18px;
   }
+
   .card {
     margin-bottom: 40px;
+
     .card-title {
       font-size: 18px;
       line-height: 22px;

@@ -1,0 +1,35 @@
+.ReactModal__Content {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  border: none !important;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  inset: auto;
+  flex-direction: column;
+  align-items: center;
+
+  &__closeicon {
+    margin-left: auto;
+  }
+
+  h3 {
+    line-height: 30px;
+  }
+}
+
+.ReactModal__Overlay {
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+
+  &--after-open {
+    opacity: 1;
+  }
+
+  &--before-close {
+    opacity: 0;
+  }
+}

@@ -7,22 +7,30 @@
   position: absolute;
   bottom: 10px;
   right: 20px;
+
+  @include media-breakpoint-down(sm) {
+    right: 0;
+  }
+
   &__title {
     margin: 0;
     font-weight: 400;
     font-size: 14px;
     color: #575757;
   }
+
   &__link {
     margin-left: 10px;
     display: flex;
     align-items: center;
+
     span:first-child {
       color: $text-dark-blue;
       font-size: 14px;
       margin-right: 5px;
       border-bottom: 1px dashed $pink;
     }
+
     &:hover {
       span:first-child {
         border-bottom-style: solid;

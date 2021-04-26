@@ -5,12 +5,15 @@
   padding: 20px;
   padding-top: 30px;
   background: $gray-100;
+
   .row {
     display: none;
+
     &.visible {
       display: flex;
     }
   }
+
   &__heading {
     position: absolute;
     top: -18px;
@@ -30,6 +33,7 @@
     margin-right: 5px;
     display: inline;
     border: 1px solid $gray-900;
+
     &--selected,
     &:hover {
       cursor: pointer;
@@ -40,6 +44,7 @@
 
   &__wrapper {
     margin-bottom: 20px;
+
     &:last-child {
       margin-bottom: 0;
     }
@@ -53,6 +58,7 @@
     line-height: 17px;
     font-weight: 600;
     font-family: $font-family-heavy;
+
     &--dark {
       color: $text-dark-blue;
       font-size: 18px;
@@ -67,6 +73,7 @@
     line-height: 24px;
     font-size: 16px;
   }
+
   li {
     background: $gray-50;
     color: #4f4f4f;

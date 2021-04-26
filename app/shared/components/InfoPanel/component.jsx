@@ -8,7 +8,7 @@ const InfoPanel = props => {
     <div className={classes}>
       <div className="info-panel__heading">
         <h5 className="info-panel__title">
-          {props.icon && <Icon url={props.icon} />}
+          {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
           <span>{props.title}</span>
         </h5>
       </div>

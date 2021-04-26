@@ -10,6 +10,11 @@
   word-wrap: break-word;
   background-clip: border-box;
 
+  &__image {
+    height: 102px;
+    width: 100%;
+  }
+
   &.card--quiet {
     border: 0;
     background-color: transparent;
@@ -176,17 +181,26 @@
 @include media-breakpoint-up(md) {
   .card.card--horizontal-desktop {
     margin-bottom: 30px;
+
     .card__link {
       display: flex;
     }
+
     .card-body {
       display: flex;
       justify-content: center;
       align-items: center;
       padding-left: 15px;
     }
-    .image {
+
+    .card__image {
+      width: 100%;
       max-width: 277px;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

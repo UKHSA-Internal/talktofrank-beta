@@ -4,6 +4,7 @@
   padding: 30px 20px;
   padding-top: 40px;
   background: $gray-100;
+
   &__heading {
     position: absolute;
     top: -23px;
@@ -12,42 +13,57 @@
     background: $gray-900;
     display: inline;
   }
+
   &--pink {
     background: #ffeef5;
+
     .info-panel__heading {
       background: $pink;
     }
   }
+
   &--footerleft {
     max-width: 380px;
+
     @include media-breakpoint-down(sm) {
       margin-bottom: 60px;
     }
   }
+
   &--footerright {
     max-width: 585px;
   }
+
   &__title {
     margin: 0;
     font-family: $font-family-heavy;
     font-weight: 600;
     font-size: 24px;
     line-height: 30px;
+
     @include media-breakpoint-down(sm) {
       font-size: 18px;
       line-height: 26px;
     }
     color: white;
     display: inline;
+
+    span:first-child {
+      display: inline-flex;
+      margin-right: 5px;
+    }
   }
+
   &__wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+
   .arrowlink span:first-child {
     font-size: 18px;
     line-height: 26px;
+
     @include media-breakpoint-down(sm) {
       font-size: 14px;
       line-height: 24px;
