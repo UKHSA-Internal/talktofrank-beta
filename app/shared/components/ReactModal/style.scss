@@ -1,27 +1,24 @@
 .ReactModal__Content {
-  height: 100%;
-  width: 100%;
-  left: 0;
-  right: 0;
-  border: none !important;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  inset: auto;
-  flex-direction: column;
   align-items: center;
-
   &__closeicon {
-    margin-left: auto;
+    position: absolute;
+    z-index: 999;
+    right: 5px;
+    top: 5px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   h3 {
     line-height: 30px;
+    &.no-img {
+      margin-bottom: 4rem;
+    }
   }
 }
 
 .ReactModal__Overlay {
-  z-index: 999;
   opacity: 0;
   transition: opacity 500ms ease-in-out;
 
@@ -32,4 +29,8 @@
   &--before-close {
     opacity: 0;
   }
+}
+
+.ReactModal__Body--open {
+  overflow-y: hidden;
 }
