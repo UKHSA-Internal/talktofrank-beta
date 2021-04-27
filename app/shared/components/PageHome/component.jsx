@@ -21,7 +21,7 @@ import ReactModal from 'react-modal'
 import Icon from '../Icon/component.jsx'
 import Picture from '../Picture/component.jsx'
 
-export default class PageHome extends React.PureComponent {
+export default class PageHome extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -40,14 +40,14 @@ export default class PageHome extends React.PureComponent {
       return found?.drugGridName || found?.drugName
     }
     if (type === 'drugName') {
-      return found?.drugName || 'drug'
+      return found?.drugName || ' this drug.'
     }
     return found
   }
 
   handleResize = e => {
     const windowSize = window.innerWidth
-    if (windowSize > 768) {
+    if (windowSize > 992) {
       this.setState({
         selected: null,
         windowSize
@@ -74,45 +74,63 @@ export default class PageHome extends React.PureComponent {
           <ReactModal
             style={{
               overlay: {
-                zIndex: 100
+                zIndex: 100,
+                background: 'rgba(14, 57, 68, 0.6)'
               },
               content: {
-                height: '100%',
-                width: '100%',
-                left: '0',
-                right: '0',
+                height: 'calc(100% - 30px)',
+                width: 'calc(100% - 30px)',
                 border: 'none !important',
-                top: '0',
-                bottom: '0',
+                transform: 'translate(-50%,-50%)',
                 display: 'flex',
-                inset: 'auto',
-                flexDirection: 'column'
+                inset: '50% 0px 0px 50%',
+                flexDirection: 'column',
+                borderRadius: 0,
+                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.5)'
               }
             }}
-            isOpen={this.state.selected !== null && this.state.windowSize < 768}
+            isOpen={this.state.selected !== null && this.state.windowSize < 992}
+            overlayElement={
+              (props, contentElement) => (
+                <div {...props}>
+                  <Icon
+                    onClick={() => this.setState({ selected: null })}
+                    className="ReactModal__Content__closeicon"
+                    {...{
+                      label: 'Close this pop up',
+                      url: '/ui/svg/modal-close.svg'
+                    }}
+                  />
+                  {contentElement}
+                </div>
+              )
+              /* Custom Overlay element. */
+            }
           >
-            <Icon
-              onClick={() => this.setState({ selected: null })}
-              className="ReactModal__Content__closeicon"
-              {...{ label: 'Close this pop up', url: '/ui/svg/cross.svg' }}
-            />
             <Heading
               type="h3"
-              className="text-center"
-              text={this.selectedDrug('name')}
+              className={
+                'text-center ' +
+                (!this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
+                  ?.url
+                  ? 'no-img'
+                  : '')
+              }
+              text={this.selectedDrug('drugName')}
             />
             {this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
               ?.url && (
               <img
                 className="image"
                 style={{
+                  minHeight: '180px',
                   maxWidth: '186px',
                   margin: '0 auto',
                   marginBottom: '60px'
                 }}
                 alt={
                   this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                    ?.description || `Image of ${this.selectedDrug('name')}`
+                    ?.description || `Image of ${this.selectedDrug('drugName')}`
                 }
                 src={
                   this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
@@ -122,8 +140,8 @@ export default class PageHome extends React.PureComponent {
             )}
             <QuickInfoPanelTabs {...this.selectedDrug()} />
             <ArrowLink
-              href={`/drug/${this.selectedDrug('name')}`}
-              text={`Learn more about ${this.selectedDrug('name')}`}
+              href={`/drug/${this.selectedDrug()?.slug}`}
+              text={`Learn more about ${this.selectedDrug('drugName')}`}
               className="arrowlink--align-center m-t-30"
             />
           </ReactModal>
@@ -140,7 +158,10 @@ export default class PageHome extends React.PureComponent {
               />
             </div>
           </Accent>
-          <Accent className="accent--shallow druggridwrapper">
+          <Accent
+            className="accent--shallow druggridwrapper"
+            modifier="wrapper--constant"
+          >
             <div className="druggridwrapper__header">
               <h3 className="text-center">Facts about...</h3>
               <p className="text-gradient text-center">
@@ -148,7 +169,7 @@ export default class PageHome extends React.PureComponent {
               </p>
             </div>
             <Grid>
-              <GridCol className="col-12 col-md-6">
+              <GridCol className="col-12 col-lg-6">
                 <DrugGrid
                   drugs={this.props.drugsGrid}
                   onClick={this.onClickHandler}
@@ -160,7 +181,7 @@ export default class PageHome extends React.PureComponent {
                   className="arrowlink--align-center m-t-75"
                 />
               </GridCol>
-              <GridCol className="offset-md-1 col-12 col-md-5 hidden--sm">
+              <GridCol className="offset-lg-1 col-12 col-lg-5 hidden--md">
                 {this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
                   ?.url && (
                   <img
@@ -204,46 +225,6 @@ export default class PageHome extends React.PureComponent {
           {this.props.frankAdviceBlock && (
             <BlockFrankAdvice {...this.props.frankAdviceBlock} />
           )}
-          <Accent className="accent--spacing-only-top">
-            <Grid>
-              <GridCol className="col-12 col-md-5">
-                <InfoPanel
-                  className="info-panel--footerleft"
-                  title="Concerned about..."
-                >
-                  <ArrowLink
-                    className="arrowlink--spacing-bottom"
-                    href="#/"
-                    text="A friend"
-                  />
-                  <ArrowLink
-                    className="arrowlink--spacing-bottom"
-                    href="#/"
-                    text="A child"
-                  />
-                  <ArrowLink
-                    className="arrowlink--spacing-bottom"
-                    href="#/"
-                    text="Pressure to take drugs"
-                  />
-                </InfoPanel>
-              </GridCol>
-              <GridCol className="col-12 col-md-7">
-                <InfoPanel
-                  className="info-panel--pink info-panel--footerright"
-                  title="What to do in an emergency"
-                  icon="warning-white"
-                >
-                  <p>
-                    If you think someone needs urgent help after taking drugs,
-                    call 999 for an ambulance. Tell the crew everything you
-                    know. It could save their life.
-                  </p>
-                  <ArrowLink href="#/" text="What else to do in an emergency" />
-                </InfoPanel>
-              </GridCol>
-            </Grid>
-          </Accent>
         </Main>
         <Footer />
         <GA />
