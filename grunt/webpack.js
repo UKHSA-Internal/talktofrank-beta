@@ -75,6 +75,7 @@ module.exports = {
     }
   },
   server: {
+    mode: 'production',
     devtool: 'eval',
     entry: {
       server: ['./app/server/index.jsx']
@@ -160,7 +161,8 @@ module.exports = {
       colors: true,
       modules: false,
       reasons: false,
-      errorDetails: true
+      errorDetails: true,
+      warningsFilter: /^(?!CriticalDependenciesWarning$)/
     }
   }
 }
