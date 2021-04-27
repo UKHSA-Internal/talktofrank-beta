@@ -107,7 +107,7 @@ class QuickInfoPanelTabs extends React.Component {
             </div>
           )}
           {this.props.quickInfoPanelMixing && (
-            <div className="quick-info-panel-tabs__wrapper  col-6">
+            <div className="quick-info-panel-tabs__wrapper  col-12">
               <p className="quick-info-panel-tabs__title">
                 Mixing with other drugs
               </p>
