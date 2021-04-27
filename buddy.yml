@@ -191,6 +191,7 @@
     deployment_includes:
     - "config.*.yaml"
     - "package.json"
+    - "server.bundle.js"
     - ".ebextensions/*.uat_phe.config"
     - ".ebextensions/01_gzip.config"
     trigger_condition: "ALWAYS"
