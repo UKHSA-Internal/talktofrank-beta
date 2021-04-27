@@ -42,9 +42,15 @@ const DrugList = props => {
         <Accent className="accent--shallow" modifier="wrapper--tight">
           <Heading
             type="h1"
-            className="h2 inverted spacing-left spacing--single"
+            className="h2 inverted spacing-left spacing--single m-b-25"
             text="Drugs A to Z"
           />
+          <p className="p-l-20 p-r-20 m-b-50">
+            We've pulled together an A-Z list of all drugs. Don't worry if you
+            see a lot of drugs you don't recognise. Some drugs have a lot of
+            different names but are still the same drug. Search for a drug using
+            the name you know.
+          </p>
           <Nav
             navigation={initialLetter}
             className="navbar-expand navbar-list"
