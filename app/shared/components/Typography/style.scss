@@ -71,6 +71,38 @@ h3,
   }
 }
 
+h1.az-page-title {
+  margin-top: 35px;
+  margin-bottom: 22px;
+
+  @include media-breakpoint-down(md) {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+}
+
+.az-intro {
+  max-width: 947px;
+  width: 100%;
+  margin-bottom: 50px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: 30px;
+  }
+  p {
+    font-size: 24px;
+    line-height: 38px;
+    margin: 0;
+
+    @include media-breakpoint-down(md) {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+}
+
 .text-gradient {
   background: $frank-gradient;
   -webkit-background-clip: text;
