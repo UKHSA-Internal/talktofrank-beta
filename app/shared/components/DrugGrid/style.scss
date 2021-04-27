@@ -9,7 +9,7 @@
       display: none;
     }
 
-    @include media-breakpoint-down(sm) {
+    @media (max-width: 575.98px) {
       margin-top: 40px;
 
       h3 {
@@ -31,10 +31,10 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 53px;
   margin: 0 auto;
+  margin-top: 53px;
 
-  @include media-breakpoint-down(sm) {
+  @media (max-width: 575.98px) {
     margin-top: 0;
   }
 
@@ -55,7 +55,7 @@
 
         &:nth-child(2) {
           height: 117px;
-          @include media-breakpoint-down(sm) {
+          @media (max-width: 575.98px) {
             height: 67px;
           }
         }
@@ -77,7 +77,7 @@
         &:nth-child(1) {
           height: 121px;
 
-          @include media-breakpoint-down(sm) {
+          @media (max-width: 575.98px) {
             height: 71px;
           }
         }
@@ -92,7 +92,7 @@
 
         &:nth-child(3) {
           height: 117px;
-          @include media-breakpoint-down(sm) {
+          @media (max-width: 575.98px) {
             height: 67px;
           }
         }
@@ -122,7 +122,7 @@
         &:nth-child(2) {
           height: 117px;
 
-          @include media-breakpoint-down(sm) {
+          @media (max-width: 575.98px) {
             height: 67px;
           }
         }
@@ -144,7 +144,7 @@
         &:nth-child(1) {
           height: 121px;
 
-          @include media-breakpoint-down(sm) {
+          @media (max-width: 575.98px) {
             height: 71px;
           }
         }
@@ -160,7 +160,7 @@
         &:nth-child(3) {
           height: 117px;
 
-          @include media-breakpoint-down(sm) {
+          @media (max-width: 575.98px) {
             height: 67px;
           }
         }
@@ -181,7 +181,7 @@
     height: 125px;
     padding: 4px;
 
-    @include media-breakpoint-down(sm) {
+    @media (max-width: 575.98px) {
       width: 75px;
       height: 75px;
     }
@@ -219,7 +219,7 @@
     line-height: 30px;
     margin: 0;
 
-    @include media-breakpoint-down(sm) {
+    @media (max-width: 575.98px) {
       font-size: 14px;
       line-height: 15px;
     }

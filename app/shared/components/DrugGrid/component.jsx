@@ -98,10 +98,13 @@ class DrugGrid extends React.Component {
               <div
                 key={drug.slug}
                 style={{
-                  pointerEvents: drug.name !== 'null' ? 'auto' : 'none'
+                  pointerEvents: drug.name ? 'auto' : 'none',
+                  cursor: drug.name ? 'pointer' : 'auto'
                 }}
                 className={this.generateClass(drug)}
-                onClick={() => this.handleClick(drug)}
+                onClick={
+                  drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
+                }
               >
                 <div className="druggrid__inner">
                   <p className="druggrid__text">
