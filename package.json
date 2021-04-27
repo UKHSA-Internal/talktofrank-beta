@@ -145,9 +145,7 @@
     "workbox-cli": "^3.6.2",
     "workbox-webpack-plugin": "^3.6.3",
     "x-ray": "^2.3.4",
-    "yaml-import": "^0.2.3"
-  },
-  "dependencies": {
+    "yaml-import": "^0.2.3",
     "@elastic/elasticsearch": "^7.12.0",
     "accessible-autocomplete": "^2.0.3",
     "react-modal": "^3.13.1"
