@@ -14,12 +14,10 @@ import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 import QuickInfoPanelTabs from '../QuickInfoPanelTabs/component.jsx'
 import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
-import InfoPanel from '../InfoPanel/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import ReactModal from 'react-modal'
 import Icon from '../Icon/component.jsx'
-import Picture from '../Picture/component.jsx'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -78,12 +76,17 @@ export default class PageHome extends React.Component {
                 background: 'rgba(14, 57, 68, 0.6)'
               },
               content: {
-                height: 'calc(100% - 30px)',
+                height: 'calc(100% - 50px)',
                 width: 'calc(100% - 30px)',
                 border: 'none !important',
                 transform: 'translate(-50%,-50%)',
                 display: 'flex',
-                inset: '50% 0px 0px 50%',
+                inset: 'unset',
+                top: '50%',
+                left: '50%',
+                right: 0,
+                bottom: 0,
+                padding: '10px',
                 flexDirection: 'column',
                 borderRadius: 0,
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.5)'
@@ -208,7 +211,7 @@ export default class PageHome extends React.Component {
                     />
                     <QuickInfoPanelTabs {...this.selectedDrug()} />
                     <ArrowLink
-                      href="#"
+                      href={`/drug/${this.selectedDrug()?.slug}`}
                       text={`Learn more about ${this.selectedDrug('drugName')}`}
                       className="arrowlink--align-left m-t-15"
                     />
