@@ -3,19 +3,25 @@
   position: relative;
   max-height: 360px;
 
-  .hero__inner {
-    bottom: 40px;
+  .constrain-narrow {
     position: absolute;
+    left: 0;
+    right: 0;
+    top: 234px;
+  }
 
-    @include media-breakpoint-down(sm) {
-      bottom: 100px;
-    }
-
+  .hero__inner {
     h1 {
       font-size: 6.4rem;
-
+      top: -110px;
       @include media-breakpoint-down(sm) {
         font-size: 4.1rem;
+        left: 0.5rem;
+      }
+      > span {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   }
