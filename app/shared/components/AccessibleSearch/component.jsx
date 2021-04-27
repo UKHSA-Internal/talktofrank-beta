@@ -54,7 +54,12 @@ export default class AccessibleSearch extends React.Component {
         role="search"
         className="form--search constrain form--search-home"
       >
-        <div className="accessiblesearch__wrapper">
+        <div
+          className={
+            'accessiblesearch__wrapper' +
+            (this.props.isSearch ? ' accessiblesearch__wrapper--search' : '')
+          }
+        >
           <label
             htmlFor="autocomplete"
             className="form-label form-label--large"
