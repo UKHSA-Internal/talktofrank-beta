@@ -15,7 +15,7 @@ const BlockFrankAdvice = props => {
   }
 
   return (
-    <section className="wrapper wrapper--mid spacing-top--large somefrankadvice">
+    <section className="spacing-top--large wrapper--constant wrapper somefrankadvice">
       <Grid>
         <GridCol className="col-12">
           <div className="somefrankadvice__wrapper">
