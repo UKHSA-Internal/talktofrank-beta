@@ -26,29 +26,29 @@ module.exports = {
     },
     resolve: {
       extensions: ['.js', '.jsx'],
-      modules: [
-        './node_modules',
-        path.resolve(__dirname, './client')
-      ],
+      modules: ['./node_modules', path.resolve(__dirname, './client')],
       // need this to ensure Webpack can read
       mainFields: ['webpack', 'browser', 'web', 'main'],
       // require this for build, but don't want to expose config to browser.
       alias: {
-        'config': path.resolve(__dirname, '../app/client/client-config-loader.js')
+        config: path.resolve(__dirname, '../app/client/client-config-loader.js')
       }
-
     },
     module: {
-      rules: [{
-        test: [/\.jsx$/, /\.js$/],
-        use: [{
-          loader: 'babel-loader'
-        }]
-      },
-      {
-        test: /\.scss$/,
-        loader: 'ignore-loader'
-      }]
+      rules: [
+        {
+          test: [/\.jsx$/, /\.js$/],
+          use: [
+            {
+              loader: 'babel-loader'
+            }
+          ]
+        },
+        {
+          test: /\.scss$/,
+          loader: 'ignore-loader'
+        }
+      ]
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -56,7 +56,10 @@ module.exports = {
       }),
       new InjectManifest({
         swSrc: path.resolve(__dirname, '../app/client/service-worker.js'),
-        swDest: path.resolve(__dirname, '../dist/static/ui/js/service-worker.js'),
+        swDest: path.resolve(
+          __dirname,
+          '../dist/static/ui/js/service-worker.js'
+        ),
         exclude: [/\.js$/]
       })
     ],
@@ -65,6 +68,10 @@ module.exports = {
       modules: false,
       reasons: false,
       errorDetails: true
+    },
+    performance: {
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
     }
   },
   server: {
@@ -82,63 +89,64 @@ module.exports = {
     target: 'node',
     resolve: {
       extensions: ['.js', '.jsx'],
-      modules: [
-        './node_modules',
-        path.resolve(__dirname, 'app')
-      ],
+      modules: ['./node_modules', path.resolve(__dirname, 'app')],
       // need this to ensure Webpack can read
       mainFields: ['webpack', 'main'],
       alias: {
-        'config': path.resolve(__dirname, '../app/config-loader.js')
+        config: path.resolve(__dirname, '../app/config-loader.js')
       }
     },
-    resolveLoader: {
-    },
+    resolveLoader: {},
     module: {
-      rules: [{
-        test: /\.jsx$/,
-        use: [{
-          loader: 'babel-loader'
-        }]
-      },
-      {
-        test: /\.scss$/,
-        use: [{
-          /*
-           * Need to replace the url for the fonts
-           */
-          loader: 'string-replace-loader',
-          options: {
-            multiple: [{
-              search: '../font/',
-              replace: '/ui/font/',
-              flags: 'gi'
+      rules: [
+        {
+          test: /\.jsx$/,
+          use: [
+            {
+              loader: 'babel-loader'
+            }
+          ]
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            {
+              /*
+               * Need to replace the url for the fonts
+               */
+              loader: 'string-replace-loader',
+              options: {
+                multiple: [
+                  {
+                    search: '../font/',
+                    replace: '/ui/font/',
+                    flags: 'gi'
+                  },
+                  {
+                    search: '!important',
+                    replace: '',
+                    flags: 'g'
+                  }
+                ]
+              }
             },
             {
-              search: '!important',
-              replace: '',
-              flags: 'g'
-            }]
-          }
-        },
-        {
-          /*
-           * css-loader breaks with url imports for fonts so use raw-loader
-           */
-          loader: 'raw-loader'
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            implementation: sass,
-            outputStyle: 'compressed',
-            includePaths: [
-              'node_modules',
-              'static/ui/scss'
-            ]
-          }
-        }]
-      }]
+              /*
+               * css-loader breaks with url imports for fonts so use raw-loader
+               */
+              loader: 'raw-loader'
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                implementation: sass,
+                outputStyle: 'compressed',
+                includePaths: ['node_modules', 'static/ui/scss']
+              }
+            }
+          ]
+        }
+      ]
     },
     plugins: [
       new webpack.DefinePlugin({
@@ -147,7 +155,6 @@ module.exports = {
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1 // only want 1 chunk for server, i.e. ignore code splitting
       })
-
     ],
     stats: {
       colors: true,
