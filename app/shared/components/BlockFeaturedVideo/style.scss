@@ -19,6 +19,7 @@
     @media (max-width: 1120px) {
       display: none;
     }
+
     &--playing {
       display: none !important;
     }
@@ -47,12 +48,15 @@
 
     &--horizontal {
       display: none;
+
       @media (max-width: 1120px) {
         display: block;
       }
+
       &--playing {
         display: block !important;
       }
+
       margin-top: 15px;
       width: 100%;
       height: auto;
