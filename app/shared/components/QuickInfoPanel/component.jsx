@@ -48,7 +48,7 @@ const QuickInfoPanel = props => {
           </div>
         )}
         {props.quickInfoPanelMixing && (
-          <div className="quick-info-panel__wrapper  col-6">
+          <div className="quick-info-panel__wrapper  col-12">
             <a className="quick-info-panel__link" href="#mixing">
               Mixing with other drugs
             </a>
