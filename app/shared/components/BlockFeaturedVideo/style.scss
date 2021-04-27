@@ -16,10 +16,12 @@
   }
 
   &__titlebox {
-    @include media-breakpoint-down(sm) {
+    @media (max-width: 1120px) {
       display: none;
     }
-
+    &--playing {
+      display: none !important;
+    }
     background: white;
     width: 210px;
     height: 231px;
@@ -44,13 +46,19 @@
     }
 
     &--horizontal {
+      display: none;
+      @media (max-width: 1120px) {
+        display: block;
+      }
+      &--playing {
+        display: block !important;
+      }
       margin-top: 15px;
       width: 100%;
       height: auto;
       padding: 15px;
-      display: block;
       position: static;
-      box-shadow: -2px 0 0 0 $pink;
+      box-shadow: -3px 0 0 -1px $pink;
 
       h4 {
         font-size: 16px;
