@@ -6,6 +6,18 @@
     color: #002b36;
     margin-bottom: 20px;
   }
+
+  &--search {
+    .autocomplete__input {
+      height: 5rem;
+      padding: 12px 15px;
+    }
+
+    .btn--search {
+      height: 5rem;
+      width: 5rem;
+    }
+  }
 }
 
 .accessiblesearch__container {

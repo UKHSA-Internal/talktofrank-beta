@@ -21,23 +21,25 @@ class BlockFeaturedVideo extends React.PureComponent {
       <section
         className={`accent accent--shallow blockfeaturedvideo wrapper ${this.props.className}`}
       >
-        <React.Fragment>
-          <figure>
-            {this.state.url && (
-              <iframe
-                src={this.state.url}
-                width="100%"
-                frameBorder="0"
-                allowFullScreen="allowfullscreen"
-              ></iframe>
-            )}
-            {this.props.figCaption && (
-              <figcaption className={'sr-only'}>
-                {this.props.figCaption}
-              </figcaption>
-            )}
-          </figure>
-        </React.Fragment>
+        <figure>
+          <div className="blockfeaturedvideo__titlebox ">
+            <span>{this.props.source}</span>
+            <h4>{this.props.title}</h4>
+          </div>
+          {this.state.url && (
+            <iframe
+              src={this.state.url}
+              width="100%"
+              frameBorder="0"
+              allowFullScreen="allowfullscreen"
+            ></iframe>
+          )}
+          {this.props.figCaption && (
+            <figcaption className={'sr-only'}>
+              {this.props.figCaption}
+            </figcaption>
+          )}
+        </figure>
 
         <div className="blockfeaturedvideo__titlebox blockfeaturedvideo__titlebox--horizontal">
           <span>{this.props.source}</span>

@@ -1,7 +1,7 @@
 .somefrankadvice {
   &__wrapper {
     background: $text-dark-blue;
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       background: white;
     }
     width: 100%;
@@ -12,7 +12,7 @@
       line-height: 1;
       padding: 3px 0;
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         color: $text-dark-blue;
       }
     }

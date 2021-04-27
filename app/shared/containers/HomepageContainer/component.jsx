@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
     heading: {
       wrapper: 'h1',
       text:
-        '<span class="block hidden--sm-up">Honest</span><span class="block hidden--sm-up">information</span><span class="block hidden--sm">Honest information</span><span class="block">about drugs</span>'
+        '<span class="block hidden--md-up">Honest</span><span class="block hidden--md-up">information</span><span class="block hidden--sm">Honest information</span><span class="block">about drugs</span>'
     },
     url: '/'
   }

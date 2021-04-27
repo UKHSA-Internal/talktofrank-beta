@@ -11,8 +11,11 @@
   background-clip: border-box;
 
   &__image {
-    height: 102px;
+    height: 200px;
     width: 100%;
+    @media (max-width: 425.98px) {
+      height: 100px;
+    }
   }
 
   &.card--quiet {
@@ -188,14 +191,14 @@
 
     .card-body {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       padding-left: 15px;
     }
 
     .card__image {
-      width: 100%;
-      max-width: 277px;
+      width: 250px;
+      flex-shrink: 0;
       height: 200px;
       overflow: hidden;
       display: flex;

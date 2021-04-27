@@ -20,7 +20,19 @@ const Page = props => {
     type: 'h3',
     className: 'h5'
   }
+  const hasQuickInfo = () => {
+    if (
+      !props.fields.quickInfoPanelFeelings &&
+      !props.fields.quickInfoPanelEffects &&
+      !props.fields.quickInfoPanelTimeToKickIn &&
+      !props.fields.quickInfoPanelDuration &&
+      !props.fields.quickInfoPanelMixing
+    ) {
+      return false
+    }
 
+    return true
+  }
   const name = props.fields.drugActualName || props.fields.drugName
   const syn = props.location.search
     ? decodeURIComponent(props.location.search.split('=')[1])
@@ -84,7 +96,7 @@ const Page = props => {
           </Grid>
           <Grid className="spacing-top--single">
             <GridCol className="col-12 col-md-7 offset-md-3 ">
-              <QuickInfoPanel {...props.fields} />
+              {hasQuickInfo() && <QuickInfoPanel {...props.fields} />}
             </GridCol>
           </Grid>
         </Accent>
