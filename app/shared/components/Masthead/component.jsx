@@ -59,7 +59,7 @@ export default class Masthead extends React.PureComponent {
         <span className="visually-hidden">
           Talk to Frank - Honest information about drugs
         </span>
-        <CookieBar />
+        {/* <CookieBar /> */}
         <div className="masthead__inner">
           <section className="navigation-wrapper">
             <ViewportMobile>
