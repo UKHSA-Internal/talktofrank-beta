@@ -70,7 +70,8 @@ module.exports = {
       errorDetails: true
     },
     performance: {
-      maxEntrypointSize: 812000
+      maxEntrypointSize: 812000,
+      maxAssetSize: 812000
     }
   },
   server: {
