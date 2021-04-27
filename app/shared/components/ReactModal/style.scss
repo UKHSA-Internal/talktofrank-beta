@@ -2,6 +2,7 @@
   align-items: center;
   padding-bottom: 50px !important;
   padding-top: 30px !important;
+
   &__closeicon {
     position: absolute;
     z-index: 1000;
@@ -12,10 +13,12 @@
       cursor: pointer;
     }
   }
+
   .quick-info-panel-tabs {
     padding-left: 10px;
     padding-right: 10px;
   }
+
   h3 {
     line-height: 30px;
 
