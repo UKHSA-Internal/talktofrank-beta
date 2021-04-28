@@ -54,7 +54,7 @@ const BlockDrugsAndyou = props => {
       <Grid>
         <GridCol className="col-12">
           <div className="drugsandyou__wrapper">
-            <h3>Facts about drugs</h3>
+            <h3>Drugs and you</h3>
           </div>
         </GridCol>
       </Grid>
@@ -72,6 +72,7 @@ const BlockDrugsAndyou = props => {
                   {article.icon && <Icon {...iconPlay} />}
                 </div>
                 <div className="card-body">
+                  <span className="article-source">{article.source}</span>
                   <Heading {...article.heading} />
                 </div>
               </a>
