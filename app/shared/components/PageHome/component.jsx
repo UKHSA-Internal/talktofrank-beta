@@ -60,12 +60,28 @@ export default class PageHome extends React.Component {
   }
 
   componentDidMount() {
+    // this.targetElement = this.targetRef.current
     window.addEventListener('resize', this.handleResize)
     this.setState({
       windowSize: window.innerWidth
     })
+    window.addEventListener('scroll', () => {
+      document.documentElement.style.setProperty(
+        '--scroll-y',
+        `${window.scrollY}px`
+      )
+    })
   }
 
+  onClose = () => {
+    const scrollY = document.body.style.top
+    document.body.style.position = ''
+    document.body.style.top = ''
+    setTimeout(() => {
+      window.scrollTo(0, parseInt(scrollY) * -1)
+    }, 10)
+    this.setState({ selected: null })
+  }
   render() {
     return (
       <React.Fragment>
@@ -73,6 +89,14 @@ export default class PageHome extends React.Component {
         <Main>
           {/* Use inline styles so that it merges with default styles... using classes will disable defaults */}
           <ReactModal
+            onAfterOpen={() => {
+              const scrollY = document.documentElement.style.getPropertyValue(
+                '--scroll-y'
+              )
+              const body = document.body
+              body.style.top = `-${scrollY}`
+              body.style.position = 'fixed'
+            }}
             style={{
               overlay: {
                 zIndex: 100,
@@ -100,7 +124,9 @@ export default class PageHome extends React.Component {
               (props, contentElement) => (
                 <div {...props}>
                   <Icon
-                    onClick={() => this.setState({ selected: null })}
+                    onClick={() => {
+                      this.onClose()
+                    }}
                     className="ReactModal__Content__closeicon"
                     {...{
                       label: 'Close this pop up',
@@ -172,7 +198,7 @@ export default class PageHome extends React.Component {
           >
             <div className="druggridwrapper__header">
               <h3 className="text-center">Facts about...</h3>
-              <p className="text-gradient text-center">
+              <p className="text-gradient text-center" ref={this.drugRef}>
                 Select a drug for quick info
               </p>
             </div>

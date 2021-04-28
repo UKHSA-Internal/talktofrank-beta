@@ -5,9 +5,10 @@
 
   &__closeicon {
     position: absolute;
-    z-index: 1000;
+    z-index: 999;
     right: 7px;
     top: 16px;
+    transform: translateZ(1px);
 
     &:hover {
       cursor: pointer;
@@ -42,6 +43,4 @@
 }
 
 .ReactModal__Body--open {
-  overflow-y: hidden;
-  position: fixed;
 }
