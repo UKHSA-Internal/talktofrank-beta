@@ -10,7 +10,7 @@ const Attribution = props => {
     <div className="attribution">
       <p className="attribution__title">Artwork by Page Waltz.</p>
       <a className="attribution__link" href="#">
-        <span>Learn more</span> <Icon {...iconArrow} />
+        <span>Learn more</span>
       </a>
     </div>
   )
