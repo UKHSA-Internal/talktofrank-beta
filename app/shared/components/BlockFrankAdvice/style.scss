@@ -11,6 +11,7 @@
       text-align: center;
       line-height: 1;
       padding: 3px 0;
+      margin-bottom: 40px;
 
       @include media-breakpoint-down(md) {
         color: $text-dark-blue;

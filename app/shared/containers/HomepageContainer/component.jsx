@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PageHome from '../../components/PageHome/component.jsx'
-import { imageMap, fieldIncludesVideo } from '../../utilities'
+import { imageMap } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
   const { fields } = state.app.pageData

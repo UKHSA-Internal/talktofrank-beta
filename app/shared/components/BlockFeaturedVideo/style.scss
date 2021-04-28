@@ -20,7 +20,7 @@
       display: none;
     }
 
-    &--playing {
+    &--hide {
       display: none !important;
     }
     background: white;
@@ -53,7 +53,7 @@
         display: block;
       }
 
-      &--playing {
+      &--show {
         display: block !important;
       }
 
@@ -71,40 +71,8 @@
       }
     }
   }
-
-  &__preview {
-    z-index: 10;
-    width: 100%;
-    position: relative;
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    &--hidden {
-      display: none;
-    }
-
-    span:first-child {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-
-      @include media-breakpoint-down(sm) {
-        left: 0;
-        bottom: 0;
-        top: auto;
-        transform: none;
-      }
-
-      img {
-        width: 50px;
-      }
-    }
-  }
 }
+
 // sass-lint:enable no-duplicate-properties
 
 .blockfeaturedvideo iframe,

@@ -47,10 +47,9 @@ const DrugList = props => {
           />
           <div className="az-intro">
             <p>
-              We've pulled together an A-Z list of all drugs. Don't worry if you
-              see a lot of drugs you don't recognise. Some drugs have a lot of
-              different names but are still the same drug. Search for a drug
-              using the name you know.
+              Here’s our A-Z list of drugs. Don’t worry if you see a lot of
+              drugs you don’t recognise. We’re including some of their different
+              names too. Look for drugs using the names you know.
             </p>
           </div>
           <Nav

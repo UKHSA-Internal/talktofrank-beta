@@ -18,6 +18,11 @@ import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import ReactModal from 'react-modal'
 import Icon from '../Icon/component.jsx'
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks
+} from 'body-scroll-lock'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -27,6 +32,8 @@ export default class PageHome extends React.Component {
       windowSize: 1920
     }
   }
+  targetRef = React.createRef()
+  targetElement = null
   onClickHandler = selected => {
     this.setState({ selected: selected })
   }
@@ -58,11 +65,13 @@ export default class PageHome extends React.Component {
   }
 
   componentDidMount() {
+    this.targetElement = this.targetRef.current
     window.addEventListener('resize', this.handleResize)
     this.setState({
       windowSize: window.innerWidth
     })
   }
+
   render() {
     return (
       <React.Fragment>
@@ -70,6 +79,13 @@ export default class PageHome extends React.Component {
         <Main>
           {/* Use inline styles so that it merges with default styles... using classes will disable defaults */}
           <ReactModal
+            ref={this.targetRef}
+            onAfterOpen={() => {
+              disableBodyScroll(this.targetElement)
+            }}
+            onAfterClose={() => {
+              enableBodyScroll(this.targetElement)
+            }}
             style={{
               overlay: {
                 zIndex: 100,
@@ -81,7 +97,7 @@ export default class PageHome extends React.Component {
                 border: 'none !important',
                 transform: 'translate(-50%,-50%)',
                 display: 'flex',
-                inset: 'unset',
+                zIndex: 110,
                 top: '50%',
                 left: '50%',
                 right: 0,
@@ -123,23 +139,25 @@ export default class PageHome extends React.Component {
             />
             {this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
               ?.url && (
-              <img
-                className="image"
-                style={{
-                  minHeight: '180px',
-                  maxWidth: '186px',
-                  margin: '0 auto',
-                  marginBottom: '60px'
-                }}
-                alt={
-                  this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                    ?.description || `Image of ${this.selectedDrug('drugName')}`
-                }
-                src={
-                  this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
-                    ?.url
-                }
-              />
+              <div style={{ minHeight: '180px' }}>
+                <img
+                  className="image"
+                  style={{
+                    maxWidth: '186px',
+                    margin: '0 auto',
+                    marginBottom: '60px'
+                  }}
+                  alt={
+                    this.selectedDrug()?.image?.fields?.imageSmall?.fields
+                      ?.description ||
+                    `Image of ${this.selectedDrug('drugName')}`
+                  }
+                  src={
+                    this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
+                      ?.url
+                  }
+                />
+              </div>
             )}
             <QuickInfoPanelTabs {...this.selectedDrug()} />
             <ArrowLink

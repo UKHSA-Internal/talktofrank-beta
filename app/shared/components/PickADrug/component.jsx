@@ -12,7 +12,7 @@ const PickADrug = props => {
   return (
     <div {...aria} className={classes}>
       <Icon {...iconFinger} />
-      <h3>{props.text || 'Pick a drug for quick info'}</h3>
+      <h3>{props.text || 'Select a drug for quick info'}</h3>
     </div>
   )
 }

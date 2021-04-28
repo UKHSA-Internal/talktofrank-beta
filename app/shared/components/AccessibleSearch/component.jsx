@@ -29,7 +29,7 @@ export default class AccessibleSearch extends React.Component {
       })
       .catch(e => console.error(e))
   }
-  handleSearchSubmit() {
+  handleSearchSubmit = () => {
     const searchTerm = encodeURIComponent(
       this.state.searchTerm.toLowerCase().trim()
     )
@@ -43,6 +43,7 @@ export default class AccessibleSearch extends React.Component {
       searchTerm: event.target.value
     })
   }
+
   render() {
     const iconSubmit = {
       label: 'Submit search',

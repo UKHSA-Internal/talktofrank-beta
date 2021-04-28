@@ -23,17 +23,17 @@ const Footer = props => {
             >
               <ArrowLink
                 className="arrowlink--spacing-bottom"
-                href="#/"
+                href="/get-help/worried-about-a-friend"
                 text="A friend"
               />
               <ArrowLink
                 className="arrowlink--spacing-bottom"
-                href="#/"
+                href="/get-help/worried-about-a-child"
                 text="A child"
               />
               <ArrowLink
                 className="arrowlink--spacing-bottom"
-                href="#/"
+                href="/get-help/dealing-with-peer-pressure"
                 text="Pressure to take drugs"
               />
             </InfoPanel>
@@ -45,11 +45,14 @@ const Footer = props => {
               icon="warning-white"
             >
               <p>
-                If you think someone needs urgent help after taking drugs, call
-                999 for an ambulance. Tell the crew everything you know. It
-                could save their life.
+                If you or someone else needs urgent help after taking drugs,
+                call 999 for an ambulance. Tell the crew everything you know, it
+                could save a life.
               </p>
-              <ArrowLink href="#/" text="What else to do in an emergency" />
+              <ArrowLink
+                href="/get-help/what-to-do-in-an-emergency"
+                text="What else to do in an emergency"
+              />
             </InfoPanel>
           </GridCol>
         </Grid>
