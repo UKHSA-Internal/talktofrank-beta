@@ -1,0 +1,51 @@
+.drugsandyou {
+  margin-bottom: 100px;
+
+  &__wrapper {
+    background: $text-dark-blue;
+    @include media-breakpoint-down(md) {
+      background: white;
+    }
+    width: 100%;
+
+    h3 {
+      color: white;
+      text-align: center;
+      line-height: 1;
+      padding: 3px 0;
+      margin-bottom: 40px;
+
+      @include media-breakpoint-down(md) {
+        color: $text-dark-blue;
+      }
+    }
+  }
+
+  .arrowlink span:first-child {
+    font-size: 18px;
+  }
+
+  .card {
+    margin-bottom: 40px;
+
+    .card__image {
+      position: relative;
+
+      span {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        img {
+          width: 50px;
+        }
+      }
+    }
+
+    .card-title {
+      font-size: 18px;
+      line-height: 22px;
+      margin: 0;
+    }
+  }
+}

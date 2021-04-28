@@ -18,11 +18,7 @@ import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import ReactModal from 'react-modal'
 import Icon from '../Icon/component.jsx'
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks
-} from 'body-scroll-lock'
+import BlockDrugsAndyou from '../BlockDrugsAndYou/component.jsx'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -32,8 +28,7 @@ export default class PageHome extends React.Component {
       windowSize: 1920
     }
   }
-  targetRef = React.createRef()
-  targetElement = null
+
   onClickHandler = selected => {
     this.setState({ selected: selected })
   }
@@ -65,7 +60,6 @@ export default class PageHome extends React.Component {
   }
 
   componentDidMount() {
-    this.targetElement = this.targetRef.current
     window.addEventListener('resize', this.handleResize)
     this.setState({
       windowSize: window.innerWidth
@@ -79,13 +73,6 @@ export default class PageHome extends React.Component {
         <Main>
           {/* Use inline styles so that it merges with default styles... using classes will disable defaults */}
           <ReactModal
-            ref={this.targetRef}
-            onAfterOpen={() => {
-              disableBodyScroll(this.targetElement)
-            }}
-            onAfterClose={() => {
-              enableBodyScroll(this.targetElement)
-            }}
             style={{
               overlay: {
                 zIndex: 100,
@@ -243,6 +230,7 @@ export default class PageHome extends React.Component {
           {this.props.featuredVideoBlock && (
             <BlockFeaturedVideo {...this.props.featuredVideoBlock} />
           )}
+          <BlockDrugsAndyou />
           {this.props.frankAdviceBlock && (
             <BlockFrankAdvice {...this.props.frankAdviceBlock} />
           )}

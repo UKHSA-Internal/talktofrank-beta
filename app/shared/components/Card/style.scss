@@ -207,3 +207,29 @@
     }
   }
 }
+@include media-breakpoint-down(sm) {
+  .card.card--mobile-horizontal {
+    margin-bottom: 30px;
+
+    .card__link {
+      display: flex;
+    }
+
+    .card-body {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 15px;
+    }
+
+    .card__image {
+      width: 160px;
+      flex-shrink: 0;
+      height: 125px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
