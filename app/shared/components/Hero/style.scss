@@ -7,13 +7,15 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 234px;
+    top: 0;
+    bottom: 0;
   }
 
   .hero__inner {
     h1 {
       font-size: 6.4rem;
-      top: -110px;
+      top: 95px;
+      line-height: 1;
       @include media-breakpoint-down(sm) {
         font-size: 4.1rem;
         left: 0.5rem;
