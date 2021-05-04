@@ -3,10 +3,6 @@ html {
   line-height: 1.6; // Unitless line-height - meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/ (8 Feb 2006!!)
 }
 
-html,
-body {
-  scroll-behavior: smooth;
-}
 .container-fluid {
   max-width: $max-width;
 }
