@@ -1,6 +1,5 @@
 import React from 'react'
 import classNames from 'classnames'
-import Heading from '../Heading/component.jsx'
 import { scrollIntoView, isInBrowser } from '../../utilities'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
