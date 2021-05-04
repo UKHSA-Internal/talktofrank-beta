@@ -1,14 +1,19 @@
 import React from 'react'
-import { isInBrowser } from '../../utilities'
+import { isInBrowser, scrollIntoView } from '../../utilities'
 class QuickInfoPanel extends React.Component {
   handleClick(e, section) {
+    // Handles toggling open the accordion and scrolling
     if (isInBrowser()) {
+      e.preventDefault()
       let btn = document.querySelector(
         `${section} > div > div > div > h2 > button`
       )
       if (!btn.classList.contains('collapsible__trigger--active')) {
         btn.click()
       }
+      scrollIntoView(
+        document.querySelector(`#section-${section.replace('#', '')}`)
+      )
     }
   }
   render() {
