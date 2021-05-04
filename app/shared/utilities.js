@@ -157,8 +157,8 @@ export function imageMap (obj, field = 'image') {
  * @returns {void}
  */
 
-export function scrollIntoView (node, duration = 300, offset = 80, callback,resetTop = false) {
-  if(resetTop){
+export function scrollIntoView (node, duration = 300, offset = 80, callback, resetTop = false) {
+  if (resetTop) {
     document.documentElement.scrollTop = 0
   }
   const el = document.body || document.documentElement
