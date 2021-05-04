@@ -157,8 +157,10 @@ export function imageMap (obj, field = 'image') {
  * @returns {void}
  */
 
-export function scrollIntoView (node, duration = 300, offset = 80, callback) {
-  document.documentElement.scrollTop = 0
+export function scrollIntoView (node, duration = 300, offset = 80, callback,resetTop = false) {
+  if(resetTop){
+    document.documentElement.scrollTop = 0
+  }
   const el = document.body || document.documentElement
   const start = el.scrollTop
   const change = (node.getBoundingClientRect().top - offset) - start
