@@ -244,7 +244,7 @@ export default class PageHome extends React.Component {
                     <ArrowLink
                       href={`/drug/${this.selectedDrug()?.slug}`}
                       text={`Learn more about ${this.selectedDrug('drugName')}`}
-                      className="arrowlink--align-left m-t-15"
+                      className="arrowlink--align-left m-t-30"
                     />
                   </React.Fragment>
                 ) : (
