@@ -16,8 +16,6 @@ import QuickInfoPanelTabs from '../QuickInfoPanelTabs/component.jsx'
 import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
-import ReactModal from 'react-modal'
-import Icon from '../Icon/component.jsx'
 import BlockDrugsAndyou from '../BlockDrugsAndYou/component.jsx'
 
 export default class PageHome extends React.Component {
@@ -45,140 +43,11 @@ export default class PageHome extends React.Component {
     return found
   }
 
-  handleResize = e => {
-    const windowSize = window.innerWidth
-    if (windowSize > 992) {
-      this.setState({
-        selected: null,
-        windowSize
-      })
-      return
-    }
-    this.setState({
-      windowSize
-    })
-  }
-
-  componentDidMount() {
-    // this.targetElement = this.targetRef.current
-    window.addEventListener('resize', this.handleResize)
-    this.setState({
-      windowSize: window.innerWidth
-    })
-    window.addEventListener('scroll', () => {
-      document.documentElement.style.setProperty(
-        '--scroll-y',
-        `${window.scrollY}px`
-      )
-    })
-  }
-
-  onClose = () => {
-    const scrollY = document.body.style.top
-    document.body.style.position = ''
-    document.body.style.top = ''
-    setTimeout(() => {
-      window.scrollTo(0, parseInt(scrollY) * -1)
-    }, 10)
-    this.setState({ selected: null })
-  }
   render() {
     return (
       <React.Fragment>
         <Masthead path={this.props.location} />
         <Main>
-          {/* Use inline styles so that it merges with default styles... using classes will disable defaults */}
-          <ReactModal
-            onAfterOpen={() => {
-              const scrollY = document.documentElement.style.getPropertyValue(
-                '--scroll-y'
-              )
-              const body = document.body
-              body.style.top = `-${scrollY}`
-              body.style.position = 'fixed'
-            }}
-            style={{
-              overlay: {
-                zIndex: 100,
-                background: 'rgba(14, 57, 68, 0.6)'
-              },
-              content: {
-                height: 'calc(100% - 50px)',
-                width: 'calc(100% - 30px)',
-                border: 'none !important',
-                transform: 'translate(-50%,-50%)',
-                display: 'flex',
-                zIndex: 110,
-                top: '50%',
-                left: '50%',
-                right: 0,
-                bottom: 0,
-                padding: '10px',
-                flexDirection: 'column',
-                borderRadius: 0,
-                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.5)'
-              }
-            }}
-            isOpen={this.state.selected !== null && this.state.windowSize < 992}
-            overlayElement={
-              (props, contentElement) => (
-                <div {...props}>
-                  <Icon
-                    onClick={() => {
-                      this.onClose()
-                    }}
-                    className="ReactModal__Content__closeicon"
-                    {...{
-                      label: 'Close this pop up',
-                      url: '/ui/svg/modal-close.svg'
-                    }}
-                  />
-                  {contentElement}
-                </div>
-              )
-              /* Custom Overlay element. */
-            }
-          >
-            <Heading
-              type="h3"
-              className={
-                'text-center ' +
-                (!this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
-                  ?.url
-                  ? 'no-img'
-                  : '')
-              }
-              text={this.selectedDrug('drugName')}
-            />
-            {this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
-              ?.url && (
-              <div style={{ minHeight: '180px' }}>
-                <img
-                  className="image"
-                  style={{
-                    maxWidth: '186px',
-                    margin: '0 auto',
-                    marginBottom: '60px'
-                  }}
-                  alt={
-                    this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                      ?.description ||
-                    `Image of ${this.selectedDrug('drugName')}`
-                  }
-                  src={
-                    this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
-                      ?.url
-                  }
-                />
-              </div>
-            )}
-            <QuickInfoPanelTabs {...this.selectedDrug()} />
-            <ArrowLink
-              href={`/drug/${this.selectedDrug()?.slug}`}
-              text={`Learn more about ${this.selectedDrug('drugName')}`}
-              className="arrowlink--align-center m-t-30"
-            />
-          </ReactModal>
           <Hero {...this.props.hero} />
           <Accent className="accent--muted" modifier="wrapper--constant">
             <SiteMessageContainer path={this.props.location} body={true} />
