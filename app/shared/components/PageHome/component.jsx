@@ -23,7 +23,7 @@ export default class PageHome extends React.Component {
     super(props)
     this.state = {
       selected: null,
-      windowSize: 1920
+      windowSize: 1920  // @todo: what's this for?
     }
   }
 
@@ -55,7 +55,7 @@ export default class PageHome extends React.Component {
             <div className="constrain">
               <ArrowLink
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
-                label="Or go to the drugs A-Z list"
+                label="Or go to the drugs A-Z list" // @todo: label isn't needed in this case as the text is visible
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
               />
@@ -125,6 +125,7 @@ export default class PageHome extends React.Component {
           {this.props.featuredVideoBlock && (
             <BlockFeaturedVideo {...this.props.featuredVideoBlock} />
           )}
+          {/* @todo: remove this block */}
           <BlockDrugsAndyou />
           {this.props.frankAdviceBlock && (
             <BlockFrankAdvice {...this.props.frankAdviceBlock} />

@@ -9,7 +9,9 @@ const Attribution = props => {
   return (
     <div className="attribution">
       <p className="attribution__title">Artwork by Page Waltz.</p>
+      {/* @todo - add attribution link */}
       <a className="attribution__link" href="#">
+        {/* @todo - improve accessibility of link (description) */}
         <span>Learn more</span>
       </a>
     </div>

@@ -15,6 +15,9 @@ class DrugGrid extends React.Component {
     return classes
   }
   render() {
+    /**
+    * @todo: generate this array dynamically
+    */
     const drugs = [
       [
         {
