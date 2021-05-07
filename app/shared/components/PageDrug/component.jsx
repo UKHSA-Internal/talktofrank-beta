@@ -13,6 +13,7 @@ import { GA } from '../GoogleAnalytics/component.jsx'
 import { imageMap, fieldIncludesImages } from '../../utilities'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
+import DrugWarningPanel from '../DrugWarningPanel/component.jsx'
 
 const Page = props => {
   const modifiers = {
@@ -95,6 +96,9 @@ const Page = props => {
           </Grid>
           <Grid className="spacing-top--single">
             <GridCol className="col-12 col-md-7 offset-md-3 ">
+              {props.fields.warning && (
+                <DrugWarningPanel text={props.fields.warning} />
+              )}
               {hasQuickInfo() && <QuickInfoPanel {...props.fields} />}
             </GridCol>
           </Grid>
