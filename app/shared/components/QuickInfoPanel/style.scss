@@ -25,7 +25,7 @@
   }
 
   &_title {
-    color: $pink;
+    color: $pinkAccess;
     font-size: 16px;
     line-height: 17px;
     font-family: $font-family-heavy;
@@ -51,7 +51,7 @@
   }
 
   &__link {
-    color: #fc016a;
+    color: $pinkAccess;
     text-decoration: underline;
     border-bottom: none;
     display: inline-block;
