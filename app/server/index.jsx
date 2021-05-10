@@ -134,7 +134,7 @@ app.get('/sitemap.xml', async (req, res, next) => {
   try {
     entries = await contentfulClient.getEntries({
       'sys.contentType.sys.id[in]':
-        'drug,generalPage,homepage,news,treatmentCentre',
+        'drug,generalPage,homepage,azPage,news,treatmentCentre',
       limit: 1000
     })
   } catch (err) {
