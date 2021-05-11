@@ -112,7 +112,12 @@ router.get('/entries/:slug', (req, res, next) => {
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro);
         }
-
+        if (response.fields.introText) {
+          response.fields.introText = documentToHtmlString(
+            response.fields.introText,
+            contentFulFactory()
+          );
+        }
         if (response.fields.body) {
           response.fields.body = documentToHtmlString(
             response.fields.body,

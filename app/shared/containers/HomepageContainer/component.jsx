@@ -3,7 +3,6 @@ import PageHome from '../../components/PageHome/component.jsx'
 import { imageMap } from '../../utilities'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('homepage state', state)
   const { fields } = state.app.pageData
 
   const { drugGrid, featuredVideo, someFrankAdvice } = fields

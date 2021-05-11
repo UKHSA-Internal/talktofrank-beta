@@ -7,7 +7,7 @@ import { config } from 'config';
 export const REQUEST_PAGE = 'REQUEST_PAGE';
 export const RECEIVE_PAGE = 'RECEIVE_PAGE';
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR';
-
+export const RECEIVE_PAGE_DATA = 'RECEIVE_PAGE_DATA';
 export const FORM_REQUEST = 'FORM_REQUEST';
 export const FORM_REQUEST_SUCCESS = 'FORM_REQUEST_SUCCESS';
 export const FORM_REQUEST_ERROR = 'FORM_REQUEST_ERROR';
@@ -51,6 +51,12 @@ function receivePage(pageData) {
   return {
     type: RECEIVE_PAGE,
     pageData
+  };
+}
+function receivePageData(data) {
+  return {
+    type: RECEIVE_PAGE_DATA,
+    data
   };
 }
 
@@ -249,8 +255,12 @@ export function fetchPage(slug, type = 'entries') {
     return axios
       .get(lookupUrl)
       .then(res => {
-        console.log('response', res);
-        dispatch(receivePage(res.data));
+        console.log('slug: ', slug);
+        if (slug === 'azPage') {
+          dispatch(receivePageData(res.data));
+        } else {
+          dispatch(receivePage(res.data));
+        }
       })
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status;
