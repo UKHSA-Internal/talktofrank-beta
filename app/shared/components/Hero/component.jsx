@@ -13,7 +13,6 @@ const Hero = props => {
         <div className="hero__inner hero__inner--constrained">
           <SplitText {...props.heading} />
         </div>
-        <Attribution />
       </div>
     </section>
   )

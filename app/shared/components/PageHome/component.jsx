@@ -16,14 +16,12 @@ import QuickInfoPanelTabs from '../QuickInfoPanelTabs/component.jsx'
 import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
-import BlockDrugsAndyou from '../BlockDrugsAndYou/component.jsx'
 
 export default class PageHome extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: null,
-      windowSize: 1920  // @todo: what's this for?
+      selected: null
     }
   }
 
@@ -125,8 +123,6 @@ export default class PageHome extends React.Component {
           {this.props.featuredVideoBlock && (
             <BlockFeaturedVideo {...this.props.featuredVideoBlock} />
           )}
-          {/* @todo: remove this block */}
-          <BlockDrugsAndyou />
           {this.props.frankAdviceBlock && (
             <BlockFrankAdvice {...this.props.frankAdviceBlock} />
           )}
