@@ -19,7 +19,7 @@ const BlockFrankAdvice = props => {
       <Grid>
         <GridCol className="col-12">
           <div className="somefrankadvice__wrapper">
-            <h3>{props.title}</h3>
+            <h2>{props.title}</h2>
           </div>
         </GridCol>
       </Grid>

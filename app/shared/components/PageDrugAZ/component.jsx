@@ -56,7 +56,6 @@ const DrugList = props => {
             navigation={initialLetter}
             className="navbar-expand navbar-list"
             labelledBy="drugs-a-z-navigation"
-            id="drugs-a-z-navigation"
             visible="true"
             type="nav"
           />

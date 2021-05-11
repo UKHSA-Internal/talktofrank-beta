@@ -129,8 +129,9 @@ export default class Masthead extends React.PureComponent {
             <Button
               className="btn--flat btn--small"
               clickHandler={this.handleSearchClick.bind(this)}
+              aria-label="Open search feature"
             >
-              <span className="hidden--md" aria-label="Open search feature">
+              <span className="hidden--md">
                 <span aria-hidden="true">Search</span>{' '}
               </span>
               <Icon {...icon} />

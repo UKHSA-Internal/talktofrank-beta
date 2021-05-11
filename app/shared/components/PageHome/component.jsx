@@ -53,7 +53,7 @@ export default class PageHome extends React.Component {
             <div className="constrain">
               <ArrowLink
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
-                label="Or go to the drugs A-Z list"
+                label="Or go to the drugs A-Z list" // @todo: label isn't needed in this case as the text is visible
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
               />
@@ -64,7 +64,7 @@ export default class PageHome extends React.Component {
             modifier="wrapper--constant"
           >
             <div className="druggridwrapper__header">
-              <h3 className="text-center">Facts about...</h3>
+              <h2 className="text-center">Facts about...</h2>
               <p className="text-gradient text-center" ref={this.drugRef}>
                 Select a drug for quick info
               </p>

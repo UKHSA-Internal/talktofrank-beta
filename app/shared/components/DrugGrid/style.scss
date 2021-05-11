@@ -1,6 +1,6 @@
 .druggridwrapper {
   &__header {
-    h3 {
+    h2 {
       margin-top: 60px;
       margin-bottom: 32px;
     }
@@ -12,7 +12,7 @@
     @media (max-width: 575.98px) {
       margin-top: 40px;
 
-      h3 {
+      h2 {
         margin-bottom: 15px;
         line-height: 30.46px;
       }
