@@ -255,7 +255,6 @@ export function fetchPage(slug, type = 'entries') {
     return axios
       .get(lookupUrl)
       .then(res => {
-        console.log('slug: ', slug);
         if (slug === 'azPage') {
           dispatch(receivePageData(res.data));
         } else {
