@@ -34,6 +34,15 @@
   margin: 0 auto;
   margin-top: 53px;
 
+  h3 {
+    display: inline;
+    margin-bottom: 0;
+  }
+
+  div[aria-role=button] {
+    height: 100%;
+  }
+
   @media (max-width: 575.98px) {
     margin-top: 0;
   }

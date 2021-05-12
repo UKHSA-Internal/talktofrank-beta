@@ -83,37 +83,44 @@ export default class PageHome extends React.Component {
                 />
               </GridCol>
               <GridCol className="offset-lg-1 col-12 col-lg-5 hidden--md">
-                {this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
-                  ?.url && (
-                  <img
-                    className="image"
-                    style={{
-                      maxWidth: '186px'
-                    }}
-                    alt={
-                      this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                        ?.description || `Image of ${this.selectedDrug('name')}`
-                    }
-                    src={
-                      this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                        ?.file?.url
-                    }
-                  />
-                )}
-                {this.state.selected ? (
-                  <React.Fragment>
-                    <Heading
-                      type="h3"
-                      className="text-gradient drug-title"
-                      text={this.selectedDrug('drugName')}
-                    />
-                    <QuickInfoPanelTabs {...this.selectedDrug()} />
-                    <ArrowLink
-                      href={`/drug/${this.selectedDrug()?.slug}`}
-                      text={`Learn more about ${this.selectedDrug('drugName')}`}
-                      className="arrowlink--align-left m-t-30"
-                    />
-                  </React.Fragment>
+                {this.state.selected
+                  ? this.props.drugsGrid.map(drug => (
+                    <div
+                      id={`drugsgrid__panel-${drug.slug}`}
+                      aria-labelledby={`druggrid__button-${drug.slug}`}
+                      role="region"
+                      className={drug.slug !== this.state.selected ? 'visually-hidden' : ''}
+                    >
+                      <Heading
+                        type="h3"
+                        className="text-gradient drug-title"
+                        text={drug.drugGridName || drug.drugName}
+                      />
+                      {drug.image?.fields?.imageSmall?.fields?.file
+                        ?.url && (
+                        <img
+                          className="image"
+                          style={{
+                            maxWidth: '186px'
+                          }}
+                          alt={
+                            drug.image?.fields?.imageSmall?.fields
+                              ?.description || `Image of ${drug.name}`
+                          }
+                          src={
+                            drug.image?.fields?.imageSmall?.fields
+                              ?.file?.url
+                          }
+                        />
+                      )}
+                      <QuickInfoPanelTabs {...drug} />
+                      <ArrowLink
+                        href={`/drug/${drug.slug}`}
+                        text={`Learn more about ${drug.drugName || ' this drug.'}`}
+                        className="arrowlink--align-left m-t-30"
+                      />
+                    </div>
+                  )
                 ) : (
                   <PickADrug />
                 )}
