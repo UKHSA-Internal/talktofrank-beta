@@ -84,13 +84,13 @@ export default class PageHome extends React.Component {
               <GridCol className=" col-12 col-lg-6 hidden--md">
                 {this.state.selected
                   ? this.props.drugsGrid.map(drug => (
-                    <React.Fragment>
-                      <div
-                        id={`drugsgrid__panel-${drug.slug}`}
-                        aria-labelledby={`druggrid__button-${drug.slug}`}
-                        role="region"
-                        className={drug.slug !== this.state.selected ? 'visually-hidden' : 'flex justify-content-between align-items-start'}
-                      >
+                    <div
+                      id={`drugsgrid__panel-${drug.slug}`}
+                      aria-labelledby={`druggrid__button-${drug.slug}`}
+                      role="region"
+                      className={drug.slug !== this.state.selected ? 'visually-hidden' : ''}
+                    >
+                      <div className="flex justify-content-between align-items-start">
                         <div className="m-b-60">
                           <Heading
                             type="h3"
@@ -124,11 +124,11 @@ export default class PageHome extends React.Component {
                           />
                         )}
                       </div>
-                    <QuickInfoPanel {...drug} />
-                  </React.Fragment>
-                ) : (
-                  <PickADrug />
-                )}
+                      <QuickInfoPanel {...drug} />
+                    </div>
+                  )) : (
+                    <PickADrug />
+                  )}
               </GridCol>
             </Grid>
           </Accent>
