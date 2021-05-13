@@ -23,6 +23,7 @@ class CarouselSlide extends React.Component {
     }
   }
   handleClick = id => {
+    // eslint-disable-next-line
     if (this.state.ref.current && this.state.ref.current.id == id) {
       this.setState({ visible: !this.state.visible })
     }

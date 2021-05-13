@@ -13,9 +13,7 @@ const LinkDrugName = props => {
           <p className="grey d-inline-block">({props.synonyms})</p>
         )}
         {props.realName && (
-          <p className="grey d-inline-block">
-            <strong>({props.realName})</strong>
-          </p>
+          <p className="grey d-inline-block">({props.realName})</p>
         )}
         {/* {props.description && <Heading type='div' text={`<div className='muted'>${props.description}</div>`}/>} */}
       </a>

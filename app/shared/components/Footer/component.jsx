@@ -45,9 +45,9 @@ const Footer = props => {
               icon="warning-white"
             >
               <p>
-                If you or someone else needs urgent help after taking drugs,
-                call 999 for an ambulance. Tell the crew everything you know, it
-                could save a life.
+                If you or someone else needs urgent help after taking drugs or
+                drinking, call 999 for an ambulance. Tell the crew everything
+                you know. It could save their life.
               </p>
               <ArrowLink
                 href="/get-help/what-to-do-in-an-emergency"

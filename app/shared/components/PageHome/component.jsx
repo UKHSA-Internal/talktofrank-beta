@@ -82,48 +82,53 @@ export default class PageHome extends React.Component {
                 />
               </GridCol>
               <GridCol className=" col-12 col-lg-6 hidden--md">
-                {this.state.selected ? (
-                  <React.Fragment>
-                    <div className="flex justify-content-between align-items-start">
-                      <div className="m-b-60">
-                        <Heading
-                          type="h3"
-                          className="text-gradient drug-title"
-                          text={this.selectedDrug('drugName')}
-                        />
-                        <p className="m-0">
-                          {this.selectedDrug()?.description}
-                        </p>
-                        <ArrowLink
-                          href={`/drug/${this.selectedDrug()?.slug}`}
-                          text="Learn more"
-                          className="arrowlink--align-left m-t-10"
-                        />
+                {this.state.selected
+                  ? this.props.drugsGrid.map(drug => (
+                    <div
+                      id={`drugsgrid__panel-${drug.slug}`}
+                      aria-labelledby={`druggrid__button-${drug.slug}`}
+                      role="region"
+                      className={drug.slug !== this.state.selected ? 'visually-hidden' : ''}
+                    >
+                      <div className="flex justify-content-between align-items-start">
+                        <div className="m-b-60">
+                          <Heading
+                            type="h3"
+                            className="text-gradient drug-title"
+                            text={drug.drugGridName || drug.drugName}
+                          />
+                          <p className="m-0">
+                            {drug.description}
+                          </p>
+                          <ArrowLink
+                            href={`/drug/${drug.slug}`}
+                            text="Learn more"
+                            className="arrowlink--align-left m-t-10"
+                          />
+                        </div>
+                        {drug.image?.fields?.imageSmall?.fields?.file
+                          ?.url && (
+                          <img
+                            className="image m-l-20"
+                            style={{
+                              maxWidth: '186px'
+                            }}
+                            alt={
+                              drug.image?.fields?.imageSmall?.fields
+                                ?.description || `Image of ${drug.name}`
+                            }
+                            src={
+                              drug.image?.fields?.imageSmall?.fields
+                                ?.file?.url
+                            }
+                          />
+                        )}
                       </div>
-                      {this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                        ?.file?.url && (
-                        <img
-                          className="image m-l-20"
-                          style={{
-                            maxWidth: '186px'
-                          }}
-                          alt={
-                            this.selectedDrug()?.image?.fields?.imageSmall
-                              ?.fields?.description ||
-                            `Image of ${this.selectedDrug('name')}`
-                          }
-                          src={
-                            this.selectedDrug()?.image?.fields?.imageSmall
-                              ?.fields?.file?.url
-                          }
-                        />
-                      )}
+                      <QuickInfoPanel {...drug} />
                     </div>
-                    <QuickInfoPanel {...this.selectedDrug()} />
-                  </React.Fragment>
-                ) : (
-                  <PickADrug />
-                )}
+                  )) : (
+                    <PickADrug />
+                  )}
               </GridCol>
             </Grid>
           </Accent>
