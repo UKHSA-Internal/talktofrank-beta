@@ -13,6 +13,9 @@ $isAmp: false;
 // imported separately for finer control
 @import 'bootstrap/scss/functions';
 
+// Thirdparty
+@import 'swiper/swiper.scss';
+
 // Overrides for variables
 @import 'custom';
 @import 'bootstrap/scss/variables';
@@ -75,7 +78,6 @@ $isAmp: false;
 @import '../../../app/shared/components/Map/style';
 @import '../../../app/shared/components/InfoPanel/style';
 @import '../../../app/shared/components/QuickInfoPanel/style';
-@import '../../../app/shared/components/QuickInfoPanelTabs/style';
 @import '../../../app/shared/components/AccessibleSearch/style';
 @import '../../../app/shared/components/Attribution/style';
 @import '../../../app/shared/components/ArrowLink/style';
@@ -83,5 +85,5 @@ $isAmp: false;
 @import '../../../app/shared/components/PickADrug/style';
 @import '../../../app/shared/components/BlockFeaturedVideo/style';
 @import '../../../app/shared/components/BlockFrankAdvice/style';
-@import '../../../app/shared/components/BlockDrugsAndYou/style';
 @import '../../../app/shared/components/DrugWarningPanel/style';
+@import '../../../app/shared/components/Carousel/style';

@@ -12,7 +12,7 @@ import ArrowLink from '../ArrowLink/component.jsx'
 import DrugGrid from '../DrugGrid/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
-import QuickInfoPanelTabs from '../QuickInfoPanelTabs/component.jsx'
+import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
 import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
@@ -53,7 +53,6 @@ export default class PageHome extends React.Component {
             <div className="constrain">
               <ArrowLink
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
-                label="Or go to the drugs A-Z list" // @todo: label isn't needed in this case as the text is visible
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
               />
@@ -65,7 +64,7 @@ export default class PageHome extends React.Component {
           >
             <div className="druggridwrapper__header">
               <h2 className="text-center">Facts about...</h2>
-              <p className="text-gradient text-center" ref={this.drugRef}>
+              <p className="text-gradient text-center">
                 Select a drug for quick info
               </p>
             </div>
@@ -82,45 +81,51 @@ export default class PageHome extends React.Component {
                   className="arrowlink--align-center m-t-75"
                 />
               </GridCol>
-              <GridCol className="offset-lg-1 col-12 col-lg-5 hidden--md">
+              <GridCol className=" col-12 col-lg-6 hidden--md">
                 {this.state.selected
                   ? this.props.drugsGrid.map(drug => (
-                    <div
-                      id={`drugsgrid__panel-${drug.slug}`}
-                      aria-labelledby={`druggrid__button-${drug.slug}`}
-                      role="region"
-                      className={drug.slug !== this.state.selected ? 'visually-hidden' : ''}
-                    >
-                      <Heading
-                        type="h3"
-                        className="text-gradient drug-title"
-                        text={drug.drugGridName || drug.drugName}
-                      />
-                      {drug.image?.fields?.imageSmall?.fields?.file
-                        ?.url && (
-                        <img
-                          className="image"
-                          style={{
-                            maxWidth: '186px'
-                          }}
-                          alt={
-                            drug.image?.fields?.imageSmall?.fields
-                              ?.description || `Image of ${drug.name}`
-                          }
-                          src={
-                            drug.image?.fields?.imageSmall?.fields
-                              ?.file?.url
-                          }
-                        />
-                      )}
-                      <QuickInfoPanelTabs {...drug} />
-                      <ArrowLink
-                        href={`/drug/${drug.slug}`}
-                        text={`Learn more about ${drug.drugName || ' this drug.'}`}
-                        className="arrowlink--align-left m-t-30"
-                      />
-                    </div>
-                  )
+                    <React.Fragment>
+                      <div
+                        id={`drugsgrid__panel-${drug.slug}`}
+                        aria-labelledby={`druggrid__button-${drug.slug}`}
+                        role="region"
+                        className={drug.slug !== this.state.selected ? 'visually-hidden' : 'flex justify-content-between align-items-start'}
+                      >
+                        <div className="m-b-60">
+                          <Heading
+                            type="h3"
+                            className="text-gradient drug-title"
+                            text={drug.drugGridName || drug.drugName}
+                          />
+                          <p className="m-0">
+                            {drug.description}
+                          </p>
+                          <ArrowLink
+                            href={`/drug/${drug.slug}`}
+                            text="Learn more"
+                            className="arrowlink--align-left m-t-10"
+                          />
+                        </div>
+                        {drug.image?.fields?.imageSmall?.fields?.file
+                          ?.url && (
+                          <img
+                            className="image m-l-20"
+                            style={{
+                              maxWidth: '186px'
+                            }}
+                            alt={
+                              drug.image?.fields?.imageSmall?.fields
+                                ?.description || `Image of ${drug.name}`
+                            }
+                            src={
+                              drug.image?.fields?.imageSmall?.fields
+                                ?.file?.url
+                            }
+                          />
+                        )}
+                      </div>
+                    <QuickInfoPanel {...drug} />
+                  </React.Fragment>
                 ) : (
                   <PickADrug />
                 )}
