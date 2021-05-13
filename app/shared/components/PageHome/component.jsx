@@ -12,7 +12,7 @@ import ArrowLink from '../ArrowLink/component.jsx'
 import DrugGrid from '../DrugGrid/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
-import QuickInfoPanelTabs from '../QuickInfoPanelTabs/component.jsx'
+import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
 import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
@@ -53,7 +53,6 @@ export default class PageHome extends React.Component {
             <div className="constrain">
               <ArrowLink
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
-                label="Or go to the drugs A-Z list" // @todo: label isn't needed in this case as the text is visible
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
               />
@@ -65,7 +64,7 @@ export default class PageHome extends React.Component {
           >
             <div className="druggridwrapper__header">
               <h2 className="text-center">Facts about...</h2>
-              <p className="text-gradient text-center" ref={this.drugRef}>
+              <p className="text-gradient text-center">
                 Select a drug for quick info
               </p>
             </div>
@@ -82,37 +81,45 @@ export default class PageHome extends React.Component {
                   className="arrowlink--align-center m-t-75"
                 />
               </GridCol>
-              <GridCol className="offset-lg-1 col-12 col-lg-5 hidden--md">
-                {this.selectedDrug()?.image?.fields?.imageSmall?.fields?.file
-                  ?.url && (
-                  <img
-                    className="image"
-                    style={{
-                      maxWidth: '186px'
-                    }}
-                    alt={
-                      this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                        ?.description || `Image of ${this.selectedDrug('name')}`
-                    }
-                    src={
-                      this.selectedDrug()?.image?.fields?.imageSmall?.fields
-                        ?.file?.url
-                    }
-                  />
-                )}
+              <GridCol className=" col-12 col-lg-6 hidden--md">
                 {this.state.selected ? (
                   <React.Fragment>
-                    <Heading
-                      type="h3"
-                      className="text-gradient drug-title"
-                      text={this.selectedDrug('drugName')}
-                    />
-                    <QuickInfoPanelTabs {...this.selectedDrug()} />
-                    <ArrowLink
-                      href={`/drug/${this.selectedDrug()?.slug}`}
-                      text={`Learn more about ${this.selectedDrug('drugName')}`}
-                      className="arrowlink--align-left m-t-30"
-                    />
+                    <div className="flex justify-content-between align-items-start">
+                      <div className="m-b-60">
+                        <Heading
+                          type="h3"
+                          className="text-gradient drug-title"
+                          text={this.selectedDrug('drugName')}
+                        />
+                        <p className="m-0">
+                          {this.selectedDrug()?.description}
+                        </p>
+                        <ArrowLink
+                          href={`/drug/${this.selectedDrug()?.slug}`}
+                          text="Learn more"
+                          className="arrowlink--align-left m-t-10"
+                        />
+                      </div>
+                      {this.selectedDrug()?.image?.fields?.imageSmall?.fields
+                        ?.file?.url && (
+                        <img
+                          className="image m-l-20"
+                          style={{
+                            maxWidth: '186px'
+                          }}
+                          alt={
+                            this.selectedDrug()?.image?.fields?.imageSmall
+                              ?.fields?.description ||
+                            `Image of ${this.selectedDrug('name')}`
+                          }
+                          src={
+                            this.selectedDrug()?.image?.fields?.imageSmall
+                              ?.fields?.file?.url
+                          }
+                        />
+                      )}
+                    </div>
+                    <QuickInfoPanel {...this.selectedDrug()} />
                   </React.Fragment>
                 ) : (
                   <PickADrug />

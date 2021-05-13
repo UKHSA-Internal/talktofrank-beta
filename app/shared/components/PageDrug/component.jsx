@@ -15,6 +15,8 @@ import SiteMessageContainer from '../../containers/SiteMessageContainer/componen
 import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
 import DrugWarningPanel from '../DrugWarningPanel/component.jsx'
 
+import Carousel from '../Carousel/Carousel.jsx'
+
 const Page = props => {
   const modifiers = {
     type: 'h3',
@@ -51,11 +53,20 @@ const Page = props => {
             }}
           />
         )}
+        {props.fields.sliderImages && (
+          <Carousel images={props.fields.sliderImages} />
+        )}
         <Accent modifier="wrapper--constant">
           <Grid>
             {hasImage && (
               <GridCol className="col-12 col-md-3">
-                <Picture {...imageMap(props.fields)} />
+                <Picture
+                  className={
+                    'drug-image ' +
+                    (props.fields.sliderImages ? 'has-carousel' : '')
+                  }
+                  {...imageMap(props.fields)}
+                />
               </GridCol>
             )}
             <GridCol

@@ -127,6 +127,7 @@ $spaceamounts: (
   40,
   45,
   50,
+  60,
   75,
   100
 ); // Adjust this to include the pixel amounts you need.
@@ -142,4 +143,26 @@ $sides: (top, bottom, left, right); // Leave this variable alone
       padding-#{$side}: #{$space}px !important;
     }
   }
+}
+
+.flex {
+  display: flex;
+}
+.align-items-center {
+  align-items: center;
+}
+.align-items-start {
+  align-items: flex-start;
+}
+.align-items-end {
+  align-items: flex-end;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.flex-column {
+  flex-direction: column;
 }

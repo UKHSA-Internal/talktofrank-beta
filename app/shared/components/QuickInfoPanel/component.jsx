@@ -29,11 +29,11 @@ class QuickInfoPanel extends React.Component {
           </div>
           <div className="quick-info-panel__wrapper col-12">
             <p className="quick-info-panel__warning">
-              How you experience the drug varies from person to person
+              How the drug works varies from person to person
             </p>
           </div>
           {this.props.quickInfoPanelFeelings && (
-            <div className="quick-info-panel__wrapper col-12">
+            <div className="quick-info-panel__wrapper col-12 col-md-6">
               <p className="quick-info-panel_title">How you might feel</p>
 
               <p className="quick-info-panel__description">
@@ -43,13 +43,13 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href="#how-it-feels"
                 >
-                  (Read more)
+                  Read more
                 </a>
               </p>
             </div>
           )}
           {this.props.quickInfoPanelEffects && (
-            <div className="quick-info-panel__wrapper col-12">
+            <div className="quick-info-panel__wrapper col-12 col-md-6">
               <p className="quick-info-panel_title">Effects on your body</p>
 
               <p className="quick-info-panel__description">
@@ -59,35 +59,50 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href="#how-it-feels"
                 >
-                  (Read more)
+                  Read more
                 </a>
               </p>
             </div>
           )}
-          {this.props.quickInfoPanelTimeToKickIn &&
-            this.props.quickInfoPanelDuration && (
-              <div className="quick-info-panel__wrapper col-12">
-                <p className="quick-info-panel_title">Duration</p>
+          {this.props.quickInfoPanelTimeToKickIn && (
+            <div className="quick-info-panel__wrapper col-12 col-md-6">
+              <p className="quick-info-panel_title">
+                How long it takes to work
+              </p>
 
-                <p className="quick-info-panel__description">
-                  <p>
-                    Average time to kick in:{' '}
-                    {this.props.quickInfoPanelTimeToKickIn}{' '}
-                  </p>
-                  <p>Average duration: {this.props.quickInfoPanelDuration} </p>
-                  <a
-                    onClick={e => this.handleClick(e, '#how-it-feels')}
-                    className="quick-info-panel__link"
-                    href="#how-it-feels"
-                  >
-                    (Read more)
-                  </a>
-                </p>
-              </div>
-            )}
+              <p className="quick-info-panel__description">
+                {this.props.quickInfoPanelTimeToKickIn}{' '}
+                <a
+                  onClick={e => this.handleClick(e, '#how-it-feels')}
+                  className="quick-info-panel__link"
+                  href="#how-it-feels"
+                >
+                  Read more
+                </a>
+              </p>
+            </div>
+          )}
+          {this.props.quickInfoPanelDuration && (
+            <div className="quick-info-panel__wrapper col-12 col-md-6">
+              <p className="quick-info-panel_title">
+                How long the effects last
+              </p>
+
+              <p className="quick-info-panel__description">
+                {this.props.quickInfoPanelDuration}{' '}
+                <a
+                  onClick={e => this.handleClick(e, '#how-it-feels')}
+                  className="quick-info-panel__link"
+                  href="#how-it-feels"
+                >
+                  Read more
+                </a>
+              </p>
+            </div>
+          )}
           {this.props.quickInfoPanelRisks && (
-            <div className="quick-info-panel__wrapper  col-12">
-              <p className="quick-info-panel_title">Risks</p>
+            <div className="quick-info-panel__wrapper col-12 col-md-6">
+              <p className="quick-info-panel_title">Common risks</p>
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelRisks}{' '}
                 <a
@@ -95,14 +110,14 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href="#the-risks"
                 >
-                  (Read more)
+                  Read more
                 </a>
               </p>
             </div>
           )}
           {this.props.quickInfoPanelMixing && (
-            <div className="quick-info-panel__wrapper  col-12">
-              <p className="quick-info-panel_title">Dangerous mixes</p>
+            <div className="quick-info-panel__wrapper col-12 col-md-6">
+              <p className="quick-info-panel_title">Best to avoid</p>
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelMixing}{' '}
                 <a
@@ -110,7 +125,7 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href="#mixing"
                 >
-                  Mixing with other drugs
+                  Read more
                 </a>
               </p>
             </div>
