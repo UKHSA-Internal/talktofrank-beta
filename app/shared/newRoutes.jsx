@@ -63,6 +63,7 @@ const routes = [{
       exact: true,
       component: asyncPageDrugsAZContainer,
       loadData: () => [
+        fetchPage('azPage'),
         fetchDrugList(),
         fetchSiteSettings()
       ]

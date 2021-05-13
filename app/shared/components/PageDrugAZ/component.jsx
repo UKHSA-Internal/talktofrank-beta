@@ -7,7 +7,7 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Nav from '../Nav/component.jsx'
 import Divider from '../Divider/component.jsx'
-import Form from '../Form/component.jsx'
+import Longform from '../Longform/component.jsx'
 import AccessibleSearch from '../AccessibleSearch/component.jsx'
 import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
@@ -45,13 +45,7 @@ const DrugList = props => {
             className="h2 inverted spacing-left az-page-title"
             text="Drugs A to Z"
           />
-          <div className="az-intro">
-            <p>
-              Here’s our A-Z list of drugs. Don’t worry if you see a lot of
-              drugs you don’t recognise. We’re including some of their different
-              names too. Look for drugs using the names you know.
-            </p>
-          </div>
+          <Longform className="az-intro" text={props.introText} />
           <Nav
             navigation={initialLetter}
             className="navbar-expand navbar-list"
