@@ -4,9 +4,11 @@
   @include media-breakpoint-down(md) {
     display: block;
   }
+
   .swiper-container {
     overflow: visible !important;
   }
+
   .attribution-wrapper {
     position: absolute;
     background: rgba(14, 57, 68, 0.6);
@@ -18,10 +20,12 @@
     justify-content: center;
     color: white;
     padding: 0 10px;
+
     &.hidden {
       display: none;
     }
   }
+
   .view-attribution {
     position: absolute;
     bottom: 0;
@@ -37,11 +41,13 @@
     justify-content: space-between;
     padding: 0 5px;
     color: #828282;
+
     > span {
       margin-right: 5px;
     }
   }
 }
+
 .drug-image.has-carousel {
   @include media-breakpoint-down(md) {
     display: none;
