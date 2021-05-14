@@ -1,25 +1,5 @@
 import React from 'react'
-import { isInBrowser, scrollIntoView } from '../../utilities'
 class QuickInfoPanel extends React.Component {
-  handleClick(e, section) {
-    // Handles toggling open the accordion and scrolling
-    if (isInBrowser()) {
-      e.preventDefault()
-      let btn = document.querySelector(
-        `${section} > div > div > div > h2 > button`
-      )
-      if (!btn.classList.contains('collapsible__trigger--active')) {
-        btn.click()
-      }
-      console.log(
-        'scrolling to:',
-        document.querySelector(`#section-${section.replace('#', '')}`)
-      )
-      scrollIntoView(
-        document.querySelector(`#section-${section.replace('#', '')}`)
-      )
-    }
-  }
   render() {
     return (
       <div className="quick-info-panel">
@@ -39,9 +19,9 @@ class QuickInfoPanel extends React.Component {
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelFeelings}{' '}
                 <a
-                  onClick={e => this.handleClick(e, '#how-it-feels')}
+                  onClick={e => this.props.handleHowItFeelsClick(e)}
                   className="quick-info-panel__link"
-                  href="#how-it-feels"
+                  href={this.props.slug ? `/drug/${this.props.slug}#how-it-feels` : '#how-it-feels'}
                 >
                   Read more
                 </a>
@@ -55,9 +35,9 @@ class QuickInfoPanel extends React.Component {
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelEffects}{' '}
                 <a
-                  onClick={e => this.handleClick(e, '#how-it-feels')}
+                  onClick={e => this.props.handleHowItFeelsClick(e)}
                   className="quick-info-panel__link"
-                  href="#how-it-feels"
+                  href={this.props.slug ? `/drug/${this.props.slug}#how-it-feels` : '#how-it-feels'}
                 >
                   Read more
                 </a>
@@ -73,9 +53,9 @@ class QuickInfoPanel extends React.Component {
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelTimeToKickIn}{' '}
                 <a
-                  onClick={e => this.handleClick(e, '#how-it-feels')}
+                  onClick={e => this.props.handleDurationClick(e)}
                   className="quick-info-panel__link"
-                  href="#how-it-feels"
+                  href={this.props.slug ? `/drug/${this.props.slug}#duration` : '#duration'}
                 >
                   Read more
                 </a>
@@ -91,9 +71,9 @@ class QuickInfoPanel extends React.Component {
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelDuration}{' '}
                 <a
-                  onClick={e => this.handleClick(e, '#how-it-feels')}
+                  onClick={e => this.props.handleDurationClick(e)}
                   className="quick-info-panel__link"
-                  href="#how-it-feels"
+                  href={this.props.slug ? `/drug/${this.props.slug}#duration` : '#duration'}
                 >
                   Read more
                 </a>
@@ -106,9 +86,9 @@ class QuickInfoPanel extends React.Component {
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelRisks}{' '}
                 <a
-                  onClick={e => this.handleClick(e, '#the-risks')}
+                  onClick={e => this.props.handleTheRisksClick(e)}
                   className="quick-info-panel__link"
-                  href="#the-risks"
+                  href={this.props.slug ? `/drug/${this.props.slug}#the-risks` : '#the-risks'}
                 >
                   Read more
                 </a>
@@ -121,9 +101,9 @@ class QuickInfoPanel extends React.Component {
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelMixing}{' '}
                 <a
-                  onClick={e => this.handleClick(e, '#mixing')}
+                  onClick={e => this.props.handleMixingClick(e)}
                   className="quick-info-panel__link"
-                  href="#mixing"
+                  href={this.props.slug ? `/drug/${this.props.slug}#mixing` : '#mixing'}
                 >
                   Read more
                 </a>
