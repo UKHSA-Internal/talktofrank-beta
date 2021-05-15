@@ -1,28 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import YouTube from 'react-youtube'
+import { VideoPlayer } from '../Video/component'
 class BlockFeaturedVideo extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      url: this.props.embedUrl ? this.props.embedUrl.split('/embed')[1] : null,
-      playIcon: {
-        label: 'Submit search',
-        url: '/ui/svg/play-pink.svg'
-      },
       show: true
     }
   }
-  handlePlayer = event => {
-    const playerState = event.data
-
-    if (playerState === 0) {
-      event.target.pauseVideo()
-      event.target.seekTo(0)
+  handlePlayer = type => {
+    if (type === 'pause') {
       this.setState({ show: true })
-    } else if (playerState === 2) {
+    } else if (type === 'end') {
       this.setState({ show: true })
-    } else if (playerState === 1) {
+    } else if (type === 'play') {
       this.setState({ show: false })
     }
   }
@@ -42,15 +34,12 @@ class BlockFeaturedVideo extends React.PureComponent {
             <h4>{this.props.title}</h4>
           </div>
 
-          {this.state.url && (
-            <YouTube
-              videoId={this.state.url}
-              onStateChange={e => this.handlePlayer(e)}
-            />
+          {this.props?.videoFile?.fields?.file?.url && (
+            <VideoPlayer {...this.props} handlePlayer={this.handlePlayer} />
           )}
-          {this.props.figCaption && (
+          {this.props.videoFile?.fields?.description && (
             <figcaption className={'sr-only'}>
-              {this.props.figCaption}
+              {this.props.videoFile?.fields?.description}
             </figcaption>
           )}
         </figure>
