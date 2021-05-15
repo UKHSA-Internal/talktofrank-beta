@@ -11,7 +11,7 @@ const DrugWarningPanel = props => {
       <div className="row">
         <div className="drugwarningpanel__heading">
           <Icon {...iconWarning} />
-          <h5 className="drugwarningpanel__heading_title">Important</h5>
+          <h2 className="drugwarningpanel__heading_title">Important</h2>
         </div>
         <div className="drugwarningpanel__wrapper col-12">
           <p className="drugwarningpanel__text">{props.text}</p>
