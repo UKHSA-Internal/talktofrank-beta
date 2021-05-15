@@ -184,7 +184,7 @@ const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
     .size(pageSize)
     .orQuery('multi_match', nameConf)
     .orQuery('multi_match', titleConf)
-    .orQuery('multi_match', textConf)
+    // .orQuery('multi_match', textConf)
     .sort([{ _score: 'desc' }])
     .rawOption('highlight', {
       order: 'score',
