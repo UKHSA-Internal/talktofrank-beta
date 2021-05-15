@@ -117,7 +117,7 @@ class QuickInfoPanel extends React.Component {
           )}
           {this.props.quickInfoPanelMixing && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">Best to avoid</p>
+              <p className="quick-info-panel_title">Reduce the risks</p>
               <p className="quick-info-panel__description">
                 {this.props.quickInfoPanelMixing}{' '}
                 <a
