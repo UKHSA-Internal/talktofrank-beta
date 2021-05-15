@@ -8,8 +8,7 @@ export default class Toggle extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      visible:
-        this.props.open ||
+      visible: this.props.open ||
         this.props.className === 'collapsible_trigger--active'
     }
   }
@@ -29,6 +28,13 @@ export default class Toggle extends React.PureComponent {
 
   componentDidMount() {
     if (this.props.history.hash === '#' + this.returnId()) {
+      this.setState({ visible: true })
+      scrollIntoView(this.node)
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.open !== prevProps.open) {
       this.setState({ visible: true })
       scrollIntoView(this.node)
     }
