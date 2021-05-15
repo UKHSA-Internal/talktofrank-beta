@@ -16,6 +16,7 @@ import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
 import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
+import AttributedImage from '../AttributedImage/component.jsx'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -110,19 +111,7 @@ export default class PageHome extends React.Component {
                           />
                         </div>
                         {drug.image?.fields?.imageSmall?.fields?.file?.url && (
-                          <img
-                            className="image m-l-20"
-                            style={{
-                              maxWidth: '186px'
-                            }}
-                            alt={
-                              drug.image?.fields?.imageSmall?.fields
-                                ?.description || `Image of ${drug.name}`
-                            }
-                            src={
-                              drug.image?.fields?.imageSmall?.fields?.file?.url
-                            }
-                          />
+                          <AttributedImage drug={drug} />
                         )}
                       </div>
                       <QuickInfoPanel {...drug} />
