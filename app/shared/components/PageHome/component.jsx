@@ -52,6 +52,7 @@ export default class PageHome extends React.Component {
             <AccessibleSearch />
             <div className="constrain">
               <ArrowLink
+                aria='aria-labeledby="A-Z list of drugs"'
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
@@ -63,7 +64,7 @@ export default class PageHome extends React.Component {
             modifier="wrapper--constant"
           >
             <div className="druggridwrapper__header">
-              <h2 className="text-center">Facts about...</h2>
+              <h2 className="text-center">Facts about drugs</h2>
               <p className="text-gradient text-center">
                 Select a drug for quick info
               </p>
@@ -82,13 +83,17 @@ export default class PageHome extends React.Component {
                 />
               </GridCol>
               <GridCol className=" col-12 col-lg-6 hidden--md">
-                {this.state.selected
-                  ? this.props.drugsGrid.map(drug => (
+                {this.state.selected ? (
+                  this.props.drugsGrid.map(drug => (
                     <div
                       id={`drugsgrid__panel-${drug.slug}`}
                       aria-labelledby={`druggrid__button-${drug.slug}`}
                       role="region"
-                      className={drug.slug !== this.state.selected ? 'visually-hidden' : ''}
+                      className={
+                        drug.slug !== this.state.selected
+                          ? 'visually-hidden'
+                          : ''
+                      }
                     >
                       <div className="flex justify-content-between align-items-start">
                         <div className="m-b-60">
@@ -97,17 +102,14 @@ export default class PageHome extends React.Component {
                             className="text-gradient drug-title"
                             text={drug.drugGridName || drug.drugName}
                           />
-                          <p className="m-0">
-                            {drug.description}
-                          </p>
+                          <p className="m-0">{drug.description}</p>
                           <ArrowLink
                             href={`/drug/${drug.slug}`}
                             text="Learn more"
                             className="arrowlink--align-left m-t-10"
                           />
                         </div>
-                        {drug.image?.fields?.imageSmall?.fields?.file
-                          ?.url && (
+                        {drug.image?.fields?.imageSmall?.fields?.file?.url && (
                           <img
                             className="image m-l-20"
                             style={{
@@ -118,17 +120,17 @@ export default class PageHome extends React.Component {
                                 ?.description || `Image of ${drug.name}`
                             }
                             src={
-                              drug.image?.fields?.imageSmall?.fields
-                                ?.file?.url
+                              drug.image?.fields?.imageSmall?.fields?.file?.url
                             }
                           />
                         )}
                       </div>
                       <QuickInfoPanel {...drug} />
                     </div>
-                  )) : (
-                    <PickADrug />
-                  )}
+                  ))
+                ) : (
+                  <PickADrug />
+                )}
               </GridCol>
             </Grid>
           </Accent>
