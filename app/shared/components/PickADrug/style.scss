@@ -1,4 +1,7 @@
 .pickadrug {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
   display: flex;
   align-items: center;
   justify-content: space-between;
