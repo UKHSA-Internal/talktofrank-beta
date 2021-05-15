@@ -3,7 +3,7 @@ import { config } from 'config'
 import { removeTags } from './utilities'
 const util = require('util')
 
-export const formatNewsEntryForSearch = (newsItem) => {
+export const formatNewsEntryForSearch = newsItem => {
   let formattedNewsItem = {
     id: newsItem.sys.id,
     relatedDrugs: [],
@@ -14,12 +14,20 @@ export const formatNewsEntryForSearch = (newsItem) => {
   }
 
   if (newsItem.fields.body) {
-    formattedNewsItem['body'] = removeTags(documentToHtmlString(newsItem.fields.body))
+    formattedNewsItem['body'] = removeTags(
+      documentToHtmlString(newsItem.fields.body)
+    )
   }
 
   if (newsItem.fields.relatedDrugs) {
     newsItem.fields.relatedDrugs
-      .filter(relatedDrug => relatedDrug.fields && relatedDrug.fields.drugName && relatedDrug.fields.slug && relatedDrug.fields.synonyms)
+      .filter(
+        relatedDrug =>
+          relatedDrug.fields &&
+          relatedDrug.fields.drugName &&
+          relatedDrug.fields.slug &&
+          relatedDrug.fields.synonyms
+      )
       .map(relatedDrug => {
         formattedNewsItem.relatedDrugs.push({
           drugName: relatedDrug.fields.drugName,
@@ -43,24 +51,60 @@ export const formatDrugEntryForSearch = (name, drugItem) => {
   let formattedDrugItem = {
     id: drugItem.sys.id,
     name: name,
-    synonyms: drugItem.fields.hasOwnProperty('synonyms') ? drugItem.fields.synonyms : '',
+    synonyms: drugItem.fields.hasOwnProperty('synonyms')
+      ? drugItem.fields.synonyms
+      : '',
     slug: drugItem.fields.hasOwnProperty('slug') ? drugItem.fields.slug : null,
-    addiction: drugItem.fields.hasOwnProperty('addiction') ? removeTags(drugItem.fields.addiction) : null,
-    additional: drugItem.fields.hasOwnProperty('additional') ? removeTags(drugItem.fields.additional) : null,
-    category: drugItem.fields.hasOwnProperty('category') ? removeTags(drugItem.fields.category) : 'None',
-    description: drugItem.fields.hasOwnProperty('description') ? removeTags(drugItem.fields.description) : null,
-    drugName: drugItem.fields.hasOwnProperty('drugName') ? removeTags(drugItem.fields.drugName) : null,
-    durationDetail: drugItem.fields.hasOwnProperty('durationDetail') ? removeTags(drugItem.fields.durationDetail) : null,
-    durationDetectable: drugItem.fields.hasOwnProperty('durationDetectable') ? removeTags(drugItem.fields.durationDetectable) : null,
-    effectsBehaviour: drugItem.fields.hasOwnProperty('effectsBehaviour') ? removeTags(drugItem.fields.effectsBehaviour) : null,
-    effectsFeeling: drugItem.fields.hasOwnProperty('effectsFeeling') ? removeTags(drugItem.fields.effectsFeeling) : null,
-    mixingDangers: drugItem.fields.hasOwnProperty('mixingDangers') ? removeTags(drugItem.fields.mixingDangers) : null,
-    qualitiesAdministered: drugItem.fields.hasOwnProperty('qualitiesAdministered') ? removeTags(drugItem.fields.qualitiesAdministered) : null,
-    qualitiesAppearance: drugItem.fields.hasOwnProperty('qualitiesAppearance') ? removeTags(drugItem.fields.qualitiesAppearance) : null,
-    qualitiesTaste: drugItem.fields.hasOwnProperty('qualitiesTaste') ? removeTags(drugItem.fields.qualitiesTaste) : null,
-    risksCutWith: drugItem.fields.hasOwnProperty('risksCutWith') ? removeTags(drugItem.fields.risksCutWith) : null,
-    risksHealthMental: drugItem.fields.hasOwnProperty('risksHealthMental') ? removeTags(drugItem.fields.risksHealthMental) : null,
-    risksPhysicalHealth: drugItem.fields.hasOwnProperty('risksPhysicalHealth') ? removeTags(drugItem.fields.risksPhysicalHealth) : null,
+    addiction: drugItem.fields.hasOwnProperty('addiction')
+      ? removeTags(drugItem.fields.addiction)
+      : null,
+    additional: drugItem.fields.hasOwnProperty('additional')
+      ? removeTags(drugItem.fields.additional)
+      : null,
+    category: drugItem.fields.hasOwnProperty('category')
+      ? removeTags(drugItem.fields.category)
+      : 'None',
+    description: drugItem.fields.hasOwnProperty('description')
+      ? removeTags(drugItem.fields.description)
+      : null,
+    drugName: drugItem.fields.hasOwnProperty('drugName')
+      ? removeTags(drugItem.fields.drugName)
+      : null,
+    durationDetail: drugItem.fields.hasOwnProperty('durationDetail')
+      ? removeTags(drugItem.fields.durationDetail)
+      : null,
+    durationDetectable: drugItem.fields.hasOwnProperty('durationDetectable')
+      ? removeTags(drugItem.fields.durationDetectable)
+      : null,
+    effectsBehaviour: drugItem.fields.hasOwnProperty('effectsBehaviour')
+      ? removeTags(drugItem.fields.effectsBehaviour)
+      : null,
+    effectsFeeling: drugItem.fields.hasOwnProperty('effectsFeeling')
+      ? removeTags(drugItem.fields.effectsFeeling)
+      : null,
+    mixingDangers: drugItem.fields.hasOwnProperty('mixingDangers')
+      ? removeTags(drugItem.fields.mixingDangers)
+      : null,
+    qualitiesAdministered: drugItem.fields.hasOwnProperty(
+      'qualitiesAdministered'
+    )
+      ? removeTags(drugItem.fields.qualitiesAdministered)
+      : null,
+    qualitiesAppearance: drugItem.fields.hasOwnProperty('qualitiesAppearance')
+      ? removeTags(drugItem.fields.qualitiesAppearance)
+      : null,
+    qualitiesTaste: drugItem.fields.hasOwnProperty('qualitiesTaste')
+      ? removeTags(drugItem.fields.qualitiesTaste)
+      : null,
+    risksCutWith: drugItem.fields.hasOwnProperty('risksCutWith')
+      ? removeTags(drugItem.fields.risksCutWith)
+      : null,
+    risksHealthMental: drugItem.fields.hasOwnProperty('risksHealthMental')
+      ? removeTags(drugItem.fields.risksHealthMental)
+      : null,
+    risksPhysicalHealth: drugItem.fields.hasOwnProperty('risksPhysicalHealth')
+      ? removeTags(drugItem.fields.risksPhysicalHealth)
+      : null,
     tags: []
   }
 
@@ -70,9 +114,12 @@ export const formatDrugEntryForSearch = (name, drugItem) => {
       .filter(durationMethodOfTakingItem => durationMethodOfTakingItem.fields)
       .map(durationMethodOfTakingItem => {
         formattedDrugItem.durationMethodOfTaking.push({
-          methodAfterEffects: durationMethodOfTakingItem.fields.methodAfterEffects,
-          methodEffectsDuration: durationMethodOfTakingItem.fields.methodEffectsDuration,
-          methodEffectsStart: durationMethodOfTakingItem.fields.methodEffectsStart,
+          methodAfterEffects:
+            durationMethodOfTakingItem.fields.methodAfterEffects,
+          methodEffectsDuration:
+            durationMethodOfTakingItem.fields.methodEffectsDuration,
+          methodEffectsStart:
+            durationMethodOfTakingItem.fields.methodEffectsStart,
           methodName: durationMethodOfTakingItem.fields.methodName
         })
       })
@@ -96,7 +143,9 @@ export const formatDrugNameEntryForSearch = (name, realName, drugItem) => {
     entryId: drugItem.sys.id,
     name: name.trim(),
     realName: realName.trim(),
-    category: drugItem.fields.hasOwnProperty('category') ? removeTags(drugItem.fields.category) : 'None',
+    category: drugItem.fields.hasOwnProperty('category')
+      ? removeTags(drugItem.fields.category)
+      : 'None',
     slug: drugItem.fields.hasOwnProperty('slug') ? drugItem.fields.slug : '',
     tags: []
   }
@@ -111,7 +160,7 @@ export const formatDrugNameEntryForSearch = (name, realName, drugItem) => {
   return formattedDrugItem
 }
 
-export const formatGeneralContentEntryForSearch = (pageItem) => {
+export const formatGeneralContentEntryForSearch = pageItem => {
   let formattedGeneralPagesItem = {
     id: pageItem.sys.id,
     relatedDrugs: [],
@@ -122,7 +171,9 @@ export const formatGeneralContentEntryForSearch = (pageItem) => {
   }
 
   if (pageItem.fields.body) {
-    formattedGeneralPagesItem['body'] = removeTags(documentToHtmlString(pageItem.fields.body))
+    formattedGeneralPagesItem['body'] = removeTags(
+      documentToHtmlString(pageItem.fields.body)
+    )
   }
 
   if (pageItem.fields.tags) {
@@ -135,59 +186,75 @@ export const formatGeneralContentEntryForSearch = (pageItem) => {
   return formattedGeneralPagesItem
 }
 
-export const buildBulkUpdateAction = async (index, type, data, esClient, nameField) => {
+export const buildBulkUpdateAction = async (
+  index,
+  type,
+  data,
+  esClient,
+  nameField
+) => {
   let bulk = []
 
   console.log('\nUpdating index', index)
 
-  await data
-    .map(item => {
-      let action = {update: {_index: index, _type: type, _id: item.id}}
-      bulk.push(action, {doc: item, doc_as_upsert: true, _source: [nameField]})
-    })
-
-  const response = await esClient.bulk({
-    maxRetries: 5,
-    index: index,
-    body: bulk
+  await data.map(item => {
+    let action = { update: { _index: index, _type: type, _id: item.id } }
+    bulk.push(action, { doc: item, doc_as_upsert: true, _source: [nameField] })
   })
 
-  console.log('Data count ', data.length)
-  console.log('Indexed', response.items.length)
-
-  response.items
-    .filter(item => !item.update.error)
-    .map(item => {
-      console.log(`Adding item ${item.update.get._source[nameField]} (id: ${item.update._id}) - result: ${item.update.result}`)
+  try {
+    const response = await esClient.bulk({
+      body: bulk
     })
+    console.log('Data count ', data.length)
+    console.log('Indexed', response.body.items.length)
 
-  response.items
-    .filter(item => item.update.error)
-    .map(item => {
-      console.log('Error: ', item)
-    })
+    response.items
+      .filter(item => !item.update.error)
+      .map(item => {
+        console.log(
+          `Adding item ${item.update.get._source[nameField]} (id: ${item.update._id}) - result: ${item.update.result}`
+        )
+      })
+
+    response.items
+      .filter(item => item.update.error)
+      .map(item => {
+        console.log('Error: ', item)
+      })
+  } catch (error) {
+    console.error('e', error)
+    console.error(error.message)
+  }
 }
 
-export const buildBulkDeleteAction = async (index, type, data, esClient, nameField = false) => {
+export const buildBulkDeleteAction = async (
+  index,
+  type,
+  data,
+  esClient,
+  nameField = false
+) => {
   let bulk = []
   console.log('\nUpdating index', index)
-  await data
-    .map(item => {
-      let action = {delete: {_index: index, _type: type, _id: item.id}}
-      const msg = nameField ? `Deleting item ${item[nameField]} (${item.id})` : `Deleting item ${item.id}`
-      console.log(msg)
-      bulk.push(action)
-    })
+  await data.map(item => {
+    let action = { delete: { _index: index, _type: type, _id: item.id } }
+    const msg = nameField
+      ? `Deleting item ${item[nameField]} (${item.id})`
+      : `Deleting item ${item.id}`
+    console.log(msg)
+    bulk.push(action)
+  })
 
   const response = await esClient.bulk({
-    maxRetries: 5,
-    index: index,
     body: bulk
   })
 
   console.log('Deleted ', response.items.length)
   if (response.errors) {
     console.log('Errors:')
-    console.log(util.inspect(response.items, {showHidden: false, depth: null}))
+    console.log(
+      util.inspect(response.items, { showHidden: false, depth: null })
+    )
   }
 }

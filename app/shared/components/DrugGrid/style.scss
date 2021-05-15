@@ -39,7 +39,7 @@
     margin-bottom: 0;
   }
 
-  div[aria-role=button] {
+  div[aria-role='button'] {
     height: 100%;
   }
 
@@ -224,8 +224,8 @@
 
   &__text {
     text-align: center;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 19px;
+    line-height: 25px;
     margin: 0;
 
     @media (max-width: 575.98px) {

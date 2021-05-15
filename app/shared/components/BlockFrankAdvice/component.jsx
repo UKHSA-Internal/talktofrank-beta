@@ -48,7 +48,7 @@ const BlockFrankAdvice = props => {
           <ArrowLink
             className="arrowlink--align-center"
             href={props.link}
-            text="View more FRANK advice"
+            text={'View more ' + props.title}
           />
         </GridCol>
       </Grid>

@@ -7,9 +7,6 @@ import Form from '../Form/component.jsx'
 export default class AccessibleSearch extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      searchTerm: ''
-    }
   }
   suggest(query, populateResults) {
     fetch(`/api/v1/search/autocomplete/${query}?page=0&pageSize=10`)
@@ -29,19 +26,16 @@ export default class AccessibleSearch extends React.Component {
       })
       .catch(e => console.error(e))
   }
-  handleSearchSubmit = () => {
+  handleSearchSubmit = term => {
     const searchTerm = encodeURIComponent(
-      this.state.searchTerm.toLowerCase().trim()
+      term
+        .replace(/<\/?span[^>]*>/g, '')
+        .toLowerCase()
+        .trim()
     )
     if (searchTerm !== '') {
       window.location = `/search/${searchTerm}`
     }
-  }
-
-  onChange(event) {
-    this.setState({
-      searchTerm: event.target.value
-    })
   }
 
   render() {
@@ -73,11 +67,7 @@ export default class AccessibleSearch extends React.Component {
               name="search"
               source={this.suggest}
               placeholder="Look up a drug..."
-              onConfirm={text => {
-                this.setState({
-                  searchTerm: text.replace(/<\/?span[^>]*>/g, '')
-                })
-              }}
+              onConfirm={this.handleSearchSubmit}
               templates={{
                 inputValue: str =>
                   str ? str.replace(/<\/?span[^>]*>/g, '') : str

@@ -8,7 +8,7 @@ const Hero = props => {
 
   return (
     <section className={classes}>
-      {props.images && <Picture {...props.images} />}
+      {props.images && <Picture {...props.images} noAlt />}
       <div className="constrain-narrow">
         <div className="hero__inner hero__inner--constrained">
           <SplitText {...props.heading} />

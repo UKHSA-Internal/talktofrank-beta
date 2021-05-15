@@ -3,26 +3,35 @@ import Play from '../Play/component.jsx'
 import { fieldIncludesVideo } from '../../utilities'
 
 export default class Picture extends React.PureComponent {
-  componentDidMount () {
+  componentDidMount() {
     const picturefill = require('picturefill')
     picturefill()
   }
 
-  getSizes (images) {
+  getSizes(images) {
     // @joel @refactor @todo - remove this object.keys and make the images pre-sorted
-    return Object.keys(images).map(s => parseInt(s, 10)).filter(s => !isNaN(s)).sort((a, b) => b - a)
+    return Object.keys(images)
+      .map(s => parseInt(s, 10))
+      .filter(s => !isNaN(s))
+      .sort((a, b) => b - a)
   }
 
-  getSources (sizes, images) {
-    return sizes.map(s => <source key={images[s]} media={'(min-width: ' + s + 'px)'} srcSet={images[s]}/>)
+  getSources(sizes, images) {
+    return sizes.map(s => (
+      <source
+        key={images[s]}
+        media={'(min-width: ' + s + 'px)'}
+        srcSet={images[s]}
+      />
+    ))
   }
 
-  getSmallestImage (sizes, images) {
+  getSmallestImage(sizes, images) {
     let smallestSize = sizes.pop()
     return images[smallestSize]
   }
 
-  getPictureSettings (images) {
+  getPictureSettings(images) {
     let alt = images.title
     images = images.images
     let sizes = this.getSizes(images)
@@ -36,7 +45,7 @@ export default class Picture extends React.PureComponent {
     }
   }
 
-  render () {
+  render() {
     let { sources, smallestImageSrc, alt } = this.getPictureSettings(this.props)
     let classes = `image ${this.props.className || ''}`
     // alt = this.props.noAlt ? '' : alt
@@ -47,8 +56,15 @@ export default class Picture extends React.PureComponent {
     return (
       <picture className={classes}>
         {sources}
-        <img src={smallestImageSrc} srcSet={smallestImageSrc} alt={alt}/>
-        {fieldIncludesVideo(this.props.video) && <Play className='hidden--xs'/>}
+        <img
+          src={smallestImageSrc}
+          srcSet={smallestImageSrc}
+          alt={this.props.noAlt ? '' : alt}
+          role={this.props.noAlt ? 'presentation' : ''}
+        />
+        {fieldIncludesVideo(this.props.video) && (
+          <Play className="hidden--xs" />
+        )}
       </picture>
     )
   }

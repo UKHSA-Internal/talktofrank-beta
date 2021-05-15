@@ -22,8 +22,13 @@ const contentfulClientConf = {
 }
 console.log(`Setting up webhook at ${getApiHost()}/contentful/webhook`)
 
-if (config.contentful.environment && config.contentful.environment !== 'master') {
-  console.log(`Webhook using contentful environment: ${config.contentful.environment}`)
+if (
+  config.contentful.environment &&
+  config.contentful.environment !== 'master'
+) {
+  console.log(
+    `Webhook using contentful environment: ${config.contentful.environment}`
+  )
   contentfulClientConf.environment = config.contentful.environment
 } else {
   console.log(`Webhook using contentful environment: master`)
@@ -33,7 +38,7 @@ const contentfulClient = contentful.createClient(contentfulClientConf)
 /**
  * Add middleware to parse json
  */
-router.use(bodyParser.json({type: 'application/*'}))
+router.use(bodyParser.json({ type: 'application/*' }))
 
 /**
  * Get page data
@@ -45,19 +50,24 @@ router.use('/', async (req, res, next) => {
     const webhookName = req.headers['x-contentful-topic']
     const secretKey = req.headers['x-ttf-search-key']
     if (!secretKey || secretKey !== config.contentful.webhookSecretKey) {
-      console.log('Webhook called without security request headers', req.headers)
+      console.log(
+        'Webhook called without security request headers',
+        req.headers
+      )
       res.status(401)
-      return res.send({status: 'UNAUTHORISED'})
+      return res.send({ status: 'UNAUTHORISED' })
     }
 
     console.log(`\nWebhook called ${webhookName}`)
     switch (webhookName) {
-      case 'ContentManagement.Entry.publish' :
-
-        if (req.body.sys.contentType.sys.id === config.contentful.contentTypes.drug) {
+      case 'ContentManagement.Entry.publish':
+        if (
+          req.body.sys.contentType.sys.id ===
+          config.contentful.contentTypes.drug
+        ) {
           console.log(
             `\nPublishing ${req.body.sys.contentType.sys.id}` +
-            ` entry id: ${req.body.sys.id}`
+              ` entry id: ${req.body.sys.id}`
           )
 
           // Contentful webhook doesn't contain full entry payload so reloading
@@ -68,7 +78,9 @@ router.use('/', async (req, res, next) => {
           })
 
           if (contentfulResponse.total === 0) {
-            console.log(`Error updating sys id ${req.body.sys.id}, not found in contentful`)
+            console.log(
+              `Error updating sys id ${req.body.sys.id}, not found in contentful`
+            )
             return
           }
 
@@ -85,10 +97,12 @@ router.use('/', async (req, res, next) => {
             body: query
           })
           let itemsToDeleteFromSearch = []
-          drugNameResults.hits.hits
-            .map(drugItem => {
-              itemsToDeleteFromSearch.push({id: drugItem._id, name: drugItem._source.name})
+          drugNameResults.body.hits.hits.map(drugItem => {
+            itemsToDeleteFromSearch.push({
+              id: drugItem._id,
+              name: drugItem._source.name
             })
+          })
 
           if (itemsToDeleteFromSearch.length > 0) {
             buildBulkDeleteAction(
@@ -103,15 +117,20 @@ router.use('/', async (req, res, next) => {
           // Create new entries in the 'drug name' & 'drug text' indices
           let formattedDrugsText = []
           let formattedDrugsNames = []
-          const name = entry.fields.hasOwnProperty('drugName') ? entry.fields.drugName : null
+          const name = entry.fields.hasOwnProperty('drugName')
+            ? entry.fields.drugName
+            : null
           formattedDrugsText.push(formatDrugEntryForSearch(name, entry))
-          formattedDrugsNames.push(formatDrugNameEntryForSearch(name, name, entry))
+          formattedDrugsNames.push(
+            formatDrugNameEntryForSearch(name, name, entry)
+          )
 
           if (entry.fields.synonyms) {
-            entry.fields.synonyms
-              .map(synonymName => {
-                formattedDrugsNames.push(formatDrugNameEntryForSearch(synonymName, name, entry))
-              })
+            entry.fields.synonyms.map(synonymName => {
+              formattedDrugsNames.push(
+                formatDrugNameEntryForSearch(synonymName, name, entry)
+              )
+            })
           }
 
           // Create bulk actions for ES
@@ -133,11 +152,15 @@ router.use('/', async (req, res, next) => {
         }
 
         // News && General content
-        if (req.body.sys.contentType.sys.id === config.contentful.contentTypes.page ||
-          req.body.sys.contentType.sys.id === config.contentful.contentTypes.news) {
+        if (
+          req.body.sys.contentType.sys.id ===
+            config.contentful.contentTypes.page ||
+          req.body.sys.contentType.sys.id ===
+            config.contentful.contentTypes.news
+        ) {
           console.log(
             `Publishing ${req.body.sys.contentType.sys.id}` +
-            `entry id: ${req.body.sys.id}`
+              `entry id: ${req.body.sys.id}`
           )
           // exclude 'includeInSearch = false' values
           // Contentful webhook doesn't contain full entry payload so reloading
@@ -148,21 +171,31 @@ router.use('/', async (req, res, next) => {
           })
 
           if (contentfulResponse.total === 0) {
-            console.log(`Error updating sys id ${req.body.sys.id}, not found in contentful`)
+            console.log(
+              `Error updating sys id ${req.body.sys.id}, not found in contentful`
+            )
             return
           }
 
           let formattedContent = []
           const entry = resolveResponse(contentfulResponse)[0]
-          if (entry.fields.hasOwnProperty('includeInSearch') && entry.fields.includeInSearch === false) {
-            console.log(`Skipping update of content sys id ${req.body.sys.id}, includeInSearch is false`)
+          if (
+            entry.fields.hasOwnProperty('includeInSearch') &&
+            entry.fields.includeInSearch === false
+          ) {
+            console.log(
+              `Skipping update of content sys id ${req.body.sys.id}, includeInSearch is false`
+            )
             res.status(200)
-            res.send({status: 'NO CHANGE'})
+            res.send({ status: 'NO CHANGE' })
             return
           }
 
-          const item = req.body.sys.contentType.sys.id === config.contentful.contentTypes.news
-            ? formatNewsEntryForSearch(entry) : formatGeneralContentEntryForSearch(entry)
+          const item =
+            req.body.sys.contentType.sys.id ===
+            config.contentful.contentTypes.news
+              ? formatNewsEntryForSearch(entry)
+              : formatGeneralContentEntryForSearch(entry)
           formattedContent.push(item)
 
           await buildBulkUpdateAction(
@@ -175,13 +208,15 @@ router.use('/', async (req, res, next) => {
         }
         break
 
-      case 'ContentManagement.Entry.unpublish' :
-      case 'ContentManagement.Entry.delete' :
-
-        if (req.body.sys.contentType.sys.id === config.contentful.contentTypes.drug) {
+      case 'ContentManagement.Entry.unpublish':
+      case 'ContentManagement.Entry.delete':
+        if (
+          req.body.sys.contentType.sys.id ===
+          config.contentful.contentTypes.drug
+        ) {
           console.log(
             `Publishing ${req.body.sys.contentType.sys.id}` +
-            ` entry id: ${req.body.sys.id}`
+              ` entry id: ${req.body.sys.id}`
           )
 
           // Find existing entries in the 'drug name' index & remove
@@ -194,8 +229,12 @@ router.use('/', async (req, res, next) => {
             body: query
           })
           let itemsToDeleteFromSearch = []
-          drugNameResults.hits.hits
-            .map(item => itemsToDeleteFromSearch.push({id: item._id, name: item._source.name}))
+          drugNameResults.body.hits.hits.map(item =>
+            itemsToDeleteFromSearch.push({
+              id: item._id,
+              name: item._source.name
+            })
+          )
 
           if (itemsToDeleteFromSearch.length > 0) {
             buildBulkDeleteAction(
@@ -210,18 +249,22 @@ router.use('/', async (req, res, next) => {
           buildBulkDeleteAction(
             config.elasticsearch.indices.drug,
             '_doc',
-            [{id: req.body.sys.id}],
+            [{ id: req.body.sys.id }],
             search
           )
         }
 
         // News && General content
-        if (req.body.sys.contentType.sys.id === config.contentful.contentTypes.page ||
-        req.body.sys.contentType.sys.id === config.contentful.contentTypes.news) {
+        if (
+          req.body.sys.contentType.sys.id ===
+            config.contentful.contentTypes.page ||
+          req.body.sys.contentType.sys.id ===
+            config.contentful.contentTypes.news
+        ) {
           buildBulkDeleteAction(
             config.elasticsearch.indices.content,
             '_doc',
-            [{id: req.body.sys.id}],
+            [{ id: req.body.sys.id }],
             search
           )
         }
@@ -229,7 +272,7 @@ router.use('/', async (req, res, next) => {
     }
 
     res.status(202)
-    res.send({status: 'ACCEPTED'})
+    res.send({ status: 'ACCEPTED' })
   } catch (error) {
     error.status = 500
     return next(error)
@@ -239,7 +282,7 @@ router.use('/', async (req, res, next) => {
 /**
  * Error handler
  */
-router.use(function (err, req, res, next) {
+router.use(function(err, req, res, next) {
   let status = err.status || 500
 
   /* eslint-disable */
@@ -252,10 +295,9 @@ router.use(function (err, req, res, next) {
     Sentry.captureException(err)
   }
 
-  res.status(status)
-    .json({
-      error: msg
-    })
+  res.status(status).json({
+    error: msg
+  })
 })
 
 export default router
