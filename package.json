@@ -153,5 +153,6 @@
     "workbox-webpack-plugin": "^3.6.3",
     "x-ray": "^2.3.4",
     "yaml-import": "^0.2.3"
-  }
+  },
+  "dependencies": {}
 }

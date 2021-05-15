@@ -5,9 +5,6 @@ import Icon from '../Icon/component'
 import Form from '../Form/component.jsx'
 
 export default class AccessibleSearch extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   suggest(query, populateResults) {
     fetch(`/api/v1/search/autocomplete/${query}?page=0&pageSize=10`)
       .then(res => res.json())

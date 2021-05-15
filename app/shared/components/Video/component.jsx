@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+
 import videojs from 'video.js'
 
 // YouTube embeddable video
@@ -36,12 +36,11 @@ class VideoPlayer extends React.Component {
     super(props)
     this.state = {
       videoOpts: {
-        autoplay: true,
         controls: true,
-        liveui:false,
+        liveui: false,
         fluid: true,
-        autoplay:false,
-        poster: this.props?.coverImage?.fields?.file?.url ?? null,
+        autoplay: false,
+        poster: this.props?.coverImage?.fields?.file?.url || null,
         sources: [
           {
             src: this.props.videoFile.fields.file.url,
@@ -60,9 +59,9 @@ class VideoPlayer extends React.Component {
         console.log('onPlayerReady', this)
       }
     )
-    this.player.on('play', ()=>this.props.handlePlayer('play'))
-    this.player.on('pause', ()=>this.props.handlePlayer('pause'))
-    this.player.on('ended', ()=>this.props.handlePlayer('end'))
+    this.player.on('play', () => this.props.handlePlayer('play'))
+    this.player.on('pause', () => this.props.handlePlayer('pause'))
+    this.player.on('ended', () => this.props.handlePlayer('end'))
   }
 
   // destroy player on unmount
