@@ -43,15 +43,22 @@
   // clip-path: inset(1px 1px);
 }
 
-.icon-play {
+.icon-play,
+.video-js .vjs-big-play-button {
   content: '';
   height: 7rem;
   width: 7rem;
   position: absolute;
-  left: 0;
-  bottom: -1px;
-  background: url('/ui/svg/play.svg');
+  left: 50%;
+  top: 50%;
   background-size: cover;
+  border: none;
+  border-radius: 0;
+  transform: translate(-50%, -50%);
+  background: url('/ui/svg/play-pink.svg');
+  .vjs-icon-placeholder:before {
+    display: none;
+  }
 
   &.icon--offset {
     bottom: 100%;
