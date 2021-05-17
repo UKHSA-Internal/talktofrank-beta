@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx cucumber-js --tags \"not @ignore and not @wip and not @duplicate\"",
     "start": "cd dist/app/ && node server.bundle.js",
-    "postinstall": "node_modules/grunt-cli/bin/grunt build"
+    "postinstall": "node_modules/grunt-cli/bin/grunt build",
+    "bundle-report": "webpack-bundle-analyzer --port 4200 compilation-stats.json"
   },
   "author": {
     "name": "Joel Mitchell",
@@ -149,10 +150,11 @@
     "time-grunt": "^1.4.0",
     "video.js": "^7.11.8",
     "webpack": "^4.20.2",
+    "webpack-bundle-analyzer": "^4.4.1",
+    "webpack-cli": "^4.7.0",
     "workbox-cli": "^3.6.2",
     "workbox-webpack-plugin": "^3.6.3",
     "x-ray": "^2.3.4",
     "yaml-import": "^0.2.3"
-  },
-  "dependencies": {}
+  }
 }

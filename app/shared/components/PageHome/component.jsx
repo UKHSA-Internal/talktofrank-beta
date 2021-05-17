@@ -65,7 +65,7 @@ export default class PageHome extends React.Component {
             modifier="wrapper--constant"
           >
             <div className="druggridwrapper__header">
-              <h2 className="text-center">Facts about drugs</h2>
+              <h2 className="text-center">Quick facts about drugs&hellip;</h2>
               <p className="text-gradient text-center">
                 Select a drug for quick info
               </p>
