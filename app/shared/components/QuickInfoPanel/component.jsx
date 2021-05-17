@@ -14,9 +14,9 @@ class QuickInfoPanel extends React.Component {
           </div>
           {this.props.quickInfoPanelFeelings && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">How you might feel</p>
+              <dt className="quick-info-panel_title">How you might feel</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelFeelings}{' '}
                 <a
                   onClick={e => this.props.handleHowItFeelsClick(e)}
@@ -25,14 +25,14 @@ class QuickInfoPanel extends React.Component {
                 >
                   Read more
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelEffects && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">Effects on your body</p>
+              <dt className="quick-info-panel_title">Effects on your body</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelEffects}{' '}
                 <a
                   onClick={e => this.props.handleHowItFeelsClick(e)}
@@ -41,16 +41,14 @@ class QuickInfoPanel extends React.Component {
                 >
                   Read more
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelTimeToKickIn && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">
-                How long it takes to work
-              </p>
+              <dt className="quick-info-panel_title">How long it takes to work</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelTimeToKickIn}{' '}
                 <a
                   onClick={e => this.props.handleDurationClick(e)}
@@ -59,16 +57,14 @@ class QuickInfoPanel extends React.Component {
                 >
                   Read more
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelDuration && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">
-                How long the effects last
-              </p>
+              <dt className="quick-info-panel_title">How long the effects last</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelDuration}{' '}
                 <a
                   onClick={e => this.props.handleDurationClick(e)}
@@ -77,13 +73,13 @@ class QuickInfoPanel extends React.Component {
                 >
                   Read more
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelRisks && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">Common risks</p>
-              <p className="quick-info-panel__description">
+              <dt className="quick-info-panel_title">Common risks</dt>
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelRisks}{' '}
                 <a
                   onClick={e => this.props.handleTheRisksClick(e)}
@@ -92,13 +88,13 @@ class QuickInfoPanel extends React.Component {
                 >
                   Read more
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelMixing && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">Reduce the risks</p>
-              <p className="quick-info-panel__description">
+              <dt className="quick-info-panel_title">Reduce the risks</dt>
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelMixing}{' '}
                 <a
                   onClick={e => this.props.handleMixingClick(e)}
@@ -107,7 +103,7 @@ class QuickInfoPanel extends React.Component {
                 >
                   Read more
                 </a>
-              </p>
+              </dd>
             </div>
           )}
         </div>

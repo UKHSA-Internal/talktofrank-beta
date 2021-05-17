@@ -29,6 +29,7 @@
     font-size: 16px;
     line-height: 17px;
     font-family: $font-family-heavy;
+    margin-bottom: 1rem;
   }
 
   &__wrapper {
@@ -77,8 +78,17 @@
       display: block;
     }
 
-    p {
+    dd {
       margin: 0;
+    }
+
+    a {
+      @include link;
+      font-size: 16px;
+
+      @include media-breakpoint-down(md) {
+        font-size: 14px;
+      }
     }
   }
 }
