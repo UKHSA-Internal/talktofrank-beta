@@ -23,7 +23,7 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#how-it-feels` : '#how-it-feels'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how it feels</span>
                 </a>
               </dd>
             </div>
@@ -39,7 +39,7 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#how-it-feels` : '#how-it-feels'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how it feels</span>
                 </a>
               </dd>
             </div>
@@ -55,7 +55,7 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#duration` : '#duration'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how long it takes to work</span>
                 </a>
               </dd>
             </div>
@@ -71,7 +71,7 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#duration` : '#duration'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how long the effects last</span>
                 </a>
               </dd>
             </div>
@@ -86,7 +86,7 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#the-risks` : '#the-risks'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about the risks</span>
                 </a>
               </dd>
             </div>
@@ -101,7 +101,7 @@ class QuickInfoPanel extends React.Component {
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#mixing` : '#mixing'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how to reduce the risks</span>
                 </a>
               </dd>
             </div>
