@@ -99,9 +99,10 @@ export default class PageHome extends React.Component {
                       <div className="flex justify-content-between align-items-start">
                         <div className="m-b-60">
                           <Heading
-                            type="h3"
+                            type="span"
                             className="text-gradient drug-title"
                             text={drug.drugGridName || drug.drugName}
+                            hidden="true"
                           />
                           <p className="m-0">{drug.description}</p>
                           <ArrowLink

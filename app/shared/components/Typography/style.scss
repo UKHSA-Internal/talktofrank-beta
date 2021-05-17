@@ -20,7 +20,8 @@ h6,
 .h3,
 .h4,
 .h5,
-.h6 {
+.h6,
+.drug-title {
   font-family: $headings-font-family;
   color: $text-dark-blue;
   font-weight: 700;
@@ -59,7 +60,8 @@ h2,
 
 h3,
 .h3,
-%h3 {
+%h3,
+.drug-title {
   font-size: 2.8rem;
 
   @include media-breakpoint-up(md) {
