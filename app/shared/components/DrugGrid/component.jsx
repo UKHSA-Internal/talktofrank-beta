@@ -133,33 +133,37 @@ class DrugGrid extends React.Component {
         {drugs.map((row, i) => (
           <div className="druggrid__col" key={i}>
             {row.map(drug => (
-              <h3
-                key={drug.slug}
-                style={{
-                  pointerEvents: drug.name ? 'auto' : 'none',
-                  cursor: drug.name ? 'pointer' : 'auto'
-                }}
-                className={this.generateClass(drug)}
-              >
-                <div
-                  onClick={
-                    drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
-                  }
-                  onKeyDown={(e) => this.handleKeyDown(drug, e)}
-                  role={drug.name && 'button'}
-                  tabIndex={drug.name && '0'}
-                  aria-expanded={drug.name && this.props.selected === drug.slug}
-                  aria-controls={`drugsgrid__panel-${drug.slug}`}
-                  id={`druggrid__button-${drug.slug}`}
-                  ref={this['drugHeader' + drug.order]}
+              drug.name ? (
+                <h3
+                  key={drug.slug}
+                  style={{
+                    pointerEvents: drug.name ? 'auto' : 'none',
+                    cursor: drug.name ? 'pointer' : 'auto'
+                  }}
+                  className={this.generateClass(drug)}
                 >
-                  <div className="druggrid__inner">
-                    <span className="druggrid__text">
-                      {drug.name !== 'null' ? drug.name : ''}
-                    </span>
+                  <div
+                    onClick={
+                      drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
+                    }
+                    onKeyDown={(e) => this.handleKeyDown(drug, e)}
+                    role={drug.name && 'button'}
+                    tabIndex={drug.name && '0'}
+                    aria-expanded={drug.name && this.props.selected === drug.slug}
+                    aria-controls={`drugsgrid__panel-${drug.slug}`}
+                    id={`druggrid__button-${drug.slug}`}
+                    ref={this['drugHeader' + drug.order]}
+                  >
+                    <div className="druggrid__inner">
+                      <span className="druggrid__text">
+                        {drug.name !== 'null' ? drug.name : ''}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </h3>
+                </h3>
+              ) : (
+                <div className="druggrid__item druggrid__item--blank" />
+              )
             ))}
           </div>
         ))}

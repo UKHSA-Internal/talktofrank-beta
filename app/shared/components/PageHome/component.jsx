@@ -90,7 +90,7 @@ export default class PageHome extends React.Component {
                       id={`drugsgrid__panel-${drug.slug}`}
                       aria-labelledby={`druggrid__button-${drug.slug}`}
                       role="region"
-                      hidden={drug.slug !== this.state.selected}
+                      hidden={drug.slug !== this.state.selected}  
                     >
                       <div className="flex justify-content-between align-items-start">
                         <div className="m-b-60">
