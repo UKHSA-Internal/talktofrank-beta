@@ -90,11 +90,7 @@ export default class PageHome extends React.Component {
                       id={`drugsgrid__panel-${drug.slug}`}
                       aria-labelledby={`druggrid__button-${drug.slug}`}
                       role="region"
-                      className={
-                        drug.slug !== this.state.selected
-                          ? 'visually-hidden'
-                          : ''
-                      }
+                      hidden={drug.slug !== this.state.selected}
                     >
                       <div className="flex justify-content-between align-items-start">
                         <div className="m-b-60">
@@ -103,6 +99,7 @@ export default class PageHome extends React.Component {
                             className="text-gradient drug-title"
                             text={drug.drugGridName || drug.drugName}
                             hidden="true"
+                            tabindex="-1"
                           />
                           <p className="m-0">{drug.description}</p>
                           <ArrowLink
