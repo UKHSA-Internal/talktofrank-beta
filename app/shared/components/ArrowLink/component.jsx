@@ -6,7 +6,6 @@ const ArrowLink = props => {
   const classes = classNames('arrowlink', props.className)
   const aria = props.label ? { 'aria-label': props.label } : null
   const iconArrow = {
-    label: 'Learn more about this artwork',
     url: '/ui/svg/arrow-right.svg'
   }
   return (

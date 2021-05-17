@@ -109,6 +109,7 @@ export default class PageHome extends React.Component {
                             href={`/drug/${drug.slug}`}
                             text="Learn more"
                             className="arrowlink--align-left m-t-10"
+                            label={`learn more about ${drug.drugGridName || drug.drugName}`}
                           />
                         </div>
                         {drug.image?.fields?.imageSmall?.fields?.file?.url && (
