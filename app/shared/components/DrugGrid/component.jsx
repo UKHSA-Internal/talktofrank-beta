@@ -146,7 +146,7 @@ class DrugGrid extends React.Component {
                     drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
                   }
                   onKeyDown={(e) => this.handleKeyDown(drug, e)}
-                  aria-role={drug.name && 'button'}
+                  role={drug.name && 'button'}
                   tabIndex={drug.name && '0'}
                   aria-expanded={drug.name && this.props.selected === drug.slug}
                   aria-controls={`drugsgrid__panel-${drug.slug}`}
