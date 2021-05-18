@@ -17,6 +17,7 @@ import { scrollTo } from '../../utilities'
 import ReactGA from 'react-ga'
 import { GA, GAEvent } from '../GoogleAnalytics/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component'
 
 export default class SearchPage extends React.Component {
   constructor (props) {
@@ -151,6 +152,7 @@ export default class SearchPage extends React.Component {
               />
             }
           </Accent>
+          <HelpPanels />
         </Main>
         <Footer />
         <GA>

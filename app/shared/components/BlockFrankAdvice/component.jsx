@@ -8,7 +8,10 @@ import ArrowLink from '../ArrowLink/component.jsx'
 const BlockFrankAdvice = props => {
   const getImage = article => {
     const key = Math.max.apply(null, Object.keys(article.images))
-    const source = `url("${article.images[key]}") no-repeat center/cover`
+    let source = `url("${article.images[key]}") no-repeat center/cover`
+    if (!key) {
+      source = `url("/ui/svg/newsplaceholder.svg") no-repeat center/cover`
+    }
     return {
       background: source
     }
@@ -24,7 +27,7 @@ const BlockFrankAdvice = props => {
         </GridCol>
       </Grid>
       <Grid>
-        {props.articles.map(article => (
+        {props?.articles?.map(article => (
           <GridCol className="col-6">
             <div className="card card--horizontal-desktop">
               <a href={article.fields.url} className="card__link">
@@ -48,7 +51,7 @@ const BlockFrankAdvice = props => {
           <ArrowLink
             className="arrowlink--align-center"
             href={props.link}
-            text={'View more ' + props.title}
+            text={'View more ' + props?.title?.toLowerCase()}
           />
         </GridCol>
       </Grid>

@@ -13,6 +13,7 @@ import Icon from '../Icon/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageSupportForm extends React.PureComponent {
   constructor (props) {
@@ -224,6 +225,7 @@ export default class PageSupportForm extends React.PureComponent {
               </GridCol>
             </Grid>
           </Accent>
+          <HelpPanels />
         </Main>
         <Footer/>
         <GA/>

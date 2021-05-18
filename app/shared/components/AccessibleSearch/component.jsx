@@ -9,6 +9,7 @@ export default class AccessibleSearch extends React.Component {
     fetch(`/api/v1/search/autocomplete/${query}?page=0&pageSize=10`)
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         const results = data.hits.map(drug => {
           if (drug._source.title) {
             return drug._source.title
@@ -24,14 +25,16 @@ export default class AccessibleSearch extends React.Component {
       .catch(e => console.error(e))
   }
   handleSearchSubmit = term => {
-    const searchTerm = encodeURIComponent(
-      term
-        .replace(/<\/?span[^>]*>/g, '')
-        .toLowerCase()
-        .trim()
-    )
-    if (searchTerm !== '') {
-      window.location = `/search/${searchTerm}`
+    if (term !== '') {
+      const searchTerm = encodeURIComponent(
+        term
+          .replace(/<\/?span[^>]*>/g, '')
+          .toLowerCase()
+          .trim()
+      )
+      if (searchTerm !== '') {
+        window.location = `/search/${searchTerm}`
+      }
     }
   }
 

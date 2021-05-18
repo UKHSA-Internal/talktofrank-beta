@@ -16,6 +16,7 @@ import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
 import DrugWarningPanel from '../DrugWarningPanel/component.jsx'
 
 import Carousel from '../Carousel/Carousel.jsx'
+import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class Page extends React.PureComponent {
   constructor(props) {
@@ -369,6 +370,7 @@ export default class Page extends React.PureComponent {
               </Toggle>
             </section>
           )}
+          <HelpPanels />
         </Main>
         <Footer />
         <GA />

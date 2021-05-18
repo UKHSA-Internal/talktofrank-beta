@@ -13,6 +13,7 @@ import Svg from '../Svg/component'
 import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component'
 
 const PageGetHelpPage = props => {
   return (
@@ -52,6 +53,7 @@ const PageGetHelpPage = props => {
           </Grid>
         </Accent>}
       </Main>
+      <HelpPanels />
       <Footer />
       <GA/>
       <SiteMessageContainer

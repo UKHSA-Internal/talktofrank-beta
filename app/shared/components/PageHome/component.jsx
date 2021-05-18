@@ -17,6 +17,7 @@ import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
+import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ export default class PageHome extends React.Component {
             <AccessibleSearch />
             <div className="constrain">
               <ArrowLink
-                aria='aria-labeledby="A-Z list of drugs"'
+                labeledBy="A-Z list of drugs"
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
@@ -129,6 +130,7 @@ export default class PageHome extends React.Component {
           {this.props.frankAdviceBlock && (
             <BlockFrankAdvice {...this.props.frankAdviceBlock} />
           )}
+          <HelpPanels />
         </Main>
         <Footer />
         <GA />
