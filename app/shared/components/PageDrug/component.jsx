@@ -130,6 +130,7 @@ export default class Page extends React.PureComponent {
                   <DrugWarningPanel text={this.props.fields.warning} />
                 )}
                 {this.hasQuickInfo() && <QuickInfoPanel
+                  heading="h2"
                   handleHowItFeelsClick={(e) => this.handleReadMeClick(e, 'how-it-feels')}
                   handleDurationClick={(e) => this.handleReadMeClick(e, 'duration')}
                   handleTheRisksClick={(e) => this.handleReadMeClick(e, 'the-risks')}

@@ -113,7 +113,7 @@ export default class PageHome extends React.Component {
                           <AttributedImage drug={drug} />
                         )}
                       </div>
-                      <QuickInfoPanel {...drug} />
+                      <QuickInfoPanel heading="h3" {...drug} />
                     </div>
                   ))
                 ) : (

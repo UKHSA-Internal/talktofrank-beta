@@ -1,11 +1,12 @@
 import React from 'react'
+import Heading from '../Heading/component'
 class QuickInfoPanel extends React.Component {
   render() {
     return (
       <div className="quick-info-panel">
         <div className="row">
           <div className="quick-info-panel__heading">
-            <h5 className="quick-info-panel__heading_title">Quick info</h5>
+            <Heading type={this.props.heading} className="quick-info-panel__heading_title" text="Quick info" />
           </div>
           <div className="quick-info-panel__wrapper col-12">
             <p className="quick-info-panel__warning">
