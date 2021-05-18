@@ -17,6 +17,7 @@ import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
+import { scrollIntoView, isInBrowser } from '../../utilities'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -28,7 +29,17 @@ export default class PageHome extends React.Component {
 
   onClickHandler = selected => {
     this.setState({ selected: selected })
+    if (isInBrowser() && this.state.selected) {
+      console.log(
+        'scrolling to:',
+        document.querySelector(`#drugsgrid__panel-${selected}`)
+      )
+      scrollIntoView(
+        document.querySelector(`#drugsgrid__panel-${selected}`)
+      )
+    }
   }
+
   selectedDrug = (type = 'full') => {
     const found = this.props.drugsGrid.find(
       drug => drug.slug === this.state.selected
@@ -90,7 +101,7 @@ export default class PageHome extends React.Component {
                       id={`drugsgrid__panel-${drug.slug}`}
                       aria-labelledby={`druggrid__button-${drug.slug}`}
                       role="region"
-                      hidden={drug.slug !== this.state.selected}  
+                      hidden={drug.slug !== this.state.selected}
                     >
                       <div className="flex justify-content-between align-items-start">
                         <div className="m-b-60">
@@ -112,7 +123,7 @@ export default class PageHome extends React.Component {
                           <AttributedImage drug={drug} />
                         )}
                       </div>
-                      <QuickInfoPanel heading="h3" {...drug} />
+                      <QuickInfoPanel heading="h3" open={this.state.selected} {...drug} />
                     </div>
                   ))
                 ) : (
