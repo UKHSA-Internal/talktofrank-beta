@@ -99,7 +99,6 @@ export default class PageHome extends React.Component {
                             className="text-gradient drug-title"
                             text={drug.drugGridName || drug.drugName}
                             hidden="true"
-                            tabindex="-1"
                           />
                           <p className="m-0">{drug.description}</p>
                           <ArrowLink
