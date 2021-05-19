@@ -55,19 +55,19 @@ export const primary = [
         }
       },
       {
-        label: 'Worried about a friend?',
-        url: '/get-help/worried-about-a-friend',
+        label: 'Concerned about a friend?',
+        url: '/get-help/concerned-about-a-friend',
         tracking: {
-          label: 'Worried about a friend',
+          label: 'Concerned about a friend',
           action: 'Click',
           category: 'Navigation'
         }
       },
       {
-        label: 'Worried about a child?',
-        url: '/get-help/worried-about-a-child',
+        label: 'Concerned about a child?',
+        url: '/get-help/concerned-about-a-child',
         tracking: {
-          label: 'Worried about a child',
+          label: 'Concerned about a child',
           action: 'Click',
           category: 'Navigation'
         }
