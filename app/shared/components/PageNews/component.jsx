@@ -18,6 +18,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { contentFulFactory } from '../../contentful'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import { fieldIncludesVideo } from '../../utilities'
+import HelpPanels from '../HelpPanels/component'
 
 export default class PageNews extends React.PureComponent {
   render () {
@@ -53,6 +54,7 @@ export default class PageNews extends React.PureComponent {
           </Accent>
           <BlockAdditionalNewsContentContainer />
         </Main>
+        <HelpPanels />
         <Footer />
         <GA />
         <SiteMessageContainer

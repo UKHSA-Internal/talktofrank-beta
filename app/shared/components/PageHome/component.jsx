@@ -17,7 +17,8 @@ import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
-import { scrollIntoView, isInBrowser } from '../../utilities'
+// import { scrollIntoView, isInBrowser } from '../../utilities'
+import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -49,6 +50,11 @@ export default class PageHome extends React.Component {
     this.setState({
       isDrugGridTraversable: true
     })
+    if (window.innerWidth <= 991) {
+      window.location = '/drug/' + selected
+      return
+    }
+    this.setState({ selected: selected })
   }
 
   selectedDrug = (type = 'full') => {
@@ -75,7 +81,7 @@ export default class PageHome extends React.Component {
             <AccessibleSearch />
             <div className="constrain">
               <ArrowLink
-                aria='aria-labeledby="A-Z list of drugs"'
+                labeledBy="A-Z list of drugs"
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
@@ -102,7 +108,7 @@ export default class PageHome extends React.Component {
                   isDrugGridTraversable={this.state.isDrugGridTraversable}
                 />
               </GridCol>
-              <GridCol className=" col-12 col-lg-6 hidden--md">
+              <GridCol className="col-12 col-lg-6 druggridwrapper__quickinfocol">
                 {this.state.selected ? (
                   this.props.drugsGrid.map(drug => (
                     <div
@@ -147,6 +153,7 @@ export default class PageHome extends React.Component {
           {this.props.frankAdviceBlock && (
             <BlockFrankAdvice {...this.props.frankAdviceBlock} />
           )}
+          <HelpPanels />
         </Main>
         <Footer />
         <GA />

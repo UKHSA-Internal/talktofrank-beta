@@ -3,19 +3,54 @@ import classNames from 'classnames'
 import SplitText from '../SplitText/component.jsx'
 import Picture from '../Picture/component.jsx'
 import Attribution from '../Attribution/component.jsx'
-const Hero = props => {
-  let classes = classNames('hero', props.className)
+import { isInBrowser } from '../../utilities.js'
 
-  return (
-    <section className={classes}>
-      {props.images && <Picture {...props.images} noAlt />}
-      <div className="constrain-narrow">
-        <div className="hero__inner hero__inner--constrained">
-          <SplitText {...props.heading} />
+export default class Hero extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      heading: { ...this.props.heading },
+      isDesktop: true
+    }
+  }
+  handleResize = () => {
+    if (window.innerWidth >= 768 && !this.state.isDesktop) {
+      this.setState({ isDesktop: true })
+    } else if (window.innerWidth <= 768 && this.state.isDesktop) {
+      this.setState({ isDesktop: false })
+    }
+  }
+
+  componentDidMount() {
+    if (isInBrowser()) {
+      window.addEventListener('resize', this.handleResize)
+      if (window.innerWidth <= 768 && this.state.isDesktop) {
+        this.setState({ isDesktop: false })
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  render() {
+    return (
+      <section className={classNames('hero', this.props.className)}>
+        {this.props.images && <Picture {...this.props.images} noAlt />}
+        <div className="constrain-narrow">
+          <div className="hero__inner hero__inner--constrained">
+            <SplitText
+              wrapper={this.state.heading.wrapper}
+              text={
+                this.state.isDesktop
+                  ? this.state.heading.text.desktop
+                  : this.state.heading.text.mobile
+              }
+            />
+          </div>
         </div>
-      </div>
-    </section>
-  )
+      </section>
+    )
+  }
 }
-
-export default Hero

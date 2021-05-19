@@ -1,0 +1,6 @@
+.helppanels {
+  margin-top: 12rem;
+  @include media-breakpoint-down(sm) {
+    margin-top: 6rem;
+  }
+}
