@@ -1,9 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Heading from '../Heading/component'
 
 class QuickInfoPanel extends React.Component {
-
   render() {
     return (
       <div className="quick-info-panel">
