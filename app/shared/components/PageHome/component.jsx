@@ -17,6 +17,7 @@ import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
+import { isInBrowser } from '../../utilities'
 // import { scrollIntoView, isInBrowser } from '../../utilities'
 import HelpPanels from '../HelpPanels/component.jsx'
 
@@ -30,11 +31,15 @@ export default class PageHome extends React.Component {
   }
 
   onClickHandler = selected => {
+    if (isInBrowser() && window.innerWidth <= 991) {
+      window.location = '/drug/' + selected
+      return
+    }
+
     this.setState({
       selected: selected,
       isDrugGridTraversable: false
     })
-
     // if (isInBrowser() && this.state.selected) {
     //   console.log(
     //     'scrolling to:',
@@ -50,11 +55,6 @@ export default class PageHome extends React.Component {
     this.setState({
       isDrugGridTraversable: true
     })
-    if (window.innerWidth <= 991) {
-      window.location = '/drug/' + selected
-      return
-    }
-    this.setState({ selected: selected })
   }
 
   selectedDrug = (type = 'full') => {
