@@ -1,11 +1,15 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
+import Heading from '../Heading/component'
+
 class QuickInfoPanel extends React.Component {
+
   render() {
     return (
       <div className="quick-info-panel">
         <div className="row">
           <div className="quick-info-panel__heading">
-            <h5 className="quick-info-panel__heading_title">Quick info</h5>
+            <Heading type={this.props.heading} className="quick-info-panel__heading_title" text="Quick info" />
           </div>
           <div className="quick-info-panel__wrapper col-12">
             <p className="quick-info-panel__warning">
@@ -14,100 +18,96 @@ class QuickInfoPanel extends React.Component {
           </div>
           {this.props.quickInfoPanelFeelings && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">How you might feel</p>
+              <dt className="quick-info-panel_title">How you might feel</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelFeelings}{' '}
                 <a
                   onClick={e => this.props.handleHowItFeelsClick(e)}
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#how-it-feels` : '#how-it-feels'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how it feels</span>
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelEffects && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">Effects on your body</p>
+              <dt className="quick-info-panel_title">Effects on your body</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelEffects}{' '}
                 <a
                   onClick={e => this.props.handleHowItFeelsClick(e)}
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#how-it-feels` : '#how-it-feels'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how it feels</span>
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelTimeToKickIn && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">
-                How long it takes to work
-              </p>
+              <dt className="quick-info-panel_title">How long it takes to work</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelTimeToKickIn}{' '}
                 <a
                   onClick={e => this.props.handleDurationClick(e)}
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#duration` : '#duration'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how long it takes to work</span>
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelDuration && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">
-                How long the effects last
-              </p>
+              <dt className="quick-info-panel_title">How long the effects last</dt>
 
-              <p className="quick-info-panel__description">
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelDuration}{' '}
                 <a
                   onClick={e => this.props.handleDurationClick(e)}
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#duration` : '#duration'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how long the effects last</span>
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelRisks && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">Common risks</p>
-              <p className="quick-info-panel__description">
+              <dt className="quick-info-panel_title">Common risks</dt>
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelRisks}{' '}
                 <a
                   onClick={e => this.props.handleTheRisksClick(e)}
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#the-risks` : '#the-risks'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about the risks</span>
                 </a>
-              </p>
+              </dd>
             </div>
           )}
           {this.props.quickInfoPanelMixing && (
             <div className="quick-info-panel__wrapper col-12 col-md-6">
-              <p className="quick-info-panel_title">Reduce the risks</p>
-              <p className="quick-info-panel__description">
+              <dt className="quick-info-panel_title">Reduce the risks</dt>
+              <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelMixing}{' '}
                 <a
                   onClick={e => this.props.handleMixingClick(e)}
                   className="quick-info-panel__link"
                   href={this.props.slug ? `/drug/${this.props.slug}#mixing` : '#mixing'}
                 >
-                  Read more
+                  Read more <span className="visually-hidden">about how to reduce the risks</span>
                 </a>
-              </p>
+              </dd>
             </div>
           )}
         </div>

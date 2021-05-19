@@ -15,9 +15,12 @@ const ArrowLink = props => {
     <a
       href={props.href}
       onClick={props.onClick}
+      className={classes}
+      {...aria}
+      tabIndex={props.tabIndex}
+      onFocus={props.onFocus}
       {...ariaLabel}
       {...ariaLabeledBy}
-      className={classes}
     >
       <span>{props.text}</span>
       <Icon {...iconArrow} />

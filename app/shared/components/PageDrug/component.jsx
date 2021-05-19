@@ -133,21 +133,14 @@ export default class Page extends React.PureComponent {
                 {this.props.fields.warning && (
                   <DrugWarningPanel text={this.props.fields.warning} />
                 )}
-                {this.hasQuickInfo() && (
-                  <QuickInfoPanel
-                    handleHowItFeelsClick={e =>
-                      this.handleReadMeClick(e, 'how-it-feels')
-                    }
-                    handleDurationClick={e =>
-                      this.handleReadMeClick(e, 'duration')
-                    }
-                    handleTheRisksClick={e =>
-                      this.handleReadMeClick(e, 'the-risks')
-                    }
-                    handleMixingClick={e => this.handleReadMeClick(e, 'mixing')}
-                    {...this.props.fields}
-                  />
-                )}
+                {this.hasQuickInfo() && <QuickInfoPanel
+                  heading="h2"
+                  handleHowItFeelsClick={(e) => this.handleReadMeClick(e, 'how-it-feels')}
+                  handleDurationClick={(e) => this.handleReadMeClick(e, 'duration')}
+                  handleTheRisksClick={(e) => this.handleReadMeClick(e, 'the-risks')}
+                  handleMixingClick={(e) => this.handleReadMeClick(e, 'mixing')}
+                  {...this.props.fields}
+                />}
               </GridCol>
             </Grid>
           </Accent>

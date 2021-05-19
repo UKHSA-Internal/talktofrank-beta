@@ -1,4 +1,5 @@
 import React from 'react'
+import ArrowLink from '../ArrowLink/component'
 
 class DrugGrid extends React.Component {
   constructor(props) {
@@ -129,41 +130,53 @@ class DrugGrid extends React.Component {
     ]
 
     return (
-      <div className="druggrid">
-        {drugs.map((row, i) => (
-          <div className="druggrid__col" key={i}>
-            {row.map(drug => (
-              <h3
-                key={drug.slug}
-                style={{
-                  pointerEvents: drug.name ? 'auto' : 'none',
-                  cursor: drug.name ? 'pointer' : 'auto'
-                }}
-                className={this.generateClass(drug)}
-              >
-                <div
-                  onClick={
-                    drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
-                  }
-                  onKeyDown={(e) => this.handleKeyDown(drug, e)}
-                  aria-role={drug.name && 'button'}
-                  tabIndex={drug.name && '0'}
-                  aria-expanded={drug.name && this.props.selected === drug.slug}
-                  aria-controls={`drugsgrid__panel-${drug.slug}`}
-                  id={`druggrid__button-${drug.slug}`}
-                  ref={this['drugHeader' + drug.order]}
-                >
-                  <div className="druggrid__inner">
-                    <span className="druggrid__text">
-                      {drug.name !== 'null' ? drug.name : ''}
-                    </span>
-                  </div>
-                </div>
-              </h3>
-            ))}
-          </div>
-        ))}
-      </div>
+      <React.Fragment>
+        <div className="druggrid">
+          {drugs.map((row, i) => (
+            <div className="druggrid__col" key={i}>
+              {row.map(drug => (
+                drug.name ? (
+                  <h3
+                    key={drug.slug}
+                    style={{
+                      pointerEvents: drug.name ? 'auto' : 'none',
+                      cursor: drug.name ? 'pointer' : 'auto'
+                    }}
+                    className={this.generateClass(drug)}
+                  >
+                    <div
+                      onClick={
+                        drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
+                      }
+                      onKeyDown={(e) => this.handleKeyDown(drug, e)}
+                      role={drug.name && 'button'}
+                      aria-expanded={drug.name && this.props.selected === drug.slug}
+                      aria-controls={`drugsgrid__panel-${drug.slug}`}
+                      id={`druggrid__button-${drug.slug}`}
+                      ref={this['drugHeader' + drug.order]}
+                      tabindex={drug.name && this.props.isDrugGridTraversable ? '0' : '-1'}
+                    >
+                      <div className="druggrid__inner">
+                        <span className="druggrid__text">
+                          {drug.name !== 'null' ? drug.name : ''}
+                        </span>
+                      </div>
+                    </div>
+                  </h3>
+                ) : (
+                  <div className="druggrid__item druggrid__item--blank" />
+                )
+              ))}
+            </div>
+          ))}
+        </div>
+        <ArrowLink
+          href="/drugs-a-z"
+          text="View the full list of drugs"
+          className="arrowlink--align-center m-t-75"
+          tabIndex={this.props.isDrugGridTraversable ? '0' : '-1'}
+        />
+      </React.Fragment>
     )
   }
 }
