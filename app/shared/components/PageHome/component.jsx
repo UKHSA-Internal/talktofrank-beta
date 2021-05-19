@@ -81,7 +81,7 @@ export default class PageHome extends React.Component {
             <AccessibleSearch />
             <div className="constrain">
               <ArrowLink
-                labeledBy="A-Z list of drugs"
+                label="A-Z list of drugs"
                 className="arrowlink--spacing-top arrowlink--spacing-mobile arrowlink--align-right-sm"
                 href="/drugs-a-z"
                 text="Or go to the drugs A-Z list"
