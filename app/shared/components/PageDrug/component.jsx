@@ -10,7 +10,7 @@ import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
-import { imageMap, fieldIncludesImages, isInBrowser } from '../../utilities'
+import { imageMap, fieldIncludesImages, isInBrowser, scrollIntoView } from '../../utilities'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
 import DrugWarningPanel from '../DrugWarningPanel/component.jsx'
@@ -34,7 +34,11 @@ export default class Page extends React.PureComponent {
         '',
         `${window.location.href.split('#')[0]}#${section}`
       )
-
+      if (this.state.selected === section) {
+        scrollIntoView(
+          document.querySelector(`#section-${section.replace('#', '')}`)
+        )
+      }
       this.setState({ selected: section })
     }
   }
