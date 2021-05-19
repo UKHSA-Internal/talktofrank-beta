@@ -17,13 +17,13 @@ const HelpPanels = () => {
               <ArrowLink
                 labeledBy="Concerned about a friend"
                 className="arrowlink--spacing-bottom"
-                href="/get-help/worried-about-a-friend"
+                href="/get-help/concerned-about-a-friend"
                 text="A friend"
               />
               <ArrowLink
                 labeledBy="Concerned about a child"
                 className="arrowlink--spacing-bottom"
-                href="/get-help/worried-about-a-child"
+                href="/get-help/concerned-about-a-child"
                 text="A child"
               />
               <ArrowLink
