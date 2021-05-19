@@ -11,6 +11,7 @@ import Divider from '../Divider/component'
 import Svg from '../Svg/component'
 import Anchor from '../Anchor/component'
 import { isInBrowser } from '../../utilities'
+import HelpPanels from '../HelpPanels/component'
 
 const PageOffline = () => {
   if (isInBrowser()) {
@@ -43,6 +44,7 @@ const PageOffline = () => {
             </GridCol>
           </Grid>
         </Accent>
+        <HelpPanels/>
       </Main>
       <Footer/>
       <GA/>

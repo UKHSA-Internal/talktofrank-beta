@@ -24,6 +24,12 @@
       }
     }
   }
+
+  &__quickinfocol {
+    @media (max-width: 991.98px) {
+      display: none;
+    }
+  }
 }
 
 .druggrid {
@@ -31,8 +37,15 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 0 auto;
+  margin-left: 12px;
   margin-top: 53px;
+  @media (max-width: 991.98px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 531.98px) {
+    margin-left: 12px;
+  }
 
   h3 {
     display: inline;
@@ -64,7 +77,10 @@
 
         &:nth-child(2) {
           height: 117px;
-          @media (max-width: 575.98px) {
+          @media (max-width: 502.98px) {
+            height: 87px;
+          }
+          @media (max-width: 396.98px) {
             height: 67px;
           }
         }
@@ -86,7 +102,10 @@
         &:nth-child(1) {
           height: 121px;
 
-          @media (max-width: 575.98px) {
+          @media (max-width: 502.98px) {
+            height: 91px;
+          }
+          @media (max-width: 396.98px) {
             height: 71px;
           }
         }
@@ -101,7 +120,10 @@
 
         &:nth-child(3) {
           height: 117px;
-          @media (max-width: 575.98px) {
+          @media (max-width: 502.98px) {
+            height: 87px;
+          }
+          @media (max-width: 396.98px) {
             height: 67px;
           }
         }
@@ -131,7 +153,10 @@
         &:nth-child(2) {
           height: 117px;
 
-          @media (max-width: 575.98px) {
+          @media (max-width: 502.98px) {
+            height: 87px;
+          }
+          @media (max-width: 396.98px) {
             height: 67px;
           }
         }
@@ -153,7 +178,10 @@
         &:nth-child(1) {
           height: 121px;
 
-          @media (max-width: 575.98px) {
+          @media (max-width: 502.98px) {
+            height: 91px;
+          }
+          @media (max-width: 396.98px) {
             height: 71px;
           }
         }
@@ -169,7 +197,10 @@
         &:nth-child(3) {
           height: 117px;
 
-          @media (max-width: 575.98px) {
+          @media (max-width: 502.98px) {
+            height: 87px;
+          }
+          @media (max-width: 396.98px) {
             height: 67px;
           }
         }
@@ -189,8 +220,11 @@
     width: 125px;
     height: 125px;
     padding: 4px;
-
-    @media (max-width: 575.98px) {
+    @media (max-width: 502px) {
+      width: 95px;
+      height: 95px;
+    }
+    @media (max-width: 396.98px) {
       width: 75px;
       height: 75px;
     }
@@ -228,9 +262,13 @@
     line-height: 25px;
     margin: 0;
 
-    @media (max-width: 575.98px) {
+    @media (max-width: 502.98px) {
       font-size: 14px;
       line-height: 15px;
+    }
+    @media (max-width: 396.98px) {
+      font-size: 11px;
+      line-height: 12px;
     }
   }
 }

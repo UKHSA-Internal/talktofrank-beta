@@ -46,7 +46,7 @@ export default class Masthead extends React.PureComponent {
       url: '/ui/svg/magnifying-pink.svg'
     }
     let iconClose = {
-      label: 'Close search layer',
+      label: 'Close search panel',
       url: '/ui/svg/cross.svg'
     }
     let navClasses = classNames('navbar-primary navbar-expand-md', {

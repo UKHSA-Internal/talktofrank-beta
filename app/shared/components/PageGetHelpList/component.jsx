@@ -10,6 +10,7 @@ import Accent from '../Accent/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
 import { primary } from '../../fixtures/navigation.js'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageGetHelpList extends React.PureComponent {
   render () {
@@ -39,6 +40,7 @@ export default class PageGetHelpList extends React.PureComponent {
               </GridCol>
             </Grid>
           </Accent>
+          <HelpPanels />
         </Main>
         <Footer/>
         <GA/>

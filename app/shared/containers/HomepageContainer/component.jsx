@@ -13,8 +13,12 @@ const mapStateToProps = (state, ownProps) => {
   let hero = {
     heading: {
       wrapper: 'h1',
-      text:
-        '<span class="block hidden--md-up">Honest</span><span class="block hidden--md-up">information</span><span class="block hidden--sm">Honest information</span><span class="block">about drugs</span>'
+      text: {
+        desktop:
+          '<span class="block">Honest information</span><span class="block">about drugs</span>',
+        mobile:
+          '<span class="block">Honest</span><span class="block">information</span><span class="block">about drugs</span>'
+      }
     },
     url: '/'
   }
@@ -37,9 +41,8 @@ const mapStateToProps = (state, ownProps) => {
     frankAdviceBlock = {}
     frankAdviceBlock.title = someFrankAdvice.fields.title
     frankAdviceBlock.link = someFrankAdvice.fields.viewMoreUrl
-
-    frankAdviceBlock.articles = someFrankAdvice.fields.articles.map(
-      article => ({
+    frankAdviceBlock.articles = someFrankAdvice.fields.articles.map(article => {
+      let art = {
         fields: {
           heading: {
             type: 'h3',
@@ -49,12 +52,14 @@ const mapStateToProps = (state, ownProps) => {
           url: `/news/${article.fields.slug}`
         },
         date: article.date,
-        dateFormatted: article.dateFormatted,
-        images: imageMap(article.fields)
-      })
-    )
+        dateFormatted: article.dateFormatted
+      }
+      if (article.fields.image) {
+        art.images = imageMap(article.fields)
+      }
+      return art
+    })
   }
-
   if (
     drugGrid &&
     drugGrid.fields &&

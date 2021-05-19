@@ -4,13 +4,21 @@ import Icon from '../Icon/component.jsx'
 
 const ArrowLink = props => {
   const classes = classNames('arrowlink', props.className)
-  const aria = props.label ? { 'aria-label': props.label } : null
+  const ariaLabel = props.label ? { 'aria-label': props.label } : null
+  const ariaLabeledBy = props.labeledBy
+    ? { 'aria-labeledby': props.labeledBy }
+    : null
   const iconArrow = {
-    label: 'Learn more about this artwork',
     url: '/ui/svg/arrow-right.svg'
   }
   return (
-    <a href={props.href} onClick={props.onClick} {...aria} className={classes}>
+    <a
+      href={props.href}
+      onClick={props.onClick}
+      {...ariaLabel}
+      {...ariaLabeledBy}
+      className={classes}
+    >
       <span>{props.text}</span>
       <Icon {...iconArrow} />
     </a>
