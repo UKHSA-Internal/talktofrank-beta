@@ -1,5 +1,4 @@
 import React from 'react'
-
 import videojs from 'video.js'
 
 // YouTube embeddable video
@@ -52,13 +51,7 @@ class VideoPlayer extends React.Component {
   }
   componentDidMount() {
     // instantiate Video.js
-    this.player = videojs(
-      this.videoNode,
-      this.state.videoOpts,
-      function onPlayerReady() {
-        console.log('onPlayerReady', this)
-      }
-    )
+    this.player = videojs(this.videoNode, this.state.videoOpts)
     this.player.on('play', () => this.props.handlePlayer('play'))
     this.player.on('pause', () => this.props.handlePlayer('pause'))
     this.player.on('ended', () => this.props.handlePlayer('end'))
@@ -71,9 +64,6 @@ class VideoPlayer extends React.Component {
     }
   }
 
-  // wrap the player in a div with a `data-vjs-player` attribute
-  // so videojs won't create additional wrapper in the DOM
-  // see https://github.com/videojs/video.js/pull/3856
   render() {
     return (
       <div>

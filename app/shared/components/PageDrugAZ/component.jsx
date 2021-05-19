@@ -50,7 +50,6 @@ const DrugList = props => {
           <Nav
             navigation={initialLetter}
             className="navbar-expand navbar-list"
-            labelledBy="drugs-a-z-navigation"
             visible="true"
             type="nav"
           />

@@ -29,24 +29,23 @@ export default class Page extends React.PureComponent {
   handleReadMeClick(e, section) {
     if (isInBrowser()) {
       e.preventDefault()
-      window.history.replaceState({}, '', `${window.location.href.split('#')[0]}#${section}`)
+      window.history.replaceState(
+        {},
+        '',
+        `${window.location.href.split('#')[0]}#${section}`
+      )
 
-      this.setState({selected: section})
+      this.setState({ selected: section })
     }
   }
 
   hasQuickInfo = () => {
-    if (
-      !this.props.fields.quickInfoPanelFeelings &&
-      !this.props.fields.quickInfoPanelEffects &&
-      !this.props.fields.quickInfoPanelTimeToKickIn &&
-      !this.props.fields.quickInfoPanelDuration &&
-      !this.props.fields.quickInfoPanelMixing
-    ) {
-      return false
+    const fields = Object.keys(this.props.fields)
+    const count = fields.filter(field => field.includes('quickInfoPanel'))
+    if (count?.length >= 4) {
+      return true
     }
-
-    return true
+    return false
   }
 
   render() {
@@ -59,7 +58,8 @@ export default class Page extends React.PureComponent {
     const syn = this.props.location.search
       ? decodeURIComponent(this.props.location.search.split('=')[1])
       : null
-    let hasImage = this.props.fields.image && fieldIncludesImages(this.props.fields.image)
+    let hasImage =
+      this.props.fields.image && fieldIncludesImages(this.props.fields.image)
 
     return (
       <React.Fragment>
@@ -90,7 +90,9 @@ export default class Page extends React.PureComponent {
                 </GridCol>
               )}
               <GridCol
-                className={'col-12 col-md-7 ' + (!hasImage ? 'offset-md-3' : '')}
+                className={
+                  'col-12 col-md-7 ' + (!hasImage ? 'offset-md-3' : '')
+                }
               >
                 <Heading
                   type="h1"
@@ -102,27 +104,28 @@ export default class Page extends React.PureComponent {
                   className="long-form--no-p-spacing"
                   text={this.props.fields.description}
                 />
-                {this.props.fields.synonyms && this.props.fields.synonyms[0] !== '' && (
-                  <React.Fragment>
-                    <p className="lead bold">Also called:</p>
-                    <ul className="list-unstyled spacing-bottom--tight">
-                      {this.props?.fields?.synonyms
-                        .slice(0)
-                        .sort()
-                        .map((item, i) => (
-                          <li
-                            className={
-                              'list-inline-item inverted bold' +
-                              (syn !== item ? ' inverted--quiet' : '')
-                            }
-                            key={i}
-                          >
-                            {item}
-                          </li>
-                        ))}
-                    </ul>
-                  </React.Fragment>
-                )}
+                {this.props.fields.synonyms &&
+                  this.props.fields.synonyms[0] !== '' && (
+                    <React.Fragment>
+                      <p className="lead bold">Also called:</p>
+                      <ul className="list-unstyled spacing-bottom--tight">
+                        {this.props?.fields?.synonyms
+                          .slice(0)
+                          .sort()
+                          .map((item, i) => (
+                            <li
+                              className={
+                                'list-inline-item inverted bold' +
+                                (syn !== item ? ' inverted--quiet' : '')
+                              }
+                              key={i}
+                            >
+                              {item}
+                            </li>
+                          ))}
+                      </ul>
+                    </React.Fragment>
+                  )}
               </GridCol>
             </Grid>
             <Grid className="spacing-top--single">
@@ -130,17 +133,26 @@ export default class Page extends React.PureComponent {
                 {this.props.fields.warning && (
                   <DrugWarningPanel text={this.props.fields.warning} />
                 )}
-                {this.hasQuickInfo() && <QuickInfoPanel
-                  handleHowItFeelsClick={(e) => this.handleReadMeClick(e, 'how-it-feels')}
-                  handleDurationClick={(e) => this.handleReadMeClick(e, 'duration')}
-                  handleTheRisksClick={(e) => this.handleReadMeClick(e, 'the-risks')}
-                  handleMixingClick={(e) => this.handleReadMeClick(e, 'mixing')}
-                  {...this.props.fields}
-                />}
+                {this.hasQuickInfo() && (
+                  <QuickInfoPanel
+                    handleHowItFeelsClick={e =>
+                      this.handleReadMeClick(e, 'how-it-feels')
+                    }
+                    handleDurationClick={e =>
+                      this.handleReadMeClick(e, 'duration')
+                    }
+                    handleTheRisksClick={e =>
+                      this.handleReadMeClick(e, 'the-risks')
+                    }
+                    handleMixingClick={e => this.handleReadMeClick(e, 'mixing')}
+                    {...this.props.fields}
+                  />
+                )}
               </GridCol>
             </Grid>
           </Accent>
-          {(this.props.fields.qualitiesAppearance || this.props.fields.qualitiesTaste) && (
+          {(this.props.fields.qualitiesAppearance ||
+            this.props.fields.qualitiesTaste) && (
             <section className="section section--has-toggle">
               <Toggle
                 text="How it looks, tastes and smells"
@@ -221,7 +233,9 @@ export default class Page extends React.PureComponent {
                 open={this.state.selected === 'duration'}
               >
                 {this.props.fields.durationDefault && (
-                  <Longform text={this.props.fields.durationDefault.fields.text} />
+                  <Longform
+                    text={this.props.fields.durationDefault.fields.text}
+                  />
                 )}
                 {this.props.fields.durationDetail && (
                   <Longform text={this.props.fields.durationDetail} />
@@ -235,7 +249,10 @@ export default class Page extends React.PureComponent {
                     <Longform text={this.props.fields.durationDetectable} />
                     {this.props.fields.durationDetectableDefault && (
                       <Longform
-                        text={this.props.fields.durationDetectableDefault.fields.text}
+                        text={
+                          this.props.fields.durationDetectableDefault.fields
+                            .text
+                        }
                       />
                     )}
                   </React.Fragment>
@@ -273,7 +290,10 @@ export default class Page extends React.PureComponent {
                 )}
                 {this.props.fields.risksCutWith && (
                   <React.Fragment>
-                    <Heading {...modifiers} text={`What is ${name} cut with?`} />
+                    <Heading
+                      {...modifiers}
+                      text={`What is ${name} cut with?`}
+                    />
                     <Longform
                       className="has-unordered"
                       text={this.props.fields.risksCutWith}

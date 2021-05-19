@@ -28,6 +28,10 @@ export default class PageHome extends React.Component {
   }
 
   onClickHandler = selected => {
+    if (window.innerWidth <= 991) {
+      window.location = '/drug/' + selected
+      return
+    }
     this.setState({ selected: selected })
   }
   selectedDrug = (type = 'full') => {
@@ -84,7 +88,7 @@ export default class PageHome extends React.Component {
                   className="arrowlink--align-center m-t-75"
                 />
               </GridCol>
-              <GridCol className=" col-12 col-lg-6 hidden--md">
+              <GridCol className="col-12 col-lg-6 druggridwrapper__quickinfocol">
                 {this.state.selected ? (
                   this.props.drugsGrid.map(drug => (
                     <div
