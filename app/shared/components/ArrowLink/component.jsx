@@ -9,7 +9,14 @@ const ArrowLink = props => {
     url: '/ui/svg/arrow-right.svg'
   }
   return (
-    <a href={props.href} onClick={props.onClick} {...aria} className={classes}>
+    <a
+      href={props.href}
+      onClick={props.onClick}
+      className={classes}
+      {...aria}
+      tabIndex={props.tabIndex}
+      onFocus={props.onFocus}
+    >
       <span>{props.text}</span>
       <Icon {...iconArrow} />
     </a>

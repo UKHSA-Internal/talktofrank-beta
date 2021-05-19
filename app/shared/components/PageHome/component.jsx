@@ -23,21 +23,32 @@ export default class PageHome extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: null
+      selected: null,
+      isDrugGridTraversable: true
     }
   }
 
   onClickHandler = selected => {
-    this.setState({ selected: selected })
-    if (isInBrowser() && this.state.selected) {
-      console.log(
-        'scrolling to:',
-        document.querySelector(`#drugsgrid__panel-${selected}`)
-      )
-      scrollIntoView(
-        document.querySelector(`#drugsgrid__panel-${selected}`)
-      )
-    }
+    this.setState({
+      selected: selected,
+      isDrugGridTraversable: false
+    })
+
+    // if (isInBrowser() && this.state.selected) {
+    //   console.log(
+    //     'scrolling to:',
+    //     document.querySelector(`#drugsgrid__panel-${selected}`)
+    //   )
+    //   scrollIntoView(
+    //     document.querySelector(`#drugsgrid__panel-${selected}`)
+    //   )
+    // }
+  }
+
+  onFocusHandler = () => {
+    this.setState({
+      isDrugGridTraversable: true
+    })
   }
 
   selectedDrug = (type = 'full') => {
@@ -86,12 +97,9 @@ export default class PageHome extends React.Component {
                 <DrugGrid
                   drugs={this.props.drugsGrid}
                   onClick={this.onClickHandler}
+                  onBlur={this.onBlurHandler}
                   selected={this.state.selected}
-                />
-                <ArrowLink
-                  href="/drugs-a-z"
-                  text="View the full list of drugs"
-                  className="arrowlink--align-center m-t-75"
+                  isDrugGridTraversable={this.state.isDrugGridTraversable}
                 />
               </GridCol>
               <GridCol className=" col-12 col-lg-6 hidden--md">
@@ -117,6 +125,7 @@ export default class PageHome extends React.Component {
                             text="Learn more"
                             className="arrowlink--align-left m-t-10"
                             label={`learn more about ${drug.drugGridName || drug.drugName}`}
+                            onFocus={this.onFocusHandler}
                           />
                         </div>
                         {drug.image?.fields?.imageSmall?.fields?.file?.url && (
