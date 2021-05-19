@@ -16,7 +16,6 @@ const ArrowLink = props => {
       href={props.href}
       onClick={props.onClick}
       className={classes}
-      {...aria}
       tabIndex={props.tabIndex}
       onFocus={props.onFocus}
       {...ariaLabel}
