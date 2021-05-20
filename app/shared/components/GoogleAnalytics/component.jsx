@@ -1,30 +1,49 @@
 import React from 'react'
-import ReactGA from 'react-ga'
+import GA4React from 'ga-4-react'
 
-const id = 'UA-50764316-1'
+const ga4react = new GA4React('G-BW7RD58Q7Z')
 
 export const GA = props => {
   if (typeof window !== 'undefined') {
-    if (!window.ga) {
-      ReactGA.initialize(id) // @todo - this would be better coming from the config.yaml
-      ReactGA.set({ anonymizeIp: true })
-    }
-    ReactGA.pageview(window.location.pathname + window.location.search)
+    if (!window.gtag) {
+      ga4react.initialize().then(
+        ga4 => {
+          ga4.pageview(window.location.pathname + window.location.search)
+        },
+        err => {
+          console.error(err)
+        }
+      )
 
-    if (props.children) {
-      return props.children
+      if (props.children) {
+        return props.children
+      }
     }
   }
   return null
 }
 
-export const GAEvent = (props) => {
+export const GAEvent = props => {
   if (typeof window !== 'undefined') {
-    if (!window.ga) {
-      ReactGA.initialize(id) // @todo - this would be better coming from the config.yaml
-      ReactGA.set({ anonymizeIp: true })
+    const payload = {
+      ...(props.label && { event_label: props.label }),
+      ...(props.category && { event_category: props.category }),
+      ...(props.nonInteraction && {
+        non_interaction: props.nonInteraction
+      })
     }
-    ReactGA.event(props)
+    if (!window.gtag) {
+      ga4react.initialize().then(
+        ga4 => {
+          ga4.gtag('event', props.action, payload)
+        },
+        err => {
+          console.error(err)
+        }
+      )
+    } else {
+      window.gtag('event', props.action, payload)
+    }
   }
   return null
 }
