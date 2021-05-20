@@ -15,19 +15,19 @@ const HelpPanels = () => {
               screenReaderTitle="Help and advice"
             >
               <ArrowLink
-                labeledBy="Concerned about a friend"
+                label="Concerned about a friend"
                 className="arrowlink--spacing-bottom"
                 href="/get-help/concerned-about-a-friend"
                 text="A friend"
               />
               <ArrowLink
-                labeledBy="Concerned about a child"
+                label="Concerned about a child"
                 className="arrowlink--spacing-bottom"
                 href="/get-help/concerned-about-a-child"
                 text="A child"
               />
               <ArrowLink
-                labeledBy="Feeling pressured to take drugs?"
+                label="Feeling pressured to take drugs?"
                 className="arrowlink--spacing-bottom"
                 href="/get-help/dealing-with-peer-pressure"
                 text="Pressure to take drugs"
