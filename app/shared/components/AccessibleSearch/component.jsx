@@ -50,7 +50,15 @@ export default class AccessibleSearch extends React.Component {
       }
     }
   }
-
+  handleClick = e => {
+    const val = e.currentTarget.parentNode.querySelector('#autocomplete').value
+    if (val?.trim() !== '') {
+      window.location = `/search/${encodeURIComponent(val)}`
+    }
+  }
+  handleSubmit(e) {
+    e.preventDefault()
+  }
   render() {
     const iconSubmit = {
       label: 'Submit search',
@@ -58,9 +66,9 @@ export default class AccessibleSearch extends React.Component {
     }
     return (
       <Form
-        onSubmit={this.handleSearchSubmit.bind(this)}
         role="search"
         className="form--search constrain form--search-home"
+        handleSubmit={this.handleSubmit}
       >
         <div
           className={
@@ -90,7 +98,8 @@ export default class AccessibleSearch extends React.Component {
             />
             <Button
               className="btn btn--search submit"
-              clickHandler={this.handleSearchSubmit.bind(this)}
+              clickHandler={this.handleClick}
+              type="button"
             >
               <Icon {...iconSubmit} />
             </Button>
