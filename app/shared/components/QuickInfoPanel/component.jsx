@@ -15,7 +15,7 @@ class QuickInfoPanel extends React.Component {
             </p>
           </div>
           {this.props.quickInfoPanelFeelings && (
-            <div className="quick-info-panel__wrapper col-12 col-md-6">
+            <dl className="quick-info-panel__wrapper col-12 col-md-6">
               <dt className="quick-info-panel_title">How you might feel</dt>
 
               <dd className="quick-info-panel__description">
@@ -28,10 +28,10 @@ class QuickInfoPanel extends React.Component {
                   Read more <span className="visually-hidden">about how it feels</span>
                 </a>
               </dd>
-            </div>
+            </dl>
           )}
           {this.props.quickInfoPanelEffects && (
-            <div className="quick-info-panel__wrapper col-12 col-md-6">
+            <dl className="quick-info-panel__wrapper col-12 col-md-6">
               <dt className="quick-info-panel_title">Effects on your body</dt>
 
               <dd className="quick-info-panel__description">
@@ -44,10 +44,10 @@ class QuickInfoPanel extends React.Component {
                   Read more <span className="visually-hidden">about how it feels</span>
                 </a>
               </dd>
-            </div>
+            </dl>
           )}
           {this.props.quickInfoPanelTimeToKickIn && (
-            <div className="quick-info-panel__wrapper col-12 col-md-6">
+            <dl className="quick-info-panel__wrapper col-12 col-md-6">
               <dt className="quick-info-panel_title">How long it takes to work</dt>
 
               <dd className="quick-info-panel__description">
@@ -60,10 +60,10 @@ class QuickInfoPanel extends React.Component {
                   Read more <span className="visually-hidden">about how long it takes to work</span>
                 </a>
               </dd>
-            </div>
+            </dl>
           )}
           {this.props.quickInfoPanelDuration && (
-            <div className="quick-info-panel__wrapper col-12 col-md-6">
+            <dl className="quick-info-panel__wrapper col-12 col-md-6">
               <dt className="quick-info-panel_title">How long the effects last</dt>
 
               <dd className="quick-info-panel__description">
@@ -76,10 +76,10 @@ class QuickInfoPanel extends React.Component {
                   Read more <span className="visually-hidden">about how long the effects last</span>
                 </a>
               </dd>
-            </div>
+            </dl>
           )}
           {this.props.quickInfoPanelRisks && (
-            <div className="quick-info-panel__wrapper col-12 col-md-6">
+            <dl className="quick-info-panel__wrapper col-12 col-md-6">
               <dt className="quick-info-panel_title">Common risks</dt>
               <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelRisks}{' '}
@@ -91,10 +91,10 @@ class QuickInfoPanel extends React.Component {
                   Read more <span className="visually-hidden">about the risks</span>
                 </a>
               </dd>
-            </div>
+            </dl>
           )}
           {this.props.quickInfoPanelMixing && (
-            <div className="quick-info-panel__wrapper col-12 col-md-6">
+            <dl className="quick-info-panel__wrapper col-12 col-md-6">
               <dt className="quick-info-panel_title">Reduce the risks</dt>
               <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelMixing}{' '}
@@ -106,7 +106,7 @@ class QuickInfoPanel extends React.Component {
                   Read more <span className="visually-hidden">about how to reduce the risks</span>
                 </a>
               </dd>
-            </div>
+            </dl>
           )}
         </div>
       </div>
