@@ -93,10 +93,8 @@ export default class PageHome extends React.Component {
             modifier="wrapper--constant"
           >
             <div className="druggridwrapper__header">
-              <h2 className="text-center">Quick facts about drugs&hellip;</h2>
-              <p className="text-gradient text-center" hidden="true">
-                Select a drug for quick info
-              </p>
+              <h2 className="text-center">Facts about drugs&hellip;</h2>
+              <p className="text-gradient text-center visually-hidden">Below are some of our most commonly searched drugs. Select any of these drugs to find out further information.</p>
             </div>
             <Grid>
               <GridCol className="col-12 col-lg-6">

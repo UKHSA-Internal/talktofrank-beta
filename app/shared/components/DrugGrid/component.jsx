@@ -144,12 +144,11 @@ class DrugGrid extends React.Component {
                     }}
                     className={this.generateClass(drug)}
                   >
-                    <div
+                    <button
                       onClick={
                         drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
                       }
                       onKeyDown={(e) => this.handleKeyDown(drug, e)}
-                      role={drug.name && 'button'}
                       aria-expanded={drug.name && this.props.selected === drug.slug}
                       aria-controls={`drugsgrid__panel-${drug.slug}`}
                       id={`druggrid__button-${drug.slug}`}
@@ -161,7 +160,7 @@ class DrugGrid extends React.Component {
                           {drug.name !== 'null' ? drug.name : ''}
                         </span>
                       </div>
-                    </div>
+                    </button>
                   </h3>
                 ) : (
                   <div className="druggrid__item druggrid__item--blank" />

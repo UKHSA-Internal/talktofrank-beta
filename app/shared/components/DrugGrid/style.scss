@@ -52,8 +52,14 @@
     margin-bottom: 0;
   }
 
-  div[role='button'] {
+  button {
     height: 100%;
+    width: 100%;
+    display: block;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
   }
 
   @media (max-width: 575.98px) {

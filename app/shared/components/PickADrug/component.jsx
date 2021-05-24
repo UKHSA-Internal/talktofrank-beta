@@ -4,13 +4,12 @@ import Icon from '../Icon/component.jsx'
 
 const PickADrug = props => {
   const classes = classNames('pickadrug', props.className)
-  const aria = props.label ? { 'aria-label': props.label } : null
   const iconFinger = {
     label: 'Select a drug for quick info',
     url: '/ui/svg/pointer-finger.svg'
   }
   return (
-    <div {...aria} className={classes}>
+    <div aria-hidden="true" className={classes}>
       <Icon {...iconFinger} />
       <h3 className="text-gradient">{props.text || 'Select a drug for quick info'}</h3>
     </div>
