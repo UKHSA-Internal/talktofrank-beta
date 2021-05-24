@@ -39,6 +39,7 @@ const HelpPanels = () => {
               className="info-panel--pink info-panel--footerright"
               title="What to do in an emergency"
               icon="warning-white"
+              isHeading
             >
               <p>
                 If you or someone else needs urgent help after taking drugs or

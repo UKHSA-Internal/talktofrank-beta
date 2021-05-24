@@ -7,10 +7,16 @@ const InfoPanel = props => {
   return (
     <div className={classes}>
       <div className="info-panel__heading">
-        <p className="info-panel__title" aria-hidden="true">
-          {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
-          <span>{props.title}</span>
-        </p>
+        {props.isHeading
+        ? <h2 className="info-panel__title">
+            {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
+            <span>{props.title}</span>
+          </h2>
+        : <p className="info-panel__title">
+            {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
+            <span>{props.title}</span>
+          </p>
+        }
         {props.screenReaderTitle && (
           <h2 className="sr-only">{props.screenReaderTitle}</h2>
         )}

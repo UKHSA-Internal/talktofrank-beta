@@ -18,7 +18,7 @@
     background: #ffeef5;
 
     .info-panel__heading {
-      background: $pink;
+      background: $pinkAccess;
     }
   }
 
@@ -48,7 +48,11 @@
 
     span:first-child {
       display: inline-flex;
-      margin-right: 5px;
+      margin-left: 12px;
+    }
+
+    span, h2 {
+      margin-right: 12px;
     }
   }
 
