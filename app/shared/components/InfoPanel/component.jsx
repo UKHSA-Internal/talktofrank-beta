@@ -8,11 +8,11 @@ const InfoPanel = props => {
     <div className={classes}>
       <div className="info-panel__heading">
         {props.isHeading
-        ? <h2 className="info-panel__title" aria-hidden="true">
+        ? <h2 className="info-panel__title">
             {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
             <span>{props.title}</span>
           </h2>
-        : <p className="info-panel__title" aria-hidden="true">
+        : <p className="info-panel__title">
             {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
             <span>{props.title}</span>
           </p>
