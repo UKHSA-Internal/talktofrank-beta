@@ -133,6 +133,7 @@
   background: $text-dark-blue;
   color: $white;
   padding: 3px 6px;
+
   & ~ span {
     display: inline;
     @include media-breakpoint-down(sm) {
