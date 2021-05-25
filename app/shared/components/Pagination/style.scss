@@ -33,7 +33,7 @@
   .pagination__item--current {
     .nav-link {
       border-bottom: 0;
-      color: $pinkAccess;
+      color: $pink-accessible;
 
       @include media-breakpoint-down(sm) {
         font-size: 2rem;
