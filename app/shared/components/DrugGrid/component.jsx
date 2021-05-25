@@ -173,6 +173,7 @@ class DrugGrid extends React.Component {
                       id={`druggrid__button-${drug.slug}`}
                       ref={this['drugHeader' + drug.order]}
                       tabindex={drug.name && this.props.isDrugGridTraversable ? '0' : '-1'}
+                      aria-label={drug.name === 'NOS (Balloons)' ? 'Balloons' : ''}
                     >
                       <div className="druggrid__inner">
                         <span className="druggrid__text">
