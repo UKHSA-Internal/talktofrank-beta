@@ -9,14 +9,13 @@ export default class AccessibleSearch extends React.Component {
     fetch(`/api/v1/search/autocomplete/${query}?page=0&pageSize=10`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         const results = data.hits.map(drug => {
           if (drug._source.title) {
             return `<span data-type='news' data-slug='${drug._source.slug}'>${drug._source.title}</span>`
             /*eslint-disable */
           } else if (drug._source.name != drug._source.realName) {
             /*eslint-enable */
-            return `<span data-type='drug' data-slug='${drug._source.slug}' class='autocomplete__option--background'>${drug._source.name}</span> (${drug._source.realName})`
+            return `<span data-type='drug' data-slug='${drug._source.slug}' class='autocomplete__option--background'>${drug._source.name}</span> <span>(${drug._source.realName})</span>`
           }
           return `<span data-type='drug' data-slug='${drug._source.slug}' class='autocomplete__option--background'>${drug._source.realName}</span>`
         })
@@ -77,14 +76,14 @@ export default class AccessibleSearch extends React.Component {
           }
         >
           <label
-            htmlFor="autocomplete"
+            htmlFor={this.props.id ? this.props.id : 'autocomplete'}
             className="form-label form-label--large"
           >
             Search for any drug...
           </label>
           <div className="accessiblesearch__container">
             <Autocomplete
-              id="autocomplete"
+              id={this.props.id ? this.props.id : 'autocomplete'}
               name="search"
               confirmOnBlur="false"
               source={this.suggest}

@@ -3,8 +3,7 @@ import Icon from '../Icon/component'
 
 const DrugWarningPanel = props => {
   const iconWarning = {
-    url: '/ui/svg/warning-blue.svg',
-    alt: 'Warning'
+    url: '/ui/svg/warning-blue.svg'
   }
   return (
     <div className="drugwarningpanel">

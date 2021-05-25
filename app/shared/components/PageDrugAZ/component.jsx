@@ -38,7 +38,7 @@ const DrugList = props => {
           className="accent--muted accent--az"
           modifier="wrapper--constant"
         >
-          <AccessibleSearch />
+          <AccessibleSearch id="autocomplete-menu" />
         </Accent>
         <Accent className="accent--shallow" modifier="wrapper--tight">
           <Heading

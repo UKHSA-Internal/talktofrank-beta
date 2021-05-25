@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import YouTube from 'react-youtube'
+
 import { VideoPlayer } from '../Video/component'
 class BlockFeaturedVideo extends React.PureComponent {
   constructor(props) {
@@ -25,6 +25,7 @@ class BlockFeaturedVideo extends React.PureComponent {
       >
         <figure>
           <div
+            aria-hidden="true"
             className={
               'blockfeaturedvideo__titlebox ' +
               (this.state.show ? '' : 'blockfeaturedvideo__titlebox--hide')
@@ -45,6 +46,7 @@ class BlockFeaturedVideo extends React.PureComponent {
         </figure>
 
         <div
+          aria-hidden="true"
           className={
             'blockfeaturedvideo__titlebox blockfeaturedvideo__titlebox--horizontal ' +
             (this.state.show

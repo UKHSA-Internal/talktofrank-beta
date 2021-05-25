@@ -7,11 +7,9 @@ class AttributedImage extends React.PureComponent {
       visible: false,
       icons: {
         visible: {
-          label: 'Learn more about this artwork',
           url: '/ui/svg/eye-visible.svg'
         },
         hidden: {
-          label: 'Learn more about this artwork',
           url: '/ui/svg/eye-hidden.svg'
         }
       },
@@ -36,6 +34,8 @@ class AttributedImage extends React.PureComponent {
         {this.props.drug.image?.fields?.imageSmall.fields.description && (
           <div>
             <button
+              aria-expanded={this.state.visible}
+              aria-controls="attributionText"
               aria-label="View image attribution details"
               className="attributedimage__view-attribution"
               onClick={this.handleClick}
@@ -45,10 +45,11 @@ class AttributedImage extends React.PureComponent {
               ) : (
                 <Icon {...this.state.icons.hidden} />
               )}
-              View attribution
+              {!this.state.visible ? 'View attribution' : 'Hide attribution'}
             </button>
             <div
-              aria-expanded={this.state.visible}
+              aria-hidden={!this.state.visible}
+              id="attributionText"
               className={
                 'attributedimage__attribution-wrapper ' +
                 (!this.state.visible

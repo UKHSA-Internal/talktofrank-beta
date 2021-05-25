@@ -78,7 +78,7 @@ export default class PageHome extends React.Component {
           <Hero {...this.props.hero} />
           <Accent className="accent--muted" modifier="wrapper--constant">
             <SiteMessageContainer path={this.props.location} body={true} />
-            <AccessibleSearch />
+            <AccessibleSearch id="autocomplete-home" />
             <div className="constrain">
               <ArrowLink
                 label="A-Z list of drugs"
@@ -128,7 +128,8 @@ export default class PageHome extends React.Component {
                             href={`/drug/${drug.slug}`}
                             text="Learn more"
                             className="arrowlink--align-left m-t-10"
-                            label={`learn more about ${drug.drugGridName || drug.drugName}`}
+                            label={`learn more about ${drug.drugGridName ||
+                              drug.drugName}`}
                             onFocus={this.onFocusHandler}
                           />
                         </div>
@@ -136,7 +137,11 @@ export default class PageHome extends React.Component {
                           <AttributedImage drug={drug} />
                         )}
                       </div>
-                      <QuickInfoPanel heading="h3" open={this.state.selected} {...drug} />
+                      <QuickInfoPanel
+                        heading="h3"
+                        open={this.state.selected}
+                        {...drug}
+                      />
                     </div>
                   ))
                 ) : (

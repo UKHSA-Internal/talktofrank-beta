@@ -133,6 +133,13 @@
   background: $text-dark-blue;
   color: $white;
   padding: 3px 6px;
+  & ~ span {
+    display: inline;
+    @include media-breakpoint-down(sm) {
+      display: block;
+      margin-top: 5px;
+    }
+  }
 }
 
 .autocomplete__option > * {

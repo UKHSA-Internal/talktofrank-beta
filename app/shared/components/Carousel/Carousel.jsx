@@ -1,8 +1,8 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { A11y } from 'swiper'
+import SwiperCore, { A11y, Keyboard } from 'swiper'
 import CarouselSlide from './CarouselSlide'
-SwiperCore.use([A11y])
+SwiperCore.use([A11y, Keyboard])
 
 const Carousel = ({ images }) => {
   return (
@@ -18,6 +18,7 @@ const Carousel = ({ images }) => {
         a11y={{
           enabled: true
         }}
+        keyboard={{ enabled: true, onlyInViewport: false }}
       >
         {images?.map((img, id) => (
           <SwiperSlide key={id}>

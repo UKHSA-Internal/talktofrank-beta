@@ -51,7 +51,9 @@ class VideoPlayer extends React.Component {
   }
   componentDidMount() {
     // instantiate Video.js
-    this.player = videojs(this.videoNode, this.state.videoOpts)
+    this.player = videojs(this.videoNode, this.state.videoOpts, () => {
+      this.player.bigPlayButton.removeAttribute('title')
+    })
     this.player.on('play', () => this.props.handlePlayer('play'))
     this.player.on('pause', () => this.props.handlePlayer('pause'))
     this.player.on('ended', () => this.props.handlePlayer('end'))
