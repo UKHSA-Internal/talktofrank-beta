@@ -25,18 +25,20 @@ class QuickInfoPanel extends React.Component {
               <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelFeelings}
               </dd>
-              <a
-                onClick={e => this.props.handleHowItFeelsClick(e)}
-                className="quick-info-panel__link"
-                href={
-                  this.props.slug
-                    ? `/drug/${this.props.slug}#how-it-feels`
-                    : '#how-it-feels'
-                }
-              >
-                Read more
-                <span className="visually-hidden">&nbsp;about how it feels</span>
-              </a>
+              <dd>
+                <a
+                  onClick={e => this.props.handleHowItFeelsClick(e)}
+                  className="quick-info-panel__link"
+                  href={
+                    this.props.slug
+                      ? `/drug/${this.props.slug}#how-it-feels`
+                      : '#how-it-feels'
+                  }
+                >
+                  Read more
+                  <span className="visually-hidden">&nbsp;about how it feels</span>
+                </a>
+              </dd>
             </dl>
           )}
           {this.props.quickInfoPanelEffects && (
@@ -45,18 +47,20 @@ class QuickInfoPanel extends React.Component {
               <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelEffects}
               </dd>
-              <a
-                onClick={e => this.props.handleHowItFeelsClick(e)}
-                className="quick-info-panel__link"
-                href={
-                  this.props.slug
-                    ? `/drug/${this.props.slug}#how-it-feels`
-                    : '#how-it-feels'
-                }
-              >
-                Read more
-                <span className="visually-hidden">&nbsp;about how it feels</span>
-              </a>
+              <dd>
+                <a
+                  onClick={e => this.props.handleHowItFeelsClick(e)}
+                  className="quick-info-panel__link"
+                  href={
+                    this.props.slug
+                      ? `/drug/${this.props.slug}#how-it-feels`
+                      : '#how-it-feels'
+                  }
+                >
+                  Read more
+                  <span className="visually-hidden">&nbsp;about how it feels</span>
+                </a>
+              </dd>
             </dl>
           )}
           {this.props.quickInfoPanelTimeToKickIn && (
@@ -68,18 +72,20 @@ class QuickInfoPanel extends React.Component {
               <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelTimeToKickIn}
               </dd>
-              <a
-                onClick={e => this.props.handleDurationClick(e)}
-                className="quick-info-panel__link"
-                href={
-                  this.props.slug
-                    ? `/drug/${this.props.slug}#duration`
-                    : '#duration'
-                }
-              >
-                Read more
-                <span className="visually-hidden">&nbsp;about how long it takes to work</span>
-              </a>
+              <dd>
+                <a
+                  onClick={e => this.props.handleDurationClick(e)}
+                  className="quick-info-panel__link"
+                  href={
+                    this.props.slug
+                      ? `/drug/${this.props.slug}#duration`
+                      : '#duration'
+                  }
+                >
+                  Read more
+                  <span className="visually-hidden">&nbsp;about how long it takes to work</span>
+                </a>
+              </dd>
             </dl>
           )}
           {this.props.quickInfoPanelDuration && (
@@ -90,36 +96,40 @@ class QuickInfoPanel extends React.Component {
               <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelDuration}
               </dd>
-              <a
-                onClick={e => this.props.handleDurationClick(e)}
-                className="quick-info-panel__link"
-                href={
-                  this.props.slug
-                    ? `/drug/${this.props.slug}#duration`
-                    : '#duration'
-                }
-              >
-                Read more
-                <span className="visually-hidden">&nbsp;about how long the effects last</span>
-              </a>
+              <dd>
+                <a
+                  onClick={e => this.props.handleDurationClick(e)}
+                  className="quick-info-panel__link"
+                  href={
+                    this.props.slug
+                      ? `/drug/${this.props.slug}#duration`
+                      : '#duration'
+                  }
+                >
+                  Read more
+                  <span className="visually-hidden">&nbsp;about how long the effects last</span>
+                </a>
+              </dd>
             </dl>
           )}
           {this.props.quickInfoPanelRisks && (
             <dl className="quick-info-panel__wrapper col-12 col-md-12">
               <dt className="quick-info-panel_title">Common risks</dt>
               <dd className="quick-info-panel__description">{this.props.quickInfoPanelRisks}</dd>
-              <a
-                onClick={e => this.props.handleTheRisksClick(e)}
-                className="quick-info-panel__link"
-                href={
-                  this.props.slug
-                    ? `/drug/${this.props.slug}#the-risks`
-                    : '#the-risks'
-                }
-              >
-                Read more
-                <span className="visually-hidden">&nbsp;about the risks</span>
-              </a>
+              <dd>
+                <a
+                  onClick={e => this.props.handleTheRisksClick(e)}
+                  className="quick-info-panel__link"
+                  href={
+                    this.props.slug
+                      ? `/drug/${this.props.slug}#the-risks`
+                      : '#the-risks'
+                  }
+                >
+                  Read more
+                  <span className="visually-hidden">&nbsp;about the risks</span>
+                </a>
+              </dd>
             </dl>
           )}
         </div>
