@@ -142,7 +142,6 @@ export default class Page extends React.PureComponent {
                   handleHowItFeelsClick={(e) => this.handleReadMeClick(e, 'how-it-feels')}
                   handleDurationClick={(e) => this.handleReadMeClick(e, 'duration')}
                   handleTheRisksClick={(e) => this.handleReadMeClick(e, 'the-risks')}
-                  handleMixingClick={(e) => this.handleReadMeClick(e, 'mixing')}
                   {...this.props.fields}
                 />}
               </GridCol>
