@@ -18,7 +18,7 @@ class DrugGrid extends React.Component {
   }
 
   componentDidMount() {
-    this.updateIsDesktop();
+    this.updateIsDesktop()
     window.addEventListener('resize', this.updateIsDesktop)
   }
 
