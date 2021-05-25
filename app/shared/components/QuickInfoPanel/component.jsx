@@ -79,7 +79,7 @@ class QuickInfoPanel extends React.Component {
             </dl>
           )}
           {this.props.quickInfoPanelRisks && (
-            <dl className="quick-info-panel__wrapper col-12 col-md-6">
+            <dl className="quick-info-panel__wrapper col-12 col-md-12">
               <dt className="quick-info-panel_title">Common risks</dt>
               <dd className="quick-info-panel__description">
                 {this.props.quickInfoPanelRisks}{' '}
@@ -89,21 +89,6 @@ class QuickInfoPanel extends React.Component {
                   href={this.props.slug ? `/drug/${this.props.slug}#the-risks` : '#the-risks'}
                 >
                   Read more <span className="visually-hidden">about the risks</span>
-                </a>
-              </dd>
-            </dl>
-          )}
-          {this.props.quickInfoPanelMixing && (
-            <dl className="quick-info-panel__wrapper col-12 col-md-6">
-              <dt className="quick-info-panel_title">Reduce the risks</dt>
-              <dd className="quick-info-panel__description">
-                {this.props.quickInfoPanelMixing}{' '}
-                <a
-                  onClick={e => this.props.handleMixingClick(e)}
-                  className="quick-info-panel__link"
-                  href={this.props.slug ? `/drug/${this.props.slug}#mixing` : '#mixing'}
-                >
-                  Read more <span className="visually-hidden">about how to reduce the risks</span>
                 </a>
               </dd>
             </dl>

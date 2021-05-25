@@ -19,3 +19,4 @@ features/debug/*
 .env
 
 config.development.yaml
+node_modules
