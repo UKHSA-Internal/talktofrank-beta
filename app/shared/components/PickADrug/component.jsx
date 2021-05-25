@@ -11,7 +11,7 @@ const PickADrug = props => {
   return (
     <div aria-hidden="true" className={classes}>
       <Icon {...iconFinger} />
-      <h3 className="text-gradient">{props.text || 'Select a drug for quick info'}</h3>
+      <p className="h3 text-gradient">{props.text || 'Select a drug for quick info'}</p>
     </div>
   )
 }
