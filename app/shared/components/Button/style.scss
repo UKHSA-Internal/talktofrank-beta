@@ -40,13 +40,13 @@
 .btn--link {
   &:active,
   &:focus {
-    color: $pinkAccess;
+    color: $pink-accessible;
     text-decoration: underline;
   }
 
   .has-hover & {
     &:hover {
-      color: $pinkAccess;
+      color: $pink-accessible;
       text-decoration: underline;
     }
   }
@@ -79,7 +79,7 @@
 
   .has-hover & {
     &:hover {
-      color: $pinkAccess;
+      color: $pink-accessible;
     }
   }
 }
@@ -96,7 +96,7 @@
 .btn--secondary,
 .btn--primary {
   color: $white;
-  background-color: $pinkAccess;
+  background-color: $pink-accessible;
   text-decoration: none;
   cursor: pointer;
   text-align: center;
@@ -130,7 +130,7 @@
 }
 
 .btn--secondary {
-  color: $pinkAccess;
+  color: $pink-accessible;
   background-color: $white;
   display: inline-block;
 
