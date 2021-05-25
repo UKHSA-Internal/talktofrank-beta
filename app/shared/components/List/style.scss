@@ -143,10 +143,10 @@ $offset: 3.5rem;
           }
 
           .link-text {
-            color: $pinkAccess;
+            color: $pink-accessible;
             text-decoration: none;
             border-bottom-style: solid;
-            border-bottom-color: $pinkAccess;
+            border-bottom-color: $pink-accessible;
           }
         }
       }
@@ -286,10 +286,10 @@ $offset: 3.5rem;
   .has-hover & {
     &:hover {
       .list-item__text {
-        color: $pinkAccess;
+        color: $pink-accessible;
         text-decoration: none;
         border-bottom-style: solid;
-        border-bottom-color: $pinkAccess;
+        border-bottom-color: $pink-accessible;
       }
     }
   }

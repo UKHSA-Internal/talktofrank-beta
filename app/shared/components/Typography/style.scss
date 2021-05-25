@@ -131,7 +131,7 @@ h1.az-page-title {
   &.heading-inverted--primary {
     color: $white;
     padding: 0.2em 0.5em;
-    background-color: $pink;
+    background-color: $pink-accessible;
   }
 }
 
@@ -434,7 +434,7 @@ b {
   }
 
   &--primary {
-    background-color: $pink;
+    background-color: $pink-accessible;
   }
 }
 
@@ -676,4 +676,9 @@ a[href^='//']:not([href*='talktofrank.com']) {
     width: 0.8em;
     height: 0.8em;
   }
+}
+
+.margin-x {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
