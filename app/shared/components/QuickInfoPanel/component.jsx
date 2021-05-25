@@ -78,7 +78,7 @@ class QuickInfoPanel extends React.Component {
                 href={this.props.slug ? `/drug/${this.props.slug}#the-risks` : '#the-risks'}
               >
                 Read more <span className="visually-hidden">about the risks</span>
-              </a>              
+              </a>
             </dl>
           )}
         </div>
