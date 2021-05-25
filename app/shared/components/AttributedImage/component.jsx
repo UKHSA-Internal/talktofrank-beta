@@ -35,7 +35,7 @@ class AttributedImage extends React.PureComponent {
           <div>
             <button
               aria-expanded={this.state.visible}
-              aria-controls="attributionText"
+              aria-controls={`attributionText--${this.props.drug.slug}`}
               aria-label="View image attribution details"
               className="attributedimage__view-attribution"
               onClick={this.handleClick}
@@ -49,7 +49,7 @@ class AttributedImage extends React.PureComponent {
             </button>
             <div
               aria-hidden={!this.state.visible}
-              id="attributionText"
+              id={`attributionText--${this.props.drug.slug}`}
               className={
                 'attributedimage__attribution-wrapper ' +
                 (!this.state.visible
