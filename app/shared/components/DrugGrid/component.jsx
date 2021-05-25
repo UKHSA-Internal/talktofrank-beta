@@ -14,20 +14,20 @@ class DrugGrid extends React.Component {
       this['drugHeader' + this.state.elements[i]] = React.createRef()
     }
 
-    this.updateIsDesktop = this.updateIsDesktop.bind(this);
+    this.updateIsDesktop = this.updateIsDesktop.bind(this)
   }
 
   componentDidMount() {
     this.updateIsDesktop();
-    window.addEventListener("resize", this.updateIsDesktop);
+    window.addEventListener('resize', this.updateIsDesktop)
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateIsDesktop);
+    window.removeEventListener('resize', this.updateIsDesktop)
   }
 
   updateIsDesktop() {
-    this.setState({ isDesktop: window.innerWidth > 991 });
+    this.setState({ isDesktop: window.innerWidth > 991 })
   }
 
   focusElement = index => this['drugHeader' + index].current.focus()
@@ -59,7 +59,7 @@ class DrugGrid extends React.Component {
   }
 
   render() {
-    const isDesktop = this.state.isDesktop;
+    const isDesktop = this.state.isDesktop
     /**
     * @todo: generate this array dynamically
     */
