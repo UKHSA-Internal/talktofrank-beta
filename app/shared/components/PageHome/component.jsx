@@ -123,7 +123,7 @@ export default class PageHome extends React.Component {
                             text={drug.drugGridName || drug.drugName}
                             hidden="true"
                           />
-                          <p className="m-0">{drug.description}</p>
+                          <p className="drug-description">{drug.description}</p>
                           <ArrowLink
                             href={`/drug/${drug.slug}`}
                             text="Learn more"
