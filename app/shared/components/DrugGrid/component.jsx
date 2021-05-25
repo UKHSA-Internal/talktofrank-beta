@@ -6,12 +6,28 @@ class DrugGrid extends React.Component {
     super(props)
 
     this.state = {
-      elements: [0, 1, 2, 3, 4, 5, 6, 7]
+      elements: [0, 1, 2, 3, 4, 5, 6, 7],
+      isDesktop: false
     }
 
     for (let i = 0; i < this.state.elements.length; i++) {
       this['drugHeader' + this.state.elements[i]] = React.createRef()
     }
+
+    this.updateIsDesktop = this.updateIsDesktop.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateIsDesktop();
+    window.addEventListener("resize", this.updateIsDesktop);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateIsDesktop);
+  }
+
+  updateIsDesktop() {
+    this.setState({ isDesktop: window.innerWidth > 991 });
   }
 
   focusElement = index => this['drugHeader' + index].current.focus()
@@ -43,6 +59,7 @@ class DrugGrid extends React.Component {
   }
 
   render() {
+    const isDesktop = this.state.isDesktop;
     /**
     * @todo: generate this array dynamically
     */
@@ -144,7 +161,9 @@ class DrugGrid extends React.Component {
                     }}
                     className={this.generateClass(drug)}
                   >
-                    <button
+                    {
+                      isDesktop
+                      ? <button
                       onClick={
                         drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
                       }
@@ -161,6 +180,22 @@ class DrugGrid extends React.Component {
                         </span>
                       </div>
                     </button>
+                      : <button
+                      onClick={
+                        drug.name !== 'null' ? () => this.handleClick(drug) : () => {}
+                      }
+                      onKeyDown={(e) => this.handleKeyDown(drug, e)}
+                      id={`druggrid__button-${drug.slug}`}
+                      ref={this['drugHeader' + drug.order]}
+                      tabindex={drug.name && this.props.isDrugGridTraversable ? '0' : '-1'}
+                    >
+                      <div className="druggrid__inner">
+                        <span className="druggrid__text">
+                          {drug.name !== 'null' ? drug.name : ''}
+                        </span>
+                      </div>
+                    </button>
+                    }
                   </h3>
                 ) : (
                   <div className="druggrid__item druggrid__item--blank" />
