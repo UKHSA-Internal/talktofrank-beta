@@ -46,13 +46,14 @@
     color: white;
     display: inline;
 
-    span:first-child {
+    div:first-child {
       display: inline-flex;
       margin-left: 12px;
     }
 
-    span,
+    div,
     h2 {
+      display: inline;
       margin-right: 12px;
     }
   }
