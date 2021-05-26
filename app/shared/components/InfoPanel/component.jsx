@@ -10,7 +10,7 @@ const InfoPanel = props => {
   return (
     <div className={classes}>
       <div className="info-panel__heading">
-        <Tag className="info-panel__title" aria-hidden={props.screenReaderTitle ? 'true': 'false'}>
+        <Tag className="info-panel__title" aria-hidden={props.screenReaderTitle ? 'true' : 'false'}>
           {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
           <div>{props.title}</div>
         </Tag>
