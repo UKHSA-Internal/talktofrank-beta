@@ -10,11 +10,11 @@ const InfoPanel = props => {
         {props.isHeading
         ? <h2 className="info-panel__title">
             {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
-            <span>{props.title}</span>
+            <div>{props.title}</div>
           </h2>
         : <p className="info-panel__title">
             {props.icon && <Icon url={`/ui/svg/${props.icon}.svg`} />}
-            <span>{props.title}</span>
+            <div>{props.title}</div>
           </p>
         }
         {props.screenReaderTitle && (
