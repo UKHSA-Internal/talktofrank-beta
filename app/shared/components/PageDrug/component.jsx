@@ -35,9 +35,7 @@ export default class Page extends React.PureComponent {
         `${window.location.href.split('#')[0]}#${section}`
       )
       if (this.state.selected === section) {
-        scrollIntoView(
-          document.querySelector(`#section-${section.replace('#', '')}`)
-        )
+        document.querySelector(`#section-${section.replace('#', '')}`).scrollIntoView({behavior: "smooth"})
       }
       this.setState({ selected: section })
     }

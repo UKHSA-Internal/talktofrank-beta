@@ -64,7 +64,7 @@ export default class PageHome extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selected !== this.state.selected) {
-      this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView()
+      this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView({behavior: "smooth"})
     }
   }
 
