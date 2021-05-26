@@ -28,7 +28,9 @@ export default class PageHome extends React.Component {
       selected: null,
       isDrugGridTraversable: true
     }
-    props.drugsGrid.map(drug => this[`drugsgrid__panel-${drug.slug}`] = React.createRef())
+    props.drugsGrid.map(drug => {
+      this[`drugsgrid__panel-${drug.slug}`] = React.createRef()
+    })
   }
 
   onClickHandler = selected => {
@@ -64,7 +66,7 @@ export default class PageHome extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selected !== this.state.selected) {
-      this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView({behavior: "smooth"})
+      this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
