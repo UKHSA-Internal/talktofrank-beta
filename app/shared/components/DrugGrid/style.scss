@@ -1,15 +1,16 @@
 .druggridwrapper {
   &__header {
+    margin-top: 30px;
+
     h2 {
-      margin-top: 60px;
-      margin-bottom: 40px;
+      margin-bottom: 15px;
     }
 
     p {
       display: none;
     }
 
-    @media (max-width: 502px) {
+    @media (min-width: 376.98px) {
       margin-top: 40px;
 
       h2 {
@@ -24,17 +25,20 @@
       }
     }
 
-    @media (max-width: 376.98) {
-      margin-top: 30px;
-
+    @media (min-width: 502px) {
       h2 {
-        margin-bottom: 15px;
+        margin-top: 60px;
+        margin-bottom: 40px;
+      }
+  
+      p {
+        display: none;
       }
     }
   }
 
   &__quickinfocol {
-    @media (max-width: 991.98px) {
+    @include media-breakpoint-down(md) {
       display: none;
     }
   }
@@ -48,7 +52,7 @@
   margin-left: 12px;
   margin-top: 20px;
 
-  @media (max-width: 991.98px) {
+  @include media-breakpoint-down(md) {
     margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
@@ -88,15 +92,15 @@
         }
 
         &:nth-child(2) {
-          height: 117px;
-          @media (max-width: 502.98px) {
-            height: 97px;
-          }
-          @media (max-width: 418px) {
+          height: 78px;
+          @media (min-width: 376.98px) {
             height: 87px;
           }
-          @media (max-width: 376.98px) {
-            height: 78px;
+          @media (min-width: 418px) {
+            height: 97px;
+          }
+          @media (min-width: 502.98px) {
+            height: 117px;
           }
         }
 
@@ -115,16 +119,15 @@
 
       .druggrid__item {
         &:nth-child(1) {
-          height: 121px;
-
-          @media (max-width: 502.98px) {
-            height: 101px;
-          }
-          @media (max-width: 418px) {
+          height: 82px;
+          @media (min-width: 376.98px) {
             height: 91px;
           }
-          @media (max-width: 376.98px) {
-            height: 82px;
+          @media (min-width: 418px) {
+            height: 101px;
+          }
+          @media (min-width: 502.98px) {
+            height: 121px;
           }
         }
 
@@ -137,15 +140,15 @@
         }
 
         &:nth-child(3) {
-          height: 117px;
-          @media (max-width: 502.98px) {
-            height: 97px;
-          }
-          @media (max-width: 418px) {
+          height: 78px;
+          @media (min-width: 376.98px) {
             height: 87px;
           }
-          @media (max-width: 376.98px) {
-            height: 78px;
+          @media (min-width: 418px) {
+            height: 97px;
+          }
+          @media (min-width: 502.98px) {
+            height: 117px;
           }
         }
 
@@ -172,16 +175,15 @@
         }
 
         &:nth-child(2) {
-          height: 117px;
-
-          @media (max-width: 502.98px) {
-            height: 97px;
-          }
-          @media (max-width: 418px) {
+          height: 78px;
+          @media (min-width: 376.98px) {
             height: 87px;
           }
-          @media (max-width: 376.98px) {
-            height: 78px;
+          @media (min-width: 418px) {
+            height: 97px;
+          }
+          @media (min-width: 502.98px) {
+            height: 117px;
           }
         }
 
@@ -200,16 +202,15 @@
 
       .druggrid__item {
         &:nth-child(1) {
-          height: 121px;
-
-          @media (max-width: 502.98px) {
-            height: 101px;
-          }
-          @media (max-width: 418px) {
+          height: 82px;
+          @media (min-width: 376.98px) {
             height: 91px;
           }
-          @media (max-width: 376.98px) {
-            height: 82px;
+          @media (min-width: 418px) {
+            height: 101px;
+          }
+          @media (min-width: 502.98px) {
+            height: 121px;
           }
         }
 
@@ -222,16 +223,15 @@
         }
 
         &:nth-child(3) {
-          height: 117px;
-
-          @media (max-width: 502.98px) {
-            height: 97px;
-          }
-          @media (max-width: 418px) {
+          height: 78px;
+          @media (min-width: 376.98px) {
             height: 87px;
           }
-          @media (max-width: 376.98px) {
-            height: 78px;
+          @media (min-width: 418px) {
+            height: 97px;
+          }
+          @media (min-width: 502.98px) {
+            height: 117px;
           }
         }
 
@@ -247,20 +247,21 @@
   }
 
   &__item {
-    width: 125px;
-    height: 125px;
+    width: 86px;
+    height: 86px;
     padding: 4px;
-    @media (max-width: 502.98px) {
-      width: 105px;
-      height: 105px;
-    }
-    @media (max-width: 418px) {
+
+    @media (min-width: 376.98px) {
       width: 95px;
       height: 95px;
     }
-    @media (max-width: 376.98px) {
-      width: 86px;
-      height: 86px;
+    @media (min-width: 418px) {
+      width: 105px;
+      height: 105px;
+    }
+    @media (min-width: 502.98px) {
+      width: 125px;
+      height: 125px;
     }
 
     background: linear-gradient(223.65deg, #bd09ff -7.55%, #e8005f 94.92%);
@@ -292,22 +293,25 @@
 
   &__text {
     text-align: center;
-    font-size: 1.9rem;
     line-height: 1.3157;
     margin: 0;
+    font-size: 1.4rem;
+    max-width: 70px;
+    overflow-wrap: break-word;
 
-    @media (max-width: 502px) {
-      font-size: 1.6rem;
-    }
-
-    @media (max-width: 418px) {
+    @media (min-width: 376.98px) {
       font-size: 1.5rem;
+      max-width: 79px;
     }
 
-    @media (max-width: 376.98px) {
-      font-size: 1.4rem;
-      max-width: 70px;
-      overflow-wrap: break-word;
+    @media (min-width: 418px) {
+      font-size: 1.6rem;
+      max-width: 89px;
+    }
+    
+    @media (min-width: 502.98px) {
+      font-size: 1.9rem;
+      max-width: 109px;
     }
   }
 }
