@@ -17,8 +17,8 @@ import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
-import { isInBrowser } from '../../utilities'
-// import { scrollIntoView, isInBrowser } from '../../utilities'
+// import { isInBrowser } from '../../utilities'
+import { scrollIntoView, isInBrowser } from '../../utilities'
 import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageHome extends React.Component {
@@ -28,6 +28,7 @@ export default class PageHome extends React.Component {
       selected: null,
       isDrugGridTraversable: true
     }
+    props.drugsGrid.map(drug => this[`drugsgrid__panel-${drug.slug}`] = React.createRef())
   }
 
   onClickHandler = selected => {
@@ -40,15 +41,6 @@ export default class PageHome extends React.Component {
       selected: selected,
       isDrugGridTraversable: false
     })
-    // if (isInBrowser() && this.state.selected) {
-    //   console.log(
-    //     'scrolling to:',
-    //     document.querySelector(`#drugsgrid__panel-${selected}`)
-    //   )
-    //   scrollIntoView(
-    //     document.querySelector(`#drugsgrid__panel-${selected}`)
-    //   )
-    // }
   }
 
   onFocusHandler = () => {
@@ -68,6 +60,12 @@ export default class PageHome extends React.Component {
       return found?.drugName || ' this drug.'
     }
     return found
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selected !== this.state.selected) {
+      this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView()
+    }
   }
 
   render() {
@@ -114,6 +112,7 @@ export default class PageHome extends React.Component {
                       aria-labelledby={`druggrid__button-${drug.slug}`}
                       role="region"
                       hidden={drug.slug !== this.state.selected}
+                      ref={this[`drugsgrid__panel-${drug.slug}`]}
                     >
                       <div className="flex justify-content-between align-items-start">
                         <div className="m-b-60">
