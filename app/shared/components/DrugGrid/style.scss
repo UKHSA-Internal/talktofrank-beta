@@ -57,6 +57,7 @@
     margin-right: auto;
     margin-top: 15px;
   }
+
   @media (max-width: 531.98px) {
     margin-left: 12px;
   }
@@ -93,12 +94,15 @@
 
         &:nth-child(2) {
           height: 78px;
+
           @media (min-width: 376.98px) {
             height: 87px;
           }
+
           @media (min-width: 418px) {
             height: 97px;
           }
+
           @media (min-width: 502.98px) {
             height: 117px;
           }
@@ -120,12 +124,15 @@
       .druggrid__item {
         &:nth-child(1) {
           height: 82px;
+
           @media (min-width: 376.98px) {
             height: 91px;
           }
+
           @media (min-width: 418px) {
             height: 101px;
           }
+
           @media (min-width: 502.98px) {
             height: 121px;
           }
@@ -141,12 +148,15 @@
 
         &:nth-child(3) {
           height: 78px;
+
           @media (min-width: 376.98px) {
             height: 87px;
           }
+
           @media (min-width: 418px) {
             height: 97px;
           }
+
           @media (min-width: 502.98px) {
             height: 117px;
           }
@@ -176,12 +186,15 @@
 
         &:nth-child(2) {
           height: 78px;
+
           @media (min-width: 376.98px) {
             height: 87px;
           }
+
           @media (min-width: 418px) {
             height: 97px;
           }
+
           @media (min-width: 502.98px) {
             height: 117px;
           }
@@ -203,12 +216,15 @@
       .druggrid__item {
         &:nth-child(1) {
           height: 82px;
+
           @media (min-width: 376.98px) {
             height: 91px;
           }
+
           @media (min-width: 418px) {
             height: 101px;
           }
+
           @media (min-width: 502.98px) {
             height: 121px;
           }
@@ -224,12 +240,15 @@
 
         &:nth-child(3) {
           height: 78px;
+
           @media (min-width: 376.98px) {
             height: 87px;
           }
+
           @media (min-width: 418px) {
             height: 97px;
           }
+
           @media (min-width: 502.98px) {
             height: 117px;
           }
@@ -255,10 +274,12 @@
       width: 95px;
       height: 95px;
     }
+  
     @media (min-width: 418px) {
       width: 105px;
       height: 105px;
     }
+
     @media (min-width: 502.98px) {
       width: 125px;
       height: 125px;
