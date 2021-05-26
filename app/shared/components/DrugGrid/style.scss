@@ -9,11 +9,11 @@
       display: none;
     }
 
-    @media (max-width: 575.98px) {
+    @media (max-width: 502px) {
       margin-top: 40px;
 
       h2 {
-        margin-bottom: 15px;
+        margin-bottom: 40px;
         line-height: 30.46px;
       }
 
@@ -21,6 +21,14 @@
         margin-bottom: 35px;
         display: block;
         line-height: 21px;
+      }
+    }
+
+    @media (max-width: 376.98) {
+      margin-top: 30px;
+
+      h2 {
+        margin-bottom: 15px;
       }
     }
   }
