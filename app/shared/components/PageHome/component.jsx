@@ -17,8 +17,7 @@ import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
-// import { isInBrowser } from '../../utilities'
-import { scrollIntoViewFromCurrentPostion, isInBrowser } from '../../utilities'
+import { isInBrowser } from '../../utilities'
 import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageHome extends React.Component {
@@ -66,8 +65,7 @@ export default class PageHome extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selected !== this.state.selected) {
-      // this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView({ behavior: 'smooth' })
-      scrollIntoViewFromCurrentPostion(this[`drugsgrid__panel-${this.state.selected}`].current)
+      this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
