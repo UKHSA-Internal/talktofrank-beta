@@ -115,7 +115,7 @@
     region: "eu-west-2"
     trigger_condition: "ALWAYS"
     integration_hash: "ZA1oRkpQJ0dNXOjLaLOvE2Mwz5"
-- pipeline: "UAT deployment [PHE]"
+- pipeline: "Production deployment [PHE]"
   target_site_url: "https://staging.talktofrank.com"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
