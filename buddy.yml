@@ -263,7 +263,6 @@
     - "app\\*"
     - "contentful\\*"
     - ".git\\*"
-    - "*.*"
     - ".*"
     - "node_modules\\*"
     - "grunt\\*"
