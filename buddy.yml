@@ -41,7 +41,7 @@
     docker_image_name: "library/node"
     docker_image_tag: "10.13.0"
     execute_commands:
-    - "npm install"
+    - "npm ci"
     mount_filesystem_path: "/buddy/talktofrank-beta-1"
     shell: "SH"
     trigger_condition: "ALWAYS"
@@ -128,7 +128,7 @@
     docker_image_name: "library/node"
     docker_image_tag: "10.13.0"
     execute_commands:
-    - "npm install"
+    - "npm ci"
     mount_filesystem_path: "/buddy/talktofrank-beta-1"
     shell: "SH"
     trigger_condition: "ALWAYS"
@@ -215,7 +215,7 @@
     docker_image_name: "library/node"
     docker_image_tag: "10.13.0"
     execute_commands:
-    - "npm install"
+    - "npm ci"
     mount_filesystem_path: "/buddy/talktofrank-beta-1"
     shell: "SH"
     trigger_condition: "ALWAYS"
