@@ -10,13 +10,19 @@ import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
 import { GA } from '../GoogleAnalytics/component.jsx'
-import { imageMap, fieldIncludesImages, isInBrowser } from '../../utilities'
+import {
+  imageMap,
+  fieldIncludesImages,
+  isInBrowser,
+  scrollIntoView
+} from '../../utilities'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
 import DrugWarningPanel from '../DrugWarningPanel/component.jsx'
 
 import Carousel from '../Carousel/Carousel.jsx'
 import HelpPanels from '../HelpPanels/component.jsx'
+import AttributedImage from '../AttributedImage/component.jsx'
 
 export default class Page extends React.PureComponent {
   constructor(props) {
@@ -35,7 +41,9 @@ export default class Page extends React.PureComponent {
         `${window.location.href.split('#')[0]}#${section}`
       )
       if (this.state.selected === section) {
-        document.querySelector(`#section-${section.replace('#', '')}`).scrollIntoView({ behavior: 'smooth' })
+        document
+          .querySelector(`#section-${section.replace('#', '')}`)
+          .scrollIntoView({ behavior: 'smooth' })
       }
       this.setState({ selected: section })
     }
@@ -75,20 +83,11 @@ export default class Page extends React.PureComponent {
               }}
             />
           )}
-          {this.props.fields.sliderImages && (
-            <Carousel images={this.props.fields.sliderImages} />
-          )}
           <Accent modifier="wrapper--constant">
             <Grid>
               {hasImage && (
                 <GridCol className="col-12 col-md-3">
-                  <Picture
-                    className={
-                      'drug-image ' +
-                      (this.props.fields.sliderImages ? 'has-carousel' : '')
-                    }
-                    {...imageMap(this.props.fields)}
-                  />
+                  <AttributedImage {...this.props.fields} />
                 </GridCol>
               )}
               <GridCol
@@ -135,13 +134,21 @@ export default class Page extends React.PureComponent {
                 {this.props.fields.warning && (
                   <DrugWarningPanel text={this.props.fields.warning} />
                 )}
-                {this.hasQuickInfo() && <QuickInfoPanel
-                  heading="h2"
-                  handleHowItFeelsClick={(e) => this.handleReadMeClick(e, 'how-it-feels')}
-                  handleDurationClick={(e) => this.handleReadMeClick(e, 'duration')}
-                  handleTheRisksClick={(e) => this.handleReadMeClick(e, 'the-risks')}
-                  {...this.props.fields}
-                />}
+                {this.hasQuickInfo() && (
+                  <QuickInfoPanel
+                    heading="h2"
+                    handleHowItFeelsClick={e =>
+                      this.handleReadMeClick(e, 'how-it-feels')
+                    }
+                    handleDurationClick={e =>
+                      this.handleReadMeClick(e, 'duration')
+                    }
+                    handleTheRisksClick={e =>
+                      this.handleReadMeClick(e, 'the-risks')
+                    }
+                    {...this.props.fields}
+                  />
+                )}
               </GridCol>
             </Grid>
           </Accent>
