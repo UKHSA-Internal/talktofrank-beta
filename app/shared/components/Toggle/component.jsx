@@ -35,8 +35,12 @@ export default class Toggle extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props.open !== prevProps.open) {
-      this.setState({ visible: true })
-      scrollIntoView(this.node)
+      if (this.props.open === true) {
+        this.setState({ visible: true })
+        scrollIntoView(this.node)
+      } else {
+        this.setState({ visible: false })
+      }
     }
   }
 
