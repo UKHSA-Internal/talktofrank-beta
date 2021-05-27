@@ -104,7 +104,7 @@
 
     &.nav-item--active {
       .nav-link {
-        color: $pinkAccess;
+        color: $pink-accessible;
       }
     }
   }
@@ -118,7 +118,7 @@
       &:active,
       &:hover,
       &:focus {
-        color: $pinkAccess;
+        color: $pink-accessible;
       }
     }
   }

@@ -15,6 +15,7 @@ import Button from '../Button/component.jsx'
 import Longform from '../Longform/component'
 import { ErrorSummary, getErrors } from '../FormErrors/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component'
 
 export default class PageFeedbackForm extends React.Component {
   static defaultProps = {
@@ -87,6 +88,7 @@ export default class PageFeedbackForm extends React.Component {
               </GridCol>
             </Grid>
           </Accent>
+          <HelpPanels />
         </Main>
         <Footer />
         <GA/>

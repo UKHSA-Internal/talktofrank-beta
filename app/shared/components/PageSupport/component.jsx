@@ -14,6 +14,7 @@ import { GA } from '../GoogleAnalytics/component.jsx'
 import Divider from '../Divider/component.jsx'
 import GMap from '../Map/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageSupport extends React.PureComponent {
   render () {
@@ -93,6 +94,7 @@ export default class PageSupport extends React.PureComponent {
               </GridCol>
             </Grid>
           </Accent>
+          <HelpPanels />
         </Main>
         <Footer/>
         <GA/>

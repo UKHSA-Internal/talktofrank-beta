@@ -11,6 +11,7 @@ import Main from '../Main/component'
 import Longform from '../Longform/component'
 import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component'
 
 const PageLiveChat = props => {
   return (
@@ -31,6 +32,7 @@ const PageLiveChat = props => {
             </LiveChatOff>
           </GridCol>
         </Grid>
+        <HelpPanels />
       </Main>
       <Footer />
       <GA/>

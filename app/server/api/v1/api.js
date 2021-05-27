@@ -45,7 +45,11 @@ router.get('/entries/:slug', (req, res, next) => {
 
   if (req.params.slug === 'no-match') {
     try {
-      return res.send(yaml.safeLoad(fs.readFileSync('./static/' + req.params.slug + '.yml', 'utf8')))
+      return res.send(
+        yaml.safeLoad(
+          fs.readFileSync('./static/' + req.params.slug + '.yml', 'utf8')
+        )
+      )
     } catch (error) {
       next(error)
     }
@@ -55,18 +59,21 @@ router.get('/entries/:slug', (req, res, next) => {
 
   // If the slug value exists in the config contentful 'entries' list use that
   // to fetch a single content item, fallback to slug value
+
   if (config.contentful.entries[slug]) {
-    contentfulClient.getEntries({
-      'sys.id': config.contentful.entries[slug],
-      include: 10
-    })
-      .then((contentfulResponse) => {
+    contentfulClient
+      .getEntries({
+        'sys.id': config.contentful.entries[slug],
+        include: 10
+      })
+      .then(contentfulResponse => {
         if (contentfulResponse.total === 0) {
           let error = new Error()
           error.message = `'${slug}': Page not found`
           error.status = 404
           return next(error)
         }
+
         // merge contentful assets and includes
         let response = resolveResponse(contentfulResponse)[0]
         dateFormat(response)
@@ -83,7 +90,10 @@ router.get('/entries/:slug', (req, res, next) => {
             })
         }
 
-        if (response.fields.featuredContentBlock && response.fields.featuredContentBlock.fields.featuredContentItems) {
+        if (
+          response.fields.featuredContentBlock &&
+          response.fields.featuredContentBlock.fields.featuredContentItems
+        ) {
           response.fields.featuredContentBlock.fields.featuredContentItems
             .filter(item => item.fields)
             .map(item => {
@@ -93,16 +103,26 @@ router.get('/entries/:slug', (req, res, next) => {
 
         if (response.fields.callout) {
           if (response.fields.callout.fields.content) {
-            response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+            response.fields.callout.fields.content = marked(
+              response.fields.callout.fields.content
+            )
           }
         }
 
         if (response.fields.intro) {
           response.fields.intro = marked(response.fields.intro)
         }
-
+        if (response.fields.introText) {
+          response.fields.introText = documentToHtmlString(
+            response.fields.introText,
+            contentFulFactory()
+          )
+        }
         if (response.fields.body) {
-          response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+          response.fields.body = documentToHtmlString(
+            response.fields.body,
+            contentFulFactory()
+          )
         }
 
         if (response.fields.contentExtra) {
@@ -131,8 +151,9 @@ router.get('/entries/:slug', (req, res, next) => {
       'fields.slug': slug.toLowerCase()
     }
     try {
-      contentfulClient.getEntries(contentfulRequest)
-        .then((contentfulResponse) => {
+      contentfulClient
+        .getEntries(contentfulRequest)
+        .then(contentfulResponse => {
           if (contentfulResponse.total === 0) {
             let error = new Error()
             error.message = `'${slug.toLowerCase()}': Page not found`
@@ -141,12 +162,16 @@ router.get('/entries/:slug', (req, res, next) => {
           }
 
           // merge contentful assets and includes
-          let response = resolveResponse(contentfulResponse, {parentSysId: contentfulResponse.items[0].sys.id})[0]
+          let response = resolveResponse(contentfulResponse, {
+            parentSysId: contentfulResponse.items[0].sys.id
+          })[0]
           dateFormat(response)
 
           if (response.fields.callout) {
             if (response.fields.callout.fields.content) {
-              response.fields.callout.fields.content = marked(response.fields.callout.fields.content)
+              response.fields.callout.fields.content = marked(
+                response.fields.callout.fields.content
+              )
             }
           }
 
@@ -155,7 +180,10 @@ router.get('/entries/:slug', (req, res, next) => {
           }
 
           if (response.fields.body) {
-            response.fields.body = documentToHtmlString(response.fields.body, contentFulFactory())
+            response.fields.body = documentToHtmlString(
+              response.fields.body,
+              contentFulFactory()
+            )
           }
 
           if (response.fields.contentExtra) {
@@ -198,8 +226,9 @@ router.get('/drugs/:slug', (req, res, next) => {
     'fields.slug': slug
   }
 
-  contentfulClient.getEntries(contentfulRequest)
-    .then((contentfulResponse) => {
+  contentfulClient
+    .getEntries(contentfulRequest)
+    .then(contentfulResponse => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `'${slug}': Page not found`
@@ -212,42 +241,36 @@ router.get('/drugs/:slug', (req, res, next) => {
       // Add contentful field ids here to transform the contents
       // from markdown to HTML
       const markDownFields = {
-        'description': [],
-        'qualitiesAppearance': [],
-        'qualitiesTaste': [],
-        'qualitiesAdministered': [],
-        'effectsFeeling': [],
-        'effectsBehaviour': [],
-        'durationDefault': [
-          'text'
-        ],
-        'durationDetail': [],
-        'durationDetectableDefault': [
-          'text'
-        ],
-        'durationDetectable': [],
-        'durationMethodOfTaking': [
+        description: [],
+        qualitiesAppearance: [],
+        qualitiesTaste: [],
+        qualitiesAdministered: [],
+        effectsFeeling: [],
+        effectsBehaviour: [],
+        durationDefault: ['text'],
+        durationDetail: [],
+        durationDetectableDefault: ['text'],
+        durationDetectable: [],
+        durationMethodOfTaking: [
           'methodAfterEffects',
           'methodEffectsDuration',
           'methodEffectsStart'
         ],
-        'risksPhysicalHealth': [],
-        'risksHealthMental': [],
-        'risksCutWith': [],
-        'mixingDangers': [],
-        'lawCaught': [
-          'text'
-        ],
-        'lawDetail': [],
-        'lawClass': [
+        risksPhysicalHealth: [],
+        risksHealthMental: [],
+        risksCutWith: [],
+        mixingDangers: [],
+        lawCaught: ['text'],
+        lawDetail: [],
+        lawClass: [
           'description',
           'possesion',
           'supplying',
           'dealersSupplying',
           'driving'
         ],
-        'addiction': [],
-        'additional': []
+        addiction: [],
+        additional: []
       }
 
       Object.keys(response.fields)
@@ -256,10 +279,18 @@ router.get('/drugs/:slug', (req, res, next) => {
           if (markDownFields[fieldName].length > 0) {
             if (Array.isArray(response.fields[fieldName])) {
               for (let i = 0; i <= response.fields[fieldName].length - 1; i++) {
-                return contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName][i].fields)
+                return contentfulFieldToMarkdown(
+                  markDownFields,
+                  fieldName,
+                  response.fields[fieldName][i].fields
+                )
               }
             } else if (response.fields[fieldName].fields) {
-              return contentfulFieldToMarkdown(markDownFields, fieldName, response.fields[fieldName].fields)
+              return contentfulFieldToMarkdown(
+                markDownFields,
+                fieldName,
+                response.fields[fieldName].fields
+              )
             }
           } else {
             response.fields[fieldName] = marked(response.fields[fieldName])
@@ -291,8 +322,9 @@ router.get('/drugs', (req, res, next) => {
     list: []
   }
 
-  contentfulClient.getEntries(contentfulRequest)
-    .then((contentfulResponse) => {
+  contentfulClient
+    .getEntries(contentfulRequest)
+    .then(contentfulResponse => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `'drugs-a-z': Page not found`
@@ -302,7 +334,7 @@ router.get('/drugs', (req, res, next) => {
 
       contentfulResponse.items
         .filter(item => item.fields.synonyms && item.fields.drugName)
-        .map((item) => {
+        .map(item => {
           response.list.push({
             name: item.fields.drugName,
             slug: item.fields.slug,
@@ -310,14 +342,13 @@ router.get('/drugs', (req, res, next) => {
             description: marked(item.fields.description)
           })
 
-          item.fields.synonyms
-            .map(synonym => {
-              response.list.push({
-                name: synonym.trim(),
-                slug: item.fields.slug,
-                parent: item.fields.drugName
-              })
+          item.fields.synonyms.map(synonym => {
+            response.list.push({
+              name: synonym.trim(),
+              slug: item.fields.slug,
+              parent: item.fields.drugName
             })
+          })
         })
 
       let grouped = groupBy(response.list, val => {
@@ -326,7 +357,7 @@ router.get('/drugs', (req, res, next) => {
 
       let groupedArray = []
       for (var i in grouped) {
-        let sortedValues = sortBy(grouped[i], (item) => {
+        let sortedValues = sortBy(grouped[i], item => {
           return item.name.toLowerCase()
         })
         groupedArray.push({
@@ -336,14 +367,13 @@ router.get('/drugs', (req, res, next) => {
       }
 
       let numbers = []
-      response.list = sortBy(groupedArray, (item) => (item.group))
-        .filter(v => {
-          if (!isNaN(parseFloat(v.group))) {
-            numbers.push(v)
-            return false
-          }
-          return isNaN(parseFloat(v.group)) && v.group !== ''
-        })
+      response.list = sortBy(groupedArray, item => item.group).filter(v => {
+        if (!isNaN(parseFloat(v.group))) {
+          numbers.push(v)
+          return false
+        }
+        return isNaN(parseFloat(v.group)) && v.group !== ''
+      })
 
       response.list = response.list.concat(numbers)
       res.send(response)
@@ -381,8 +411,9 @@ router.get('/news', (req, res, next) => {
     list: []
   }
 
-  contentfulClient.getEntries(contentfulRequest)
-    .then((contentfulResponse) => {
+  contentfulClient
+    .getEntries(contentfulRequest)
+    .then(contentfulResponse => {
       let imageCount = 1
 
       // merge contentful assets and includes
@@ -391,21 +422,35 @@ router.get('/news', (req, res, next) => {
       response.list = response.list.map(v => {
         if (v.fields.originalPublishDate) {
           v['date'] = v.fields.originalPublishDate
-          v['dateFormatted'] = format(Date.parse(v.fields.originalPublishDate), 'Do MMM YYYY')
+          v['dateFormatted'] = format(
+            Date.parse(v.fields.originalPublishDate),
+            'Do MMM YYYY'
+          )
         } else {
           v['date'] = v.sys.createdAt
-          v['dateFormatted'] = format(Date.parse(v.sys.createdAt), 'Do MMM YYYY')
+          v['dateFormatted'] = format(
+            Date.parse(v.sys.createdAt),
+            'Do MMM YYYY'
+          )
         }
 
         if (!v.fields.summary) {
           if (v.fields.body) {
-            v.fields.summary = truncate(removeTags(documentToHtmlString(v.fields.body, contentFulFactory())), {
-              'length': 120
-            })
+            v.fields.summary = truncate(
+              removeTags(
+                documentToHtmlString(v.fields.body, contentFulFactory())
+              ),
+              {
+                length: 120
+              }
+            )
           } else if (v.fields.bodyLegacy) {
-            v.fields.summary = truncate(removeMarkdown(replaceNewLine(v.fields.bodyLegacy, '&nbsp;')), {
-              'length': 120
-            })
+            v.fields.summary = truncate(
+              removeMarkdown(replaceNewLine(v.fields.bodyLegacy, '&nbsp;')),
+              {
+                length: 120
+              }
+            )
           }
         }
 
@@ -441,8 +486,9 @@ router.get('/news/:slug', (req, res, next) => {
     'fields.slug': slug
   }
 
-  contentfulClient.getEntries(contentfulRequest)
-    .then((contentfulResponse) => {
+  contentfulClient
+    .getEntries(contentfulRequest)
+    .then(contentfulResponse => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `'${slug}': Page not found`
@@ -456,13 +502,21 @@ router.get('/news/:slug', (req, res, next) => {
 
       if (!response.fields.summary) {
         if (response.fields.body) {
-          response.fields.summary = truncate(removeTags(documentToHtmlString(response.fields.body, contentFulFactory())), {
-            'length': 120
-          })
+          response.fields.summary = truncate(
+            removeTags(
+              documentToHtmlString(response.fields.body, contentFulFactory())
+            ),
+            {
+              length: 120
+            }
+          )
         } else if (response.fields.bodyLegacy) {
-          response.fields.summary = truncate(removeMarkdown(response.fields.bodyLegacy), {
-            'length': 120
-          })
+          response.fields.summary = truncate(
+            removeMarkdown(response.fields.bodyLegacy),
+            {
+              length: 120
+            }
+          )
         }
       }
 
@@ -499,9 +553,7 @@ const treatmentCentresMarkedFields = [
 ]
 
 router.get('/treatment-centres', async (req, res, next) => {
-  if (!req.query.page ||
-    !req.query.pageSize ||
-    !req.query.location) {
+  if (!req.query.page || !req.query.pageSize || !req.query.location) {
     let error = new Error()
     error.message = 'No pagination options or geopoint provided'
     error.status = 500
@@ -517,19 +569,26 @@ router.get('/treatment-centres', async (req, res, next) => {
     total: 0
   }
 
-  const geocodeLocation = await axios
-    .get(`https://maps.googleapis.com/maps/api/geocode/json?address=` +
-    `${encodeURIComponent(response.location)},united%20kingdom&key=${config.googleAPI.places}`)
+  const geocodeLocation = await axios.get(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+      `${encodeURIComponent(response.location)},united%20kingdom&key=${
+        config.googleAPI.places
+      }`
+  )
 
-  if ((geocodeLocation.data !== 'OK' || geocodeLocation.data !== 'ZERO_RESULTS') &&
-    geocodeLocation.data.error_message) {
+  if (
+    (geocodeLocation.data !== 'OK' ||
+      geocodeLocation.data !== 'ZERO_RESULTS') &&
+    geocodeLocation.data.error_message
+  ) {
     let error = new Error()
     error.message = geocodeLocation.data.error_message
     error.status = 500
     return next(error)
   }
 
-  if (!geocodeLocation.data ||
+  if (
+    !geocodeLocation.data ||
     geocodeLocation.data.results.length < 1 ||
     geocodeLocation.data.results[0].address_components.length < 2
   ) {
@@ -550,36 +609,47 @@ router.get('/treatment-centres', async (req, res, next) => {
     'fields.location[near]': `${location.lat},${location.lng}`
   }
 
-  if (req.query.serviceType &&
+  if (
+    req.query.serviceType &&
     req.query.serviceType !== 'All Services' &&
-    req.query.serviceType !== '') {
+    req.query.serviceType !== ''
+  ) {
     contentfulRequest['fields.serviceType'] = req.query.serviceType
   }
 
-  contentfulClient.getEntries(contentfulRequest)
-    .then((contentfulResponse) => {
+  contentfulClient
+    .getEntries(contentfulRequest)
+    .then(contentfulResponse => {
       response.results = resolveResponse(contentfulResponse)
       response.total = contentfulResponse.total
 
-      response.results
-        .map(responseItem => {
-          responseItem.distance = haversineDistance(
-            location.lng,
-            location.lat,
-            responseItem.fields.location.lon,
-            responseItem.fields.location.lat,
-            true
+      response.results.map(responseItem => {
+        responseItem.distance = haversineDistance(
+          location.lng,
+          location.lat,
+          responseItem.fields.location.lon,
+          responseItem.fields.location.lat,
+          true
+        )
+        responseItem.fields.summary = truncate(
+          removeMarkdown(responseItem.fields.serviceInfo),
+          {
+            length: 100
+          }
+        )
+        Object.keys(responseItem.fields)
+          .filter(
+            fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1
           )
-          responseItem.fields.summary = truncate(removeMarkdown(responseItem.fields.serviceInfo), {
-            'length': 100
+          .map(fieldKey => {
+            responseItem.fields[fieldKey] = marked(
+              responseItem.fields[fieldKey]
+            )
           })
-          Object.keys(responseItem.fields)
-            .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
-            .map(fieldKey => {
-              responseItem.fields[fieldKey] = marked(responseItem.fields[fieldKey])
-            })
-          response.results.sort((a, b) => parseFloat(a.distance) > parseFloat(b.distance))
-        })
+        response.results.sort(
+          (a, b) => parseFloat(a.distance) > parseFloat(b.distance)
+        )
+      })
 
       // Set meta info
       response.head = {
@@ -606,8 +676,9 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
     'fields.slug': slug
   }
 
-  contentfulClient.getEntries(contentfulRequest)
-    .then((contentfulResponse) => {
+  contentfulClient
+    .getEntries(contentfulRequest)
+    .then(contentfulResponse => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `'${slug}': Page not found`
@@ -619,12 +690,17 @@ router.get('/treatment-centres/:slug', (req, res, next) => {
       let response = resolveResponse(contentfulResponse)[0]
 
       Object.keys(response.fields)
-        .filter(fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1)
+        .filter(
+          fieldKey => treatmentCentresMarkedFields.indexOf(fieldKey) !== -1
+        )
         .map(fieldKey => {
           response.fields[fieldKey] = marked(response.fields[fieldKey])
         })
       response.fields.key = config.googleAPI.places
-      response.fields.timesSessions = replaceNewLine(response.fields.timesSessions, '<br />')
+      response.fields.timesSessions = replaceNewLine(
+        response.fields.timesSessions,
+        '<br />'
+      )
 
       // Set meta info
       response.head = {
@@ -653,8 +729,9 @@ router.get('/settings/:slug', (req, res, next) => {
     include: 10
   }
 
-  contentfulClient.getEntries(contentfulRequest)
-    .then((contentfulResponse) => {
+  contentfulClient
+    .getEntries(contentfulRequest)
+    .then(contentfulResponse => {
       if (contentfulResponse.total === 0) {
         let error = new Error()
         error.message = `'${slug}': Settings page not found`
@@ -671,7 +748,7 @@ router.get('/settings/:slug', (req, res, next) => {
 /**
  * Error handler
  */
-router.use(function (err, req, res, next) {
+router.use(function(err, req, res, next) {
   let status = err.status || 500
 
   /* eslint-disable */
@@ -684,30 +761,34 @@ router.use(function (err, req, res, next) {
     Sentry.captureException(err)
   }
 
-  res.status(status)
-    .json({
-      error: msg
-    })
+  res.status(status).json({
+    error: msg
+  })
 })
 
 /**
  * @todo: refactor this into utilities file
  */
-const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) => (
+const contentfulFieldToMarkdown = (markDownFields, fieldName, responseFields) =>
   markDownFields[fieldName]
     .filter(fieldChildName => responseFields.hasOwnProperty(fieldChildName))
     .map(fieldChildName => {
       responseFields[fieldChildName] = marked(responseFields[fieldChildName])
     })
-)
 
-const dateFormat = (response) => {
+const dateFormat = response => {
   if (response.fields.originalPublishDate) {
     response['date'] = response.fields.originalPublishDate
-    response['dateFormatted'] = format(Date.parse(response.fields.originalPublishDate), 'Do MMM YYYY')
+    response['dateFormatted'] = format(
+      Date.parse(response.fields.originalPublishDate),
+      'Do MMM YYYY'
+    )
   } else {
     response['date'] = response.sys.updatedAt
-    response['dateFormatted'] = format(Date.parse(response.sys.updatedAt), 'Do MMM YYYY')
+    response['dateFormatted'] = format(
+      Date.parse(response.sys.updatedAt),
+      'Do MMM YYYY'
+    )
   }
 
   return response
@@ -727,7 +808,7 @@ const getMetaDescription = (item, fallback) => {
     return item.metaDescription
   } else if (item[fallback]) {
     return truncate(removeMarkdown(removeTags(item[fallback])), {
-      'length': 120
+      length: 120
     })
   }
   return false

@@ -35,16 +35,16 @@
 @mixin link {
   color: $text-dark-blue;
   margin-bottom: .2em;
-  border-bottom: 1px dashed $pinkAccess;
+  border-bottom: 1px dashed $pink-accessible;
 
   .has-hover & {
     &:active,
     &:hover,
     &:focus {
-      color: $pinkAccess;
+      color: $pink-accessible;
       text-decoration: none;
       border-bottom-style: solid;
-      border-bottom-color: $pinkAccess;
+      border-bottom-color: $pink-accessible;
     }
   }
 }

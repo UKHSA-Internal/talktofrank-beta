@@ -7,7 +7,7 @@ import { config } from 'config'
 export const REQUEST_PAGE = 'REQUEST_PAGE'
 export const RECEIVE_PAGE = 'RECEIVE_PAGE'
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR'
-
+export const RECEIVE_PAGE_DATA = 'RECEIVE_PAGE_DATA'
 export const FORM_REQUEST = 'FORM_REQUEST'
 export const FORM_REQUEST_SUCCESS = 'FORM_REQUEST_SUCCESS'
 export const FORM_REQUEST_ERROR = 'FORM_REQUEST_ERROR'
@@ -17,8 +17,10 @@ export const RECEIVE_FEATURED_BLOCK = 'RECEIVE_FEATURED_BLOCK'
 export const RECEIVE_FEATURED_BLOCK_ERROR = 'RECEIVE_FEATURED_BLOCK_ERROR'
 
 export const REQUEST_RELATED_CONTENT = 'REQUEST_RELATED_CONTENT'
-export const REQUEST_RELATED_CONTENT_STATUS_INVALID = 'REQUEST_RELATED_CONTENT_STATUS_INVALID'
-export const REQUEST_RELATED_CONTENT_STATUS_VALID = 'REQUEST_RELATED_CONTENT_STATUS_VALID'
+export const REQUEST_RELATED_CONTENT_STATUS_INVALID =
+  'REQUEST_RELATED_CONTENT_STATUS_INVALID'
+export const REQUEST_RELATED_CONTENT_STATUS_VALID =
+  'REQUEST_RELATED_CONTENT_STATUS_VALID'
 export const RECEIVE_RELATED_CONTENT = 'RECEIVE_RELATED_CONTENT'
 export const RECEIVE_RELATED_CONTENT_ERROR = 'RECEIVE_RELATED_CONTENT_ERROR'
 
@@ -32,39 +34,45 @@ const PAGE_SIZE = 10
 
 let apiHost = getApiHost()
 
-function requestPage () {
+function requestPage() {
   return {
     type: REQUEST_PAGE
   }
 }
 
-export function receivePageError (status) {
+export function receivePageError(status) {
   return {
     type: RECEIVE_PAGE_ERROR,
     error: status
   }
 }
 
-function receivePage (pageData) {
+function receivePage(pageData) {
   return {
     type: RECEIVE_PAGE,
     pageData
   }
 }
+function receivePageData(data) {
+  return {
+    type: RECEIVE_PAGE_DATA,
+    data
+  }
+}
 
-export function formRequest (status) {
+export function formRequest(status) {
   return {
     type: FORM_REQUEST
   }
 }
 
-export function formRequestSuccess (status, errors) {
+export function formRequestSuccess(status, errors) {
   return {
     type: FORM_REQUEST_SUCCESS
   }
 }
 
-export function formRequestError (status, errors) {
+export function formRequestError(status, errors) {
   return {
     type: FORM_REQUEST_ERROR,
     status: status,
@@ -72,73 +80,74 @@ export function formRequestError (status, errors) {
   }
 }
 
-function requestFeaturedBlock () {
+function requestFeaturedBlock() {
   return {
     type: REQUEST_FEATURED_BLOCK
   }
 }
 
-export function receiveFeaturedBlockError (status) {
+export function receiveFeaturedBlockError(status) {
   return {
     type: RECEIVE_FEATURED_BLOCK_ERROR,
     error: status
   }
 }
 
-function receiveFeaturedBlock (featuredBlockData) {
+function receiveFeaturedBlock(featuredBlockData) {
   return {
     type: RECEIVE_FEATURED_BLOCK,
     featuredBlockData
   }
 }
 
-function requestRelatedContent () {
+function requestRelatedContent() {
   return {
     type: REQUEST_RELATED_CONTENT
   }
 }
 
-export function receiveRelatedContentError (status) {
+export function receiveRelatedContentError(status) {
   return {
     type: RECEIVE_RELATED_CONTENT_ERROR,
     error: status
   }
 }
 
-function receiveRelatedContent (relatedContent) {
+function receiveRelatedContent(relatedContent) {
   return {
     type: RECEIVE_RELATED_CONTENT,
     relatedContent
   }
 }
 
-function requestSiteSetting () {
+function requestSiteSetting() {
   return {
     type: REQUEST_SITE_SETTING
   }
 }
 
-export function receiveSiteSettingError (status) {
+export function receiveSiteSettingError(status) {
   return {
     type: REQUEST_SITE_SETTING_ERROR,
     error: status
   }
 }
 
-function receiveSiteSetting (siteSettingData) {
+function receiveSiteSetting(siteSettingData) {
   return {
     type: RECEIVE_SITE_SETTING,
     siteSettingData
   }
 }
 
-export function fetchSearchTerm (term, page = 0) {
+export function fetchSearchTerm(term, page = 0) {
   const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
 
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + `/api/v1/search/page/${term}` + queryString
-    return axios.get(lookupUrl)
+    return axios
+      .get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
       })
@@ -154,7 +163,8 @@ export function submitForm(data, form) {
   return dispatch => {
     dispatch(formRequest())
     let lookupUrl = apiHost + '/api/v1/contact/' + form
-    return axios.post(lookupUrl, data)
+    return axios
+      .post(lookupUrl, data)
       .then(res => {
         dispatch(formRequestSuccess(res.data))
         return Promise.resolve(null)
@@ -172,11 +182,12 @@ export function submitForm(data, form) {
   }
 }
 
-export function fetchDrugList () {
+export function fetchDrugList() {
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/drugs'
-    return axios.get(lookupUrl)
+    return axios
+      .get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
         return Promise.resolve(null)
@@ -189,12 +200,13 @@ export function fetchDrugList () {
   }
 }
 
-export function fetchNewsList (page = 0) {
+export function fetchNewsList(page = 0) {
   const queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/news' + queryString
-    return axios.get(lookupUrl)
+    return axios
+      .get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
         return Promise.resolve(null)
@@ -207,7 +219,7 @@ export function fetchNewsList (page = 0) {
   }
 }
 
-export function fetchSupportList (page = 0, {location, serviceType}) {
+export function fetchSupportList(page = 0, { location, serviceType }) {
   let queryString = '?page=' + page + '&pageSize=' + PAGE_SIZE
 
   if (location) {
@@ -221,7 +233,8 @@ export function fetchSupportList (page = 0, {location, serviceType}) {
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/treatment-centres' + queryString
-    return axios.get(lookupUrl)
+    return axios
+      .get(lookupUrl)
       .then(res => {
         dispatch(receivePage(res.data))
         return Promise.resolve(null)
@@ -234,13 +247,18 @@ export function fetchSupportList (page = 0, {location, serviceType}) {
   }
 }
 
-export function fetchPage (slug, type = 'entries') {
+export function fetchPage(slug, type = 'entries') {
   return dispatch => {
     dispatch(requestPage())
     let lookupUrl = apiHost + '/api/v1/' + type + '/' + encodeURIComponent(slug)
-    return axios.get(lookupUrl)
+    return axios
+      .get(lookupUrl)
       .then(res => {
-        dispatch(receivePage(res.data))
+        if (slug === 'azPage') {
+          dispatch(receivePageData(res.data))
+        } else {
+          dispatch(receivePage(res.data))
+        }
       })
       .catch(err => {
         let status = err.code === 'ETIMEDOUT' ? 500 : err.response.status
@@ -250,11 +268,12 @@ export function fetchPage (slug, type = 'entries') {
   }
 }
 
-export function fetchFeaturedBlock (blockId) {
+export function fetchFeaturedBlock(blockId) {
   return dispatch => {
     dispatch(requestFeaturedBlock())
     let lookupUrl = apiHost + '/api/v1/entries/' + encodeURIComponent(blockId)
-    return axios.get(lookupUrl)
+    return axios
+      .get(lookupUrl)
       .then(res => {
         dispatch(receiveFeaturedBlock(res.data))
       })
@@ -266,12 +285,16 @@ export function fetchFeaturedBlock (blockId) {
   }
 }
 
-export function fetchRelatedContent (tags, id, type = 'news') {
+export function fetchRelatedContent(tags, id, type = 'news') {
   let queryString = '&page=0&pageSize=3'
   return dispatch => {
     dispatch(requestRelatedContent())
-    let lookupUrl = apiHost + `/api/v1/${type}?tags=${tags.join(',')}&ignore=${id}` + queryString
-    return axios.get(lookupUrl)
+    let lookupUrl =
+      apiHost +
+      `/api/v1/${type}?tags=${tags.join(',')}&ignore=${id}` +
+      queryString
+    return axios
+      .get(lookupUrl)
       .then(res => {
         dispatch(receiveRelatedContent(res.data))
       })
@@ -282,11 +305,13 @@ export function fetchRelatedContent (tags, id, type = 'news') {
   }
 }
 
-export function fetchSiteSettings (settingSlug = 'global') {
+export function fetchSiteSettings(settingSlug = 'global') {
   return dispatch => {
     dispatch(requestSiteSetting())
-    let lookupUrl = apiHost + '/api/v1/settings/' + encodeURIComponent(settingSlug)
-    return axios.get(lookupUrl)
+    let lookupUrl =
+      apiHost + '/api/v1/settings/' + encodeURIComponent(settingSlug)
+    return axios
+      .get(lookupUrl)
       .then(res => {
         dispatch(receiveSiteSetting(res.data))
       })
@@ -299,11 +324,11 @@ export function fetchSiteSettings (settingSlug = 'global') {
   }
 }
 
-export function setPageData (pageData) {
+export function setPageData(pageData) {
   return dispatch(receivePage(pageData))
 }
 
-export function setRelatedContent (data) {
+export function setRelatedContent(data) {
   return dispatch => {
     return dispatch(receiveRelatedContent(data))
   }

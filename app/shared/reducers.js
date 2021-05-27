@@ -12,7 +12,7 @@ const initialState = {
   error: false
 }
 
-export function app (state = initialState, action) {
+export function app(state = initialState, action) {
   switch (action.type) {
     case actions.FORM_REQUEST:
       return Object.assign({}, state, {
@@ -34,6 +34,11 @@ export function app (state = initialState, action) {
     case actions.RECEIVE_PAGE:
       return Object.assign({}, state, {
         pageData: action.pageData,
+        loading: false
+      })
+    case actions.RECEIVE_PAGE_DATA:
+      return Object.assign({}, state, {
+        azPageData: action.data,
         loading: false
       })
     case actions.REQUEST_PAGE:
@@ -77,7 +82,8 @@ export function app (state = initialState, action) {
       return Object.assign({}, state, {
         relatedContent: {
           list: action.relatedContent.list,
-          relatedContentReadyStatus: actions.REQUEST_RELATED_CONTENT_STATUS_VALID
+          relatedContentReadyStatus:
+            actions.REQUEST_RELATED_CONTENT_STATUS_VALID
         },
         loading: false
       })

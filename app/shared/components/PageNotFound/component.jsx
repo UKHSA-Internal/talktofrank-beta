@@ -8,6 +8,7 @@ import Accent from '../Accent/component'
 import Main from '../Main/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
+import HelpPanels from '../HelpPanels/component'
 
 const PageNotFound = () => {
   const text = '<p>If you entered a web address please check it was correct.</p>' +
@@ -28,6 +29,7 @@ const PageNotFound = () => {
             </GridCol>
           </Grid>
         </Accent>
+        <HelpPanels />
       </Main>
       <Footer/>
       <GA/>

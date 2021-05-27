@@ -10,6 +10,14 @@
   word-wrap: break-word;
   background-clip: border-box;
 
+  &__image {
+    height: 200px;
+    width: 100%;
+    @media (max-width: 425.98px) {
+      height: 100px;
+    }
+  }
+
   &.card--quiet {
     border: 0;
     background-color: transparent;
@@ -45,7 +53,7 @@
       }
 
       .link-text {
-        color: $pinkAccess;
+        color: $pink-accessible;
         border-bottom-style: solid;
         border-bottom-color: $pink;
       }
@@ -132,14 +140,14 @@
   }
 
   &--responsive {
-    @media (min-width: 450px)  {
+    @media (min-width: 450px) {
       flex-flow: row wrap;
     }
 
     .card {
       min-width: 100%;
 
-      @media (min-width: 450px)  {
+      @media (min-width: 450px) {
         display: flex;
         flex: 1 0 0%;
         flex-direction: column;
@@ -150,7 +158,6 @@
       }
 
       @include media-breakpoint-up(sm) {
-
       }
 
       @include media-breakpoint-up(md) {
@@ -164,13 +171,68 @@
     padding: 0;
 
     @include media-breakpoint-up(md) {
-      margin-left: -.3rem;
-      margin-right: -.3rem;
+      margin-left: -0.3rem;
+      margin-right: -0.3rem;
 
       .card {
-        margin-left: .3rem;
-        margin-right: .3rem;
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
       }
+    }
+  }
+}
+@include media-breakpoint-up(md) {
+  .card.card--horizontal-desktop {
+    margin-bottom: 30px;
+
+    .card__link {
+      display: flex;
+    }
+
+    .card-body {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 15px;
+    }
+
+    .card__image {
+      width: 250px;
+      flex-shrink: 0;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+@include media-breakpoint-down(sm) {
+  .card.card--mobile-horizontal {
+    margin-bottom: 30px;
+
+    .card__link {
+      display: flex;
+    }
+
+    .card-body {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
+
+      padding-left: 15px;
+      padding-top: 0;
+    }
+
+    .card__image {
+      width: 160px;
+      flex-shrink: 0;
+      height: 125px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

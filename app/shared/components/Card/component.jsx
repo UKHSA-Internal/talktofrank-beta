@@ -12,10 +12,10 @@ const Card = props => {
       <a href={props.url} className='card__link'>
         {props.images && <Picture noAlt='true' video={video} {...props.images}/>}
         <div className='card-body'>
-          {props.time && <Time time={props.time} datetime={props.datetime}/>}
           <Heading {...props.heading}/>
           {props.content && <p className='card-text'>{props.content}</p>}
           {props.linkLabel && <p className='link-text' aria-hidden='true'>{props.linkLabel}</p>}
+          {props.time && <Time time={props.time} datetime={props.datetime}/>}
         </div>
       </a>
     </div>

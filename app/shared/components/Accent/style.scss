@@ -7,6 +7,16 @@
     padding-top: 3rem;
   }
 
+  &--no-y-spacing {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &--spacing-only-top {
+    padding-top: 10rem;
+    padding-bottom: 0;
+  }
+
   &--shallow {
     padding-bottom: 1rem;
     padding-top: 1rem;
@@ -18,11 +28,21 @@
     }
   }
 
-  &--loud {
-    color: $white;
-    background-color: $pinkAccess;
+  &--az {
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+    background-color: $white;
+
+    @include media-breakpoint-up(md) {
+      padding-bottom: 4.7rem;
+      padding-top: 4.7rem;
+    }
   }
 
+  &--loud {
+    color: $white;
+    background-color: $pink-accessible;
+  }
 
   &--muted {
     background-color: $gray-100;
@@ -120,7 +140,7 @@
 .accent__warning {
   font-size: 2.2rem;
   padding-left: 4rem;
-  margin-top: -.2rem;
+  margin-top: -0.2rem;
   background-repeat: no-repeat;
   margin-right: 2.1rem;
   padding-right: 2rem;
@@ -138,7 +158,7 @@
       bottom: 0;
       top: 0;
       width: 1px;
-      background-color: rgba($white, .2);
+      background-color: rgba($white, 0.2);
     }
   }
 }

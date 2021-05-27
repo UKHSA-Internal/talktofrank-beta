@@ -1,0 +1,22 @@
+.pickadrug {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 262px;
+  position: relative;
+  top: 210px;
+
+  div {
+    margin-right: 30px;
+  }
+
+  p {
+    font-size: 2.4rem;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+    margin-bottom: 0;
+  }
+}

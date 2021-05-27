@@ -15,6 +15,7 @@ import Svg from '../Svg/component'
 import { scrollTo } from '../../utilities'
 import Spinner from '../Spinner/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
+import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageSupportList extends React.PureComponent {
   constructor (props) {
@@ -130,6 +131,7 @@ export default class PageSupportList extends React.PureComponent {
             }
           </Accent>
         </Main>
+        <HelpPanels />
         <Footer/>
         <GA/>
         <SiteMessageContainer
