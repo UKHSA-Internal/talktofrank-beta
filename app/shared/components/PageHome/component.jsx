@@ -75,8 +75,8 @@ export default class PageHome extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selected !== this.state.selected) {
       if (
-        this[`drugsgrid__panel-${this.state.selected}`]
-        && this[`drugsgrid__panel-${this.state.selected}`].current
+        this[`drugsgrid__panel-${this.state.selected}`] &&
+        this[`drugsgrid__panel-${this.state.selected}`].current
       ) {
         scrollIntoViewFromCurrent(this[`drugsgrid__panel-${this.state.selected}`].current)
       }
