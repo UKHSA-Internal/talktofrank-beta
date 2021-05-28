@@ -5,6 +5,10 @@
   padding-top: 33px;
   background: $gray-100;
 
+  &--hidden {
+    display: none;
+  }
+
   &__heading {
     position: absolute;
     top: -23px;

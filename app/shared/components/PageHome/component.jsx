@@ -74,9 +74,14 @@ export default class PageHome extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selected !== this.state.selected) {
-      this[`drugsgrid__panel-${this.state.selected}`]?.current?.scrollIntoView({
-        behavior: 'smooth'
-      })
+      if (
+        this[`drugsgrid__panel-${this.state.selected}`] &&
+        this[`drugsgrid__panel-${this.state.selected}`].current
+      ) {
+        this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView({
+          behavior: 'smooth'
+        })
+      }
     }
   }
 
@@ -158,8 +163,13 @@ export default class PageHome extends React.Component {
                             />
                           )}
                         </div>
-                        {(this.state.selected && this.hasQuickInfo(drug)) && (
+                        {this.state.selected && (
                           <QuickInfoPanel
+                            className={
+                              this.hasQuickInfo(drug)
+                                ? ''
+                                : ' quick-info-panel--hidden'
+                            }
                             heading="h3"
                             open={this.state.selected}
                             {...drug}
