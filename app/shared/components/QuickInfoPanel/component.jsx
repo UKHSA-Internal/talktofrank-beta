@@ -4,7 +4,12 @@ import Heading from '../Heading/component'
 class QuickInfoPanel extends React.Component {
   render() {
     return (
-      <div className="quick-info-panel">
+      <div
+        className={
+          'quick-info-panel ' +
+          (this.props.className ? this.props.className : '')
+        }
+      >
         <div className="row">
           <div className="quick-info-panel__heading">
             <Heading
@@ -36,7 +41,9 @@ class QuickInfoPanel extends React.Component {
                   }
                 >
                   Read more
-                  <span className="visually-hidden">&nbsp;about how it feels</span>
+                  <span className="visually-hidden">
+                    &nbsp;about how it feels
+                  </span>
                 </a>
               </dd>
             </dl>
@@ -58,7 +65,9 @@ class QuickInfoPanel extends React.Component {
                   }
                 >
                   Read more
-                  <span className="visually-hidden">&nbsp;about how it feels</span>
+                  <span className="visually-hidden">
+                    &nbsp;about how it feels
+                  </span>
                 </a>
               </dd>
             </dl>
@@ -83,7 +92,9 @@ class QuickInfoPanel extends React.Component {
                   }
                 >
                   Read more
-                  <span className="visually-hidden">&nbsp;about how long it takes to work</span>
+                  <span className="visually-hidden">
+                    &nbsp;about how long it takes to work
+                  </span>
                 </a>
               </dd>
             </dl>
@@ -107,7 +118,9 @@ class QuickInfoPanel extends React.Component {
                   }
                 >
                   Read more
-                  <span className="visually-hidden">&nbsp;about how long the effects last</span>
+                  <span className="visually-hidden">
+                    &nbsp;about how long the effects last
+                  </span>
                 </a>
               </dd>
             </dl>
@@ -115,7 +128,9 @@ class QuickInfoPanel extends React.Component {
           {this.props.quickInfoPanelRisks && (
             <dl className="quick-info-panel__wrapper col-12 col-md-12">
               <dt className="quick-info-panel_title">Common risks</dt>
-              <dd className="quick-info-panel__description">{this.props.quickInfoPanelRisks}</dd>
+              <dd className="quick-info-panel__description">
+                {this.props.quickInfoPanelRisks}
+              </dd>
               <dd>
                 <a
                   onClick={e => this.props.handleTheRisksClick(e)}
