@@ -46,13 +46,13 @@ export default class Page extends React.PureComponent {
         {},
         '',
         `${window.location.href.split('#')[0]}#${section}`
-        )
-        if (this.state.selected === section) {
-          let node = document
-            .querySelector(`#section-${section.replace('#', '')}`)
-            scrollIntoViewFromCurrent(node)
-        }
-        this.setState({ selected: section })
+      )
+      if (this.state.selected === section) {
+        let node = document
+          .querySelector(`#section-${section.replace('#', '')}`)
+        scrollIntoViewFromCurrent(node)
+      }
+      this.setState({ selected: section })
     }
   }
 
