@@ -17,7 +17,7 @@ import BlockFrankAdvice from '../BlockFrankAdvice/component.jsx'
 import PickADrug from '../PickADrug/component.jsx'
 import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
-import { isInBrowser } from '../../utilities'
+import { isInBrowser, scrollIntoViewFromCurrent } from '../../utilities'
 import HelpPanels from '../HelpPanels/component.jsx'
 
 export default class PageHome extends React.Component {
@@ -78,9 +78,7 @@ export default class PageHome extends React.Component {
         this[`drugsgrid__panel-${this.state.selected}`] &&
         this[`drugsgrid__panel-${this.state.selected}`].current
       ) {
-        this[`drugsgrid__panel-${this.state.selected}`].current.scrollIntoView({
-          behavior: 'smooth'
-        })
+        scrollIntoViewFromCurrent(this[`drugsgrid__panel-${this.state.selected}`].current)
       }
     }
   }
@@ -134,6 +132,7 @@ export default class PageHome extends React.Component {
                         aria-labelledby={`druggrid__button-${drug.slug}`}
                         role="region"
                         hidden={drug.slug !== this.state.selected}
+                        ref={this[`drugsgrid__panel-${drug.slug}`]}
                       >
                         <div className="flex justify-content-between align-items-start">
                           <div className="m-b-60">
