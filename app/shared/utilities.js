@@ -196,8 +196,9 @@ export function scrollIntoView (node, duration = 300, offset = 80, callback, res
   }, duration)
 }
 
-export function scrollIntoViewFromCurrent (node, offset = 100) {
+export function scrollIntoViewFromCurrent (node) {
   const duration = 300
+  const offset = 80
   const start = window.scrollY
   const target = node.getBoundingClientRect().top
   const scrollTop = window.pageYOffset

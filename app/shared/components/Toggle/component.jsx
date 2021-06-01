@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { scrollIntoView, isInBrowser } from '../../utilities'
+import { scrollIntoView, scrollIntoViewFromCurrent, isInBrowser } from '../../utilities'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
 
@@ -37,7 +37,7 @@ export default class Toggle extends React.PureComponent {
     if (this.props.open !== prevProps.open) {
       if (this.props.open === true) {
         this.setState({ visible: true })
-        scrollIntoView(this.node)
+        scrollIntoViewFromCurrent(this.node)
       } else {
         this.setState({ visible: false })
       }
