@@ -41,13 +41,13 @@
 
   span:first-child {
     color: $text-dark-blue;
-    font-size: 18px;
+    font-size: 1.8rem;
     margin-right: 5px;
     border-bottom: 1px dashed $pink;
   }
 
   &--font-small {
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 
   &:hover {

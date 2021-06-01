@@ -19,8 +19,8 @@
     line-height: 1.25;
 
     @include media-breakpoint-down(sm) {
-      font-size: 18px;
-      line-height: 26px;
+      font-size: 1.8rem;
+      line-height: 1.5;
     }
   }
 
@@ -75,12 +75,12 @@
   }
 
   .arrowlink span:first-child {
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 1.8rem;
+    line-height: 1.5;
 
     @include media-breakpoint-down(sm) {
-      font-size: 14px;
-      line-height: 24px;
+      font-size: 1.4rem;
+      line-height: 1.5;
     }
   }
 }
