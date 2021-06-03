@@ -4,7 +4,7 @@ import { imageMap } from '../../utilities'
 class AttributedImage extends React.PureComponent {
   render() {
     return (
-      <div
+      <figure
         className={
           'attributedimage ' +
           (this.props.className ? this.props.className : '')
@@ -12,9 +12,9 @@ class AttributedImage extends React.PureComponent {
       >
         <Picture {...imageMap(this.props)} />
         {this.props.image?.fields?.attribution && (
-          <p>{this.props.image.fields.attribution}</p>
+          <figcaption>{this.props.image.fields.attribution}</figcaption>
         )}
-      </div>
+      </figure>
     )
   }
 }

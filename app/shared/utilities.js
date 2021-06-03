@@ -196,6 +196,43 @@ export function scrollIntoView (node, duration = 300, offset = 80, callback, res
   }, duration)
 }
 
+export function scrollIntoViewFromCurrent (node) {
+  const duration = 300
+  const offset = 80
+  const start = window.scrollY
+  const target = node.getBoundingClientRect().top
+  const scrollTop = window.pageYOffset
+  const change = (scrollTop + target - offset) - start
+  const increment = 20
+  let currentTime = 0
+  let timerid
+
+  const animateScroll = () => {
+    currentTime += increment
+    const val = Math.easeInOutQuad(currentTime, start, change, duration)
+    document.documentElement.scrollTop = val
+
+    if (currentTime < duration) {
+      setTimeout(animateScroll, increment)
+    }
+  }
+
+  Math.easeInOutQuad = function (t, b, c, d) {
+    t /= d / 2
+    if (t < 1) return c / 2 * t * t + b
+    t--
+    return -c / 2 * (t * (t - 2) - 1) + b
+  }
+
+  if (timerid) {
+    clearTimeout(timerid)
+  }
+
+  timerid = setTimeout(() => {
+    animateScroll()
+  }, duration)
+}
+
 /**
  * Animate scroll of a specified HTML Element (ease-in-out)
  * @param {HTMLElement} element HTML element's scroll to animate

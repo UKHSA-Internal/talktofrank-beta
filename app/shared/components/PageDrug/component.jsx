@@ -14,7 +14,7 @@ import {
   imageMap,
   fieldIncludesImages,
   isInBrowser,
-  scrollIntoView
+  scrollIntoViewFromCurrent
 } from '../../utilities'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import QuickInfoPanel from '../QuickInfoPanel/component.jsx'
@@ -32,6 +32,13 @@ export default class Page extends React.PureComponent {
     }
   }
 
+  componentDidMount() {
+    if (isInBrowser()) {
+      const hash = window.location.hash.split('#')[1]
+      this.setState({ selected: hash })
+    }
+  }
+
   handleReadMeClick(e, section) {
     if (isInBrowser()) {
       e.preventDefault()
@@ -41,9 +48,9 @@ export default class Page extends React.PureComponent {
         `${window.location.href.split('#')[0]}#${section}`
       )
       if (this.state.selected === section) {
-        document
+        let node = document
           .querySelector(`#section-${section.replace('#', '')}`)
-          .scrollIntoView({ behavior: 'smooth' })
+        scrollIntoViewFromCurrent(node)
       }
       this.setState({ selected: section })
     }
@@ -159,6 +166,7 @@ export default class Page extends React.PureComponent {
                 text="How it looks, tastes and smells"
                 className="collapsible--chevron collapsible--first"
                 history={this.props.location}
+                open={this.state.selected === 'how-it-looks-tastes-and-smells'}
               >
                 {this.props.fields.qualitiesAppearance && (
                   <React.Fragment>
@@ -184,6 +192,7 @@ export default class Page extends React.PureComponent {
                 text="How do people take it?"
                 className="collapsible--chevron"
                 history={this.props.location}
+                open={this.state.selected === 'how-do-people-take-it'}
               >
                 <Longform text={this.props.fields.qualitiesAdministered} />
               </Toggle>
@@ -328,6 +337,7 @@ export default class Page extends React.PureComponent {
                 text="Addiction"
                 className="collapsible--chevron"
                 history={this.props.location}
+                open={this.state.selected === 'addiction'}
               >
                 {this.props.fields.addiction && (
                   <React.Fragment>
@@ -344,6 +354,7 @@ export default class Page extends React.PureComponent {
                 text="The law"
                 className="collapsible--chevron"
                 history={this.props.location}
+                open={this.state.selected === 'the-law'}
               >
                 <React.Fragment>
                   {this.props.fields.lawClass.fields.class &&

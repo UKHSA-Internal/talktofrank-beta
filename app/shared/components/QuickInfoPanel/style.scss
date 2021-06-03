@@ -5,6 +5,10 @@
   padding-top: 33px;
   background: $gray-100;
 
+  &--hidden {
+    display: none;
+  }
+
   &__heading {
     position: absolute;
     top: -23px;
@@ -46,8 +50,8 @@
 
   &__warning {
     font-style: italic;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 1.6rem;
+    line-height: 1.5;
     margin-bottom: 0;
   }
 
