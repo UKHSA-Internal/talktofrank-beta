@@ -13,7 +13,8 @@ contentful:
   contentAccessToken: !!import/single '../config.creds.yaml'
   webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
   environment: develop
-
+  entries:
+    azPage: '2EZiQUcPKDFAXBncY18swJ'
 sentry:
   dsn: !!import/single '../config.sentry.yaml'
   logErrors: true

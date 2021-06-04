@@ -6,8 +6,6 @@ contentful:
   contentSpace: 'ip74mqmfgvqf'
   contentAccessToken: !!import/single '../config.creds.yaml'
   webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
-  entries:
-    azPage: '2NW9ewdGmv0gZvNbcenTY6'
 
 robotsDisallow: false
 
