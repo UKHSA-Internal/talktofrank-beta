@@ -2,30 +2,30 @@ buildConfig: production
 api: https://www.talktofrank.com
 ga: UA-129232-18
 contentful:
-  contentHost: "cdn.contentful.com"
-  contentSpace: "ip74mqmfgvqf"
-  contentAccessToken: !!import/single "../config.creds.yaml"
-  webhookSecretKey: !!import/single "../config.webhooksecretkey.yaml"
+  contentHost: 'cdn.contentful.com'
+  contentSpace: 'ip74mqmfgvqf'
+  contentAccessToken: !!import/single '../config.creds.yaml'
+  webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
   entries:
-    azPage: "2NW9ewdGmv0gZvNbcenTY6"
+    azPage: '2NW9ewdGmv0gZvNbcenTY6'
 
 robotsDisallow: false
 
 sentry:
-  dsn: !!import/single "../config.sentry.yaml"
+  dsn: !!import/single '../config.sentry.yaml'
   logErrors: true
 
 googleAPI:
-  places: !!import/single "../config.google.yaml"
+  places: !!import/single '../config.google.yaml'
 
 email:
   transport: mailgun
 
 etherealEmail:
   auth:
-    pass: !!import/single "../config.ethereal.yaml"
+    pass: !!import/single '../config.ethereal.yaml'
 
 mailgun:
   auth:
-    api_key: !!import/single "../config.mailgun.yaml"
-    domain: "talktofrank.com"
+    api_key: !!import/single '../config.mailgun.yaml'
+    domain: 'talktofrank.com'

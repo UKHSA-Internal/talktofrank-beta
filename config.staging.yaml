@@ -4,26 +4,26 @@ ga: UA-129232-18 # @joel - update this as this is the test account
 robotsDisallow: true
 
 contentful:
-  contentHost: "cdn.contentful.com"
-  contentSpace: "ip74mqmfgvqf"
-  contentAccessToken: !!import/single "../config.creds.yaml"
-  webhookSecretKey: !!import/single "../config.webhooksecretkey.yaml"
+  contentHost: 'cdn.contentful.com'
+  contentSpace: 'ip74mqmfgvqf'
+  contentAccessToken: !!import/single '../config.creds.yaml'
+  webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
 
 sentry:
-  dsn: !!import/single "../config.sentry.yaml"
+  dsn: !!import/single '../config.sentry.yaml'
   logErrors: true
 
 googleAPI:
-  places: !!import/single "../config.google.yaml"
+  places: !!import/single '../config.google.yaml'
 
 email:
   transport: mailgun
 
 etherealEmail:
   auth:
-    pass: !!import/single "../config.ethereal.yaml"
+    pass: !!import/single '../config.ethereal.yaml'
 
 mailgun:
   auth:
-    api_key: !!import/single "../config.mailgun.yaml"
-    domain: "talktofrank.com"
+    api_key: !!import/single '../config.mailgun.yaml'
+    domain: 'talktofrank.com'

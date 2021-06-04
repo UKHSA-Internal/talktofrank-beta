@@ -3,17 +3,17 @@ api: https://preview.talktofrank.com
 robotsDisallow: true
 
 elasticsearch:
-  host: ""
+  host: ''
 
 contentful:
-  contentHost: "preview.contentful.com"
-  contentSpace: "ip74mqmfgvqf"
-  contentAccessToken: !!import/single "../config.creds.yaml"
-  webhookSecretKey: !!import/single "../config.webhooksecretkey.yaml"
+  contentHost: 'preview.contentful.com'
+  contentSpace: 'ip74mqmfgvqf'
+  contentAccessToken: !!import/single '../config.creds.yaml'
+  webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
 
 sentry:
-  dsn: !!import/single "../config.sentry.yaml"
-  logErrors: false
+ dsn: !!import/single '../config.sentry.yaml'
+ logErrors: false
 
 # Basic auth is not compatible with service workers https://github.com/GoogleChrome/workbox/issues/1559
 # basicAuth:
@@ -21,16 +21,16 @@ sentry:
 #  password: !!import/single '../config.auth.password.yaml'
 
 googleAPI:
-  places: !!import/single "../config.google.yaml"
+  places: !!import/single '../config.google.yaml'
 
 email:
   transport: mailgun
 
 etherealEmail:
   auth:
-    pass: !!import/single "../config.ethereal.yaml"
+    pass: !!import/single '../config.ethereal.yaml'
 
 mailgun:
   auth:
-    api_key: !!import/single "../config.mailgun.yaml"
-    domain: "talktofrank.com"
+    api_key: !!import/single '../config.mailgun.yaml'
+    domain: 'talktofrank.com'
