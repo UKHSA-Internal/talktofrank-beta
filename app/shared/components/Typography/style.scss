@@ -474,10 +474,6 @@ b {
     line-height: 1.2;
   }
 
-  ul {
-    padding-left: 0rem;
-  }
-
   ol {
     padding-left: 2rem;
   }
@@ -496,6 +492,8 @@ b {
   }
 
   ul {
+    padding-left: 0rem;
+
     > li {
       list-style: none;
 
