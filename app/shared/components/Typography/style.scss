@@ -117,6 +117,7 @@ h1.az-page-title {
     margin-top: 0;
     margin-bottom: 10px;
     margin-right: 10px;
+    display: block;
   }
 }
 
@@ -473,10 +474,12 @@ b {
     line-height: 1.2;
   }
 
+  ol {
+    padding-left: 2rem;
+  }
+
   ol,
   ul {
-    padding-left: 0;
-
     > li {
       padding-left: 2.5rem;
       position: relative;
@@ -489,6 +492,8 @@ b {
   }
 
   ul {
+    padding-left: 0rem;
+
     > li {
       list-style: none;
 
