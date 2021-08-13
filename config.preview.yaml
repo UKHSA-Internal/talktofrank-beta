@@ -3,7 +3,9 @@ api: https://preview.talktofrank.com
 robotsDisallow: true
 
 elasticsearch:
-  host: ''
+  basicAuth:
+    username: 'ttf-es-master'
+    password: !!import/single '../config.elasticsearch.password.yaml'
 
 contentful:
   contentHost: 'preview.contentful.com'
