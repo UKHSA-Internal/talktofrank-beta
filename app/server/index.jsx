@@ -93,7 +93,7 @@ if (
   elasticSearchConf.auth = {
     username: config.elasticsearch.basicAuth.username,
     password: config.elasticsearch.basicAuth.password
-  }  
+  }
 }
 
 const search = new Client(elasticSearchConf)
