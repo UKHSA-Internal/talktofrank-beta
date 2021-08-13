@@ -5,7 +5,7 @@ canonicalHost: https://www.talktofrank.com
 robotsDisallow: true
 
 elasticsearch:
-  host: "https://vpc-ttf-prod-v1-nmevkh7j6k2zceczcugusiae2m.eu-west-2.es.amazonaws.com/"
+  host: "https://vpc-ttf-prod-v2-rtpivnkf2dom6xuzfp7wuwz7ui.eu-west-2.es.amazonaws.com/"
   amazonES:
     region: "eu-west-2"
 
