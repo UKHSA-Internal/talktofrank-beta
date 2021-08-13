@@ -226,10 +226,13 @@ const buildMatchQuery = (searchTerm, fuzzy, page, pageSize) => {
 }
 
 const buildPrefixQuery = (searchTerm, page, pageSize) => {
-  let fields = ['name.completion^10']
+  let fields = ['name', 'name.completion^10']
 
   if (searchTerm.length > 2) {
     fields.push(
+      'realName',
+      'realName.completion',
+      'title',
       'title.completion',
       'relatedDrugs.drugName.completion',
       'relatedDrugs.synonyms.completion',
