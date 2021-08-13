@@ -7,6 +7,11 @@ contentful:
   contentAccessToken: !!import/single '../config.creds.yaml'
   webhookSecretKey: !!import/single '../config.webhooksecretkey.yaml'
 
+elasticsearch:
+  basicAuth:
+    username: 'ttf-es-master'
+    password: !!import/single '../config.elasticsearch.password.yaml'
+
 robotsDisallow: false
 
 sentry:
