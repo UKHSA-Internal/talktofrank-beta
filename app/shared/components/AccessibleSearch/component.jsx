@@ -16,6 +16,8 @@ export default class AccessibleSearch extends React.Component {
           } else if (drug._source.name != drug._source.realName) {
             /*eslint-enable */
             return `<span data-type='drug' data-slug='${drug._source.slug}' class='autocomplete__option--background'>${drug._source.name}</span> <span>(${drug._source.realName})</span>`
+          } else if (!drug._source.realName) {
+            return `<span data-type='drug' data-slug='${drug._source.slug}' class='autocomplete__option--background'>${drug._source.name}</span>`
           }
           return `<span data-type='drug' data-slug='${drug._source.slug}' class='autocomplete__option--background'>${drug._source.realName}</span>`
         })
