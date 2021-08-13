@@ -13,7 +13,7 @@ export default class AccessibleSearch extends React.Component {
           if (drug._source.title) {
             return `<span data-type='news' data-slug='${drug._source.slug}'>${drug._source.title}</span>`
             /*eslint-disable */
-          } else if (drug._source.name != drug._source.realName) {
+          } else if (drug._source.realName && drug._source.name !== drug._source.realName) {
             /*eslint-enable */
             return `<span data-type='drug' data-slug='${drug._source.slug}' class='autocomplete__option--background'>${drug._source.name}</span> <span>(${drug._source.realName})</span>`
           } else if (!drug._source.realName) {
