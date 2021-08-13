@@ -86,6 +86,16 @@ if (
   })
 }
 
+if (
+  config.elasticsearch.basicAuth &&
+  config.elasticsearch.basicAuth.username
+) {
+  elasticSearchConf.auth = {
+    username: config.elasticsearch.basicAuth.username,
+    password: config.elasticsearch.basicAuth.password
+  }  
+}
+
 const search = new Client(elasticSearchConf)
 
 var store
