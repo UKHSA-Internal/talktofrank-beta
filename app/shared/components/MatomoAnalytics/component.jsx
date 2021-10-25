@@ -1,7 +1,7 @@
 import React from 'react'
 import MatomoTracker from '@datapunt/matomo-tracker-js'
 
-const matomoAnalytics = () => {
+const MatomoAnalytics = () => {
   if (typeof window !== 'undefined') {
     const tracker = new MatomoTracker({
       urlBase: 'https://stats.x-smg.com/matomo/',
@@ -24,4 +24,4 @@ const matomoAnalytics = () => {
     null
   )
 }
-export default matomoAnalytics
+export default MatomoAnalytics
