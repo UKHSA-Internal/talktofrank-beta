@@ -3,7 +3,6 @@ import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Divider from '../Divider/component'
 import Footer from '../Footer/component'
-import { GA } from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Longform from '../Longform/component'
@@ -14,6 +13,7 @@ import RelatedLinks from '../RelatedLinks/component'
 import Main from '../Main/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component'
+import MatomoAnalytics from '../MatomoAnalytics/component'
 
 const PageGetHelpPage = props => {
   return (
@@ -55,7 +55,7 @@ const PageGetHelpPage = props => {
       </Main>
       <HelpPanels />
       <Footer />
-      <GA/>
+      <MatomoAnalytics />
       <SiteMessageContainer
         path={props.location}
       />

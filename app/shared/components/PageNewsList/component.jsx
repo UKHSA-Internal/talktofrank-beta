@@ -10,9 +10,9 @@ import Article from '../Article/component.jsx'
 import Main from '../Main/component.jsx'
 import Spinner from '../Spinner/component.jsx'
 import { scrollTo } from '../../utilities'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 export default class PageNewsList extends React.PureComponent {
   constructor (props) {
@@ -81,7 +81,7 @@ export default class PageNewsList extends React.PureComponent {
           <HelpPanels />
         </Main>
         <Footer/>
-        <GA/>
+        <MatomoAnalytics />
         <SiteMessageContainer
           path={location}
         />

@@ -3,7 +3,6 @@ import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
-import { GA } from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
@@ -16,6 +15,7 @@ import Longform from '../Longform/component'
 import { ErrorSummary, getErrors } from '../FormErrors/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component'
+import MatomoAnalytics from '../MatomoAnalytics/component'
 
 export default class PageFeedbackForm extends React.Component {
   static defaultProps = {
@@ -91,7 +91,7 @@ export default class PageFeedbackForm extends React.Component {
           <HelpPanels />
         </Main>
         <Footer />
-        <GA/>
+        <MatomoAnalytics />
         <SiteMessageContainer
           path={this.props.location}
         />

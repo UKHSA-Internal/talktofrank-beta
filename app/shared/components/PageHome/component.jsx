@@ -2,7 +2,6 @@ import React from 'react'
 import Masthead from '../Masthead/component.jsx'
 import Main from '../Main/component.jsx'
 import Footer from '../Footer/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import Hero from '../Hero/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Accent from '../Accent/component.jsx'
@@ -19,6 +18,8 @@ import BlockFeaturedVideo from '../BlockFeaturedVideo/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
 import { isInBrowser, scrollIntoViewFromCurrent } from '../../utilities'
 import HelpPanels from '../HelpPanels/component.jsx'
+
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 export default class PageHome extends React.Component {
   constructor(props) {
@@ -192,7 +193,7 @@ export default class PageHome extends React.Component {
           <HelpPanels />
         </Main>
         <Footer />
-        <GA />
+        <MatomoAnalytics />
         <SiteMessageContainer path={this.props.location} />
       </React.Fragment>
     )

@@ -9,7 +9,7 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 import {
   imageMap,
   fieldIncludesImages,
@@ -405,7 +405,7 @@ export default class Page extends React.PureComponent {
           <HelpPanels />
         </Main>
         <Footer />
-        <GA />
+        <MatomoAnalytics />
         <SiteMessageContainer path={this.props.location} />
       </React.Fragment>
     )

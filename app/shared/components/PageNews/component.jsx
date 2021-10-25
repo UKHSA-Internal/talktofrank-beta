@@ -4,7 +4,6 @@ import Accent from '../Accent/component'
 import Masthead from '../Masthead/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
-import { GA } from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
@@ -19,6 +18,7 @@ import { contentFulFactory } from '../../contentful'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import { fieldIncludesVideo } from '../../utilities'
 import HelpPanels from '../HelpPanels/component'
+import MatomoAnalytics from '../MatomoAnalytics/component'
 
 export default class PageNews extends React.PureComponent {
   render () {
@@ -56,7 +56,7 @@ export default class PageNews extends React.PureComponent {
         </Main>
         <HelpPanels />
         <Footer />
-        <GA />
+        <MatomoAnalytics />
         <SiteMessageContainer
           path={this.props.location}
         />

@@ -3,7 +3,6 @@ import Masthead from '../Masthead/component.jsx'
 import Main from '../Main/component.jsx'
 import Heading from '../Heading/component.jsx'
 import Footer from '../Footer/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
@@ -14,6 +13,7 @@ import Collapsible from '../Collapsible/component.jsx'
 import { LiveChatOn, LiveChatOff } from '../LiveChatToggle/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 export default class PageContact extends React.PureComponent {
   render() {
@@ -230,7 +230,7 @@ export default class PageContact extends React.PureComponent {
           <HelpPanels />
         </Main>
         <Footer />
-        <GA />
+        <MatomoAnalytics />
         <SiteMessageContainer path={this.props.location} />
       </React.Fragment>
     )

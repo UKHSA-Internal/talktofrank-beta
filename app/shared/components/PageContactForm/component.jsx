@@ -13,12 +13,12 @@ import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Longform from '../Longform/component'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import Textarea from '../Textarea/component.jsx'
 import { ErrorSummary, ErrorMessage, getErrors } from '../FormErrors/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 export default class PageContactForm extends React.PureComponent {
   static defaultProps = {
@@ -167,7 +167,7 @@ export default class PageContactForm extends React.PureComponent {
           <HelpPanels />
         </Main>
         <Footer/>
-        <GA/>
+        <MatomoAnalytics />
         <SiteMessageContainer
           path={this.props.location}
         />

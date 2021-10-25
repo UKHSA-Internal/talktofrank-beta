@@ -10,11 +10,11 @@ import { ClientOnly } from '../ClientOnly/component'
 import Accent from '../Accent/component.jsx'
 import Anchor from '../Anchor/component.jsx'
 import Icon from '../Icon/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import Divider from '../Divider/component.jsx'
 import GMap from '../Map/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 export default class PageSupport extends React.PureComponent {
   render () {
@@ -97,7 +97,7 @@ export default class PageSupport extends React.PureComponent {
           <HelpPanels />
         </Main>
         <Footer/>
-        <GA/>
+        <MatomoAnalytics />
         <SiteMessageContainer
           path={this.props.location}
         />

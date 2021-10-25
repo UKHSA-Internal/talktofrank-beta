@@ -4,7 +4,6 @@ import Masthead from '../Masthead/component'
 import Divider from '../Divider/component'
 import Heading from '../Heading/component'
 import Footer from '../Footer/component'
-import { GA } from '../GoogleAnalytics/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import Main from '../Main/component'
@@ -12,6 +11,7 @@ import Longform from '../Longform/component'
 import {LiveChatOn, LiveChatOff} from '../LiveChatToggle/component'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component'
+import MatomoAnalytics from '../MatomoAnalytics/component'
 
 const PageLiveChat = props => {
   return (
@@ -35,7 +35,7 @@ const PageLiveChat = props => {
         <HelpPanels />
       </Main>
       <Footer />
-      <GA/>
+      <MatomoAnalytics />
       <SiteMessageContainer
         path={props.location}
       />
