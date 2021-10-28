@@ -1,5 +1,6 @@
 import React from 'react'
 import ArrowLink from '../ArrowLink/component'
+import { trackEvent } from '../../utilities'
 
 class DrugGrid extends React.Component {
   constructor(props) {
@@ -33,7 +34,13 @@ class DrugGrid extends React.Component {
   focusElement = index => this['drugHeader' + index].current.focus()
 
   handleClick = drug => {
+    console.log('handleclick')
     this.props.onClick(drug.slug)
+    trackEvent({ 
+      category: 'Click',
+      action: 'Drug Grid Click',
+      name: drug.name
+    })
   }
 
   incrementIndex = index => index === 7 ? 0 : index + 1
