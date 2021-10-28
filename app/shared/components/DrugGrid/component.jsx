@@ -34,9 +34,8 @@ class DrugGrid extends React.Component {
   focusElement = index => this['drugHeader' + index].current.focus()
 
   handleClick = drug => {
-    console.log('handleclick')
     this.props.onClick(drug.slug)
-    trackEvent({ 
+    trackEvent({
       category: 'Click',
       action: 'Drug Grid Click',
       name: drug.name
