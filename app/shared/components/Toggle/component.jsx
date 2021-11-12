@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { scrollIntoView, scrollIntoViewFromCurrent, isInBrowser } from '../../utilities'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
+import { trackEvent } from '../../utilities'
 
 export default class Toggle extends React.PureComponent {
   constructor(props) {
@@ -15,6 +16,7 @@ export default class Toggle extends React.PureComponent {
 
   toggle(itemid) {
     const id = `#${itemid}`
+    if (!this.state.visible) { this.trackAccordionClick(itemid) }
     this.setState({ visible: !this.state.visible })
 
     if (this.props.history) {
@@ -45,6 +47,15 @@ export default class Toggle extends React.PureComponent {
         scrollIntoViewFromCurrent(this.node)
       }
     }
+  }
+
+  trackAccordionClick = itemid => {
+    console.log(itemid)
+    trackEvent({
+      category: 'Click',
+      action: 'Accordion Click',
+      name: itemid
+    })
   }
 
   returnId() {
