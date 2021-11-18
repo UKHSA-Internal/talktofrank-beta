@@ -337,3 +337,10 @@ export const trackEvent = (props) => {
   const tracker = getMatomoTracker()
   tracker.trackEvent(props)
 }
+export const trackSearch = ({keyword, count}) => {
+  const tracker = getMatomoTracker()
+  tracker.trackSiteSearch({
+    keyword,
+    count
+  })
+}
