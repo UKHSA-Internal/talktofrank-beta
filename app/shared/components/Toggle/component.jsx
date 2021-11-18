@@ -16,7 +16,7 @@ export default class Toggle extends React.PureComponent {
 
   toggle(itemid) {
     const id = `#${itemid}`
-    if (!this.state.visible) { this.trackAccordionClick(itemid) }
+    if (!this.state.visible) this.trackAccordionClick(itemid)
     this.setState({ visible: !this.state.visible })
 
     if (this.props.history) {
@@ -50,7 +50,6 @@ export default class Toggle extends React.PureComponent {
   }
 
   trackAccordionClick = itemid => {
-    console.log(itemid)
     trackEvent({
       category: 'Click',
       action: 'Accordion Click',
