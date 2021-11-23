@@ -15,6 +15,13 @@ import SiteMessageContainer from '../../containers/SiteMessageContainer/componen
 import HelpPanels from '../HelpPanels/component.jsx'
 import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
+// handleClick = () => {
+//   trackEvent({
+//     category: 'Click',
+//     action: 'Start Live Chat Click'
+//   })
+// }
+
 export default class PageContact extends React.PureComponent {
   render() {
     const head = 'h6 spacing-bottom--tight media media--constant'
@@ -207,7 +214,7 @@ export default class PageContact extends React.PureComponent {
                         label="Start live chat"
                         href="/livechat"
                         text="Get started"
-                        // onClick={}
+                        // onClick={ this.handleClick }
                       />
                     </p>
                   </Panel>

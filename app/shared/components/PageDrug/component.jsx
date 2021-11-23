@@ -23,6 +23,7 @@ import DrugWarningPanel from '../DrugWarningPanel/component.jsx'
 import Carousel from '../Carousel/Carousel.jsx'
 import HelpPanels from '../HelpPanels/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
+import { trackEvent } from '../../utilities'
 
 export default class Page extends React.PureComponent {
   constructor(props) {
@@ -53,6 +54,7 @@ export default class Page extends React.PureComponent {
         scrollIntoViewFromCurrent(node)
       }
       this.setState({ selected: section })
+      this.trackReadMoreClick(section)
     }
   }
 
@@ -63,6 +65,14 @@ export default class Page extends React.PureComponent {
       return true
     }
     return false
+  }
+
+  trackReadMoreClick = section => {
+    trackEvent({
+      category: 'Click',
+      action: 'Read More Click',
+      name: section
+    })
   }
 
   render() {
