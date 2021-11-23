@@ -14,15 +14,15 @@ import { LiveChatOn, LiveChatOff } from '../LiveChatToggle/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component.jsx'
 import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
-
-// handleClick = () => {
-//   trackEvent({
-//     category: 'Click',
-//     action: 'Start Live Chat Click'
-//   })
-// }
+import { trackEvent } from '../../utilities'
 
 export default class PageContact extends React.PureComponent {
+  handleClick = () => {
+    trackEvent({
+      category: 'Click',
+      action: 'Start Live Chat Click'
+    })
+  }
   render() {
     const head = 'h6 spacing-bottom--tight media media--constant'
 
@@ -214,7 +214,7 @@ export default class PageContact extends React.PureComponent {
                         label="Start live chat"
                         href="/livechat"
                         text="Get started"
-                        // onClick={ this.handleClick }
+                        onClick={ this.handleClick }
                       />
                     </p>
                   </Panel>
