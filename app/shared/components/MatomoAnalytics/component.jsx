@@ -13,7 +13,6 @@ const ScrollHistory = []
 const TrackScroll = (e) => {
   const scrollHeight = window.scrollY
   const scrollRatio = Math.round(((scrollHeight + window.innerHeight) / document.body.scrollHeight) * 100)
-  console.log(scrollRatio, scrollHeight, document.body.scrollHeight)
   if (scrollRatio % 25 === 0 && !ScrollHistory.includes(scrollRatio)) {
     ScrollHistory.push(scrollRatio)
     trackEvent({
