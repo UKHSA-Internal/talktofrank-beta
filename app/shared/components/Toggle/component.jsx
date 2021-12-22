@@ -14,9 +14,10 @@ export default class Toggle extends React.PureComponent {
     }
   }
 
-  toggle(itemid) {
-    const id = `#${itemid}`
-    if (!this.state.visible) this.trackAccordionClick(itemid)
+  toggle({id, text}) {
+    const itemid = id
+    id = `#${itemid}`
+    if (!this.state.visible) this.trackAccordionClick(text)
     this.setState({ visible: !this.state.visible })
 
     if (this.props.history) {
@@ -52,8 +53,8 @@ export default class Toggle extends React.PureComponent {
   trackAccordionClick = itemid => {
     trackEvent({
       category: 'Click',
-      action: 'Accordion Click',
-      name: itemid
+      name: 'Accordion Click',
+      action: itemid
     })
   }
 
@@ -93,7 +94,7 @@ export default class Toggle extends React.PureComponent {
               <h2 className="h4">
                 <button
                   className={toggleClass}
-                  onClick={this.toggle.bind(this, id)}
+                  onClick={this.toggle.bind(this, {id, text})}
                   aria-expanded={this.state.visible}
                   aria-controls={`section-${id}`}
                 >

@@ -37,8 +37,8 @@ class DrugGrid extends React.Component {
     this.props.onClick(drug.slug)
     trackEvent({
       category: 'Click',
-      action: 'Drug Grid Click',
-      name: drug.name
+      name: 'Drug Grid Click',
+      action: drug.name
     })
   }
 

@@ -17,8 +17,9 @@ const TrackScroll = (e) => {
     ScrollHistory.push(scrollRatio)
     trackEvent({
       category: 'scroll',
-      action: 'page scroll',
-      value: scrollRatio
+      action: document.title,
+      value: scrollRatio,
+      name: 'Page Scroll'
     })
   }
 }
