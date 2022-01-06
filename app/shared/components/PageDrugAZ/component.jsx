@@ -11,9 +11,10 @@ import Longform from '../Longform/component.jsx'
 import AccessibleSearch from '../AccessibleSearch/component.jsx'
 import Accent from '../Accent/component.jsx'
 import LinkDrugName from '../LinkDrugName/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component.jsx'
+
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 const DrugList = props => {
   const limit = 4
@@ -110,7 +111,7 @@ const DrugList = props => {
         <HelpPanels />
       </Main>
       <Footer />
-      <GA />
+      <MatomoAnalytics />
       <SiteMessageContainer path={props.location} />
     </React.Fragment>
   )

@@ -1,6 +1,5 @@
 import React from 'react'
 import Footer from '../Footer/component'
-import { GA } from '../GoogleAnalytics/component'
 import Heading from '../Heading/component'
 import Masthead from '../Masthead/component'
 import Main from '../Main/component'
@@ -12,6 +11,7 @@ import Svg from '../Svg/component'
 import Anchor from '../Anchor/component'
 import { isInBrowser } from '../../utilities'
 import HelpPanels from '../HelpPanels/component'
+import MatomoAnalytics from '../MatomoAnalytics/component'
 
 const PageOffline = () => {
   if (isInBrowser()) {
@@ -47,7 +47,7 @@ const PageOffline = () => {
         <HelpPanels/>
       </Main>
       <Footer/>
-      <GA/>
+      <MatomoAnalytics />
     </React.Fragment>
   )
 }

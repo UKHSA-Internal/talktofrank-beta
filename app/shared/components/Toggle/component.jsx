@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { scrollIntoView, scrollIntoViewFromCurrent, isInBrowser } from '../../utilities'
 import Grid from '../Grid/component.jsx'
 import GridCol from '../GridCol/component.jsx'
+import { trackEvent } from '../../utilities'
 
 export default class Toggle extends React.PureComponent {
   constructor(props) {
@@ -13,8 +14,10 @@ export default class Toggle extends React.PureComponent {
     }
   }
 
-  toggle(itemid) {
-    const id = `#${itemid}`
+  toggle({id, text}) {
+    const itemid = id
+    id = `#${itemid}`
+    if (!this.state.visible) this.trackAccordionClick(text)
     this.setState({ visible: !this.state.visible })
 
     if (this.props.history) {
@@ -45,6 +48,14 @@ export default class Toggle extends React.PureComponent {
         scrollIntoViewFromCurrent(this.node)
       }
     }
+  }
+
+  trackAccordionClick = itemid => {
+    trackEvent({
+      category: 'Click',
+      name: 'Accordion Click',
+      action: itemid
+    })
   }
 
   returnId() {
@@ -83,7 +94,7 @@ export default class Toggle extends React.PureComponent {
               <h2 className="h4">
                 <button
                   className={toggleClass}
-                  onClick={this.toggle.bind(this, id)}
+                  onClick={this.toggle.bind(this, {id, text})}
                   aria-expanded={this.state.visible}
                   aria-controls={`section-${id}`}
                 >

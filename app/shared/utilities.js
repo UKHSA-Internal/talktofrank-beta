@@ -1,5 +1,5 @@
-
 import { config } from 'config'
+import MatomoTracker from '@datapunt/matomo-tracker-js'
 
 export function isInBrowser () {
   return typeof window !== 'undefined' && window.document
@@ -93,7 +93,7 @@ export const fieldIncludesVideo = (videoObj) => {
   return false
 }
 
-export function fieldIncludesImages(imageObj) {
+export function fieldIncludesImages (imageObj) {
   if (!imageObj.fields) {
     return false
   }
@@ -241,7 +241,7 @@ export function scrollIntoViewFromCurrent (node) {
  * @param {Function} callback Function called after animation is complete
  * @returns {void}
  */
-export function scrollTo(element, to, duration, callback) {
+export function scrollTo (element, to, duration, callback) {
   // easing functions http://goo.gl/5HLl8
   const easeInOutQuad = (t, b, c, d) => {
     let _t = t || 0
@@ -310,4 +310,37 @@ export const haversineDistance = (lon1, lat1, lon2, lat2, isMiles) => {
   let d = R * c
   if (isMiles) d /= 1.60934
   return d.toFixed(1)
+}
+
+let matomoTracker = null
+export const getMatomoTracker = () => {
+  if (matomoTracker === null && typeof window !== 'undefined') {
+    matomoTracker = new MatomoTracker({
+      urlBase: 'https://stats.x-smg.com/matomo/',
+      siteId: 11,
+      disabled: false, // optional, false by default. Makes all tracking calls no-ops if set to true.
+      heartBeat: { // optional, enabled by default -> measure the time spent in the visit
+        active: true, // optional, default value: true
+        seconds: 10 // optional, default value: `15 if the page was viewed for at least 10 seconds
+      },
+      configurations: { // optional, default value: {}
+        // any valid matomo configuration, all below are optional
+        disableCookies: true,
+        setRequestMethod: 'POST'
+      }
+    })
+  }
+  return matomoTracker
+}
+
+export const trackEvent = (props) => {
+  const tracker = getMatomoTracker()
+  tracker.trackEvent(props)
+}
+export const trackSearch = ({keyword, count}) => {
+  const tracker = getMatomoTracker()
+  tracker.trackSiteSearch({
+    keyword,
+    count
+  })
 }

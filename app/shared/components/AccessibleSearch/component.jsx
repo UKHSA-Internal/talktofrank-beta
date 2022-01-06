@@ -3,12 +3,14 @@ import Autocomplete from 'accessible-autocomplete/react'
 import Button from '../Button/component'
 import Icon from '../Icon/component'
 import Form from '../Form/component.jsx'
+import { trackSearch } from '../../utilities'
 
 export default class AccessibleSearch extends React.Component {
   suggest(query, populateResults) {
     fetch(`/api/v1/search/autocomplete/${query}?page=0&pageSize=10`)
       .then(res => res.json())
       .then(data => {
+        trackSearch({ keyword: query, count: data.hits.length })
         const results = data.hits.map(drug => {
           if (drug._source.title) {
             return `<span data-type='news' data-slug='${drug._source.slug}'>${drug._source.title}</span>`
@@ -28,7 +30,7 @@ export default class AccessibleSearch extends React.Component {
 
   // Extracts selection type and slug from selected option html string
   handleSearchSubmit = term => {
-    if (term !== '') {
+    if (term && term !== '') {
       let path = ''
       let searchTerm = ''
       if (term.includes("data-type='drug'")) {

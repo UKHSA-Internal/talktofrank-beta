@@ -1,6 +1,5 @@
 import React from 'react'
 import Footer from '../Footer/component'
-import { GA } from '../GoogleAnalytics/component'
 import Heading from '../Heading/component'
 import Longform from '../Longform/component'
 import Masthead from '../Masthead/component'
@@ -9,6 +8,7 @@ import Main from '../Main/component'
 import Grid from '../Grid/component'
 import GridCol from '../GridCol/component'
 import HelpPanels from '../HelpPanels/component'
+import MatomoAnalytics from '../MatomoAnalytics/component'
 
 const PageNotFound = () => {
   const text = '<p>If you entered a web address please check it was correct.</p>' +
@@ -32,7 +32,7 @@ const PageNotFound = () => {
         <HelpPanels />
       </Main>
       <Footer/>
-      <GA/>
+      <MatomoAnalytics />
     </React.Fragment>
   )
 }

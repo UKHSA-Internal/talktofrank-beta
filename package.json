@@ -50,6 +50,7 @@
     "@babel/runtime": "^7.0.0",
     "@contentful/rich-text-html-renderer": "^2.9.0",
     "@contentful/rich-text-types": "^5.0.0",
+    "@datapunt/matomo-tracker-js": "^0.5.1",
     "@elastic/elasticsearch": "^7.12.0",
     "@sentry/node": "^4.1.1",
     "@types/node": "^10.12.0",

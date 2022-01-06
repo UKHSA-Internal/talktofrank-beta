@@ -9,7 +9,7 @@ import Footer from '../Footer/component.jsx'
 import Main from '../Main/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Picture from '../Picture/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 import {
   imageMap,
   fieldIncludesImages,
@@ -23,6 +23,7 @@ import DrugWarningPanel from '../DrugWarningPanel/component.jsx'
 import Carousel from '../Carousel/Carousel.jsx'
 import HelpPanels from '../HelpPanels/component.jsx'
 import AttributedImage from '../AttributedImage/component.jsx'
+import { trackEvent } from '../../utilities'
 
 export default class Page extends React.PureComponent {
   constructor(props) {
@@ -53,6 +54,7 @@ export default class Page extends React.PureComponent {
         scrollIntoViewFromCurrent(node)
       }
       this.setState({ selected: section })
+      this.trackReadMoreClick(section)
     }
   }
 
@@ -63,6 +65,14 @@ export default class Page extends React.PureComponent {
       return true
     }
     return false
+  }
+
+  trackReadMoreClick = section => {
+    trackEvent({
+      category: 'Click',
+      action: 'Read More Click',
+      name: section
+    })
   }
 
   render() {
@@ -405,7 +415,7 @@ export default class Page extends React.PureComponent {
           <HelpPanels />
         </Main>
         <Footer />
-        <GA />
+        <MatomoAnalytics />
         <SiteMessageContainer path={this.props.location} />
       </React.Fragment>
     )

@@ -10,10 +10,10 @@ import FormGroup from '../FormGroup/component.jsx'
 import Button from '../Button/component.jsx'
 import Accent from '../Accent/component.jsx'
 import Icon from '../Icon/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import Select from '../Select/component.jsx'
 import SiteMessageContainer from '../../containers/SiteMessageContainer/component'
 import HelpPanels from '../HelpPanels/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 export default class PageSupportForm extends React.PureComponent {
   constructor (props) {
@@ -228,7 +228,7 @@ export default class PageSupportForm extends React.PureComponent {
           <HelpPanels />
         </Main>
         <Footer/>
-        <GA/>
+        <MatomoAnalytics />
         <SiteMessageContainer
           path={this.props.location}
         />

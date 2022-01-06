@@ -1,8 +1,8 @@
 import React from 'react'
 import Masthead from '../Masthead/component.jsx'
 import Footer from '../Footer/component.jsx'
-import { GA } from '../GoogleAnalytics/component.jsx'
 import Hero from '../Hero/component.jsx'
+import MatomoAnalytics from '../MatomoAnalytics/component.jsx'
 
 const PageServerError = () => {
   let hero = {
@@ -23,7 +23,7 @@ const PageServerError = () => {
       <Masthead path={{ pathname: 'error' }}/>
       <Hero {...hero}/>
       <Footer />
-      <GA/>
+      <MatomoAnalytics />
     </React.Fragment>
   )
 }
