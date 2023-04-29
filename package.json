@@ -56,7 +56,7 @@
     "accessible-autocomplete": "^2.0.3",
     "async-series": "0.0.1",
     "autoprefixer": "^6.7.6",
-    "axios": "^=0.21.1",
+    "axios": "^=0.21.2",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.3",
     "babel-plugin-add-module-exports": "^1.0.0",
